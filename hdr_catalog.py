@@ -155,15 +155,15 @@ def render(write, layout, schema_article, url, crumbs):
             '<p class="micro">Una procedura comune non implica luminosità massima identica '
             'per tutte le dimensioni dello schermo.</p>'
             '<h2>1. Configura il televisore</h2>'+tv_steps
-            '<h2>2. Configura PS5 / PS5 Pro</h2>'+steps
-            f'<div class="info warn">⚠️ <strong>Attenzione:</strong> {e(family["caution"])}</div>'
+            + '<h2>2. Configura PS5 / PS5 Pro</h2>'+steps
+            + f'<div class="info warn">⚠️ <strong>Attenzione:</strong> {e(family["caution"])}</div>'
             '<h2>3. Verifica la resa in GTA VI</h2>'
             '<p>Confronta un cielo luminoso, riflessi sulle carrozzerie e una scena '
             'notturna. Se il gioco propone regolazioni HDR proprie, controlla '
             'soprattutto luci bruciate e ombre troppo chiuse. Non attribuire al gioco '
             'parametri o scale non verificati nella versione installata.</p>'
             '<h2>Fonti per modello e impostazioni</h2>'+_source_links(family,catalog["ps5_source"])
-            '<p class="source">Contenuto editoriale indipendente, non affiliato a '
+            + '<p class="source">Contenuto editoriale indipendente, non affiliato a '
             'Rockstar Games o ai produttori. Non è una misurazione strumentale '
             'di GTA VI su ogni codice TV.</p></article>'
             '<aside class="sidebox"><h3>Ricerca rapida</h3>'
