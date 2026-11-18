@@ -14,6 +14,7 @@ import re
 import shutil
 import xml.etree.ElementTree as ET
 from site_info import SOCIAL_URL, SOCIAL_HANDLE, iso_modified, page_meta
+from hdr_catalog import render as render_hdr_pages
 
 BASE = "https://xfederiko11.github.io/gta-6"
 OUT = Path(os.getenv("SITE_OUT", "_site"))
@@ -81,7 +82,8 @@ def schema_article(title, desc, canonical, image=None):
 def layout(title, desc, path, body, section=None, image=None, robots="index,follow", structured=None):
     canonical=url(path)
     nav=[("Home","",section=="home"),("Trofei","trofei/",section=="trofei"),
-         ("Guide e tutorial","guide-e-tutorial/",section=="guide")]
+         ("Guide e tutorial","guide-e-tutorial/",section=="guide"),
+         ("HDR OLED","hdr-oled/",section=="hdr")]
     links="".join(f'<a href="{url(p)}"'+(' aria-current="page"' if selected else '')+f'>{e(n)}</a>' for n,p,selected in nav)
     modified=iso_modified(path)
     if structured:
@@ -99,7 +101,7 @@ def layout(title, desc, path, body, section=None, image=None, robots="index,foll
        '<footer class="footer"><div class="wrap footer-grid"><div>'
        '<strong>GTA 6 Italia</strong><p>Guide indipendenti in italiano per PS5 e PS5 Pro. '
        'Contenuti da verificare rispetto alle patch: non affiliato a Rockstar, Sony o PowerPyx.</p></div>'
-       f'<div><a href="{url("trofei/")}">Trofei</a> · <a href="{url("guide-e-tutorial/")}">Guide e tutorial</a>'
+       f'<div><a href="{url("trofei/")}">Trofei</a> · <a href="{url("guide-e-tutorial/")}">Guide e tutorial</a> · <a href="{url("hdr-oled/")}">HDR OLED</a>'
        f'<p class="footer-social"><a href="{SOCIAL_URL}" rel="me noopener noreferrer" target="_blank">𝕏 Aggiornamenti su {SOCIAL_HANDLE} ↗</a></p></div>'
        '</div></footer></body></html>')
 
@@ -173,16 +175,23 @@ def site_home(trophies, guides):
     <div class="statline"><span><b>55</b> trofei PS5</span><span><b>{len(guides)}</b> guide pratiche</span><span>🇮🇹 Contenuti in italiano</span></div>
     </section>'''
     sections=f'''<section class="section"><div class="section-head"><div><span class="eyebrow">📚 Le sezioni</span>
-    <h2>Da dove vuoi cominciare?</h2></div></div><div class="grid two">
+    <h2>Da dove vuoi cominciare?</h2></div></div><div class="grid">
     {category_card("Trofei e platino","Elenco completo dei 55 trofei in italiano, requisiti Oro, consigli e spoiler protetti.","trofei/","55 TROFEI","🏆")}
     {category_card("Guide e tutorial","Tutorial rapidi, combinazioni dei pulsanti, collezionabili, strategie e approfondimenti.","guide-e-tutorial/","PASSO PASSO","⚡")}
+    {category_card("HDR OLED per PS5 Pro","Seleziona marca, codice TV e diagonale per regolare HDR, HGiG e Game Mode senza preset inventati.","hdr-oled/","27 MODELLI TV","📺")}
     </div></section>'''
     guides_cards="".join(guide_card(g) for g in guides[:6])
     guides_section=f'''<section class="section"><div class="section-head"><div><span class="eyebrow">⚡ Tips & tricks</span><h2>Guide rapide che fanno risparmiare tempo</h2><p>Le istruzioni subito, gli approfondimenti quando servono.</p></div><a href="{url("guide-e-tutorial/")}">Tutte le guide ↗</a></div><div class="grid">{guides_cards}</div></section>'''
     call=f'''<section class="section feature"><div><span class="eyebrow">🏆 Obiettivo platino</span><h2>Un percorso, tutti i trofei.</h2>
     <p class="lead">Trofei mancabili, requisiti e sfide: una base consultabile prima di prendere decisioni irreversibili nella storia.</p>
     <a class="button secondary" href="{url("trofei/")}">Apri l'elenco trofei →</a></div><div class="decor" aria-hidden="true"></div></section>'''
-    return hero+sections+guides_section+call
+    hdr_feature=f'''<section class="section hdr-promo"><div><span class="eyebrow">📺 Nuova guida OLED</span>
+    <h2>HDR di GTA VI, su misura per la tua TV.</h2>
+    <p>LG OLED C5 e G5, Samsung S90F e S95F, Sony BRAVIA, Philips e Panasonic:
+    impostazioni raggruppate per famiglia, codici commerciali e dimensioni verificate.</p>
+    <a class="button secondary" href="{url("hdr-oled/")}">Trova il tuo modello OLED →</a></div>
+    <div class="hdr-promo-orb" aria-hidden="true">HDR<span>OLED</span></div></section>'''
+    return hero+sections+hdr_feature+guides_section+call
 
 def trophy_index(trophies):
     shown=[t for t in trophies if not t["hidden"]]
@@ -309,7 +318,8 @@ def main():
                      "name":title,"url":url("trofei/"),"inLanguage":"it-IT","numberOfItems":55}))
     guide_index(guides)
     medal_page()
-    xml_urls=["","trofei/","guide-e-tutorial/","trofei/medaglie-oro/"]
+    hdr_paths=render_hdr_pages(write,layout,schema_article,url,crumbs)
+    xml_urls=["","trofei/","guide-e-tutorial/","trofei/medaglie-oro/"] + hdr_paths
     for t in trophies:
         state=trophy_detail(t,guides)
         if state=="index,follow":xml_urls.append(trophy_path(t))
@@ -324,5 +334,5 @@ def main():
         record=ET.SubElement(sitemap,"url")
         ET.SubElement(record,"loc").text=url(path)
     write("sitemap.xml",ET.tostring(sitemap,encoding="unicode",xml_declaration=True))
-    print("BUILT GTA6 PORTAL:",len(trophies),"trofei,",len(guides),"guide,",len(xml_urls),"indexable urls")
+    print("BUILT GTA6 PORTAL:",len(trophies),"trofei,",len(guides),"guide,",len(hdr_paths),"HDR paths,",len(xml_urls),"indexable urls")
 if __name__=="__main__":main()
