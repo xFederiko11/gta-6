@@ -1,0 +1,774 @@
+{
+  "version": "v16.0",
+  "reviewed_date": "2026-11-19",
+  "status": "Configurazioni TV/PS5 documentate; slider GTA VI non verificati",
+  "disclaimer": "Non esistono, nelle fonti ufficiali consultate, valori universalmente verificati di Peak Brightness, Paper White o clic HDR specifici di GTA VI. Non attribuiamo al gioco opzioni o FPS senza prova diretta.",
+  "ps5_steps": [
+    "Collega PS5 o PS5 Pro direttamente a una porta HDMI della TV compatibile con HDR; utilizza un cavo Ultra High Speed HDMI idoneo.",
+    "Attiva sul televisore il preset di gioco e il tone mapping scelto per giocare; DISATTIVA le elaborazioni dinamiche secondo la guida del tuo modello.",
+    "Su PS5 apri Impostazioni → Schermo e video → Uscita video → HDR e seleziona «Attivo se supportato».",
+    "Nella stessa schermata controlla «Informazioni per il dispositivo HDMI collegato»: verifica 4K, HDR e gli eventuali VRR/120 Hz disponibili.",
+    "Apri «Regola HDR» e completa tutte e tre le schermate seguendo i simboli; non copiare nit o click da altri pannelli.",
+    "Avvia GTA VI e controlla l'eventuale menu video del gioco; non assumere che esistano preset Peak Brightness, Paper White o 60/120 fps finché non sono verificati.",
+    "Se cambi modalità immagine, firmware TV, porta HDMI o mappatura toni, ripeti Regola HDR sulla console."
+  ],
+  "sources": [
+    [
+      "PlayStation Italia — 4K, HDR, VRR, 120 Hz e Regola HDR",
+      "https://www.playstation.com/it-it/support/hardware/ps5-4k-resolution-guide/"
+    ],
+    [
+      "Rockstar Support — consigli HDR ufficiali (generali, non preset GTA VI)",
+      "https://support.rockstargames.com/articles/55qmovuRBfBiz4Sm5AW1Ma/rockstar-games-high-dynamic-range-hdr-troubleshooting"
+    ]
+  ],
+  "groups": [
+    {
+      "id": "lg-oled-c4-c5-c6",
+      "brand": "LG",
+      "family": "OLED C4 · C5 · C6",
+      "years": "2024–2026",
+      "tag": "Game Optimizer + HGiG",
+      "description": "Preset HDR a bassa latenza per LG OLED C4, C5 e C6. Menu Game Optimizer condiviso, ma luminosità e processori cambiano tra annate e diagonali.",
+      "models": [
+        {
+          "code": "OLED42C44LA",
+          "inch": 42,
+          "generation": "C4 · 2024"
+        },
+        {
+          "code": "OLED48C44LA",
+          "inch": 48,
+          "generation": "C4 · 2024"
+        },
+        {
+          "code": "OLED55C44LA",
+          "inch": 55,
+          "generation": "C4 · 2024"
+        },
+        {
+          "code": "OLED65C44LA",
+          "inch": 65,
+          "generation": "C4 · 2024"
+        },
+        {
+          "code": "OLED77C44LA",
+          "inch": 77,
+          "generation": "C4 · 2024"
+        },
+        {
+          "code": "OLED83C44LA",
+          "inch": 83,
+          "generation": "C4 · 2024"
+        },
+        {
+          "code": "OLED42C54LA",
+          "inch": 42,
+          "generation": "C5 · 2025"
+        },
+        {
+          "code": "OLED48C54LA",
+          "inch": 48,
+          "generation": "C5 · 2025"
+        },
+        {
+          "code": "OLED55C54LA",
+          "inch": 55,
+          "generation": "C5 · 2025"
+        },
+        {
+          "code": "OLED65C54LA",
+          "inch": 65,
+          "generation": "C5 · 2025"
+        },
+        {
+          "code": "OLED77C54LA",
+          "inch": 77,
+          "generation": "C5 · 2025"
+        },
+        {
+          "code": "OLED83C54LA",
+          "inch": 83,
+          "generation": "C5 · 2025"
+        },
+        {
+          "code": "OLED55C55LA",
+          "inch": 55,
+          "generation": "C5 · 2025"
+        },
+        {
+          "code": "OLED65C55LA",
+          "inch": 65,
+          "generation": "C5 · 2025"
+        },
+        {
+          "code": "OLED77C55LA",
+          "inch": 77,
+          "generation": "C5 · 2025"
+        },
+        {
+          "code": "OLED42C65LA",
+          "inch": 42,
+          "generation": "C6 · 2026"
+        },
+        {
+          "code": "OLED48C65LA",
+          "inch": 48,
+          "generation": "C6 · 2026"
+        },
+        {
+          "code": "OLED55C65LA",
+          "inch": 55,
+          "generation": "C6 · 2026"
+        },
+        {
+          "code": "OLED65C65LA",
+          "inch": 65,
+          "generation": "C6 · 2026"
+        },
+        {
+          "code": "OLED77C65LA",
+          "inch": 77,
+          "generation": "C6 · 2026"
+        }
+      ],
+      "settings": [
+        [
+          "Preset immagine",
+          "Ottimizzatore gioco / Game Optimizer",
+          "Impostazioni → Immagine → Seleziona modalità → Game Optimizer",
+          "Passaggio necessario per la bassa latenza; controlla di essere sull’ingresso HDMI della PS5."
+        ],
+        [
+          "Tone mapping HDR",
+          "HGiG, se presente",
+          "Tutte le impostazioni → Generale → Game Optimizer → Schermo → Compensazione mappatura toni (o Immagine → Dynamic Tone Mapping)",
+          "Non sommare HGiG e mappatura dinamica ON; sui webOS diversi il percorso può cambiare."
+        ],
+        [
+          "Ottimizzazioni automatiche",
+          "AI Picture / AI Brightness / contrasto dinamico: Off per test neutro",
+          "Immagine → Impostazioni avanzate / Game Optimizer",
+          "Consiglio editoriale basato sulle indicazioni generali Rockstar; alcune voci non sono accessibili in HDR."
+        ],
+        [
+          "Dettagli nelle ombre",
+          "Fine Tune Dark Areas / Black Stabilizer: valori predefiniti",
+          "Game Optimizer → Dettagli aree scure",
+          "Evita di schiarire artificialmente il nero OLED: il valore ottimale va verificato sul pannello."
+        ],
+        [
+          "VRR e ALLM",
+          "Attivi solo dove supportati da console, porta e gioco",
+          "Game Optimizer → Game Dashboard",
+          "Il supporto TV a 144/165 Hz non dimostra GTA VI a 120 fps."
+        ]
+      ],
+      "caution": "I modelli da 42/48 pollici e quelli più grandi possono differire per luminosità di picco e tipo di pannello: NON condividono automaticamente gli stessi nit o click di calibrazione.",
+      "sources": [
+        [
+          "LG Italia — Game Optimizer e lista modelli C4",
+          "https://www.lg.com/it/supporto/supporto-prodotto/risoluzione-anomalie/help-library/cs-CT52001071-20152591544701/"
+        ],
+        [
+          "LG — HGiG e percorso del menu",
+          "https://www.lg.com/us/support/help-library/lg-tv-how-to-enable-the-hgig-setting--20153301892284"
+        ],
+        [
+          "LG Italia — modello OLED55C55LA",
+          "https://www.lg.com/it/tv-soundbar/oled-evo/oled55c55la/"
+        ],
+        [
+          "LG Italia — modello OLED55C65LA",
+          "https://www.lg.com/it/tv-soundbar/oled-evo/oled55c65la/"
+        ]
+      ]
+    },
+    {
+      "id": "lg-oled-g4-g5",
+      "brand": "LG",
+      "family": "OLED G4 · G5",
+      "years": "2024–2025",
+      "tag": "Game Optimizer + HGiG",
+      "description": "Guida HDR per LG OLED evo G4 e G5: impostazioni di calibrazione comuni alla serie LG OLED, senza confondere i picchi di luminosità dei singoli pannelli.",
+      "models": [
+        {
+          "code": "OLED55G45LW",
+          "inch": 55,
+          "generation": "G4 · 2024"
+        },
+        {
+          "code": "OLED65G45LW",
+          "inch": 65,
+          "generation": "G4 · 2024"
+        },
+        {
+          "code": "OLED77G45LW",
+          "inch": 77,
+          "generation": "G4 · 2024"
+        },
+        {
+          "code": "OLED83G45LW",
+          "inch": 83,
+          "generation": "G4 · 2024"
+        },
+        {
+          "code": "OLED97G45LW",
+          "inch": 97,
+          "generation": "G4 · 2024"
+        },
+        {
+          "code": "OLED48G56LS",
+          "inch": 48,
+          "generation": "G5 · 2025"
+        },
+        {
+          "code": "OLED55G54LW",
+          "inch": 55,
+          "generation": "G5 · 2025"
+        },
+        {
+          "code": "OLED65G54LW",
+          "inch": 65,
+          "generation": "G5 · 2025"
+        },
+        {
+          "code": "OLED77G54LW",
+          "inch": 77,
+          "generation": "G5 · 2025"
+        },
+        {
+          "code": "OLED83G54LW",
+          "inch": 83,
+          "generation": "G5 · 2025"
+        },
+        {
+          "code": "OLED97G54LW",
+          "inch": 97,
+          "generation": "G5 · 2025"
+        },
+        {
+          "code": "OLED55G55LW",
+          "inch": 55,
+          "generation": "G5 · 2025"
+        }
+      ],
+      "settings": [
+        [
+          "Modalità HDR",
+          "Game Optimizer",
+          "Immagine → Modalità immagine → Game Optimizer",
+          "Usa il preset HDR mentre arriva un segnale compatibile PS5."
+        ],
+        [
+          "Tone mapping",
+          "HGiG; mappatura dinamica non contemporaneamente ON",
+          "Generale → Game Optimizer → Schermo → Tone Mapping Compensation (se disponibile)",
+          "HGiG è il punto di partenza coerente con la calibrazione PS5."
+        ],
+        [
+          "Gamma e livello nero",
+          "Default; niente preset di nit importati da altri pollici",
+          "Immagine → Avanzate / Game Optimizer",
+          "Le diagonali G5 da 48, 55–83 e 97 differiscono anche nelle capacità del pannello."
+        ],
+        [
+          "AI e post-elaborazione",
+          "Off per il test iniziale",
+          "Immagine → Impostazioni avanzate",
+          "Evita contrasto artificiale e interventi AI nelle prime verifiche HDR."
+        ],
+        [
+          "HDMI",
+          "Usa un ingresso HDMI compatibile; eARC eventualmente riservato all'audio",
+          "Generale → Dispositivi → Impostazioni HDMI (nome variabile)",
+          "Collega PS5 direttamente alla TV e verifica la schermata Informazioni HDMI su PS5."
+        ]
+      ],
+      "caution": "LG dichiara differenze di frequenza massima e tecnologia tra tagli G5 (48, 55–83, 97). Non sono valori di FPS confermati per GTA VI.",
+      "sources": [
+        [
+          "LG Italia — OLED G5, HGiG e differenze per pollici",
+          "https://www.lg.com/it/tv-soundbar/oled-evo/oled55g55lw/"
+        ],
+        [
+          "LG Italia — modelli G4 e Game Optimizer",
+          "https://www.lg.com/it/supporto/supporto-prodotto/risoluzione-anomalie/help-library/cs-CT52001071-20152591544701/"
+        ],
+        [
+          "LG — configurazione HGiG",
+          "https://www.lg.com/us/support/help-library/lg-tv-how-to-enable-the-hgig-setting--20153301892284"
+        ]
+      ]
+    },
+    {
+      "id": "samsung-oled-s90f",
+      "brand": "Samsung",
+      "family": "OLED S90F",
+      "years": "2025",
+      "tag": "Modalità Gioco + Game HDR",
+      "description": "Samsung S90F 2025: profilo di gioco HDR10, navigazione Game Bar, Game HDR e avvertenze sulle varianti di pannello tra i tagli.",
+      "models": [
+        {
+          "code": "QE42S90FAEXZT",
+          "inch": 42,
+          "generation": "S90F · 2025"
+        },
+        {
+          "code": "QE55S90FAEXZT",
+          "inch": 55,
+          "generation": "S90F · 2025"
+        },
+        {
+          "code": "QE65S90FATXZT",
+          "inch": 65,
+          "generation": "S90F · 2025"
+        },
+        {
+          "code": "QE83S90FAEXZT",
+          "inch": 83,
+          "generation": "S90F · 2025"
+        }
+      ],
+      "settings": [
+        [
+          "Modalità",
+          "Modalità Gioco (Game Mode): Auto/On",
+          "Impostazioni → Tutte le impostazioni → Connessione → Impostazioni modalità gioco",
+          "Controlla la Game Bar con la sorgente PS5 attiva."
+        ],
+        [
+          "Tone mapping gioco",
+          "Game HDR: Base/Basic, se disponibile",
+          "Impostazioni modalità gioco → Immagine gioco esperto (Game Picture Expert) → Game HDR",
+          "Sui firmware che non mostrano questa voce verifica prima manuale e versione Tizen; non cercare una HGiG LG."
+        ],
+        [
+          "HDR10+ Gaming",
+          "Non necessario per calibrare il normale segnale HDR10 PS5",
+          "Game Picture Expert → HDR10+ Gaming (se presente)",
+          "HDR10+ Gaming non equivale alla regolazione PS5 HDR10."
+        ],
+        [
+          "Contrasto e neri",
+          "Contrast Enhancer: Off; ST.2084/Shadow Detail: valori iniziali",
+          "Immagine → Impostazioni avanzate",
+          "Non copiare valori da un S90F di altro taglio o mercato."
+        ],
+        [
+          "Elaborazione movimento",
+          "Game Motion Plus: Off per un test a latenza minima",
+          "Impostazioni modalità gioco → Game Motion Plus",
+          "Puoi confrontare in seguito, ma non è una correzione HDR."
+        ]
+      ],
+      "caution": "Samsung può utilizzare pannelli differenti secondo pollici e mercati. Il preset della famiglia è condiviso, NON la luminosità effettiva né la curva di misurazione.",
+      "sources": [
+        [
+          "Samsung Italia — S90F 42 pollici",
+          "https://www.samsung.com/it/support/model/QE42S90FAEXZT/"
+        ],
+        [
+          "Samsung Italia — S90F 65 pollici",
+          "https://www.samsung.com/it/support/model/QE65S90FATXZT/"
+        ],
+        [
+          "Samsung — manuale impostazioni Game HDR e HDR10+ Gaming",
+          "https://eu.community.samsung.com/bgros26334/attachments/bgros26334/uk-tv/90709/1/BN81-24055C-401_EM_OSPDVBEUC_EU_ENG_230720.0.pdf"
+        ],
+        [
+          "Samsung — chiarimento Tizen 9 sulle modifiche Game HDR",
+          "https://community.samsung.com/uk/conversations/tv/game-hdr-setting-disappeared-after-tv-update-2024-s90d-tizen-9-0/eu_12731208"
+        ]
+      ]
+    },
+    {
+      "id": "samsung-oled-s95f",
+      "brand": "Samsung",
+      "family": "OLED S95F",
+      "years": "2025",
+      "tag": "Modalità Gioco + Game HDR",
+      "description": "Guida HDR Samsung S95F 55, 65, 77 e 83 pollici, con impostazioni di gioco consigliate e note sulle differenze di pannello.",
+      "models": [
+        {
+          "code": "QE55S95FATXZT",
+          "inch": 55,
+          "generation": "S95F · 2025"
+        },
+        {
+          "code": "QE65S95FATXZT",
+          "inch": 65,
+          "generation": "S95F · 2025"
+        },
+        {
+          "code": "QE77S95FATXZT",
+          "inch": 77,
+          "generation": "S95F · 2025"
+        },
+        {
+          "code": "QE83S95FAEXZT",
+          "inch": 83,
+          "generation": "S95F · 2025"
+        }
+      ],
+      "settings": [
+        [
+          "Modalità immagine",
+          "Modalità Gioco / Game Mode",
+          "Tutte le impostazioni → Connessione → Modalità Gioco",
+          "Migliora la reattività e attiva le impostazioni di gioco."
+        ],
+        [
+          "Game HDR",
+          "Base (Basic) quando visibile",
+          "Impostazioni modalità gioco → Esperto immagine gioco → Game HDR",
+          "Punto di partenza per la calibrazione PS5; nomi e opzioni dipendono da Tizen."
+        ],
+        [
+          "HDR10+ Gaming",
+          "Non confondere con HDR10 di PS5",
+          "Game Picture Expert → HDR10+ Gaming",
+          "Se non si applica al segnale della PS5, lascia l'opzione predefinita."
+        ],
+        [
+          "Contrasto dinamico",
+          "Contrast Enhancer Off; regolazioni ombra a default",
+          "Immagine → Impostazioni avanzate",
+          "Confronta al buio e in ambiente illuminato dopo la calibrazione."
+        ],
+        [
+          "Motion",
+          "Game Motion Plus Off inizialmente",
+          "Game Bar / Impostazioni modalità gioco",
+          "Evita post-elaborazione finché non hai verificato input lag e correttezza HDR."
+        ]
+      ],
+      "caution": "La versione da 83 pollici non deve ricevere i valori di nit/pannello della 55/65/77. Anche il trattamento dei riflessi non cambia il metodo di calibrazione PS5.",
+      "sources": [
+        [
+          "Samsung Italia — modello QE55S95FATXZT",
+          "https://www.samsung.com/it/support/model/QE55S95FATXZT/"
+        ],
+        [
+          "Samsung Italia — modello QE65S95FATXZT",
+          "https://www.samsung.com/it/support/model/QE65S95FATXZT/"
+        ],
+        [
+          "Samsung Italia — modello QE77S95FATXZT",
+          "https://www.samsung.com/it/support/model/QE77S95FATXZT/"
+        ],
+        [
+          "Samsung Italia — modello QE83S95FAEXZT",
+          "https://www.samsung.com/it/support/model/QE83S95FAEXZT/"
+        ]
+      ]
+    },
+    {
+      "id": "sony-bravia-8",
+      "brand": "Sony",
+      "family": "BRAVIA 8 OLED (XR80)",
+      "years": "2024",
+      "tag": "Game Mode + HDR Tone Mapping",
+      "description": "Sony BRAVIA 8 OLED XR80: configurazione HDR PS5 con modalità Gioco, formati HDMI avanzati e mappatura dei toni distinta dalla procedura HGiG LG.",
+      "models": [
+        {
+          "code": "K-55XR80",
+          "inch": 55,
+          "generation": "BRAVIA 8 · 2024"
+        },
+        {
+          "code": "K-65XR80",
+          "inch": 65,
+          "generation": "BRAVIA 8 · 2024"
+        },
+        {
+          "code": "K-77XR80",
+          "inch": 77,
+          "generation": "BRAVIA 8 · 2024"
+        }
+      ],
+      "settings": [
+        [
+          "Preset immagine",
+          "Gioco (Game)",
+          "Impostazioni rapide → Immagine → Modalità immagine → Gioco",
+          "Attiva il percorso a bassa latenza."
+        ],
+        [
+          "Formato HDMI",
+          "Formato avanzato / VRR solo se serve e la porta lo supporta",
+          "Impostazioni → Canali e ingressi → Ingressi esterni → Formato segnale HDMI",
+          "Su Sony alcuni ingressi e formati VRR vanno configurati separatamente."
+        ],
+        [
+          "Mappatura toni HDR",
+          "Verifica HDR Tone Mapping: Off per manuale, oppure Auto HDR Tone Mapping Sony/PS5",
+          "Immagine → Luminosità → Mappatura toni HDR (se visibile)",
+          "Non applicare simultaneamente metodi automatici e calibrazioni copiate: Sony offre procedure proprie con PS5."
+        ],
+        [
+          "Ottimizzazioni immagine",
+          "Black Adjust e contrast enhancer Off per prova neutra",
+          "Immagine → Impostazioni avanzate",
+          "Riduce possibili dettagli neri persi o luci bruciate."
+        ],
+        [
+          "Controllo",
+          "Controlla Informazioni dispositivo HDMI nella PS5",
+          "PS5 → Schermo e video → Uscita video",
+          "Non presumere VRR/120 fps solo perché la TV accetta il segnale."
+        ]
+      ],
+      "caution": "Sony non espone normalmente un semplice interruttore HGiG come LG; la mappatura HDR Sony/PS5 richiede un percorso diverso. I menu cambiano con il firmware.",
+      "sources": [
+        [
+          "Sony Italia — BRAVIA 8, codici e diagonali",
+          "https://www.sony.it/bravia/products/bravia-8"
+        ],
+        [
+          "Sony — significato HDR tone mapping",
+          "https://www.sony.com/electronics/support/televisions-projectors-oled-tvs-android-/xr-48a90k/articles/00190409"
+        ],
+        [
+          "Sony — funzionalità PS5 Auto HDR Tone Mapping",
+          "https://electronics.sony.com/tv-video/televisions/all-tvs/p/k65xr80m2"
+        ]
+      ]
+    },
+    {
+      "id": "sony-bravia-8-ii",
+      "brand": "Sony",
+      "family": "BRAVIA 8 II QD-OLED (XR8M2)",
+      "years": "2025",
+      "tag": "Game Mode + Sony HDR Tone Mapping",
+      "description": "Sony BRAVIA 8 II QD-OLED 55 e 65 pollici: percorso di impostazione PS5, compatibilità Auto HDR Tone Mapping e avvertenze specifiche.",
+      "models": [
+        {
+          "code": "K-55XR8M2",
+          "inch": 55,
+          "generation": "BRAVIA 8 II · 2025"
+        },
+        {
+          "code": "K-65XR8M2",
+          "inch": 65,
+          "generation": "BRAVIA 8 II · 2025"
+        }
+      ],
+      "settings": [
+        [
+          "Gioco",
+          "Picture Mode: Game / Gioco",
+          "Impostazioni rapide → Immagine → Modalità immagine",
+          "Disattiva elaborazioni cinematografiche quando giochi."
+        ],
+        [
+          "HDMI",
+          "Enhanced Format / VRR (dove previsto)",
+          "Impostazioni → Ingressi esterni → Formato segnale HDMI",
+          "Seleziona la modalità in base alla console, non assumere 120 fps nel gioco."
+        ],
+        [
+          "HDR con PS5",
+          "Scegli UN percorso coerente: Auto HDR Tone Mapping Sony compatibile oppure Regola HDR manuale",
+          "Sony BRAVIA + PS5 → impostazioni di gioco / Uscita video",
+          "Sony documenta un'integrazione HDR automatica: calibrando manualmente segui le schermate PS5."
+        ],
+        [
+          "Neri",
+          "Black Adjust / Adv Contrast Enhancer Off come base neutra",
+          "Immagine → Luminosità",
+          "Verifica dettagli nelle ombre notturne senza alterare livelli del nero."
+        ],
+        [
+          "Risultato",
+          "Rifai Regola HDR dopo modifiche a TV/HDMI",
+          "PS5 → Impostazioni → Schermo e video → Uscita video",
+          "Non trasferire valori da Sony BRAVIA 8 WOLED al BRAVIA 8 II QD-OLED."
+        ]
+      ],
+      "caution": "Il BRAVIA 8 II utilizza QD-OLED: non condividere nit, calibrazioni a clic o bilanciamento colore con il BRAVIA 8 standard.",
+      "sources": [
+        [
+          "Sony Italia — modelli BRAVIA 8 II 55 e 65",
+          "https://www.sony.it/bravia/products/bravia-8m2"
+        ],
+        [
+          "Sony Italia — supporto K-55XR8M2",
+          "https://www.sony.it/electronics/support/televisions-projectors-oled-tvs-android-/k-55xr8m2"
+        ],
+        [
+          "Sony — note Auto HDR Tone Mapping PlayStation",
+          "https://electronics.sony.com/tv-video/televisions/all-tvs/p/k65xr80m2"
+        ]
+      ]
+    },
+    {
+      "id": "panasonic-z95a-z95b",
+      "brand": "Panasonic",
+      "family": "OLED Z95A · Z95B",
+      "years": "2024–2025",
+      "tag": "True Game + Tone Mapping Off",
+      "description": "Panasonic Z95A e Z95B: profilo True Game, Game Control Board e Tone Mapping Off per la calibrazione HDR della sorgente PS5.",
+      "models": [
+        {
+          "code": "TV-55Z95AEG",
+          "inch": 55,
+          "generation": "Z95A · 2024"
+        },
+        {
+          "code": "TV-65Z95AEG",
+          "inch": 65,
+          "generation": "Z95A · 2024"
+        },
+        {
+          "code": "TV-55Z95BEG",
+          "inch": 55,
+          "generation": "Z95B · 2025"
+        },
+        {
+          "code": "TV-65Z95BEG",
+          "inch": 65,
+          "generation": "Z95B · 2025"
+        },
+        {
+          "code": "TV-77Z95BEG",
+          "inch": 77,
+          "generation": "Z95B · 2025"
+        }
+      ],
+      "settings": [
+        [
+          "Immagine",
+          "True Game",
+          "Impostazioni immagine → Picture Mode → True Game",
+          "Modalità orientata alla fedeltà cromatica con basso input lag."
+        ],
+        [
+          "HDR Tonemap",
+          "Off (se disponibile per HDR10)",
+          "Game Control Board / Immagine → HDR Tonemap",
+          "Il dispositivo sorgente gestisce maggiormente la curva HDR, secondo Panasonic."
+        ],
+        [
+          "AI e ambiente",
+          "Auto AI / ottimizzazione luce: Off per calibrazione di riferimento",
+          "Impostazioni immagine (nome secondo Fire TV)",
+          "Evita che la luminosità cambi durante il test con la PS5."
+        ],
+        [
+          "Porte e VRR",
+          "Verifica gli ingressi HDMI 2.1/VRR; non tutti equivalenti",
+          "Game Control Board + Informazioni HDMI PS5",
+          "Sulla famiglia Z95B sono documentati due ingressi HDMI 2.1."
+        ],
+        [
+          "Neri",
+          "Dark Visibility Enhancer: inizialmente neutro",
+          "Game Control Board → Dark Visibility Enhancer",
+          "Utile per il gaming competitivo, ma può alterare la resa del nero OLED."
+        ]
+      ],
+      "caution": "Z95B da 55/65 e 77 può avere caratteristiche del pannello differenti; il setup True Game resta un punto di partenza, non una misura uguale per tutti.",
+      "sources": [
+        [
+          "Panasonic Italia — funzione True Game e Tone Mapping Off",
+          "https://www.panasonic.com/it/corporate/news/articles/scoprilo-vivilo-arricchisci-le-tue-esperienze-con-i-nuovi-tv-panasonic-premium-z95a-e-z93a.html"
+        ],
+        [
+          "Panasonic Italia — Z95B e True Game",
+          "https://www.panasonic.com/it/corporate/news/articles/panasonic-presenta-il-modello-z95b-oled-2025.html"
+        ],
+        [
+          "Panasonic Italia — TV-55Z95AEG",
+          "https://www.panasonic.com/it/consumer/televisori/tv-oled-4k-ultra-hd/tv-55z95aeg.html"
+        ],
+        [
+          "Panasonic Italia — TV-55Z95BEG",
+          "https://www.panasonic.com/it/consumer/televisori/tv-oled-4k-ultra-hd/tv-55z95beg.html"
+        ]
+      ]
+    },
+    {
+      "id": "philips-oled809",
+      "brand": "Philips",
+      "family": "OLED809 Ambilight",
+      "years": "2024",
+      "tag": "HDR Game + Off/HGiG",
+      "description": "Philips Ambilight OLED809: calibrazione HDR10 con Picture Style HDR Game, controllo HDR Tone Mapping Off/HGiG e ottimizzazione ambientale disattivata.",
+      "models": [
+        {
+          "code": "42OLED809/12",
+          "inch": 42,
+          "generation": "OLED809 · 2024"
+        },
+        {
+          "code": "48OLED809/12",
+          "inch": 48,
+          "generation": "OLED809 · 2024"
+        },
+        {
+          "code": "55OLED809/12",
+          "inch": 55,
+          "generation": "OLED809 · 2024"
+        },
+        {
+          "code": "65OLED809/12",
+          "inch": 65,
+          "generation": "OLED809 · 2024"
+        },
+        {
+          "code": "77OLED809/12",
+          "inch": 77,
+          "generation": "OLED809 · 2024"
+        }
+      ],
+      "settings": [
+        [
+          "Stile immagine",
+          "Gioco / HDR Game, con segnale HDR10 presente",
+          "Impostazioni → Schermo e suono → Immagine → Stile immagine",
+          "Controlla che la console invii davvero HDR10 al televisore."
+        ],
+        [
+          "Ottimizzazione HDR ambiente",
+          "Off per calibrazione ripetibile",
+          "Schermo e suono → Immagine → Contrasto → Comando HDR",
+          "Se l'adattamento ambientale è acceso, l'opzione Off/HGiG potrebbe non comparire."
+        ],
+        [
+          "Mappatura toni HDR",
+          "Off/HGiG",
+          "Schermo e suono → Immagine → Contrasto → Comando HDR → Mappatura dei toni HDR",
+          "I manuali indicano che funziona sui segnali HDR10/HDR10+."
+        ],
+        [
+          "Motion",
+          "Elaborazione movimento Off inizialmente",
+          "Immagine → Movimento",
+          "La regolazione preferita può differire, ma il setup neutro non interpola frame."
+        ],
+        [
+          "Ambilight",
+          "A piacere; non modifica la calibrazione del pannello",
+          "Impostazioni → Ambilight",
+          "Per valutare accuratamente il nero, prova prima con Ambilight spento o attenuato."
+        ]
+      ],
+      "caution": "I manuali Philips mostrano lievi differenze nei nomi dei menu a seconda del firmware. Non confondere OLED809 (2024) con modelli LCD PUS e OLED808.",
+      "sources": [
+        [
+          "Philips OLED809 — manuale tecnico e percorso HDR",
+          "https://www.manualslib.com/manual/3635475/Philips-55oled809.html?page=38"
+        ],
+        [
+          "Philips OLED809 — elenco diagonali del manuale",
+          "https://manuals.plus/m/e48490030eb1691c0a57ea873c157fc86f5bbfbcd7211db30382a35e12d732fc"
+        ],
+        [
+          "Philips — impostazioni HDR in italiano",
+          "https://www.notice-facile.com/it/manuale/2195502/philips%2B48oled809"
+        ]
+      ]
+    }
+  ]
+}
