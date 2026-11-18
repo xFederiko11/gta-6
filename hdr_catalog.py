@@ -99,7 +99,7 @@ def render(write, layout, schema_article, url, crumbs):
 </script>"""
     title = "GTA 6 HDR OLED PS5 Pro: impostazioni per LG, Samsung, Sony e altre TV"
     desc = (f"Guida HDR GTA VI PS5 e PS5 Pro: cerca tra {total} codici OLED in "
-            "8 famiglie LG, Samsung, Sony, Philips e Panasonic. HGiG, Game HDR e calibrazione.")
+            f"{len(families)} famiglie LG, Samsung, Sony, Philips e Panasonic. HGiG, Game HDR e calibrazione.")
     page = (intro + '<section class="section"><h2>Trova il modello OLED esatto</h2>' + form
             + '<div class="hdr-list">' + "".join(blocks) + "</div>" + script + "</section>"
             + '<section class="section"><span class="eyebrow">🎮 Consoles</span>'
