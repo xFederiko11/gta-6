@@ -30,7 +30,10 @@ def sources_for(path: str) -> tuple[str, ...]:
         return shared + ("data/trofei.json", "data/guide.json")
     if path.startswith("guide-e-tutorial/"):
         return shared + ("data/guide.json", "data/trofei.json")
-    return shared + ("data/trofei.json", "data/guide.json")
+    if path.startswith("hdr-oled/"):
+        return shared + ("hdr_catalog.py", "data/hdr_oled.json")
+    # Home links to every main section, including the OLED model finder.
+    return shared + ("data/trofei.json", "data/guide.json", "hdr_catalog.py", "data/hdr_oled.json")
 
 
 @lru_cache(maxsize=128)
