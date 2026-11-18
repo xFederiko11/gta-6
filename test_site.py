@@ -75,6 +75,46 @@ class PortalTests(unittest.TestCase):
         self.assertIn("<details>",html)
         self.assertIn("28 trofei nascosti",html)
 
+    def test_all_public_pages_show_real_update_views_and_x(self):
+        pages=[self.out/"index.html",self.out/"trofei"/"index.html",
+               self.out/"guide-e-tutorial"/"index.html",
+               self.out/"trofei"/"medaglie-oro"/"index.html"]
+        pages += [self.out/"trofei"/t["slug"]/"index.html" for t in self.trophies]
+        pages += [self.out/"guide-e-tutorial"/g["id"]/"index.html" for g in self.guides]
+        self.assertEqual(len(pages),4+55+6)
+        for page in pages:
+            markup=page.read_text(encoding="utf-8")
+            self.assertIn('class="page-meta"',markup,str(page))
+            self.assertIn("Aggiornata il",markup,str(page))
+            self.assertRegex(markup,r'<time datetime="20\d{2}-\d{2}-\d{2}">')
+            self.assertIn('article:modified_time',markup,str(page))
+            self.assertIn('"dateModified"',markup,str(page))
+            self.assertIn("hitscounter.dev/api/hit?url=",markup,str(page))
+            self.assertIn("Visualizzazioni",markup,str(page))
+            self.assertIn('https://x.com/xFederiko11',markup,str(page))
+            self.assertIn('rel="me noopener noreferrer"',markup,str(page))
+            self.assertNotIn("12345 visite",markup)
+        # Every URL counts its own visits, never a site-wide combined count.
+        first=pages[0].read_text(encoding="utf-8")
+        second=pages[1].read_text(encoding="utf-8")
+        self.assertIn("https%3A%2F%2Fxfederiko11.github.io%2Fgta-6%2F",first)
+        self.assertIn("https%3A%2F%2Fxfederiko11.github.io%2Fgta-6%2Ftrofei%2F",second)
+
+    def test_freshness_date_source_is_not_deploy_clock_only(self):
+        import site_info
+        from unittest.mock import patch, Mock
+        from datetime import datetime, timezone
+        site_info.last_modified_at.cache_clear()
+        stamp="2026-11-17T08:31:00+00:00"
+        with patch("site_info.subprocess.run",return_value=Mock(returncode=0,stdout=stamp)):
+            actual=site_info.last_modified_at("trofei/trofeo-14-una-lunga-strada/")
+            self.assertEqual(actual,datetime(2026,11,17,8,31,tzinfo=timezone.utc))
+        site_info.last_modified_at.cache_clear()
+        with self.assertRaises(ValueError):
+            site_info.view_badge_url("https://example.com/elsewhere")
+        with self.assertRaises(ValueError):
+            site_info.view_badge_url("https://xfederiko11.github.io/gta-6.evil.net/")
+
     def test_no_external_paid_dependencies(self):
         self.assertFalse((self.out/"node_modules").exists())
         self.assertEqual(len(list((self.out/"trofei").glob("trofeo-*/index.html"))),55)

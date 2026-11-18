@@ -15,6 +15,17 @@ Portale pubblico e gratuito dedicato a **GTA VI su PS5 e PS5 Pro**. I contenuti 
 I contenuti sono separati dai template in `data/trofei.json` e `data/guide.json`.
 Il generatore `build_site.py` produce il sito statico in `_site/` senza API e senza abbonamenti.
 
+
+## Novità v15.0: aggiornamento, visualizzazioni e X
+
+Ogni pagina reale (homepage, indice trofei, 55 schede, indice e sei guide, medaglie Oro) ha una microbarra immediatamente sotto la navigazione con:
+
+- **Aggiornata il:** ultima modifica dei file sorgente pertinenti secondo la cronologia Git, in data italiana; build programmati senza modifica non aggiornano artificialmente la data. In anteprima senza Git si usa la data della generazione come ripiego.
+- **Visualizzazioni:** badge per singolo URL canonico fornito da [Hits Counter](https://hitscounter.dev/), attivo dal lancio della funzione. Conta richieste al badge/visite approssimative, **non visitatori unici certificati**, non recupera visite storiche; un ad blocker o cache può alterare il valore. Se il servizio esterno è inattivo non si inventano visualizzazioni.
+- **Profilo X:** collegamenti visibili a [@xFederiko11](https://x.com/xFederiko11), nell'header, nella microbarra e nel footer, con riferimento anche ai post breaking e alle guide collegate al sito.
+
+I metadati `dateModified` JSON-LD e `article:modified_time` supportano la trasparenza SEO. Gli utenti vengono informati della natura indipendente del portale. Il badge esterno carica un'immagine dal server del fornitore: per privacy e affidabilità verificare la sua policy prima di sviluppare analitiche più avanzate. Non sono necessari cookie o identificativi creati dal nostro codice, database, API X o abbonamenti.
+
 ## Anteprima e test
 
 Servono soltanto Python 3.12 e la libreria standard:

@@ -13,6 +13,7 @@ import os
 import re
 import shutil
 import xml.etree.ElementTree as ET
+from site_info import SOCIAL_URL, SOCIAL_HANDLE, iso_modified, page_meta
 
 BASE = "https://xfederiko11.github.io/gta-6"
 OUT = Path(os.getenv("SITE_OUT", "_site"))
@@ -35,7 +36,7 @@ def trophy_path(t):
     return "trofei/" + t["slug"] + "/"
 def guide_path(g):
     return "guide-e-tutorial/" + g["id"] + "/"
-def news_meta(title, desc, canonical, img=None, kind="website", robots="index,follow", structured=None):
+def news_meta(title, desc, canonical, img=None, kind="website", robots="index,follow", structured=None, modified=None):
     payload = json.dumps(structured, ensure_ascii=False, separators=(",",":")).replace("</","<\\/") if structured else None
     out = [
         '<meta charset="utf-8">',
@@ -52,9 +53,13 @@ def news_meta(title, desc, canonical, img=None, kind="website", robots="index,fo
         f'<meta property="og:description" content="{e(desc)}">',
         f'<meta property="og:url" content="{e(canonical)}">',
         '<meta name="twitter:card" content="summary_large_image">',
+        f'<meta name="twitter:site" content="{SOCIAL_HANDLE}">',
+        f'<link rel="me" href="{SOCIAL_URL}">',
         f'<meta name="twitter:title" content="{e(title)}">',
         f'<link rel="stylesheet" href="{url("assets/style.css")}">'
     ]
+    if modified:
+        out.append(f'<meta property="article:modified_time" content="{e(modified)}">')
     if img:
         out.extend([f'<meta property="og:image" content="{e(img)}">',
                     f'<meta name="twitter:image" content="{e(img)}">'])
@@ -67,6 +72,9 @@ def schema_article(title, desc, canonical, image=None):
        "headline":title,"description":desc,"inLanguage":"it-IT","url":canonical,
        "mainEntityOfPage":canonical,
        "isPartOf":{"@type":"WebSite","name":"GTA 6 Italia","url":url()}}
+    path=canonical.removeprefix(BASE + "/")
+    v["dateModified"]=iso_modified(path)
+    v["author"]={"@type":"Organization","name":"GTA 6 Italia","url":url()}
     if image: v["image"] = image
     return v
 
@@ -75,17 +83,24 @@ def layout(title, desc, path, body, section=None, image=None, robots="index,foll
     nav=[("Home","",section=="home"),("Trofei","trofei/",section=="trofei"),
          ("Guide e tutorial","guide-e-tutorial/",section=="guide")]
     links="".join(f'<a href="{url(p)}"'+(' aria-current="page"' if selected else '')+f'>{e(n)}</a>' for n,p,selected in nav)
-    meta=news_meta(title,desc,canonical,image,robots=robots,structured=structured)
+    modified=iso_modified(path)
+    if structured:
+        structured=dict(structured)
+        structured["dateModified"]=modified
+    meta=news_meta(title,desc,canonical,image,robots=robots,structured=structured,modified=modified)
+    info=page_meta(canonical,path)
     return (f'<!doctype html><html lang="it"><head>{meta}</head><body>'
        '<a class="skip" href="#contenuto">Vai al contenuto</a>'
        '<header class="site-header"><div class="wrap header-inner">'
        f'<a class="brand" href="{url()}"><strong>GTA 6</strong> / ITALIA</a>'
-       f'<nav class="mainnav" aria-label="Navigazione principale">{links}</nav>'
-       '</div></header><main class="wrap" id="contenuto">'+body+'</main>'
+       f'<nav class="mainnav" aria-label="Navigazione principale">{links}'
+       f'<a class="nav-cta" href="{SOCIAL_URL}" target="_blank" rel="me noopener noreferrer" aria-label="Segui GTA 6 Italia su X">𝕏 Seguici</a></nav>'
+       '</div></header><main class="wrap" id="contenuto">'+info+body+'</main>'
        '<footer class="footer"><div class="wrap footer-grid"><div>'
        '<strong>GTA 6 Italia</strong><p>Guide indipendenti in italiano per PS5 e PS5 Pro. '
        'Contenuti da verificare rispetto alle patch: non affiliato a Rockstar, Sony o PowerPyx.</p></div>'
-       f'<div><a href="{url("trofei/")}">Trofei</a> · <a href="{url("guide-e-tutorial/")}">Guide e tutorial</a></div>'
+       f'<div><a href="{url("trofei/")}">Trofei</a> · <a href="{url("guide-e-tutorial/")}">Guide e tutorial</a>'
+       f'<p class="footer-social"><a href="{SOCIAL_URL}" rel="me noopener noreferrer" target="_blank">𝕏 Aggiornamenti su {SOCIAL_HANDLE} ↗</a></p></div>'
        '</div></footer></body></html>')
 
 def crumbs(parts):
@@ -153,6 +168,7 @@ def site_home(trophies, guides):
     <div class="actions">
       <a class="button" href="{url("guide-e-tutorial/")}">🎮 Esplora le guide</a>
       <a class="button secondary" href="{url("trofei/")}">🏆 Tutti i trofei</a>
+      <a class="button secondary" href="{SOCIAL_URL}" target="_blank" rel="me noopener noreferrer">𝕏 Novità live su X</a>
     </div>
     <div class="statline"><span><b>55</b> trofei PS5</span><span><b>{len(guides)}</b> guide pratiche</span><span>🇮🇹 Contenuti in italiano</span></div>
     </section>'''
