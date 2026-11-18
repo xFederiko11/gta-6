@@ -86,7 +86,7 @@ class PortalTests(unittest.TestCase):
             markup=page.read_text(encoding="utf-8")
             self.assertIn('class="page-meta"',markup,str(page))
             self.assertIn("Aggiornata il",markup,str(page))
-            self.assertRegex(markup,r'<time datetime="20\\d{2}-\\d{2}-\\d{2}">')
+            self.assertRegex(markup,r'<time datetime="20\d{2}-\d{2}-\d{2}">')
             self.assertIn('article:modified_time',markup,str(page))
             self.assertIn('"dateModified"',markup,str(page))
             self.assertIn("hitscounter.dev/api/hit?url=",markup,str(page))
