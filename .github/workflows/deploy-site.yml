@@ -1,0 +1,78 @@
+name: GTA 6 Italia - Website
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'build_site.py'
+      - 'test_site.py'
+      - 'data/**'
+      - 'site/**'
+      - '.github/workflows/deploy-site.yml'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # Aggiorna l'indicizzazione dei trofei spoiler dopo il lancio
+    - cron: '15 6 21 11 *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gta6-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pinned
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Python pinned
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Build public site
+        run: python build_site.py
+      - name: Validate pages and SEO
+        run: python -m unittest -q test_site.py
+      - name: Upload static site to GitHub Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request' && github.event.repository.private == false
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check Pages is enabled for Actions
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          code=$(curl -sS -o /tmp/pages.json -w '%{http_code}' \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/pages")
+          if [ "$code" = "200" ] && grep -Eq '"build_type"[[:space:]]*:[[:space:]]*"workflow"' /tmp/pages.json; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "PAGES_NOT_ENABLED: Settings > Pages > Source: GitHub Actions"
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Deploy verified site
+        if: steps.pages.outputs.ready == 'true'
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
