@@ -162,6 +162,8 @@ def list_search():
 </script>'''
 
 def site_home(trophies, guides):
+    hdr_data=json.loads((DATA/"hdr_oled.json").read_text(encoding="utf-8"))
+    hdr_total=sum(len(f["models"]) for f in hdr_data["families"])
     hero = f'''<section class="hero">
     <span class="eyebrow">🎮 Il punto di riferimento in italiano</span>
     <h1>Tutto GTA 6.<br><span class="highlight">Zero tempo perso.</span></h1>
@@ -178,7 +180,7 @@ def site_home(trophies, guides):
     <h2>Da dove vuoi cominciare?</h2></div></div><div class="grid">
     {category_card("Trofei e platino","Elenco completo dei 55 trofei in italiano, requisiti Oro, consigli e spoiler protetti.","trofei/","55 TROFEI","🏆")}
     {category_card("Guide e tutorial","Tutorial rapidi, combinazioni dei pulsanti, collezionabili, strategie e approfondimenti.","guide-e-tutorial/","PASSO PASSO","⚡")}
-    {category_card("HDR OLED per PS5 Pro","Seleziona marca, codice TV e diagonale per regolare HDR, HGiG e Game Mode senza preset inventati.","hdr-oled/","27 MODELLI TV","📺")}
+    {category_card("HDR OLED per PS5 Pro","Seleziona marca, codice TV e diagonale per regolare HDR, HGiG e Game Mode senza preset inventati.","hdr-oled/",f"{hdr_total} MODELLI TV","📺")}
     </div></section>'''
     guides_cards="".join(guide_card(g) for g in guides[:6])
     guides_section=f'''<section class="section"><div class="section-head"><div><span class="eyebrow">⚡ Tips & tricks</span><h2>Guide rapide che fanno risparmiare tempo</h2><p>Le istruzioni subito, gli approfondimenti quando servono.</p></div><a href="{url("guide-e-tutorial/")}">Tutte le guide ↗</a></div><div class="grid">{guides_cards}</div></section>'''
@@ -187,7 +189,7 @@ def site_home(trophies, guides):
     <a class="button secondary" href="{url("trofei/")}">Apri l'elenco trofei →</a></div><div class="decor" aria-hidden="true"></div></section>'''
     hdr_feature=f'''<section class="section hdr-promo"><div><span class="eyebrow">📺 Nuova guida OLED</span>
     <h2>HDR di GTA VI, su misura per la tua TV.</h2>
-    <p>LG OLED C5 e G5, Samsung S90F e S95F, Sony BRAVIA, Philips e Panasonic:
+    <p>LG OLED C5/C6 e G5/G6, Samsung S90F/S90H e S95F/S95H, Sony BRAVIA, Philips e Panasonic:
     impostazioni raggruppate per famiglia, codici commerciali e dimensioni verificate.</p>
     <a class="button secondary" href="{url("hdr-oled/")}">Trova il tuo modello OLED →</a></div>
     <div class="hdr-promo-orb" aria-hidden="true">HDR<span>OLED</span></div></section>'''
