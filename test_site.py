@@ -21,6 +21,7 @@ class PortalTests(unittest.TestCase):
             raise AssertionError(proc.stdout+"\n"+proc.stderr)
         cls.trophies=json.loads(Path("data/trofei.json").read_text(encoding="utf-8"))["trophies"]
         cls.guides=json.loads(Path("data/guide.json").read_text(encoding="utf-8"))["guides"]
+        cls.hdr=json.loads(Path("data/hdr_oled.json").read_text(encoding="utf-8"))
     @classmethod
     def tearDownClass(cls):
         cls.tmp.cleanup()
@@ -28,7 +29,6 @@ class PortalTests(unittest.TestCase):
     def test_content_counts_and_links(self):
         self.assertEqual(len(self.trophies),55)
         self.assertEqual(len(self.guides),6)
-        self.hdr=json.loads(Path("data/hdr_oled.json").read_text(encoding="utf-8"))
         self.assertEqual(len(self.hdr["families"]),8)
         self.assertEqual(sum(len(f["models"]) for f in self.hdr["families"]),27)
         self.assertEqual(sum(t["hidden"] for t in self.trophies),28)
