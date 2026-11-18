@@ -28,10 +28,15 @@ class PortalTests(unittest.TestCase):
     def test_content_counts_and_links(self):
         self.assertEqual(len(self.trophies),55)
         self.assertEqual(len(self.guides),6)
+        self.hdr=json.loads(Path("data/hdr_oled.json").read_text(encoding="utf-8"))
+        self.assertEqual(len(self.hdr["families"]),8)
+        self.assertEqual(sum(len(f["models"]) for f in self.hdr["families"]),27)
         self.assertEqual(sum(t["hidden"] for t in self.trophies),28)
         homepage=(self.out/"index.html").read_text(encoding="utf-8")
         self.assertIn("Trofei",homepage)
         self.assertIn("Guide e tutorial",homepage)
+        self.assertIn("HDR OLED",homepage)
+        self.assertIn("https://xfederiko11.github.io/gta-6/hdr-oled/",homepage)
         self.assertIn("https://xfederiko11.github.io/gta-6/",homepage)
         self.assertNotIn("federiko-gta-playstation-bot",homepage)
 
@@ -63,10 +68,11 @@ class PortalTests(unittest.TestCase):
         raw=(self.out/"sitemap.xml").read_text(encoding="utf-8")
         root=ET.fromstring(raw)
         locs=[x.text for x in root.iter() if x.tag.endswith("loc")]
-        self.assertEqual(len(locs),4+27+6)
+        self.assertEqual(len(locs),4+27+6+1+len(self.hdr["families"]))
         self.assertEqual(len(locs),len(set(locs)))
         self.assertTrue(all(x.startswith("https://xfederiko11.github.io/gta-6/") for x in locs))
         self.assertTrue((self.out/"trofei"/"medaglie-oro"/"index.html").exists())
+        self.assertIn("https://xfederiko11.github.io/gta-6/hdr-oled/",locs)
 
     def test_spoiler_indexing_before_launch_grace(self):
         # When executed after 21 November, all 55 pages become indexable.
@@ -81,7 +87,9 @@ class PortalTests(unittest.TestCase):
                self.out/"trofei"/"medaglie-oro"/"index.html"]
         pages += [self.out/"trofei"/t["slug"]/"index.html" for t in self.trophies]
         pages += [self.out/"guide-e-tutorial"/g["id"]/"index.html" for g in self.guides]
-        self.assertEqual(len(pages),4+55+6)
+        pages += [self.out/"hdr-oled"/"index.html"]
+        pages += [self.out/"hdr-oled"/f["slug"]/"index.html" for f in self.hdr["families"]]
+        self.assertEqual(len(pages),4+55+6+1+8)
         for page in pages:
             markup=page.read_text(encoding="utf-8")
             self.assertIn('class="page-meta"',markup,str(page))
@@ -114,6 +122,33 @@ class PortalTests(unittest.TestCase):
             site_info.view_badge_url("https://example.com/elsewhere")
         with self.assertRaises(ValueError):
             site_info.view_badge_url("https://xfederiko11.github.io/gta-6.evil.net/")
+
+    def test_hdr_oled_family_pages_models_and_search(self):
+        root=self.out/"hdr-oled"/"index.html"
+        self.assertTrue(root.exists())
+        index=root.read_text(encoding="utf-8")
+        self.assertIn('id="hdr-ricerca"',index)
+        self.assertIn("data-hdr-search=",index)
+        self.assertIn("Game HDR",index)
+        self.assertIn("HGiG",index)
+        self.assertIn("application/ld+json",index)
+        self.assertIn("27",index)
+        for family in self.hdr["families"]:
+            path=self.out/"hdr-oled"/family["slug"]/"index.html"
+            self.assertTrue(path.exists(),family["slug"])
+            page=path.read_text(encoding="utf-8")
+            self.assertIn('rel="canonical"',page)
+            self.assertIn("Regola HDR",page)
+            self.assertIn("https://www.playstation.com/it-it/support/hardware/ps5-enable-adjust-hdr/",page)
+            self.assertIn("Fonti per modello e impostazioni",page)
+            self.assertIn("GTA VI",page)
+            for model in family["models"]:
+                self.assertIn(model["code"],index)
+                self.assertIn(model["code"],page)
+                self.assertIn(str(model["size"])+"″",page)
+            for source in family["sources"]:
+                self.assertIn(source.replace("&","&amp;"),page)
+        self.assertNotIn("1000 nit calibrati per GTA 6",index)
 
     def test_no_external_paid_dependencies(self):
         self.assertFalse((self.out/"node_modules").exists())
