@@ -48,3 +48,19 @@ details{margin:23px 0;border:1px solid #627088;border-radius:14px;padding:16px;b
 .page-meta-social strong{color:#75f1df;white-space:nowrap}
 .footer-social{margin-top:13px}
 @media(max-width:620px){.page-meta{padding:11px 13px}.page-meta-group{gap:6px 15px}.page-meta-social{width:100%;justify-content:center}.page-meta-social span{display:inline}.views-badge{max-width:172px}}
+
+
+/* HDR OLED discovery: responsive family grouping, readable model SKUs and TV settings. */
+.hdr-promo{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(180px,.6fr);gap:20px;align-items:center;border:1px solid #73557b;background:radial-gradient(ellipse at 90% 20%,#3c2756 0,transparent 55%),linear-gradient(120deg,#222040,#152139);padding:clamp(24px,5vw,44px);border-radius:24px;overflow:hidden}
+.hdr-promo h2{max-width:640px}.hdr-promo p{color:#cad3e6;max-width:610px}.hdr-promo-orb{aspect-ratio:1;width:min(100%,210px);justify-self:center;border:2px solid #94e9ee;border-radius:50%;box-shadow:inset 0 0 40px #48eadf15,0 0 40px #7f75f940;display:flex;align-items:center;justify-content:center;flex-direction:column;font:800 clamp(2rem,4vw,3rem)/1 "Space Grotesk",sans-serif;letter-spacing:-.06em;color:#aafcf7;transform:rotate(-9deg)}
+.hdr-promo-orb span{font-size:.45em;letter-spacing:.19em;color:#ffe2b5;margin-top:10px}
+.hdr-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.hdr-family{background:linear-gradient(140deg,#192238,#111827);border:1px solid #45536c;border-radius:18px;padding:23px;min-width:0;transition:transform .15s,border-color .15s}.hdr-family:hover{transform:translateY(-2px);border-color:#84b6c5}.hdr-family[hidden]{display:none!important}
+.hdr-family-head{display:flex;align-items:start;justify-content:space-between;gap:12px}.hdr-family h3 a{color:#effdfa;text-decoration:none}.hdr-family p{font-size:.92rem;color:#c3cddd}.hdr-family-count{white-space:nowrap;border:1px solid #596681;border-radius:30px;color:#d0e9e8;padding:4px 9px;font-size:.73rem;font-weight:700}
+.hdr-models{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0;min-width:0}
+.hdr-code{font:700 .82rem/1.5 ui-monospace,Menlo,Consolas,monospace;color:#b1f8ee;display:inline-flex;align-items:center;gap:7px;border:1px solid #43616f;background:#142b3d;padding:5px 8px;border-radius:7px;white-space:nowrap}
+.hdr-code small{font:700 .83rem/1 "DM Sans",sans-serif;color:#ffdbb2}.hdr-family-link{display:inline-block;margin-top:8px;font-weight:700}
+.hdr-table-scroll{overflow-x:auto;border:1px solid #455369;border-radius:13px;margin:10px 0}
+.hdr-table{width:100%;border-collapse:collapse;font-size:.88rem;white-space:nowrap}.hdr-table th,.hdr-table td{padding:10px 12px;text-align:left;border-bottom:1px solid #36415a}.hdr-table thead{background:#27334c}.hdr-table tbody tr:nth-child(even){background:#141d30}.hdr-table tbody tr:last-child td{border-bottom:none}
+.hdr-steps{counter-reset:hdr-counter;list-style:none!important;padding-left:0!important;margin:20px 0 28px}.hdr-steps li{display:flex;gap:13px;align-items:flex-start;padding:13px 0!important;border-bottom:1px solid #3c4761;margin:0!important}.hdr-steps li:before{counter-increment:hdr-counter;content:counter(hdr-counter);display:inline-grid;place-items:center;flex:none;width:27px;height:27px;border-radius:8px;color:#08252b;background:#85f5e1;font-weight:800;font-size:.85rem}
+.hdr-faq{display:grid;grid-template-columns:1fr 1fr;gap:18px}.hdr-faq h3{color:#b8fbf3}.hdr-faq p{color:#c5cddd}.hdr-faq>h3{margin-top:20px}
+@media(max-width:860px){.hdr-promo{grid-template-columns:1fr}.hdr-promo-orb{display:none}.hdr-list{grid-template-columns:1fr}}@media(max-width:560px){.hdr-family{padding:18px}.hdr-family-head{flex-direction:column}.hdr-code{font-size:.76rem}.hdr-faq{display:block}.hdr-table{font-size:.81rem}.hdr-promo{padding:24px}}
