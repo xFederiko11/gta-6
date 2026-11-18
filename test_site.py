@@ -29,8 +29,8 @@ class PortalTests(unittest.TestCase):
     def test_content_counts_and_links(self):
         self.assertEqual(len(self.trophies),55)
         self.assertEqual(len(self.guides),6)
-        self.assertEqual(len(self.hdr["families"]),8)
-        self.assertEqual(sum(len(f["models"]) for f in self.hdr["families"]),27)
+        self.assertEqual(len(self.hdr["families"]),13)
+        self.assertEqual(sum(len(f["models"]) for f in self.hdr["families"]),50)
         self.assertEqual(sum(t["hidden"] for t in self.trophies),28)
         homepage=(self.out/"index.html").read_text(encoding="utf-8")
         self.assertIn("Trofei",homepage)
@@ -89,7 +89,7 @@ class PortalTests(unittest.TestCase):
         pages += [self.out/"guide-e-tutorial"/g["id"]/"index.html" for g in self.guides]
         pages += [self.out/"hdr-oled"/"index.html"]
         pages += [self.out/"hdr-oled"/f["slug"]/"index.html" for f in self.hdr["families"]]
-        self.assertEqual(len(pages),4+55+6+1+8)
+        self.assertEqual(len(pages),4+55+6+1+len(self.hdr["families"]))
         for page in pages:
             markup=page.read_text(encoding="utf-8")
             self.assertIn('class="page-meta"',markup,str(page))
@@ -132,7 +132,7 @@ class PortalTests(unittest.TestCase):
         self.assertIn("Game HDR",index)
         self.assertIn("HGiG",index)
         self.assertIn("application/ld+json",index)
-        self.assertIn("27",index)
+        self.assertIn("50",index)
         for family in self.hdr["families"]:
             path=self.out/"hdr-oled"/family["slug"]/"index.html"
             self.assertTrue(path.exists(),family["slug"])
