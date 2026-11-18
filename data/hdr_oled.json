@@ -95,8 +95,9 @@
       ],
       "caution": "Il G5 ha caratteristiche di luminanza differenti dal C5 e i tagli possono differire: non trasferire valori in nit o click di regolazione da altri modelli.",
       "sources": [
-        "https://www.lg.com/content/dam/channel/wcms/pl/regulamin/Regulamin_promocji_LG_Wielozakup_Cross_20250701_15.pdf",
-        "https://www.lg.com/us/tvs/lg-oled77g5wua-oled-4k-tv"
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled55g54lw/",
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled97g54lw/",
+        "https://www.lg.com/content/dam/channel/wcms/pl/regulamin/Regulamin_promocji_LG_Wielozakup_Cross_20250701_15.pdf"
       ]
     },
     {
@@ -128,9 +129,8 @@
       ],
       "caution": "Game HDR e i nomi dei menu dipendono da firmware, regione e ingresso. I tagli S90F possono impiegare pannelli differenti: non assegnare un picco comune.",
       "sources": [
-        "https://www.samsung.com/it/support/model.QE55S90FAEXZT/",
-        "https://api.my-samsung.com/UploadImages/terms/TermsConditionsLegal_90883.pdf",
-        "https://eu.community.samsung.com/bgros26334/attachments/bgros26334/uk-tv/90709/1/BN81-24055C-401_EM_OSPDVBEUC_EU_ENG_230720.0.pdf"
+        "https://www.samsung.com/it/support/model/QE55S90FAEXZT/",
+        "https://images.samsung.com/is/content/samsung/assets/it/offer/samsung-promozioni/madeforitaly/PrimaModifica_MadeorItaly4.0_DEF.pdf"
       ]
     },
     {
@@ -166,8 +166,8 @@
       ],
       "caution": "Non assumere che 83 pollici e 55/65/77 condividano pannello e picco luminanza. Non confondere Game HDR (HGiG) con HDR10+ Gaming.",
       "sources": [
-        "https://api.my-samsung.com/UploadImages/terms/TermsConditionsLegal_90883.pdf",
-        "https://www.samsung.com/de/tvs/oled-tv/s95f-55-inch-oled-4k-smart-tv-gq55s95fatxzg/"
+        "https://images.samsung.com/is/content/samsung/assets/it/offer/samsung-promozioni/madeforitaly/PrimaModifica_MadeorItaly4.0_DEF.pdf",
+        "https://images.samsung.com/is/content/samsung/assets/au/tvs/product-specs/55-83_S95F_OLED_4K_TV_Spec_Sheet.pdf"
       ]
     },
     {
@@ -228,8 +228,8 @@
       ],
       "caution": "I modelli XR8M2 non vanno confusi con XR80: generazione/pannello diversi. Non riportare click HDR fissi di altri Sony.",
       "sources": [
-        "https://www.sony.it/electronics/support/mobile-phones-tablets-mobile-phones/xperia-10-ii/articles/00232437",
-        "https://www.playstation.com/it-it/support/hardware/ps5-enable-adjust-hdr/"
+        "https://www.sony.it/bravia/products/bravia-8m2",
+        "https://www.sony.it/electronics/support/televisions-projectors-oled-tvs-android-/k-55xr8m2"
       ]
     },
     {
@@ -271,11 +271,11 @@
       "models": [
         {
           "size": 55,
-          "code": "TV-55Z95A"
+          "code": "TV-55Z95AEG"
         },
         {
           "size": 65,
-          "code": "TV-65Z95A"
+          "code": "TV-65Z95AEG"
         }
       ],
       "settings": [
@@ -286,8 +286,9 @@
       ],
       "caution": "La posizione e disponibilità dei menu dipendono da mercato/firmware. I codici sono documentati dal supporto Panasonic: controlla la sigla del TV europeo prima di applicare i passaggi.",
       "sources": [
-        "https://av.jpn.support.panasonic.com/support/tv/firetv/",
-        "https://news.panasonic.com/jp/press/jn240508-1"
+        "https://www.panasonic.com/it/consumer/televisori/tv-oled-4k-ultra-hd/tv-55z95aeg.html",
+        "https://www.panasonic.com/it/consumer/televisori/tv-oled-4k-ultra-hd/tv-65z95aeg.html",
+        "https://av.jpn.support.panasonic.com/support/global/cs/tv/download/fw/eu_2024/europe.html"
       ]
     }
   ]
