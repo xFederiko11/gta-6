@@ -35,6 +35,37 @@ def _hdr_values(preset):
         + '</div>')
 
 
+def _copy_panel(preset, *, is_report=False):
+    """Copy only the rendered three GTA VI fields, with provenance in sight."""
+    raw=" · ".join(str(preset[key]) for key in
+                 ("max_brightness","black_levels","paper_white"))
+    warning=("Testimonianza community: non è un preset misurato per ogni diagonale."
+             if is_report else
+             "Valori di partenza del gioco: NON sono calibrati per il tuo pannello.")
+    return (
+        '<div class="hdr-copy-panel">'
+        '<p class="micro">🧪 '+e(warning)+'</p>'
+        f'<button type="button" class="hdr-copy-button" data-hdr-copy="{e(raw)}">'
+        '📋 Copia i tre valori</button>'
+        '<span data-hdr-feedback role="status" aria-live="polite">'
+        'Copiali solo dopo aver letto la nota di verifica.</span></div>'
+    )
+
+
+def _tv_art():
+    """Decorative CSS illustration, explicitly not a Rockstar/TV screenshot."""
+    return (
+        '<div class="hdr-art" role="img" '
+        'aria-label="Illustrazione grafica originale di una TV OLED, non schermata di GTA VI">'
+        '<div class="hdr-art-screen"><div class="hdr-art-sky"></div>'
+        '<div class="hdr-art-horizon"></div><div class="hdr-art-night"></div>'
+        '<div class="hdr-art-overlay">'
+        '<span>HDR</span><span class="hdr-art-gauge"><i></i></span>'
+        '<span class="hdr-art-gauge"><i></i></span>'
+        '</div></div><div class="hdr-art-stand"></div></div>'
+    )
+
+
 def render(write, layout, schema_article, url, crumbs):
     """Write searchable group index and one detail page per panel family.
 
@@ -67,6 +98,7 @@ def render(write, layout, schema_article, url, crumbs):
         + f'<span><b>{len(groups)}</b> produttori</span></div></section>'
         + '<div class="guide-hero-actions"><a class="button" href="#trova-tv">🔎 Trova la tua TV</a>'
         '<a class="button secondary" href="#valori-gioco">🎮 Valori nel gioco</a></div>'
+        + _tv_art()
         + '<div class="info">🧪 <strong>Come leggere i numeri:</strong> i valori di GTA VI '
         + 'pubblicati dalla community sono prove individuali, non misure certificate. '
         + 'Per le altre TV mostriamo i valori iniziali del gioco, da calibrare, senza '
@@ -139,6 +171,7 @@ def render(write, layout, schema_article, url, crumbs):
             '<article class="hdr-family">'
             f'<span class="card-label">{e(family["brand"])} · {e(family["series"])}</span>'
             + _hdr_values(preset)
+            + _copy_panel(preset,is_report=True)
             + f'<p>⚠️ {e(preset["note"])}</p>'
             + f'<a class="hdr-family-link" href="{address}">Valori e calibrazione nel gioco →</a>'
             + '</article>')
@@ -154,6 +187,7 @@ def render(write, layout, schema_article, url, crumbs):
         'Nessuna delle tre configurazioni è una calibrazione strumentale certificata.</p>'
         + '<h3>E se la tua TV non compare tra i preset numerici?</h3>'
         + _hdr_values(defaults)
+        + _copy_panel(defaults)
         + '<p>600 / 50 / 50 sono i valori di partenza osservati nel gioco, '
         'non una raccomandazione calibrata per tutti gli OLED. Imposta il massimo '
         'seguendo il logo che scompare; controlla che i neri non perdano dettaglio '
@@ -171,6 +205,7 @@ def render(write, layout, schema_article, url, crumbs):
             + '<h2>Configurazione HDR di base su PS5 e PS5 Pro</h2>' + steps
             + f'<p class="source">Procedura PlayStation: <a href="{e(catalog["ps5_source"])}" '
             'target="_blank" rel="noopener noreferrer">supporto ufficiale Sony (HDR PS5)</a>.</p>'
+            + f'<script src="{url("assets/hdr-interactions.js")}" defer></script>'
             + '</section><section class="section"><h2>Domande frequenti</h2>'
             + '<div class="hdr-faq"><h3>Esiste un valore unico di luminosità HDR per ogni OLED?</h3>'
             + '<p>No. Dimensione, pannello, firmware, tone mapping e luce ambiente possono '
@@ -216,6 +251,7 @@ def render(write, layout, schema_article, url, crumbs):
             'Calibrazione HDR (HDR Calibration). Premi R1 per cambiare il test, '
             'Triangolo per nascondere le voci.</p>'
             + _hdr_values(shown)
+            + _copy_panel(shown,is_report=bool(preset))
             + f'<p class="micro">{status}</p><p>{game_note}</p>'
             + f'<p class="source">Fonte: <a href="{e(game_hdr["source_community"] if preset else game_hdr["source_menu"])}" '
             'target="_blank" rel="noopener noreferrer">valori e menu di GTA VI</a>.</p>')
@@ -232,7 +268,8 @@ def render(write, layout, schema_article, url, crumbs):
             f'<h1>GTA 6 HDR su {e(family["series"])}: '
             '<span class="highlight">impostazioni OLED</span></h1>'
             f'<p class="lead">{e(family["summary"])}</p>'
-            f'<div class="statline"><span>📺 <b>{len(family["models"])}</b> modelli</span>'
+            + _tv_art()
+            + f'<div class="statline"><span>📺 <b>{len(family["models"])}</b> modelli</span>'
             f'<span>{e(family["group"])}</span><span>🎮 PS5 + PS5 Pro</span></div>'
             '<div class="guide-hero-actions"><a class="button" href="#valori-hdr">🎮 Valori GTA VI</a>'
             '<a class="button secondary" href="#modelli-tv">📺 Codici compatibili</a></div></section>'
@@ -261,6 +298,7 @@ def render(write, layout, schema_article, url, crumbs):
             f'<a href="{url("guide-e-tutorial/")}">⚡ Altre guide</a>'
             f'<a href="{url("trofei/")}">🏆 Trofei e platino</a>'
             f'<p class="micro">Codici trattati:<br>{e(model_list)}</p></aside></div>'
+            + f'<script src="{url("assets/hdr-interactions.js")}" defer></script>'
             + ('<section class="section discover-more"><div class="section-head"><div>'
                '<span class="eyebrow">STESSO PRODUTTORE · ALTRE FAMIGLIE</span>'
                '<h2>Confronta altri OLED</h2></div></div>'
