@@ -21,6 +21,7 @@ from sources_page import render as render_sources_page
 from community_page import render as render_community_page
 from related_research import for_guide as new_related_research, for_catalog as new_catalog_research
 from trophy_experience import ornament, related_trophies, shootist_content, SHOOTING_SOURCE, video_panel
+from social_preview import render as render_social_preview
 
 BASE = "https://xfederiko11.github.io/gta-6"
 OUT = Path(os.getenv("SITE_OUT", "_site"))
@@ -67,9 +68,13 @@ def news_meta(title, desc, canonical, img=None, kind="website", robots="index,fo
     ]
     if modified:
         out.append(f'<meta property="article:modified_time" content="{e(modified)}">')
-    if img:
-        out.extend([f'<meta property="og:image" content="{e(img)}">',
-                    f'<meta name="twitter:image" content="{e(img)}">'])
+    card=img or url("assets/social-preview.png")
+    out.extend([f'<meta property="og:image" content="{e(card)}">',
+                f'<meta name="twitter:image" content="{e(card)}">'])
+    if not img:
+        out.extend(['<meta property="og:image:width" content="1200">',
+                    '<meta property="og:image:height" content="630">',
+                    '<meta property="og:image:alt" content="GTA 6 Italia: trofei, guide e HDR OLED per PS5">'])
     if payload:
         out.append('<script type="application/ld+json">' + payload + '</script>')
     return "\n".join(out)
@@ -469,6 +474,7 @@ def main():
     assert all(g["source_url"].startswith("https://www.powerpyx.com/") for g in guides)
     OUT.mkdir(parents=True,exist_ok=True)
     shutil.copytree(SITE/"assets",OUT/"assets",dirs_exist_ok=True)
+    render_social_preview(OUT/"assets"/"social-preview.png")
     write(".nojekyll","")
     home_title="GTA 6 Italia: guide, tutorial e trofei PS5 | Grand Theft Auto VI"
     home_desc="GTA 6 in italiano: guide, tutorial, trofei PS5, platino, collezionabili, trucchi e consigli rapidi per Grand Theft Auto VI."

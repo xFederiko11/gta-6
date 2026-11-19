@@ -27,7 +27,7 @@ MONTHS = (
 
 def sources_for(path: str) -> tuple[str, ...]:
     """Identify source files that can change the rendered page."""
-    shared = ("build_site.py", "site_info.py", "site/assets/style.css")
+    shared = ("build_site.py", "site_info.py", "site/assets/style.css", "social_preview.py")
     if path.startswith("trofei/"):
         return shared + ("data/trofei.json", "data/guide.json", "trophy_experience.py", "site/assets/trophy-experience.js")
     if path.startswith("guide-e-tutorial/"):

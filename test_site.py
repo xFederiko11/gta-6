@@ -201,6 +201,24 @@ class PortalTests(unittest.TestCase):
         self.assertIn("https%3A%2F%2Fxfederiko11.github.io%2Fgta-6%2F",first)
         self.assertIn("https%3A%2F%2Fxfederiko11.github.io%2Fgta-6%2Ftrofei%2F",second)
 
+    def test_homepage_social_preview_is_original_and_accessible(self):
+        import struct
+        image=self.out/"assets"/"social-preview.png"
+        raw=image.read_bytes()
+        self.assertEqual(raw[:8].hex(),"89504e470d0a1a0a")
+        self.assertEqual(struct.unpack("!II",raw[16:24]),(1200,630))
+        self.assertGreater(len(raw),20000)
+        homepage=(self.out/"index.html").read_text(encoding="utf-8")
+        self.assertIn('property="og:image" content="https://xfederiko11.github.io/gta-6/assets/social-preview.png"',homepage)
+        self.assertIn('name="twitter:image" content="https://xfederiko11.github.io/gta-6/assets/social-preview.png"',homepage)
+        self.assertIn('property="og:image:width" content="1200"',homepage)
+        self.assertIn('property="og:image:height" content="630"',homepage)
+        self.assertIn('property="og:image:alt"',homepage)
+        self.assertIn('name="twitter:card" content="summary_large_image"',homepage)
+        source=Path("social_preview.py").read_text(encoding="utf-8")
+        self.assertIn("No copied Rockstar art",source)
+        self.assertNotIn("requests.",source)
+
     def test_privacy_and_no_signup_visit_counter(self):
         page=(self.out/"privacy"/"index.html").read_text(encoding="utf-8")
         self.assertIn("privacy e contatore visite",page.lower())

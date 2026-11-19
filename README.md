@@ -193,3 +193,10 @@ Le interazioni sono statiche e gratuite: `site/assets/hdr-interactions.js` e `si
 Ogni pagina conserva il badge preesistente `hitscounter.dev` con conteggio per URL canonico. Il servizio è esterno ma **non richiede un account**; il conteggio si riferisce alle richieste al badge, non a utenti unici o a sessioni verificabili. Il sito non include più GoatCounter, configurazioni, SDK o script di analytics opzionali. Tutte le pagine rimangono pubblicate su GitHub Pages senza server, servizi a pagamento o accessi manuali.
 
 La pagina [Privacy e visite](https://xfederiko11.github.io/gta-6/privacy/) spiega come interpretare i contatori e il funzionamento del badge. **Non è possibile ricavare da un badge statico il tasso di conversione dei link o visite uniche attendibili**: non verranno inventati.
+
+
+## Anteprime social originali, senza servizi o licenze esterne
+
+La homepage (e le pagine senza una fotografia specifica) ora dichiara `og:image` e `twitter:image` a un file PNG 1200 × 630 ospitato nel sito. Il file `assets/social-preview.png` è generato durante ogni build da `social_preview.py`, con **solo Python standard library**, e presenta una grafica originale pixel-style con nome GTA 6 Italia, PS5, trofei, guide e HDR OLED: nessuna immagine o logo Rockstar copiato, nessuna API di generazione, nessun account.
+
+Questo può migliorare le anteprime dei **nuovi** link condivisi su X e altri social; non dimostra che il riquadro grigio nel post fissato fosse dovuto a un errore Open Graph. I social possono conservare cache e miniature per ore o giorni, o bloccare alcuni URL: non è garantito l'aggiornamento dei post esistenti. La modifica non cambia il testo o la pubblicazione del post fissato su X.
