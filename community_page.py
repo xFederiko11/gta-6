@@ -9,7 +9,9 @@ from datetime import datetime
 from html import escape
 import json
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, parse_qs
+import re
+from collections import Counter
 
 DATA = Path("data/community_feed.json")
 PATH = "scoperte/"
@@ -56,60 +58,134 @@ def validate(report: dict) -> list[dict]:
     return valid
 
 
+def _video_id(item):
+    """Only direct watch links belonging to the already-vetted GTA Series source."""
+    if item["source"] != "GTA Series Videos":
+        return None
+    parsed=urlsplit(item["url"])
+    if parsed.path!="/watch":
+        return None
+    ids=parse_qs(parsed.query).get("v",[])
+    value=ids[0] if len(ids)==1 else ""
+    return value if re.fullmatch(r"[A-Za-z0-9_-]{11}",value) else None
+
+
 def render(write, layout, url, crumbs):
     data = json.loads(DATA.read_text(encoding="utf-8"))
     entries = validate(data)
     title = "GTA 6: scoperte community, rumor e nuove guide PS5 | Fonti"
-    desc = ("Ultime guide e segnalazioni su GTA VI da PowerPyx, GTA Series Videos e GTABase, "
-            "con fonti, date ed etichette di affidabilità. Rumor non confermati.")
-    blocks = []
+    desc = ("Ultime guide e segnalazioni GTA VI di PowerPyx, GTABase, GTA Wiki e GTA Series Videos. "
+            "Filtra per fonte e affidabilità: date e link originali, rumor non verificati.")
+    source_counts=Counter(item["source"] for item in entries)
+    status_counts=Counter(item["status"] for item in entries)
+    cards=[]
     for item in entries:
-        source, label = item["source"], item["status"]
-        blocks.append(
-            '<article class="index-item">'
-            f'<span class="card-label">{e(label)} · {e(source)}</span>'
-            f'<h3>{e(item["title"])}</h3>'
-            f'<p class="micro">Fonte pubblicata: '
-            f'<time datetime="{e(item["published_utc"])}">{e(item["published_utc"][:10])}</time>'
-            ' · Stato: titolo rilevato, contenuto e dettagli ancora da verificare.</p>'
-            f'<p><a href="{e(item["url"])}" rel="noopener noreferrer" target="_blank">'
-            'Apri la fonte originale →</a></p></article>'
+        source,label=item["source"],item["status"]
+        kind=("video" if source=="GTA Series Videos"
+              else "wiki" if "Wiki" in source else "guide")
+        video=_video_id(item)
+        icon={"video":"▶","wiki":"📖","guide":"🔎"}[kind]
+        media=(
+            '<div class="community-video-slot" data-community-video-slot>'
+            f'<button class="community-video-play" data-community-video-id="{e(video)}" '
+            'type="button" aria-label="Riproduci il video della fonte originale su YouTube">'
+            '<span aria-hidden="true">▶</span>'
+            '<strong>Riproduci video originale</strong><small>YouTube si carica soltanto dopo il clic</small>'
+            '</button></div>' if video else
+            '<div class="community-card-art" aria-hidden="true">'
+            f'<span>{icon}</span><small>RICERCA GTA VI · PS5</small></div>'
         )
-    if not blocks:
-        blocks = ['<p>Il monitor non ha ancora registrato nuovi titoli pubblicabili '
-                  'in questa sezione. Le guide verificate rimangono disponibili nelle altre pagine.</p>']
-    stamp = data.get("generated_utc")
-    scan = (f'<p class="micro">Ultima scansione delle fonti: '
-            f'<time datetime="{e(stamp)}">{e(stamp[:16].replace("T"," "))} UTC</time></p>'
-            if isinstance(stamp,str) and stamp else
-            '<p class="micro">Prima scansione pubblica non ancora disponibile.</p>')
-    page = (
-        crumbs([("Scoperte community", PATH)])
-        + '<section class="page-intro"><span class="eyebrow">🔎 GTA VI · MONITOR AUTOMATICO</span>'
-        + '<h1>GTA 6: <span class="highlight">scoperte della community</span></h1>'
-        + '<p class="lead">Seguiamo nuove guide, rumor, datamining e segnalazioni '
-        'su GTA VI per PS5/PS5 Pro. Le etichette indicano la provenienza, '
-        'non una conferma del contenuto.</p></section>'
-        + '<div class="info warn"><strong>⚠️ Non sono notizie confermate:</strong> '
-        'il bot raccoglie titoli e collegamenti da feed pubblici, senza leggere e '
-        'certificare ogni articolo o video. Una voce non è un annuncio Rockstar '
-        'e nessun glitch è considerato sicuro per i trofei senza prove.</div>'
-        + '<section class="section"><h2>Ultime segnalazioni raccolte</h2>'
-        + scan + '<div class="index-list">' + "".join(blocks) + '</div></section>'
-        + '<section class="section prose"><h2>Come leggere le etichette</h2>'
-        + '<p>🔵 <strong>Guida indipendente:</strong> pubblicata da uno specialista, '
-        'da confrontare con la versione del gioco. 🟡 <strong>Community:</strong> '
-        'segnalazione non ancora confermata. 🟣 <strong>Datamining:</strong> '
-        'indizi ricavati da file, senza garanzia di rilascio. 🟠 <strong>Rumor:</strong> '
-        'informazione non verificata.</p>'
-        + '<p>La fonte è sempre indicata; gli articoli originali rimangono presso '
-        'i rispettivi autori. Per istruzioni verificate, consulta '
-        f'<a href="{url("guide-e-tutorial/")}">le guide PS5</a>, '
-        f'<a href="{url("trucchi/")}">i trucchi</a> e '
-        f'<a href="{url("fonti/")}">la nostra politica sulle fonti</a>.</p>'
-        + '</section>'
+        searchable=(item["title"]+" "+source+" "+label).casefold()
+        cards.append(
+            f'<article class="community-card" data-community-source="{e(source)}" '
+            f'data-community-status="{e(label)}" data-community-search="{e(searchable)}">'
+            + media +
+            '<div class="community-card-copy">'
+            f'<div class="community-card-label"><span>{e(label)}</span>'
+            f'<span class="community-card-source">{e(source)}</span></div>'
+            f'<h3>{e(item["title"])}</h3>'
+            f'<p class="micro">Pubblicato il <time datetime="{e(item["published_utc"])}">'
+            f'{e(item["published_utc"][:10])}</time> · Titolo rilevato, contenuto non verificato.</p>'
+            f'<a class="community-card-link" href="{e(item["url"])}" rel="noopener noreferrer" '
+            'target="_blank">Apri la fonte originale ↗</a></div></article>'
+        )
+    source_filters="".join(
+        f'<button type="button" data-community-filter-source="{e(name)}" aria-pressed="false">'
+        f'{e(name)} · {count}</button>' for name,count in sorted(source_counts.items())
+    )
+    status_filters="".join(
+        f'<button type="button" data-community-filter-status="{e(name)}" aria-pressed="false">'
+        f'{e(name)} · {count}</button>' for name,count in sorted(status_counts.items())
+    )
+    stamps=data.get("generated_utc")
+    scan=(f'<p class="micro">Ultima scansione: <time datetime="{e(stamps)}">'
+          f'{e(stamps[:16].replace("T"," "))} UTC</time></p>'
+          if isinstance(stamps,str) and stamps else
+          '<p class="micro">Prima scansione pubblica non ancora disponibile.</p>')
+    cards_html="".join(cards) if cards else (
+        '<div class="community-empty"><strong>Ancora nessuna segnalazione disponibile</strong>'
+        '<p>Il monitor non ha trovato titoli pubblicabili in questa scansione. '
+        'Le guide già documentate restano consultabili.</p></div>')
+    find=(
+        '<div class="community-find">'
+        '<label for="community-search">Cerca tra le segnalazioni</label>'
+        '<input class="search" type="search" id="community-search" '
+        'placeholder="Es. trofei, veicoli, PowerPyx" autocomplete="off">'
+        '<div class="community-filter-group"><span>Fonte</span>'
+        '<div class="filters community-filters" role="group" aria-label="Filtra per fonte">'
+        '<button type="button" data-community-filter-source="all" aria-pressed="true">Tutte</button>'
+        +source_filters+'</div></div>'
+        '<div class="community-filter-group"><span>Classificazione</span>'
+        '<div class="filters community-filters" role="group" aria-label="Filtra per classificazione">'
+        '<button type="button" data-community-filter-status="all" aria-pressed="true">Tutte</button>'
+        +status_filters+'</div></div>'
+        f'<p class="count" id="community-result-count" role="status" aria-live="polite">'
+        f'{len(entries)} segnalazioni trovate</p></div>'
+    )
+    page=(
+        crumbs([("Scoperte community",PATH)])
+        + '<section class="page-intro community-intro">'
+        '<span class="eyebrow">🔎 GTA VI · MONITOR AUTOMATICO</span>'
+        '<h1>GTA 6: <span class="highlight">scoperte della community</span></h1>'
+        '<p class="lead">Video, guide e segnalazioni in un unico posto. Cerca una fonte, '
+        'apri il contenuto originale e distingui i fatti dalle ipotesi.</p>'
+        f'<div class="statline"><span>🔎 <b>{len(entries)}</b> titoli rilevati</span>'
+        f'<span>📚 <b>{len(source_counts)}</b> fonti attive nel feed</span>'
+        '<span>⚠️ 0 affermazioni verificate dal solo feed</span></div>'
+        '</section>'
+        '<div class="info warn"><strong>⚠️ Sono piste di ricerca, non notizie confermate:</strong> '
+        'il bot legge titoli e URL pubblici e non certifica il contenuto. '
+        'Video, wiki e rumor non costituiscono prove di compatibilità con patch o trofei. '
+        'L’etichetta descrive la fonte, non garantisce che il metodo funzioni.</div>'
+        '<section class="section" id="ultime-scoperte">'
+        '<div class="section-head"><div><span class="eyebrow">FEED AUTOMATICO</span>'
+        '<h2>Nuove piste da esplorare</h2></div></div>'+scan+find
+        +'<div class="community-grid" data-community-grid>'+cards_html+'</div>'
+        '<p class="community-no-match" data-community-empty hidden>'
+        'Nessuna segnalazione corrisponde ai filtri: prova Tutte.</p>'
+        f'<script src="{url("assets/community-interactions.js")}" defer></script></section>'
+        '<section class="section discover-more"><div class="section-head"><div>'
+        '<span class="eyebrow">CONTINUA LA RICERCA</span>'
+        '<h2>Guide da approfondire</h2></div></div><div class="discovery-rail">'
+        f'<a class="discovery-card" href="{url("guide-e-tutorial/")}">'
+        '<span class="discovery-label">⚡ PASSAGGI OPERATIVI</span>'
+        '<strong>Guide GTA VI per PS5</strong><span>Apri i tutorial →</span></a>'
+        f'<a class="discovery-card" href="{url("trofei/")}">'
+        '<span class="discovery-label">🏆 PERCORSO PLATINO</span>'
+        '<strong>Trofei e checklist</strong><span>Esplora i requisiti →</span></a>'
+        f'<a class="discovery-card" href="{url("hdr-oled/")}">'
+        '<span class="discovery-label">📺 SETUP DI GIOCO</span>'
+        '<strong>HDR su TV OLED</strong><span>Trova il modello →</span></a></div></section>'
+        '<section class="section prose"><h2>Come leggere le etichette</h2>'
+        '<p>🔵 <strong>Guida indipendente:</strong> contenuto pubblicato da un sito specializzato, '
+        'non necessariamente verificato per l’ultima patch. 🟡 <strong>Community:</strong> '
+        'segnalazione ancora da controllare. 🟣 <strong>Datamining:</strong> indizi dai file '
+        'che potrebbero non essere rilasciati. 🟠 <strong>Rumor:</strong> informazioni incerte.</p>'
+        f'<p>Consulta <a href="{url("fonti/")}">la nostra metodologia sulle fonti</a>: '
+        'nessuna voce community diventa una guida trophy-safe senza verifica specifica.</p></section>'
     )
     structured={"@context":"https://schema.org","@type":"CollectionPage",
-                "name":title,"description":desc,"url":url(PATH),"inLanguage":"it-IT"}
+                "name":title,"description":desc,"url":url(PATH),"inLanguage":"it-IT",
+                "numberOfItems":len(entries)}
     write(PATH+"index.html",layout(title,desc,PATH,page,"community",structured=structured))
     return PATH
