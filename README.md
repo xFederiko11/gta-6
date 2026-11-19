@@ -140,3 +140,13 @@ Per ridurre questo rischio il workflow `.github/workflows/gta6-schedule-keepaliv
 ## GTA Wiki: rilevamento sperimentale delle modifiche
 
 Il sito riconosce anche `GTA Wiki (independent)` (dominio `gta.wiki`) come fonte community **non ufficiale**. Il bot tenta di raccogliere i titoli delle modifiche recenti mediante l'interfaccia pubblica MediaWiki Atom; l'accessibilità reale viene misurata e registrata a ogni scansione. Le revisioni di una wiki NON sono conferme dei contenuti: sul sito appaiono soltanto come `🟡 SEGNALAZIONE` con link originale, data e avvertenze sui trofei. `gta.fandom.com` e GTAForums restano nel percorso di ricerca manuale finché non sarà confermato un accesso affidabile. Nessuna riscrittura automatica delle guide o dei codici deriva da una modifica wiki.
+
+
+## Restyling operativo delle schede (19 novembre 2026)
+
+- **Tutte le 55 schede dei trofei:** nuovo hero illustrato in SVG originale, requisito immediato senza ripetizioni, pulsante «Segna trofeo ottenuto» salvato localmente nel solo browser, fonti espandibili e rail di tre trofei pertinenti. Non comunica con PSN e non simula sblocchi veri.
+- **Trofeo Cecchino (#17):** procedura in 3 azioni, checklist interattiva di **42 medaglie Oro** distribuite su 12 percorsi/2 poligoni, nome e livello di difficoltà per ciascuna casella. Dati dalla [guida PowerPyx ai poligoni](https://www.powerpyx.com/gta-6-all-shooting-range-gold-medal-challenges/). Il giocatore spunta manualmente le medaglie, la progressione è conservata tramite `localStorage` se consentito. Nessuna lettura di salvataggi PS5 o sincronizzazione tra dispositivi.
+- **Video:** anteprima ufficiale Rockstar [GTA VI: An Extended Look](https://www.youtube.com/watch?v=tJbzMqJGH4k&t=1112s), incorporata tramite `youtube-nocookie.com` solo dopo un clic. Il segmento del poligono intorno a 18:32 è una dimostrazione visiva e **non** un tutorial per tutte le 42 medaglie. La miniatura è caricata da YouTube; nessun video copiato o ospitato sul nostro server.
+- **Sei guide pratiche:** immagini promozionali già referenziate dal sito, ora visibili prima dei passaggi; risposta rapida, istruzioni, avvertenze, fonte e schede «La prossima guida». Le immagini restano proprietà dei titolari, non sono estratte da PowerPyx e non vengono presentate come schermate delle procedure.
+- **Mobile:** navigazione superiore compatta con scorrimento orizzontale, contenitori senza overflow e card correlate a carosello CSS con scroll-snap. Nessun framework o nuovo servizio a pagamento.
+- **SEO:** URL/canonical esistenti preservati, JSON-LD Article, metadati e data di modifica reali invariati. I test automatici verificano markup per 55 trofei, 6 guide, 42 caselle, sorgente del video e interazioni senza telemetria.
