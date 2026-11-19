@@ -30,6 +30,19 @@ TODAY = datetime.now(timezone.utc)
 TROPHY_SOURCE = "https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/"
 LIST_SOURCE = "https://www.planetgta6.com/it/trofei-gta-6/"
 
+def analytics_scripts():
+    """Opt-in GoatCounter: no tracking request when the site code is absent."""
+    code=os.getenv("GOATCOUNTER_CODE","").strip()
+    if not code:
+        return ""
+    if not re.fullmatch(r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?",code):
+        raise ValueError("GOATCOUNTER_CODE must be a valid GoatCounter site subdomain")
+    return (
+        f'<script data-goatcounter="https://{code}.goatcounter.com/count" '
+        'async src="https://gc.zgo.at/count.js"></script>'
+        f'<script defer src="{url("assets/site-analytics.js")}"></script>'
+    )
+
 def e(x): return html.escape(str(x if x is not None else ""), quote=True)
 def write(path, body):
     p = OUT/path
@@ -110,7 +123,7 @@ def layout(title, desc, path, body, section=None, image=None, robots="index,foll
        'Contenuti da verificare rispetto alle patch: non affiliato a Rockstar, Sony o PowerPyx.</p></div>'
        f'<div><a href="{url("trofei/")}">Trofei</a> · <a href="{url("guide-e-tutorial/")}">Guide e tutorial</a> · <a href="{url("hdr-oled/")}">HDR OLED</a> · <a href="{url("trucchi/")}">Trucchi PS5</a> · <a href="{url("fonti/")}">Fonti e metodo</a> · <a href="{url("scoperte/")}">Scoperte community</a>'
        f'<p class="footer-social"><a href="{SOCIAL_URL}" rel="me noopener noreferrer" target="_blank">𝕏 Aggiornamenti su {SOCIAL_HANDLE} ↗</a></p></div>'
-       '</div></footer></body></html>')
+       '</div></footer>'+analytics_scripts()+'</body></html>')
 
 def crumbs(parts):
     b=[f'<a href="{url()}">GTA 6 Italia</a>']
