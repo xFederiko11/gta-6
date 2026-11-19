@@ -29,8 +29,8 @@ class PortalTests(unittest.TestCase):
     def test_content_counts_and_links(self):
         self.assertEqual(len(self.trophies),55)
         self.assertEqual(len(self.guides),6)
-        self.assertEqual(len(self.hdr["families"]),13)
-        self.assertEqual(sum(len(f["models"]) for f in self.hdr["families"]),50)
+        self.assertEqual(len(self.hdr["families"]),20)
+        self.assertEqual(sum(len(f["models"]) for f in self.hdr["families"]),86)
         self.assertEqual(sum(t["hidden"] for t in self.trophies),28)
         homepage=(self.out/"index.html").read_text(encoding="utf-8")
         self.assertIn("Trofei",homepage)
@@ -133,10 +133,13 @@ class PortalTests(unittest.TestCase):
         self.assertIn('data-hdr-brand-filter="all"',index)
         self.assertEqual(index.count('data-hdr-brand-filter='),6)
         self.assertIn("Nessun modello trovato",index)
+        self.assertIn("OLED55C44LA",index)
+        self.assertIn("OLED65C47LA",index)
+        self.assertIn("QE77S90DAEXZT",index)
         self.assertIn("Game HDR",index)
         self.assertIn("HGiG",index)
         self.assertIn("application/ld+json",index)
-        self.assertIn("50",index)
+        self.assertIn("86",index)
         for family in self.hdr["families"]:
             path=self.out/"hdr-oled"/family["slug"]/"index.html"
             self.assertTrue(path.exists(),family["slug"])
@@ -154,6 +157,10 @@ class PortalTests(unittest.TestCase):
                 self.assertIn(source.replace("&","&amp;"),page)
             if family["brand"] == "LG":
                 self.assertIn("Compensazione mappatura toni",page)
+        c4=(self.out/"hdr-oled"/"lg-oled-c4"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("Brightness Booster",c4)
+        self.assertIn("OLED55C43LA",c4)
+        self.assertIn("Compensazione mappatura toni",c4)
         self.assertNotIn("1000 nit calibrati per GTA 6",index)
 
     def test_no_external_paid_dependencies(self):
