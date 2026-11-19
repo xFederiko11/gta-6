@@ -41,7 +41,7 @@ def sources_for(path: str) -> tuple[str, ...]:
     if path.startswith("fonti/"):
         return shared + ("sources_page.py", "data/fonti_editoriali.json", "data/trucchi.json")
     if path.startswith("privacy/"):
-        return shared + ("site/assets/site-analytics.js",)
+        return shared + ("site_info.py",)
     if path.startswith("scoperte/"):
         return shared + ("community_page.py", "data/community_feed.json", "site/assets/community-interactions.js")
     # Home links to every main section, including the OLED model finder.

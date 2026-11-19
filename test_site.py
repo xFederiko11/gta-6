@@ -201,21 +201,21 @@ class PortalTests(unittest.TestCase):
         self.assertIn("https%3A%2F%2Fxfederiko11.github.io%2Fgta-6%2F",first)
         self.assertIn("https%3A%2F%2Fxfederiko11.github.io%2Fgta-6%2Ftrofei%2F",second)
 
-    def test_privacy_page_and_analytics_default_off(self):
+    def test_privacy_and_no_signup_visit_counter(self):
         page=(self.out/"privacy"/"index.html").read_text(encoding="utf-8")
-        self.assertIn("Privacy e statistiche",page)
-        self.assertIn("Misurazione aggregata non attiva",page)
+        self.assertIn("privacy e contatore visite",page.lower())
+        self.assertIn("senza account analytics",page)
         self.assertIn("hitscounter.dev",page)
-        self.assertIn("Global Privacy Control",page)
-        self.assertIn("local",page)
+        self.assertIn("non i visitatori unici",page)
         self.assertIn('rel="canonical"',page)
         self.assertIn("https://xfederiko11.github.io/gta-6/privacy/",page)
-        self.assertIn("goatcounter.com/help/gdpr",page)
-        index=(self.out/"index.html").read_text(encoding="utf-8")
-        self.assertIn('Privacy e statistiche</a>',index)
-        self.assertNotIn('data-analytics-endpoint=',index)
-        self.assertNotIn('gc.zgo.at/count.js',index)
-        self.assertTrue((self.out/"assets"/"site-analytics.js").exists())
+        home=(self.out/"index.html").read_text(encoding="utf-8")
+        self.assertIn("hitscounter.dev/api/hit?url=",home)
+        self.assertIn("Privacy e visite</a>",home)
+        for markup in (home,page):
+            self.assertNotIn("goatcounter.com",markup.lower())
+            self.assertNotIn("site-analytics.js",markup)
+            self.assertNotIn("data-analytics-endpoint",markup)
         sitemap=(self.out/"sitemap.xml").read_text(encoding="utf-8")
         self.assertIn("https://xfederiko11.github.io/gta-6/privacy/",sitemap)
 
