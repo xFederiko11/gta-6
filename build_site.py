@@ -19,6 +19,7 @@ from cheats_catalog import render as render_cheat_pages
 from sources_page import render as render_sources_page
 from community_page import render as render_community_page
 from related_research import for_guide as new_related_research, for_catalog as new_catalog_research
+from trophy_experience import ornament, related_trophies, shootist_content, SHOOTING_SOURCE
 
 BASE = "https://xfederiko11.github.io/gta-6"
 OUT = Path(os.getenv("SITE_OUT", "_site"))
@@ -216,29 +217,76 @@ def trophy_index(trophies):
     sources=f'<div class="source">Fonti: <a href="{e(TROPHY_SOURCE)}" rel="noopener noreferrer">PowerPyx – Trophy Roadmap</a> e <a href="{e(LIST_SOURCE)}" rel="noopener noreferrer">elenco italiano</a>. Le indicazioni possono cambiare con le patch.</div>'
     return lead+cards+secrets+sources
 
-def trophy_detail(t, guides):
+def trophy_detail(t, guides, trophies):
     path=trophy_path(t)
     intro=crumbs([("Trofei","trofei/"),(t["name_it"],path)])
     medal={"Oro":"🥇","Argento":"🥈","Bronzo":"🥉","Platino":"💎"}[t["tier"]]
-    disclosure='<p class="info warn">⚠️ Questo trofeo è nascosto e può anticipare eventi della storia.</p>' if t["hidden"] else ""
-    tips=f'<h2>💡 Consiglio per il platino</h2><p>{e(t["tip_it"])}</p>' if t.get("tip_it") else ""
-    matched=[g for g in guides if g.get("related_trophy")==t["number"]]
-    related="".join(f'<a href="{url(guide_path(g))}">🎮 {e(g["title"])} ↗</a>' for g in matched)
-    body=f'''{intro}<div class="page-intro"><span class="eyebrow">{medal} Trofeo {e(t["tier"])} · PS5</span>
-    <h1>{e(t["name_it"])}</h1><p class="lead">{e(t["requirement_it"])}</p></div>
-    <div class="article-grid"><article class="prose">{disclosure}<h2>🎯 Come si ottiene</h2><p>{e(t["requirement_it"])}</p>
-    {tips}<div class="info">🛡️ <strong>Platinum-safe:</strong> questa pagina descrive il requisito; non certifica eventuali glitch. Prima di usare exploit controlla patch, stato dei trofei e salvataggi.</div>
-    <div class="source">Fonte: <a href="{e(t["source_url"])}" rel="noopener noreferrer">PowerPyx – GTA VI Trophy Roadmap</a>.
-    Elenco dei nomi in italiano: <a href="{e(LIST_SOURCE)}" rel="noopener noreferrer">lista trofei PS5</a>.
-    I requisiti possono cambiare con gli aggiornamenti del gioco.</div></article>
-    <aside class="sidebox"><h3>Continua a esplorare</h3><a href="{url("trofei/")}">← Tutti i 55 trofei</a>
-    <a href="{url("trofei/medaglie-oro/")}">🥇 Requisiti Oro</a>{related}
-    <a href="{url("guide-e-tutorial/")}">Guide e tutorial →</a></aside></div>'''
+    is_shootist=t["number"]==17
+    disclosure='<p class="info warn">⚠️ Questa scheda contiene dettagli di un trofeo nascosto.</p>' if t["hidden"] else ""
+    fact=(f'<div class="trophy-hero-facts"><span><b>42</b> medaglie Oro</span>'
+          '<span><b>12</b> percorsi</span><span><b>2</b> poligoni</span></div>'
+          if is_shootist else f'<div class="trophy-hero-facts"><span>🏆 {e(t["tier"])}</span><span>🎮 PS5 / PS5 Pro</span></div>')
+    hero=(f'''{intro}<section class="trophy-hero" aria-label="Scheda trofeo">
+    <div class="trophy-hero-copy"><span class="eyebrow">{medal} TROFEO {e(t["tier"]).upper()} · GTA VI PS5</span>
+    <h1>{e(t["name_it"])}</h1>
+    <p class="trophy-hero-requirement">{e(t["requirement_it"])}</p>
+    {fact}
+    <div class="trophy-actions"><a class="button" href="#{"checklist-cecchino" if is_shootist else "requisito"}">
+    {"🥇 Apri la checklist 42/42" if is_shootist else "🎯 Leggi l’obiettivo"}</a>
+    <a class="button secondary" href="{url("trofei/")}">← Tutti i trofei</a></div></div>
+    <div class="trophy-art-wrap">{ornament(t["tier"])}</div></section>''')
+    finished=(f'<div class="trophy-done-wrap"><button type="button" data-trophy-done="{t["number"]}" '
+              f'class="trophy-done-button" aria-pressed="false">○ Segna trofeo ottenuto</button>'
+              '<span class="micro" data-trophy-status>Solo in questo browser. Non modifica i trofei PSN.</span></div>')
+    guidance=(
+        shootist_content() if is_shootist else (
+            '<section class="quick-route" id="requisito">'
+            '<span class="eyebrow">RISPOSTA DIRETTA</span>'
+            '<h2>🎯 Obiettivo del trofeo</h2>'
+            '<p>Il requisito completo è indicato nel riquadro iniziale. '
+            'Verifica il tuo avanzamento in gioco e il trofeo PS5 prima di considerarlo ottenuto.</p>'
+            + (f'<div class="trophy-insight"><span>💡 Suggerimento per il platino</span>'
+               f'<p>{e(t["tip_it"])}</p></div>' if t.get("tip_it") else "")
+            + '</section>'
+        )
+    )
+    related_guides=[g for g in guides if g.get("related_trophy")==t["number"]]
+    guides_html="".join(
+        f'<a class="guide-related-link" href="{url(guide_path(g))}">🎮 {e(g["title"])} ↗</a>'
+        for g in related_guides
+    )
+    sources=(f'<details class="source-details"><summary>🔎 Fonti e note di verifica</summary>'
+             f'<p><a href="{e(t["source_url"])}" target="_blank" rel="noopener noreferrer">'
+             'PowerPyx — GTA VI Trophy Roadmap ↗</a>. '
+             f'<a href="{e(LIST_SOURCE)}" target="_blank" rel="noopener noreferrer">'
+             'Elenco italiano dei trofei PS5 ↗</a>.</p>'
+             + (f'<p><a href="{e(SHOOTING_SOURCE)}" target="_blank" rel="noopener noreferrer">'
+                'PowerPyx — guida completa alle 42 medaglie Oro ↗</a></p>'
+                if is_shootist else '')
+             + '<p>Le istruzioni sono sintesi originali del sito. '
+             'La presenza di fonti non garantisce che un exploit mantenga attivi i trofei.</p></details>')
+    article=(
+        '<div class="article-grid trophy-article">'
+        '<article class="prose trophy-prose">'
+        +disclosure+finished+guidance
+        +'<div class="trophy-safety"><strong>🛡️ Platino prima di tutto</strong>'
+        '<p>Questa scheda spiega il requisito del gioco, non certifica glitch o duplicazioni. '
+        'Non usare trucchi che disabilitano trofei e salvataggi durante la run del platino.</p></div>'
+        + sources
+        + '</article>'
+        '<aside class="sidebox trophy-sidebar"><h3>Scopri altre guide</h3>'
+        f'<a href="{url("trofei/")}">🏆 Elenco completo dei 55 trofei</a>'
+        f'<a href="{url("trofei/medaglie-oro/")}">🥇 Medaglie Oro e 100%</a>'
+        +guides_html
+        +f'<a href="{url("guide-e-tutorial/")}">⚡ Guide pratiche PS5 →</a>'
+        + '</aside></div>'
+    )
+    body=hero+article+related_trophies(t,trophies,url)
+    body+=f'<script src="{url("assets/trophy-experience.js")}" defer></script>'
     title=f'{t["name_it"]} — Trofeo {t["tier"]} GTA VI PS5 | Guida italiana'
     desc=f'Come sbloccare {t["name_it"]} in GTA 6 su PS5. Requisito: {t["requirement_it"]}'
-    # No site-wide plagiarism or false screenshot-specific claims.
     robots=("noindex,follow" if t["hidden"] and TODAY<datetime(2026,11,21,tzinfo=timezone.utc) else "index,follow")
-    write(Path(path)/"index.html", layout(title,desc,path,body,"trofei",robots=robots,structured=schema_article(title,desc,url(path))))
+    write(Path(path)/"index.html",layout(title,desc,path,body,"trofei",robots=robots,structured=schema_article(title,desc,url(path))))
     return robots
 
 def medal_page():
@@ -273,23 +321,52 @@ def guide_detail(g, tro):
     num=g.get("related_trophy")
     related=next((t for t in tro if t["number"]==num),None)
     intro=crumbs([("Guide e tutorial","guide-e-tutorial/"),(g["title"],path)])
-    steps="".join("<li>"+e(s)+"</li>" for s in g["steps"])
+    steps="".join("<li>"+e(step)+"</li>" for step in g["steps"])
     related_html=(f'<a href="{url(trophy_path(related))}">🏆 Trofeo collegato: {e(related["name_it"])}</a>' if related else "")
-    photo=f'''<figure class="figure"><img class="media" loading="lazy" src="{e(g["image"])}" alt="Screenshot promozionale ufficiale GTA VI, solo illustrativo">
-    <figcaption>Immagine promozionale © Rockstar Games: non rappresenta la schermata della procedura. I diritti restano ai rispettivi titolari.</figcaption></figure>'''
-    body=f'''{intro}<section class="page-intro"><span class="eyebrow">🎮 {e(g["tag"])} · Guida PS5</span>
-    <h1>{e(g["title"])}</h1><p class="lead">{e(g["summary"])}</p></section>
-    <div class="article-grid"><article class="prose">
-    <div class="info">⚡ <strong>Risposta rapida:</strong> {e(g["benefit"])}</div>
-    <h2>🎯 Procedura passo passo</h2><ol>{steps}</ol>
-    <h2>✅ Risultato utile</h2><p>{e(g["benefit"])}</p>
-    <div class="info warn">⚠️ {e(g["caution"])}</div>
-    {new_related_research(g["id"])}
-    {photo}
-    <div class="source">Approfondimento originale: <a href="{e(g["source_url"])}" rel="noopener noreferrer">PowerPyx — guida consultata</a>.
-    I passaggi sono una sintesi editoriale in italiano e non riproducono l'articolo integrale.</div></article>
-    <aside class="sidebox"><h3>Altri contenuti</h3><a href="{url("guide-e-tutorial/")}">← Tutte le guide</a>
-    {related_html}<a href="{url("trofei/")}">🏆 Elenco trofei PS5</a></aside></div>'''
+    # Editorial images are linked to existing official promotional material, not copied from PowerPyx.
+    photo=f'''<figure class="figure guide-photo"><img class="media" loading="lazy" decoding="async" src="{e(g["image"])}" alt="Screenshot promozionale ufficiale GTA VI, solo illustrativo">
+    <figcaption>Immagine promozionale di Rockstar Games, illustrativa e non specifica della procedura. Diritti dei rispettivi titolari.</figcaption></figure>'''
+    theme=g["tag"]
+    intro_block=f'''{intro}<section class="guide-hero"><span class="eyebrow">🎮 {e(theme)} · GTA VI PS5 / PS5 Pro</span>
+    <h1>{e(g["title"])}</h1><p class="lead">{e(g["summary"])}</p>
+    <div class="guide-hero-actions"><a class="button" href="#passaggi">↓ Vai ai passaggi</a>
+    <a class="button secondary" href="#fonte-guida">↗ Fonti</a></div></section>'''
+    suggestions = []  # Only actual existing local guide pages, no speculative content.
+    for item in json.loads((DATA/"guide.json").read_text(encoding="utf-8"))["guides"]:
+        if item["id"]!=g["id"] and (item["tag"]==g["tag"] or not suggestions):
+            suggestions.append(item)
+        if len(suggestions)==3:
+            break
+    cards="".join(
+        f'<a class="discovery-card" href="{url(guide_path(item))}">'
+        f'<span class="discovery-label">🎮 {e(item["tag"])}</span>'
+        f'<strong>{e(item["title"])}</strong><span>Apri la guida →</span></a>'
+        for item in suggestions
+    )
+    body=(
+        intro_block+'<div class="article-grid guide-article">'
+        '<article class="prose guide-prose">'
+        '<div class="guide-answer"><span class="eyebrow">⚡ RISPOSTA RAPIDA</span>'
+        f'<p>{e(g["benefit"])}</p></div>'
+        +photo+
+        f'<section id="passaggi" class="guide-steps"><h2>🎯 Procedura passo passo</h2><ol>{steps}</ol></section>'
+        f'<div class="guide-caution"><strong>⚠️ Da verificare prima di procedere</strong><p>{e(g["caution"])}</p></div>'
+        +new_related_research(g["id"])
+        +f'<details class="source-details" id="fonte-guida"><summary>🔎 Fonti e note editoriali</summary>'
+        f'<p>Approfondimento originale: <a href="{e(g["source_url"])}" target="_blank" '
+        'rel="noopener noreferrer">PowerPyx — guida consultata ↗</a>.</p>'
+        '<p>Le istruzioni sono una sintesi originale in italiano e non riproducono l’articolo integrale. '
+        'La foto è illustrativa: non rappresenta il passaggio descritto.</p></details>'
+        '</article><aside class="sidebox guide-sidebar"><h3>Continua a giocare</h3>'
+        f'<a href="{url("guide-e-tutorial/")}">← Tutte le guide</a>'
+        +related_html
+        +f'<a href="{url("trofei/")}">🏆 Elenco trofei PS5</a>'
+        f'<a href="{url("scoperte/")}">🔎 Novità dalla community</a>'
+        '</aside></div>'
+        '<section class="section discover-more"><div class="section-head"><div>'
+        '<span class="eyebrow">ALTRI CONSIGLI UTILI</span><h2>La prossima guida</h2>'
+        '</div></div><div class="discovery-rail">'+cards+'</div></section>'
+    )
     title=g["title"]+" | Guida GTA VI PS5 in italiano"
     desc=g["summary"]+" Passaggi, comandi PS5 e fonte della guida."
     write(Path(path)/"index.html",layout(title,desc,path,body,"guide",image=g.get("image"),structured=schema_article(title,desc,url(path),g.get("image"))))
@@ -334,7 +411,7 @@ def main():
     community_path=render_community_page(write,layout,url,crumbs)
     xml_urls=["","trofei/","guide-e-tutorial/","trofei/medaglie-oro/",sources_path,community_path] + hdr_paths + cheat_paths
     for t in trophies:
-        state=trophy_detail(t,guides)
+        state=trophy_detail(t,guides,trophies)
         if state=="index,follow":xml_urls.append(trophy_path(t))
         redirect(t["id"]+".html",trophy_path(t))
     for g in guides:
