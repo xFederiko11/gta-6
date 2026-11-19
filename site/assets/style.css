@@ -417,3 +417,9 @@ details{margin:23px 0;border:1px solid #627088;border-radius:14px;padding:16px;b
 @media(prefers-reduced-motion:reduce){
   .community-video-play,.hdr-copy-button{transition:none}
 }
+
+
+/* Analytics transparency: unobtrusive link; no widgets or synthetic metrics. */
+.footer-privacy{font-size:.78rem;line-height:1.4;margin:.8rem 0 0!important}
+.footer-privacy a{color:#bde8e2;text-decoration:underline;text-underline-offset:3px}
+.footer-privacy a:focus-visible{outline:2px solid #c9faec;outline-offset:3px}
