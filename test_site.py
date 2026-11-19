@@ -237,6 +237,12 @@ class PortalTests(unittest.TestCase):
         self.assertIn("HGiG",index)
         self.assertIn("application/ld+json",index)
         self.assertIn("92",index)
+        self.assertIn('href="#trova-tv"',index)
+        self.assertIn('href="#valori-gioco"',index)
+        self.assertIn('class="hdr-art"',index)
+        self.assertIn('class="hdr-copy-panel"',index)
+        self.assertIn('data-hdr-copy="600 · 50 · 50"',index)
+        self.assertIn("assets/hdr-interactions.js",index)
         for family in self.hdr["families"]:
             path=self.out/"hdr-oled"/family["slug"]/"index.html"
             self.assertTrue(path.exists(),family["slug"])
@@ -246,6 +252,21 @@ class PortalTests(unittest.TestCase):
             self.assertIn("https://www.playstation.com/it-it/support/hardware/ps5-enable-adjust-hdr/",page)
             self.assertIn("Fonti per modello e impostazioni",page)
             self.assertIn("GTA VI",page)
+            self.assertIn('class="hdr-art"',page)
+            self.assertIn('id="valori-hdr"',page)
+            self.assertIn('id="modelli-tv"',page)
+            self.assertIn('data-hdr-copy=',page)
+            self.assertIn("Copia i tre valori",page)
+            self.assertIn("assets/hdr-interactions.js",page)
+            self.assertIn('href="#valori-hdr"',page)
+            self.assertIn('href="#modelli-tv"',page)
+            related=[x for x in self.hdr["families"] if
+                     x["brand"]==family["brand"] and x["slug"]!=family["slug"]][:3]
+            if related:
+                self.assertIn("Confronta altri OLED",page)
+                self.assertIn("discovery-rail",page)
+                for other in related:
+                    self.assertIn("/hdr-oled/"+other["slug"]+"/",page)
             for model in family["models"]:
                 self.assertIn(model["code"],index)
                 self.assertIn(model["code"],page)
@@ -258,9 +279,12 @@ class PortalTests(unittest.TestCase):
         c2=(self.out/"hdr-oled"/"lg-oled-c2"/"index.html").read_text(encoding="utf-8")
         g5=(self.out/"hdr-oled"/"lg-oled-g5"/"index.html").read_text(encoding="utf-8")
         self.assertIn("1100",c4)
+        self.assertIn('data-hdr-copy="1100 · 0 · 50"',c4)
+        self.assertIn("Testimonianza community",c4)
         self.assertIn("800",c2)
         self.assertIn("non misurata",c4)
         self.assertIn("NON preset personalizzato",g5)
+        self.assertIn('data-hdr-copy="600 · 50 · 50"',g5)
         self.assertIn("Brightness Booster",c4)
         self.assertIn("OLED55C43LA",c4)
         self.assertIn("Compensazione mappatura toni",c4)
@@ -325,15 +349,31 @@ class PortalTests(unittest.TestCase):
         page=(self.out/"scoperte"/"index.html").read_text(encoding="utf-8")
         self.assertIn("scoperte della community",page)
         self.assertIn("Non sono notizie confermate",page)
+        self.assertIn('id="community-search"',page)
+        self.assertIn('data-community-filter-source="all"',page)
+        self.assertIn('data-community-filter-status="all"',page)
+        self.assertIn("community-interactions.js",page)
+        self.assertIn('data-community-grid',page)
+        self.assertIn("CONTINUA LA RICERCA",page)
+        self.assertIn("0 affermazioni verificate dal solo feed",page)
+        self.assertNotIn("gtabase.com.evil.example",page)
         self.assertIn("Rumor",page)
         self.assertIn('rel="canonical"',page)
         self.assertIn('application/ld+json',page)
         self.assertIn("https://xfederiko11.github.io/gta-6/scoperte/",page)
         if self.community.get("generated_utc"):
             self.assertIn("Ultima scansione delle fonti",page)
-            for item in self.community["items"]:
+            from community_page import validate
+            items=validate(self.community)
+            self.assertEqual(page.count('class="community-card"'),len(items))
+            for item in items:
                 self.assertIn(html.escape(item["title"],quote=True),page)
                 self.assertIn(html.escape(item["url"],quote=True),page)
+                self.assertIn(html.escape(item["source"],quote=True),page)
+                self.assertIn(html.escape(item["status"],quote=True),page)
+            script=(self.out/"assets"/"community-interactions.js").read_text(encoding="utf-8")
+            self.assertIn("www.youtube-nocookie.com/embed/",script)
+            self.assertNotIn("fetch(",script)
         else:
             self.assertIn("Prima scansione pubblica non ancora disponibile",page)
 
