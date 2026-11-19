@@ -112,7 +112,7 @@ def page_meta(canonical: str, path: str) -> str:
         'loading="eager" decoding="async" referrerpolicy="no-referrer" '
         'style="display:none" '
         'onload="this.style.display=\'inline-block\';this.previousElementSibling.hidden=true" '
-        'onerror="this.style.display=\'none\'">'
+        'onerror="this.style.display=\'none\';this.previousElementSibling.textContent=\'Conteggio non disponibile\'">'
         '</span></div>'
         f'<a href="{SOCIAL_URL}" class="page-meta-social" target="_blank" '
         'rel="me noopener noreferrer" aria-label="Segui le notizie di GTA 6 Italia su X">'
