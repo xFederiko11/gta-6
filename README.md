@@ -166,3 +166,8 @@ Ogni procedura presenta passaggi spuntabili, progresso numerico e un comando «C
 Le schede correlate preferiscono guide riferite allo **stesso trofeo o argomento**. Su mobile il carosello resta navigabile orizzontalmente, senza suggerimenti pubblicitari. Le pagine trofei già più complete (Cecchino con 42 caselle e video ufficiale a richiesta) mantengono le loro funzioni; per i trofei privi di consigli specifici il sito non ripete artificialmente il requisito né inventa metodi di farming.
 
 Verifica: il workflow GitHub Pages ricostruisce e controlla automaticamente gli HTML SEO, i tag delle immagini, i fallback, le checklist e i permalink senza usare ChatGPT o Buffer.
+
+
+### Video contestuali con fallback mobile
+
+Il player dell'anteprima ufficiale Rockstar già usato nella pagina del trofeo **Cecchino** è ora presente anche nella guida pratica **Poligoni di tiro: Concentrazione e medaglie Oro**. Non si afferma che il filmato insegni le 42 prove: è un riferimento illustrativo alla modalità di gioco. Il player YouTube viene caricato solo dopo il clic dell'utente. Se la miniatura remota non si carica nel browser X, il pulsante resta visibile con un elegante sfondo CSS senza mostrare immagini rotte. La modifica non riutilizza video di PowerPyx senza autorizzazione e non altera i requisiti dei trofei.
