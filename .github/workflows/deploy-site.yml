@@ -12,6 +12,7 @@ on:
       - 'test_community_feed.py'
       - 'site_info.py'
       - 'test_site.py'
+      - 'test_analytics.py'
       - 'data/**'
       - 'site/**'
       - '.github/workflows/deploy-site.yml'
@@ -50,9 +51,12 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: python fetch_community_feed.py
       - name: Build public site
+        env:
+          # Optional, public site identifier; blank keeps analytics fully disabled.
+          GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
         run: python build_site.py
       - name: Validate pages and SEO
-        run: python -m unittest -q test_site.py test_community_feed.py test_related_research.py
+        run: python -m unittest -q test_site.py test_community_feed.py test_related_research.py test_analytics.py
       - name: Upload static site to GitHub Pages
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
