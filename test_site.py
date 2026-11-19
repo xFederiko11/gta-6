@@ -205,7 +205,7 @@ class PortalTests(unittest.TestCase):
         import struct
         image=self.out/"assets"/"social-preview.png"
         raw=image.read_bytes()
-        self.assertTrue(raw.startswith(b"\\x89PNG\\r\\n\\x1a\\n"))
+        self.assertEqual(raw[:8].hex(),"89504e470d0a1a0a")
         self.assertEqual(struct.unpack("!II",raw[16:24]),(1200,630))
         self.assertGreater(len(raw),20000)
         homepage=(self.out/"index.html").read_text(encoding="utf-8")
