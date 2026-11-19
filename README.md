@@ -9,6 +9,7 @@ Portale pubblico e gratuito dedicato a **GTA VI su PS5 e PS5 Pro**. I contenuti 
 - **Homepage** — `/gta-6/`
 - **Trofei** — `/gta-6/trofei/`: 55 schede individuali, requisiti Oro, protezione degli spoiler.
 - **Guide e tutorial** — `/gta-6/guide-e-tutorial/`: consigli rapidi con procedura PS5, vantaggi e fonte.
+- **Scoperte community** — `/gta-6/scoperte/`: feed di ricerca GTA VI generato automaticamente da GitHub con link, date ed etichette, non conferme dei rumor.
 - **Fonti e metodologia editoriale** — `/gta-6/fonti/`: fonte ufficiale vs guida indipendente, community, dataminer, giornalismo, verifica trucchi e notizie.
 - **Trucchi GTA VI PS5** — `/gta-6/trucchi/`: 17 sequenze pubblicate illustrate con icone croce direzionale DualSense; singole pagine SEO, requisiti, fonti e avviso trofei.
 - **HDR OLED** — `/gta-6/hdr-oled/`: cerca marca, codice TV o diagonale; 21 famiglie e 92 codici per PS5 e PS5 Pro, pagine SEO per serie.
@@ -113,3 +114,7 @@ Fonti: https://allthings.how/best-gta-6-settings-to-change-first-on-ps5/ e https
 ## Verifica fonti GTA VI (19 novembre 2026)
 
 La pagina `/fonti/` è generata da `sources_page.py` e `data/fonti_editoriali.json`, con canonical, JSON-LD, sitemap e data reale di modifica. Elenca fonti ufficiali e indipendenti senza mescolarne l'autorità. Le 17 sequenze GTA VI pubblicate sono attribuite a PowerPyx; soltanto 9 risultano corrispondere anche agli input della guida indipendente PC Gamer al 19/11, e 8 restano da verificare indipendentemente. Il requisito di medaglie per Max Ammo è controverso (20 vs 25) e viene esplicitato. Il bot editoriale raccoglie nuovi elementi PowerPyx e GTA Series Videos in modalità ricerca prima della pubblicazione. Fonti non accessibili automaticamente non vengono descritte come lette dal bot.
+
+## Aggiornamento autonomo delle scoperte dal bot
+
+Il monitor pubblico `xFederiko11/federiko-gta-playstation-bot` aggiorna una singola issue GitHub di ricerca ogni tre scansioni al giorno, inserendo un payload JSON firmato dal contesto di origine (non crittograficamente). Il sito recupera esclusivamente quella issue tramite API GitHub pubblica prima della build con `fetch_community_feed.py`; `community_page.py` valida schema, URL, fonti, date ed etichette. La pagina `/scoperte/` è SEO-indicizzabile, ma **esplicita che i titoli sono segnalazioni non verificate**. Non si copiano articoli, non si presentano rumor come annunci e non si inviano messaggi Buffer. Se il servizio sorgente non è disponibile, il deploy si blocca lasciando pubblicata la versione precedente; quando non esiste ancora alcuna issue, viene mostrata la pagina vuota con avviso. La scansione avviene via GitHub Actions senza ChatGPT, chiavi API commerciali o automazioni ChatGPT.
