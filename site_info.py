@@ -7,6 +7,8 @@ person; counts begin when the badge is installed. No API key/cookie needed.
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from pathlib import Path
+import json
 from functools import lru_cache
 from html import escape
 from urllib.parse import urlencode
@@ -36,6 +38,8 @@ def sources_for(path: str) -> tuple[str, ...]:
         return shared + ("cheats_catalog.py", "data/trucchi.json", "data/fonti_editoriali.json")
     if path.startswith("fonti/"):
         return shared + ("sources_page.py", "data/fonti_editoriali.json", "data/trucchi.json")
+    if path.startswith("community/"):
+        return shared + ("community_watch.py", "data/fonti_editoriali.json")
     # Home links to every main section, including the OLED model finder.
     return shared + ("data/trofei.json", "data/guide.json", "hdr_catalog.py", "data/hdr_oled.json", "cheats_catalog.py", "data/trucchi.json")
 
@@ -47,6 +51,17 @@ def last_modified_at(path: str) -> datetime:
     This is an actual content/template revision, NOT a date bumped just by a
     scheduled re-deploy. Shared JSON changes regenerate its related pages.
     """
+    if path.startswith("community/"):
+        try:
+            runtime=Path("data/community_watch_runtime.json")
+            if runtime.is_file():
+                obj=json.loads(runtime.read_text(encoding="utf-8"))
+                if obj.get("schema") == "gta6-community-watch-v1":
+                    stamp=datetime.fromisoformat(obj["scanned_utc"])
+                    if stamp.tzinfo is not None:
+                        return stamp.astimezone(timezone.utc)
+        except (OSError, ValueError, TypeError, KeyError):
+            pass
     try:
         process = subprocess.run(
             ["git", "log", "-1", "--format=%cI", "--", *sources_for(path)],
