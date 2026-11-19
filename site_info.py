@@ -29,9 +29,10 @@ def sources_for(path: str) -> tuple[str, ...]:
     """Identify source files that can change the rendered page."""
     shared = ("build_site.py", "site_info.py", "site/assets/style.css")
     if path.startswith("trofei/"):
-        return shared + ("data/trofei.json", "data/guide.json")
+        return shared + ("data/trofei.json", "data/guide.json", "trophy_experience.py", "site/assets/trophy-experience.js")
     if path.startswith("guide-e-tutorial/"):
-        return shared + ("data/guide.json", "data/trofei.json", "related_research.py", "data/community_feed.json", "site/assets/guide-interactions.js")
+        extra = ("trophy_experience.py", "site/assets/trophy-experience.js") if path=="guide-e-tutorial/poligoni-concentrazione/" else ()
+        return shared + ("data/guide.json", "data/trofei.json", "related_research.py", "data/community_feed.json", "site/assets/guide-interactions.js") + extra
     if path.startswith("hdr-oled/"):
         return shared + ("hdr_catalog.py", "data/hdr_oled.json")
     if path.startswith("trucchi/"):
