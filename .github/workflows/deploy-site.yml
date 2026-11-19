@@ -19,8 +19,8 @@ on:
   schedule:
     # Aggiorna l'indicizzazione dei trofei spoiler dopo il lancio
     - cron: '15 6 21 11 *'
-    # Importa dal bot la coda community poco dopo ciascuna scansione.
-    - cron: '45 7,13,19 * * *'
+    # Importa la coda del bot 28 minuti dopo le sue scansioni ogni 4 ore.
+    - cron: '45 */4 * * *'
 
 permissions:
   contents: read
