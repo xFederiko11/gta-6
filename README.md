@@ -188,11 +188,8 @@ La pagina **Scoperte** è ora un catalogo leggibile su smartphone: card con arte
 Le interazioni sono statiche e gratuite: `site/assets/hdr-interactions.js` e `site/assets/community-interactions.js` non richiedono cookie, tracker, account, Buffer, ChatGPT o API commerciali. I controlli di regressione verificano escaping HTML, validazione host/ID video, fallback per feed vuoti, filtri e preservation dei permalink e metadati SEO.
 
 
-## Analytics opt-in per migliorare il sito con dati reali
+## Conteggio visualizzazioni senza iscrizioni
 
-È disponibile un'integrazione **opzionale** con GoatCounter per rilevare pagine e clic reali (interni, fonti esterne e CTA), con tassonomia stabile e salvaguardie di privacy. **Disattivata per impostazione predefinita**: nessun nuovo servizio di analytics viene caricato finché non configuri `GOATCOUNTER_CODE` come variabile della repository GitHub. Il loader rispetta Do Not Track e Global Privacy Control e non trasmette query di ricerca, checklist o dati PSN. I risultati sono consultabili dal dashboard dell'account GoatCounter, non simulati nel sito.
+Ogni pagina conserva il badge preesistente `hitscounter.dev` con conteggio per URL canonico. Il servizio è esterno ma **non richiede un account**; il conteggio si riferisce alle richieste al badge, non a utenti unici o a sessioni verificabili. Il sito non include più GoatCounter, configurazioni, SDK o script di analytics opzionali. Tutte le pagine rimangono pubblicate su GitHub Pages senza server, servizi a pagamento o accessi manuali.
 
-- [Guida di attivazione, privacy e KPI editoriali](ANALYTICS.md)
-- [Trasparenza pubblica sulle statistiche](https://xfederiko11.github.io/gta-6/privacy/)
-
-Il badge preesistente hitscounter.dev non equivale ad analytics su utenti unici o clic e rimane un servizio esterno distinto. Tutto continua a funzionare su GitHub Pages senza dipendere da ChatGPT, da Buffer o da accessi amministrativi a sistemi terzi.
+La pagina [Privacy e visite](https://xfederiko11.github.io/gta-6/privacy/) spiega come interpretare i contatori e il funzionamento del badge. **Non è possibile ricavare da un badge statico il tasso di conversione dei link o visite uniche attendibili**: non verranno inventati.
