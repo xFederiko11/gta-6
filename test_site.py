@@ -25,6 +25,7 @@ class PortalTests(unittest.TestCase):
         cls.hdr=json.loads(Path("data/hdr_oled.json").read_text(encoding="utf-8"))
         cls.cheats=json.loads(Path("data/trucchi.json").read_text(encoding="utf-8"))["cheats"]
         cls.sources=json.loads(Path("data/fonti_editoriali.json").read_text(encoding="utf-8"))["sources"]
+        cls.community=json.loads(Path("data/community_radar.json").read_text(encoding="utf-8"))
     @classmethod
     def tearDownClass(cls):
         cls.tmp.cleanup()
@@ -45,7 +46,8 @@ class PortalTests(unittest.TestCase):
         self.assertIn("Trucchi PS5",homepage)
         self.assertIn("https://xfederiko11.github.io/gta-6/hdr-oled/",homepage)
         self.assertIn("https://xfederiko11.github.io/gta-6/",homepage)
-        self.assertNotIn("federiko-gta-playstation-bot",homepage)
+        self.assertIn("Radar community",homepage)
+        self.assertIn("https://xfederiko11.github.io/gta-6/community/",homepage)
 
     def test_every_trophy_seo_page_and_legacy_alias(self):
         for trophy in self.trophies:
@@ -75,7 +77,7 @@ class PortalTests(unittest.TestCase):
         raw=(self.out/"sitemap.xml").read_text(encoding="utf-8")
         root=ET.fromstring(raw)
         locs=[x.text for x in root.iter() if x.tag.endswith("loc")]
-        self.assertEqual(len(locs),5+27+6+1+len(self.hdr["families"])+1+len(self.cheats))
+        self.assertEqual(len(locs),6+27+6+1+len(self.hdr["families"])+1+len(self.cheats))
         self.assertEqual(len(locs),len(set(locs)))
         self.assertTrue(all(x.startswith("https://xfederiko11.github.io/gta-6/") for x in locs))
         self.assertTrue((self.out/"trofei"/"medaglie-oro"/"index.html").exists())
@@ -97,9 +99,10 @@ class PortalTests(unittest.TestCase):
         pages += [self.out/"hdr-oled"/"index.html"]
         pages += [self.out/"hdr-oled"/f["slug"]/"index.html" for f in self.hdr["families"]]
         pages += [self.out/"fonti"/"index.html"]
+        pages += [self.out/"community"/"index.html"]
         pages += [self.out/"trucchi"/"index.html"]
         pages += [self.out/"trucchi"/x["slug"]/"index.html" for x in self.cheats]
-        self.assertEqual(len(pages),5+55+6+1+len(self.hdr["families"])+1+len(self.cheats))
+        self.assertEqual(len(pages),6+55+6+1+len(self.hdr["families"])+1+len(self.cheats))
         for page in pages:
             markup=page.read_text(encoding="utf-8")
             self.assertIn('class="page-meta"',markup,str(page))
@@ -230,6 +233,34 @@ class PortalTests(unittest.TestCase):
         self.assertIn("PowerPyx e PC Gamer",corroborated)
         single=(self.out/"trucchi"/"munizioni-massime"/"index.html").read_text(encoding="utf-8")
         self.assertIn("non abbiamo un secondo controllo",single)
+
+
+    def test_autonomous_community_radar_is_labelled_and_seo_indexable(self):
+        from community_radar import parse_issue, MARKER
+        body = (MARKER + "\n# GTA VI\nScansione UTC: 2026-11-19T08:22:19+00:00\n"
+                "## Nuove piste editoriali\n"
+                "### 🔵 GUIDA INDIPENDENTE — GTA 6 Mission #8 <test>\n"
+                "Fonte: **GTA Series Videos** · Data fonte: 2026-11-19T04:35:10+00:00\n"
+                " · [Apri originale](https://youtube.com/watch?v=KPmMFfUvslg)\n"
+                "### 🟠 RUMOR — GTA VI leaked vehicle\n"
+                "Fonte: **PowerPyx** · Data fonte: 2026-11-19T03:35:10+00:00\n"
+                " · [Apri originale](https://powerpyx.com/gta6-rumor)\n"
+                "### 🟠 RUMOR — GTA 6 spoofed content\n"
+                "Fonte: **PowerPyx** · Data fonte: 2026-11-19T03:35:10+00:00\n"
+                " · [Apri originale](https://fake.example/unsafe)\n"
+                "## Salute dei feed\n- Feed senza errori\n"
+                "## Fonti registrate per verifica manuale\n")
+        result = parse_issue(body)
+        self.assertEqual(len(result["candidates"]),2)
+        self.assertEqual(result["candidates"][0]["label"],"Guida indipendente")
+        self.assertEqual(result["candidates"][1]["label"],"Rumor non verificato")
+        self.assertNotIn("fake.example",json.dumps(result))
+        page=(self.out/"community"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("Radar community",page)
+        self.assertIn('rel="canonical"',page)
+        self.assertIn('application/ld+json',page)
+        self.assertIn("non verificati",page.lower()) if "non verificati" in page.lower() else self.assertIn("non verificate",page.lower())
+        self.assertIn("https://github.com/xFederiko11/federiko-gta-playstation-bot/issues/29",page)
 
     def test_no_external_paid_dependencies(self):
         self.assertFalse((self.out/"node_modules").exists())
