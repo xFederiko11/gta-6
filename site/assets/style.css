@@ -207,3 +207,16 @@ details{margin:23px 0;border:1px solid #627088;border-radius:14px;padding:16px;b
   .video-play{width:60px;height:60px}
   .page-intro{padding-top:32px}
 }
+
+
+/* Local-only PS5 platinum tracker on the full 55-trophy index. */
+.trophy-index-progress{margin:17px 0 29px;padding:19px 22px;border:1px solid #4d7b7e;border-radius:18px;background:linear-gradient(125deg,#18303c,#1b223b);display:grid;grid-template-columns:minmax(0,1fr) minmax(140px,.55fr);align-items:center;gap:18px}
+.trophy-index-progress strong{display:block;font:800 clamp(1.28rem,3vw,1.8rem)/1.25 "Space Grotesk",system-ui,sans-serif;color:#dcfff1;margin:6px 0}
+.trophy-index-progress p{font-size:.8rem;color:#c8d7e3;margin:0;max-width:610px}
+.trophy-index-progress progress{width:100%;height:15px;border-radius:100px;accent-color:#81efcb}
+.trophy-index-progress progress::-webkit-progress-bar{background:#283c4a;border-radius:100px}
+.trophy-index-progress progress::-webkit-progress-value{background:linear-gradient(90deg,#81efcb,#c4f095);border-radius:100px}
+.index-item[data-trophy-number]{position:relative}
+.index-item[data-completed="true"]{border-color:#74c4a6;background:linear-gradient(130deg,#183b34,#142238);padding-bottom:40px}
+.index-item[data-completed="true"]:after{content:"✓ Segnato";position:absolute;bottom:12px;right:14px;font-size:.72rem;color:#9bf5d7;font-weight:800}
+@media(max-width:600px){.trophy-index-progress{grid-template-columns:1fr;padding:18px 16px;gap:12px}}
