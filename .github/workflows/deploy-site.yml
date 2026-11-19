@@ -6,6 +6,8 @@ on:
     paths:
       - 'build_site.py'
       - 'site_info.py'
+      - 'community_radar.py'
+      - 'community_radar_page.py'
       - 'test_site.py'
       - 'data/**'
       - 'site/**'
@@ -16,6 +18,8 @@ on:
   schedule:
     # Aggiorna l'indicizzazione dei trofei spoiler dopo il lancio
     - cron: '15 6 21 11 *'
+    # Refresh 30 minutes after the GTA VI bot's three daily research scans.
+    - cron: '47 7,13,19 * * *'
 
 permissions:
   contents: read
@@ -37,6 +41,11 @@ jobs:
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
+      - name: Refresh public bot community radar (no ChatGPT, no Buffer)
+        if: github.event_name != 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python community_radar.py --mode refresh
       - name: Build public site
         run: python build_site.py
       - name: Validate pages and SEO
