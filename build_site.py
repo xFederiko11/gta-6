@@ -189,7 +189,7 @@ def site_home(trophies, guides):
     <a class="button secondary" href="{url("trofei/")}">Apri l'elenco trofei →</a></div><div class="decor" aria-hidden="true"></div></section>'''
     hdr_feature=f'''<section class="section hdr-promo"><div><span class="eyebrow">📺 Nuova guida OLED</span>
     <h2>HDR di GTA VI, su misura per la tua TV.</h2>
-    <p>LG OLED C5/C6 e G5/G6, Samsung S90F/S90H e S95F/S95H, Sony BRAVIA, Philips e Panasonic:
+    <p>LG OLED C3/C4/C5/C6, B4 e G4/G5/G6, Samsung S90D/S90F/S90H e S95D/S95F/S95H, Sony BRAVIA, Philips e Panasonic:
     impostazioni raggruppate per famiglia, codici commerciali e dimensioni verificate.</p>
     <a class="button secondary" href="{url("hdr-oled/")}">Trova il tuo modello OLED →</a></div>
     <div class="hdr-promo-orb" aria-hidden="true">HDR<span>OLED</span></div></section>'''
