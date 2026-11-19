@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - 'build_site.py'
+      - 'community_page.py'
+      - 'fetch_community_feed.py'
+      - 'test_community_feed.py'
       - 'site_info.py'
       - 'test_site.py'
       - 'data/**'
@@ -16,6 +19,8 @@ on:
   schedule:
     # Aggiorna l'indicizzazione dei trofei spoiler dopo il lancio
     - cron: '15 6 21 11 *'
+    # Importa dal bot la coda community poco dopo ciascuna scansione.
+    - cron: '45 7,13,19 * * *'
 
 permissions:
   contents: read
@@ -37,10 +42,15 @@ jobs:
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
+      - name: Fetch research from public GTA VI bot (no Buffer)
+        if: github.event_name != 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python fetch_community_feed.py
       - name: Build public site
         run: python build_site.py
       - name: Validate pages and SEO
-        run: python -m unittest -q test_site.py
+        run: python -m unittest -q test_site.py test_community_feed.py
       - name: Upload static site to GitHub Pages
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0

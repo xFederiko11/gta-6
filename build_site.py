@@ -17,6 +17,7 @@ from site_info import SOCIAL_URL, SOCIAL_HANDLE, iso_modified, page_meta
 from hdr_catalog import render as render_hdr_pages
 from cheats_catalog import render as render_cheat_pages
 from sources_page import render as render_sources_page
+from community_page import render as render_community_page
 
 BASE = "https://xfederiko11.github.io/gta-6"
 OUT = Path(os.getenv("SITE_OUT", "_site"))
@@ -85,7 +86,8 @@ def layout(title, desc, path, body, section=None, image=None, robots="index,foll
     canonical=url(path)
     nav=[("Home","",section=="home"),("Trofei","trofei/",section=="trofei"),
          ("Guide e tutorial","guide-e-tutorial/",section=="guide"),
-         ("HDR OLED","hdr-oled/",section=="hdr"),("Trucchi PS5","trucchi/",section=="cheats")]
+         ("HDR OLED","hdr-oled/",section=="hdr"),("Trucchi PS5","trucchi/",section=="cheats"),
+         ("Scoperte","scoperte/",section=="community")]
     links="".join(f'<a href="{url(p)}"'+(' aria-current="page"' if selected else '')+f'>{e(n)}</a>' for n,p,selected in nav)
     modified=iso_modified(path)
     if structured:
@@ -103,7 +105,7 @@ def layout(title, desc, path, body, section=None, image=None, robots="index,foll
        '<footer class="footer"><div class="wrap footer-grid"><div>'
        '<strong>GTA 6 Italia</strong><p>Guide indipendenti in italiano per PS5 e PS5 Pro. '
        'Contenuti da verificare rispetto alle patch: non affiliato a Rockstar, Sony o PowerPyx.</p></div>'
-       f'<div><a href="{url("trofei/")}">Trofei</a> · <a href="{url("guide-e-tutorial/")}">Guide e tutorial</a> · <a href="{url("hdr-oled/")}">HDR OLED</a> · <a href="{url("trucchi/")}">Trucchi PS5</a> · <a href="{url("fonti/")}">Fonti e metodo</a>'
+       f'<div><a href="{url("trofei/")}">Trofei</a> · <a href="{url("guide-e-tutorial/")}">Guide e tutorial</a> · <a href="{url("hdr-oled/")}">HDR OLED</a> · <a href="{url("trucchi/")}">Trucchi PS5</a> · <a href="{url("fonti/")}">Fonti e metodo</a> · <a href="{url("scoperte/")}">Scoperte community</a>'
        f'<p class="footer-social"><a href="{SOCIAL_URL}" rel="me noopener noreferrer" target="_blank">𝕏 Aggiornamenti su {SOCIAL_HANDLE} ↗</a></p></div>'
        '</div></footer></body></html>')
 
@@ -184,6 +186,7 @@ def site_home(trophies, guides):
     {category_card("Guide e tutorial","Tutorial rapidi, combinazioni dei pulsanti, collezionabili, strategie e approfondimenti.","guide-e-tutorial/","PASSO PASSO","⚡")}
     {category_card("HDR OLED per PS5 Pro","Valori HDR direttamente in GTA VI: Max Brightness, Black Levels, Paper White e profili OLED verificabili.","hdr-oled/",f"{hdr_total} MODELLI TV","📺")}
     {category_card("Trucchi GTA VI PS5","Codici post-storia con sequenze D-pad illustrate, effetti e avvisi sui trofei.","trucchi/","DUALSENSE","🎮")}
+    {category_card("Scoperte GTA VI community","Nuove guide, segnalazioni e rumor con fonte e stato di verifica chiaramente indicati.","scoperte/","FONTI IN VERIFICA","🔎")}
     </div></section>'''
     guides_cards="".join(guide_card(g) for g in guides[:6])
     guides_section=f'''<section class="section"><div class="section-head"><div><span class="eyebrow">⚡ Tips & tricks</span><h2>Guide rapide che fanno risparmiare tempo</h2><p>Le istruzioni subito, gli approfondimenti quando servono.</p></div><a href="{url("guide-e-tutorial/")}">Tutte le guide ↗</a></div><div class="grid">{guides_cards}</div></section>'''
@@ -326,7 +329,8 @@ def main():
     hdr_paths=render_hdr_pages(write,layout,schema_article,url,crumbs)
     cheat_paths=render_cheat_pages(write,layout,schema_article,url,crumbs)
     sources_path=render_sources_page(write,layout,url,crumbs)
-    xml_urls=["","trofei/","guide-e-tutorial/","trofei/medaglie-oro/",sources_path] + hdr_paths + cheat_paths
+    community_path=render_community_page(write,layout,url,crumbs)
+    xml_urls=["","trofei/","guide-e-tutorial/","trofei/medaglie-oro/",sources_path,community_path] + hdr_paths + cheat_paths
     for t in trophies:
         state=trophy_detail(t,guides)
         if state=="index,follow":xml_urls.append(trophy_path(t))

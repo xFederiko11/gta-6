@@ -25,6 +25,7 @@ class PortalTests(unittest.TestCase):
         cls.hdr=json.loads(Path("data/hdr_oled.json").read_text(encoding="utf-8"))
         cls.cheats=json.loads(Path("data/trucchi.json").read_text(encoding="utf-8"))["cheats"]
         cls.sources=json.loads(Path("data/fonti_editoriali.json").read_text(encoding="utf-8"))["sources"]
+        cls.community=json.loads(Path("data/community_feed.json").read_text(encoding="utf-8"))
     @classmethod
     def tearDownClass(cls):
         cls.tmp.cleanup()
@@ -43,6 +44,7 @@ class PortalTests(unittest.TestCase):
         self.assertIn("Guide e tutorial",homepage)
         self.assertIn("HDR OLED",homepage)
         self.assertIn("Trucchi PS5",homepage)
+        self.assertIn("Scoperte GTA VI community",homepage)
         self.assertIn("https://xfederiko11.github.io/gta-6/hdr-oled/",homepage)
         self.assertIn("https://xfederiko11.github.io/gta-6/",homepage)
         self.assertNotIn("federiko-gta-playstation-bot",homepage)
@@ -75,7 +77,7 @@ class PortalTests(unittest.TestCase):
         raw=(self.out/"sitemap.xml").read_text(encoding="utf-8")
         root=ET.fromstring(raw)
         locs=[x.text for x in root.iter() if x.tag.endswith("loc")]
-        self.assertEqual(len(locs),5+27+6+1+len(self.hdr["families"])+1+len(self.cheats))
+        self.assertEqual(len(locs),6+27+6+1+len(self.hdr["families"])+1+len(self.cheats))
         self.assertEqual(len(locs),len(set(locs)))
         self.assertTrue(all(x.startswith("https://xfederiko11.github.io/gta-6/") for x in locs))
         self.assertTrue((self.out/"trofei"/"medaglie-oro"/"index.html").exists())
@@ -97,9 +99,10 @@ class PortalTests(unittest.TestCase):
         pages += [self.out/"hdr-oled"/"index.html"]
         pages += [self.out/"hdr-oled"/f["slug"]/"index.html" for f in self.hdr["families"]]
         pages += [self.out/"fonti"/"index.html"]
+        pages += [self.out/"scoperte"/"index.html"]
         pages += [self.out/"trucchi"/"index.html"]
         pages += [self.out/"trucchi"/x["slug"]/"index.html" for x in self.cheats]
-        self.assertEqual(len(pages),5+55+6+1+len(self.hdr["families"])+1+len(self.cheats))
+        self.assertEqual(len(pages),6+55+6+1+len(self.hdr["families"])+1+len(self.cheats))
         for page in pages:
             markup=page.read_text(encoding="utf-8")
             self.assertIn('class="page-meta"',markup,str(page))
@@ -230,6 +233,17 @@ class PortalTests(unittest.TestCase):
         self.assertIn("PowerPyx e PC Gamer",corroborated)
         single=(self.out/"trucchi"/"munizioni-massime"/"index.html").read_text(encoding="utf-8")
         self.assertIn("non abbiamo un secondo controllo",single)
+
+
+    def test_autonomous_community_index_is_transparent_and_seo_safe(self):
+        page=(self.out/"scoperte"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("scoperte della community",page)
+        self.assertIn("Non sono notizie confermate",page)
+        self.assertIn("Rumor",page)
+        self.assertIn('rel="canonical"',page)
+        self.assertIn('application/ld+json',page)
+        self.assertIn("https://xfederiko11.github.io/gta-6/scoperte/",page)
+        self.assertIn("Prima scansione pubblica non ancora disponibile",page)
 
     def test_no_external_paid_dependencies(self):
         self.assertFalse((self.out/"node_modules").exists())
