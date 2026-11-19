@@ -149,7 +149,7 @@ class PortalTests(unittest.TestCase):
         raw=(self.out/"sitemap.xml").read_text(encoding="utf-8")
         root=ET.fromstring(raw)
         locs=[x.text for x in root.iter() if x.tag.endswith("loc")]
-        self.assertEqual(len(locs),6+27+6+1+len(self.hdr["families"])+1+len(self.cheats))
+        self.assertEqual(len(locs),7+27+6+1+len(self.hdr["families"])+1+len(self.cheats))
         self.assertEqual(len(locs),len(set(locs)))
         self.assertTrue(all(x.startswith("https://xfederiko11.github.io/gta-6/") for x in locs))
         self.assertTrue((self.out/"trofei"/"medaglie-oro"/"index.html").exists())
@@ -172,9 +172,10 @@ class PortalTests(unittest.TestCase):
         pages += [self.out/"hdr-oled"/f["slug"]/"index.html" for f in self.hdr["families"]]
         pages += [self.out/"fonti"/"index.html"]
         pages += [self.out/"scoperte"/"index.html"]
+        pages += [self.out/"privacy"/"index.html"]
         pages += [self.out/"trucchi"/"index.html"]
         pages += [self.out/"trucchi"/x["slug"]/"index.html" for x in self.cheats]
-        self.assertEqual(len(pages),6+55+6+1+len(self.hdr["families"])+1+len(self.cheats))
+        self.assertEqual(len(pages),7+55+6+1+len(self.hdr["families"])+1+len(self.cheats))
         for page in pages:
             markup=page.read_text(encoding="utf-8")
             self.assertIn('class="page-meta"',markup,str(page))
@@ -199,6 +200,24 @@ class PortalTests(unittest.TestCase):
         second=pages[1].read_text(encoding="utf-8")
         self.assertIn("https%3A%2F%2Fxfederiko11.github.io%2Fgta-6%2F",first)
         self.assertIn("https%3A%2F%2Fxfederiko11.github.io%2Fgta-6%2Ftrofei%2F",second)
+
+    def test_privacy_page_and_analytics_default_off(self):
+        page=(self.out/"privacy"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("Privacy e statistiche",page)
+        self.assertIn("Misurazione aggregata non attiva",page)
+        self.assertIn("hitscounter.dev",page)
+        self.assertIn("Global Privacy Control",page)
+        self.assertIn("local",page)
+        self.assertIn('rel="canonical"',page)
+        self.assertIn("https://xfederiko11.github.io/gta-6/privacy/",page)
+        self.assertIn("goatcounter.com/help/gdpr",page)
+        index=(self.out/"index.html").read_text(encoding="utf-8")
+        self.assertIn('Privacy e statistiche</a>',index)
+        self.assertNotIn('data-analytics-endpoint=',index)
+        self.assertNotIn('gc.zgo.at/count.js',index)
+        self.assertTrue((self.out/"assets"/"site-analytics.js").exists())
+        sitemap=(self.out/"sitemap.xml").read_text(encoding="utf-8")
+        self.assertIn("https://xfederiko11.github.io/gta-6/privacy/",sitemap)
 
     def test_freshness_date_source_is_not_deploy_clock_only(self):
         import site_info

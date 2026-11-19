@@ -30,6 +30,20 @@ TODAY = datetime.now(timezone.utc)
 TROPHY_SOURCE = "https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/"
 LIST_SOURCE = "https://www.planetgta6.com/it/trofei-gta-6/"
 
+def analytics_scripts():
+    """Opt-in GoatCounter: no tracking request when the site code is absent."""
+    code=os.getenv("GOATCOUNTER_CODE","").strip()
+    if not code:
+        return ""
+    if not re.fullmatch(r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?",code):
+        raise ValueError("GOATCOUNTER_CODE must be a valid GoatCounter site subdomain")
+    # The local loader honors Global Privacy Control / Do Not Track before
+    # requesting the provider's script and never loads on other hosts.
+    return (
+        f'<script defer src="{url("assets/site-analytics.js")}" '
+        f'data-analytics-endpoint="https://{code}.goatcounter.com/count"></script>'
+    )
+
 def e(x): return html.escape(str(x if x is not None else ""), quote=True)
 def write(path, body):
     p = OUT/path
@@ -109,8 +123,9 @@ def layout(title, desc, path, body, section=None, image=None, robots="index,foll
        '<strong>GTA 6 Italia</strong><p>Guide indipendenti in italiano per PS5 e PS5 Pro. '
        'Contenuti da verificare rispetto alle patch: non affiliato a Rockstar, Sony o PowerPyx.</p></div>'
        f'<div><a href="{url("trofei/")}">Trofei</a> · <a href="{url("guide-e-tutorial/")}">Guide e tutorial</a> · <a href="{url("hdr-oled/")}">HDR OLED</a> · <a href="{url("trucchi/")}">Trucchi PS5</a> · <a href="{url("fonti/")}">Fonti e metodo</a> · <a href="{url("scoperte/")}">Scoperte community</a>'
-       f'<p class="footer-social"><a href="{SOCIAL_URL}" rel="me noopener noreferrer" target="_blank">𝕏 Aggiornamenti su {SOCIAL_HANDLE} ↗</a></p></div>'
-       '</div></footer></body></html>')
+       f'<p class="footer-social"><a href="{SOCIAL_URL}" rel="me noopener noreferrer" target="_blank">𝕏 Aggiornamenti su {SOCIAL_HANDLE} ↗</a></p>'
+       f'<p class="footer-privacy"><a href="{url("privacy/")}">Privacy e statistiche</a></p></div>'
+       '</div></footer>'+analytics_scripts()+'</body></html>')
 
 def crumbs(parts):
     b=[f'<a href="{url()}">GTA 6 Italia</a>']
@@ -418,6 +433,53 @@ def guide_detail(g, tro):
     desc=g["summary"]+" Passaggi, comandi PS5 e fonte della guida."
     write(Path(path)/"index.html",layout(title,desc,path,body,"guide",image=g.get("image"),structured=schema_article(title,desc,url(path),g.get("image"))))
 
+def privacy_page():
+    enabled=bool(os.getenv("GOATCOUNTER_CODE","").strip())
+    status=("<strong>Misurazione aggregata abilitata.</strong> "
+            "Il sito utilizza GoatCounter per conteggiare visite alle pagine e "
+            "clic sui collegamenti interni e su categorie selezionate di siti esterni."
+            if enabled else
+            "<strong>Misurazione aggregata non attiva.</strong> "
+            "Non carichiamo il servizio opzionale GoatCounter e non "
+            "raccogliamo eventi personalizzati di navigazione.")
+    body=(
+        crumbs([("Privacy e statistiche","privacy/")])
+        + '<section class="page-intro"><span class="eyebrow">🔐 PRIVACY DEL PORTALE</span>'
+        '<h1>Privacy e <span class="highlight">statistiche</span></h1>'
+        '<p class="lead">Informazioni chiare sui contatori e sulle '
+        'misurazioni del sito GTA 6 Italia.</p></section>'
+        '<section class="section prose"><h2>Analisi delle visite</h2><p>'+status+'</p>'
+        '<p>Quando abilitato, GoatCounter fornisce statistiche aggregate su pagine, '
+        'provenienza e clic selezionati. Lo script viene attivato soltanto nel sito '
+        'pubblico ed evita di caricarsi quando il browser comunica Global Privacy Control '
+        'o Do Not Track. Non inviamo testi digitati nella ricerca, dati PSN, '
+        'stato delle checklist, identificativi dei visitatori o query URL negli eventi personalizzati.</p>'
+        '<p><a href="https://www.goatcounter.com/help/gdpr" target="_blank" '
+        'rel="noopener noreferrer">Privacy e informazioni sul servizio GoatCounter ↗</a>.</p>'
+        '<h2>Contatore pubblico delle visualizzazioni</h2>'
+        '<p>Il piccolo contatore presente vicino alla data della pagina utilizza '
+        'il servizio esterno hitscounter.dev. Misura richieste al badge e '
+        'non identifica necessariamente persone distinte; alcuni browser '
+        'o sistemi di protezione possono bloccarlo. Il servizio esterno '
+        'può ricevere informazioni tecniche associate alla richiesta.</p>'
+        '<h2>Video e collegamenti</h2><p>Le anteprime YouTube incorporabili '
+        'richiedono un clic esplicito prima di caricare il player esterno. '
+        'I collegamenti verso X, PowerPyx, Rockstar e altri portali '
+        'aprono servizi indipendenti, soggetti alle proprie condizioni.</p>'
+        '<h2>Gestione dei progressi nelle guide</h2><p>Le checklist utilizzano '
+        'soltanto il salvataggio locale del browser, quando consentito. '
+        'Non inviamo progressi al server, a GoatCounter o al PlayStation Network. '
+        'Puoi cancellarli rimuovendo i dati del sito nel browser.</p>'
+        '<p>Le metriche effettive non sono esposte in questa pagina: '
+        'un contatore di badge non è una dashboard statistica.</p></section>'
+    )
+    title="GTA 6 Italia: privacy e statistiche di navigazione"
+    desc="Come GTA 6 Italia utilizza i contatori di visualizzazioni e gli eventuali strumenti aggregati di analytics."
+    write("privacy/index.html",layout(title,desc,"privacy/",body,structured={
+        "@context":"https://schema.org","@type":"WebPage","name":title,"url":url("privacy/"),
+        "inLanguage":"it-IT"}))
+
+
 def redirect(path,dest):
     # Legacy local URLs only, old host will continue until cutover is validated.
     target=url(dest)
@@ -456,7 +518,8 @@ def main():
     cheat_paths=render_cheat_pages(write,layout,schema_article,url,crumbs)
     sources_path=render_sources_page(write,layout,url,crumbs)
     community_path=render_community_page(write,layout,url,crumbs)
-    xml_urls=["","trofei/","guide-e-tutorial/","trofei/medaglie-oro/",sources_path,community_path] + hdr_paths + cheat_paths
+    privacy_page()
+    xml_urls=["","trofei/","guide-e-tutorial/","trofei/medaglie-oro/",sources_path,community_path,"privacy/"] + hdr_paths + cheat_paths
     for t in trophies:
         state=trophy_detail(t,guides,trophies)
         if state=="index,follow":xml_urls.append(trophy_path(t))
