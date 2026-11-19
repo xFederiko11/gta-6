@@ -58,6 +58,13 @@ def render(write, layout, schema_article, url, crumbs):
 
     steps = "<ol class=\"hdr-steps\">" + "".join(
         "<li>" + e(step) + "</li>" for step in catalog["ps5_steps"]) + "</ol>"
+    filters = ('<div class="filters" role="group" aria-label="Filtra per produttore">'
+        + f'<button type="button" data-hdr-brand-filter="all" aria-pressed="true">Tutti · {total}</button>'
+        + ''.join(
+            f'<button type="button" data-hdr-brand-filter="{e(brand.casefold())}" aria-pressed="false">'
+            f'{e(brand)} · {sum(len(f["models"]) for f in families if f["brand"] == brand)}</button>'
+            for brand in sorted(groups)
+        ) + '</div>')
     form = ('<label for="hdr-ricerca" class="micro">Trova la tua TV: codice, '
             'brand, serie o pollici</label><br>'
             '<input id="hdr-ricerca" type="search" class="search" '
@@ -69,7 +76,7 @@ def render(write, layout, schema_article, url, crumbs):
         terms = " ".join([family["brand"], family["series"], family["group"]]
                          + [m["code"] + " " + str(m["size"]) for m in family["models"]])
         blocks.append(
-            f'<article class="hdr-family" data-hdr-search="{e(terms.casefold())}">'
+            f'<article class="hdr-family" data-hdr-brand="{e(family["brand"].casefold())}" data-hdr-search="{e(terms.casefold())}">'
             f'<div class="hdr-family-head"><div><span class="card-label">{e(family["brand"])} · {e(family["year"])}</span>'
             f'<h3><a href="{url(path)}">{e(family["series"])} ↗</a></h3>'
             f'<p>{e(family["summary"])}</p></div><span class="hdr-family-count">{len(family["models"])} tagli</span></div>'
@@ -82,18 +89,27 @@ def render(write, layout, schema_article, url, crumbs):
  const input=document.getElementById("hdr-ricerca");
  const cards=Array.from(document.querySelectorAll("[data-hdr-search]"));
  const counter=document.getElementById("hdr-risultati");
+ const brandButtons=Array.from(document.querySelectorAll("[data-hdr-brand-filter]"));
+ let brand="all";
  if(!input || !counter)return;
  function render(){
    const q=input.value.trim().toLocaleLowerCase("it-IT");
    let count=0;
    cards.forEach(card=>{
-     const match=!q || card.dataset.hdrSearch.includes(q);
+     const match=(!q || card.dataset.hdrSearch.includes(q)) &&
+       (brand==="all" || card.dataset.hdrBrand===brand);
      card.hidden=!match;
      if(match)count++;
    });
-   counter.textContent=count+" famiglie compatibili visualizzate";
+   counter.textContent=count ? count+" famiglie compatibili visualizzate" :
+       "Nessun modello trovato: controlla il codice o seleziona Tutti.";
  }
  input.addEventListener("input",render);
+ brandButtons.forEach(btn=>btn.addEventListener("click",()=>{
+   brand=btn.dataset.hdrBrandFilter;
+   brandButtons.forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));
+   render();
+ }));
  render();
 })();
 </script>"""
@@ -101,7 +117,7 @@ def render(write, layout, schema_article, url, crumbs):
     desc = (f"Guida HDR GTA VI PS5 e PS5 Pro: cerca tra {total} codici OLED in "
             f"{len(families)} famiglie LG, Samsung, Sony, Philips e Panasonic. HGiG, Game HDR e calibrazione.")
     page = (intro + '<section class="section"><h2>Trova il modello OLED esatto</h2>' + form
-            + '<div class="hdr-list">' + "".join(blocks) + "</div>" + script + "</section>"
+            + filters + '<div class="hdr-list">' + "".join(blocks) + "</div>" + script + "</section>"
             + '<section class="section"><span class="eyebrow">🎮 Consoles</span>'
             + '<h2>Configurazione HDR di base su PS5 e PS5 Pro</h2>' + steps
             + f'<p class="source">Procedura PlayStation: <a href="{e(catalog["ps5_source"])}" '

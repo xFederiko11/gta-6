@@ -129,6 +129,10 @@ class PortalTests(unittest.TestCase):
         index=root.read_text(encoding="utf-8")
         self.assertIn('id="hdr-ricerca"',index)
         self.assertIn("data-hdr-search=",index)
+        self.assertIn("data-hdr-brand=",index)
+        self.assertIn('data-hdr-brand-filter="all"',index)
+        self.assertEqual(index.count('data-hdr-brand-filter='),6)
+        self.assertIn("Nessun modello trovato",index)
         self.assertIn("Game HDR",index)
         self.assertIn("HGiG",index)
         self.assertIn("application/ld+json",index)
@@ -148,6 +152,8 @@ class PortalTests(unittest.TestCase):
                 self.assertIn(str(model["size"])+"″",page)
             for source in family["sources"]:
                 self.assertIn(source.replace("&","&amp;"),page)
+            if family["brand"] == "LG":
+                self.assertIn("Compensazione mappatura toni",page)
         self.assertNotIn("1000 nit calibrati per GTA 6",index)
 
     def test_no_external_paid_dependencies(self):

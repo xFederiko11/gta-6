@@ -35,7 +35,7 @@
       ],
       "settings": [
         "Collega PS5/PS5 Pro a un ingresso HDMI con Game Optimizer e supporto HDR attivati.",
-        "Attiva Game Optimizer e, nelle impostazioni di mappatura dei toni HDR, verifica HGiG: è il punto di partenza per una regolazione coerente con la console.",
+        "Con PS5 collegata in HDMI e immagine su Ottimizzatore gioco, prova: ⚙ → Tutte le impostazioni → Generale → Ottimizzatore gioco → Schermo → Compensazione mappatura toni (Tone Mapping Compensation) → HGiG. LG avverte che nomi e percorso possono variare secondo modello/webOS/firmware.",
         "Tieni disattivati i potenziamenti dinamici/AI dell'immagine durante la calibrazione per non modificare continuamente l'esposizione.",
         "Configura HDR sulla PS5 solo dopo avere scelto il profilo definitivo del TV; il picco del pannello dipende dal taglio."
       ],
@@ -43,7 +43,8 @@
       "sources": [
         "https://www.lg.com/it/tv-soundbar/oled-evo/oled55c65la/",
         "https://www.lg.com/it/tv-soundbar/oled-evo/oled65c65la/",
-        "https://www.lg.com/it/tv-soundbar/oled-evo/oled77c65la/"
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled77c65la/",
+        "https://www.lg.com/uk/support/product-support/troubleshoot/help-library/cs-CT00008333-20155132471717/"
       ]
     },
     {
@@ -77,7 +78,7 @@
       ],
       "settings": [
         "Abilita Game Optimizer nell'ingresso HDMI della PS5 e controlla la ricezione del segnale HDR.",
-        "Se il menu di tone mapping lo prevede, seleziona HGiG per iniziare la calibrazione PlayStation.",
+        "Con PS5 collegata in HDMI e immagine su Ottimizzatore gioco, prova: ⚙ → Tutte le impostazioni → Generale → Ottimizzatore gioco → Schermo → Compensazione mappatura toni (Tone Mapping Compensation) → HGiG. LG avverte che nomi e percorso possono variare secondo modello/webOS/firmware.",
         "Evita Dynamic Tone Mapping o miglioramenti AI durante Regola HDR su PS5; se preferisci una resa più brillante puoi confrontarla dopo avere salvato il punto di partenza.",
         "Regola il gioco dopo la console solo sulle opzioni HDR effettivamente disponibili nella versione installata."
       ],
@@ -86,7 +87,8 @@
         "https://www.lg.com/it/tv-soundbar/oled-evo/oled55g64lw/",
         "https://www.lg.com/it/tv-soundbar/oled-evo/oled65g64lw/",
         "https://www.lg.com/it/tv-soundbar/oled-evo/oled83g64lw/",
-        "https://www.lg.com/it/tv-soundbar/oled-evo/oled97g64lw/"
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled97g64lw/",
+        "https://www.lg.com/uk/support/product-support/troubleshoot/help-library/cs-CT00008333-20155132471717/"
       ]
     },
     {
@@ -124,7 +126,7 @@
       ],
       "settings": [
         "Attiva Ottimizzatore gioco / Game Optimizer sull'ingresso HDMI della PS5.",
-        "Per una base fedele, in Mappatura toni dinamica / Dynamic Tone Mapping seleziona HGiG, se disponibile per il segnale HDR.",
+        "Con PS5 collegata in HDMI e immagine su Ottimizzatore gioco, prova: ⚙ → Tutte le impostazioni → Generale → Ottimizzatore gioco → Schermo → Compensazione mappatura toni (Tone Mapping Compensation) → HGiG. LG avverte che nomi e percorso possono variare secondo modello/webOS/firmware.",
         "Disattiva le elaborazioni dinamiche o AI che alterano luminosità e colore durante la calibrazione; evita di abbassare la luminosità OLED per poi compensare sulla console.",
         "Esegui Impostazioni PS5 → Schermo e video → Uscita video → Regola HDR dopo avere impostato HGiG."
       ],
@@ -132,7 +134,8 @@
       "sources": [
         "https://www.lg.com/it/tv-soundbar/oled-evo/oled55c54la/",
         "https://www.lg.com/content/dam/channel/wcms/pl/regulamin/Regulamin_promocji_LG_Wielozakup_Cross_20250701_15.pdf",
-        "https://www.lg.com/us/tvs/tv-buying-guide/tv-for-gaming"
+        "https://www.lg.com/us/tvs/tv-buying-guide/tv-for-gaming",
+        "https://www.lg.com/uk/support/product-support/troubleshoot/help-library/cs-CT00008333-20155132471717/"
       ]
     },
     {
@@ -166,7 +169,7 @@
       ],
       "settings": [
         "Usa l'ingresso HDMI dedicato alla PS5 e attiva Game Optimizer.",
-        "Attiva HGiG per una calibrazione coerente con il segnale gioco, quando questa modalità è esposta nel menu.",
+        "Con PS5 collegata in HDMI e immagine su Ottimizzatore gioco, prova: ⚙ → Tutte le impostazioni → Generale → Ottimizzatore gioco → Schermo → Compensazione mappatura toni (Tone Mapping Compensation) → HGiG. LG avverte che nomi e percorso possono variare secondo modello/webOS/firmware.",
         "Imposta un profilo neutro e disattiva contrasto dinamico ed elaborazioni AI durante la regolazione HDR.",
         "Regola HDR sulla PS5 soltanto dopo aver fissato le impostazioni del televisore."
       ],
@@ -174,7 +177,8 @@
       "sources": [
         "https://www.lg.com/it/tv-soundbar/oled-evo/oled55g54lw/",
         "https://www.lg.com/it/tv-soundbar/oled-evo/oled97g54lw/",
-        "https://www.lg.com/content/dam/channel/wcms/pl/regulamin/Regulamin_promocji_LG_Wielozakup_Cross_20250701_15.pdf"
+        "https://www.lg.com/content/dam/channel/wcms/pl/regulamin/Regulamin_promocji_LG_Wielozakup_Cross_20250701_15.pdf",
+        "https://www.lg.com/uk/support/product-support/troubleshoot/help-library/cs-CT00008333-20155132471717/"
       ]
     },
     {
