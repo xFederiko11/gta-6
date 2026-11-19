@@ -118,3 +118,11 @@ La pagina `/fonti/` è generata da `sources_page.py` e `data/fonti_editoriali.js
 ## Aggiornamento autonomo delle scoperte dal bot
 
 Il monitor pubblico `xFederiko11/federiko-gta-playstation-bot` aggiorna una singola issue GitHub di ricerca ogni tre scansioni al giorno, inserendo un payload JSON firmato dal contesto di origine (non crittograficamente). Il sito recupera esclusivamente quella issue tramite API GitHub pubblica prima della build con `fetch_community_feed.py`; `community_page.py` valida schema, URL, fonti, date ed etichette. La pagina `/scoperte/` è SEO-indicizzabile, ma **esplicita che i titoli sono segnalazioni non verificate**. Non si copiano articoli, non si presentano rumor come annunci e non si inviano messaggi Buffer. Se il servizio sorgente non è disponibile, il deploy si blocca lasciando pubblicata la versione precedente; quando non esiste ancora alcuna issue, viene mostrata la pagina vuota con avviso. La scansione avviene via GitHub Actions senza ChatGPT, chiavi API commerciali o automazioni ChatGPT.
+
+
+## Collegamenti dinamici alle fonti delle guide
+
+`related_research.py` legge il feed già importato dal bot GitHub per mostrare, nell'indice delle guide e nelle singole guide, **soltanto collegamenti esterni chiaramente pertinenti** all'argomento, con fonte e data. Non usa i titoli per modificare procedimenti, numeri di trofei, combinazioni di trucchi o avvertenze trophy-safe. Sulle pagine pratiche evita i rumor; questi rimangono nell'indice `/scoperte/` con l'etichetta di affidabilità. I titoli delle fonti sono sempre soggetti a validazione del dominio e HTML escaping.
+
+Fonti di ricerca abilitate: PowerPyx, GTA Series Videos e GTABase (quando il feed news risponde). Avere un feed è solo un modo di rilevare nuovi contenuti, non una certificazione di quanto affermato. I cambiamenti richiedenti verifica in-game rimangono in una checklist del bot su GitHub Issues, non sono pubblicati come fatti. `test_related_research.py` controlla collegamenti pertinenti e protezioni contro contenuti non attendibili.
+

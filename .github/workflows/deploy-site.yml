@@ -6,6 +6,8 @@ on:
     paths:
       - 'build_site.py'
       - 'community_page.py'
+      - 'related_research.py'
+      - 'test_related_research.py'
       - 'fetch_community_feed.py'
       - 'test_community_feed.py'
       - 'site_info.py'
@@ -50,7 +52,7 @@ jobs:
       - name: Build public site
         run: python build_site.py
       - name: Validate pages and SEO
-        run: python -m unittest -q test_site.py test_community_feed.py
+        run: python -m unittest -q test_site.py test_community_feed.py test_related_research.py
       - name: Upload static site to GitHub Pages
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
