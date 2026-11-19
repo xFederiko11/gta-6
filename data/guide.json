@@ -57,13 +57,30 @@
       "tag": "Trofei",
       "summary": "Un evento di meditazione iniziale potrebbe richiedere attenzione nella run del platino.",
       "steps": [
-        "Durante il Capitolo 1, presta attenzione alla sequenza sul balcone con Lucia.",
-        "Segui il prompt L2 quando disponibile.",
-        "Seleziona Accetta nell'interazione indicata dalla guida."
+        "Nel Capitolo 1, controlla le conversazioni con Lucia a casa di Jason, soprattutto al mattino dopo la missione «Down to Earth»: l'evento può presentarsi anche in un momento diverso.",
+        "Quando Lucia dice che vuole meditare, seguila sul balcone dove si trova l'attrezzatura per allenarsi.",
+        "Inquadra Lucia con L2 e scegli «Accetta» per partecipare alla meditazione."
       ],
       "benefit": "Può evitare una ripetizione della sequenza se l'attività risultasse mancabile.",
-      "caution": "L'effetto preciso sul trofeo non è ancora definitivamente accertato. Conserva un salvataggio manuale prima di proseguire.",
+      "caution": "La meditazione sul balcone scompare dopo il Capitolo 1, ma non è ancora certo che sia obbligatoria per il trofeo «Mentalità positiva». Conserva un salvataggio manuale prima di completare il capitolo.",
       "source_url": "https://www.powerpyx.com/gta-6-all-meditation-spot-locations/",
+      "image": "https://www.rockstargames.com/VI/_next/static/media/Lucia_Caminos_02.16n.5umvlu_48.jpg?akim=1&imdensity=1&imwidth=3840",
+      "related_trophy": 28
+    },
+    {
+      "id": "salvataggi-manuali-ps5",
+      "title": "Salvare GTA VI su PS5: 15 slot e niente replay delle missioni",
+      "tag": "Platino",
+      "summary": "Proteggi la run per il platino con salvataggi manuali prima dei cambi di capitolo e delle attività irreversibili.",
+      "steps": [
+        "Fuori dalle missioni, premi Options sul DualSense e apri Gioco > Salva partita.",
+        "Conserva uno slot all'inizio e uno alla fine di ciascuno dei cinque capitoli: sono 10 dei 15 slot manuali disponibili.",
+        "Usa gli altri 5 slot a rotazione per le missioni, l'esplorazione e i trofei; salva prima della fine del Capitolo 1 per non perdere l'evento di meditazione.",
+        "Non basarti soltanto sull'autosalvataggio: ricaricare una partita manuale precedente può sovrascriverlo."
+      ],
+      "benefit": "PowerPyx segnala che al lancio non esiste replay delle missioni: i salvataggi separati permettono di tornare indietro senza dover ricominciare tutto.",
+      "caution": "Procedura tratta da una guida indipendente del 18 novembre 2026; verifica eventuali modifiche dopo le patch. Durante le missioni il salvataggio manuale può essere disabilitato.",
+      "source_url": "https://www.powerpyx.com/gta-6-how-to-save/",
       "image": "https://www.rockstargames.com/VI/_next/static/media/Lucia_Caminos_02.16n.5umvlu_48.jpg?akim=1&imdensity=1&imwidth=3840",
       "related_trophy": 28
     },
