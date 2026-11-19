@@ -127,7 +127,7 @@ def guide_card(g):
 
 def trophy_card(t):
     desc=t["requirement_it"] if not t["hidden"] else "Trofeo nascosto: attenzione agli spoiler."
-    return f'<article class="index-item" data-tier="{e(t["tier"].lower())}" data-search="{e((t["name_it"]+" "+desc).lower())}"><span class="card-label {e(t["tier"].lower())}">{e(t["tier"])}</span><h3><a href="{url(trophy_path(t))}">{e(t["name_it"])}</a></h3><p>{e(desc)}</p></article>'
+    return f'<article class="index-item" data-trophy-number="{t["number"]}" data-tier="{e(t["tier"].lower())}" data-search="{e((t["name_it"]+" "+desc).lower())}"><span class="card-label {e(t["tier"].lower())}">{e(t["tier"])}</span><h3><a href="{url(trophy_path(t))}">{e(t["name_it"])}</a></h3><p>{e(desc)}</p></article>'
 
 def list_search():
     return '''
@@ -215,7 +215,14 @@ def trophy_index(trophies):
     cards=list_search()+'<h2>Trofei visibili</h2><div class="index-list">'+"".join(trophy_card(t) for t in shown)+'</div>'
     secrets='<details><summary>⚠️ Mostra i 28 trofei nascosti (spoiler)</summary><div class="index-list">'+"".join(trophy_card(t) for t in hidden)+'</div></details>'
     sources=f'<div class="source">Fonti: <a href="{e(TROPHY_SOURCE)}" rel="noopener noreferrer">PowerPyx – Trophy Roadmap</a> e <a href="{e(LIST_SOURCE)}" rel="noopener noreferrer">elenco italiano</a>. Le indicazioni possono cambiare con le patch.</div>'
-    return lead+cards+secrets+sources
+    progress=('<section class="trophy-index-progress" data-trophy-index-progress>'
+              '<div><span class="eyebrow">IL TUO PERCORSO</span>'
+              '<strong data-trophy-total aria-live="polite">0 / 55 trofei segnati</strong>'
+              '<p>Segna i trofei nelle rispettive schede: il riepilogo si aggiorna qui. '
+              'Non legge il tuo account PSN.</p></div>'
+              '<progress max="55" value="0" data-trophy-index-bar '
+              'aria-label="Trofei segnati manualmente"></progress></section>')
+    return lead+progress+cards+secrets+sources+f'<script src="{url("assets/trophy-experience.js")}" defer></script>'
 
 def trophy_detail(t, guides, trophies):
     path=trophy_path(t)
