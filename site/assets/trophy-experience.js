@@ -75,6 +75,29 @@
     render();
   });
 
+  // Personal PSN-free overview. Re-read on browser Back (bfcache) and tab changes.
+  document.querySelectorAll("[data-trophy-index-progress]").forEach(root => {
+    const cards = [...document.querySelectorAll("[data-trophy-number]")];
+    const known = new Set(cards.map(card => card.dataset.trophyNumber));
+    const count = root.querySelector("[data-trophy-total]");
+    const bar = root.querySelector("[data-trophy-index-bar]");
+    function render() {
+      const done = read(TROPHY_KEY);
+      let marked = 0;
+      for (const card of cards) {
+        const finished = known.has(card.dataset.trophyNumber) && done.has(card.dataset.trophyNumber);
+        card.dataset.completed = finished ? "true" : "false";
+        if (finished) marked++;
+      }
+      count.textContent = marked + " / " + cards.length + " trofei segnati";
+      bar.value = marked;
+      bar.setAttribute("aria-valuetext", marked + " trofei segnati su " + cards.length);
+    }
+    window.addEventListener("pageshow", render);
+    window.addEventListener("storage", render);
+    render();
+  });
+
   // Official Rockstar video only, loaded after an explicit user interaction.
   document.querySelectorAll("button[data-video-id]").forEach(button => {
     button.addEventListener("click", () => {
