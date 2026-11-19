@@ -9,6 +9,7 @@ Portale pubblico e gratuito dedicato a **GTA VI su PS5 e PS5 Pro**. I contenuti 
 - **Homepage** — `/gta-6/`
 - **Trofei** — `/gta-6/trofei/`: 55 schede individuali, requisiti Oro, protezione degli spoiler.
 - **Guide e tutorial** — `/gta-6/guide-e-tutorial/`: consigli rapidi con procedura PS5, vantaggi e fonte.
+- **Fonti e metodologia editoriale** — `/gta-6/fonti/`: fonte ufficiale vs guida indipendente, community, dataminer, giornalismo, verifica trucchi e notizie.
 - **Trucchi GTA VI PS5** — `/gta-6/trucchi/`: 17 sequenze pubblicate illustrate con icone croce direzionale DualSense; singole pagine SEO, requisiti, fonti e avviso trofei.
 - **HDR OLED** — `/gta-6/hdr-oled/`: cerca marca, codice TV o diagonale; 21 famiglie e 92 codici per PS5 e PS5 Pro, pagine SEO per serie.
 - **Medaglie Oro** — `/gta-6/trofei/medaglie-oro/`.
@@ -108,3 +109,7 @@ Fonti: https://allthings.how/best-gta-6-settings-to-change-first-on-ps5/ e https
 - Fonti editoriali: https://www.powerpyx.com/gta-6-all-cheats/ , https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/ e https://gtadb.net/gta-6/cheats/ . I codici sono attribuiti, non testati personalmente dall'autore del sito.
 - Ricontrollare i codici con fonti indipendenti in caso di aggiornamenti o segnalazioni di errori, senza inventarne di mancanti.
 
+
+## Verifica fonti GTA VI (19 novembre 2026)
+
+La pagina `/fonti/` è generata da `sources_page.py` e `data/fonti_editoriali.json`, con canonical, JSON-LD, sitemap e data reale di modifica. Elenca fonti ufficiali e indipendenti senza mescolarne l'autorità. Le 17 sequenze GTA VI pubblicate sono attribuite a PowerPyx; soltanto 9 risultano corrispondere anche agli input della guida indipendente PC Gamer al 19/11, e 8 restano da verificare indipendentemente. Il requisito di medaglie per Max Ammo è controverso (20 vs 25) e viene esplicitato. Il bot editoriale raccoglie nuovi elementi PowerPyx e GTA Series Videos in modalità ricerca prima della pubblicazione. Fonti non accessibili automaticamente non vengono descritte come lette dal bot.
