@@ -43,6 +43,7 @@ class PortalTests(unittest.TestCase):
         self.assertIn("Guide e tutorial",homepage)
         self.assertIn("HDR OLED",homepage)
         self.assertIn("Trucchi PS5",homepage)
+        self.assertIn("Radar community GTA VI",homepage)
         self.assertIn("https://xfederiko11.github.io/gta-6/hdr-oled/",homepage)
         self.assertIn("https://xfederiko11.github.io/gta-6/",homepage)
         self.assertNotIn("federiko-gta-playstation-bot",homepage)
@@ -75,7 +76,7 @@ class PortalTests(unittest.TestCase):
         raw=(self.out/"sitemap.xml").read_text(encoding="utf-8")
         root=ET.fromstring(raw)
         locs=[x.text for x in root.iter() if x.tag.endswith("loc")]
-        self.assertEqual(len(locs),5+27+6+1+len(self.hdr["families"])+1+len(self.cheats))
+        self.assertEqual(len(locs),6+27+6+1+len(self.hdr["families"])+1+len(self.cheats))
         self.assertEqual(len(locs),len(set(locs)))
         self.assertTrue(all(x.startswith("https://xfederiko11.github.io/gta-6/") for x in locs))
         self.assertTrue((self.out/"trofei"/"medaglie-oro"/"index.html").exists())
@@ -96,10 +97,11 @@ class PortalTests(unittest.TestCase):
         pages += [self.out/"guide-e-tutorial"/g["id"]/"index.html" for g in self.guides]
         pages += [self.out/"hdr-oled"/"index.html"]
         pages += [self.out/"hdr-oled"/f["slug"]/"index.html" for f in self.hdr["families"]]
+        pages += [self.out/"community"/"index.html"]
         pages += [self.out/"fonti"/"index.html"]
         pages += [self.out/"trucchi"/"index.html"]
         pages += [self.out/"trucchi"/x["slug"]/"index.html" for x in self.cheats]
-        self.assertEqual(len(pages),5+55+6+1+len(self.hdr["families"])+1+len(self.cheats))
+        self.assertEqual(len(pages),6+55+6+1+len(self.hdr["families"])+1+len(self.cheats))
         for page in pages:
             markup=page.read_text(encoding="utf-8")
             self.assertIn('class="page-meta"',markup,str(page))
@@ -230,6 +232,15 @@ class PortalTests(unittest.TestCase):
         self.assertIn("PowerPyx e PC Gamer",corroborated)
         single=(self.out/"trucchi"/"munizioni-massime"/"index.html").read_text(encoding="utf-8")
         self.assertIn("non abbiamo un secondo controllo",single)
+
+    def test_community_watch_page_is_transparent_and_seo_ready(self):
+        page=(self.out/"community"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("cosa sta scoprendo la community",page)
+        self.assertIn("Non ci sono ancora nuove segnalazioni",page)
+        self.assertIn("non sono sintesi",page)
+        self.assertIn("https://github.com/xFederiko11/federiko-gta-playstation-bot/issues/29",page)
+        self.assertIn('rel="canonical"',page)
+        self.assertIn('application/ld+json',page)
 
     def test_no_external_paid_dependencies(self):
         self.assertFalse((self.out/"node_modules").exists())
