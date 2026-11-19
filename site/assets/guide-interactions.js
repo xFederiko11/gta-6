@@ -17,7 +17,9 @@
   document.querySelectorAll("[data-guide-steps]").forEach(root => {
     const id = root.dataset.guideSteps || "";
     if (!/^[a-z0-9-]{1,90}$/.test(id)) return;
-    const key = PREFIX + id;
+    const version = root.dataset.guideVersion || "initial";
+    if (!/^[a-f0-9]{12}$/.test(version)) return;
+    const key = PREFIX + id + ":" + version;
     const boxes = [...root.querySelectorAll("input[data-guide-step]")];
     const allowed = new Set(boxes.map(x => x.dataset.guideStep));
     let checked = new Set([...stored(key)].filter(x => allowed.has(x)));
