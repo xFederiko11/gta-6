@@ -182,6 +182,214 @@
       ]
     },
     {
+      "slug": "lg-oled-c4",
+      "brand": "LG",
+      "series": "OLED evo C4",
+      "year": 2024,
+      "group": "LG · webOS 24 · HGiG",
+      "summary": "LG C4 2024: impostazioni Game Optimizer e HGiG per PS5 / PS5 Pro. Include codici italiani C44LA/C43LA e varianti tedesche C47LA.",
+      "models": [
+        {
+          "size": 42,
+          "code": "OLED42C44LA"
+        },
+        {
+          "size": 48,
+          "code": "OLED48C44LA"
+        },
+        {
+          "size": 55,
+          "code": "OLED55C44LA"
+        },
+        {
+          "size": 65,
+          "code": "OLED65C44LA"
+        },
+        {
+          "size": 77,
+          "code": "OLED77C44LA"
+        },
+        {
+          "size": 83,
+          "code": "OLED83C44LA"
+        },
+        {
+          "size": 42,
+          "code": "OLED42C47LA"
+        },
+        {
+          "size": 48,
+          "code": "OLED48C47LA"
+        },
+        {
+          "size": 55,
+          "code": "OLED55C47LA"
+        },
+        {
+          "size": 65,
+          "code": "OLED65C47LA"
+        },
+        {
+          "size": 77,
+          "code": "OLED77C47LA"
+        },
+        {
+          "size": 83,
+          "code": "OLED83C47LA"
+        },
+        {
+          "size": 55,
+          "code": "OLED55C43LA"
+        }
+      ],
+      "settings": [
+        "Con PS5 su HDMI, attiva il profilo Immagine Gioco / Ottimizzatore gioco (Game Optimizer). Sui C4 il menu webOS 24 permette di gestire le funzioni gioco; verifica che il segnale sia HDR10.",
+        "Per la calibrazione di riferimento: telecomando ⚙ → Tutte le impostazioni → Generale → Ottimizzatore gioco → Schermo → Compensazione mappatura toni (Dynamic Tone Mapping / Tone Mapping Compensation) → HGiG. LG segnala che voce e percorso possono variare con il firmware.",
+        "Durante la calibrazione PS5, lascia disattivati i potenziamenti dinamici/AI dell'immagine e le modifiche automatiche al contrasto; non sommare Dynamic Tone Mapping ON e la calibrazione HGiG.",
+        "Su PS5/PS5 Pro apri Impostazioni → Schermo e video → Uscita video → Regola HDR solo dopo avere selezionato HGiG sul televisore.",
+        "Avvia GTA VI: confronta alte luci, ombre e riflessi. Se HGiG sembra troppo scuro in una stanza luminosa, confronta la resa con mappatura toni dinamica ON, sapendo che cambia il riferimento."
+      ],
+      "caution": "C4 42″ e 48″ sono esclusi dal Brightness Booster dichiarato per i tagli 55/65/77/83: non trasferire nit o clic HDR da un altro taglio. Le varianti commerciali per Italia/Germania condividono questa guida dei menu, non una luminosità misurata; webOS/firmware può modificarne le voci.",
+      "sources": [
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled42c44la/",
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled55c44la/",
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled83c44la/",
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled55c43la/",
+        "https://www.lg.com/de/promotions/UnsereBesten/",
+        "https://www.lg.com/us/simroom/tvs/user-guide/2024/game-optimizer",
+        "https://www.lg.com/us/support/help-library/lg-tv-how-to-enable-the-hgig-setting--20153301892284"
+      ]
+    },
+    {
+      "slug": "lg-oled-g4",
+      "brand": "LG",
+      "series": "OLED evo G4",
+      "year": 2024,
+      "group": "LG · webOS 24 · HGiG",
+      "summary": "LG OLED evo G4 2024: impostazioni HDR PS5, Game Optimizer e tone mapping HGiG con note per i tagli MLA.",
+      "models": [
+        {
+          "size": 55,
+          "code": "OLED55G45LW"
+        },
+        {
+          "size": 65,
+          "code": "OLED65G45LW"
+        },
+        {
+          "size": 77,
+          "code": "OLED77G45LW"
+        },
+        {
+          "size": 83,
+          "code": "OLED83G45LW"
+        }
+      ],
+      "settings": [
+        "Attiva Immagine Gioco e Game Optimizer sull'HDMI collegato alla PS5; controlla che il segnale HDR10 sia rilevato.",
+        "Per una base coerente scegli ⚙ → Tutte le impostazioni → Generale → Ottimizzatore gioco → Schermo → Compensazione mappatura toni → HGiG, se esposto dal firmware.",
+        "Disattiva miglioramenti AI/dinamici prima della regolazione PS5; usa Impostazioni → Schermo e video → Uscita video → Regola HDR.",
+        "In GTA VI verifica cielo, ombre e riflessi a parità di scena; non copiare livelli di picco da C4 o B4."
+      ],
+      "caution": "Questi G4 da 55/65/77/83 pollici hanno una resa luminosa differente dai C4. LG distingue inoltre il G4 da 97 pollici, qui non incluso perché il codice regionale non è stato verificato nella stessa scheda.",
+      "sources": [
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled55g45lw/",
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled65g45lw/",
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled77g45lw/",
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled83g45lw/",
+        "https://www.lg.com/us/support/help-library/lg-tv-how-to-enable-the-hgig-setting--20153301892284"
+      ]
+    },
+    {
+      "slug": "lg-oled-b4",
+      "brand": "LG",
+      "series": "OLED B4",
+      "year": 2024,
+      "group": "LG · webOS 24 · HGiG",
+      "summary": "LG OLED B4 2024 da 48 a 77 pollici: modalità Gioco, HGiG e regolazione HDR PS5.",
+      "models": [
+        {
+          "size": 48,
+          "code": "OLED48B46LA"
+        },
+        {
+          "size": 55,
+          "code": "OLED55B46LA"
+        },
+        {
+          "size": 65,
+          "code": "OLED65B46LA"
+        },
+        {
+          "size": 77,
+          "code": "OLED77B46LA"
+        }
+      ],
+      "settings": [
+        "Connetti PS5/PS5 Pro in HDMI e abilita Immagine Gioco / Ottimizzatore gioco: LG documenta HGiG e Game Dashboard sui B4.",
+        "Apri ⚙ → Tutte le impostazioni → Generale → Ottimizzatore gioco → Schermo → Compensazione mappatura toni → HGiG, se disponibile in questa versione firmware.",
+        "Lascia disattivati contrasto dinamico e filtri AI durante la regolazione; imposta Regola HDR su PS5 solo dopo il profilo HGiG.",
+        "Valuta il risultato in GTA VI di giorno e di notte; i livelli di nero o il dettaglio in ombra vanno verificati senza aumentare più controlli insieme."
+      ],
+      "caution": "B4 monta un processore e un pannello con caratteristiche differenti rispetto a C4 e G4. Non riutilizzare valori HDR numerici o preset Brightness Booster di altre serie.",
+      "sources": [
+        "https://www.lg.com/it/tv-soundbar/oled/oled48b46la/",
+        "https://www.lg.com/it/tv-soundbar/oled/oled55b46la/",
+        "https://www.lg.com/it/tv-soundbar/oled/oled65b46la/",
+        "https://www.lg.com/it/tv-soundbar/oled/oled77b46la/",
+        "https://www.lg.com/us/support/help-library/lg-tv-how-to-enable-the-hgig-setting--20153301892284"
+      ]
+    },
+    {
+      "slug": "lg-oled-c3",
+      "brand": "LG",
+      "series": "OLED evo C3",
+      "year": 2023,
+      "group": "LG · webOS 23 · HGiG",
+      "summary": "LG OLED evo C3 2023: impostazioni Gioco e HGiG per la calibrazione HDR su PS5 e PS5 Pro.",
+      "models": [
+        {
+          "size": 42,
+          "code": "OLED42C34LA"
+        },
+        {
+          "size": 48,
+          "code": "OLED48C34LA"
+        },
+        {
+          "size": 55,
+          "code": "OLED55C34LA"
+        },
+        {
+          "size": 65,
+          "code": "OLED65C34LA"
+        },
+        {
+          "size": 77,
+          "code": "OLED77C34LA"
+        },
+        {
+          "size": 83,
+          "code": "OLED83C34LA"
+        }
+      ],
+      "settings": [
+        "Apri sull'HDMI della PS5 il profilo Immagine Gioco e attiva Game Optimizer (Ottimizzatore gioco); verifica che il TV riceva HDR10.",
+        "Per ottenere un riferimento HDR coerente, cerca Compensazione mappatura toni / Dynamic Tone Mapping nelle opzioni gioco e scegli HGiG. Puoi iniziare da ⚙ → Tutte le impostazioni → Generale → Ottimizzatore gioco → Schermo; firmware e aggiornamenti possono cambiare il menu.",
+        "Disattiva contrasto dinamico ed elaborazione AI durante la regolazione PS5, quindi completa Regola HDR nella console.",
+        "Controlla la resa in GTA VI senza usare click o nit di un C4/C5."
+      ],
+      "caution": "La tecnologia Brightness Booster non è applicata ai tagli C3 da 42″ e 48″. Il comportamento HDR del 2023 può differire da quello dei modelli 2024-26; eventuali aggiornamenti webOS modificano i menu.",
+      "sources": [
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled42c34la/",
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled55c34la/",
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled65c34la/",
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled77c34la/",
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled83c34la/",
+        "https://www.lg.com/us/support/help-library/lg-tv-how-to-enable-the-hgig-setting--20153301892284"
+      ]
+    },
+    {
       "slug": "samsung-s90h",
       "brand": "Samsung",
       "series": "OLED S90H",
@@ -333,6 +541,74 @@
       ]
     },
     {
+      "slug": "samsung-s90d",
+      "brand": "Samsung",
+      "series": "OLED S90D",
+      "year": 2024,
+      "group": "Samsung · Game HDR",
+      "summary": "Samsung S90D 2024: modalità Gioco e Game HDR (HGiG) su PS5; codici italiani distinti per taglio e regione.",
+      "models": [
+        {
+          "size": 55,
+          "code": "QE55S90DAEXZT"
+        },
+        {
+          "size": 65,
+          "code": "QE65S90DATXZT"
+        },
+        {
+          "size": 77,
+          "code": "QE77S90DAEXZT"
+        }
+      ],
+      "settings": [
+        "Seleziona Modalità gioco nell'ingresso HDMI PS5 e conferma il segnale HDR10.",
+        "Apri le impostazioni avanzate della modalità Gioco / Game Bar, cerca Game HDR (HGiG) e selezionalo se disponibile.",
+        "Disattiva Contrast Enhancer ed elaborazioni dinamiche durante Impostazioni PS5 → Schermo e video → Uscita video → Regola HDR.",
+        "Confronta una scena notturna e una soleggiata in GTA VI prima di modificare altre opzioni."
+      ],
+      "caution": "I codici italiani S90D 55/77 e 65 pollici non hanno tutti lo stesso suffisso. Samsung non dichiara sempre la tecnologia esatta del pannello per ciascuna variante; non promettere picchi HDR o tipo di pannello uguali.",
+      "sources": [
+        "https://www.samsung.com/it/business/tvs/oled-tv/s90d-55-inch-oled-4k-tizen-os-smart-tv-qe55s90daexzt/",
+        "https://www.samsung.com/it/business/tvs/oled-tv/s90d-65-inch-oled-4k-tizen-os-smart-tv-qe65s90datxzt/",
+        "https://www.samsung.com/it/business/tvs/oled-tv/s90d-77-inch-oled-4k-tizen-os-smart-tv-qe77s90daexzt/"
+      ]
+    },
+    {
+      "slug": "samsung-s95d",
+      "brand": "Samsung",
+      "series": "OLED S95D",
+      "year": 2024,
+      "group": "Samsung · Game HDR",
+      "summary": "Samsung S95D 2024: Game Mode e Game HDR (HGiG) per PS5/PS5 Pro, con controllo HDR10.",
+      "models": [
+        {
+          "size": 55,
+          "code": "QE55S95DATXZT"
+        },
+        {
+          "size": 65,
+          "code": "QE65S95DATXZT"
+        },
+        {
+          "size": 77,
+          "code": "QE77S95DATXZT"
+        }
+      ],
+      "settings": [
+        "Collega la console in HDMI e seleziona Modalità gioco, verificando l'uscita HDR10.",
+        "Nel menu per gaming/Game Bar cerca Game HDR (HGiG): usalo come base quando disponibile nel firmware.",
+        "Sospendi Contrast Enhancer e potenziamenti automatici mentre utilizzi Regola HDR sulla PS5.",
+        "Rivedi luce ambiente e ombre dentro GTA VI senza attribuire al gioco valori HDR non documentati."
+      ],
+      "caution": "Le superfici anti-riflesso e la luminosità del S95D non rendono riutilizzabili valori numerici provenienti dalla serie S90D; firmware Samsung può rinominare le voci.",
+      "sources": [
+        "https://www.samsung.com/it/support/model/QE55S95DATXZT/",
+        "https://www.samsung.com/it/business/tvs/oled-tv/s95d-65-inch-oled-4k-tizen-os-smart-tv-qe65s95datxzt/",
+        "https://www.samsung.com/it/support/model/QE77S95DATXZT/"
+      ]
+    },
+    {
       "slug": "sony-bravia-8-ii",
       "brand": "Sony",
       "series": "BRAVIA 8 II (XR8M2)",
@@ -392,6 +668,39 @@
       "sources": [
         "https://www.sony.it/bravia/products/bravia-8",
         "https://electronics.sony.com/tv-video/televisions/all-tvs/p/xr55a75l"
+      ]
+    },
+    {
+      "slug": "sony-a80l",
+      "brand": "Sony",
+      "series": "BRAVIA A80L",
+      "year": 2023,
+      "group": "Sony · Auto HDR Tone Mapping",
+      "summary": "Sony BRAVIA OLED A80L del 2023: modalità Gioco e calibrazione PS5, con mapping HDR automatico quando supportato.",
+      "models": [
+        {
+          "size": 55,
+          "code": "XR-55A80L"
+        },
+        {
+          "size": 65,
+          "code": "XR-65A80L"
+        },
+        {
+          "size": 77,
+          "code": "XR-77A80L"
+        }
+      ],
+      "settings": [
+        "Collega la PS5 a un ingresso HDMI abilitato alle funzioni avanzate e seleziona la modalità Immagine Gioco.",
+        "Se sono attive le opzioni automatiche Sony per la PS5, verifica Auto HDR Tone Mapping nelle condizioni di collegamento previste dal produttore.",
+        "Verifica su PS5 Impostazioni → Schermo e video → Uscita video → HDR e Regola HDR senza copiare impostazioni di altri BRAVIA.",
+        "In GTA VI controlla alte luci e dettaglio in ombra; non forzare automatismi che non compaiono nel firmware."
+      ],
+      "caution": "A80L non è BRAVIA 8 o BRAVIA 8 II. Le opzioni Auto HDR Tone Mapping dipendono dalla combinazione console/ingresso/modalità firmware e non costituiscono una calibrazione numerica di GTA VI.",
+      "sources": [
+        "https://www.sony.it/electronics/support/televisions-projectors-monitors/articles/00232437",
+        "https://www.sony.it/electronics/support/televisions-projectors-oled-tvs-android-/xr-55a80l"
       ]
     },
     {
