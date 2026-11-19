@@ -34,14 +34,14 @@ def sources_for(path: str) -> tuple[str, ...]:
         extra = ("trophy_experience.py", "site/assets/trophy-experience.js") if path=="guide-e-tutorial/poligoni-concentrazione/" else ()
         return shared + ("data/guide.json", "data/trofei.json", "related_research.py", "data/community_feed.json", "site/assets/guide-interactions.js") + extra
     if path.startswith("hdr-oled/"):
-        return shared + ("hdr_catalog.py", "data/hdr_oled.json")
+        return shared + ("hdr_catalog.py", "data/hdr_oled.json", "site/assets/hdr-interactions.js")
     if path.startswith("trucchi/"):
         assets=("site/assets/cheat-interactions.js",) if path!="trucchi/" else ()
         return shared + ("cheats_catalog.py", "data/trucchi.json", "data/fonti_editoriali.json") + assets
     if path.startswith("fonti/"):
         return shared + ("sources_page.py", "data/fonti_editoriali.json", "data/trucchi.json")
     if path.startswith("scoperte/"):
-        return shared + ("community_page.py", "data/community_feed.json")
+        return shared + ("community_page.py", "data/community_feed.json", "site/assets/community-interactions.js")
     # Home links to every main section, including the OLED model finder.
     return shared + ("data/trofei.json", "data/guide.json", "hdr_catalog.py", "data/hdr_oled.json", "cheats_catalog.py", "data/trucchi.json")
 
