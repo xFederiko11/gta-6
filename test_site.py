@@ -243,7 +243,14 @@ class PortalTests(unittest.TestCase):
         self.assertIn('rel="canonical"',page)
         self.assertIn('application/ld+json',page)
         self.assertIn("https://xfederiko11.github.io/gta-6/scoperte/",page)
-        self.assertIn("Prima scansione pubblica non ancora disponibile",page)
+        if self.community.get("generated_utc"):
+            self.assertIn("Ultima scansione delle fonti",page)
+            self.assertNotIn("Prima scansione pubblica non ancora disponibile",page)
+            for item in self.community["items"][:3]:
+                self.assertIn(html.escape(item["title"], quote=True),page)
+                self.assertIn(html.escape(item["source"], quote=True),page)
+        else:
+            self.assertIn("Prima scansione pubblica non ancora disponibile",page)
 
     def test_no_external_paid_dependencies(self):
         self.assertFalse((self.out/"node_modules").exists())
