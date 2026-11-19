@@ -67,7 +67,9 @@ class PortalTests(unittest.TestCase):
             html=(self.out/"guide-e-tutorial"/guide["id"]/"index.html").read_text(encoding="utf-8")
             self.assertIn(guide["title"],html)
             self.assertIn(guide["source_url"].replace("&","&amp;"),html)
-            self.assertEqual(html.count("<li>"),len(guide["steps"]))
+            procedural=re.search(r"<h2>🎯 Procedura passo passo</h2><ol>(.*?)</ol>",html,re.S)
+            self.assertIsNotNone(procedural)
+            self.assertEqual(procedural.group(1).count("<li>"),len(guide["steps"]))
             self.assertIn("Screenshot promozionale",html)
             self.assertIn("Passaggi",html) if "Passaggi" in html else self.assertIn("Procedura",html)
 
