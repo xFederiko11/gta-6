@@ -144,6 +144,18 @@ paint();
             '<li>In esplorazione libera premi ↑ per aprire il telefono. Tieni L1 e premi R1.</li>'
             '<li>Inserisci tutti i pulsanti della sequenza qui sotto nell’ordine indicato.</li>'
             '<li>Se il codice fallisce, verifica che risulti sbloccato in Progressi → Trucchi e ricomincia.</li></ol>')
+        related=[item for item in cheats if item["category"]==x["category"] and item["slug"]!=x["slug"]][:3]
+        related_cards="".join(
+            f'<a class="discovery-card" href="{url(BASE+item["slug"]+"/")}">'
+            f'<span class="discovery-label">🎮 {e(item["category"])}</span>'
+            f'<strong>{e(item["title"])}</strong><span>Visualizza la sequenza →</span></a>'
+            for item in related)
+        if not related_cards:
+            related_cards=(f'<a class="discovery-card" href="{url(BASE)}">'
+                '<span class="discovery-label">🎮 CATALOGO PS5</span>'
+                '<strong>Esplora tutte le sequenze documentate</strong>'
+                '<span>Vai ai trucchi →</span></a>')
+        copy_value="↑ · L1 + R1 · "+" ".join(x["sequence"])
         source_links="".join(
             '<li><a href="'+e(link)+'" target="_blank" rel="noopener noreferrer">'
             +e(link.split("/")[2])+' — fonte esterna</a></li>'
@@ -152,25 +164,38 @@ paint();
             crumbs([("Trucchi PS5",BASE),(x["title"],p)])
             +f'<section class="page-intro"><span class="eyebrow">🎮 GTA VI · {e(x["category"])} · PS5</span>'
             f'<h1>{e(x["title"])}: <span class="highlight">codice e sequenza</span></h1>'
-            f'<p class="lead">{e(x["effect"])}. Procedura per DualSense, PS5 e PS5 Pro.</p></section>'
+            f'<p class="lead">{e(x["effect"])}. Procedura per DualSense, PS5 e PS5 Pro.</p>'
+            '<div class="guide-hero-actions">'
+            '<a class="button" href="#codice">🎮 Vai alla sequenza</a>'
+            '<a class="button secondary" href="#fonti-codice">🔎 Controlla le fonti</a>'
+            '</div></section>'
             +warning
             +'<div class="article-grid"><article class="prose">'
+            +'<section class="cheat-code-panel" id="codice">'
+            +'<span class="eyebrow">DUALSENSE · SEQUENZA DIREZIONALE</span>'
             +'<h2>Codice completo sul controller PS5</h2>'
             +sequence_view(x["sequence"],include_preamble=True)
             +'<p class="micro">Prima ↑ per il telefono, poi L1 + R1 e infine soltanto le frecce evidenziate.</p>'
+            +f'<div class="cheat-panel-footer"><button type="button" class="guide-copy" '
+            f'data-copy-sequence="{e(copy_value)}">📋 Copia la sequenza</button>'
+            '<span data-cheat-feedback role="status" aria-live="polite">Usa i pulsanti PS5 direttamente nel gioco, non incollare testo.</span></div></section>'
             +'<h2>Come attivare questo trucco, passo passo</h2>'+steps
             +f'<h2>Risultato e requisito</h2><p>{e(x["effect"])}</p>'
             +f'<p><strong>Requisito:</strong> {e(x["unlock"])}</p>'
             +f'<p><strong>Stato verifica:</strong> {e(x["status"])}.</p>'
             +f'<p><strong>Confronto delle fonti:</strong> {e(x["source_note"])}</p>'
             + (f'<div class="info warn">{e(x["unlock_note"])}</div>' if x.get("unlock_note") else "")
-            +'<h2>Fonti del codice</h2><ol>'+source_links+'</ol>'
+            +'<h2 id="fonti-codice">Fonti del codice</h2><ol>'+source_links+'</ol>'
             +'</article><aside class="sidebox"><h3>Altre guide</h3>'
             +f'<a href="{url(BASE)}">← Tutti i trucchi</a>'
             +f'<a href="{url("trofei/")}">🏆 Percorso platino</a>'
             +f'<a href="{url("guide-e-tutorial/")}">⚡ Guide PS5</a>'
             +f'<a href="{url("fonti/")}">🔎 Metodo e fonti</a>'
-            +'</aside></div>')
+            +'</aside></div>'
+            +'<section class="section discover-more"><div class="section-head"><div>'
+            '<span class="eyebrow">ALTRE SEQUENZE DOCUMENTATE</span><h2>Scopri i trucchi correlati</h2>'
+            '</div></div><div class="discovery-rail">'+related_cards+'</div></section>'
+            +f'<script src="{url("assets/cheat-interactions.js")}" defer></script>')
         write(p+"index.html",layout(title,desc,p,detail,"cheats",structured=schema_article(title,desc,url(p))))
         paths.append(p)
     return paths

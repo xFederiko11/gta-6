@@ -171,3 +171,9 @@ Verifica: il workflow GitHub Pages ricostruisce e controlla automaticamente gli 
 ### Video contestuali con fallback mobile
 
 Il player dell'anteprima ufficiale Rockstar già usato nella pagina del trofeo **Cecchino** è ora presente anche nella guida pratica **Poligoni di tiro: Concentrazione e medaglie Oro**. Non si afferma che il filmato insegni le 42 prove: è un riferimento illustrativo alla modalità di gioco. Il player YouTube viene caricato solo dopo il clic dell'utente. Se la miniatura remota non si carica nel browser X, il pulsante resta visibile con un elegante sfondo CSS senza mostrare immagini rotte. La modifica non riutilizza video di PowerPyx senza autorizzazione e non altera i requisiti dei trofei.
+
+### Trucchi PS5 — navigazione e consultazione mobile
+
+Le 17 schede trucchi ora mettono in evidenza la **sequenza DualSense** in un pannello grafico originale, con link rapido dalla testata, pulsante di copia e link alle combinazioni della **stessa categoria**. Quando una categoria contiene un solo codice, l'invito rimanda al catalogo completo invece di suggerire contenuti scollegati. La copia funziona solo dopo il clic e si limita alla sequenza già visibile (nessun invio ai server e nessuna modifica alla sessione di gioco).
+
+Le pagine mantengono gli avvisi ben visibili sui trofei e sui salvataggi. Nessuna sequenza o requisito è stato cambiato, nessun nuovo codice è stato inventato. Le icone freccia PS5 sono già disegnate con elementi accessibili e non richiedono font o immagini del controller di terzi. Gli aggiornamenti a questo script partecipano al `dateModified` delle relative schede.
