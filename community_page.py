@@ -118,7 +118,7 @@ def render(write, layout, url, crumbs):
         f'{e(name)} · {count}</button>' for name,count in sorted(status_counts.items())
     )
     stamps=data.get("generated_utc")
-    scan=(f'<p class="micro">Ultima scansione: <time datetime="{e(stamps)}">'
+    scan=(f'<p class="micro">Ultima scansione delle fonti: <time datetime="{e(stamps)}">'
           f'{e(stamps[:16].replace("T"," "))} UTC</time></p>'
           if isinstance(stamps,str) and stamps else
           '<p class="micro">Prima scansione pubblica non ancora disponibile.</p>')
@@ -153,7 +153,7 @@ def render(write, layout, url, crumbs):
         f'<span>📚 <b>{len(source_counts)}</b> fonti attive nel feed</span>'
         '<span>⚠️ 0 affermazioni verificate dal solo feed</span></div>'
         '</section>'
-        '<div class="info warn"><strong>⚠️ Sono piste di ricerca, non notizie confermate:</strong> '
+        '<div class="info warn"><strong>⚠️ Non sono notizie confermate:</strong> '
         'il bot legge titoli e URL pubblici e non certifica il contenuto. '
         'Video, wiki e rumor non costituiscono prove di compatibilità con patch o trofei. '
         'L’etichetta descrive la fonte, non garantisce che il metodo funzioni.</div>'
