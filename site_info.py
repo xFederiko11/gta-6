@@ -36,6 +36,8 @@ def sources_for(path: str) -> tuple[str, ...]:
         return shared + ("cheats_catalog.py", "data/trucchi.json", "data/fonti_editoriali.json")
     if path.startswith("fonti/"):
         return shared + ("sources_page.py", "data/fonti_editoriali.json", "data/trucchi.json")
+    if path.startswith("community/"):
+        return shared + ("community_radar.py", "community_radar_page.py", "data/community_radar.json")
     # Home links to every main section, including the OLED model finder.
     return shared + ("data/trofei.json", "data/guide.json", "hdr_catalog.py", "data/hdr_oled.json", "cheats_catalog.py", "data/trucchi.json")
 
@@ -47,6 +49,15 @@ def last_modified_at(path: str) -> datetime:
     This is an actual content/template revision, NOT a date bumped just by a
     scheduled re-deploy. Shared JSON changes regenerate its related pages.
     """
+    if path.startswith("community/"):
+        try:
+            import json
+            from pathlib import Path
+            stamp=json.loads(Path("data/community_radar.json").read_text(encoding="utf-8")).get("scan_utc")
+            if stamp:
+                return datetime.fromisoformat(stamp.replace("Z","+00:00")).astimezone(timezone.utc)
+        except (OSError, ValueError, TypeError, KeyError):
+            pass
     try:
         process = subprocess.run(
             ["git", "log", "-1", "--format=%cI", "--", *sources_for(path)],
