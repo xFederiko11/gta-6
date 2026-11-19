@@ -37,7 +37,7 @@ def candidates(report=None):
     return [x for x in validate(report) if (
             x["status"] == "🔵 GUIDA INDIPENDENTE"
             and x["source"] in {"PowerPyx", "GTA Series Videos"}) or (
-            x["status"] == "🟡 SEGNALAZIONE" and x["source"] == "GTABase")]
+            x["status"] == "🟡 SEGNALAZIONE" and x["source"] in {"GTABase", "GTA Wiki (independent)"})]
 
 
 def render_cards(items, heading="Ultime fonti specialistiche da confrontare"):

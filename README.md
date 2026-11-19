@@ -136,3 +136,7 @@ Per ridurre questo rischio il workflow `.github/workflows/gta6-schedule-keepaliv
 
 **Limiti:** questo sistema è preventivo e non garantisce che GitHub o i provider restino sempre disponibili, che tutti i run schedulati avvengano in orario o che GitHub continui a contare gli heartbeat automatici come attività idonea. Se GitHub disattiva il workflow prima dell'esecuzione, è necessario riabilitarlo manualmente. La manutenzione delle credenziali Buffer e dei feed rimane separata.
 
+
+## GTA Wiki: rilevamento sperimentale delle modifiche
+
+Il sito riconosce anche `GTA Wiki (independent)` (dominio `gta.wiki`) come fonte community **non ufficiale**. Il bot tenta di raccogliere i titoli delle modifiche recenti mediante l'interfaccia pubblica MediaWiki Atom; l'accessibilità reale viene misurata e registrata a ogni scansione. Le revisioni di una wiki NON sono conferme dei contenuti: sul sito appaiono soltanto come `🟡 SEGNALAZIONE` con link originale, data e avvertenze sui trofei. `gta.fandom.com` e GTAForums restano nel percorso di ricerca manuale finché non sarà confermato un accesso affidabile. Nessuna riscrittura automatica delle guide o dei codici deriva da una modifica wiki.
