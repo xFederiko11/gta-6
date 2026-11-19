@@ -33,7 +33,7 @@ class RelatedResearchTests(unittest.TestCase):
         self.assertEqual(for_guide("unknown-id",report),"")
         self.assertIn("shooting range",for_guide("poligoni-concentrazione",report))
 
-    def test_only_independent_guide_headlines_displayed(self):
+    def test_unverified_gtabase_leads_display_with_distinct_yellow_label(self):
         report=feed([
             item("GTA 6 cheat codes confirmed?",status="🟠 RUMOR"),
             item("GTA VI cars and vehicles database",source="GTABase",
@@ -41,11 +41,14 @@ class RelatedResearchTests(unittest.TestCase):
             item("GTA 6 mission walkthrough",source="GTA Series Videos",
                  url="https://www.youtube.com/watch?v=ABCDE12345"),
         ])
-        self.assertEqual(len(candidates(report)),1)
+        self.assertEqual(len(candidates(report)),2)
         html=for_catalog(report)
         self.assertIn("GTA Series Videos",html)
-        self.assertNotIn("GTABase",html)
+        self.assertIn("GTABase",html)
+        self.assertIn("🟡 SEGNALAZIONE",html)
+        self.assertNotIn("GTABase",for_guide("scansionare-veicoli",report))
         self.assertNotIn("confirmed",html)
+        self.assertIn("🔵 GUIDA INDIPENDENTE",html)
 
     def test_escapes_untrusted_headlines_and_urls(self):
         report=feed([item('GTA VI WAiNK scan vehicle database <script>alert(1)</script>')])
