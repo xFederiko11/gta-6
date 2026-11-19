@@ -14,7 +14,8 @@ from urllib.parse import urlsplit
 DATA = Path("data/community_feed.json")
 PATH = "scoperte/"
 HOSTS = {"PowerPyx": {"powerpyx.com", "www.powerpyx.com"},
-         "GTA Series Videos": {"youtube.com", "www.youtube.com"}}
+         "GTA Series Videos": {"youtube.com", "www.youtube.com"},
+         "GTABase": {"gtabase.com", "www.gtabase.com"}}
 LABELS = {"🔵 GUIDA INDIPENDENTE", "🟡 COMMUNITY", "🟡 SEGNALAZIONE",
           "🟣 DATAMINING", "🟠 RUMOR"}
 LIMIT = 25
@@ -58,7 +59,7 @@ def render(write, layout, url, crumbs):
     data = json.loads(DATA.read_text(encoding="utf-8"))
     entries = validate(data)
     title = "GTA 6: scoperte community, rumor e nuove guide PS5 | Fonti"
-    desc = ("Ultime guide e segnalazioni su GTA VI dalla community: PowerPyx e GTA Series Videos, "
+    desc = ("Ultime guide e segnalazioni su GTA VI dalla community: PowerPyx, GTABase e GTA Series Videos, "
             "con fonti, date ed etichette di affidabilità. Rumor non confermati.")
     blocks = []
     for item in entries:
