@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'build_site.py'
+      - 'social_preview.py'
       - 'community_page.py'
       - 'related_research.py'
       - 'test_related_research.py'
