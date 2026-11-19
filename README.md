@@ -150,3 +150,8 @@ Il sito riconosce anche `GTA Wiki (independent)` (dominio `gta.wiki`) come fonte
 - **Sei guide pratiche:** immagini promozionali già referenziate dal sito, ora visibili prima dei passaggi; risposta rapida, istruzioni, avvertenze, fonte e schede «La prossima guida». Le immagini restano proprietà dei titolari, non sono estratte da PowerPyx e non vengono presentate come schermate delle procedure.
 - **Mobile:** navigazione superiore compatta con scorrimento orizzontale, contenitori senza overflow e card correlate a carosello CSS con scroll-snap. Nessun framework o nuovo servizio a pagamento.
 - **SEO:** URL/canonical esistenti preservati, JSON-LD Article, metadati e data di modifica reali invariati. I test automatici verificano markup per 55 trofei, 6 guide, 42 caselle, sorgente del video e interazioni senza telemetria.
+
+
+### Riepilogo trofei ottenuti (locale)
+
+La pagina `/trofei/` mostra ora un contatore personale `x / 55` e contrassegna le schede spuntate. Il pulsante **«Segna trofeo ottenuto»** delle singole schede aggiorna il contatore: lo stato viene salvato esclusivamente nel `localStorage` del browser, senza accesso a PSN né sincronizzazione. Il riepilogo si aggiorna tornando all'elenco e quando cambiano i dati in un'altra scheda. Non sono necessarie credenziali, tracking utenti o API esterne.
