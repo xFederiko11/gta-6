@@ -321,23 +321,52 @@ def guide_detail(g, tro):
     num=g.get("related_trophy")
     related=next((t for t in tro if t["number"]==num),None)
     intro=crumbs([("Guide e tutorial","guide-e-tutorial/"),(g["title"],path)])
-    steps="".join("<li>"+e(s)+"</li>" for s in g["steps"])
+    steps="".join("<li>"+e(step)+"</li>" for step in g["steps"])
     related_html=(f'<a href="{url(trophy_path(related))}">🏆 Trofeo collegato: {e(related["name_it"])}</a>' if related else "")
-    photo=f'''<figure class="figure"><img class="media" loading="lazy" src="{e(g["image"])}" alt="Screenshot promozionale ufficiale GTA VI, solo illustrativo">
-    <figcaption>Immagine promozionale © Rockstar Games: non rappresenta la schermata della procedura. I diritti restano ai rispettivi titolari.</figcaption></figure>'''
-    body=f'''{intro}<section class="page-intro"><span class="eyebrow">🎮 {e(g["tag"])} · Guida PS5</span>
-    <h1>{e(g["title"])}</h1><p class="lead">{e(g["summary"])}</p></section>
-    <div class="article-grid"><article class="prose">
-    <div class="info">⚡ <strong>Risposta rapida:</strong> {e(g["benefit"])}</div>
-    <h2>🎯 Procedura passo passo</h2><ol>{steps}</ol>
-    <h2>✅ Risultato utile</h2><p>{e(g["benefit"])}</p>
-    <div class="info warn">⚠️ {e(g["caution"])}</div>
-    {new_related_research(g["id"])}
-    {photo}
-    <div class="source">Approfondimento originale: <a href="{e(g["source_url"])}" rel="noopener noreferrer">PowerPyx — guida consultata</a>.
-    I passaggi sono una sintesi editoriale in italiano e non riproducono l'articolo integrale.</div></article>
-    <aside class="sidebox"><h3>Altri contenuti</h3><a href="{url("guide-e-tutorial/")}">← Tutte le guide</a>
-    {related_html}<a href="{url("trofei/")}">🏆 Elenco trofei PS5</a></aside></div>'''
+    # Editorial images are linked to existing official promotional material, not copied from PowerPyx.
+    photo=f'''<figure class="figure guide-photo"><img class="media" loading="lazy" decoding="async" src="{e(g["image"])}" alt="Screenshot promozionale ufficiale GTA VI, solo illustrativo">
+    <figcaption>Immagine promozionale di Rockstar Games, illustrativa e non specifica della procedura. Diritti dei rispettivi titolari.</figcaption></figure>'''
+    theme=g["tag"]
+    intro_block=f'''{intro}<section class="guide-hero"><span class="eyebrow">🎮 {e(theme)} · GTA VI PS5 / PS5 Pro</span>
+    <h1>{e(g["title"])}</h1><p class="lead">{e(g["summary"])}</p>
+    <div class="guide-hero-actions"><a class="button" href="#passaggi">↓ Vai ai passaggi</a>
+    <a class="button secondary" href="#fonte-guida">↗ Fonti</a></div></section>'''
+    suggestions = []  # Only actual existing local guide pages, no speculative content.
+    for item in json.loads((DATA/"guide.json").read_text(encoding="utf-8"))["guides"]:
+        if item["id"]!=g["id"] and (item["tag"]==g["tag"] or not suggestions):
+            suggestions.append(item)
+        if len(suggestions)==3:
+            break
+    cards="".join(
+        f'<a class="discovery-card" href="{url(guide_path(item))}">'
+        f'<span class="discovery-label">🎮 {e(item["tag"])}</span>'
+        f'<strong>{e(item["title"])}</strong><span>Apri la guida →</span></a>'
+        for item in suggestions
+    )
+    body=(
+        intro_block+'<div class="article-grid guide-article">'
+        '<article class="prose guide-prose">'
+        '<div class="guide-answer"><span class="eyebrow">⚡ RISPOSTA RAPIDA</span>'
+        f'<p>{e(g["benefit"])}</p></div>'
+        +photo+
+        f'<section id="passaggi" class="guide-steps"><h2>🎯 Procedura passo passo</h2><ol>{steps}</ol></section>'
+        f'<div class="guide-caution"><strong>⚠️ Da verificare prima di procedere</strong><p>{e(g["caution"])}</p></div>'
+        +new_related_research(g["id"])
+        +f'<details class="source-details" id="fonte-guida"><summary>🔎 Fonti e note editoriali</summary>'
+        f'<p>Approfondimento originale: <a href="{e(g["source_url"])}" target="_blank" '
+        'rel="noopener noreferrer">PowerPyx — guida consultata ↗</a>.</p>'
+        '<p>Le istruzioni sono una sintesi originale in italiano e non riproducono l’articolo integrale. '
+        'La foto è illustrativa: non rappresenta il passaggio descritto.</p></details>'
+        '</article><aside class="sidebox guide-sidebar"><h3>Continua a giocare</h3>'
+        f'<a href="{url("guide-e-tutorial/")}">← Tutte le guide</a>'
+        +related_html
+        +f'<a href="{url("trofei/")}">🏆 Elenco trofei PS5</a>'
+        f'<a href="{url("scoperte/")}">🔎 Novità dalla community</a>'
+        '</aside></div>'
+        '<section class="section discover-more"><div class="section-head"><div>'
+        '<span class="eyebrow">ALTRI CONSIGLI UTILI</span><h2>La prossima guida</h2>'
+        '</div></div><div class="discovery-rail">'+cards+'</div></section>'
+    )
     title=g["title"]+" | Guida GTA VI PS5 in italiano"
     desc=g["summary"]+" Passaggi, comandi PS5 e fonte della guida."
     write(Path(path)/"index.html",layout(title,desc,path,body,"guide",image=g.get("image"),structured=schema_article(title,desc,url(path),g.get("image"))))
