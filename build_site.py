@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
 import html
+import hashlib
 import json
 import os
 import re
@@ -338,6 +339,7 @@ def guide_detail(g, tro):
     num=g.get("related_trophy")
     related=next((t for t in tro if t["number"]==num),None)
     intro=crumbs([("Guide e tutorial","guide-e-tutorial/"),(g["title"],path)])
+    step_revision=hashlib.sha256("\n".join(g["steps"]).encode("utf-8")).hexdigest()[:12]
     steps="".join(
         f'<li><label class="guide-step-option"><input type="checkbox" data-guide-step="{n}" '
         f'aria-label="Passaggio {n} completato">'
@@ -382,7 +384,7 @@ def guide_detail(g, tro):
         '<div class="guide-answer"><span class="eyebrow">⚡ RISPOSTA RAPIDA</span>'
         f'<p>{e(g["benefit"])}</p></div>'
         +photo+
-        f'<section id="passaggi" class="guide-steps" data-guide-steps="{e(g["id"])}">'
+        f'<section id="passaggi" class="guide-steps" data-guide-steps="{e(g["id"])}" data-guide-version="{step_revision}">'
         f'<div class="guide-steps-header"><span class="eyebrow">CHECKLIST PERSONALE</span>'
         f'<span class="guide-steps-count" data-guide-count aria-live="polite">0 / {len(g["steps"])}</span></div>'
         f'<h2>🎯 Procedura passo passo</h2><ol>{steps}</ol>'
