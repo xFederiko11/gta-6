@@ -16,6 +16,7 @@ import xml.etree.ElementTree as ET
 from site_info import SOCIAL_URL, SOCIAL_HANDLE, iso_modified, page_meta
 from hdr_catalog import render as render_hdr_pages
 from cheats_catalog import render as render_cheat_pages
+from sources_page import render as render_sources_page
 
 BASE = "https://xfederiko11.github.io/gta-6"
 OUT = Path(os.getenv("SITE_OUT", "_site"))
@@ -102,7 +103,7 @@ def layout(title, desc, path, body, section=None, image=None, robots="index,foll
        '<footer class="footer"><div class="wrap footer-grid"><div>'
        '<strong>GTA 6 Italia</strong><p>Guide indipendenti in italiano per PS5 e PS5 Pro. '
        'Contenuti da verificare rispetto alle patch: non affiliato a Rockstar, Sony o PowerPyx.</p></div>'
-       f'<div><a href="{url("trofei/")}">Trofei</a> · <a href="{url("guide-e-tutorial/")}">Guide e tutorial</a> · <a href="{url("hdr-oled/")}">HDR OLED</a> · <a href="{url("trucchi/")}">Trucchi PS5</a>'
+       f'<div><a href="{url("trofei/")}">Trofei</a> · <a href="{url("guide-e-tutorial/")}">Guide e tutorial</a> · <a href="{url("hdr-oled/")}">HDR OLED</a> · <a href="{url("trucchi/")}">Trucchi PS5</a> · <a href="{url("fonti/")}">Fonti e metodo</a>'
        f'<p class="footer-social"><a href="{SOCIAL_URL}" rel="me noopener noreferrer" target="_blank">𝕏 Aggiornamenti su {SOCIAL_HANDLE} ↗</a></p></div>'
        '</div></footer></body></html>')
 
@@ -324,7 +325,8 @@ def main():
     medal_page()
     hdr_paths=render_hdr_pages(write,layout,schema_article,url,crumbs)
     cheat_paths=render_cheat_pages(write,layout,schema_article,url,crumbs)
-    xml_urls=["","trofei/","guide-e-tutorial/","trofei/medaglie-oro/"] + hdr_paths + cheat_paths
+    sources_path=render_sources_page(write,layout,url,crumbs)
+    xml_urls=["","trofei/","guide-e-tutorial/","trofei/medaglie-oro/",sources_path] + hdr_paths + cheat_paths
     for t in trophies:
         state=trophy_detail(t,guides)
         if state=="index,follow":xml_urls.append(trophy_path(t))
