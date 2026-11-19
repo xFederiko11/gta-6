@@ -20,7 +20,7 @@ from cheats_catalog import render as render_cheat_pages
 from sources_page import render as render_sources_page
 from community_page import render as render_community_page
 from related_research import for_guide as new_related_research, for_catalog as new_catalog_research
-from trophy_experience import ornament, related_trophies, shootist_content, SHOOTING_SOURCE
+from trophy_experience import ornament, related_trophies, shootist_content, SHOOTING_SOURCE, video_panel
 
 BASE = "https://xfederiko11.github.io/gta-6"
 OUT = Path(os.getenv("SITE_OUT", "_site"))
@@ -394,6 +394,7 @@ def guide_detail(g, tro):
         'Spunta i passaggi mentre giochi. Solo su questo dispositivo, senza collegamento PSN.</span>'
         '<button class="guide-copy" type="button" data-guide-copy>📋 Copia passaggi</button></div></section>'
         f'<div class="guide-caution"><strong>⚠️ Da verificare prima di procedere</strong><p>{e(g["caution"])}</p></div>'
+        + (video_panel() if g["id"]=="poligoni-concentrazione" else "")
         +new_related_research(g["id"])
         +f'<details class="source-details" id="fonte-guida"><summary>🔎 Fonti e note editoriali</summary>'
         f'<p>Approfondimento originale: <a href="{e(g["source_url"])}" target="_blank" '
@@ -410,6 +411,8 @@ def guide_detail(g, tro):
         '<span class="eyebrow">ALTRI CONSIGLI UTILI</span><h2>La prossima guida</h2>'
         '</div></div><div class="discovery-rail">'+cards+'</div></section>'
         f'<script src="{url("assets/guide-interactions.js")}" defer></script>'
+        + (f'<script src="{url("assets/trophy-experience.js")}" defer></script>'
+           if g["id"]=="poligoni-concentrazione" else "")
     )
     title=g["title"]+" | Guida GTA VI PS5 in italiano"
     desc=g["summary"]+" Passaggi, comandi PS5 e fonte della guida."
