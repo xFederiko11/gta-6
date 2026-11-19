@@ -1,0 +1,87 @@
+{
+  "schema": "gta6-fonti-v1",
+  "updated": "2026-11-19",
+  "intro": "Queste fonti guidano le verifiche e le nuove idee editoriali; non sono tutte ufficiali né vengono tutte acquisite automaticamente.",
+  "sources": [
+    {
+      "slug": "rockstar",
+      "name": "Rockstar Newswire",
+      "tier": "Fonte ufficiale",
+      "link": "https://www.rockstargames.com/newswire",
+      "usage": "Annunci, patch e comunicazioni Rockstar",
+      "caution": "Le notizie della community non diventano annunci ufficiali senza una conferma Rockstar."
+    },
+    {
+      "slug": "powerpyx",
+      "name": "PowerPyx",
+      "tier": "Guida indipendente",
+      "link": "https://www.powerpyx.com/gta-6-all-cheats/",
+      "usage": "Trucchi GTA VI, trofei, platino, sfide, collezionabili e walkthrough",
+      "caution": "Le sequenze richiedono verifica su piattaforma e patch; l'articolo non è un comunicato Rockstar."
+    },
+    {
+      "slug": "pc-gamer",
+      "name": "PC Gamer",
+      "tier": "Testata indipendente",
+      "link": "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/",
+      "usage": "Riscontro indipendente di alcuni codici e dei requisiti di sblocco",
+      "caution": "Alcune soglie differiscono da PowerPyx: riportiamo entrambe e rimandiamo al menu del gioco."
+    },
+    {
+      "slug": "gta-series-videos",
+      "name": "GTA Series Videos",
+      "tier": "Creator e guida indipendente",
+      "link": "https://gtaseries.com/",
+      "usage": "Video, walkthrough, prove visive di meccaniche, mappe e missioni",
+      "caution": "Canale fan indipendente, non affiliato a Rockstar; citare il video originale."
+    },
+    {
+      "slug": "gtaforums",
+      "name": "GTAForums",
+      "tier": "Community",
+      "link": "https://gtaforums.com/",
+      "usage": "Discussioni tecniche, datamining e segnalazioni da verificare",
+      "caution": "I messaggi degli utenti possono essere inesatti o superati da una patch."
+    },
+    {
+      "slug": "gta-wiki",
+      "name": "GTA Wiki e Fandom",
+      "tier": "Enciclopedia collaborativa",
+      "link": "https://gta.fandom.com/wiki/Grand_Theft_Auto_VI",
+      "usage": "Nomi di personaggi, veicoli, luoghi e storia della serie",
+      "caution": "Pagine talvolta obsolete o basate su leak: confronto sempre con materiale ufficiale e gioco pubblicato."
+    },
+    {
+      "slug": "gtabase",
+      "name": "GTABase",
+      "tier": "Database indipendente",
+      "link": "https://www.gtabase.com/it/gta-6/",
+      "usage": "Veicoli, mappe, armi, personaggi e guide di GTA VI",
+      "caution": "Schede storiche o prerilascio possono non essere aggiornate: controllare data e versione."
+    },
+    {
+      "slug": "gtanet",
+      "name": "GTANet",
+      "tier": "Community e notizie",
+      "link": "https://www.gtanet.com/",
+      "usage": "Segnalazioni, cronologia dei giochi Rockstar e riferimenti community",
+      "caution": "Prima di ripubblicare una notizia, verificarne la fonte primaria."
+    },
+    {
+      "slug": "tez2",
+      "name": "Tez2 (TezFunz2)",
+      "tier": "Dataminer indipendente",
+      "link": "https://x.com/TezFunz2",
+      "usage": "Indizi da file e aggiornamenti, ipotesi su contenuti futuri",
+      "caution": "Un datamine non è una conferma di rilascio o una promessa di Rockstar."
+    },
+    {
+      "slug": "schreier",
+      "name": "Jason Schreier (Bloomberg)",
+      "tier": "Giornalismo d'inchiesta",
+      "link": "https://www.bloomberg.com/authors/AUyIKVhIKU8/jason-schreier",
+      "usage": "Notizie industriali e inchieste da attribuire al giornalista e alla testata",
+      "caution": "Anche un'inchiesta affidabile non equivale a una nota ufficiale di Rockstar."
+    }
+  ]
+}

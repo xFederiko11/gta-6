@@ -24,6 +24,7 @@ class PortalTests(unittest.TestCase):
         cls.guides=json.loads(Path("data/guide.json").read_text(encoding="utf-8"))["guides"]
         cls.hdr=json.loads(Path("data/hdr_oled.json").read_text(encoding="utf-8"))
         cls.cheats=json.loads(Path("data/trucchi.json").read_text(encoding="utf-8"))["cheats"]
+        cls.sources=json.loads(Path("data/fonti_editoriali.json").read_text(encoding="utf-8"))["sources"]
     @classmethod
     def tearDownClass(cls):
         cls.tmp.cleanup()
@@ -34,6 +35,8 @@ class PortalTests(unittest.TestCase):
         self.assertEqual(len(self.hdr["families"]),21)
         self.assertEqual(sum(len(f["models"]) for f in self.hdr["families"]),92)
         self.assertEqual(len(self.cheats),17)
+        self.assertEqual(len(self.sources),10)
+        self.assertEqual(sum(x["independent_source_count"]==2 for x in self.cheats),9)
         self.assertEqual(sum(t["hidden"] for t in self.trophies),28)
         homepage=(self.out/"index.html").read_text(encoding="utf-8")
         self.assertIn("Trofei",homepage)
@@ -72,7 +75,7 @@ class PortalTests(unittest.TestCase):
         raw=(self.out/"sitemap.xml").read_text(encoding="utf-8")
         root=ET.fromstring(raw)
         locs=[x.text for x in root.iter() if x.tag.endswith("loc")]
-        self.assertEqual(len(locs),4+27+6+1+len(self.hdr["families"])+1+len(self.cheats))
+        self.assertEqual(len(locs),5+27+6+1+len(self.hdr["families"])+1+len(self.cheats))
         self.assertEqual(len(locs),len(set(locs)))
         self.assertTrue(all(x.startswith("https://xfederiko11.github.io/gta-6/") for x in locs))
         self.assertTrue((self.out/"trofei"/"medaglie-oro"/"index.html").exists())
@@ -93,9 +96,10 @@ class PortalTests(unittest.TestCase):
         pages += [self.out/"guide-e-tutorial"/g["id"]/"index.html" for g in self.guides]
         pages += [self.out/"hdr-oled"/"index.html"]
         pages += [self.out/"hdr-oled"/f["slug"]/"index.html" for f in self.hdr["families"]]
+        pages += [self.out/"fonti"/"index.html"]
         pages += [self.out/"trucchi"/"index.html"]
         pages += [self.out/"trucchi"/x["slug"]/"index.html" for x in self.cheats]
-        self.assertEqual(len(pages),4+55+6+1+len(self.hdr["families"])+1+len(self.cheats))
+        self.assertEqual(len(pages),5+55+6+1+len(self.hdr["families"])+1+len(self.cheats))
         for page in pages:
             markup=page.read_text(encoding="utf-8")
             self.assertIn('class="page-meta"',markup,str(page))
@@ -186,6 +190,8 @@ class PortalTests(unittest.TestCase):
         self.assertIn("Trucchi GTA 6",hub)
         self.assertIn("DualSense",hub)
         self.assertIn("250.000",hub)
+        self.assertIn("9 sequenze coincidono",hub)
+        self.assertIn("https://xfederiko11.github.io/gta-6/fonti/",hub)
         self.assertIn("data-cheat-search=",hub)
         self.assertIn("aria-pressed=",hub)
         self.assertIn("Disabilita",hub) if "Disabilita" in hub else self.assertIn("disabilita",hub)
@@ -203,6 +209,27 @@ class PortalTests(unittest.TestCase):
             self.assertEqual(page.count('class="ps5-dpad'),len(cheat["sequence"])+1)
             for source in cheat["sources"]:
                 self.assertIn(source.replace("&","&amp;"),page)
+
+
+    def test_editorial_source_provenance_seo_and_conflicting_cheat_requirements(self):
+        page=(self.out/"fonti"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("PowerPyx",page)
+        self.assertIn("GTAForums",page)
+        self.assertIn("GTA Series Videos",page)
+        self.assertIn("GTABase",page)
+        self.assertIn("GTA Wiki",page)
+        self.assertIn("Rockstar Newswire",page)
+        self.assertIn("non",page.lower())
+        self.assertIn('rel="canonical"',page)
+        self.assertIn('application/ld+json',page)
+        self.assertIn("https://xfederiko11.github.io/gta-6/fonti/",page)
+        cheat=(self.out/"trucchi"/"munizioni-massime"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("PowerPyx indica 25",cheat)
+        self.assertIn("PC Gamer indica 20",cheat)
+        corroborated=(self.out/"trucchi"/"soldi-250000"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("PowerPyx e PC Gamer",corroborated)
+        single=(self.out/"trucchi"/"munizioni-massime"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("non abbiamo un secondo controllo",single)
 
     def test_no_external_paid_dependencies(self):
         self.assertFalse((self.out/"node_modules").exists())

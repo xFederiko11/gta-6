@@ -37,6 +37,8 @@ def render(write, layout, schema_article, url, crumbs):
     assert all(cheat["sequence"] and all(x in ARROWS for x in cheat["sequence"]) for cheat in cheats)
     assert len({x["slug"] for x in cheats})==len(cheats)
     groups=Counter(x["category"] for x in cheats)
+    comparison=data["research_summary"]
+    assert sum(x["independent_source_count"] == 2 for x in cheats) == comparison["independently_matched"]
     intro=(
         crumbs([("Trucchi PS5",BASE)])
         + '<section class="page-intro"><span class="eyebrow">🎮 GTA VI · PS5 / PS5 Pro</span>'
@@ -72,6 +74,7 @@ def render(write, layout, schema_article, url, crumbs):
             f'<p>{e(x["effect"])}</p>'
             +sequence_view(x["sequence"])
             +f'<p class="micro">Sblocco: {e(x["unlock"])}</p>'
+            +f'<p class="micro">{e(x["status"])}</p>'
             +f'<a class="hdr-family-link" href="{url(BASE+x["slug"]+"/")}">Procedura e fonte →</a></article>')
     category_options=''.join(
         f'<button type="button" data-cheat-category-filter="{e(k)}" aria-pressed="false">{e(k)} · {n}</button>'
@@ -115,10 +118,13 @@ paint();
         '<section class="section"><h2>Fonti e attendibilità</h2>'
         '<p>I codici disponibili sono quelli pubblicati dai siti consultati al 19 novembre 2026. '
         'Il numero di sequenze rese pubbliche può crescere; non inventiamo codici mancanti. '
-        'Rockstar non ha fornito un elenco ufficiale completo in queste fonti.</p>'
+        'Rockstar non ha fornito un elenco ufficiale completo in queste fonti. '
+        +str(comparison["independently_matched"])+ ' sequenze coincidono tra PowerPyx e PC Gamer; '
+        +str(comparison["single_origin"])+ ' al momento hanno un solo riscontro indipendente.</p>'
         '<p><a href="'+e(data["sources"]["powerpyx"])+'" rel="noopener noreferrer" target="_blank">PowerPyx — tutti i trucchi GTA VI</a>'
         ' · <a href="'+e(data["sources"]["pcgamer"])+'" rel="noopener noreferrer" target="_blank">PC Gamer — verifiche post-storia</a>'
-        ' · <a href="'+e(data["sources"]["gtadb"])+'" rel="noopener noreferrer" target="_blank">GTADB — sequenze e riscontri</a>.</p></section>')
+        ' · <a href="'+e(data["sources"]["gtadb"])+'" rel="noopener noreferrer" target="_blank">GTADB — riepilogo terzo</a>.</p>'
+        f'<p><a href="{url("fonti/")}">Come verifichiamo le fonti GTA VI e le notizie →</a></p></section>')
     title="Trucchi GTA 6 PS5: codici e sequenze DualSense, soldi e veicoli"
     desc=f"Tutti i trucchi GTA 6 per PS5 e PS5 Pro: {len(cheats)} sequenze con icone dei tasti DualSense, sblocco, soldi, armi, veicoli e attenzione ai trofei."
     structured={"@context":"https://schema.org","@type":"CollectionPage",
@@ -156,11 +162,14 @@ paint();
             +f'<h2>Risultato e requisito</h2><p>{e(x["effect"])}</p>'
             +f'<p><strong>Requisito:</strong> {e(x["unlock"])}</p>'
             +f'<p><strong>Stato verifica:</strong> {e(x["status"])}.</p>'
+            +f'<p><strong>Confronto delle fonti:</strong> {e(x["source_note"])}</p>'
+            + (f'<div class="info warn">{e(x["unlock_note"])}</div>' if x.get("unlock_note") else "")
             +'<h2>Fonti del codice</h2><ol>'+source_links+'</ol>'
             +'</article><aside class="sidebox"><h3>Altre guide</h3>'
             +f'<a href="{url(BASE)}">← Tutti i trucchi</a>'
             +f'<a href="{url("trofei/")}">🏆 Percorso platino</a>'
             +f'<a href="{url("guide-e-tutorial/")}">⚡ Guide PS5</a>'
+            +f'<a href="{url("fonti/")}">🔎 Metodo e fonti</a>'
             +'</aside></div>')
         write(p+"index.html",layout(title,desc,p,detail,"cheats",structured=schema_article(title,desc,url(p))))
         paths.append(p)
