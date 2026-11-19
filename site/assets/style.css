@@ -71,3 +71,17 @@ details{margin:23px 0;border:1px solid #627088;border-radius:14px;padding:16px;b
 .game-hdr-values b{font-size:clamp(1.6rem,3.5vw,2.45rem);line-height:1.1;font-variant-numeric:tabular-nums;color:#bcfff5}
 .game-hdr-values span{font-size:.79rem;line-height:1.25;color:#cad6e8;overflow-wrap:anywhere}
 @media(max-width:520px){.game-hdr-values{gap:6px}.game-hdr-values>div{padding:13px 5px}.game-hdr-values span{font-size:.69rem}}
+
+/* GTA VI cheat index: explicit PS5 D-pad keycaps, accessible and high contrast. */
+.cheat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.cheat-card{background:linear-gradient(140deg,#192238,#111827);border:1px solid #45536c;border-radius:18px;padding:21px;min-width:0}
+.cheat-card h3{margin:10px 0;font-size:1.25rem}.cheat-card p{color:#c3cddd;font-size:.9rem}
+.cheat-card[hidden]{display:none!important}
+.cheat-sequence{display:flex;align-items:center;flex-wrap:wrap;gap:10px;min-width:0;margin:17px 0}
+.sequence-preamble,.sequence-buttons{display:inline-flex;align-items:center;flex-wrap:wrap;gap:7px}
+.sequence-note{font-size:.74rem;color:#e2d4fb;font-weight:700}
+.sequence-divider{color:#b1bdcf;font-size:1.3rem}
+.ps5-dpad{display:inline-grid;place-items:center;flex:none;min-width:40px;height:40px;padding:0 6px;border:1px solid #87a8c6;border-bottom:3px solid #5b7799;border-radius:10px;background:#26364d;box-shadow:inset 0 1px 0 #ffffff24;color:#f2fbff;font:800 1.43rem/1 system-ui,sans-serif}
+.ps5-trigger{display:inline-grid;place-items:center;min-width:43px;height:36px;padding:0 7px;border:1px solid #9eb0da;border-bottom:3px solid #687aa2;border-radius:8px;background:#303854;color:#fff;font:800 .86rem/1 system-ui,sans-serif}
+@media(max-width:850px){.cheat-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.cheat-card{padding:17px}.ps5-dpad{min-width:34px;height:36px;font-size:1.22rem;padding:0 4px}.sequence-buttons{gap:5px}.cheat-sequence{gap:7px}}
