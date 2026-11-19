@@ -1,0 +1,67 @@
+name: GTA VI - Continuita GitHub Sito
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/gta6-schedule-keepalive.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/gta6-schedule-keepalive.yml'
+  schedule:
+    # Weekly safety net, only writes a heartbeat after 35 days without commits.
+    # GitHub may disable scheduled workflows in inactive public repositories.
+    - cron: '47 9 * * 4'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gta6-keepalive-${{ github.repository }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Check GitHub CLI and documented safety boundary
+        run: |
+          gh --version
+          echo 'No Buffer credentials, no X posts, and no paid API dependencies.'
+  keepalive:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Write minimal heartbeat only when repo has been inactive for 35 days
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          last="$(gh api "repos/$GITHUB_REPOSITORY/commits?per_page=1" --jq '.[0].commit.committer.date')"
+          test -n "$last"
+          last_epoch="$(date -u -d "$last" +%s)"
+          now_epoch="$(date -u +%s)"
+          days="$(( (now_epoch - last_epoch) / 86400 ))"
+          if [ "$days" -lt 35 ]; then
+            echo "KEEPALIVE_OK: recent commit, age=$days days (no write needed)"
+            echo "No heartbeat commit needed: latest repository commit $days days ago." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          now="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          payload="$(printf '{"updated_utc":"%s","purpose":"gta6-scheduled-workflow-continuity","source":"github-actions"}\n' "$now")"
+          encoded="$(printf '%s' "$payload" | base64 -w0)"
+          sha="$(gh api "repos/$GITHUB_REPOSITORY/contents/.state/workflow-keepalive.json" --jq '.sha' 2>/dev/null || true)"
+          fields=(-f "message=chore: maintain GitHub scheduled workflow activity"
+                  -f "content=$encoded"
+                  -f "branch=main")
+          if [ -n "$sha" ]; then
+            fields+=(-f "sha=$sha")
+          fi
+          gh api --method PUT "repos/$GITHUB_REPOSITORY/contents/.state/workflow-keepalive.json" "${fields[@]}" --silent
+          echo "KEEPALIVE_COMMIT: repository had no commit for $days days"
+          echo "Minimal heartbeat committed after $days days without repository changes." >> "$GITHUB_STEP_SUMMARY"
