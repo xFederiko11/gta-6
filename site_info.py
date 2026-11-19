@@ -33,7 +33,9 @@ def sources_for(path: str) -> tuple[str, ...]:
     if path.startswith("hdr-oled/"):
         return shared + ("hdr_catalog.py", "data/hdr_oled.json")
     if path.startswith("trucchi/"):
-        return shared + ("cheats_catalog.py", "data/trucchi.json")
+        return shared + ("cheats_catalog.py", "data/trucchi.json", "data/fonti_editoriali.json")
+    if path.startswith("fonti/"):
+        return shared + ("sources_page.py", "data/fonti_editoriali.json", "data/trucchi.json")
     # Home links to every main section, including the OLED model finder.
     return shared + ("data/trofei.json", "data/guide.json", "hdr_catalog.py", "data/hdr_oled.json", "cheats_catalog.py", "data/trucchi.json")
 
