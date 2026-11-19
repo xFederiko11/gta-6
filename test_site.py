@@ -253,6 +253,77 @@ class PortalTests(unittest.TestCase):
         else:
             self.assertIn("Prima scansione pubblica non ancora disponibile",page)
 
+    def test_trophy_pages_offer_actionable_visual_mobile_experience(self):
+        from trophy_experience import RANGES
+        self.assertEqual(len(RANGES),2)
+        self.assertEqual(sum(len(levels) for _,_,courses in RANGES
+                             for _,levels in courses),42)
+        self.assertEqual([sum(len(levels) for _,levels in courses)
+                          for _,_,courses in RANGES],[18,24])
+        for trophy in self.trophies:
+            page=(self.out/"trofei"/trophy["slug"]/"index.html").read_text(encoding="utf-8")
+            self.assertIn('class="trophy-hero"',page)
+            self.assertIn('class="trophy-art"',page)
+            self.assertIn('class="discovery-rail"',page)
+            self.assertIn('class="source-details"',page)
+            self.assertIn('data-trophy-done=',page)
+            self.assertIn("assets/trophy-experience.js",page)
+            self.assertIn('rel="canonical"',page)
+            self.assertIn("application/ld+json",page)
+            self.assertIn("Fonte",page) if "Fonte" in page else self.assertIn("Fonti",page)
+            self.assertNotIn('id="requisito" id="requisito"',page)
+        cec=(self.out/"trofei"/"trofeo-17-cecchino"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("Griffin Shooting Range",cec)
+        self.assertIn("Rodgers Ranch",cec)
+        self.assertIn("Waiver Pass",cec)
+        self.assertIn("18",cec)
+        self.assertIn("24",cec)
+        self.assertIn("42",cec)
+        self.assertEqual(cec.count('type="checkbox"'),42)
+        self.assertEqual(cec.count('class="medal-course"'),12)
+        self.assertEqual(cec.count('class="medal-group"'),2)
+        self.assertIn('data-video-id="tJbzMqJGH4k"',cec)
+        self.assertIn('data-video-start="1112"',cec)
+        self.assertIn("non una guida a tutte le medaglie",cec)
+        self.assertIn("https://www.powerpyx.com/gta-6-all-shooting-range-gold-medal-challenges/",cec)
+        other=(self.out/"trofei"/"trofeo-14-una-lunga-strada"/"index.html").read_text(encoding="utf-8")
+        self.assertNotIn('data-video-id="tJbzMqJGH4k"',other)
+        self.assertNotIn('data-medal-tracker',other)
+        self.assertEqual(other.count('id="requisito"'),1)
+
+    def test_guide_pages_have_faster_reading_and_relevant_discovery(self):
+        for g in self.guides:
+            page=(self.out/"guide-e-tutorial"/g["id"]/"index.html").read_text(encoding="utf-8")
+            self.assertIn('class="guide-hero"',page)
+            self.assertIn('class="guide-answer"',page)
+            self.assertIn('class="guide-photo"',page)
+            self.assertIn('id="passaggi"',page)
+            self.assertIn('id="fonte-guida"',page)
+            self.assertIn('class="discovery-rail"',page)
+            self.assertLess(page.index('class="guide-photo"'),
+                            page.index('id="passaggi"'))
+            self.assertIn(g["source_url"].replace("&","&amp;"),page)
+
+    def test_interactions_need_user_gesture_and_have_local_only_state(self):
+        js=(self.out/"assets"/"trophy-experience.js").read_text(encoding="utf-8")
+        self.assertIn("localStorage",js)
+        self.assertIn("data-medal-reset",js)
+        self.assertIn("data-medal-count",js)
+        self.assertIn("data-trophy-done",js)
+        self.assertIn('data-video-id',js)
+        self.assertIn('addEventListener("click"',js)
+        self.assertIn("youtube-nocookie.com/embed/",js)
+        self.assertIn("id !== \"tJbzMqJGH4k\"",js)
+        self.assertIn("replaceChildren(iframe)",js)
+        self.assertNotIn("api.buffer.com",js)
+        self.assertNotIn("fetch(",js)
+        css=(self.out/"assets"/"style.css").read_text(encoding="utf-8")
+        self.assertIn(".medal-chip",css)
+        self.assertIn(".video-consent",css)
+        self.assertIn(".discovery-rail",css)
+        self.assertIn("flex-wrap:nowrap",css)
+        self.assertIn(".trophy-hero",css)
+
     def test_no_external_paid_dependencies(self):
         self.assertFalse((self.out/"node_modules").exists())
         self.assertEqual(len(list((self.out/"trofei").glob("trofeo-*/index.html"))),55)
