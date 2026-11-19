@@ -126,3 +126,13 @@ Il monitor pubblico `xFederiko11/federiko-gta-playstation-bot` aggiorna una sing
 
 Fonti di ricerca abilitate: PowerPyx, GTA Series Videos e GTABase (quando il feed news risponde). Avere un feed è solo un modo di rilevare nuovi contenuti, non una certificazione di quanto affermato. I cambiamenti richiedenti verifica in-game rimangono in una checklist del bot su GitHub Issues, non sono pubblicati come fatti. `test_related_research.py` controlla collegamenti pertinenti e protezioni contro contenuti non attendibili.
 
+
+
+## Continuità dei workflow programmati
+
+La repository è pubblica: GitHub documenta la possibile disattivazione dei workflow `schedule` dopo **60 giorni senza attività** (<https://docs.github.com/en/actions/how-tos/manage-workflow-runs/disable-and-enable-workflows>).
+
+Per ridurre questo rischio il workflow `.github/workflows/gta6-schedule-keepalive.yml` esegue **un controllo settimanale**, ma crea un commit minimale nel solo file `.state/workflow-keepalive.json` **soltanto dopo almeno 35 giorni senza nuovi commit su `main`**. Usa `GITHUB_TOKEN` con il solo permesso GitHub `contents:write`; non legge o modifica Buffer, X, guide, trofei o contenuti editoriali e non richiede servizi esterni.
+
+**Limiti:** questo sistema è preventivo e non garantisce che GitHub o i provider restino sempre disponibili, che tutti i run schedulati avvengano in orario o che GitHub continui a contare gli heartbeat automatici come attività idonea. Se GitHub disattiva il workflow prima dell'esecuzione, è necessario riabilitarlo manualmente. La manutenzione delle credenziali Buffer e dei feed rimane separata.
+
