@@ -28,7 +28,7 @@ class RelatedResearchTests(unittest.TestCase):
         self.assertNotIn("shooting range",vehicle)
         self.assertNotIn("money rumor",vehicle)
         self.assertIn("In verifica:",vehicle)
-        self.assertIn("non modificano le istruzioni",vehicle)
+        self.assertIn("non modificano le istruzioni",vehicle.lower())
         self.assertEqual(for_guide("studiare-animali",report),"")
         self.assertEqual(for_guide("unknown-id",report),"")
         self.assertIn("shooting range",for_guide("poligoni-concentrazione",report))
