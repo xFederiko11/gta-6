@@ -50,6 +50,26 @@ class RelatedResearchTests(unittest.TestCase):
         self.assertNotIn("confirmed",html)
         self.assertIn("🔵 GUIDA INDIPENDENTE",html)
 
+    def test_independent_gta_wiki_edits_are_unverified_metadata(self):
+        wiki=item("Grand Theft Auto VI: new vehicles wiki page changes",
+                  source="GTA Wiki (independent)",status="🟡 SEGNALAZIONE",
+                  url="https://gta.wiki/wiki/Grand_Theft_Auto_VI")
+        data=feed([wiki])
+        rows=candidates(data)
+        self.assertEqual(len(rows),1)
+        html=for_catalog(data)
+        self.assertIn("GTA Wiki (independent)",html)
+        self.assertIn("🟡 SEGNALAZIONE",html)
+        self.assertIn("In verifica:",html)
+        self.assertNotIn("Rockstar conferma",html)
+        self.assertNotIn("GTA Wiki (independent)",
+                         for_guide("scansionare-veicoli",data))
+        bad=feed([item("GTA VI vehicle changes",source="GTA Wiki (independent)",
+                       status="🟡 SEGNALAZIONE",
+                       url="https://gta.wiki.evil.example/wiki/GTA_VI")])
+        with self.assertRaises(ValueError):
+            candidates(bad)
+
     def test_escapes_untrusted_headlines_and_urls(self):
         report=feed([item('GTA VI WAiNK scan vehicle database <script>alert(1)</script>')])
         html=for_guide("scansionare-veicoli",report)
