@@ -186,3 +186,13 @@ La sezione **HDR OLED** presenta i tre campi del menu reale di GTA VI (Max Brigh
 La pagina **Scoperte** è ora un catalogo leggibile su smartphone: card con arte CSS locale originale, ricerca per parole, filtri per fonte e classificazione, conteggio dei risultati e collegamenti diretti alle fonti originali. L'utente può riprodurre soltanto **video diretti YouTube** pubblicati nella fonte GTA Series Videos; il player `youtube-nocookie` viene caricato esclusivamente dopo il clic e rimane separato dal link originale. Non scarichiamo o copiamo le immagini dei portali di terzi. Un titolo del bot non diventa automaticamente un fatto verificato, una raccomandazione trophy-safe, un annuncio ufficiale o una notizia confermata.
 
 Le interazioni sono statiche e gratuite: `site/assets/hdr-interactions.js` e `site/assets/community-interactions.js` non richiedono cookie, tracker, account, Buffer, ChatGPT o API commerciali. I controlli di regressione verificano escaping HTML, validazione host/ID video, fallback per feed vuoti, filtri e preservation dei permalink e metadati SEO.
+
+
+## Analytics opt-in per migliorare il sito con dati reali
+
+È disponibile un'integrazione **opzionale** con GoatCounter per rilevare pagine e clic reali (interni, fonti esterne e CTA), con tassonomia stabile e salvaguardie di privacy. **Disattivata per impostazione predefinita**: nessun nuovo servizio di analytics viene caricato finché non configuri `GOATCOUNTER_CODE` come variabile della repository GitHub. Il loader rispetta Do Not Track e Global Privacy Control e non trasmette query di ricerca, checklist o dati PSN. I risultati sono consultabili dal dashboard dell'account GoatCounter, non simulati nel sito.
+
+- [Guida di attivazione, privacy e KPI editoriali](ANALYTICS.md)
+- [Trasparenza pubblica sulle statistiche](https://xfederiko11.github.io/gta-6/privacy/)
+
+Il badge preesistente hitscounter.dev non equivale ad analytics su utenti unici o clic e rimane un servizio esterno distinto. Tutto continua a funzionare su GitHub Pages senza dipendere da ChatGPT, da Buffer o da accessi amministrativi a sistemi terzi.
