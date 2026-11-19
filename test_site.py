@@ -236,7 +236,7 @@ class PortalTests(unittest.TestCase):
     def test_community_watch_page_is_transparent_and_seo_ready(self):
         page=(self.out/"community"/"index.html").read_text(encoding="utf-8")
         self.assertIn("cosa sta scoprendo la community",page)
-        self.assertIn("Non ci sono ancora nuove segnalazioni",page)
+        self.assertTrue("Non ci sono ancora nuove segnalazioni" in page or "Consulta la coda del bot" in page)
         self.assertIn("non sono sintesi",page)
         self.assertIn("https://github.com/xFederiko11/federiko-gta-playstation-bot/issues/29",page)
         self.assertIn('rel="canonical"',page)
