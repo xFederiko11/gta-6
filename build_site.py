@@ -331,19 +331,28 @@ def guide_detail(g, tro):
     steps="".join("<li>"+e(step)+"</li>" for step in g["steps"])
     related_html=(f'<a href="{url(trophy_path(related))}">🏆 Trofeo collegato: {e(related["name_it"])}</a>' if related else "")
     # Editorial images are linked to existing official promotional material, not copied from PowerPyx.
-    photo=f'''<figure class="figure guide-photo"><img class="media" loading="lazy" decoding="async" src="{e(g["image"])}" alt="Screenshot promozionale ufficiale GTA VI, solo illustrativo">
+    photo=f'''<figure class="figure guide-photo"><div class="guide-media-wrap">
+    <div class="guide-media-fallback" role="img" aria-label="Immagine illustrativa non disponibile">
+    <span aria-hidden="true">🎮</span><strong>GTA VI · Guida PS5</strong>
+    <small>Immagine promozionale non disponibile</small></div>
+    <img class="media" loading="lazy" decoding="async" src="{e(g["image"])}"
+    alt="Immagine promozionale ufficiale GTA VI, solo illustrativa"
+    onload="this.classList.add('media-loaded')"
+    onerror="this.remove();this.parentElement.classList.add('media-unavailable')"></div>
     <figcaption>Immagine promozionale di Rockstar Games, illustrativa e non specifica della procedura. Diritti dei rispettivi titolari.</figcaption></figure>'''
     theme=g["tag"]
     intro_block=f'''{intro}<section class="guide-hero"><span class="eyebrow">🎮 {e(theme)} · GTA VI PS5 / PS5 Pro</span>
     <h1>{e(g["title"])}</h1><p class="lead">{e(g["summary"])}</p>
     <div class="guide-hero-actions"><a class="button" href="#passaggi">↓ Vai ai passaggi</a>
     <a class="button secondary" href="#fonte-guida">↗ Fonti</a></div></section>'''
-    suggestions = []  # Only actual existing local guide pages, no speculative content.
-    for item in json.loads((DATA/"guide.json").read_text(encoding="utf-8"))["guides"]:
-        if item["id"]!=g["id"] and (item["tag"]==g["tag"] or not suggestions):
-            suggestions.append(item)
-        if len(suggestions)==3:
-            break
+    # Prefer related trophy and topic; never silently fill the rail with unrelated items.
+    other_guides=[item for item in json.loads((DATA/"guide.json").read_text(encoding="utf-8"))["guides"]
+                  if item["id"]!=g["id"]]
+    other_guides.sort(key=lambda item: (
+        -(num is not None and item.get("related_trophy")==num),
+        -(item["tag"]==g["tag"]),
+        item["title"].casefold()))
+    suggestions=other_guides[:3]
     cards="".join(
         f'<a class="discovery-card" href="{url(guide_path(item))}">'
         f'<span class="discovery-label">🎮 {e(item["tag"])}</span>'
