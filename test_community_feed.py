@@ -3,7 +3,7 @@ import base64
 import json
 import unittest
 
-from community_page import validate
+from community_page import validate, _video_id
 from fetch_community_feed import extract, ISSUE_TITLE
 
 
@@ -30,6 +30,21 @@ class BridgeTests(unittest.TestCase):
         o=feed()
         o["items"][0]["source"]="Rockstar Games"
         with self.assertRaises(ValueError):validate(o)
+
+    def test_only_direct_trusted_youtube_links_become_playable(self):
+        original=feed()["items"][0]
+        youtube={**original,
+                 "source":"GTA Series Videos",
+                 "url":"https://www.youtube.com/watch?v=ABCD1234567"}
+        self.assertEqual(_video_id(youtube),"ABCD1234567")
+        self.assertIsNone(_video_id({**youtube,"url":"https://www.youtube.com/playlist?list=ABCD1234567"}))
+        self.assertIsNone(_video_id({**youtube,"url":"https://www.youtube.com/watch?v=invalid"}))
+        self.assertIsNone(_video_id({**youtube,"source":"GTABase"}))
+        self.assertIsNone(_video_id({**youtube,"url":"https://www.youtube.com/watch?v=ABCD1234567&v=ABCD1234567"}))
+        self.assertEqual(len(validate({**feed(),"items":[youtube]})),1)
+        with self.assertRaises(ValueError):
+            validate({**feed(),"items":[{**youtube,
+                "url":"https://www.youtube.com.evil.example/watch?v=ABCD1234567"}]})
 
     def test_single_public_issue_bridge_only(self):
         data=feed()
