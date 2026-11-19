@@ -31,7 +31,7 @@ def sources_for(path: str) -> tuple[str, ...]:
     if path.startswith("trofei/"):
         return shared + ("data/trofei.json", "data/guide.json")
     if path.startswith("guide-e-tutorial/"):
-        return shared + ("data/guide.json", "data/trofei.json")
+        return shared + ("data/guide.json", "data/trofei.json", "related_research.py", "data/community_feed.json")
     if path.startswith("hdr-oled/"):
         return shared + ("hdr_catalog.py", "data/hdr_oled.json")
     if path.startswith("trucchi/"):
