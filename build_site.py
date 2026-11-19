@@ -267,7 +267,7 @@ def trophy_detail(t, guides, trophies):
              'La presenza di fonti non garantisce che un exploit mantenga attivi i trofei.</p></details>')
     article=(
         '<div class="article-grid trophy-article">'
-        '<article class="prose trophy-prose" id="requisito">'
+        '<article class="prose trophy-prose">'
         +disclosure+finished+guidance
         +'<div class="trophy-safety"><strong>🛡️ Platino prima di tutto</strong>'
         '<p>Questa scheda spiega il requisito del gioco, non certifica glitch o duplicazioni. '
