@@ -26,12 +26,16 @@
       "unlock": "Dopo aver completato la storia",
       "effect": "Aggiunge 250.000 $ al denaro in gioco.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟡 Due guide indipendenti concordano, non provato da GTA 6 Italia",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
         "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/"
-      ]
+      ],
+      "independent_comparison": "powerpyx_and_pcgamer",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 2,
+      "source_note": "La sequenza coincide nelle guide indipendenti di PowerPyx e PC Gamer; non è una prova diretta su PS5."
     },
     {
       "slug": "aumenta-livello-calore",
@@ -49,12 +53,16 @@
       "unlock": "Sfuggi 25 volte a un livello di ricercato di 3 stelle",
       "effect": "Aumenta il livello di calore sulla mappa.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟡 Due guide indipendenti concordano, non provato da GTA 6 Italia",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
-        "https://gtadb.net/gta-6/cheats/"
-      ]
+        "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/"
+      ],
+      "independent_comparison": "powerpyx_and_pcgamer",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 2,
+      "source_note": "La sequenza coincide nelle guide indipendenti di PowerPyx e PC Gamer; non è una prova diretta su PS5."
     },
     {
       "slug": "concentrazione-illimitata",
@@ -75,12 +83,16 @@
       "unlock": "Dopo aver completato la storia",
       "effect": "La concentrazione non si esaurisce.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟡 Due guide indipendenti concordano, non provato da GTA 6 Italia",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
         "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/"
-      ]
+      ],
+      "independent_comparison": "powerpyx_and_pcgamer",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 2,
+      "source_note": "La sequenza coincide nelle guide indipendenti di PowerPyx e PC Gamer; non è una prova diretta su PS5."
     },
     {
       "slug": "armatura",
@@ -101,12 +113,16 @@
       "unlock": "Completa 100 allenamenti",
       "effect": "Fornisce un'armatura al personaggio.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟠 Una guida documenta la sequenza, conferma indipendente non trovata",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
         "https://gtadb.net/gta-6/cheats/"
-      ]
+      ],
+      "independent_comparison": "powerpyx_only",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 1,
+      "source_note": "Sequenza pubblicata da PowerPyx: non abbiamo un secondo controllo indipendente del codice. Eventuali siti derivativi non contano come conferma autonoma."
     },
     {
       "slug": "munizioni-massime",
@@ -127,12 +143,17 @@
       "unlock": "Ottieni almeno 25 medaglie di bronzo nei poligoni di tiro",
       "effect": "Rifornisce le munizioni delle armi.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟠 Una guida documenta la sequenza, conferma indipendente non trovata",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
         "https://gtadb.net/gta-6/cheats/"
-      ]
+      ],
+      "independent_comparison": "powerpyx_only",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 1,
+      "source_note": "Sequenza pubblicata da PowerPyx: non abbiamo un secondo controllo indipendente del codice. Eventuali siti derivativi non contano come conferma autonoma.",
+      "unlock_note": "Requisito discordante: PowerPyx indica 25 medaglie di bronzo nei poligoni; PC Gamer indica 20. Fa fede il valore mostrato in Progressi → Trucchi sulla versione installata."
     },
     {
       "slug": "munizioni-infinite",
@@ -153,12 +174,16 @@
       "unlock": "Ottieni almeno 25 medaglie d'argento nei poligoni di tiro",
       "effect": "Le munizioni non si esauriscono.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟠 Una guida documenta la sequenza, conferma indipendente non trovata",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
         "https://gtadb.net/gta-6/cheats/"
-      ]
+      ],
+      "independent_comparison": "powerpyx_only",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 1,
+      "source_note": "Sequenza pubblicata da PowerPyx: non abbiamo un secondo controllo indipendente del codice. Eventuali siti derivativi non contano come conferma autonoma."
     },
     {
       "slug": "senza-ricarica",
@@ -179,12 +204,16 @@
       "unlock": "Ottieni 25 medaglie d'oro nei poligoni di tiro",
       "effect": "Non occorre ricaricare le armi.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟠 Una guida documenta la sequenza, conferma indipendente non trovata",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
         "https://gtadb.net/gta-6/cheats/"
-      ]
+      ],
+      "independent_comparison": "powerpyx_only",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 1,
+      "source_note": "Sequenza pubblicata da PowerPyx: non abbiamo un secondo controllo indipendente del codice. Eventuali siti derivativi non contano come conferma autonoma."
     },
     {
       "slug": "attack-force",
@@ -204,12 +233,16 @@
       "unlock": "Dopo aver completato la storia",
       "effect": "Attiva l'effetto Attack Force.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟡 Due guide indipendenti concordano, non provato da GTA 6 Italia",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
-        "https://gtadb.net/gta-6/cheats/"
-      ]
+        "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/"
+      ],
+      "independent_comparison": "powerpyx_and_pcgamer",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 2,
+      "source_note": "La sequenza coincide nelle guide indipendenti di PowerPyx e PC Gamer; non è una prova diretta su PS5."
     },
     {
       "slug": "palloni-esplosivi",
@@ -229,12 +262,16 @@
       "unlock": "Colpisci 20 nemici con danni esplosivi",
       "effect": "I palloni sportivi esplodono all'impatto.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟡 Due guide indipendenti concordano, non provato da GTA 6 Italia",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
-        "https://gtadb.net/gta-6/cheats/"
-      ]
+        "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/"
+      ],
+      "independent_comparison": "powerpyx_and_pcgamer",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 2,
+      "source_note": "La sequenza coincide nelle guide indipendenti di PowerPyx e PC Gamer; non è una prova diretta su PS5."
     },
     {
       "slug": "vehicle-force",
@@ -254,12 +291,16 @@
       "unlock": "Uccidi 25 nemici con un veicolo",
       "effect": "Attiva l'effetto Vehicle Force.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟠 Una guida documenta la sequenza, conferma indipendente non trovata",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
         "https://gtadb.net/gta-6/cheats/"
-      ]
+      ],
+      "independent_comparison": "powerpyx_only",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 1,
+      "source_note": "Sequenza pubblicata da PowerPyx: non abbiamo un secondo controllo indipendente del codice. Eventuali siti derivativi non contano come conferma autonoma."
     },
     {
       "slug": "maibatsu-boomazoom",
@@ -278,12 +319,16 @@
       "unlock": "Completa 5 sfide di shopping",
       "effect": "Genera il Maibatsu Boomazoom.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟡 Due guide indipendenti concordano, non provato da GTA 6 Italia",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
-        "https://gtadb.net/gta-6/cheats/"
-      ]
+        "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/"
+      ],
+      "independent_comparison": "powerpyx_and_pcgamer",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 2,
+      "source_note": "La sequenza coincide nelle guide indipendenti di PowerPyx e PC Gamer; non è una prova diretta su PS5."
     },
     {
       "slug": "mtl-pumper",
@@ -302,12 +347,16 @@
       "unlock": "Requisito ancora sconosciuto nelle fonti",
       "effect": "Genera il veicolo MTL Pumper.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟠 Una guida documenta la sequenza, conferma indipendente non trovata",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
         "https://gtadb.net/gta-6/cheats/"
-      ]
+      ],
+      "independent_comparison": "powerpyx_only",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 1,
+      "source_note": "Sequenza pubblicata da PowerPyx: non abbiamo un secondo controllo indipendente del codice. Eventuali siti derivativi non contano come conferma autonoma."
     },
     {
       "slug": "hvy-bulldozer",
@@ -326,12 +375,16 @@
       "unlock": "Scopri l'HVY Bulldozer nel menu Progressi",
       "effect": "Genera un bulldozer HVY.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟡 Due guide indipendenti concordano, non provato da GTA 6 Italia",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
         "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/"
-      ]
+      ],
+      "independent_comparison": "powerpyx_and_pcgamer",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 2,
+      "source_note": "La sequenza coincide nelle guide indipendenti di PowerPyx e PC Gamer; non è una prova diretta su PS5."
     },
     {
       "slug": "cambia-meteo",
@@ -349,12 +402,16 @@
       "unlock": "Dopo aver completato la storia",
       "effect": "Passa alla successiva condizione meteo.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟡 Due guide indipendenti concordano, non provato da GTA 6 Italia",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
         "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/"
-      ]
+      ],
+      "independent_comparison": "powerpyx_and_pcgamer",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 2,
+      "source_note": "La sequenza coincide nelle guide indipendenti di PowerPyx e PC Gamer; non è una prova diretta su PS5."
     },
     {
       "slug": "cataclysm",
@@ -375,12 +432,16 @@
       "unlock": "Scopri Martha's Vamos nel menu Progressi",
       "effect": "Applica il filtro visivo Cataclysm.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟠 Una guida documenta la sequenza, conferma indipendente non trovata",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
         "https://gtadb.net/gta-6/cheats/"
-      ]
+      ],
+      "independent_comparison": "powerpyx_only",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 1,
+      "source_note": "Sequenza pubblicata da PowerPyx: non abbiamo un secondo controllo indipendente del codice. Eventuali siti derivativi non contano come conferma autonoma."
     },
     {
       "slug": "dollhouse",
@@ -401,12 +462,16 @@
       "unlock": "Trascorri 8 ore con il partner",
       "effect": "Applica il filtro visivo Dollhouse.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟡 Due guide indipendenti concordano, non provato da GTA 6 Italia",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
-        "https://gtadb.net/gta-6/cheats/"
-      ]
+        "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/"
+      ],
+      "independent_comparison": "powerpyx_and_pcgamer",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 2,
+      "source_note": "La sequenza coincide nelle guide indipendenti di PowerPyx e PC Gamer; non è una prova diretta su PS5."
     },
     {
       "slug": "faded-glory",
@@ -427,12 +492,27 @@
       "unlock": "Rapina 50 negozi con il partner",
       "effect": "Applica un filtro ispirato ai vecchi televisori CRT.",
       "platform": "PS5 / PS5 Pro",
-      "status": "Sequenza riportata da PowerPyx (18 novembre 2026), non provata direttamente su PS5",
+      "status": "🟠 Una guida documenta la sequenza, conferma indipendente non trovata",
       "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
       "sources": [
         "https://www.powerpyx.com/gta-6-all-cheats/",
         "https://gtadb.net/gta-6/cheats/"
-      ]
+      ],
+      "independent_comparison": "powerpyx_only",
+      "verified_on_ps5_by_our_site": false,
+      "independent_source_count": 1,
+      "source_note": "Sequenza pubblicata da PowerPyx: non abbiamo un secondo controllo indipendente del codice. Eventuali siti derivativi non contano come conferma autonoma."
     }
-  ]
+  ],
+  "research_summary": {
+    "independently_matched": 9,
+    "single_origin": 8,
+    "verified_by_our_site": 0,
+    "comparison_sources": [
+      "https://www.powerpyx.com/gta-6-all-cheats/",
+      "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/"
+    ],
+    "updated": "2026-11-19",
+    "note": "Le pubblicazioni di GTADB e altri riepiloghi che citano PowerPyx potrebbero non essere indipendenti. Non attribuire un secondo riscontro senza prova originale."
+  }
 }
