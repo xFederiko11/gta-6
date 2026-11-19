@@ -18,6 +18,7 @@ from hdr_catalog import render as render_hdr_pages
 from cheats_catalog import render as render_cheat_pages
 from sources_page import render as render_sources_page
 from community_page import render as render_community_page
+from related_research import for_guide as new_related_research, for_catalog as new_catalog_research
 
 BASE = "https://xfederiko11.github.io/gta-6"
 OUT = Path(os.getenv("SITE_OUT", "_site"))
@@ -260,7 +261,7 @@ def guide_index(guides):
     <h1>Guide e tutorial <span class="highlight">GTA 6</span></h1>
     <p class="lead">Come fare subito, senza articoli inutilmente lunghi. Pulsanti, procedure, vantaggi e fonti per approfondire.</p></section>
     <div class="info">📘 Tutti i tutorial sono in italiano, riprendono fonti indicate nella pagina e specificano i limiti di verifica. Nuove guide verranno aggiunte qui senza modificare l'indirizzo della sezione.</div>
-    <section class="section"><div class="grid">{"".join(guide_card(g) for g in guides)}</div></section>'''
+    <section class="section"><div class="grid">{"".join(guide_card(g) for g in guides)}</div></section>''' + new_catalog_research()
     title="GTA 6 Guide e Tutorial PS5: trucchi, collezionabili e 100%"
     desc="Guide GTA VI in italiano: tutorial rapidi per PS5, pulsanti, trofei, 100%, viaggio rapido, attività e strategie."
     write("guide-e-tutorial/index.html",layout(title,desc,"guide-e-tutorial/",body,"guide",structured={
@@ -283,6 +284,7 @@ def guide_detail(g, tro):
     <h2>🎯 Procedura passo passo</h2><ol>{steps}</ol>
     <h2>✅ Risultato utile</h2><p>{e(g["benefit"])}</p>
     <div class="info warn">⚠️ {e(g["caution"])}</div>
+    {new_related_research(g["id"])}
     {photo}
     <div class="source">Approfondimento originale: <a href="{e(g["source_url"])}" rel="noopener noreferrer">PowerPyx — guida consultata</a>.
     I passaggi sono una sintesi editoriale in italiano e non riproducono l'articolo integrale.</div></article>
