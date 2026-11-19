@@ -14,7 +14,7 @@ from community_page import validate
 
 DATA = Path("data/community_feed.json")
 GUIDE_PATTERNS = {
-    "scansionare-veicoli": r"\b(waink|scan(?:ning)?\s+(?:cars|vehicles)|vehicle\s+database)\b",
+    "scansionare-veicoli": r"\b(waink|scan(?:ning)?\s+(?:cars|vehicles)|(?:cars|vehicles)\s+scan)\b",
     "studiare-animali": r"\b(animal|wildlife|fauna|species|bird|fish)\b",
     "70-sfide-100-percento": r"\b(challenges?|100\s*%|completion\s+checklist)\b",
     "meditazione-capitolo-1": r"\b(meditat(?:e|ion|ing))\b",
@@ -34,9 +34,10 @@ def e(text):
 def candidates(report=None):
     if report is None:
         report = json.loads(DATA.read_text(encoding="utf-8"))
-    return [x for x in validate(report) if
-            x["status"] == "🔵 GUIDA INDIPENDENTE" and
-            x["source"] in {"PowerPyx", "GTA Series Videos"}]
+    return [x for x in validate(report) if (
+            x["status"] == "🔵 GUIDA INDIPENDENTE"
+            and x["source"] in {"PowerPyx", "GTA Series Videos"}) or (
+            x["status"] == "🟡 SEGNALAZIONE" and x["source"] == "GTABase")]
 
 
 def render_cards(items, heading="Ultime fonti specialistiche da confrontare"):
@@ -45,13 +46,13 @@ def render_cards(items, heading="Ultime fonti specialistiche da confrontare"):
     rows=[]
     for x in items:
         rows.append(
-            '<li><span class="micro">🔵 Guida indipendente — '
+            '<li><span class="micro">'+e(x["status"])+' — '
             +e(x["source"])+' · '+e(x["published_utc"][:10])+'</span> '
             +'<a href="'+e(x["url"])+'" target="_blank" rel="noopener noreferrer">'
             +e(x["title"])+'</a></li>')
     return ('<section class="section related-research"><h2>'+e(heading)+'</h2>'
             '<p class="micro"><strong>In verifica:</strong> il bot ha rilevato '
-            'questi titoli da fonti indipendenti, senza verificare i dettagli '
+            'questi titoli da fonti esterne, senza verificare i dettagli '
             'della procedura, la patch o i trofei. Non modificano le istruzioni '
             'di questa guida.</p><ul>'+"".join(rows)+'</ul>'
             '<p><a href="https://xfederiko11.github.io/gta-6/scoperte/">'
