@@ -18,6 +18,7 @@ from hdr_catalog import render as render_hdr_pages
 from cheats_catalog import render as render_cheat_pages
 from sources_page import render as render_sources_page
 from community_page import render as render_community_page
+from related_sources import load as load_source_leads, box as related_sources_box
 
 BASE = "https://xfederiko11.github.io/gta-6"
 OUT = Path(os.getenv("SITE_OUT", "_site"))
@@ -267,11 +268,12 @@ def guide_index(guides):
       "@context":"https://schema.org","@type":"CollectionPage","name":title,
       "inLanguage":"it-IT","url":url("guide-e-tutorial/"),"numberOfItems":len(guides)}))
 
-def guide_detail(g, tro):
+def guide_detail(g, tro, source_leads=None):
     path=guide_path(g)
     num=g.get("related_trophy")
     related=next((t for t in tro if t["number"]==num),None)
     intro=crumbs([("Guide e tutorial","guide-e-tutorial/"),(g["title"],path)])
+    source_update_box=related_sources_box(g["id"],source_leads or [])
     steps="".join("<li>"+e(s)+"</li>" for s in g["steps"])
     related_html=(f'<a href="{url(trophy_path(related))}">🏆 Trofeo collegato: {e(related["name_it"])}</a>' if related else "")
     photo=f'''<figure class="figure"><img class="media" loading="lazy" src="{e(g["image"])}" alt="Screenshot promozionale ufficiale GTA VI, solo illustrativo">
@@ -285,7 +287,8 @@ def guide_detail(g, tro):
     <div class="info warn">⚠️ {e(g["caution"])}</div>
     {photo}
     <div class="source">Approfondimento originale: <a href="{e(g["source_url"])}" rel="noopener noreferrer">PowerPyx — guida consultata</a>.
-    I passaggi sono una sintesi editoriale in italiano e non riproducono l'articolo integrale.</div></article>
+    I passaggi sono una sintesi editoriale in italiano e non riproducono l'articolo integrale.</div>
+    {source_update_box}</article>
     <aside class="sidebox"><h3>Altri contenuti</h3><a href="{url("guide-e-tutorial/")}">← Tutte le guide</a>
     {related_html}<a href="{url("trofei/")}">🏆 Elenco trofei PS5</a></aside></div>'''
     title=g["title"]+" | Guida GTA VI PS5 in italiano"
@@ -306,6 +309,7 @@ def redirect(path,dest):
 def main():
     trophies=json.loads((DATA/"trofei.json").read_text(encoding="utf-8"))["trophies"]
     guides=json.loads((DATA/"guide.json").read_text(encoding="utf-8"))["guides"]
+    source_leads=load_source_leads()
     assert len(trophies)==55 and len({t["slug"] for t in trophies})==55
     assert len(guides)>=6 and len({g["id"] for g in guides})==len(guides)
     assert Counter(t["tier"] for t in trophies)==Counter({"Platino":1,"Oro":2,"Argento":6,"Bronzo":46})
@@ -336,7 +340,7 @@ def main():
         if state=="index,follow":xml_urls.append(trophy_path(t))
         redirect(t["id"]+".html",trophy_path(t))
     for g in guides:
-        guide_detail(g,trophies)
+        guide_detail(g,trophies,source_leads)
         xml_urls.append(guide_path(g))
     redirect("guida-medaglie-oro.html","trofei/medaglie-oro/")
     write("robots.txt","User-agent: *\nAllow: /\nSitemap: "+url("sitemap.xml")+"\n")
