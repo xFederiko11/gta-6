@@ -29,8 +29,8 @@ class PortalTests(unittest.TestCase):
     def test_content_counts_and_links(self):
         self.assertEqual(len(self.trophies),55)
         self.assertEqual(len(self.guides),6)
-        self.assertEqual(len(self.hdr["families"]),20)
-        self.assertEqual(sum(len(f["models"]) for f in self.hdr["families"]),86)
+        self.assertEqual(len(self.hdr["families"]),21)
+        self.assertEqual(sum(len(f["models"]) for f in self.hdr["families"]),92)
         self.assertEqual(sum(t["hidden"] for t in self.trophies),28)
         homepage=(self.out/"index.html").read_text(encoding="utf-8")
         self.assertIn("Trofei",homepage)
@@ -144,7 +144,7 @@ class PortalTests(unittest.TestCase):
         self.assertIn("Game HDR",index)
         self.assertIn("HGiG",index)
         self.assertIn("application/ld+json",index)
-        self.assertIn("86",index)
+        self.assertIn("92",index)
         for family in self.hdr["families"]:
             path=self.out/"hdr-oled"/family["slug"]/"index.html"
             self.assertTrue(path.exists(),family["slug"])
