@@ -9,6 +9,7 @@ Portale pubblico e gratuito dedicato a **GTA VI su PS5 e PS5 Pro**. I contenuti 
 - **Homepage** — `/gta-6/`
 - **Trofei** — `/gta-6/trofei/`: 55 schede individuali, requisiti Oro, protezione degli spoiler.
 - **Guide e tutorial** — `/gta-6/guide-e-tutorial/`: consigli rapidi con procedura PS5, vantaggi e fonte.
+- **Radar community autonomo** — `/gta-6/community/`: ultime guide, video e segnalazioni estratte dalla coda GitHub del bot, con etichette di affidabilità e fonti (non articoli verificati).
 - **Fonti e metodologia editoriale** — `/gta-6/fonti/`: fonte ufficiale vs guida indipendente, community, dataminer, giornalismo, verifica trucchi e notizie.
 - **Trucchi GTA VI PS5** — `/gta-6/trucchi/`: 17 sequenze pubblicate illustrate con icone croce direzionale DualSense; singole pagine SEO, requisiti, fonti e avviso trofei.
 - **HDR OLED** — `/gta-6/hdr-oled/`: cerca marca, codice TV o diagonale; 21 famiglie e 92 codici per PS5 e PS5 Pro, pagine SEO per serie.
@@ -113,3 +114,7 @@ Fonti: https://allthings.how/best-gta-6-settings-to-change-first-on-ps5/ e https
 ## Verifica fonti GTA VI (19 novembre 2026)
 
 La pagina `/fonti/` è generata da `sources_page.py` e `data/fonti_editoriali.json`, con canonical, JSON-LD, sitemap e data reale di modifica. Elenca fonti ufficiali e indipendenti senza mescolarne l'autorità. Le 17 sequenze GTA VI pubblicate sono attribuite a PowerPyx; soltanto 9 risultano corrispondere anche agli input della guida indipendente PC Gamer al 19/11, e 8 restano da verificare indipendentemente. Il requisito di medaglie per Max Ammo è controverso (20 vs 25) e viene esplicitato. Il bot editoriale raccoglie nuovi elementi PowerPyx e GTA Series Videos in modalità ricerca prima della pubblicazione. Fonti non accessibili automaticamente non vengono descritte come lette dal bot.
+
+## Radar community indipendente
+
+`community_radar.py` sincronizza (in sola lettura) la [coda persistente del bot](https://github.com/xFederiko11/federiko-gta-playstation-bot/issues/29) durante i workflow di produzione del sito. `community_radar_page.py` genera la singola pagina `/community/` con attribuzione, stato non verificato, timestamp e SEO. Il bot resta il proprietario della ricerca; il sito non pubblica automaticamente indiscrezioni su X. Questa pagina aggrega **solo titoli e link pubblici**, non articoli completi. La sincronizzazione in GitHub Actions non necessita di ChatGPT o API a pagamento e usa soltanto feed/issue pubblici autorizzati. In caso di errore nella sincronizzazione il deployment si ferma, preservando le pagine precedentemente pubblicate.
