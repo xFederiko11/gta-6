@@ -64,3 +64,10 @@ details{margin:23px 0;border:1px solid #627088;border-radius:14px;padding:16px;b
 .hdr-steps{counter-reset:hdr-counter;list-style:none!important;padding-left:0!important;margin:20px 0 28px}.hdr-steps li{display:flex;gap:13px;align-items:flex-start;padding:13px 0!important;border-bottom:1px solid #3c4761;margin:0!important}.hdr-steps li:before{counter-increment:hdr-counter;content:counter(hdr-counter);display:inline-grid;place-items:center;flex:none;width:27px;height:27px;border-radius:8px;color:#08252b;background:#85f5e1;font-weight:800;font-size:.85rem}
 .hdr-faq{display:grid;grid-template-columns:1fr 1fr;gap:18px}.hdr-faq h3{color:#b8fbf3}.hdr-faq p{color:#c5cddd}.hdr-faq>h3{margin-top:20px}
 @media(max-width:860px){.hdr-promo{grid-template-columns:1fr}.hdr-promo-orb{display:none}.hdr-list{grid-template-columns:1fr}}@media(max-width:560px){.hdr-family{padding:18px}.hdr-family-head{flex-direction:column}.hdr-code{font-size:.76rem}.hdr-faq{display:block}.hdr-table{font-size:.81rem}.hdr-promo{padding:24px}}
+
+/* GTA VI in-game HDR values are the primary answer, before TV menus. */
+.game-hdr-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0 20px}
+.game-hdr-values>div{border:1px solid #57718e;background:linear-gradient(135deg,#172b41,#182135);border-radius:14px;min-width:0;padding:17px 12px;display:flex;align-items:center;flex-direction:column;gap:8px;text-align:center}
+.game-hdr-values b{font-size:clamp(1.6rem,3.5vw,2.45rem);line-height:1.1;font-variant-numeric:tabular-nums;color:#bcfff5}
+.game-hdr-values span{font-size:.79rem;line-height:1.25;color:#cad6e8;overflow-wrap:anywhere}
+@media(max-width:520px){.game-hdr-values{gap:6px}.game-hdr-values>div{padding:13px 5px}.game-hdr-values span{font-size:.69rem}}
