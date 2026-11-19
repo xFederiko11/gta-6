@@ -203,7 +203,7 @@ class PortalTests(unittest.TestCase):
 
     def test_privacy_and_no_signup_visit_counter(self):
         page=(self.out/"privacy"/"index.html").read_text(encoding="utf-8")
-        self.assertIn("Privacy e visite",page)
+        self.assertIn("privacy e contatore visite",page.lower())
         self.assertIn("senza account analytics",page)
         self.assertIn("hitscounter.dev",page)
         self.assertIn("non i visitatori unici",page)
