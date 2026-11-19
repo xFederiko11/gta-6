@@ -88,3 +88,12 @@ Progetto fan indipendente, non affiliato a Rockstar Games, Take-Two, PlayStation
 La serie LG C4 include codici italiani **C44LA/C43LA** e tedeschi **C47LA** confermati dai siti LG, con differenze di luminosità fra 42/48 e 55/65/77/83 pollici. Il catalogo conserva un URL per serie, non uno per ogni SKU.
 
 Fonti principali: [HDR PS5 - PlayStation](https://www.playstation.com/it-it/support/hardware/ps5-enable-adjust-hdr/), schede produttore direttamente in ogni famiglia.
+
+## GTA VI in-game HDR (19 novembre 2026)
+
+La priorità editoriale è il **menu interno del gioco**: Options → Settings → Display → HDR Calibration. Il sito mostra per ciascuna famiglia i tre campi Max Brightness / Black Levels / Paper White, distinguendo:
+- C4: **1100/0/50**, C3: **800/35/50**, C2: **800/50/50** — *rapporti individuali Reddit, non preset strumentali*, diagonale non indicata.
+- Altre TV: **600/50/50** — valori iniziali visualizzati in GTA VI nelle schermate PS5, **non** valori ottimizzati per la TV. Invece di inventare profili, spiegare come calibrare e raccogliere misure di pannello/fonte.
+- La pagina TV conserva le istruzioni HGiG come sezione secondaria, dopo i valori in-game.
+
+Fonti: https://allthings.how/best-gta-6-settings-to-change-first-on-ps5/ e https://www.reddit.com/r/OLED_Gaming/comments/1xzf4z4/gta_hdr_settings_megathread/ . Prima di chiamare un preset «confermato» servono misurazioni e test riproducibili sul modello/taglio specifico.
