@@ -111,7 +111,7 @@ def layout(title, desc, path, body, section=None, image=None, robots="index,foll
        f'<div><a href="{url("trofei/")}">Trofei</a> · <a href="{url("guide-e-tutorial/")}">Guide e tutorial</a> · <a href="{url("hdr-oled/")}">HDR OLED</a> · <a href="{url("trucchi/")}">Trucchi PS5</a> · <a href="{url("fonti/")}">Fonti e metodo</a> · <a href="{url("scoperte/")}">Scoperte community</a>'
        f'<p class="footer-social"><a href="{SOCIAL_URL}" rel="me noopener noreferrer" target="_blank">𝕏 Aggiornamenti su {SOCIAL_HANDLE} ↗</a></p>'
        f'<p class="footer-privacy"><a href="{url("privacy/")}">Privacy e visite</a></p></div>'
-       '</div></footer>'+analytics_scripts()+'</body></html>')
+       '</div></footer></body></html>')
 
 def crumbs(parts):
     b=[f'<a href="{url()}">GTA 6 Italia</a>']
