@@ -390,6 +390,51 @@
       ]
     },
     {
+      "slug": "lg-oled-c2",
+      "brand": "LG",
+      "series": "OLED evo C2",
+      "year": 2022,
+      "group": "LG · webOS 22 · HGiG",
+      "summary": "Valori HDR da inserire in GTA VI e impostazioni HGiG per LG OLED evo C2 su PS5/PS5 Pro. Il preset è una testimonianza individuale, non una misura.",
+      "models": [
+        {
+          "size": 42,
+          "code": "OLED42C21LA"
+        },
+        {
+          "size": 48,
+          "code": "OLED48C21LA"
+        },
+        {
+          "size": 55,
+          "code": "OLED55C21LA"
+        },
+        {
+          "size": 65,
+          "code": "OLED65C21LA"
+        },
+        {
+          "size": 77,
+          "code": "OLED77C21LA"
+        },
+        {
+          "size": 83,
+          "code": "OLED83C21LA"
+        }
+      ],
+      "settings": [
+        "Sull'ingresso PS5 attiva modalità Gioco e Ottimizzatore gioco, verificando il segnale HDR10.",
+        "Se disponibile: ⚙ → Tutte le impostazioni → Generale → Ottimizzatore gioco → Schermo → Compensazione mappatura toni → HGiG. Nomi e percorso dipendono da webOS/firmware.",
+        "Calibra PS5 dopo aver selezionato HGiG; disattiva miglioramenti dinamici o AI durante il test.",
+        "Dentro GTA VI usa i tre valori illustrati in questa guida soltanto come prova iniziale e confronta alte luci e neri sul tuo taglio specifico."
+      ],
+      "caution": "I C2 da 42 e 48 pollici possono avere un picco HDR diverso dai tagli maggiori. Il 800/50/50 citato nella community non è una calibrazione professionale e non riporta la diagonale.",
+      "sources": [
+        "https://www.lg.com/it/tv-soundbar/oled-evo/oled55c21la/",
+        "https://www.lg.com/us/support/help-library/lg-tv-how-to-enable-the-hgig-setting--20153301892284"
+      ]
+    },
+    {
       "slug": "samsung-s90h",
       "brand": "Samsung",
       "series": "OLED S90H",
