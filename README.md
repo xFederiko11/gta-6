@@ -155,3 +155,14 @@ Il sito riconosce anche `GTA Wiki (independent)` (dominio `gta.wiki`) come fonte
 ### Riepilogo trofei ottenuti (locale)
 
 La pagina `/trofei/` mostra ora un contatore personale `x / 55` e contrassegna le schede spuntate. Il pulsante **«Segna trofeo ottenuto»** delle singole schede aggiorna il contatore: lo stato viene salvato esclusivamente nel `localStorage` del browser, senza accesso a PSN né sincronizzazione. Il riepilogo si aggiorna tornando all'elenco e quando cambiano i dati in un'altra scheda. Non sono necessarie credenziali, tracking utenti o API esterne.
+
+
+## Esperienza mobile delle guide (novembre 2026)
+
+Le **sei guide pratiche** ora hanno anteprime visuali nel catalogo, un'immagine promozionale attribuita a Rockstar e un segnaposto grafico **disegnato in CSS** che compare anche quando un browser blocca l'immagine remota. Non copiamo screenshot o miniature di PowerPyx: gli scatti promozionali sono dichiarati illustrativi, mai spacciati per prova del singolo passaggio. La guida rimane pienamente leggibile anche senza immagini.
+
+Ogni procedura presenta passaggi spuntabili, progresso numerico e un comando «Copia passaggi» che usa gli strumenti del browser. Le spunte sono memorizzate **solo nel localStorage del dispositivo**, quando disponibile; non leggono PSN e non rappresentano requisiti reali del platino. Cambiando il contenuto dei passaggi, l'identificatore della checklist cambia per evitare di segnare come eseguite istruzioni modificate. Se la memoria o la clipboard sono bloccate dal browser integrato, viene mostrato un messaggio esplicito e le procedure restano consultabili.
+
+Le schede correlate preferiscono guide riferite allo **stesso trofeo o argomento**. Su mobile il carosello resta navigabile orizzontalmente, senza suggerimenti pubblicitari. Le pagine trofei già più complete (Cecchino con 42 caselle e video ufficiale a richiesta) mantengono le loro funzioni; per i trofei privi di consigli specifici il sito non ripete artificialmente il requisito né inventa metodi di farming.
+
+Verifica: il workflow GitHub Pages ricostruisce e controlla automaticamente gli HTML SEO, i tag delle immagini, i fallback, le checklist e i permalink senza usare ChatGPT o Buffer.

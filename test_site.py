@@ -70,8 +70,45 @@ class PortalTests(unittest.TestCase):
             procedural=re.search(r"<h2>🎯 Procedura passo passo</h2><ol>(.*?)</ol>",html,re.S)
             self.assertIsNotNone(procedural)
             self.assertEqual(procedural.group(1).count("<li>"),len(guide["steps"]))
-            self.assertIn("Screenshot promozionale",html)
+            self.assertIn("Immagine promozionale",html)
+            self.assertIn("guide-media-fallback",html)
+            self.assertIn("onerror=",html)
+            self.assertIn('data-guide-steps="'+guide["id"]+'"',html)
+            self.assertIn("guide-steps-progress",html)
+            self.assertIn("data-guide-copy",html)
+            self.assertEqual(html.count("data-guide-step="),len(guide["steps"]))
+            self.assertIn("guide-interactions.js",html)
             self.assertIn("Passaggi",html) if "Passaggi" in html else self.assertIn("Procedura",html)
+
+    def test_guide_cards_have_photo_fallback_and_useful_recommendations(self):
+        page=(self.out/"guide-e-tutorial"/"index.html").read_text(encoding="utf-8")
+        self.assertEqual(page.count('class="card guide-index-card"'),len(self.guides))
+        self.assertEqual(page.count('class="guide-tile-fallback"'),len(self.guides))
+        self.assertEqual(page.count("guide-tile-media"),len(self.guides))
+        self.assertIn("loading=\"lazy\"",page)
+        for guide in self.guides:
+            self.assertIn(guide["title"],page)
+        related=(self.out/"guide-e-tutorial"/"studiare-animali"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("70-sfide-100-percento/",related)
+        self.assertIn("scansionare-veicoli/",related)
+        trophy=(self.out/"trofei"/"trofeo-17-cecchino"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("data-medal-tracker",trophy)
+        self.assertIn("data-video-id=",trophy)
+
+    def test_guide_steps_are_readable_without_javascript(self):
+        for guide in self.guides:
+            markup=(self.out/"guide-e-tutorial"/guide["id"]/"index.html").read_text(encoding="utf-8")
+            self.assertIn("<h2>🎯 Procedura passo passo</h2><ol>",markup)
+            self.assertIn('class="guide-step-text"',markup)
+            self.assertIn('type="checkbox"',markup)
+            self.assertIn("Solo su questo dispositivo",markup)
+            self.assertIn("senza collegamento PSN",markup)
+            self.assertIn("Copia passaggi",markup)
+        script=(self.out/"assets"/"guide-interactions.js").read_text(encoding="utf-8")
+        self.assertIn("window.localStorage",script)
+        self.assertIn("navigator.clipboard.writeText",script)
+        self.assertNotIn("fetch(",script)
+        self.assertNotIn("PSN_API",script)
 
     def test_robots_and_sitemap(self):
         self.assertTrue((self.out/"robots.txt").exists())

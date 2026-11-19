@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
 import html
+import hashlib
 import json
 import os
 import re
@@ -123,7 +124,17 @@ def category_card(title, desc, href, tag, icon):
         f'<p>{e(desc)}</p><div class="end">Esplora</div></article>')
 
 def guide_card(g):
-    return category_card(g["title"],g["summary"],guide_path(g),g["tag"],"🎮")
+    icon={"Collezionabili":"🔎","Platino":"🏆","Trofei":"🥇","Movimento":"🚕"}.get(g["tag"],"🎮")
+    return (f'<article class="card guide-index-card"><a class="card-link guide-index-link" '
+        f'href="{url(guide_path(g))}">'
+        '<span class="guide-tile-media" aria-hidden="true">'
+        f'<span class="guide-tile-fallback"><b>{icon}</b><small>GTA VI · PS5</small></span>'
+        f'<img src="{e(g["image"])}" loading="lazy" decoding="async" width="640" height="360" '
+        'alt="" onload="this.classList.add(\'media-loaded\')" '
+        'onerror="this.remove()"></span>'
+        f'<span class="card-label">🎮 {e(g["tag"])}</span>'
+        f'<h3>{e(g["title"])}</h3><p>{e(g["summary"])}</p>'
+        f'<span class="end">{len(g["steps"])} passaggi · Apri la guida ↗</span></a></article>')
 
 def trophy_card(t):
     desc=t["requirement_it"] if not t["hidden"] else "Trofeo nascosto: attenzione agli spoiler."
@@ -248,12 +259,12 @@ def trophy_detail(t, guides, trophies):
     guidance=(
         shootist_content() if is_shootist else (
             '<section class="quick-route" id="requisito">'
-            '<span class="eyebrow">RISPOSTA DIRETTA</span>'
-            '<h2>🎯 Obiettivo del trofeo</h2>'
-            '<p>Il requisito completo è indicato nel riquadro iniziale. '
-            'Verifica il tuo avanzamento in gioco e il trofeo PS5 prima di considerarlo ottenuto.</p>'
-            + (f'<div class="trophy-insight"><span>💡 Suggerimento per il platino</span>'
-               f'<p>{e(t["tip_it"])}</p></div>' if t.get("tip_it") else "")
+            '<span class="eyebrow">STRATEGIA PER IL PLATINO</span>'
+            '<h2>🎯 Indicazioni operative</h2>'
+            + (f'<p>{e(t["tip_it"])}</p>' if t.get("tip_it")
+               else '<p>Non risultano passaggi aggiuntivi verificati per questa scheda. '
+                    'Segui il requisito in alto e confronta lo sblocco nel menu Trofei della PS5; '
+                    'non aggiungiamo procedure speculative.</p>')
             + '</section>'
         )
     )
@@ -328,22 +339,39 @@ def guide_detail(g, tro):
     num=g.get("related_trophy")
     related=next((t for t in tro if t["number"]==num),None)
     intro=crumbs([("Guide e tutorial","guide-e-tutorial/"),(g["title"],path)])
-    steps="".join("<li>"+e(step)+"</li>" for step in g["steps"])
+    step_revision=hashlib.sha256("\n".join(g["steps"]).encode("utf-8")).hexdigest()[:12]
+    steps="".join(
+        f'<li><label class="guide-step-option"><input type="checkbox" data-guide-step="{n}" '
+        f'aria-label="Passaggio {n} completato">'
+        f'<span class="guide-step-number" aria-hidden="true">{n:02d}</span>'
+        f'<span class="guide-step-text">{e(step)}</span></label></li>'
+        for n,step in enumerate(g["steps"],1))
     related_html=(f'<a href="{url(trophy_path(related))}">🏆 Trofeo collegato: {e(related["name_it"])}</a>' if related else "")
     # Editorial images are linked to existing official promotional material, not copied from PowerPyx.
-    photo=f'''<figure class="figure guide-photo"><img class="media" loading="lazy" decoding="async" src="{e(g["image"])}" alt="Screenshot promozionale ufficiale GTA VI, solo illustrativo">
+    photo=f'''<figure class="figure guide-photo"><div class="guide-media-wrap">
+    <div class="guide-media-fallback" role="img" aria-label="Immagine illustrativa non disponibile">
+    <span aria-hidden="true">🎮</span><strong>GTA VI · Guida PS5</strong>
+    <small>Immagine promozionale non disponibile</small></div>
+    <img class="media" loading="lazy" decoding="async" src="{e(g["image"])}"
+    alt="Immagine promozionale ufficiale GTA VI, solo illustrativa"
+    onload="this.classList.add('media-loaded')"
+    onerror="this.remove();this.parentElement.classList.add('media-unavailable')"></div>
     <figcaption>Immagine promozionale di Rockstar Games, illustrativa e non specifica della procedura. Diritti dei rispettivi titolari.</figcaption></figure>'''
     theme=g["tag"]
     intro_block=f'''{intro}<section class="guide-hero"><span class="eyebrow">🎮 {e(theme)} · GTA VI PS5 / PS5 Pro</span>
     <h1>{e(g["title"])}</h1><p class="lead">{e(g["summary"])}</p>
+    <div class="guide-hero-facts"><span>🧭 {len(g["steps"])} passaggi</span>
+    <span>🎮 PS5 / PS5 Pro</span><span>🔎 Fonte: PowerPyx</span></div>
     <div class="guide-hero-actions"><a class="button" href="#passaggi">↓ Vai ai passaggi</a>
     <a class="button secondary" href="#fonte-guida">↗ Fonti</a></div></section>'''
-    suggestions = []  # Only actual existing local guide pages, no speculative content.
-    for item in json.loads((DATA/"guide.json").read_text(encoding="utf-8"))["guides"]:
-        if item["id"]!=g["id"] and (item["tag"]==g["tag"] or not suggestions):
-            suggestions.append(item)
-        if len(suggestions)==3:
-            break
+    # Prefer related trophy and topic; never silently fill the rail with unrelated items.
+    other_guides=[item for item in json.loads((DATA/"guide.json").read_text(encoding="utf-8"))["guides"]
+                  if item["id"]!=g["id"]]
+    other_guides.sort(key=lambda item: (
+        -(num is not None and item.get("related_trophy")==num),
+        -(item["tag"]==g["tag"]),
+        item["title"].casefold()))
+    suggestions=other_guides[:3]
     cards="".join(
         f'<a class="discovery-card" href="{url(guide_path(item))}">'
         f'<span class="discovery-label">🎮 {e(item["tag"])}</span>'
@@ -356,7 +384,15 @@ def guide_detail(g, tro):
         '<div class="guide-answer"><span class="eyebrow">⚡ RISPOSTA RAPIDA</span>'
         f'<p>{e(g["benefit"])}</p></div>'
         +photo+
-        f'<section id="passaggi" class="guide-steps"><h2>🎯 Procedura passo passo</h2><ol>{steps}</ol></section>'
+        f'<section id="passaggi" class="guide-steps" data-guide-steps="{e(g["id"])}" data-guide-version="{step_revision}">'
+        f'<div class="guide-steps-header"><span class="eyebrow">CHECKLIST PERSONALE</span>'
+        f'<span class="guide-steps-count" data-guide-count aria-live="polite">0 / {len(g["steps"])}</span></div>'
+        f'<h2>🎯 Procedura passo passo</h2><ol>{steps}</ol>'
+        f'<progress class="guide-steps-progress" max="{len(g["steps"])}" value="0" '
+        f'aria-label="Avanzamento personale dei passaggi"></progress>'
+        '<div class="guide-steps-footer"><span data-guide-feedback role="status" aria-live="polite">'
+        'Spunta i passaggi mentre giochi. Solo su questo dispositivo, senza collegamento PSN.</span>'
+        '<button class="guide-copy" type="button" data-guide-copy>📋 Copia passaggi</button></div></section>'
         f'<div class="guide-caution"><strong>⚠️ Da verificare prima di procedere</strong><p>{e(g["caution"])}</p></div>'
         +new_related_research(g["id"])
         +f'<details class="source-details" id="fonte-guida"><summary>🔎 Fonti e note editoriali</summary>'
@@ -373,6 +409,7 @@ def guide_detail(g, tro):
         '<section class="section discover-more"><div class="section-head"><div>'
         '<span class="eyebrow">ALTRI CONSIGLI UTILI</span><h2>La prossima guida</h2>'
         '</div></div><div class="discovery-rail">'+cards+'</div></section>'
+        f'<script src="{url("assets/guide-interactions.js")}" defer></script>'
     )
     title=g["title"]+" | Guida GTA VI PS5 in italiano"
     desc=g["summary"]+" Passaggi, comandi PS5 e fonte della guida."
