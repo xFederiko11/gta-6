@@ -65,6 +65,8 @@ def render(write, layout, schema_article, url, crumbs):
         + f'<div class="statline"><span>📺 <b>{total}</b> codici TV</span>'
         + f'<span><b>{len(families)}</b> famiglie di impostazioni</span>'
         + f'<span><b>{len(groups)}</b> produttori</span></div></section>'
+        + '<div class="guide-hero-actions"><a class="button" href="#trova-tv">🔎 Trova la tua TV</a>'
+        '<a class="button secondary" href="#valori-gioco">🎮 Valori nel gioco</a></div>'
         + '<div class="info">🧪 <strong>Come leggere i numeri:</strong> i valori di GTA VI '
         + 'pubblicati dalla community sono prove individuali, non misure certificate. '
         + 'Per le altre TV mostriamo i valori iniziali del gioco, da calibrare, senza '
@@ -163,7 +165,7 @@ def render(write, layout, schema_article, url, crumbs):
     title = "GTA 6 HDR: Max Brightness, Black Levels e Paper White per TV OLED"
     desc = (f"Valori HDR GTA VI nel gioco (Max Brightness, Black Levels, Paper White) per {total} codici OLED in "
             f"{len(families)} famiglie LG, Samsung, Sony, Philips e Panasonic. HGiG, Game HDR e calibrazione.")
-    page = (intro + in_game_index + '<section class="section"><h2>Trova il modello OLED esatto</h2>' + form
+    page = (intro + in_game_index + '<section class="section" id="trova-tv"><h2>Trova il modello OLED esatto</h2>' + form
             + filters + '<div class="hdr-list">' + "".join(blocks) + "</div>" + script + "</section>"
             + '<section class="section"><span class="eyebrow">🎮 Consoles</span>'
             + '<h2>Configurazione HDR di base su PS5 e PS5 Pro</h2>' + steps
@@ -209,7 +211,7 @@ def render(write, layout, schema_article, url, crumbs):
             "Per questo modello non abbiamo ancora una misura HDR GTA VI verificata. "
             "Usa la calibrazione a logo e verifica nero, alte luci e Paper White.")
         game_panel = (
-            '<h2>1. GTA VI: impostazioni da inserire nel gioco</h2>'
+            '<h2 id="valori-hdr">1. GTA VI: impostazioni da inserire nel gioco</h2>'
             '<p>Su PS5/PS5 Pro: premi Options → Impostazioni → Schermo (Display) → '
             'Calibrazione HDR (HDR Calibration). Premi R1 per cambiare il test, '
             'Triangolo per nascondere le voci.</p>'
@@ -217,6 +219,12 @@ def render(write, layout, schema_article, url, crumbs):
             + f'<p class="micro">{status}</p><p>{game_note}</p>'
             + f'<p class="source">Fonte: <a href="{e(game_hdr["source_community"] if preset else game_hdr["source_menu"])}" '
             'target="_blank" rel="noopener noreferrer">valori e menu di GTA VI</a>.</p>')
+        related_families=[other for other in families if other["slug"]!=family["slug"] and other["brand"]==family["brand"]][:3]
+        related_cards="".join(
+            f'<a class="discovery-card" href="{url(index_path+other["slug"]+"/")}">'
+            f'<span class="discovery-label">📺 {e(other["brand"])} · {e(other["year"])}</span>'
+            f'<strong>{e(other["series"])}</strong><span>{len(other["models"])} codici · Apri impostazioni →</span></a>'
+            for other in related_families)
         detail = (
             crumbs([("HDR OLED", index_path), (family["series"], path)])
             + f'<section class="page-intro"><span class="eyebrow">📺 {e(family["brand"])}'
@@ -225,10 +233,12 @@ def render(write, layout, schema_article, url, crumbs):
             '<span class="highlight">impostazioni OLED</span></h1>'
             f'<p class="lead">{e(family["summary"])}</p>'
             f'<div class="statline"><span>📺 <b>{len(family["models"])}</b> modelli</span>'
-            f'<span>{e(family["group"])}</span><span>🎮 PS5 + PS5 Pro</span></div></section>'
+            f'<span>{e(family["group"])}</span><span>🎮 PS5 + PS5 Pro</span></div>'
+            '<div class="guide-hero-actions"><a class="button" href="#valori-hdr">🎮 Valori GTA VI</a>'
+            '<a class="button secondary" href="#modelli-tv">📺 Codici compatibili</a></div></section>'
             '<div class="article-grid"><article class="prose">'
             + game_panel
-            + '<h2>Modelli e diagonali compatibili con questa procedura</h2>'
+            + '<h2 id="modelli-tv">Modelli e diagonali compatibili con questa procedura</h2>'
             '<div class="hdr-table-scroll"><table class="hdr-table"><thead><tr>'
             '<th>Codice modello TV</th><th>Pollici</th><th>Famiglia</th>'
             '</tr></thead><tbody>'+model_rows+'</tbody></table></div>'
@@ -251,6 +261,11 @@ def render(write, layout, schema_article, url, crumbs):
             f'<a href="{url("guide-e-tutorial/")}">⚡ Altre guide</a>'
             f'<a href="{url("trofei/")}">🏆 Trofei e platino</a>'
             f'<p class="micro">Codici trattati:<br>{e(model_list)}</p></aside></div>'
+            + ('<section class="section discover-more"><div class="section-head"><div>'
+               '<span class="eyebrow">STESSO PRODUTTORE · ALTRE FAMIGLIE</span>'
+               '<h2>Confronta altri OLED</h2></div></div>'
+               '<div class="discovery-rail">'+related_cards+'</div></section>'
+               if related_cards else '')
         )
         dtitle = f"GTA 6 HDR {family['brand']} {family['series']}: valori Max Brightness e Paper White"
         ddesc = f"Valori HDR dentro GTA VI per {family['brand']} {family['series']} su PS5/PS5 Pro. " \
