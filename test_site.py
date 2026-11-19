@@ -211,7 +211,7 @@ class PortalTests(unittest.TestCase):
         self.assertIn("https://xfederiko11.github.io/gta-6/privacy/",page)
         home=(self.out/"index.html").read_text(encoding="utf-8")
         self.assertIn("hitscounter.dev/api/hit?url=",home)
-        self.assertIn("Privacy e statistiche</a>",home)
+        self.assertIn("Privacy e visite</a>",home)
         for markup in (home,page):
             self.assertNotIn("goatcounter.com",markup.lower())
             self.assertNotIn("site-analytics.js",markup)
