@@ -807,5 +807,44 @@
         "https://av.jpn.support.panasonic.com/support/global/cs/tv/download/fw/eu_2024/europe.html"
       ]
     }
-  ]
+  ],
+  "game_hdr": {
+    "game": "Grand Theft Auto VI",
+    "platform": "PS5/PS5 Pro",
+    "checked_on": "2026-11-19",
+    "source_menu": "https://allthings.how/best-gta-6-settings-to-change-first-on-ps5/",
+    "source_community": "https://www.reddit.com/r/OLED_Gaming/comments/1xzf4z4/gta_hdr_settings_megathread/",
+    "source_tv": "https://www.rtings.com/tv/reviews/lg/c4-oled/settings",
+    "default": {
+      "max_brightness": 600,
+      "black_levels": 50,
+      "paper_white": 50
+    },
+    "reports": {
+      "lg-oled-c4": {
+        "max_brightness": 1100,
+        "black_levels": 0,
+        "paper_white": 50,
+        "report_date": "2026-11-18",
+        "sample_size": 1,
+        "note": "Singolo utente LG C4, diagonale non precisata; logo che scompare a 1100. Su 42 e 48 pollici non assumere lo stesso picco dei tagli più grandi."
+      },
+      "lg-oled-c3": {
+        "max_brightness": 800,
+        "black_levels": 35,
+        "paper_white": 50,
+        "report_date": "2026-11-18",
+        "sample_size": 1,
+        "note": "Singolo utente LG C3, diagonale non precisata; regolazione soggettiva, non misura strumentale."
+      },
+      "lg-oled-c2": {
+        "max_brightness": 800,
+        "black_levels": 50,
+        "paper_white": 50,
+        "report_date": "2026-11-18",
+        "sample_size": 1,
+        "note": "Singolo utente LG C2, diagonale non precisata; non rappresenta tutte le condizioni di luce e firmware."
+      }
+    }
+  }
 }
