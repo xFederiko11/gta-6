@@ -9,7 +9,7 @@ Portale pubblico e gratuito dedicato a **GTA VI su PS5 e PS5 Pro**. I contenuti 
 - **Homepage** — `/gta-6/`
 - **Trofei** — `/gta-6/trofei/`: 55 schede individuali, requisiti Oro, protezione degli spoiler.
 - **Guide e tutorial** — `/gta-6/guide-e-tutorial/`: consigli rapidi con procedura PS5, vantaggi e fonte.
-- **Trucchi GTA VI PS5** — `/gta-6/trucchi/`: 18 sequenze pubblicate illustrate con icone croce direzionale DualSense; singole pagine SEO, requisiti, fonti e avviso trofei.
+- **Trucchi GTA VI PS5** — `/gta-6/trucchi/`: 17 sequenze pubblicate illustrate con icone croce direzionale DualSense; singole pagine SEO, requisiti, fonti e avviso trofei.
 - **HDR OLED** — `/gta-6/hdr-oled/`: cerca marca, codice TV o diagonale; 21 famiglie e 92 codici per PS5 e PS5 Pro, pagine SEO per serie.
 - **Medaglie Oro** — `/gta-6/trofei/medaglie-oro/`.
 - **SEO** — sitemap, robots, canonical, Open Graph, metadati e JSON-LD.
@@ -102,7 +102,7 @@ Fonti: https://allthings.how/best-gta-6-settings-to-change-first-on-ps5/ e https
 ## Trucchi GTA VI (novembre 2026)
 
 - Fonte dati: `data/trucchi.json`, generatore `cheats_catalog.py` senza dipendenze esterne.
-- La pagina `/trucchi/` e 18 pagine singole con canonical, meta description, JSON-LD e sitemap distinguono codici noti e restanti sequenze non pubblicate.
+- La pagina `/trucchi/` e 17 pagine singole con canonical, meta description, JSON-LD e sitemap distinguono codici noti e restanti sequenze non pubblicate.
 - Tutte le sequenze sono disegnate con `<kbd>` accessibili della croce direzionale DualSense e etichette ARIA (nessun font esterno o immagine proprietaria del controller).
 - **Post-storia soltanto.** I trucchi non sono utili per anticipare la progressione: bloccano trofei e salvataggi mentre attivi; backup manuale separato PRIMA di provarli.
 - Fonti editoriali: https://www.powerpyx.com/gta-6-all-cheats/ , https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/ e https://gtadb.net/gta-6/cheats/ . I codici sono attribuiti, non testati personalmente dall'autore del sito.
