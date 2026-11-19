@@ -102,7 +102,7 @@ class PortalTests(unittest.TestCase):
             self.assertIn('class="guide-step-text"',markup)
             self.assertIn('type="checkbox"',markup)
             self.assertIn("Solo su questo dispositivo",markup)
-            self.assertIn("Nessun collegamento PSN",markup)
+            self.assertIn("senza collegamento PSN",markup)
             self.assertIn("Copia passaggi",markup)
         script=(self.out/"assets"/"guide-interactions.js").read_text(encoding="utf-8")
         self.assertIn("window.localStorage",script)
