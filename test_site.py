@@ -296,11 +296,11 @@ class PortalTests(unittest.TestCase):
             page=(self.out/"guide-e-tutorial"/g["id"]/"index.html").read_text(encoding="utf-8")
             self.assertIn('class="guide-hero"',page)
             self.assertIn('class="guide-answer"',page)
-            self.assertIn('class="guide-photo"',page)
+            self.assertIn('class="figure guide-photo"',page)
             self.assertIn('id="passaggi"',page)
             self.assertIn('id="fonte-guida"',page)
             self.assertIn('class="discovery-rail"',page)
-            self.assertLess(page.index('class="guide-photo"'),
+            self.assertLess(page.index('class="figure guide-photo"'),
                             page.index('id="passaggi"'))
             self.assertIn(g["source_url"].replace("&","&amp;"),page)
 
