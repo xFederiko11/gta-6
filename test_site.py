@@ -128,6 +128,21 @@ class PortalTests(unittest.TestCase):
         self.assertIn("Guarda il poligono in azione",trophy)
         self.assertIn('onload="this.classList.add(\'media-loaded\')"',trophy)
 
+    def test_related_cheat_cards_are_category_relevant(self):
+        for cheat in self.cheats:
+            page=(self.out/"trucchi"/cheat["slug"]/"index.html").read_text(encoding="utf-8")
+            siblings=[x for x in self.cheats if x["category"]==cheat["category"]
+                      and x["slug"]!=cheat["slug"]]
+            for sibling in siblings[:3]:
+                self.assertIn("trucchi/"+sibling["slug"]+"/",page)
+            if not siblings:
+                self.assertIn("Esplora tutte le sequenze documentate",page)
+            self.assertIn("salvataggi",page.lower())
+        script=(self.out/"assets"/"cheat-interactions.js").read_text(encoding="utf-8")
+        self.assertIn("navigator.clipboard.writeText",script)
+        self.assertNotIn("fetch(",script)
+        self.assertNotIn("localStorage",script)
+
     def test_robots_and_sitemap(self):
         self.assertTrue((self.out/"robots.txt").exists())
         self.assertTrue((self.out/".nojekyll").exists())
@@ -274,6 +289,13 @@ class PortalTests(unittest.TestCase):
             self.assertIn('application/ld+json',page)
             self.assertIn('rel="canonical"',page)
             self.assertEqual(page.count('class="ps5-dpad'),len(cheat["sequence"])+1)
+            self.assertIn('class="cheat-code-panel" id="codice"',page)
+            self.assertIn('data-copy-sequence="↑ · L1 + R1 ·',page)
+            self.assertIn('data-cheat-feedback',page)
+            self.assertIn("cheat-interactions.js",page)
+            self.assertIn("Scopri i trucchi correlati",page)
+            self.assertIn('id="fonti-codice"',page)
+            self.assertIn('href="#codice"',page)
             for source in cheat["sources"]:
                 self.assertIn(source.replace("&","&amp;"),page)
 
