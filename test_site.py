@@ -1,6 +1,7 @@
 """Offline validation of generated GTA 6 Pages. No scraping or API calls."""
 from __future__ import annotations
 import json
+import html
 import os
 from pathlib import Path
 import re
@@ -194,7 +195,7 @@ class PortalTests(unittest.TestCase):
         for cheat in self.cheats:
             page=(self.out/"trucchi"/cheat["slug"]/"index.html").read_text(encoding="utf-8")
             self.assertIn(cheat["title"],page)
-            self.assertIn(cheat["unlock"].replace("&","&amp;"),page)
+            self.assertIn(html.escape(cheat["unlock"],quote=True),page)
             self.assertIn("trofei",page.lower())
             self.assertIn("salvataggi",page.lower())
             self.assertIn('application/ld+json',page)
