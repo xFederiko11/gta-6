@@ -37,7 +37,8 @@ class AnalyticsTests(unittest.TestCase):
         self.assertIn("navigator.globalPrivacyControl",script)
         self.assertIn("navigator.doNotTrack",script)
         self.assertIn('window.location.hostname !== "xfederiko11.github.io"',script)
-        self.assertIn("data-analytics-endpoint", analytics_scripts.__code__.co_consts.__repr__())
+        with patch.dict(os.environ, {"GOATCOUNTER_CODE": "gta6italia"}):
+            self.assertIn("data-analytics-endpoint", analytics_scripts())
         self.assertIn('event: true',script)
         self.assertIn('no_session: true',script)
         self.assertIn("provider.dataset.goatcounter",script)
