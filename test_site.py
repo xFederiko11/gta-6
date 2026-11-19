@@ -324,6 +324,24 @@ class PortalTests(unittest.TestCase):
         self.assertIn("flex-wrap:nowrap",css)
         self.assertIn(".trophy-hero",css)
 
+    def test_personal_55_trophy_index_progress_is_private_and_consistent(self):
+        page=(self.out/"trofei"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("data-trophy-index-progress",page)
+        self.assertIn("data-trophy-total",page)
+        self.assertIn("0 / 55 trofei segnati",page)
+        self.assertIn("Non legge il tuo account PSN",page)
+        self.assertIn("assets/trophy-experience.js",page)
+        self.assertEqual(page.count('data-trophy-number="'),55)
+        script=(self.out/"assets"/"trophy-experience.js").read_text(encoding="utf-8")
+        self.assertIn("data-trophy-index-progress",script)
+        self.assertIn("TROPHY_KEY",script)
+        self.assertIn('addEventListener("pageshow", render)',script)
+        self.assertIn('addEventListener("storage", render)',script)
+        self.assertNotIn("api.psnprofiles.com",script)
+        css=(self.out/"assets"/"style.css").read_text(encoding="utf-8")
+        self.assertIn(".trophy-index-progress",css)
+        self.assertIn('.index-item[data-completed="true"]',css)
+
     def test_no_external_paid_dependencies(self):
         self.assertFalse((self.out/"node_modules").exists())
         self.assertEqual(len(list((self.out/"trofei").glob("trofeo-*/index.html"))),55)
