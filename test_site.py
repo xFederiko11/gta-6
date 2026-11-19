@@ -32,7 +32,7 @@ class PortalTests(unittest.TestCase):
         self.assertEqual(len(self.guides),6)
         self.assertEqual(len(self.hdr["families"]),21)
         self.assertEqual(sum(len(f["models"]) for f in self.hdr["families"]),92)
-        self.assertEqual(len(self.cheats),18)
+        self.assertEqual(len(self.cheats),17)
         self.assertEqual(sum(t["hidden"] for t in self.trophies),28)
         homepage=(self.out/"index.html").read_text(encoding="utf-8")
         self.assertIn("Trofei",homepage)
