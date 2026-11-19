@@ -110,6 +110,24 @@ class PortalTests(unittest.TestCase):
         self.assertNotIn("fetch(",script)
         self.assertNotIn("PSN_API",script)
 
+    def test_official_shooting_range_video_appears_only_when_relevant(self):
+        shooting=(self.out/"guide-e-tutorial"/"poligoni-concentrazione"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("Guarda il poligono in azione",shooting)
+        self.assertIn("riferimento visivo, non una guida",shooting)
+        self.assertIn('data-video-id="tJbzMqJGH4k"',shooting)
+        self.assertIn("trophy-experience.js",shooting)
+        self.assertIn("guide-interactions.js",shooting)
+        self.assertIn('onerror="this.remove()"',shooting)
+        for guide in self.guides:
+            if guide["id"]=="poligoni-concentrazione":
+                continue
+            markup=(self.out/"guide-e-tutorial"/guide["id"]/"index.html").read_text(encoding="utf-8")
+            self.assertNotIn("trophy-experience.js",markup)
+            self.assertNotIn("data-video-id=",markup)
+        trophy=(self.out/"trofei"/"trofeo-17-cecchino"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("Guarda il poligono in azione",trophy)
+        self.assertIn('onload="this.classList.add(\'media-loaded\')"',trophy)
+
     def test_robots_and_sitemap(self):
         self.assertTrue((self.out/"robots.txt").exists())
         self.assertTrue((self.out/".nojekyll").exists())
