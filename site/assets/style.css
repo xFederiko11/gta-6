@@ -293,3 +293,25 @@ details{margin:23px 0;border:1px solid #627088;border-radius:14px;padding:16px;b
 @media(prefers-reduced-motion:reduce){
   .guide-media-wrap .media,.guide-tile-media img{transition:none}
 }
+
+
+/* GTA VI PS5 code pages: make actual DualSense inputs the visual focus.
+   No screenshots or clips are borrowed from unofficial guides. */
+.cheat-code-panel{scroll-margin-top:90px;background:radial-gradient(circle at 88% 5%,#4b728c38,transparent 40%),
+  linear-gradient(140deg,#1c3248,#121b30);border:1px solid #6c889c;
+  border-radius:20px;padding:clamp(16px,3vw,26px);margin:20px 0 28px}
+.cheat-code-panel h2{font-size:clamp(1.22rem,2.8vw,1.75rem);margin:9px 0 18px}
+.cheat-code-panel .cheat-sequence{border-radius:13px;background:#0e1829;border:1px solid #3c5a70;
+  padding:clamp(11px,2vw,17px);margin:10px 0 14px;gap:12px}
+.cheat-code-panel .micro{font-size:.81rem;color:#d0dce9;line-height:1.5}
+.cheat-panel-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  gap:10px 16px;margin-top:17px}
+.cheat-panel-footer [data-cheat-feedback]{font-size:.74rem;line-height:1.45;color:#beccde;flex:1;min-width:155px}
+.cheat-code-panel .ps5-dpad{box-shadow:inset 0 1px 0 #ffffff26,0 3px 0 #0a1425}
+.cheat-code-panel .sequence-note{color:#b5eada}
+#fonti-codice{scroll-margin-top:95px}
+@media(max-width:600px){
+  .cheat-code-panel .cheat-sequence{padding:12px 10px}
+  .cheat-code-panel .sequence-preamble{row-gap:8px}
+  .cheat-panel-footer .guide-copy{width:100%;min-height:44px}
+}
