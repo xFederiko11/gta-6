@@ -22,6 +22,7 @@ class PortalTests(unittest.TestCase):
         cls.trophies=json.loads(Path("data/trofei.json").read_text(encoding="utf-8"))["trophies"]
         cls.guides=json.loads(Path("data/guide.json").read_text(encoding="utf-8"))["guides"]
         cls.hdr=json.loads(Path("data/hdr_oled.json").read_text(encoding="utf-8"))
+        cls.cheats=json.loads(Path("data/trucchi.json").read_text(encoding="utf-8"))["cheats"]
     @classmethod
     def tearDownClass(cls):
         cls.tmp.cleanup()
@@ -31,11 +32,13 @@ class PortalTests(unittest.TestCase):
         self.assertEqual(len(self.guides),6)
         self.assertEqual(len(self.hdr["families"]),21)
         self.assertEqual(sum(len(f["models"]) for f in self.hdr["families"]),92)
+        self.assertEqual(len(self.cheats),18)
         self.assertEqual(sum(t["hidden"] for t in self.trophies),28)
         homepage=(self.out/"index.html").read_text(encoding="utf-8")
         self.assertIn("Trofei",homepage)
         self.assertIn("Guide e tutorial",homepage)
         self.assertIn("HDR OLED",homepage)
+        self.assertIn("Trucchi PS5",homepage)
         self.assertIn("https://xfederiko11.github.io/gta-6/hdr-oled/",homepage)
         self.assertIn("https://xfederiko11.github.io/gta-6/",homepage)
         self.assertNotIn("federiko-gta-playstation-bot",homepage)
@@ -68,7 +71,7 @@ class PortalTests(unittest.TestCase):
         raw=(self.out/"sitemap.xml").read_text(encoding="utf-8")
         root=ET.fromstring(raw)
         locs=[x.text for x in root.iter() if x.tag.endswith("loc")]
-        self.assertEqual(len(locs),4+27+6+1+len(self.hdr["families"]))
+        self.assertEqual(len(locs),4+27+6+1+len(self.hdr["families"])+1+len(self.cheats))
         self.assertEqual(len(locs),len(set(locs)))
         self.assertTrue(all(x.startswith("https://xfederiko11.github.io/gta-6/") for x in locs))
         self.assertTrue((self.out/"trofei"/"medaglie-oro"/"index.html").exists())
@@ -89,7 +92,9 @@ class PortalTests(unittest.TestCase):
         pages += [self.out/"guide-e-tutorial"/g["id"]/"index.html" for g in self.guides]
         pages += [self.out/"hdr-oled"/"index.html"]
         pages += [self.out/"hdr-oled"/f["slug"]/"index.html" for f in self.hdr["families"]]
-        self.assertEqual(len(pages),4+55+6+1+len(self.hdr["families"]))
+        pages += [self.out/"trucchi"/"index.html"]
+        pages += [self.out/"trucchi"/x["slug"]/"index.html" for x in self.cheats]
+        self.assertEqual(len(pages),4+55+6+1+len(self.hdr["families"])+1+len(self.cheats))
         for page in pages:
             markup=page.read_text(encoding="utf-8")
             self.assertIn('class="page-meta"',markup,str(page))
@@ -173,6 +178,30 @@ class PortalTests(unittest.TestCase):
         self.assertIn("OLED55C43LA",c4)
         self.assertIn("Compensazione mappatura toni",c4)
         self.assertNotIn("1000 nit calibrati per GTA 6",index)
+
+
+    def test_cheat_pages_have_genuine_dpad_sequences_and_trophy_warning(self):
+        hub=(self.out/"trucchi"/"index.html").read_text(encoding="utf-8")
+        self.assertIn("Trucchi GTA 6",hub)
+        self.assertIn("DualSense",hub)
+        self.assertIn("250.000",hub)
+        self.assertIn("data-cheat-search=",hub)
+        self.assertIn("aria-pressed=",hub)
+        self.assertIn("Disabilita",hub) if "Disabilita" in hub else self.assertIn("disabilita",hub)
+        self.assertIn('aria-label="Croce direzionale',hub)
+        self.assertIn('class="ps5-dpad',hub)
+        self.assertNotIn("R1, R1, Cerchio, R2",hub)
+        for cheat in self.cheats:
+            page=(self.out/"trucchi"/cheat["slug"]/"index.html").read_text(encoding="utf-8")
+            self.assertIn(cheat["title"],page)
+            self.assertIn(cheat["unlock"].replace("&","&amp;"),page)
+            self.assertIn("trofei",page.lower())
+            self.assertIn("salvataggi",page.lower())
+            self.assertIn('application/ld+json',page)
+            self.assertIn('rel="canonical"',page)
+            self.assertEqual(page.count('class="ps5-dpad'),len(cheat["sequence"])+1)
+            for source in cheat["sources"]:
+                self.assertIn(source.replace("&","&amp;"),page)
 
     def test_no_external_paid_dependencies(self):
         self.assertFalse((self.out/"node_modules").exists())

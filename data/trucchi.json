@@ -1,0 +1,461 @@
+{
+  "updated": "2026-11-19",
+  "total_reported": 61,
+  "notes": "Le sequenze della community e delle testate non sono verificate in prima persona da GTA 6 Italia. Nessun codice nella run platino. Il salvataggio manuale separato va creato PRIMA dell'attivazione; i trucchi sono post-storia.",
+  "sources": {
+    "powerpyx": "https://www.powerpyx.com/gta-6-all-cheats/",
+    "pcgamer": "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/",
+    "gtadb": "https://gtadb.net/gta-6/cheats/",
+    "gamepro": "https://www.gamepro.de/artikel/gta-6-cheats%2C3462979.html"
+  },
+  "cheats": [
+    {
+      "slug": "soldi-250000",
+      "title": "250.000 $ immediati",
+      "category": "Giocatore",
+      "sequence": [
+        "↑",
+        "→",
+        "↓",
+        "←",
+        "↑",
+        "←",
+        "↓",
+        "→"
+      ],
+      "unlock": "Dopo aver completato la storia",
+      "effect": "Aggiunge 250.000 $ al denaro in gioco.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/"
+      ]
+    },
+    {
+      "slug": "aumenta-livello-calore",
+      "title": "Aumenta il livello di calore",
+      "category": "Giocatore",
+      "sequence": [
+        "←",
+        "↓",
+        "→",
+        "↓",
+        "↑",
+        "↓",
+        "↑"
+      ],
+      "unlock": "Sfuggi 25 volte a un livello di ricercato di 3 stelle",
+      "effect": "Aumenta il livello di calore sulla mappa.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://gtadb.net/gta-6/cheats/"
+      ]
+    },
+    {
+      "slug": "aumenta-livello-ricercato",
+      "title": "Aumenta il livello di ricercato",
+      "category": "Giocatore",
+      "sequence": [
+        "←",
+        "↓",
+        "→",
+        "↓",
+        "↑",
+        "→",
+        "↑"
+      ],
+      "unlock": "Sfuggi 50 volte a un livello di ricercato di 3 stelle",
+      "effect": "Aumenta il livello di ricercato.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://gtadb.net/gta-6/cheats/"
+      ]
+    },
+    {
+      "slug": "concentrazione-illimitata",
+      "title": "Concentrazione illimitata",
+      "category": "Giocatore",
+      "sequence": [
+        "↓",
+        "↑",
+        "↑",
+        "↓",
+        "↑",
+        "↓",
+        "↑",
+        "↓",
+        "↑",
+        "→"
+      ],
+      "unlock": "Dopo aver completato la storia",
+      "effect": "La concentrazione non si esaurisce.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/"
+      ]
+    },
+    {
+      "slug": "armatura",
+      "title": "Ottieni armatura",
+      "category": "Combattimento",
+      "sequence": [
+        "↓",
+        "↑",
+        "←",
+        "↑",
+        "↑",
+        "↑",
+        "↑",
+        "↑",
+        "↓",
+        "↓"
+      ],
+      "unlock": "Requisito da verificare nel menu Progressi → Trucchi",
+      "effect": "Fornisce un'armatura al personaggio.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://gtadb.net/gta-6/cheats/"
+      ]
+    },
+    {
+      "slug": "munizioni-massime",
+      "title": "Munizioni al massimo",
+      "category": "Combattimento",
+      "sequence": [
+        "↓",
+        "↑",
+        "→",
+        "↓",
+        "←",
+        "←",
+        "↑",
+        "↑",
+        "↓",
+        "←"
+      ],
+      "unlock": "Requisito da verificare nel menu Progressi → Trucchi",
+      "effect": "Rifornisce le munizioni delle armi.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://gtadb.net/gta-6/cheats/"
+      ]
+    },
+    {
+      "slug": "munizioni-infinite",
+      "title": "Munizioni infinite",
+      "category": "Combattimento",
+      "sequence": [
+        "↓",
+        "↑",
+        "→",
+        "↓",
+        "←",
+        "←",
+        "↑",
+        "↓",
+        "↓",
+        "↓"
+      ],
+      "unlock": "Requisito da verificare nel menu Progressi → Trucchi",
+      "effect": "Le munizioni non si esauriscono.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://gtadb.net/gta-6/cheats/"
+      ]
+    },
+    {
+      "slug": "senza-ricarica",
+      "title": "Non ricaricare",
+      "category": "Combattimento",
+      "sequence": [
+        "↓",
+        "↑",
+        "→",
+        "↓",
+        "←",
+        "←",
+        "↑",
+        "↓",
+        "↓",
+        "↑"
+      ],
+      "unlock": "Requisito da verificare nel menu Progressi → Trucchi",
+      "effect": "Non occorre ricaricare le armi.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://gtadb.net/gta-6/cheats/"
+      ]
+    },
+    {
+      "slug": "attack-force",
+      "title": "Attack Force",
+      "category": "Combattimento",
+      "sequence": [
+        "↓",
+        "↑",
+        "←",
+        "←",
+        "→",
+        "↓",
+        "↓",
+        "↑",
+        "↓"
+      ],
+      "unlock": "Dopo aver completato la storia",
+      "effect": "Attiva l'effetto Attack Force.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://gtadb.net/gta-6/cheats/"
+      ]
+    },
+    {
+      "slug": "palloni-esplosivi",
+      "title": "Palloni esplosivi",
+      "category": "Combattimento",
+      "sequence": [
+        "↓",
+        "↑",
+        "←",
+        "←",
+        "→",
+        "↓",
+        "↓",
+        "↑",
+        "→"
+      ],
+      "unlock": "Requisito da verificare nel menu Progressi → Trucchi",
+      "effect": "I palloni sportivi esplodono all'impatto.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://gtadb.net/gta-6/cheats/"
+      ]
+    },
+    {
+      "slug": "vehicle-force",
+      "title": "Vehicle Force",
+      "category": "Combattimento",
+      "sequence": [
+        "↓",
+        "↑",
+        "←",
+        "←",
+        "→",
+        "↓",
+        "←",
+        "↑",
+        "↓"
+      ],
+      "unlock": "Requisito da verificare nel menu Progressi → Trucchi",
+      "effect": "Attiva l'effetto Vehicle Force.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://gtadb.net/gta-6/cheats/"
+      ]
+    },
+    {
+      "slug": "maibatsu-boomazoom",
+      "title": "Genera Maibatsu Boomazoom",
+      "category": "Veicoli",
+      "sequence": [
+        "←",
+        "↑",
+        "→",
+        "↓",
+        "←",
+        "←",
+        "↑",
+        "←"
+      ],
+      "unlock": "Requisito da verificare nel menu Progressi → Trucchi",
+      "effect": "Genera il Maibatsu Boomazoom.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://gtadb.net/gta-6/cheats/"
+      ]
+    },
+    {
+      "slug": "mtl-pumper",
+      "title": "Genera MTL Pumper",
+      "category": "Veicoli",
+      "sequence": [
+        "←",
+        "↑",
+        "→",
+        "↓",
+        "←",
+        "→",
+        "→",
+        "↑"
+      ],
+      "unlock": "Requisito da verificare nel menu Progressi → Trucchi",
+      "effect": "Genera il veicolo MTL Pumper.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://gtadb.net/gta-6/cheats/"
+      ]
+    },
+    {
+      "slug": "hvy-bulldozer",
+      "title": "Genera HVY Bulldozer",
+      "category": "Veicoli",
+      "sequence": [
+        "←",
+        "↑",
+        "→",
+        "↓",
+        "←",
+        "→",
+        "→",
+        "↓"
+      ],
+      "unlock": "Requisito da verificare nel menu Progressi → Trucchi",
+      "effect": "Genera un bulldozer HVY.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/"
+      ]
+    },
+    {
+      "slug": "cambia-meteo",
+      "title": "Cambia il meteo",
+      "category": "Ambiente",
+      "sequence": [
+        "↓",
+        "→",
+        "↑",
+        "↓",
+        "→",
+        "↑",
+        "→"
+      ],
+      "unlock": "Dopo aver completato la storia",
+      "effect": "Passa alla successiva condizione meteo.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://www.pcgamer.com/games/grand-theft-auto/gta-6-cheats-list/"
+      ]
+    },
+    {
+      "slug": "cataclysm",
+      "title": "Filtro Cataclysm",
+      "category": "Filtri visivi",
+      "sequence": [
+        "↓",
+        "↓",
+        "↑",
+        "→",
+        "→",
+        "↑",
+        "←",
+        "←",
+        "→",
+        "→"
+      ],
+      "unlock": "Requisito da verificare nel menu Progressi → Trucchi",
+      "effect": "Applica il filtro visivo Cataclysm.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://gtadb.net/gta-6/cheats/"
+      ]
+    },
+    {
+      "slug": "dollhouse",
+      "title": "Filtro Dollhouse",
+      "category": "Filtri visivi",
+      "sequence": [
+        "↓",
+        "↓",
+        "↑",
+        "→",
+        "→",
+        "↑",
+        "←",
+        "←",
+        "↓",
+        "→"
+      ],
+      "unlock": "Requisito da verificare nel menu Progressi → Trucchi",
+      "effect": "Applica il filtro visivo Dollhouse.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://gtadb.net/gta-6/cheats/"
+      ]
+    },
+    {
+      "slug": "faded-glory",
+      "title": "Filtro Faded Glory",
+      "category": "Filtri visivi",
+      "sequence": [
+        "↓",
+        "↓",
+        "↑",
+        "→",
+        "→",
+        "↑",
+        "←",
+        "←",
+        "←",
+        "→"
+      ],
+      "unlock": "Rapina 50 negozi con il partner",
+      "effect": "Applica un filtro ispirato ai vecchi televisori CRT.",
+      "platform": "PS5 / PS5 Pro",
+      "status": "Sequenza pubblicata (non testata da GTA 6 Italia)",
+      "trophies": "Disabilita i trofei e il salvataggio nella sessione con trucchi attivi",
+      "sources": [
+        "https://www.powerpyx.com/gta-6-all-cheats/",
+        "https://gtadb.net/gta-6/cheats/"
+      ]
+    }
+  ]
+}
