@@ -305,9 +305,15 @@ def render(write, layout, schema_article, url, crumbs):
                '<div class="discovery-rail">'+related_cards+'</div></section>'
                if related_cards else '')
         )
-        dtitle = f"GTA 6 HDR {family['brand']} {family['series']}: valori Max Brightness e Paper White"
-        ddesc = f"Valori HDR dentro GTA VI per {family['brand']} {family['series']} su PS5/PS5 Pro. " \
-                + f"Codici TV: {model_list}. HGiG, Game Mode e calibrazione."
-        write(path + "index.html", layout(dtitle, ddesc[:310], path, detail,
+        # Preserve exact family names in titles and one genuine model code
+        # in the snippet. All commercial codes remain in the visible table.
+        dtitle = f"GTA 6 HDR {family['brand']} {family['series']}: valori PS5 e PS5 Pro"
+        sample_code = family["models"][0]["code"]
+        ddesc = (f"GTA 6 HDR {family['brand']} {family['series']} su PS5 e PS5 Pro: "
+                 f"Max Brightness, Black Levels e Paper White. "
+                 f"Codice TV: {sample_code}.")
+        if len(dtitle) > 60 or not 70 <= len(ddesc) <= 160:
+            raise ValueError("SEO fields exceed documented HDR model bounds: "+family["slug"])
+        write(path + "index.html", layout(dtitle, ddesc, path, detail,
                                          "hdr", structured=schema_article(dtitle, ddesc, url(path))))
     return paths

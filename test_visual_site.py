@@ -347,6 +347,50 @@ class VisualSiteTests(unittest.TestCase):
         self.assertIn('Trophy Status Uncertain',glitch)
         self.assertNotIn('🏆 Trophy Safe',glitch)
 
+    def test_openseo_hdr_model_and_cheat_titles_preserve_complete_names(self):
+        """Audit all TV families and PS5 cheats, not just the crawler's 50-page sample."""
+        from html import unescape
+        def metadata(page):
+            html,tags=parse(page)
+            match=re.search(r'<title>(.*?)</title>',html,re.S)
+            self.assertIsNotNone(match,str(page))
+            title=unescape(match.group(1))
+            desc=[a["content"] for t,a in tags.tags
+                  if t=="meta" and a.get("name")=="description"]
+            self.assertEqual(len(desc),1,str(page))
+            self.assertLessEqual(len(title),60,str(page))
+            self.assertGreaterEqual(len(desc[0]),70,str(page))
+            self.assertLessEqual(len(desc[0]),160,str(page))
+            return html,title,desc[0]
+        oled=json.loads(Path('data/hdr_oled.json').read_text(encoding='utf-8'))['families']
+        self.assertEqual(len(oled),21)
+        for family in oled:
+            with self.subTest(oled=family['slug']):
+                path=ROOT/'hdr-oled'/family['slug']/'index.html'
+                html,title,desc=metadata(path)
+                model=family['brand']+' '+family['series']
+                self.assertIn(model,title)
+                self.assertIn(model,desc)
+                self.assertIn('PS5',title)
+                self.assertIn('Paper White',desc)
+                self.assertIn(family['models'][0]['code'],desc)
+                self.assertIn('id="modelli-tv"',html)
+                self.assertIn('rel="canonical"',html)
+                # Do not remove any commercial codes while making a snippet concise.
+                for item in family['models']:
+                    self.assertIn(item['code'],html)
+        codes=json.loads(Path('data/trucchi.json').read_text(encoding='utf-8'))['cheats']
+        self.assertEqual(len(codes),17)
+        for code in codes:
+            with self.subTest(cheat=code['slug']):
+                html,title,desc=metadata(ROOT/'trucchi'/code['slug']/'index.html')
+                self.assertIn(code['title'],title)
+                self.assertIn('GTA 6',title)
+                self.assertIn('PS5',title)
+                self.assertIn('disabilita trofei e salvataggi',desc)
+                self.assertIn('data-copy-sequence=',html)
+                self.assertIn('rel="canonical"',html)
+
     def test_screenshots_have_real_provenance(self):
         manifest=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
         for key,item in manifest.items():

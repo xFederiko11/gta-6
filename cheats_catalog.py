@@ -136,7 +136,11 @@ paint();
     paths=[BASE]
     for x in cheats:
         p=BASE+x["slug"]+"/"
-        title=f"GTA 6 trucco {x['title']}: codice PS5, pulsanti e sblocco"
+        # Preserve the full cheat name and PS5 intent; instructions and the
+        # trophy-breaking warning remain in the visible article, not its title.
+        title=f"GTA 6 trucco {x['title']}: codice PS5"
+        if len(title)>60:
+            raise ValueError("Cheat search title exceeds 60 characters: "+x["slug"])
         desc=f"GTA VI PS5: trucco {x['title']}, sequenza croce direzionale, come sbloccarlo ed effetto. Attenzione: disabilita trofei e salvataggi."
         steps=(
             '<ol class="hdr-steps"><li>Completa la storia di GTA VI.</li>'
