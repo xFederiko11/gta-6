@@ -85,6 +85,7 @@ SEO_DESCRIPTIONS = {
     'meditazione-capitolo-1': 'GTA VI PS5: checklist delle 18 meditazioni in 10 luoghi, la prima occasione mancabile nel Capitolo 1 e gli avvisi per il platino.',
     'viaggio-rapido-taxi': 'GTA 6 su PS5: chiama Paradise Taxi, scegli la destinazione e salta i tragitti tra missioni. Procedura, pulsanti e costi documentati.',
     'poligoni-concentrazione': 'GTA VI PS5: allenati ai poligoni di tiro e distingui Concentrazione e medaglie Oro. Controlla le prove richieste per il platino.',
+    'prima-persona-glitch-ps5': 'GTA VI PS5: attiva la visuale in prima persona con telefono e touchpad. Procedura DualSense, ripristino e stato trofei incerto.',
 }
 
 
