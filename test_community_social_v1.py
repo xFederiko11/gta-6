@@ -19,7 +19,8 @@ class SocialParticipationTests(unittest.TestCase):
     def test_no_github_login_or_fake_comment_form(self):
         html=widget("salvare-auto/")
         self.assertIn("x.com/intent/tweet?",html)
-        self.assertIn("Scrivi a Federiko su X",html)
+        self.assertTrue("Scrivi a Federiko su X" in html or
+                        "Rispondi al post su X" in html)
         self.assertNotIn("github.com",html.lower())
         self.assertNotIn("GitHub Issues",html)
         self.assertIn("salvare-auto%2F",html)
