@@ -32,8 +32,8 @@ def validated(data):
         expected = ["one"] if index == 0 else ["final"] if index == 9 else ["jason", "lucia"]
         if modes != expected:
             raise ValueError("Unexpected character/session counts for "+key)
-        if any(not isinstance(spot.get(field),str) or not 6 <= len(spot[field]) < 240
-               for field in ("name", "region", "landmark")):
+        if any(not isinstance(spot.get(field),str) or not minimum <= len(spot[field]) < 240
+               for field,minimum in (("name",3),("region",3),("landmark",10))):
             raise ValueError("Location text invalid")
         if index == 0 and spot.get("phase") != "chapter1":
             raise ValueError("Lost Chapter 1 missable warning")
