@@ -141,7 +141,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','trofei/','hdr-oled/','trucchi/','scoperte/','guide-e-tutorial/']
+                paths=['','salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','trofei/','hdr-oled/','trucchi/','scoperte/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -169,6 +169,26 @@ def browser_qa():
                         if width==390:
                             page.locator('#mappa').scroll_into_view_if_needed();page.screenshot(path=str(out/'mobile-map-dark.png'))
                             page.locator('#consigli').scroll_into_view_if_needed();page.screenshot(path=str(out/'mobile-tips-dark.png'))
+                    if path=='guide-e-tutorial/meditazione-capitolo-1/' and width==390:
+                        checklist=page.locator('[data-meditation-tracker]')
+                        assert checklist.count()==1
+                        assert page.locator('input[data-meditation-check]').count()==18
+                        assert page.locator('[data-meditation-summary]').inner_text()=='0 / 18'
+                        page.locator('#mt-jasons-house-one').check()
+                        page.locator('#mt-smooth-sand-jason').check()
+                        assert page.locator('[data-meditation-summary]').inner_text()=='2 / 18'
+                        assert page.locator('[data-meditation-100]').inner_text()=='2 / 15'
+                        assert page.locator('[data-meditation-house]').inner_text()=='Completata'
+                        page.reload(wait_until='load')
+                        assert page.locator('[data-meditation-summary]').inner_text()=='2 / 18'
+                        assert page.locator('#mt-jasons-house-one').is_checked()
+                        assert page.locator('#mt-smooth-sand-jason').is_checked()
+                        page.locator('#meditazioni-checklist').scroll_into_view_if_needed()
+                        page.screenshot(path=str(out/'mobile-meditations-checklist-dark.png'))
+                        page.on('dialog',lambda dialog:dialog.accept())
+                        page.locator('[data-meditation-reset]').click()
+                        assert page.locator('[data-meditation-summary]').inner_text()=='0 / 18'
+                        assert not page.locator('#mt-jasons-house-one').is_checked()
                     if path=='salvare-auto/' and width==390:
                         # Third-party YouTube is never loaded merely by visiting.
                         assert page.locator('iframe[data-original-video-player]').count()==0

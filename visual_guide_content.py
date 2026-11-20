@@ -7,7 +7,7 @@ SAFE_TITLES = {
     'scansionare-veicoli': 'Scansionare i veicoli con WAiNK',
     'studiare-animali': 'Studiare gli animali senza cacciarli',
     '70-sfide-100-percento': 'Le sfide da scegliere per il 100%',
-    'meditazione-capitolo-1': 'Un’attività iniziale da non trascurare',
+    'meditazione-capitolo-1': '18 meditazioni GTA VI: checklist e platino',
     'viaggio-rapido-taxi': 'Viaggiare più in fretta con il taxi',
     'poligoni-concentrazione': 'Poligoni: allenamento e medaglie Oro',
     'registrare-auto-personale': 'Come salvare un’auto e ritrovarla',
@@ -39,7 +39,7 @@ HEADINGS = {
     'scansionare-veicoli': ['Apri WAiNK','Inquadra il veicolo','Completa la scansione'],
     'studiare-animali': ['Seleziona il binocolo','Avvicina l’inquadratura','Studia la specie'],
     '70-sfide-100-percento': ['Apri le sfide','Controlla ciò che manca','Scegli le prove più rapide'],
-    'meditazione-capitolo-1': ['Individua l’interazione','Segui il comando a schermo','Conferma la scelta'],
+    'meditazione-capitolo-1': ['Prima del Capitolo 2','Segui Lucia sul balcone','Completa il minigioco','Sblocca entrambi i personaggi','Completa gli otto luoghi doppi','Raggiungi la meditazione finale'],
     'viaggio-rapido-taxi': ['Chiama il taxi','Scegli la destinazione','Salta il tragitto'],
     'poligoni-concentrazione': ['Raggiungi un poligono','Avvia la prova','Distingui allenamento e medaglie'],
 }
@@ -49,7 +49,7 @@ REQUIREMENTS = {
     'scansionare-veicoli': 'App WAiNK disponibile. Comandi riferiti a PS5; controlla i prompt della tua configurazione.',
     'studiare-animali': 'Binocolo disponibile nella ruota degli oggetti.',
     '70-sfide-100-percento': 'Menu Progressi e sezione Sfide accessibili.',
-    'meditazione-capitolo-1': 'Capitolo 1. Leggi i dettagli protetti prima di superare la sequenza.',
+    'meditazione-capitolo-1': 'Parti dal Capitolo 1, a casa di Jason. Dal Capitolo 2 puoi proseguire con entrambi i personaggi dopo Coffee Break.',
     'viaggio-rapido-taxi': 'Prima missione completata e servizio taxi disponibile nei Contatti.',
     'poligoni-concentrazione': 'Accesso a un poligono di tiro. Le medaglie vanno controllate separatamente dall’allenamento.',
 }
@@ -59,14 +59,14 @@ LOCATIONS = {
     'scansionare-veicoli': 'Davanti al veicolo che vuoi registrare nel catalogo. Non serve una posizione di spawn specifica.',
     'studiare-animali': 'Vicino a un animale visibile attraverso il binocolo.',
     '70-sfide-100-percento': 'Menu Progressi → Sfide, poi l’attività scelta sulla mappa.',
-    'meditazione-capitolo-1': 'Una sequenza del Capitolo 1. Il luogo preciso è nel riquadro spoiler.',
+    'meditazione-capitolo-1': 'Primo luogo: balcone della casa di Jason a Key Lento. Gli altri nove luoghi sono elencati nella checklist, con riferimenti geografici verificati.',
     'viaggio-rapido-taxi': 'Telefono → Contatti → Paradise Taxi.',
     'poligoni-concentrazione': 'Uno dei poligoni disponibili sulla mappa. La fonte completa è in fondo.',
 }
 SUMMARIES = {
     'soldi-facili-capitolo-1': 'Scegli un luogo, controlla il bottino indicato e valuta i rischi prima di muoverti. Posizioni e incontri restano nascosti finché non li apri.',
     'soldi-2500-three-sheets-liquor': 'Un percorso breve: incarico, retro del negozio e nascondiglio. Due schermate aiutano a riconoscere i riferimenti della fonte.',
-    'meditazione-capitolo-1': 'Un’interazione da controllare prima di avanzare. I dettagli della scena sono protetti; l’impatto preciso sul trofeo resta da verificare.',
+    'meditazione-capitolo-1': 'La prima meditazione è mancabile nel Capitolo 1. Hai 10 luoghi e 18 sessioni: 15 bastano per il 100%; per il trofeo punta a tutti, anche se la necessità della sessione iniziale resta da verificare.',
     'sportive-randy-posizioni': 'Parti dalle richieste del gioco, cerca nelle zone documentate e controlla l’auto prima della consegna. Non promettiamo spawn fissi o veicoli unici.',
     'registrare-auto-personale': 'Parcheggiare non è registrare. Porta il mezzo in officina, controlla lo spazio disponibile e verifica che sia richiamabile.',
 }

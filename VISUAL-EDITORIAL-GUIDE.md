@@ -121,3 +121,17 @@ Le guide iniziali possono mostrare un blocco **Fonti visive**, immediatamente pr
 Non iniziare dai Pay 'n' Spray generici: nel **Capitolo 2** la prima registrazione è durante Moses a Watkins Auto Parts (Port Gellhorn) dopo *Girl's Trip*. Si controllano i tracker con WAiNK, si ottiene lo Slim Jim, si prende un'auto senza tracker, la si rivernicia e si sceglie Register. Solo dopo vengono sbloccati ulteriori strumenti e officine. Le prove raccolte sono [PowerPyx](https://www.powerpyx.com/gta-6-moses-take-a-vehicle-to-moses-walkthrough/) e [GTABase](https://www.gtabase.com/gta-6/articles/how-to-unlock-garages-in-gta-6). Non inventare disponibilità di funzionalità o costi fuori dal contesto della storia.
 
 Le missioni **Get Shirley's Rum** e **Steal the Scooter** sono mancabili nel Capitolo 1, ma PowerPyx indica che **non sono richieste per trofei o 100%**: chiarirlo sulle guide permette di scegliere senza allarmismi chi punta al platino.
+
+
+## Checklist meditazioni e protezione del platino — 20 novembre 2026
+
+La guida pubblica `guide-e-tutorial/meditazione-capitolo-1/` include un pannello accessibile **10 luoghi / 18 meditazioni**. Il catalogo `data/meditation_checklist_v1.json` riprende i nomi e i riferimenti geografici attestati da [PowerPyx](https://www.powerpyx.com/gta-6-all-meditation-spot-locations/), con una fonte aggiuntiva di [Push Square](https://www.pushsquare.com/guides/gta-6-meditation-locations). Nessun marcatore mappa è inventato e nessuna immagine protetta è copiata: le mappe e schermate originali sono apribili via link.
+
+- **10 luoghi, 18 sessioni**: Jason's House vale una sessione iniziale; gli otto luoghi centrali si segnano separatamente con Jason e con Lucia; Ascent Mountain vale una singola sessione conclusiva. La checklist contiene esattamente 18 caselle.
+- **100% = 15/18**: non confondere la checklist del 100% con i requisiti del trofeo `Positive Mental Attitude`, per cui conviene fare ogni luogo. Il requisito effettivo della prima meditazione sul balcone per il trofeo **non è ancora accertato**: mantenere l'etichetta di incertezza. Il balcone è definitivamente mancabile dopo il Capitolo 1; completarlo con Lucia prima di avanzare.
+- **Sblocco**: dopo `Coffee Break` nel Capitolo 2 puoi segnare i luoghi centrali con entrambi i personaggi. La meditazione finale su Mount Kalaga compare soltanto dopo le altre, da verificare direttamente nella mappa del gioco.
+- **Salvataggio esclusivamente locale**: i dati del pannello sono salvati nella chiave browser `gta6-meditations-v1`; il reset esplicito richiede conferma. Nessuna chiamata PSN, nessuna sincronizzazione fra dispositivi, nessuna raccolta server di sessioni o progressi. In modalità JavaScript disabilitata, le caselle restano visibili ma il conteggio dinamico non funziona.
+- **Test**: `test_meditation_tracker_v1.py` controlla schemi, fonti e stabilità; `test_visual_site.py` testa l'HTML pubblicato; `test_reader_experience.py --browser` verifica le caselle su telefono, il ricaricamento e l'azzeramento.
+- Le nuove spunte non rappresentano schermate di gioco né aumentano `media-quality.json`. Quando non ci sono screenshot originali autorizzati, mostrare soltanto i collegamenti alle fonti.
+
+La priorità è che nessuno perda una componente eventualmente necessaria al platino per una nostra guida troppo vaga: evitare formulazioni che promettono **Trophy Safe** quando il criterio non è stato verificato.

@@ -231,6 +231,42 @@ class VisualSiteTests(unittest.TestCase):
         self.assertEqual(report['guides_checked'],10)
         self.assertEqual(report['ready']+report['below_target'],report['guides_checked'])
 
+    def test_medidation_missable_and_local_checklist_is_accessible_and_exact(self):
+        path=ROOT/'guide-e-tutorial/meditazione-capitolo-1/index.html'
+        text,tags=parse(path)
+        self.assertIn('id="meditazioni-checklist"',text)
+        self.assertIn('data-meditation-total="18"',text)
+        self.assertIn('data-meditation-target="15"',text)
+        self.assertIn('MANCABILE · CAPITOLO 1',text)
+        self.assertIn('Positive Mental Attitude',text)
+        self.assertIn('Down to Earth',text)
+        self.assertIn('Coffee Break',text)
+        self.assertIn('L2',text)
+        self.assertIn('R2',text)
+        self.assertIn('tutti i luoghi',text.lower())
+        self.assertIn('meditazione-luogo-ascent-mountain',text)
+        self.assertIn('id="meditazione-luogo-jasons-house"',text)
+        self.assertIn('meditazioni-checklist',text)
+        spots=[a for t,a in tags.tags if t=='li' and a.get('class')=='v-meditation-spot']
+        checks=[a for t,a in tags.tags if t=='input' and 'data-meditation-check' in a]
+        self.assertEqual(len(spots),10)
+        self.assertEqual(len(checks),18)
+        self.assertEqual(len({a['id'] for a in checks}),18)
+        self.assertEqual(len({a['data-meditation-check'] for a in checks}),18)
+        self.assertTrue(all(a['type']=='checkbox' for a in checks))
+        self.assertNotIn('checked=',text)
+        self.assertIn('solo in questo browser',text)
+        self.assertIn('non certifica',text)
+        self.assertIn('www.powerpyx.com/gta-6-all-meditation-spot-locations/',text)
+        self.assertIn('www.pushsquare.com/guides/gta-6-meditation-locations',text)
+        self.assertNotIn('<iframe',text)
+        script=Path('site/assets/visual-v2.js').read_text(encoding='utf-8')
+        self.assertIn("gta6-meditations-v1",script)
+        self.assertIn("localStorage.setItem(KEY",script)
+        self.assertIn("localStorage.removeItem(KEY",script)
+        self.assertIn("window.confirm(",script)
+        self.assertIn("boxes.length !== 18",script)
+
     def test_screenshots_have_real_provenance(self):
         manifest=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
         for key,item in manifest.items():
