@@ -54,6 +54,29 @@
     image.addEventListener('error', fallback);
     if (image.complete && image.naturalWidth === 0) fallback();
   });
+  // No third-party requests until a reader chooses to play the original video.
+  document.querySelectorAll('[data-load-youtube]').forEach(button => {
+    button.addEventListener('click', () => {
+      const shell = button.closest('[data-youtube-id][data-youtube-start]');
+      if (!shell) return;
+      const id = shell.dataset.youtubeId;
+      const seconds = Number(shell.dataset.youtubeStart);
+      if (!/^[a-zA-Z0-9_-]{11}$/.test(id) ||
+          !Number.isInteger(seconds) || seconds < 0 || seconds > 100000) return;
+      const holder = shell.querySelector('[data-youtube-holder]');
+      if (!holder || holder.querySelector('iframe')) return;
+      const frame = document.createElement('iframe');
+      frame.title = 'Video gameplay YouTube originale';
+      frame.src = 'https://www.youtube-nocookie.com/embed/' + id +
+                  '?start=' + seconds + '&rel=0&autoplay=1';
+      frame.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share';
+      frame.allowFullscreen = true;
+      frame.loading = 'lazy';
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      frame.setAttribute('data-original-video-player', '');
+      holder.replaceChildren(frame);
+    }, {once: true});
+  });
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape') document.querySelectorAll('.v-menu[open],.v-more[open]').forEach(menu => { menu.open = false; });
   });
