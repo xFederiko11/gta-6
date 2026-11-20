@@ -226,7 +226,6 @@ jobs:
         run: |
           python - <<'PY'
           import json, re, time, urllib.request
-          from urllib.parse import quote
           base='https://xfederiko11.github.io/gta-6/'
           def fetch(path,limit=1500000):
               for attempt in range(6):
@@ -263,7 +262,6 @@ jobs:
                       n=int(marker.group(1))
                       expected=indexed[path+'index.html']['real_step_screenshots']
                       assert n==expected,(path,n,expected)
-                      assert 'data-visual-kind="promotional"' not in page.split('<ol class="v-steps">',1)[1].split('</ol>',1)[0] or n>=0
                       print('PUBLIC_GTA6_PHOTO_PROOF_OK',base+path,'gameplay_images',n,
                             'photo_requests',5)
                       break
