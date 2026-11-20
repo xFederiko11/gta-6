@@ -489,7 +489,8 @@ def privacy_page():
             "Questo sito statico non dispone di statistiche su visitatori unici, "
             "provenienza o conversioni: non presentiamo stime come dati reali.",
             "Umami misura statistiche aggregate per pagina e gli eventi "
-            "x-follow-intent, x-share-intent, x-reply-intent e x-post-open. "
+            "x-follow-intent, x-share-intent, x-reply-intent, x-post-open "
+            "e youtube-player-open (apertura del player, non visione completa). "
             "Un clic per seguire il profilo NON prova che un follower sia stato "
             "acquisito. Non registriamo identità PSN o account X, non "
             "colleghiamo visitatori individuali ai follower e non inventiamo "
