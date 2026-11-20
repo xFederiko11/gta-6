@@ -154,7 +154,7 @@ def main():
     import re
     guide_info=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
     visual_info=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
-    discussable={'scoperte/','soldi-facili/','auto-speciali/','salvare-auto/','trofei/'}
+    discussable={'scoperte/','soldi-facili/','auto-speciali/','salvare-auto/','trofei/','hdr-oled/','trucchi/'}
     for guide in guide_info+visual_info:
         path=guide.get('canonical_path') or 'guide-e-tutorial/'+guide['id']+'/'
         if not re.fullmatch(r'(?:[a-z0-9-]+/)+',path):
@@ -164,7 +164,8 @@ def main():
     for path in ROOT.rglob('*.html'):
         relative = path.relative_to(ROOT).as_posix().removesuffix('index.html')
         page = path.read_text(encoding='utf-8')
-        discussion_path=relative if relative in discussable else None
+        is_trophy_article=relative.startswith('trofei/trofeo-') and relative.endswith('/')
+        discussion_path=relative if (relative in discussable or is_trophy_article) else None
         path.write_text(transform(page, version=version, entry=data['guides'].get(relative),
                                   discussion_path=discussion_path), encoding='utf-8')
         count += 1
