@@ -12,6 +12,7 @@ SAFE_TITLES = {
     'poligoni-concentrazione': 'Poligoni: allenamento e medaglie Oro',
     'registrare-auto-personale': 'Come salvare un’auto e ritrovarla',
     'sportive-randy-posizioni': 'Sportive ricercate: dove cercarle',
+    'prima-persona-glitch-ps5': 'Glitch prima persona GTA VI: come attivarlo',
 }
 HERO = {
     'soldi-facili-capitolo-1': 'bank-deposit',
@@ -24,6 +25,7 @@ HERO = {
     'poligoni-concentrazione': 'vice-city',
     'registrare-auto-personale': 'save-car',
     'sportive-randy-posizioni': 'register-car',
+    'prima-persona-glitch-ps5': 'traffic',
 }
 STEP_MEDIA = {
     'soldi-2500-three-sheets-liquor': {0:'shirley-house',1:'liquor-store'},
@@ -36,6 +38,7 @@ HEADINGS = {
     'soldi-2500-three-sheets-liquor': ['Parti dall’incarico giusto','Raggiungi il retro','Individua il riferimento','Controlla il nascondiglio','Completa l’esplorazione'],
     'registrare-auto-personale': ['Raggiungi l’officina','Controlla la registrazione','Verifica lo spazio disponibile','Richiama il mezzo dal telefono'],
     'sportive-randy-posizioni': ['Apri la lista delle richieste','Restringi la zona di ricerca','Identifica il veicolo','Decidi se consegnarlo o conservarlo'],
+    'prima-persona-glitch-ps5': ['Proteggi prima i tuoi progressi','Imposta Camera sul touchpad','Entra nell’auto','Apri il telefono','Chiudi e premi il touchpad','Conferma l’effetto e torna alla visuale normale'],
     'scansionare-veicoli': ['Apri WAiNK','Inquadra il veicolo','Completa la scansione'],
     'studiare-animali': ['Seleziona il binocolo','Avvicina l’inquadratura','Studia la specie'],
     '70-sfide-100-percento': ['Apri le sfide','Controlla ciò che manca','Scegli le prove più rapide'],
@@ -67,6 +70,7 @@ SUMMARIES = {
     'soldi-facili-capitolo-1': 'Scegli un luogo, controlla il bottino indicato e valuta i rischi prima di muoverti. Posizioni e incontri restano nascosti finché non li apri.',
     'soldi-2500-three-sheets-liquor': 'Un percorso breve: incarico, retro del negozio e nascondiglio. Due schermate aiutano a riconoscere i riferimenti della fonte.',
     'meditazione-capitolo-1': 'La prima meditazione è mancabile nel Capitolo 1. Hai 10 luoghi e 18 sessioni: 15 bastano per il 100%; per il trofeo punta a tutti, anche se la necessità della sessione iniziale resta da verificare.',
+    'prima-persona-glitch-ps5': 'Premi Cerchio per riporre il telefono mentre tocchi rapidamente il touchpad impostato su Camera. PC Gamer ha provato il metodo, ma i trofei restano da verificare.',
     'sportive-randy-posizioni': 'Parti dalle richieste del gioco, cerca nelle zone documentate e controlla l’auto prima della consegna. Non promettiamo spawn fissi o veicoli unici.',
     'registrare-auto-personale': 'Parcheggiare non è registrare. Porta il mezzo in officina, controlla lo spazio disponibile e verifica che sia richiamabile.',
 }
