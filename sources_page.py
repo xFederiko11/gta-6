@@ -31,7 +31,7 @@ def render(write, layout, url, crumbs):
             f'<p><strong>Per cosa la consultiamo:</strong> {e(src["usage"])}</p>'
             f'<p class="micro"><strong>Limiti:</strong> {e(src["caution"])}</p></article>'
         )
-    title = "Fonti GTA 6: PowerPyx, GTAForums, GTA Wiki, GTABase e notizie"
+    title = "Fonti GTA 6: PowerPyx, GTAForums, GTABase e metodo"
     desc = ("Come verifichiamo trucchi, glitch, veicoli, missioni e novità di GTA VI: "
             "fonti ufficiali Rockstar, PowerPyx, GTAForums, Fandom, GTABase e video.")
     body = (
