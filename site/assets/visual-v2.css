@@ -185,3 +185,18 @@ html[data-theme=dark] .social-comment-card>span{color:#ff9bcd}
 .v-cash-details summary{display:list-item;cursor:pointer;min-height:42px;padding:8px 2px;font-weight:700;color:var(--r-text,var(--text))}
 .v-cash-details[open]{border-top:1px solid var(--r-line,var(--border));padding-top:9px}
 @media(max-width:620px){.v-cash-safety{padding:12px 14px}.v-cash-safety p{font-size:.82rem}}
+
+
+/* Original, voluntary PS5 screenshots: X-first community intake, not an upload form. */
+.v-visual-help{margin:24px 0 28px;padding:20px 22px;border:1px solid var(--r-line,var(--border));border-radius:16px;background:var(--r-soft,var(--surface2));color:var(--r-text,var(--text))}
+.v-visual-help-head{display:flex;justify-content:space-between;align-items:center;gap:22px}
+.v-visual-help h2{font-size:clamp(1.12rem,2vw,1.4rem);line-height:1.3;margin:6px 0 8px;color:var(--r-text,var(--text))}
+.v-visual-help p{font-size:.86rem;line-height:1.6;color:var(--r-muted,var(--muted));margin:0}
+.v-visual-help .v-kicker{font-size:.71rem;letter-spacing:.08em}
+.v-visual-help .v-button{flex:none;white-space:normal;text-align:center;max-width:270px}
+.v-visual-request-details{margin-top:14px;border-top:1px solid var(--r-line,var(--border));padding-top:11px}
+.v-visual-request-details summary{cursor:pointer;font-size:.85rem;font-weight:700;color:var(--r-text,var(--text));min-height:38px;padding:7px 2px}
+.v-visual-request-details ol{margin:8px 0 13px;padding-left:24px;color:var(--r-text,var(--text));font-size:.84rem;line-height:1.6}
+.v-visual-request-details li{padding:3px 0}
+.v-visual-request-details p{font-size:.79rem;max-width:82ch}
+@media(max-width:700px){.v-visual-help{padding:15px 15px}.v-visual-help-head{flex-direction:column;align-items:stretch;gap:12px}.v-visual-help .v-button{align-self:flex-start;max-width:100%}}
