@@ -169,6 +169,17 @@ def browser_qa():
                         if width==390:
                             page.locator('#mappa').scroll_into_view_if_needed();page.screenshot(path=str(out/'mobile-map-dark.png'))
                             page.locator('#consigli').scroll_into_view_if_needed();page.screenshot(path=str(out/'mobile-tips-dark.png'))
+                    if path=='salvare-auto/' and width==390:
+                        # Third-party YouTube is never loaded merely by visiting.
+                        assert page.locator('iframe[data-original-video-player]').count()==0
+                        assert page.locator('[data-load-youtube]').count()==1
+                        page.locator('details.v-video-reference > summary').click()
+                        assert page.locator('iframe[data-original-video-player]').count()==0
+                        page.locator('[data-load-youtube]').click()
+                        iframe=page.locator('iframe[data-original-video-player]')
+                        assert iframe.count()==1
+                        assert iframe.get_attribute('src').startswith(
+                            'https://www.youtube-nocookie.com/embed/R0GdEkPZSvM?start=675')
                     if path=='' and width in (390,1440):
                         page.screenshot(path=str(out/f'home-dark-{width}.png'))
                         page.locator('[data-theme-choice="light"]').click();page.screenshot(path=str(out/f'home-light-{width}.png'))
