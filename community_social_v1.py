@@ -40,9 +40,9 @@ def verified_x_url(value):
 def relevant_youtube(page):
     """Offer YouTube comments only when the actual article embeds a real video."""
     candidates=(
-      r'https://www\\.youtube-nocookie\\.com/embed/([A-Za-z0-9_-]{11})',
-      r'https://www\\.youtube\\.com/embed/([A-Za-z0-9_-]{11})',
-      r'https://www\\.youtube\\.com/watch\\?v=([A-Za-z0-9_-]{11})(?:&amp;|&|")',
+      r'https://www\.youtube-nocookie\.com/embed/([A-Za-z0-9_-]{11})',
+      r'https://www\.youtube\.com/embed/([A-Za-z0-9_-]{11})',
+      r'https://www\.youtube\.com/watch\?v=([A-Za-z0-9_-]{11})(?:&amp;|&|")',
     )
     for pattern in candidates:
         hit=re.search(pattern,page)
