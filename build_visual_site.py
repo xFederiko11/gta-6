@@ -168,14 +168,18 @@ def walkthrough_visuals(g):
     """
     ident=g['id']
     vid=VISUAL_EVIDENCE.get('guides',{}).get(ident)
-    mp=VISUAL_EVIDENCE.get('maps',{}).get(ident)
-    if not vid and not mp:return ''
+    maps=VISUAL_EVIDENCE.get('maps',{})
+    selected=[ident]
+    if ident=='registrare-auto-personale':
+        selected.append('salvare-auto-garages')
+    map_refs=[maps[key] for key in selected if key in maps]
+    if not vid and not map_refs:return ''
     out='<section class="v-reference-hub" id="riferimenti-visivi"><span class="v-kicker">FONTI VISIVE</span><h2>Vedi il percorso nel gameplay</h2>'
     out+='<p class="v-reference-intro">Solo video reali e mappe di terzi: nessuna posizione o schermata ricostruita artificialmente.</p>'
-    if mp:
+    for mp in map_refs:
         target=mp['url']
         parsed=urlsplit(target)
-        if parsed.scheme!='https' or parsed.hostname!='www.gtabase.com':
+        if parsed.scheme!='https' or parsed.hostname!='www.gtabase.com' or parsed.username or parsed.password or parsed.port not in (None,443):
             raise ValueError('Unverified map URL')
         out+=('<div class="v-map-reference"><span aria-hidden="true">▤</span><div>'
               '<strong>Mappa interattiva del luogo</strong>'
