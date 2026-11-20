@@ -28,7 +28,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      issues: write
     timeout-minutes: 10
     steps:
       - name: Checkout pinned
@@ -45,17 +44,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python fetch_community_feed.py
-      - name: Initialize community discussions on the main branch only
-        if: github.event_name != 'pull_request'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh label create community-discussion --color d43b93 --description "GTA VI website comments" --force
-          python community_social_sync_v1.py --mode ensure
-      - name: Refresh authentic site comments and sent X excerpts
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: python community_social_sync_v1.py --mode read
+      - name: Collect owned X post excerpts without requiring GitHub login
+        run: python community_social_sync_v1.py
       - name: Validate preserved content and existing SEO contracts
         run: |
           python -m py_compile build_site.py build_visual_site.py visual_guide_content.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py

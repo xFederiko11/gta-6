@@ -103,20 +103,21 @@ class VisualSiteTests(unittest.TestCase):
         self.assertIn('X, Reddit, GTAForums e Discord',page)
         self.assertIn('https://www.reddit.com/r/GTA6/new/',page)
         self.assertIn('https://gtaforums.com/',page)
-        self.assertTrue('data-discussion-path="scoperte/"' in page or
-                        'data-discussion-issue=' in page,
-                        'Community discussion must show a real issue or a safe placeholder')
+        self.assertIn('x.com/intent/tweet?',page)
+        self.assertNotIn('data-discussion-issue=',page)
+        self.assertNotIn('new_comment_field',page)
         self.assertIn('Attenzione spoiler',page)
 
     def test_home_and_articles_have_social_discussion_and_x_content(self):
         home=(ROOT/'index.html').read_text(encoding='utf-8')
         self.assertIn('data-x-timeline-load',home)
-        self.assertIn('Ultimi commenti e discussioni',home)
-        self.assertIn('Ultimi post',home)
+        self.assertIn('Post recenti e conversazioni GTA VI',home)
+        self.assertIn('Mostra i post X',home)
         for pagepath in ('salvare-auto/','soldi-facili/','guide-e-tutorial/soldi-facili-capitolo-1/'):
             text=(ROOT/pagepath/'index.html').read_text(encoding='utf-8')
-            self.assertIn('class="social-x-excerpt"',text)
+            self.assertIn('x.com/intent/tweet?',text)
             self.assertIn('class="social-discussion"',text)
+            self.assertNotIn('github.com/xFederiko11/gta-6/issues/',text)
             self.assertIn('community-social-v1.js?v=',text)
             self.assertNotIn('data-community-filter-source',text)
 
