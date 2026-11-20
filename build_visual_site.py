@@ -293,7 +293,7 @@ def directory(guides,kind='all'):
     body+='<section data-guide-directory aria-label="Catalogo delle guide"><div class="v-filterbar" id="cerca-guide"><label><span class="micro">Cerca per obiettivo</span><br><input type="search" data-guide-search placeholder="Es. soldi, auto, taxi…" aria-label="Cerca una guida"></label>'
     if kind=='all':
         body+='<div class="v-filters" role="group" aria-label="Filtra per obiettivo">'+''.join(f'<button type="button" data-guide-filter="{value}" aria-pressed="{str(value=="all").lower()}">{label}</button>' for value,label in [('all','Tutte'),('soldi','Soldi'),('auto','Auto'),('garage','Garage'),('inizio','Altre guide')])+'</div>'
-    body+=f'</div><p class="v-result" data-guide-result role="status" aria-live="polite">{len(selected)} guide disponibili</p><div class="v-grid">'+''.join(card(g) for g in selected)+'</div></section>'
+    body+=f'</div><h2 class="v-directory-section-title">{e({"all":"Tutte le guide pratiche","soldi":"Guide per ottenere e conservare soldi","auto":"Guide per trovare e conservare veicoli"}[kind])}</h2><p class="v-result" data-guide-result role="status" aria-live="polite">{len(selected)} guide disponibili</p><div class="v-grid">'+''.join(card(g) for g in selected)+'</div></section>'
     if kind=='soldi':
         body+='<section class="v-section v-promo">'+image('bank-phone')+'<div><span class="eyebrow">DOPO AVER RACCOLTO IL BOTTINO</span><h2>Proteggi il bottino nel modo giusto.</h2><p>Il normale Checking Account di BuckMe non protegge il denaro dalla perdita programmata a fine Capitolo 1. Quando disponibile, Family Savings può conservarne fino a 5.000 GTA$, ma il denaro trasferito non è prelevabile normalmente. Valuta gli acquisti utili e rimanda il farming pesante al Capitolo 2.</p><p class="v-caption">Fonte e schermata: <a href="https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know">Push Square — proteggere il denaro</a>.</p></div></section>'
     return title,desc,path,body
@@ -309,6 +309,16 @@ def sources(g,media_keys):
     body+='</ul><p>Testo sintetizzato e riorganizzato in italiano. Le schermate sono attribuite ai rispettivi editori e a Rockstar Games; le immagini promozionali sono dichiarate e non provano una posizione o un passaggio.</p>'
     body+='<p>Le indicazioni riportano le fonti, non test personali. Ricontrolla i prompt della tua patch. Nessuna certificazione automatica di compatibilità tra exploit e trofei.</p></section>'
     return body
+
+
+
+def guide_seo_title(name):
+    """Use complete original guide headings, shorten only the SEO suffix."""
+    name=name.strip()
+    for suffix in (" | Guida GTA 6 PS5", " | GTA 6 PS5", " | Guida PS5", ""):
+        if len(name)+len(suffix)<=60:
+            return name+suffix
+    return name
 
 
 def guide(g,guides):
@@ -393,8 +403,11 @@ def guide(g,guides):
     body+=sources(g,used)+'</article><aside class="v-guide-aside"><h2>In questa guida</h2><a href="#procedura">Il percorso passo per passo</a>'+meditation_anchor+'<a href="#fonti">Fonti e immagini</a>'+f'<a href="{url("soldi-facili/")}">Altri modi per fare soldi</a><a href="{url("auto-speciali/")}">Auto e garage</a><a href="{url("trofei/")}">Percorso platino</a></aside></div>'
     related=[x for x in guides if x['id']!=g['id'] and (x['category']==g['category'] or x['category'] in ('garage','soldi'))][:3]
     body+='<section class="v-section">'+section_head('IL PROSSIMO PASSO','Potrebbero servirti anche')+'<div class="v-grid">'+''.join(card(x) for x in related)+'</div></section>'
-    structured=legacy.schema_article(title,g['summary'],url(path),media_src(g['hero_media']))
-    legacy.write(path+'index.html',layout(title+' | Guida GTA 6 PS5',g['summary'],path,body,'guide',media_src(g['hero_media']),structured=structured))
+    description=g['seo_description']
+    # Keep the original on-page heading; shorten only the search result title.
+    seo_title=guide_seo_title(title)
+    structured=legacy.schema_article(seo_title,description,url(path),media_src(g['hero_media']))
+    legacy.write(path+'index.html',layout(seo_title,description,path,body,'guide',media_src(g['hero_media']),structured=structured))
 
 
 def validate(guides):
