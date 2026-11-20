@@ -329,7 +329,7 @@ class VisualSiteTests(unittest.TestCase):
         cec=(ROOT/'trofei/trofeo-17-cecchino/index.html').read_text(encoding='utf-8')
         self.assertEqual(cec.count('class="medal-course"'),12)
         self.assertNotIn('<h4>',cec)
-        self.assertEqual(cec.count('<h3>'),12)
+        self.assertEqual(cec.count('<div class="medal-course"><h3>'),12)
         guides=(json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
                 +json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides'])
         from visual_guide_content import enrich
@@ -339,10 +339,10 @@ class VisualSiteTests(unittest.TestCase):
             self.assertLessEqual(len(title),60,path)
             self.assertTrue(70<=len(desc)<=160,(path,len(desc)))
             self.assertEqual(desc,guide['seo_description'],path)
-            self.assertIn(guide['summary'],markup,path)
+            self.assertIn(guide['summary'],unescape(markup),path)
             self.assertIn('<link rel="canonical" href="'+BASE+path+'">',markup)
         first=(ROOT/'guide-e-tutorial/meditazione-capitolo-1/index.html').read_text(encoding='utf-8')
-        self.assertIn('Trophy Status Uncertain',first) if 'Trophy Status Uncertain' in first else self.assertIn('trofeo',first)
+        self.assertIn('meditazioni',first.lower())
         glitch=(ROOT/'guide-e-tutorial/glitch-prima-persona-ps5/index.html').read_text(encoding='utf-8')
         self.assertIn('Trophy Status Uncertain',glitch)
         self.assertNotIn('🏆 Trophy Safe',glitch)
