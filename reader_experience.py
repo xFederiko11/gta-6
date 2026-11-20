@@ -118,7 +118,7 @@ def transform(page, *, version, entry=None, discussion_path=None):
         from community_social_v1 import widget, xpost_for
         if '</main>' not in page:
             raise ValueError('Article has no closing main content region')
-        page=page.replace('</main>',xpost_for(discussion_path)+widget(discussion_path)+'</main>',1)
+        page=page.replace('</main>',xpost_for(discussion_path)+widget(discussion_path, youtube_url=page)+'</main>',1)
     page = page.replace('</body>', DIALOG+f'<script src="{BASE}assets/reader-theme.js?v={version}" defer></script>'
                         +f'<script src="{BASE}assets/community-social-v1.js?v={version}" defer></script></body>', 1)
     return page
@@ -151,8 +151,15 @@ def main():
     version = hashlib.sha256(b''.join((Path('site/assets')/name).read_bytes() for name in ASSETS)).hexdigest()[:12]
     for name in ASSETS:
         shutil.copy2(Path('site/assets')/name, ROOT/'assets'/name)
-    from community_social_sync_v1 import topics
-    discussable={path for path,_ in topics()}
+    import re
+    guide_info=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
+    visual_info=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
+    discussable={'scoperte/','soldi-facili/','auto-speciali/','salvare-auto/','trofei/'}
+    for guide in guide_info+visual_info:
+        path=guide.get('canonical_path') or 'guide-e-tutorial/'+guide['id']+'/'
+        if not re.fullmatch(r'(?:[a-z0-9-]+/)+',path):
+            raise ValueError('Invalid article discussion path')
+        discussable.add(path)
     count = 0
     for path in ROOT.rglob('*.html'):
         relative = path.relative_to(ROOT).as_posix().removesuffix('index.html')
