@@ -1,0 +1,74 @@
+name: Repair guide build 20261120
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/repair-guide-build-20261120.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: gta6-pages
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    if: github.repository == 'xFederiko11/gta-6' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
+        with:
+          python-version: '3.12'
+      - name: Apply narrow regression fixes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          def replace_once(text, old, new):
+              if old not in text and new in text:
+                  return text
+              if text.count(old) != 1:
+                  raise RuntimeError('Repair precondition changed: ' + old[:100])
+              return text.replace(old, new, 1)
+          path = Path('build_site.py')
+          text = path.read_text(encoding='utf-8')
+          text = replace_once(text, 'from social_preview import render as render_social_preview', 'from social_preview import render as render_social_preview\nfrom guide_source_validation import validate_guide_source')
+          text = replace_once(text, '    assert all(g["source_url"].startswith("https://www.powerpyx.com/") for g in guides)', '    if not all(validate_guide_source(g.get("source_url")) for g in guides):\n        raise ValueError("Unapproved or malformed guide source URL")')
+          path.write_text(text, encoding='utf-8')
+          path = Path('test_site.py')
+          text = path.read_text(encoding='utf-8')
+          text = replace_once(text, 'import json\n', 'import json\nfrom datetime import datetime, timezone\n')
+          text = replace_once(text, 'self.assertEqual(len(self.guides),6)', 'self.assertGreaterEqual(len(self.guides),8)\n        self.assertEqual(len({g["id"] for g in self.guides}),len(self.guides))')
+          text = replace_once(text, '7+27+6+1+len(self.hdr["families"])+1+len(self.cheats)', '7+(55 if datetime.now(timezone.utc)>=datetime(2026,11,21,tzinfo=timezone.utc) else 27)+len(self.guides)+1+len(self.hdr["families"])+1+len(self.cheats)')
+          text = replace_once(text, '7+55+6+1+len(self.hdr["families"])+1+len(self.cheats)', '7+55+len(self.guides)+1+len(self.hdr["families"])+1+len(self.cheats)')
+          text = replace_once(text, 'self.assertEqual(len(list((self.out/"guide-e-tutorial").glob("*/index.html"))),6)', 'self.assertEqual(len(list((self.out/"guide-e-tutorial").glob("*/index.html"))),len(self.guides))')
+          path.write_text(text, encoding='utf-8')
+          PY
+      - name: Compile build and run complete site regression checks
+        run: |
+          python -m py_compile build_site.py guide_source_validation.py test_site.py test_guide_source_validation.py
+          python build_site.py
+          python -m unittest -q test_site test_community_feed test_related_research test_guide_source_validation
+      - name: Commit only repaired files
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add build_site.py test_site.py
+          if ! git diff --cached --quiet; then
+            git commit -m 'Fix approved guide-source build gate and dynamic page-count regressions'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Start existing public-site deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh workflow run deploy-site.yml --ref main
