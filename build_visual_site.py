@@ -348,6 +348,7 @@ def guide(g,guides):
                '</details></aside>')
     benefit=g.get('benefit','')
     body+=f'<div class="v-answer"><strong>La cosa da sapere</strong><p>{e(benefit)}</p></div><div class="v-facts"><div class="v-fact"><strong>Prima di iniziare</strong><p>{e(g["requirements"])}</p></div><div class="v-fact"><strong>Dove andare</strong><p>{e(g["location"])}</p></div></div>'
+    body+=walkthrough_visuals(g)
     body+='<section id="procedura">'+section_head('UNA COSA ALLA VOLTA','Il percorso, passo per passo')
     if g['spoiler']:
         body+='<div class="v-spoiler-warning" role="note"><strong>⚠️ Questa guida contiene spoiler.</strong> Continuando leggerai luoghi, obiettivi e ricompense.</div>'
@@ -366,7 +367,6 @@ def guide(g,guides):
             body+=f'<p class="v-check"><strong>Controllo:</strong> {e(checks[n])}</p>'
         body+='</li>'
     body+='</ol>'
-    body+=walkthrough_visuals(g)
     if not g['step_media']:
         body+='<div class="v-no-image">Non abbiamo ancora una schermata verificata per ogni passaggio di questa guida. I riferimenti disponibili restano nella fonte: non li sostituiamo con una mappa inventata.<br>'+f'<a href="{e(g["source_url"])}" target="_blank" rel="noopener noreferrer">Apri la guida di riferimento ↗</a></div>'
     body+='</section>'+f'<aside class="v-notice"><strong>Prima di continuare</strong>{e(g.get("caution","Controlla il progresso in gioco."))}</aside>'
