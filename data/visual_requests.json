@@ -1,0 +1,77 @@
+{
+  "schema": "gta6-visual-contribution-requests-v1",
+  "checked": "2026-11-20",
+  "note": "Editorial requests, not proof that these screenshots exist or that the described rewards are verified. Community images require manual review and explicit permission.",
+  "guides": {
+    "soldi-facili-capitolo-1": [
+      "Mappa dei quattro luoghi indicati nella guida",
+      "Ingresso o accesso riconoscibile di uno dei luoghi",
+      "Interazione utile prima di recuperare il bottino",
+      "Posizione del bottino all'interno",
+      "Schermata finale del bottino o dell'inventario"
+    ],
+    "soldi-2500-three-sheets-liquor": [
+      "Posizione del negozio sulla mappa in gioco",
+      "Ingresso posteriore e percorso reale",
+      "Generatore vicino al nascondiglio",
+      "Grata o condotto del bottino",
+      "Conferma del denaro effettivamente raccolto"
+    ],
+    "registrare-auto-personale": [
+      "Officina sbloccata sulla mappa",
+      "Veicolo davanti all'officina",
+      "Menu Register e relativo prezzo",
+      "Scelta dello slot di registrazione",
+      "Conferma del salvataggio e richiamo del mezzo"
+    ],
+    "scansionare-veicoli": [
+      "Veicolo prima della scansione",
+      "Pulsante PS5 che apre WAiNK",
+      "Interfaccia WAiNK con veicolo inquadrato",
+      "Esito riconoscimento e nome del modello",
+      "Contatore aggiornato in Progressi > Veicoli"
+    ],
+    "sportive-randy-posizioni": [
+      "Lista di veicoli richiesta da Randy",
+      "Zona di ricerca segnata sulla mappa",
+      "Veicolo effettivamente incontrato",
+      "Schermata del riconoscimento del modello",
+      "Consegna e risultato o ricompensa"
+    ],
+    "viaggio-rapido-taxi": [
+      "Telefono e contatto Paradise Taxi",
+      "Taxi visibile e accessibile",
+      "Selezione della destinazione",
+      "Tariffa e opzione per saltare il viaggio",
+      "Arrivo effettivo alla destinazione"
+    ],
+    "studiare-animali": [
+      "Luogo reale in cui è stata incontrata una specie",
+      "Animale inquadrato dal binocolo",
+      "Comando PS5 per studiare la specie",
+      "Nome della specie e conferma a schermo",
+      "Contatore aggiornato in Progressi > Animali"
+    ],
+    "70-sfide-100-percento": [
+      "Menu Sfide e relativo progresso",
+      "Posizione di una sfida sulla mappa",
+      "Interazione durante una sfida",
+      "Risultato e avanzamento registrato",
+      "Conferma della ricompensa o completamento"
+    ],
+    "meditazione-capitolo-1": [
+      "Zona dell'attività sulla mappa (attenzione spoiler)",
+      "Punto dove compare l'interazione",
+      "Comando richiesto a schermo",
+      "Schermata della scelta prima di proseguire",
+      "Conferma in gioco e stato di avanzamento"
+    ],
+    "poligoni-concentrazione": [
+      "Ingresso o posizione del poligono",
+      "Poligono segnato sulla mappa in gioco",
+      "Inizio della prova e comandi PS5",
+      "Indicatore Concentrazione durante l'esercizio",
+      "Schermata della medaglia Oro registrata"
+    ]
+  }
+}
