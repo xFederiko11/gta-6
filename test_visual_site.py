@@ -152,7 +152,7 @@ class VisualSiteTests(unittest.TestCase):
         from html import unescape
         specs=json.loads(Path('data/visual_requests.json').read_text(encoding='utf-8'))
         self.assertEqual(specs['schema'],'gta6-visual-contribution-requests-v1')
-        self.assertEqual(len(specs['guides']),10)
+        self.assertEqual(len(specs['guides']),11)
         guides=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
         guides+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
         for g in guides:
@@ -190,6 +190,7 @@ class VisualSiteTests(unittest.TestCase):
             'guide-e-tutorial/soldi-facili-capitolo-1/':('1GtrjKhSwzM',285,1),
             'guide-e-tutorial/soldi-2500-three-sheets-liquor/':('1GtrjKhSwzM',455,1),
             'salvare-auto/':('R0GdEkPZSvM',675,2),
+            'guide-e-tutorial/glitch-prima-persona-ps5/':('CJi2DWXxsoQ',0,0),
         }
         for path,(video_id,start,map_count) in expected.items():
             text,tags=parse(ROOT/path/'index.html')
@@ -202,7 +203,7 @@ class VisualSiteTests(unittest.TestCase):
             self.assertEqual(sum(t=='details' and a.get('class')=='v-video-reference' for t,a in tags.tags),1,path)
             self.assertNotIn('youtube-nocookie.com/embed/',text,path)
             self.assertNotIn('<iframe',text,path)
-            self.assertIn('trari.com/en/story/',text,path)
+            self.assertIn('trari.com/en/story/' if video_id!='CJi2DWXxsoQ' else 'www.dexerto.com/gta/',text,path)
         money=(ROOT/'guide-e-tutorial/soldi-2500-three-sheets-liquor/index.html').read_text(encoding='utf-8')
         self.assertIn('Three Sheets Liquor a Key Lento',money)
         self.assertIn('feature=liquor-store',money)
@@ -228,7 +229,7 @@ class VisualSiteTests(unittest.TestCase):
         self.assertNotIn('fetch(',script)
         report=json.loads((ROOT/'media-quality.json').read_text(encoding='utf-8'))
         # Video/map references are never counted as real screenshot media.
-        self.assertEqual(report['guides_checked'],10)
+        self.assertEqual(report['guides_checked'],11)
         self.assertEqual(report['ready']+report['below_target'],report['guides_checked'])
 
     def test_medidation_missable_and_local_checklist_is_accessible_and_exact(self):
@@ -266,6 +267,31 @@ class VisualSiteTests(unittest.TestCase):
         self.assertIn("localStorage.removeItem(KEY",script)
         self.assertIn("window.confirm(",script)
         self.assertIn("boxes.length !== 18",script)
+
+    def test_ps5_first_person_camera_glitch_is_accurate_and_not_claimed_trophy_safe(self):
+        path=ROOT/'guide-e-tutorial/glitch-prima-persona-ps5/index.html'
+        text,tags=parse(path)
+        self.assertEqual(sum(t=='h1' for t,_ in tags.tags),1)
+        self.assertIn('v-glitch-status',text)
+        self.assertIn('Probabilmente funzionante su PS5',text)
+        self.assertIn('Trophy Status Uncertain',text)
+        self.assertIn('patch esatta non è documentata',text)
+        self.assertIn('single-player',text)
+        self.assertIn('Camera (2/2)',text)
+        self.assertIn('Map (1/2)',text)
+        self.assertIn('Cerchio',text)
+        self.assertIn('touchpad',text)
+        self.assertIn('salvataggio manuale separato',text)
+        self.assertIn('ricarica il salvataggio manuale',text)
+        self.assertIn('PC Gamer',text)
+        self.assertIn('reddit.com/r/GTA6/comments/1y15kfv/',text)
+        self.assertEqual(text.count('class="v-step"'),6)
+        self.assertIn('data-youtube-id="CJi2DWXxsoQ"',text)
+        self.assertNotIn('<iframe',text)
+        self.assertEqual(len([a for t,a in tags.tags if t=='a' and 'data-visual-send-x' in a]),1)
+        self.assertNotIn('🏆 Trophy Safe',text)
+        self.assertNotIn('guadagno infinito',text)
+        self.assertIn('guide-e-tutorial/glitch-prima-persona-ps5/',(ROOT/'sitemap.xml').read_text(encoding='utf-8'))
 
     def test_screenshots_have_real_provenance(self):
         manifest=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
