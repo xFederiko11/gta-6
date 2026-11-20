@@ -14,8 +14,8 @@ SAFE_TITLES = {
     'sportive-randy-posizioni': 'Sportive ricercate: dove cercarle',
 }
 HERO = {
-    'soldi-facili-capitolo-1': 'leonida',
-    'soldi-2500-three-sheets-liquor': 'traffic',
+    'soldi-facili-capitolo-1': 'bank-deposit',
+    'soldi-2500-three-sheets-liquor': 'bank-phone',
     'scansionare-veicoli': 'traffic',
     'studiare-animali': 'leonida',
     '70-sfide-100-percento': 'vice-city',
@@ -23,7 +23,7 @@ HERO = {
     'viaggio-rapido-taxi': 'taxi-phone',
     'poligoni-concentrazione': 'vice-city',
     'registrare-auto-personale': 'save-car',
-    'sportive-randy-posizioni': 'traffic',
+    'sportive-randy-posizioni': 'register-car',
 }
 STEP_MEDIA = {
     'soldi-2500-three-sheets-liquor': {0:'shirley-house',1:'liquor-store'},

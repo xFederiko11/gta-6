@@ -55,6 +55,9 @@ try:
                 page.wait_for_timeout(600)
                 overflow=page.evaluate('document.documentElement.scrollWidth > window.innerWidth + 1')
                 assert not overflow,(label,name,'horizontal overflow')
+                if name in ('garage','money'):
+                    box=page.locator('.v-intro .v-photo').bounding_box()
+                    assert box and box['height'] < box['width'] * 0.75, ('cover aspect ratio',label,name,box)
                 stats=page.locator('img[data-visual-image]').evaluate_all('(images)=>({total:images.length,loaded:images.filter(i=>i.complete&&i.naturalWidth>0).length,failed:images.filter(i=>i.complete&&i.naturalWidth===0).map(i=>i.src)})')
                 if label=='desktop' and name=='home': assert stats['loaded']>0,'No genuine home images loaded'
                 page.screenshot(path=str(OUTPUT/f'{label}-{name}.png'),full_page=True)
