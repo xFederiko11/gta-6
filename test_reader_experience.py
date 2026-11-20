@@ -13,10 +13,10 @@ ROOT=Path('_site')
 BASE='https://xfederiko11.github.io/gta-6/'
 
 class ReaderTests(unittest.TestCase):
-    def test_all_pages_start_dark_before_stylesheets(self):
+    def test_all_pages_initialize_responsive_theme_before_stylesheets(self):
         for file in ROOT.rglob('*.html'):
             text=file.read_text(encoding='utf-8')
-            self.assertIn('<html lang="it" data-theme="dark">',text,str(file))
+            self.assertIn('<html lang="it" data-theme="auto">',text,str(file))
             self.assertIn('id="reader-theme-boot"',text,str(file))
             self.assertLess(text.index('id="reader-theme-boot"'),text.index('rel="stylesheet"'),str(file))
             self.assertNotIn('<meta name="color-scheme" content="light">',text)
@@ -26,13 +26,13 @@ class ReaderTests(unittest.TestCase):
                 self.assertEqual(text.count('data-theme-choice="light"'),1)
     def test_release_and_idempotence(self):
         release=json.loads((ROOT/'design-version.json').read_text())
-        self.assertEqual(release['default_theme'],'dark')
+        self.assertEqual(release['default_theme'],'mobile-dark-desktop-light')
         self.assertEqual(release['reader_version'],VERSION)
         self.assertEqual(release['guides_with_extras'],5)
         self.assertEqual(release['tip_count'],9)
         page=(ROOT/'salvare-auto/index.html').read_text()
         self.assertEqual(transform(page,version='anything'),page)
-    def test_tips_sourced_and_native_spoilers_closed(self):
+    def test_sourced_tips_and_images_visible_with_warning(self):
         data=json.loads(Path('data/guide_extras.json').read_text())
         self.assertTrue(validate(data))
         for path,entry in data['guides'].items():
@@ -40,13 +40,11 @@ class ReaderTests(unittest.TestCase):
             self.assertEqual(text.count('class="r-tip"'),len(entry['tips']))
             self.assertEqual(text.count('id="consigli"'),1)
             tags=Tags();tags.feed(text)
-            panels=[a for t,a in tags.tags if t=='details' and 'data-spoiler' in a]
-            self.assertTrue(all('open' not in a for a in panels))
+            self.assertFalse(any(t=='details' and 'data-spoiler' in a for t,a in tags.tags))
             if entry['spoiler']:
-                panel=re.search(r'<details class="v-spoiler" data-spoiler>(.*?)</details>',text,re.S)
-                self.assertIsNotNone(panel)
-                self.assertIn('id="consigli"',panel[1]);self.assertIn('id="mappa"',panel[1])
-                self.assertIn('Consigli e curiosità (spoiler)',text)
+                self.assertIn('v-spoiler-warning',text)
+                self.assertIn('id="mappa"',text)
+                self.assertIn('id="consigli"',text)
             for tip in entry['tips']:self.assertIn(tip['source'],text)
             ids=[a['id'] for t,a in tags.tags if 'id' in a]
             self.assertEqual(len(ids),len(set(ids)),path)
@@ -60,7 +58,8 @@ class ReaderTests(unittest.TestCase):
     def test_no_screenshot_inversion_or_network_calls(self):
         css=Path('site/assets/reader-theme.css').read_text();js=Path('site/assets/reader-theme.js').read_text()
         self.assertNotIn('filter:invert',css.replace(' ',''));self.assertNotIn('brightness(',css)
-        self.assertIn('gta6-theme-v1',js);self.assertNotIn("setItem('gta6-spoilers",js)
+        self.assertIn('gta6-theme-v1',js);self.assertNotIn('data-spoiler-choice',js)
+        self.assertIn('max-width:760px',js)
         self.assertNotIn('fetch(',js);self.assertNotIn('prefers-color-scheme',js)
         self.assertIn('showModal()',js);self.assertIn('event.ctrlKey',js)
     def test_reviewed_details_not_contradicted_by_guide(self):
@@ -133,7 +132,7 @@ def browser_qa():
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
-                    if path=='':assert page.locator('html').get_attribute('data-theme')=='dark'
+                    if path=='':assert page.locator('html').get_attribute('data-theme')==('dark' if width<=760 else 'light')
                     for theme in ('light','dark'):
                         page.locator(f'[data-theme-choice="{theme}"]').click()
                         assert page.locator('html').get_attribute('data-theme')==theme
@@ -143,21 +142,20 @@ def browser_qa():
                         assert page.locator('html').get_attribute('data-theme')==theme,'persistence'
                         check_layout(page,out,width,path,theme)
                     if path.endswith('soldi-2500-three-sheets-liquor/'):
-                        assert not page.locator('#mappa').is_visible();assert not page.locator('#consigli').is_visible()
-                        page.locator('[data-spoiler-choice="show"]').click()
+                        assert page.locator('#mappa').is_visible()
                         assert page.locator('#consigli').is_visible()
-                        page.locator('#mappa a.v-image-link').first.click()
-                        assert page.locator('dialog[open]').count()==1
-                        page.wait_for_function('document.querySelector("dialog img").naturalWidth>0')
-                        page.locator('[data-image-zoom]').click()
-                        assert page.locator('[data-image-viewport]').get_attribute('data-zoom')=='true'
-                        page.keyboard.press('Escape');assert page.locator('dialog[open]').count()==0
+                        assert page.locator('[data-spoiler-choice]').count()==0
+                        assert page.locator('.v-spoiler-warning').count()>0
+                        if page.locator('#mappa a.v-image-link').count():
+                            page.locator('#mappa a.v-image-link').first.click()
+                            assert page.locator('dialog[open]').count()==1
+                            page.wait_for_function('document.querySelector("dialog img").naturalWidth>0')
+                            page.locator('[data-image-zoom]').click()
+                            assert page.locator('[data-image-viewport]').get_attribute('data-zoom')=='true'
+                            page.keyboard.press('Escape');assert page.locator('dialog[open]').count()==0
                         if width==390:
                             page.locator('#mappa').scroll_into_view_if_needed();page.screenshot(path=str(out/'mobile-map-dark.png'))
                             page.locator('#consigli').scroll_into_view_if_needed();page.screenshot(path=str(out/'mobile-tips-dark.png'))
-                        page.locator('[data-spoiler-choice="hide"]').click()
-                        assert not page.locator('#consigli').is_visible()
-                        assert page.locator('html').get_attribute('data-theme')=='dark'
                     if path=='' and width in (390,1440):
                         page.screenshot(path=str(out/f'home-dark-{width}.png'))
                         page.locator('[data-theme-choice="light"]').click();page.screenshot(path=str(out/f'home-light-{width}.png'))
@@ -169,19 +167,26 @@ def browser_qa():
                 assert not errors,errors
                 context.close()
             for nojs,blocked in ((True,False),(False,True)):
-                context=browser.new_context(java_script_enabled=not nojs,color_scheme='light');bind(context)
-                if blocked:context.add_init_script("Object.defineProperty(window,'localStorage',{get(){throw new Error('disabled')}})")
-                page=context.new_page();page.goto(origin,wait_until='load')
-                assert page.locator('html').get_attribute('data-theme')=='dark'
-                assert page.evaluate('getComputedStyle(document.body).backgroundColor')=='rgb(12, 11, 19)'
-                if blocked:
-                    page.locator('[data-theme-choice="light"]').click()
-                    assert page.locator('html').get_attribute('data-theme')=='light'
-                context.close()
+                for width in (390,1440):
+                    context=browser.new_context(java_script_enabled=not nojs,
+                                                viewport={'width':width,'height':900},
+                                                color_scheme='light')
+                    bind(context)
+                    if blocked:context.add_init_script("Object.defineProperty(window,'localStorage',{get(){throw new Error('disabled')}})")
+                    page=context.new_page();page.goto(origin,wait_until='load')
+                    expected='dark' if width<=760 else 'light'
+                    self_theme=page.locator('html').get_attribute('data-theme')
+                    assert self_theme==('auto' if nojs else expected),(width,nojs,self_theme)
+                    expected_bg='rgb(12, 11, 19)' if width<=760 else 'rgb(252, 248, 252)'
+                    assert page.evaluate('getComputedStyle(document.body).backgroundColor')==expected_bg
+                    if blocked:
+                        page.locator('[data-theme-choice="dark"]').click()
+                        assert page.locator('html').get_attribute('data-theme')=='dark'
+                    context.close()
             browser.close()
     finally:
         server.shutdown();(out/'report.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
-    print('READER_BROWSER_QA_OK',len(report),'page/width combinations; both themes; no-JS; blocked storage; spoiler+zoom')
+    print('READER_BROWSER_QA_OK',len(report),'page/width combinations; responsive themes; no-JS; blocked storage; visible spoilers+zoom')
 
 if __name__=='__main__':
     if '--browser' in sys.argv:browser_qa()
