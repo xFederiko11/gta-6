@@ -64,8 +64,9 @@ jobs:
       - name: Build visual production pages with responsive reader and sourced tips
         env:
           GSC_SITE_VERIFICATION: ${{ vars.GSC_SITE_VERIFICATION }}
-          # Don't pollute production analytics with pull request screenshots/tests.
-          UMAMI_WEBSITE_ID: ${{ github.event_name == 'pull_request' && '' || vars.UMAMI_WEBSITE_ID }}
+          # Public Umami website UUID supplied by the owner. No secret/API token.
+          # reader_experience.py clears it for PR events BEFORE the site build.
+          UMAMI_WEBSITE_ID: ec3592c0-e9f7-4e13-8c29-f9c7d59aa8fd
         run: python reader_experience.py --build
       - name: Audit actual local media and five-image guide target
         run: python media_quality_v1.py
@@ -198,4 +199,25 @@ jobs:
               except Exception:
                   if attempt==5: raise
                   time.sleep(10)
+          # Verify Umami is actually shipped to each published page exactly
+          # once, with safe first-party domain and no personal identifiers.
+          for path in ('','trofei/','guide-e-tutorial/','hdr-oled/','privacy/'):
+              for attempt in range(6):
+                  try:
+                      request=urllib.request.Request(base+path+'?analytics=gta6-20261120',headers={'Cache-Control':'no-cache'})
+                      with urllib.request.urlopen(request,timeout=20) as response:
+                          markup=response.read(1500000).decode('utf-8')
+                          assert response.status == 200
+                      assert markup.count('id="growth-analytics-v1"') == 1
+                      assert 'src="https://cloud.umami.is/script.js"' in markup
+                      assert 'data-website-id="ec3592c0-e9f7-4e13-8c29-f9c7d59aa8fd"' in markup
+                      assert 'data-domains="xfederiko11.github.io"' in markup
+                      assert 'data-do-not-track="true"' in markup
+                      if path == 'privacy/':
+                          assert 'Umami Cloud è attivo' in markup
+                      print('PUBLIC_GTA6_UMAMI_TAG_OK',base+path)
+                      break
+                  except Exception:
+                      if attempt == 5: raise
+                      time.sleep(10)
           PY
