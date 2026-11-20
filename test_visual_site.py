@@ -293,6 +293,60 @@ class VisualSiteTests(unittest.TestCase):
         self.assertNotIn('guadagno infinito',text)
         self.assertIn('guide-e-tutorial/glitch-prima-persona-ps5/',(ROOT/'sitemap.xml').read_text(encoding='utf-8'))
 
+    def test_openseo_onpage_titles_meta_and_semantic_heading_hierarchy(self):
+        """Fix real 20 November 2026 OpenSEO crawl findings without title stuffing."""
+        from html import unescape
+        def seo(path):
+            markup, tags=parse(ROOT/path/'index.html')
+            title=re.search(r'<title>(.*?)</title>',markup,re.S)
+            self.assertIsNotNone(title,path)
+            title=unescape(title.group(1))
+            desc=[a['content'] for t,a in tags.tags
+                  if t=='meta' and a.get('name')=='description']
+            self.assertEqual(len(desc),1,path)
+            return title, desc[0], markup, tags
+        for slug in ('trofei/','fonti/','hdr-oled/','trucchi/'):
+            with self.subTest(hub=slug):
+                title,desc,markup,tags=seo(slug)
+                self.assertLessEqual(len(title),60,slug)
+                self.assertTrue(70<=len(desc)<=160,slug)
+        for kind in ('guide-e-tutorial/','soldi-facili/','auto-speciali/'):
+            title,desc,markup,tags=seo(kind)
+            self.assertIn('class="v-directory-section-title"',markup)
+            headings=[(tag, i) for i,(tag,attrs) in enumerate(tags.tags)
+                      if tag in ('h1','h2','h3')]
+            self.assertTrue(headings,kind)
+            first_h2=next(i for tag,i in headings if tag=='h2')
+            first_h3=next(i for tag,i in headings if tag=='h3')
+            self.assertLess(first_h2,first_h3,kind)
+        trophy_data=json.loads(Path('data/trofei.json').read_text(encoding='utf-8'))['trophies']
+        for trophy in trophy_data:
+            path='trofei/'+trophy['slug']+'/'
+            title,desc,markup,tags=seo(path)
+            self.assertLessEqual(len(title),60,path)
+            self.assertIn(trophy['name_it'],title,path)
+            self.assertIn('GTA 6',title,path)
+        cec=(ROOT/'trofei/trofeo-17-cecchino/index.html').read_text(encoding='utf-8')
+        self.assertEqual(cec.count('class="medal-course"'),12)
+        self.assertNotIn('<h4>',cec)
+        self.assertEqual(cec.count('<div class="medal-course"><h3>'),12)
+        guides=(json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
+                +json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides'])
+        from visual_guide_content import enrich
+        for guide in enrich(guides):
+            path=guide['canonical_path']
+            title,desc,markup,tags=seo(path)
+            self.assertLessEqual(len(title),60,path)
+            self.assertTrue(70<=len(desc)<=160,(path,len(desc)))
+            self.assertEqual(desc,guide['seo_description'],path)
+            self.assertIn(guide['summary'],unescape(markup),path)
+            self.assertIn('<link rel="canonical" href="'+BASE+path+'">',markup)
+        first=(ROOT/'guide-e-tutorial/meditazione-capitolo-1/index.html').read_text(encoding='utf-8')
+        self.assertIn('meditazioni',first.lower())
+        glitch=(ROOT/'guide-e-tutorial/glitch-prima-persona-ps5/index.html').read_text(encoding='utf-8')
+        self.assertIn('Trophy Status Uncertain',glitch)
+        self.assertNotIn('🏆 Trophy Safe',glitch)
+
     def test_screenshots_have_real_provenance(self):
         manifest=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
         for key,item in manifest.items():

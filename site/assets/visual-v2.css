@@ -275,3 +275,8 @@ html[data-theme=dark] .social-comment-card>span{color:#ff9bcd}
 .v-glitch-status p{margin:9px 0 0;font-size:.8rem;line-height:1.58;color:var(--r-muted,#675770)}
 .v-glitch-status a{font-size:.77rem;line-height:1.5;font-weight:720;overflow-wrap:anywhere}
 @media(max-width:640px){.v-glitch-status{padding:13px 14px}.v-glitch-status p{font-size:.79rem}}
+
+
+/* OpenSEO 2026-11-20: discoverable, semantic H2 between directory H1 and guide-card H3. */
+.v-directory-section-title{color:var(--text,#201735);font-size:clamp(1.16rem,2.2vw,1.54rem);font-weight:800;line-height:1.3;letter-spacing:-.025em;margin:24px 0 8px}
+@media(max-width:640px){.v-directory-section-title{font-size:1.24rem;margin:20px 0 7px}}

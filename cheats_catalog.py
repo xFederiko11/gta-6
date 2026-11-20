@@ -125,7 +125,7 @@ paint();
         ' · <a href="'+e(data["sources"]["pcgamer"])+'" rel="noopener noreferrer" target="_blank">PC Gamer — verifiche post-storia</a>'
         ' · <a href="'+e(data["sources"]["gtadb"])+'" rel="noopener noreferrer" target="_blank">GTADB — riepilogo terzo</a>.</p>'
         f'<p><a href="{url("fonti/")}">Come verifichiamo le fonti GTA VI e le notizie →</a></p></section>')
-    title="Trucchi GTA 6 PS5: codici e sequenze DualSense, soldi e veicoli"
+    title="Trucchi GTA 6 PS5: codici DualSense, soldi e veicoli"
     desc=f"Tutti i trucchi GTA 6 per PS5 e PS5 Pro: {len(cheats)} sequenze con icone dei tasti DualSense, sblocco, soldi, armi, veicoli e attenzione ai trofei."
     structured={"@context":"https://schema.org","@type":"CollectionPage",
         "name":title,"description":desc,"url":url(BASE),"inLanguage":"it-IT",
