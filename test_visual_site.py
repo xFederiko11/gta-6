@@ -42,7 +42,7 @@ class VisualSiteTests(unittest.TestCase):
         self.assertIn('/soldi-facili/',text)
         self.assertIn('/auto-speciali/',text)
         self.assertIn('/salvare-auto/',text)
-        self.assertGreaterEqual(sum(t=='img' for t,a in tags.tags),8)
+        self.assertGreaterEqual(sum((t=='img' and 'data-visual-image' in a) or (t=='div' and 'data-media-missing' in a) for t,a in tags.tags),8)
 
     def test_sitemap_pages_exist_keep_canonicals_and_one_h1(self):
         root=ET.parse(ROOT/'sitemap.xml').getroot()
@@ -95,10 +95,15 @@ class VisualSiteTests(unittest.TestCase):
         for path in ('salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/'):
             text,tags=parse(ROOT/path/'index.html')
             images=[a for t,a in tags.tags if t=='img' and 'data-visual-image' in a]
-            self.assertGreaterEqual(len(images),3)
+            unavailable=[a for t,a in tags.tags if t=='div' and 'data-media-missing' in a]
+            self.assertGreaterEqual(len(images)+len(unavailable),3)
             for a in images:
                 self.assertIn('alt',a); self.assertIn('width',a); self.assertIn('height',a)
                 self.assertIn('loading',a)
+                self.assertIn('/gta-6/assets/visual/',a['src'])
+                self.assertTrue((ROOT/a['src'].split('/gta-6/',1)[1]).is_file())
+            for a in unavailable:
+                self.assertIn('aria-label',a)
 
     def test_internal_links_and_assets_do_not_point_to_ghost_pages(self):
         for target in ROOT.rglob('index.html'):
