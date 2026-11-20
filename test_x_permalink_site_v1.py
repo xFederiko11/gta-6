@@ -50,6 +50,28 @@ class SocialBridgeTests(unittest.TestCase):
                "buffer_status":"sent","completed_utc":"2026-11-19T09:44:00Z"}
         self.assertEqual(merge_post_snippets([older],[]),[older])
 
+    def test_real_links_render_under_matching_published_articles(self):
+        # In PR builds the optional public bridge may not exist. Production
+        # verifies each actual mapped and generated page after snapshot import.
+        from community_social_v1 import verified_x_url
+        data=json.loads(Path("data/community_social.json").read_text(encoding="utf-8"))
+        checked=0
+        for post in data.get("x_posts",[]):
+            link=verified_x_url(post.get("x_url"))
+            article=post.get("url","")
+            if not link or not article.startswith(
+                    "https://xfederiko11.github.io/gta-6/"):
+                continue
+            relative=article.split("/gta-6/",1)[1]
+            html=Path("_site")/relative/"index.html"
+            if not html.is_file():continue
+            content=html.read_text(encoding="utf-8")
+            self.assertIn(link,content,str(html))
+            self.assertIn("in_reply_to="+link.rsplit("/",1)[-1],content,str(html))
+            self.assertIn("data-x-article-url",content,str(html))
+            checked+=1
+        print("PUBLIC_X_ARTICLE_PERMALINKS_RENDERED",checked)
+
     def test_widget_has_exact_source_and_reader_can_reply(self):
         found=verified_permalinks(opener=lambda *args,**kw:FakeResponse(response(item())))
         with TemporaryDirectory() as tmp:
