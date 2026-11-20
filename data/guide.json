@@ -4,6 +4,41 @@
   "source_note": "Procedure originali sintetizzate da quick_tips_v146.py del progetto bot; verifica patch e dati editoriali prima di pubblicazioni X.",
   "guides": [
     {
+      "id": "soldi-2500-three-sheets-liquor",
+      "title": "GTA 6: fino a circa 2.500 GTA$ al Three Sheets Liquor",
+      "tag": "Soldi",
+      "summary": "La guida Insider Gaming descrive una scorta nascosta da 1.200 GTA$ e altro bottino presso il negozio.",
+      "steps": [
+        "SPOILER: segui l'incarico iniziale di Shirley che porta Jason al Three Sheets Liquor.",
+        "Raggiungi il retro dell'edificio e valuta come superare i nemici presenti.",
+        "Cerca il pappagallo e il generatore sul lato sinistro del fabbricato.",
+        "Dietro il generatore, controlla la grata/condotto che secondo Insider Gaming contiene 1.200 GTA$.",
+        "Esplora anche il retro del negozio e la cassaforte per recuperare gli altri oggetti segnalati."
+      ],
+      "benefit": "Insider Gaming stima un bottino complessivo vicino a 2.500 GTA$ nel luogo.",
+      "caution": "SPOILER del Capitolo 1. Il valore è una stima della fonte, non un rendimento ripetibile verificato. Stato trofei non verificato; conserva un salvataggio manuale.",
+      "source_url": "https://insider-gaming.com/how-to-complete-strange-noises-in-gta-6-shirley-house-liquor-store-location-guide/",
+      "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_02.0c5.7qx17u9kl.jpg?akim=1&imdensity=1&imwidth=3840",
+      "related_trophy": null
+    },
+    {
+      "id": "soldi-facili-capitolo-1",
+      "title": "GTA 6: come fare soldi subito nel Capitolo 1 (4 luoghi)",
+      "tag": "Soldi",
+      "summary": "Quattro luoghi segnalati da Insider Gaming per trovare denaro e oggetti di valore già all'inizio. Guida con spoiler sulle posizioni.",
+      "steps": [
+        "SPOILER LUOGHI: a Three Sheets Liquor, durante l'incarico di Shirley, esplora il retro del negozio; ci sono guardie e denaro da recuperare.",
+        "SPOILER LUOGHI: raggiungi il Manatee Motel a sud-ovest di Hamlet, sopra Shoeless Keys. Attenzione alla tigre e ai membri della gang che arrivano dopo il bottino.",
+        "SPOILER LUOGHI: raggiungi in barca la casa su palafitte più a nord, a nord-est di Corsair Key. Usa la concentrazione (L3 + R3 secondo la fonte) per individuare una tavola mobile con altro denaro.",
+        "SPOILER LUOGHI: cerca il magazzino a South Vice-Dale, a nord-est di Hamlet. Nell'ufficio laterale Insider Gaming segnala una carta da baseball valutata 6.000 GTA$."
+      ],
+      "benefit": "Denaro, armi e oggetti da raccogliere senza aspettare le grandi rapine. I 6.000 GTA$ sono il valore attribuito dalla fonte a una carta, non un guadagno totale garantito.",
+      "caution": "ATTENZIONE SPOILER: posizioni e incontri del Capitolo 1. Fonti indipendenti, non conferma Rockstar; disponibilità e compatibilità con trofei non verificate. Non usare cheat per la run platino e conserva un salvataggio manuale.",
+      "source_url": "https://insider-gaming.com/gta-6-early-game-locations-make-money/",
+      "image": "https://www.rockstargames.com/VI/_next/static/media/Leonida_Keys_02.0~ptk-53gl0lq.jpg?akim=1&imdensity=1&imwidth=3840",
+      "related_trophy": null
+    },
+    {
       "id": "scansionare-veicoli",
       "title": "Come scansionare i veicoli con WAiNK su PS5",
       "tag": "Collezionabili",
