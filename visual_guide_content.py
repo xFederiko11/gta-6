@@ -87,6 +87,10 @@ def enrich(records):
         g['spoiler']=g.get('spoiler',ident in {'soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor','meditazione-capitolo-1'})
         g['category']=('soldi' if g['tag']=='Soldi' else 'garage' if g['tag']=='Garage' else 'auto' if ident in {'sportive-randy-posizioni','scansionare-veicoli'} else 'inizio')
         g['canonical_path']=g.get('canonical_path') or 'guide-e-tutorial/'+ident+'/'
+        if ident in {'soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor'}:
+            g['extra_sources']=list(dict.fromkeys([*g.get('extra_sources',[]),
+                'https://www.gtabase.com/gta-6/articles/how-to-keep-your-money-safe-in-gta-6',
+                'https://gta.tech4gamers.com/gta-6/guides/money-end-of-chapter-1/']))
         if ident=='registrare-auto-personale':
             g['extra_sources']=['https://www.powerpyx.com/gta-6-how-to-get-new-personal-car/','https://www.gamesradar.com/games/grand-theft-auto/gta-6-personal-vehicles-how-to-register-switch-recover-car/']
             g['requirements']='Registrazione sbloccata dalla storia, spazio libero per il veicolo e denaro per la tariffa mostrata. I mezzi con tracker richiedono ulteriori sblocchi.'

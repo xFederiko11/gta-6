@@ -124,6 +124,29 @@ class VisualSiteTests(unittest.TestCase):
             self.assertIn('community-social-v1.js?v=',text)
             self.assertNotIn('data-community-filter-source',text)
 
+    def test_early_money_guides_warn_about_chapter_transition_without_spoiling_titles(self):
+        pages=('guide-e-tutorial/soldi-facili-capitolo-1/',
+               'guide-e-tutorial/soldi-2500-three-sheets-liquor/')
+        for path in pages:
+            text,tags=parse(ROOT/path/'index.html')
+            self.assertIn('class="v-cash-safety"',text,path)
+            self.assertIn('id="avviso-capitolo-1"',text,path)
+            self.assertIn('Family Savings',text,path)
+            self.assertIn('Tourist Trap',text,path)
+            self.assertIn('PRIMA di Recalibration',text,path)
+            self.assertIn('https://www.gtabase.com/gta-6/articles/how-to-keep-your-money-safe-in-gta-6',text)
+            self.assertIn('https://gta.tech4gamers.com/gta-6/guides/money-end-of-chapter-1/',text)
+            self.assertIn('La compatibilità con i trofei',text)
+            details=[a for t,a in tags.tags if t=='details' and a.get('id')=='avviso-capitolo-1']
+            self.assertEqual(len(details),1)
+            self.assertNotIn('Tourist Trap</h1>',text)
+        catalog=(ROOT/'soldi-facili/index.html').read_text(encoding='utf-8')
+        self.assertIn('Non farmare alla cieca',catalog)
+        self.assertIn('Family Savings',catalog)
+        self.assertIn('Checking Account di BuckMe non protegge',catalog)
+        self.assertIn('soldi-facili-capitolo-1/#avviso-capitolo-1',catalog)
+        self.assertNotIn('Tourist Trap',catalog)
+
     def test_screenshots_have_real_provenance(self):
         manifest=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
         for key,item in manifest.items():

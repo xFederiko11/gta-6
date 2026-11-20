@@ -177,18 +177,24 @@ def directory(guides,kind='all'):
     title,desc,path=config[kind]
     selected=guides if kind=='all' else [g for g in guides if g['category']==kind or (kind=='auto' and g['category']=='garage')]
     body=legacy.crumbs([(title,path)])+f'<section class="v-directory-head"><span class="eyebrow">GTA 6 · GUIDE OPERATIVE</span><h1>{e(title)}</h1><p>{e(desc)}</p></section>'
+    if kind=='soldi':
+        body+=('<aside class="v-cash-safety" role="note"><strong>⚠️ Non farmare alla cieca nel Capitolo 1.</strong>'
+               '<p>Prima di accumulare denaro, controlla un rischio importante per la progressione. '
+               'Il bottino non sempre resterà disponibile dopo certe missioni. '
+               f'<a href="{url("guide-e-tutorial/soldi-facili-capitolo-1/")}#avviso-capitolo-1">'
+               'Leggi le precauzioni (spoiler leggero) →</a></p></aside>')
     body+='<section data-guide-directory aria-label="Catalogo delle guide"><div class="v-filterbar" id="cerca-guide"><label><span class="micro">Cerca per obiettivo</span><br><input type="search" data-guide-search placeholder="Es. soldi, auto, taxi…" aria-label="Cerca una guida"></label>'
     if kind=='all':
         body+='<div class="v-filters" role="group" aria-label="Filtra per obiettivo">'+''.join(f'<button type="button" data-guide-filter="{value}" aria-pressed="{str(value=="all").lower()}">{label}</button>' for value,label in [('all','Tutte'),('soldi','Soldi'),('auto','Auto'),('garage','Garage'),('inizio','Altre guide')])+'</div>'
     body+=f'</div><p class="v-result" data-guide-result role="status" aria-live="polite">{len(selected)} guide disponibili</p><div class="v-grid">'+''.join(card(g) for g in selected)+'</div></section>'
     if kind=='soldi':
-        body+='<section class="v-section v-promo">'+image('bank-phone')+'<div><span class="eyebrow">DOPO AVER RACCOLTO IL BOTTINO</span><h2>Non tenere tutto nel portafoglio.</h2><p>Quando BuckMe è disponibile, apri il telefono, scegli BuckMe → ATM Finder e raggiungi il bancomat indicato. Controlla e deposita il contante.</p><p class="v-caption">Fonte e schermata: <a href="https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know">Push Square — proteggere il denaro</a>.</p></div></section>'
+        body+='<section class="v-section v-promo">'+image('bank-phone')+'<div><span class="eyebrow">DOPO AVER RACCOLTO IL BOTTINO</span><h2>Proteggi il bottino nel modo giusto.</h2><p>Il normale Checking Account di BuckMe non protegge il denaro dalla perdita programmata a fine Capitolo 1. Quando disponibile, Family Savings può conservarne fino a 5.000 GTA$, ma il denaro trasferito non è prelevabile normalmente. Valuta gli acquisti utili e rimanda il farming pesante al Capitolo 2.</p><p class="v-caption">Fonte e schermata: <a href="https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know">Push Square — proteggere il denaro</a>.</p></div></section>'
     return title,desc,path,body
 
 
 def sources(g,media_keys):
     links=list(dict.fromkeys([g['source_url'],*g.get('extra_sources',[]),*[MEDIA[k]['source'] for k in media_keys]]))
-    names={'powerpyx.com':'PowerPyx','pushsquare.com':'Push Square','insider-gaming.com':'Insider Gaming','gamesradar.com':'GamesRadar+','rockstargames.com':'Rockstar Games'}
+    names={'powerpyx.com':'PowerPyx','pushsquare.com':'Push Square','insider-gaming.com':'Insider Gaming','gamesradar.com':'GamesRadar+','rockstargames.com':'Rockstar Games','gtabase.com':'GTABase','gta.tech4gamers.com':'Tech4Gamers'}
     body='<section class="v-sources" id="fonti"><h2>Fonti, immagini e verifica</h2><ul>'
     for source in links:
         host=urlsplit(source).hostname.removeprefix('www.')
@@ -204,6 +210,29 @@ def guide(g,guides):
     body=legacy.crumbs([('Guide','guide-e-tutorial/'),(title,path)])
     body+='<section class="v-intro"><div>'+f'<span class="v-tag">{e(g["tag"])} · PS5</span><h1>{e(title)}</h1><p>{e(g["summary"])}</p><div class="v-read-meta"><span>{len(g["steps"])} passaggi</span><span>~{reading_time(g)} min di lettura</span><span>Fonti in fondo</span></div><a class="v-button" href="#procedura">Vai ai passaggi ↓</a></div><figure>'+image(g['hero_media'],eager=True)+f'<figcaption class="v-caption">{e(MEDIA[g["hero_media"]]["caption"])}</figcaption></figure></section>'
     body+='<div class="v-guide-layout"><article class="v-guide-main">'
+    if g['id'] in {'soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor'}:
+        body+=('<aside class="v-cash-safety" role="note"><strong>⚠️ Prima di farmare: una perdita possibile nel Capitolo 1.</strong>'
+               '<details class="v-cash-details" id="avviso-capitolo-1">'
+               '<summary>Mostra le precauzioni e il punto di non ritorno (spoiler leggero)</summary>'
+               '<p>Secondo GTABase, Tech4Gamers e numerose testimonianze dei giocatori del 19–20 novembre, '
+               'completando il Capitolo 1 si perdono i contanti, il saldo ordinario BuckMe, '
+               'il denaro nascosto nella casa di Jason e i veicoli personali iniziali. '
+               'La missione <strong>Tourist Trap</strong> è segnalata come punto di non ritorno: '
+               '<strong>crea un salvataggio manuale separato PRIMA di Recalibration</strong>, '
+               'perché il finale del capitolo potrebbe avviarsi subito dopo.</p>'
+               '<p>Prima di Recalibration: considera '
+               'fino a <strong>5.000 GTA$</strong> in Family Savings quando disponibile '
+               '(non prelevabile normalmente), investi soltanto in equipaggiamento '
+               'documentato come conservabile e rimanda i grandi bottini recuperabili '
+               'al Capitolo 2. Non considerare il normale conto corrente un rifugio. '
+               'La compatibilità con i trofei delle singole scelte non è certificata.</p>'
+               '<p class="v-caption">Riscontri: '
+               '<a href="https://www.gtabase.com/gta-6/articles/how-to-keep-your-money-safe-in-gta-6" target="_blank" rel="noopener noreferrer">GTABase</a>'
+               ' · <a href="https://gta.tech4gamers.com/gta-6/guides/money-end-of-chapter-1/" target="_blank" rel="noopener noreferrer">Tech4Gamers</a>'
+               ' · <a href="https://www.powerpyx.com/gta-6-tourist-trap-take-up-mattias-offer-walkthrough/" target="_blank" rel="noopener noreferrer">PowerPyx: punto di non ritorno</a>'
+               ' · <a href="https://www.reddit.com/r/GTA6/comments/1y0sv2n/something_you_should_know_about_the_end_of/" target="_blank" rel="noopener noreferrer">Discussione r/GTA6</a>. '
+               'Fonti indipendenti, non test diretti del nostro team.</p>'
+               '</details></aside>')
     benefit=g.get('benefit','')
     body+=f'<div class="v-answer"><strong>La cosa da sapere</strong><p>{e(benefit)}</p></div><div class="v-facts"><div class="v-fact"><strong>Prima di iniziare</strong><p>{e(g["requirements"])}</p></div><div class="v-fact"><strong>Dove andare</strong><p>{e(g["location"])}</p></div></div>'
     body+='<section id="procedura">'+section_head('UNA COSA ALLA VOLTA','Il percorso, passo per passo')
@@ -238,7 +267,7 @@ def guide(g,guides):
 
 def validate(guides):
     seen=set()
-    allowed={'powerpyx.com','www.powerpyx.com','insider-gaming.com','www.insider-gaming.com','www.pushsquare.com','www.gamesradar.com'}
+    allowed={'powerpyx.com','www.powerpyx.com','insider-gaming.com','www.insider-gaming.com','www.pushsquare.com','www.gamesradar.com','www.gtabase.com','gtabase.com','gta.tech4gamers.com'}
     for g in guides:
         if g['id'] in seen or not re.fullmatch(r'[a-z0-9-]+',g['id']):
             raise ValueError('Duplicate or invalid guide id')
