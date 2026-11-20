@@ -1,0 +1,79 @@
+name: Visual redesign QA
+on:
+  push:
+    branches: [feature/visual-guide-redesign-20261120]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: visual-redesign-qa-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
+        with:
+          python-version: '3.12'
+      - name: Inspect public image references (no credentials)
+        run: |
+          python - <<'PY'
+          import json, urllib.request
+          from html.parser import HTMLParser
+          class Images(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.images=[]
+              def handle_starttag(self,tag,attrs):
+                  a=dict(attrs)
+                  if tag=='img' and (a.get('src') or a.get('data-src')):
+                      self.images.append({k:a[k] for k in ('src','data-src','alt','width','height') if k in a})
+          urls=[
+              'https://insider-gaming.com/gta-6-early-game-locations-make-money/',
+              'https://insider-gaming.com/how-to-complete-strange-noises-in-gta-6-shirley-house-liquor-store-location-guide/',
+              'https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know',
+              'https://www.powerpyx.com/gta-6-money-guide-how-to-get-money-fast/',
+              'https://www.powerpyx.com/gta-6-just-a-scratch-fix-your-car-walkthrough/'
+          ]
+          for url in urls:
+              try:
+                  req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
+                  with urllib.request.urlopen(req,timeout=20) as r:
+                      raw=r.read(3000000).decode('utf-8','replace'); status=r.status
+                  p=Images(); p.feed(raw)
+                  keep=[im for im in p.images if any(x in str(im).lower() for x in ('gta','liquor','motel','car','cash','money','spray','vehicle','warehouse','stilt'))]
+                  print('SOURCE_IMAGES',json.dumps({'source':url,'status':status,'images':keep[:22]},ensure_ascii=True))
+              except Exception as e:
+                  print('SOURCE_UNAVAILABLE',url,type(e).__name__)
+          PY
+      - name: Build and test visual site when present
+        run: |
+          if [ -f build_visual_site.py ]; then
+            python -m py_compile build_visual_site.py
+            python build_visual_site.py
+            if [ -f test_visual_site.py ]; then python -m unittest -q test_visual_site.py; fi
+          fi
+      - name: Browser checks when present
+        run: |
+          if [ -f visual_browser_qa.py ]; then
+            python -m pip install playwright
+            python -m playwright install --with-deps chromium
+            python visual_browser_qa.py
+          fi
+      - name: Package preview and source for inspection
+        if: always()
+        run: |
+          mkdir -p qa-bundle
+          git archive HEAD | gzip > qa-bundle/source.tar.gz
+          if [ -d _site ]; then cp -R _site qa-bundle/site; fi
+          if [ -d visual-qa ]; then cp -R visual-qa qa-bundle/screens; fi
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        if: always()
+        with:
+          name: visual-redesign-preview
+          path: qa-bundle
+          retention-days: 3
