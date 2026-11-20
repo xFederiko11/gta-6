@@ -86,3 +86,14 @@ Il controllo reader usa otto pagine a 320, 390, 768 e 1440 pixel in entrambi i t
 ## Limiti espliciti
 
 Il catalogo visivo contiene dieci tutorial e tredici immagini selezionate. Non ogni passaggio ha una schermata o una posizione verificata. Dove manca il materiale resta il riferimento alla fonte: nessun punto sulla mappa inventato. Tema e contenuti del sito non modificano automaticamente coda o frequenza dei post Buffer/X.
+
+
+## Raccolta di schermate originali dalla community (X)
+
+Ogni guida visiva espone un piccolo invito **Proponi uno screenshot** collegato alla conversazione su **X**; non richiede un account GitHub né permette di caricare file direttamente sul sito. I cinque esempi sono gestiti da `data/visual_requests.json` e sono **richieste editoriali**, non cinque prove o cinque immagini già disponibili. L'aggiornamento non deve modificare il conteggio del controllo `media_quality_v1.py`.
+
+Flusso previsto: il lettore cattura una schermata PS5 con **Crea (Create)**, apre X tramite l'intent col permalink della guida, allega la propria immagine **manualmente**, specifica piattaforma/patch e avvisa degli spoiler. Il bot non legge messaggi privati X, non invia post per conto degli utenti e non registra automaticamente i media ricevuti.
+
+Un'immagine segnalata diventa candidabile **solo dopo revisione umana**: correttezza dell'immagine rispetto al passaggio/patch, provenienza, titolarità e autorizzazione esplicita alla ripubblicazione, didascalia/alt text, spoiler, ottimizzazione locale e nuovo audit. Il tweet pubblico da solo **non concede** diritti di ripubblicazione; i crediti da soli non sostituiscono il consenso.
+
+L'invito è un canale di partecipazione e può aumentare le conversazioni sul nostro X, ma **non dimostra nuovi follower, numero di invii o licenze**. Le 50 richieste restano aperte finché non esistono le rispettive immagini autentiche. Gli utenti possono interagire solo se lo desiderano, senza registrarsi al portale.
