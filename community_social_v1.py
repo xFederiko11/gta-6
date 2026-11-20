@@ -13,6 +13,7 @@ from urllib.parse import urlencode, urlsplit
 
 BASE="https://xfederiko11.github.io/gta-6/"
 PROFILE="https://x.com/xFederiko11"
+FOLLOW_INTENT="https://x.com/intent/follow?screen_name=xFederiko11"
 INDEX=Path("data/community_social.json")
 VERSION="community-social-v2"
 
@@ -112,8 +113,8 @@ def widget(path, *, title="Partecipa alla discussione", youtube_url=None):
       '<div class="social-discussion-cta"><a class="v-button" data-x-primary-action '
       'href="'+escape(target,quote=True)+'" '
       'target="_blank" rel="noopener noreferrer">'+label+'</a>'
-      '<a class="v-button secondary" href="'+PROFILE+'" target="_blank" '
-      'rel="me noopener noreferrer">𝕏 Vai al profilo</a>'+youtube+'</div>'
+      '<a class="v-button secondary social-follow-link" href="'+FOLLOW_INTENT+'" target="_blank" '
+      'rel="noopener noreferrer">𝕏 Segui Federiko per altre guide</a>'+youtube+'</div>'
       '<p class="social-disclosure" data-x-reply-note>'+escape(description)+' '
       'Non servono GitHub né nuove registrazioni al sito. Le risposte sono pubblicate '
       'e moderate dalle rispettive piattaforme.</p></section>')
@@ -124,7 +125,7 @@ def home_rail():
            '<div class="v-section-head"><div><span class="v-kicker">𝕏 PARLIAMONE</span>'
            '<h2>Post recenti e conversazioni GTA VI</h2>'
            '<p>Guide dal nostro account X. Rispondi sul social che usi, senza account GitHub.</p>'
-           '</div><a href="'+PROFILE+'" target="_blank" rel="me noopener noreferrer">Segui Federiko su X ↗</a></div>'
+           '</div><a href="'+FOLLOW_INTENT+'" target="_blank" rel="noopener noreferrer">𝕏 Segui per nuovi trucchi e guide ↗</a></div>'
            '<div class="social-home-grid" data-x-live-grid>']
     for post in items:
         link=verified_x_url(post.get("x_url"))
@@ -143,7 +144,7 @@ def home_rail():
                  'e dei like non vengono inventati.</p></div>'
                  '<button type="button" class="v-button secondary" data-x-timeline-load>'
                  'Mostra i post X</button>'
-                 '<a class="v-button" href="'+PROFILE+'" rel="me noopener noreferrer" '
-                 'target="_blank">Commenta su X ↗</a>'
+                 '<a class="v-button" href="'+FOLLOW_INTENT+'" rel="noopener noreferrer" '
+                 'target="_blank">𝕏 Segui gli aggiornamenti ↗</a>'
                  '<div data-x-timeline-slot aria-live="polite"></div></div></section>')
     return "".join(parts)
