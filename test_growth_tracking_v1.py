@@ -47,6 +47,24 @@ class GrowthTrackingTests(unittest.TestCase):
         self.assertNotIn("GoogleAnalyticsObject", result)
         self.assertEqual(enhance(result, ID), result)
         self.assertEqual(annotate(annotate(PAGE)),annotate(PAGE))
+    def test_screenshot_compose_is_measured_as_intent_not_photo_delivery(self):
+        from urllib.parse import urlencode
+        draft=("@xFederiko11 Screenshot PS5 GTA VI: la schermata del comando"
+               "\nhttps://xfederiko11.github.io/gta-6/guide-e-tutorial/"
+               " #GTA6Italia")
+        target="https://x.com/intent/tweet?"+urlencode({"text":draft})
+        anchor='<a data-visual-request-photo="2" href="'+target+'">Proponi foto</a>'
+        generic='<a data-visual-send-x href="'+target+'">Richiesta generale</a>'
+        self.assertEqual(classify(anchor),'x-screenshot-intent')
+        self.assertEqual(classify(generic),'x-screenshot-intent')
+        self.assertIn('data-umami-event="x-screenshot-intent"',annotate(anchor))
+        self.assertEqual(classify('<a data-visual-request-photo="2" href="https://x.com/intent/tweet?text=spam">Proponi foto</a>'),None)
+        self.assertEqual(classify('<a data-visual-request-photo="2" href="https://evil.test/intent/tweet?'+target.split("?",1)[1]+'">Proponi foto</a>'),None)
+        tagged=enhance('<html><head></head><body>'+anchor+'</body></html>',ID)
+        self.assertNotIn('photo-submitted',tagged)
+        self.assertNotIn('license-granted',tagged)
+        self.assertEqual(tagged.count('data-umami-event="x-screenshot-intent"'),1)
+
     def test_never_track_untrusted_hosts(self):
         for link in (
           'https://x.com.evil.test/intent/follow?screen_name=xFederiko11',

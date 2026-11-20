@@ -38,8 +38,17 @@ def audit(root=ROOT):
         article=text.split(marker,1)[1].split('</article><aside',1)[0]
         tags=MediaTags();tags.feed(article)
         keys=set()
+        screenshot_keys=set()
+        promotional_keys=set()
         for a in tags.real:
             key=a['data-visual-image']
+            kind=a.get('data-visual-kind')
+            if kind not in ('screenshot','promotional'):
+                broken.append({'page':page.relative_to(root).as_posix(),'image':key,'error':'unknown or missing visual provenance'})
+            elif kind=='screenshot':
+                screenshot_keys.add(key)
+            else:
+                promotional_keys.add(key)
             src=a.get('src','')
             url=urlsplit(src)
             rel=url.path.removeprefix('/gta-6/')
@@ -61,14 +70,19 @@ def audit(root=ROOT):
         missing=sorted({a.get('data-media-missing') for a in tags.missing if a.get('data-media-missing')})
         pages.append({'path':page.relative_to(root).as_posix(),
                       'unique_real_images':len(keys),'target':TARGET,
-                      'status':'target_met' if len(keys)>=TARGET else 'needs_more_verified_images',
+                      'real_step_screenshots':len(screenshot_keys),
+                      'promotional_images':len(promotional_keys),
+                      'status':'target_met' if len(screenshot_keys)>=TARGET else 'needs_more_verified_images',
                       'missing_sources':missing,'missing_count':len(missing)})
     if not pages: raise RuntimeError('No guide pages to check')
     report={'schema':'guide-media-quality-v1','target_unique_images':TARGET,
+            'target_unique_gameplay_screenshots':TARGET,
             'guides_checked':len(pages),'ready':sum(p['status']=='target_met' for p in pages),
             'below_target':sum(p['status']!='target_met' for p in pages),
+            'gameplay_screenshots_in_guide':sum(p['real_step_screenshots'] for p in pages),
+            'promotional_images_in_guide':sum(p['promotional_images'] for p in pages),
             'broken_local_references':broken,'pages':pages,
-            'editorial_policy':'Aim for five distinct, relevant, attributed images per guide (position, approach, action, result, confirmation). Never pad with duplicates or fabricated map locations. A missing source gets a working source link.'}
+            'editorial_policy':'Five DISTINCT local gameplay screenshots in each guide procedure are the target; promotional images, videos, external links and missing-media placeholders never count. Missing evidence remains editorial debt; do not invent screenshots, map pins or rewards.'}
     (root/'media-quality.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print('GUIDE_MEDIA_AUDIT',json.dumps({k:report[k] for k in ('guides_checked','ready','below_target')}),
           'invalid_references='+str(len(broken)))

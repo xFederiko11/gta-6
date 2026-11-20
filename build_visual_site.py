@@ -105,7 +105,9 @@ def image(key,*,eager=False):
     source_480=media_src(key,480)
     srcset=(f' srcset="{e(source_480)} 480w, {e(original)} 960w" '
             'sizes="(max-width: 600px) 92vw, (max-width: 900px) 48vw, 600px"') if source_480 else ''
-    return f'<img class="v-photo" data-visual-image="{e(key)}" src="{e(original)}"{srcset} alt="{e(record["alt"])}" width="960" height="540" decoding="async"{extra}>'
+    if record['kind'] not in {'screenshot','promotional'}:
+        raise ValueError('Unknown media provenance class')
+    return f'<img class="v-photo" data-visual-image="{e(key)}" data-visual-kind="{e(record["kind"])}" src="{e(original)}"{srcset} alt="{e(record["alt"])}" width="960" height="540" decoding="async"{extra}>'
 
 
 def figure(key):
@@ -123,10 +125,11 @@ def figure(key):
 
 
 def visual_contribution(g):
-    """Invite voluntary, original PS5 screenshots on X; no login on our site.
+    """Five clear requests for authentic PS5 evidence, never fake screenshots.
 
-    An X compose intent is NOT an upload, licensing agreement, published post,
-    delivered message or automated inbox. Manual editorial review is required.
+    Every suggested X post is an optional manual compose intent. Neither a
+    submitted image nor redistribution permission is inferred from opening it.
+    Hidden details protect location/mission spoilers in the requests.
     """
     requested=VISUAL_REQUESTS.get(g['id'])
     if not isinstance(requested,list) or len(requested)!=5:
@@ -136,27 +139,58 @@ def visual_contribution(g):
     path=g['canonical_path']
     if not re.fullmatch(r'(?:[a-z0-9-]+/)+',path):
         raise ValueError('Invalid contribution guide path')
+
+    # Only real, locally available step screenshots count towards the goal.
+    # Hero art and promotional imagery never establish a gameplay step.
+    screenshots={
+        key for key in g['step_media'].values()
+        if key in MEDIA and MEDIA[key]['kind']=='screenshot' and media_src(key)
+    }
+    count=len(screenshots)
     original='@xFederiko11 Ho uno screenshot PS5 originale utile a questa guida GTA VI: '+url(path)+' #GTA6Italia'
     target='https://x.com/intent/tweet?'+urlencode({'text':original})
-    list_items=''.join('<li>'+e(item)+'</li>' for item in requested)
+    if len(original)>280:
+        raise ValueError('Generic photo contribution exceeds X text limit')
+
+    photo_rows=[]
+    for index,role in enumerate(requested,1):
+        # The five editorial photo roles are not automatically assigned to
+        # numbered steps: a position shot is not proof of a later result.
+        message='@xFederiko11 Screenshot PS5 GTA VI: '+role+'\n'+url(path)+' #GTA6Italia'
+        if len(message)>280:
+            raise ValueError('Photo contribution exceeds X text limit')
+        link='https://x.com/intent/tweet?'+urlencode({'text':message})
+        photo_rows.append(
+            '<li class="v-visual-request-row">'
+            '<span class="v-visual-request-number" aria-hidden="true">'+str(index).zfill(2)+'</span>'
+            '<span class="v-visual-request-title">'+e(role)+'</span>'
+            '<a href="'+e(link)+'" target="_blank" rel="noopener noreferrer" '
+            'data-visual-request-photo="'+str(index)+'" '
+            'aria-label="Proponi su X uno screenshot per: '+e(role)+'">Proponi su X ↗</a>'
+            '</li>'
+        )
     return (
-        '<aside class="v-visual-help" data-visual-request-id="'+e(g['id'])+'" '
-        'aria-label="Contribuisci con immagini di gioco autentiche">'
+        '<aside id="contributi-foto" class="v-visual-help" '
+        'data-visual-request-id="'+e(g['id'])+'" '
+        'aria-label="Schermate di gameplay e contributi della community">'
         '<div class="v-visual-help-head"><div><span class="v-kicker">𝕏 COMMUNITY · SCHERMATE PS5</span>'
-        '<h2>Hai uno screenshot che chiarisce un passaggio?</h2>'
-        '<p>Ci interessano immagini reali di mappe, menu e risultati del gioco, '
-        'non foto promozionali. Nessun account GitHub necessario.</p></div>'
+        '<h2>Aiutaci a documentare ogni passaggio</h2>'
+        '<p class="v-visual-coverage" data-visual-screenshot-count="'+str(count)+'">'
+        '<strong>'+str(count)+'/5 screenshot</strong> di gameplay visibili '
+        'nella guida e nella galleria (obiettivo editoriale; promozioni escluse).</p>'
+        '<p>Fotografie autentiche di mappe, menu, azioni e risultati: mai mappe o '
+        'ricompense ricostruite. Nessun account GitHub necessario.</p></div>'
         '<a class="v-button secondary" href="'+e(target)+'" '
         'target="_blank" rel="noopener noreferrer" data-visual-send-x>'
         '𝕏 Proponi uno screenshot</a></div>'
-        '<details class="v-visual-request-details"><summary>Cinque esempi di immagini utili</summary>'
-        '<ol>'+list_items+'</ol>'
-        '<p>Premi Crea (Create) su PS5 per catturare la schermata e allegala '
-        '<strong>manualmente</strong> al post che aprirai su X. '
-        'Indica PS5/PS5 Pro, patch se conosciuta e segnala eventuali spoiler. '
-        'Condividi soltanto screenshot di cui possiedi i diritti; per ripubblicarli '
-        'ti chiederemo un permesso esplicito. Nessun invio o pubblicazione automatica.</p>'
-        '</details></aside>'
+        '<details class="v-visual-request-details"><summary>Quali cinque screenshot ci servono?</summary>'
+        '<ol class="v-visual-request-list">'+''.join(photo_rows)+'</ol>'
+        '<p>Premi Crea (Create) su PS5 e allega <strong>manualmente</strong> '
+        'l’immagine al post che aprirai su X. Indica PS5/PS5 Pro, patch se nota '
+        'e avvisa degli spoiler. Pubblica solo immagini che puoi condividere. '
+        'Per ripubblicarle sul sito ti chiederemo un permesso esplicito; '
+        'un tweet non concede automaticamente una licenza. Nessun invio '
+        'automatico né promessa di essere pubblicati.</p></details></aside>'
     )
 
 
@@ -385,13 +419,18 @@ def guide(g,guides):
         key=g['step_media'].get(n)
         if key:
             body+=figure(key); used.append(key)
+        if not key or key not in MEDIA or MEDIA[key]['kind']!='screenshot' or not media_src(key):
+            body+=('<p class="v-step-photo-gap" data-step-photo-status="missing">'
+                   '📸 Screenshot del passaggio non ancora disponibile. '
+                   '<a href="#contributi-foto">Vedi le richieste foto ↓</a></p>')
         checks=g.get('checks',[])
         if n<len(checks):
             body+=f'<p class="v-check"><strong>Controllo:</strong> {e(checks[n])}</p>'
         body+='</li>'
     body+='</ol>'
     if not g['step_media']:
-        body+='<div class="v-no-image">Non abbiamo ancora una schermata verificata per ogni passaggio di questa guida. I riferimenti disponibili restano nella fonte: non li sostituiamo con una mappa inventata.<br>'+f'<a href="{e(g["source_url"])}" target="_blank" rel="noopener noreferrer">Apri la guida di riferimento ↗</a></div>'
+        body+='<p class="v-no-image">Le schermate dei passaggi non sono ancora disponibili. '
+        body+=f'<a href="{e(g["source_url"])}" target="_blank" rel="noopener noreferrer">Apri la fonte originale ↗</a></p>'
     body+='</section>'
     if g['id']=='meditazione-capitolo-1':
         body+=render_meditation_tracker()
