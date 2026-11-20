@@ -53,7 +53,8 @@ jobs:
           node --check site/assets/visual-v2.js
           node --check site/assets/reader-theme.js
           node --check site/assets/community-social-v1.js
-          python -m unittest -q test_community_social_v1.py
+          python -m py_compile community_social_sync_v1.py test_x_permalink_site_v1.py
+          python -m unittest -q test_community_social_v1.py test_x_permalink_site_v1.py
       - name: Optimize curated screenshots for mobile
         run: |
           python -m pip install 'Pillow>=11,<13'
@@ -63,7 +64,7 @@ jobs:
       - name: Audit actual local media and five-image guide target
         run: python media_quality_v1.py
       - name: Validate actual production pages, media and canonical continuity
-        run: python -m unittest -q test_visual_site.py test_reader_experience.py test_media_quality_v1.py test_community_social_v1.py
+        run: python -m unittest -q test_visual_site.py test_reader_experience.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py
       - name: Check responsive theme, visible spoiler notices and zoom in a real browser
         # Full visual suite runs on PRs. Production uses its passing PR artifact,
         # fast static regressions and a fresh HTTP verification after deployment.

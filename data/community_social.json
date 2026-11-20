@@ -1,9 +1,6 @@
 {
-  "schema": "community-social-v1",
-  "generated_utc": null,
-  "issues": {},
-  "latest_comments": [],
+  "schema": "community-social-v2",
   "x_posts": [],
   "x_metrics_available": false,
-  "comment_provider": "GitHub Issues public comments with GitHub sign-in"
+  "comment_provider": "X/YouTube public conversations; no GitHub login required"
 }
