@@ -72,6 +72,14 @@ class SocialBridgeTests(unittest.TestCase):
             checked+=1
         print("PUBLIC_X_ARTICLE_PERMALINKS_RENDERED",checked)
 
+    def test_dynamic_verified_x_reply_preserves_analytics_event_classification(self):
+        script=Path("site/assets/community-social-v1.js").read_text(encoding="utf-8")
+        self.assertIn('primary.dataset.umamiEvent="x-reply-intent"',script)
+        self.assertIn('document.getElementById("growth-analytics-v1")',script)
+        self.assertIn('primary.href="https://x.com/intent/tweet?in_reply_to="',script)
+        self.assertNotIn('primary.dataset.umamiEvent="x-follow-intent"',script)
+        self.assertNotIn("createPost",script)
+
     def test_widget_has_exact_source_and_reader_can_reply(self):
         found=verified_permalinks(opener=lambda *args,**kw:FakeResponse(response(item())))
         with TemporaryDirectory() as tmp:
