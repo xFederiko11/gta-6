@@ -59,6 +59,21 @@
         }
       ],
       "spoiler": true
+    },
+    "prima-persona-glitch-ps5": {
+      "youtube_id": "CJi2DWXxsoQ",
+      "start_seconds": 0,
+      "title": "Dimostrazione originale: prima persona su PS5",
+      "creator": "oneboyler (procedura attribuita a Kackalack dalla community)",
+      "why": "Video originale indicato dai report contemporanei: dimostra l’effetto visivo su una versione di lancio. Non è una prova sulla compatibilità con il platino né sull’attuale versione della patch.",
+      "context_source": "https://www.dexerto.com/gta/gta-6-glitch-lets-players-access-first-person-mode-3430025/",
+      "chapters": [
+        {
+          "at": 0,
+          "label": "0:00 · demo originale e procedura"
+        }
+      ],
+      "spoiler": false
     }
   },
   "maps": {
