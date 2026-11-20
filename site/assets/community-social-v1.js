@@ -3,7 +3,6 @@
   "use strict";
   // Genuine Buffer sent-post links, no X API credentials in the browser.
   const BRIDGE="https://raw.githubusercontent.com/xFederiko11/federiko-gta-playstation-bot/main/data/x-permalinks-v1.json";
-  const SITE_BASE="https://xfederiko11.github.io/gta-6/";
   const cleanUrl=(value)=>{
     if(typeof value!=="string")return null;
     try{
@@ -15,12 +14,12 @@
     }catch(_){return null;}
   };
   const cleanX=(value)=>{
-    if(typeof value!=="string"||/[\\x00-\\x20]/.test(value))return null;
+    if(typeof value!=="string"||/[\x00-\x20]/.test(value))return null;
     try{
       const u=new URL(value);
       if(u.protocol!=="https:"||u.hostname!=="x.com"||
          u.search||u.hash||u.username||u.password)return null;
-      const m=u.pathname.match(/^\\/xFederiko11\\/status\\/([0-9]{8,25})\\/?$/i);
+      const m=u.pathname.match(/^\/xFederiko11\/status\/([0-9]{8,25})\/?$/i);
       return m ? "https://x.com/xFederiko11/status/"+m[1] : null;
     }catch(_){return null;}
   };
