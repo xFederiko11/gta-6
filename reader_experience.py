@@ -19,6 +19,9 @@ from growth_tracking_v1 import enhance, normalize_id
 ROOT = Path('_site')
 BASE = 'https://xfederiko11.github.io/gta-6/'
 VERSION = 'reader-adaptive-v2-20261120'
+# This public token is specifically for the https://xfederiko11.github.io/gta-6/ property.
+# It is intended to appear in the homepage HTML, never as an authentication secret.
+GSC_PUBLIC_VERIFICATION_TOKEN = 'U1WNfaHHGPHzojaeFvn_GGhVrWb5TYeDyUPgpmCX6Nw'
 ASSETS = ('reader-theme.css', 'reader-theme.js', 'community-social-v1.js')
 BOOT = '''<meta name="color-scheme" content="light dark">
 <style id="reader-first-paint">html{background:#fcf8fc;color-scheme:light}html[data-theme="dark"]{background:#0c0b13;color-scheme:dark}@media(max-width:760px){html[data-theme="auto"]{background:#0c0b13;color-scheme:dark}}body{background:inherit}</style>
@@ -172,7 +175,9 @@ def main():
             raise ValueError('Invalid article discussion path')
         discussable.add(path)
     count = 0
-    gsc_token = os.getenv('GSC_SITE_VERIFICATION', '')
+    gsc_token = GSC_PUBLIC_VERIFICATION_TOKEN
+    # A separately configured token may be supported by the generic helper,
+    # but the known verified property tag must never disappear during rebuilds.
     umami_website_id = os.getenv('UMAMI_WEBSITE_ID', '')
     gsc_verification_meta(gsc_token)  # Fail build for unsafe/mistyped tokens.
     normalize_id(umami_website_id)  # Validate before writing any HTML.
