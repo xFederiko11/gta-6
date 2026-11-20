@@ -189,15 +189,23 @@ class VisualSiteTests(unittest.TestCase):
                 self.assertIn(BASE+path,draft)
                 self.assertIn(item,draft)
                 self.assertLessEqual(len(draft),280)
+            article=text.split('<article class="v-guide-main">',1)[1].split('</article>',1)[0]
+            article_tags=Tags();article_tags.feed(article)
+            in_article={a['data-visual-image'] for t,a in article_tags.tags
+                        if t=='img' and a.get('data-visual-kind')=='screenshot'}
             procedure=text.split('<ol class="v-steps">',1)[1].split('</ol>',1)[0]
             step_tags=Tags();step_tags.feed(procedure)
-            real_screenshots={a['data-visual-image'] for t,a in step_tags.tags
-                              if t=='img' and a.get('data-visual-kind')=='screenshot'}
+            steps_shown={a['data-visual-image'] for t,a in step_tags.tags
+                         if t=='img' and a.get('data-visual-kind')=='screenshot'}
             marker=[a for t,a in tags.tags if t=='p' and 'data-visual-screenshot-count' in a]
             self.assertEqual(len(marker),1,path)
-            self.assertEqual(int(marker[0]['data-visual-screenshot-count']),len(real_screenshots),path)
+            self.assertEqual(int(marker[0]['data-visual-screenshot-count']),len(in_article),path)
             absent=sum(t=='p' and a.get('data-step-photo-status')=='missing' for t,a in step_tags.tags)
-            self.assertEqual(absent,len(g['steps'])-len(real_screenshots),path)
+            gallery_refs=sum(t=='p' and a.get('data-step-photo-status')=='gallery' for t,a in step_tags.tags)
+            self.assertEqual(absent+gallery_refs+len(steps_shown),len(g['steps']),path)
+            if gallery_refs:
+                self.assertIn('id="mappa"',article,path)
+                self.assertIn('href="#mappa"',procedure,path)
             self.assertIn('Crea (Create) su PS5',text)
             self.assertIn('ti chiederemo un permesso esplicito',text)
             self.assertNotIn('input type="file"',contents)
