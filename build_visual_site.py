@@ -196,7 +196,7 @@ def walkthrough_visuals(g):
             raise ValueError('Invalid YouTube timestamp')
         source=vid.get('context_source','')
         u=urlsplit(source)
-        if u.scheme!='https' or u.hostname not in ('trari.com','www.trari.com'):
+        if u.scheme!='https' or u.hostname not in ('trari.com','www.trari.com','www.dexerto.com'):
             raise ValueError('Unknown external video reference provenance')
         open_url='https://www.youtube.com/watch?v='+video_id+'&t='+str(start)+'s'
         out+=('<details class="v-video-reference"><summary>▶ '+e(vid['title'])+
@@ -347,6 +347,18 @@ def guide(g,guides):
                ' · <a href="https://www.reddit.com/r/GTA6/comments/1y0sv2n/something_you_should_know_about_the_end_of/" target="_blank" rel="noopener noreferrer">Discussione r/GTA6</a>. '
                'Fonti indipendenti, non test diretti del nostro team.</p>'
                '</details></aside>')
+    if g['id']=='prima-persona-glitch-ps5':
+        body+=('<aside class="v-glitch-status" role="note"><strong>🟡 Probabilmente funzionante su PS5 · 19–20 novembre 2026</strong>'
+               '<p>PC Gamer riferisce una prova indipendente sul lancio, '
+               'ma la <strong>patch esatta non è documentata</strong> e Rockstar potrebbe correggere il metodo. '
+               'È un cambio di visuale, non un glitch soldi o XP.</p>'
+               '<p><strong>⚠️ Trophy Status Uncertain.</strong> Non esistono prove specifiche '
+               'di compatibilità con i trofei: se punti al platino, non provarlo sul salvataggio principale. '
+               'È una tecnica single-player; fai un salvataggio manuale separato prima di iniziare.</p>'
+               '<p><a href="https://www.pcgamer.com/games/grand-theft-auto/gta-6-is-playable-in-first-person-heres-how-to-activate-it/" '
+               'target="_blank" rel="noopener noreferrer">Verifica indipendente PC Gamer ↗</a> '
+               '· <a href="https://www.reddit.com/r/GTA6/comments/1y15kfv/" target="_blank" '
+               'rel="noopener noreferrer">Segnalazione Reddit del 20 novembre ↗</a></p></aside>')
     benefit=g.get('benefit','')
     body+=f'<div class="v-answer"><strong>La cosa da sapere</strong><p>{e(benefit)}</p></div><div class="v-facts"><div class="v-fact"><strong>Prima di iniziare</strong><p>{e(g["requirements"])}</p></div><div class="v-fact"><strong>Dove andare</strong><p>{e(g["location"])}</p></div></div>'
     body+=walkthrough_visuals(g)
@@ -387,7 +399,7 @@ def guide(g,guides):
 
 def validate(guides):
     seen=set()
-    allowed={'powerpyx.com','www.powerpyx.com','insider-gaming.com','www.insider-gaming.com','www.pushsquare.com','www.gamesradar.com','www.gtabase.com','gtabase.com','gta.tech4gamers.com'}
+    allowed={'powerpyx.com','www.powerpyx.com','insider-gaming.com','www.insider-gaming.com','www.pushsquare.com','www.gamesradar.com','www.gtabase.com','gtabase.com','gta.tech4gamers.com','www.videogameschronicle.com','www.pcgamer.com','www.dexerto.com','www.reddit.com'}
     for g in guides:
         if g['id'] in seen or not re.fullmatch(r'[a-z0-9-]+',g['id']):
             raise ValueError('Duplicate or invalid guide id')
