@@ -200,3 +200,18 @@ La pagina [Privacy e visite](https://xfederiko11.github.io/gta-6/privacy/) spieg
 La homepage (e le pagine senza una fotografia specifica) ora dichiara `og:image` e `twitter:image` a un file PNG 1200 × 630 ospitato nel sito. Il file `assets/social-preview.png` è generato durante ogni build da `social_preview.py`, con **solo Python standard library**, e presenta una grafica originale pixel-style con nome GTA 6 Italia, PS5, trofei, guide e HDR OLED: nessuna immagine o logo Rockstar copiato, nessuna API di generazione, nessun account.
 
 Questo può migliorare le anteprime dei **nuovi** link condivisi su X e altri social; non dimostra che il riquadro grigio nel post fissato fosse dovuto a un errore Open Graph. I social possono conservare cache e miniature per ore o giorni, o bloccare alcuni URL: non è garantito l'aggiornamento dei post esistenti. La modifica non cambia il testo o la pubblicazione del post fissato su X.
+
+
+## Google Search Console: attivazione SEO senza tracker
+
+Il portale pubblica \`robots.txt\`, \`sitemap.xml\`, tag canonici e dati strutturati. Per misurare **impression e clic organici di Google** (non visite totali, clic sui pulsanti X o nuovi follower) è disponibile una verifica proprietà facoltativa via HTML meta tag. Non è abilitata finché il proprietario non fornisce il token.
+
+1. Aprire [Google Search Console](https://search.google.com/search-console/), aggiungere la proprietà **Prefisso URL** \`https://xfederiko11.github.io/gta-6/\` (non una proprietà Dominio di \`github.io\`).
+2. Selezionare la verifica **Tag HTML**; copiare **solo il valore del campo \`content\`**, senza i tag HTML. Non occorre fornire credenziali Google a GitHub o al bot.
+3. In GitHub → \`xFederiko11/gta-6\` → Settings → Secrets and variables → Actions → **Variables**, creare \`GSC_SITE_VERIFICATION\` con quel valore. Il token di verifica è pubblico per definizione; il codice lo valida e lo emette esclusivamente nel \`<head>\` della homepage.
+4. Eseguire il workflow Pages normale e visitare \`https://xfederiko11.github.io/gta-6/\`; verificare che il meta tag compaia nella sorgente pubblica. Solo allora premere **Verifica** in Search Console.
+5. Inviare la sitemap \`https://xfederiko11.github.io/gta-6/sitemap.xml\`. La presenza in sitemap non garantisce l'indicizzazione: controllare in Search Console l'effettiva copertura e le prestazioni.
+
+Se la variabile non esiste, **non viene aggiunto alcun tag o script** e il sito continua a funzionare come prima. Se il valore è malformato, la build fallisce per evitare iniezioni HTML. Non aggiungiamo Google Analytics, pixel di marketing, cookie o profilazione ai lettori.
+
+**Limite di misurazione:** il contatore di richieste al badge e i clic Search Console non provano né utenti unici, né CTR del pulsante Segui X, né follower acquisiti. Per un vero funnel \`pagina → click su X → follower\` servono almeno eventi di click raccolti con uno strumento autorizzato e statistiche dell'account X; il collegamento individuale non è ricavabile da questi dati aggregati. Cloudflare Web Analytics gratuito potrebbe misurare pagine e visitatori dopo configurazione esplicita, ma al novembre 2026 la sua Web Analytics non supporta custom events: da solo non risolverebbe il tracking del pulsante X.

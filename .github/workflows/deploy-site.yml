@@ -60,6 +60,8 @@ jobs:
           python -m pip install 'Pillow>=11,<13'
           python prepare_visual_media.py
       - name: Build visual production pages with responsive reader and sourced tips
+        env:
+          GSC_SITE_VERIFICATION: ${{ vars.GSC_SITE_VERIFICATION }}
         run: python reader_experience.py --build
       - name: Audit actual local media and five-image guide target
         run: python media_quality_v1.py
