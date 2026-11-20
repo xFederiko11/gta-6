@@ -28,6 +28,17 @@ Ogni immagine deve aiutare a riconoscere una posizione, un menu, un oggetto o un
 
 Il testo resta leggibile senza JavaScript e gli spoiler rimangono apribili con i controlli nativi. Le immagini sotto la prima schermata sono caricate in modo differito. Le mappe vanno raggruppate vicino alle istruzioni di posizione, con didascalie e apertura ingrandita; evitare duplicati decorativi.
 
+## Standard fotografico: cinque immagini contestuali quando disponibili
+
+L'obiettivo di qualita' e' **almeno cinque immagini uniche, pertinenti e verificabili per guida**, senza duplicati decorativi. L'ordine consigliato per un tutorial con posizione e' (1) mappa autentica del punto, (2) ingresso o riferimento in gioco, (3) azione/controllo o menu, (4) risultato o bottino, (5) conferma finale/salvataggio. Per le altre guide adattare il percorso visuale all'azione reale, senza inventare mappe o screenshot.
+
+- Annotare fonte precisa, credito, testo alternativo descrittivo, didascalia e classificazione spoiler per ogni immagine.
+- Le immagini promozionali non sostituiscono mappe o schermate di gameplay e non dimostrano un punto della mappa.
+- Pubblicare solo media locali ottimizzati che siano stati scaricati e verificati. Vietati hotlink remoti nei tutorial: se il download fallisce mostrare un messaggio con link alla fonte e non l'icona di immagine rotta.
+- Se meno di cinque immagini pertinenti sono disponibili o riutilizzabili appropriatamente, mantenere la guida utile con i riferimenti esistenti, segnalare la lacuna nel report e non creare contenuti fittizi.
+- La copertura effettiva e' verificata in _site/media-quality.json dal test media_quality_v1.py. Lo stato needs_more_verified_images genera un debito editoriale, non una certificazione di copertura.
+- Priorita' di ricerca e aggiornamento: soldi iniziali, posizioni precise sulle mappe, auto rare, registrazione e salvataggio veicoli.
+
 ## Consigli e curiosita'
 
 Inserire una nota solo quando aggiunge qualcosa rispetto ai passaggi principali. Tipi previsti: `tip` (consiglio utile), `avoid` (errore da evitare), `curiosity` (dettaglio interessante). Non aggiungere paragrafi riempitivi per avere una curiosita' in ogni pagina.
