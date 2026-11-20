@@ -26,6 +26,9 @@ def fixture(root: Path):
         f=root/path/"index.html"
         f.parent.mkdir(parents=True,exist_ok=True)
         f.write_text("<!doctype html><html><body>"+html+"</body></html>",encoding="utf-8")
+    hidden=root/"trofei/spoiler-temporaneo/index.html"
+    hidden.parent.mkdir(parents=True,exist_ok=True)
+    hidden.write_text('<!doctype html><html><head><meta name="robots" content="noindex, follow"></head><body>Riservato</body></html>',encoding="utf-8")
 
 
 class InternalLinkGraphTests(unittest.TestCase):
@@ -60,7 +63,23 @@ class InternalLinkGraphTests(unittest.TestCase):
             self.assertEqual(result["primary_hubs_clicks"][BASE+"guide-e-tutorial/"],1)
             self.assertEqual(result["distance_distribution"],{0:1,1:2,2:1})
             self.assertEqual(result["html_links_outside_sitemap"],1)
+            self.assertEqual(result["linked_noindex_pages"],1)
+            self.assertEqual(result["indexable_pages_omitted_from_sitemap"],0)
+            self.assertEqual(result["missing_link_target_files"],0)
             self.assertEqual(result["outside_sitemap_sample"][0]["target"], BASE+"trofei/spoiler-temporaneo/")
+
+    def test_distinguishes_deleted_and_unlisted_indexable_pages_from_noindex(self):
+        with TemporaryDirectory() as folder:
+            root=Path(folder);fixture(root)
+            hidden=root/"trofei/spoiler-temporaneo/index.html"
+            hidden.unlink()
+            missing=analyze(root)
+            self.assertEqual(missing["missing_link_target_files"],1)
+            self.assertEqual(missing["linked_noindex_pages"],0)
+            hidden.write_text('<html><head><meta name="robots" content="index,follow"></head></html>',encoding="utf-8")
+            orphaned=analyze(root)
+            self.assertEqual(orphaned["indexable_pages_omitted_from_sitemap"],1)
+            self.assertEqual(orphaned["missing_link_target_files"],0)
 
     def test_duplicate_sitemap_or_missing_html_fails_explicitly(self):
         with TemporaryDirectory() as folder:
