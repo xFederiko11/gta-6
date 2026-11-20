@@ -14,6 +14,7 @@ import re
 import shutil
 import sys
 from urllib.parse import urlsplit
+from growth_tracking_v1 import enhance, normalize_id
 
 ROOT = Path('_site')
 BASE = 'https://xfederiko11.github.io/gta-6/'
@@ -113,7 +114,7 @@ def gsc_verification_meta(token):
     return '<meta name="google-site-verification" content="'+token+'">'
 
 
-def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None):
+def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None, umami_website_id=None):
     if f'name="reader-version" content="{VERSION}"' in page:
         return page
     if entry:
@@ -131,7 +132,7 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
         page=page.replace('</main>',xpost_for(discussion_path)+widget(discussion_path, youtube_url=page)+'</main>',1)
     page = page.replace('</body>', DIALOG+f'<script src="{BASE}assets/reader-theme.js?v={version}" defer></script>'
                         +f'<script src="{BASE}assets/community-social-v1.js?v={version}" defer></script></body>', 1)
-    return page
+    return enhance(page, umami_website_id)
 
 
 def build_base():
@@ -139,7 +140,7 @@ def build_base():
     import build_visual_site as builder
     original_sources = builder.ORIGINAL_SOURCES
     builder.ORIGINAL_SOURCES = lambda path: original_sources(path) + (
-        'reader_experience.py','data/guide_extras.json',
+        'reader_experience.py','growth_tracking_v1.py','data/guide_extras.json',
         'site/assets/reader-theme.css','site/assets/reader-theme.js','site/assets/community-social-v1.js','community_social_v1.py','community_discovery_v2.py','data/community_social.json')
     original_enrich = builder.enrich
     def reviewed(records):
@@ -172,7 +173,9 @@ def main():
         discussable.add(path)
     count = 0
     gsc_token = os.getenv('GSC_SITE_VERIFICATION', '')
+    umami_website_id = os.getenv('UMAMI_WEBSITE_ID', '')
     gsc_verification_meta(gsc_token)  # Fail build for unsafe/mistyped tokens.
+    normalize_id(umami_website_id)  # Validate before writing any HTML.
     for path in ROOT.rglob('*.html'):
         relative = path.relative_to(ROOT).as_posix().removesuffix('index.html')
         page = path.read_text(encoding='utf-8')
@@ -180,7 +183,8 @@ def main():
         discussion_path=relative if (relative in discussable or is_trophy_article) else None
         path.write_text(transform(page, version=version, entry=data['guides'].get(relative),
                                   discussion_path=discussion_path,
-                                  gsc_token=gsc_token if relative=='' else None), encoding='utf-8')
+                                  gsc_token=gsc_token if relative=='' else None,
+                                  umami_website_id=umami_website_id), encoding='utf-8')
         count += 1
     for path in data['guides']:
         if not (ROOT/path/'index.html').is_file():

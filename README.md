@@ -215,3 +215,18 @@ Il portale pubblica `robots.txt`, `sitemap.xml`, tag canonici e dati strutturati
 Se la variabile non esiste, **non viene aggiunto alcun tag o script** e il sito continua a funzionare come prima. Se il valore è malformato, la build fallisce per evitare iniezioni HTML. Non aggiungiamo Google Analytics, pixel di marketing, cookie o profilazione ai lettori.
 
 **Limite di misurazione:** il contatore di richieste al badge e i clic Search Console non provano né utenti unici, né CTR del pulsante Segui X, né follower acquisiti. Per un vero funnel `pagina → click su X → follower` servono almeno eventi di click raccolti con uno strumento autorizzato e statistiche dell'account X; il collegamento individuale non è ricavabile da questi dati aggregati. Cloudflare Web Analytics gratuito potrebbe misurare pagine e visitatori dopo configurazione esplicita, ma al novembre 2026 la sua Web Analytics non supporta custom events: da solo non risolverebbe il tracking del pulsante X.
+
+
+## Funnel X: misurazione opzionale con Umami (senza API X)
+
+Il sito supporta **Umami Cloud Hobby**, senza richiedere servizi di analisi per funzionare. La pagina [Umami Pricing](https://umami.is/pricing) indica un piano gratuito per un sito fino a 100.000 eventi mensili, con conservazione limitata; **verificare il piano prima di collegare il servizio**. L'integrazione NON è attiva finché non viene impostata la variabile. Se manca, il codice di generazione non aggiunge script né attributi di analisi.
+
+1. Accedere a [Umami Cloud](https://cloud.umami.is/), scegliere il piano gratuito **Hobby** e creare un sito per `xfederiko11.github.io`.
+2. Aprire il sito appena creato nella dashboard Umami, leggere il proprio **Website ID** dal tracking code. È un UUID pubblico, non una password: non serve copiare lo script o incollare credenziali in GitHub.
+3. Nella repository `xFederiko11/gta-6` aprire **Settings → Secrets and variables → Actions → Variables → New repository variable**; nome esatto **`UMAMI_WEBSITE_ID`**, valore il Website ID. Il campo deve essere un UUID valido; niente URL o tag HTML.
+4. Eseguire il normale workflow **GTA 6 Italia - Website** oppure attendere il deploy automatico. La build in `main` aggiunge lo script ufficiale `https://cloud.umami.is/script.js` e il dominio autorizzato; le pull request non attivano l'analisi.
+5. Aprire la dashboard di Umami e confrontare le visite per pagina con gli eventi **`x-follow-intent`**, **`x-share-intent`**, **`x-reply-intent`**, **`x-post-open`**, **`x-profile-open`** e **`youtube-video-open`**. I link nativi X rimangono invariati; nessun redirect e nessun account GitHub richiesto ai visitatori.
+
+**KPI iniziale:** `clic Segui verso X / visualizzazioni pagina` (per pagina o insieme di pagine nello stesso intervallo). Non confonderlo con **nuovi follower**: l'account X può essere seguito o meno dopo il clic, e X non restituisce questa conferma a Umami. Tenere separati `click verso X`, `sessioni`, `visite profilo X` e `follower reali`. Per la conversione follower definitiva servono dati aggregati dell'account X provenienti da X Analytics o un'integrazione autorizzata, non stime dal badge.
+
+La funzione rispetta **Do Not Track** quando esposto dal browser, evita il caricamento durante le pull request e non aggiunge cookie, identificatori persistenti, dati PSN o eventi su azioni nel gioco. La pagina **Privacy e visite** riflette la configurazione: in assenza dell'ID spiega che non ci sono tracker; con ID valido descrive Umami e la raccolta aggregata. Verificare gli obblighi di informativa e consenso applicabili prima dell'attivazione. Per disattivare basta eliminare la variabile e ricostruire il sito.
