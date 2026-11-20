@@ -1,0 +1,115 @@
+{
+  "schema": "gta6-meditation-tracker-v1",
+  "checked_date": "2026-11-20",
+  "source": "https://www.powerpyx.com/gta-6-all-meditation-spot-locations/",
+  "corroboration": "https://www.pushsquare.com/guides/gta-6-meditation-locations",
+  "trophy_source": "https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/",
+  "total_locations": 10,
+  "total_meditations": 18,
+  "target_100": 15,
+  "not_confirmed": "Il requisito della meditazione nel Capitolo 1 per Positive Mental Attitude non è ancora confermato. Il contatore del sito non certifica automaticamente l’ottenimento dei trofei.",
+  "spots": [
+    {
+      "id": "jasons-house",
+      "name": "Jason’s House",
+      "region": "Mariana County",
+      "landmark": "Balcone della casa di Jason a Key Lento. Durante il Capitolo 1, Lucia propone la meditazione una mattina; seguila e scegli Accetta.",
+      "modes": [
+        "one"
+      ],
+      "phase": "chapter1",
+      "warning": "Mancabile nel Capitolo 1: possibile conseguenza sul trofeo ancora non risolta."
+    },
+    {
+      "id": "smooth-sand",
+      "name": "Smooth Sand",
+      "region": "Mariana County",
+      "landmark": "Piccola lingua di sabbia a ovest di Capri.",
+      "modes": [
+        "jason",
+        "lucia"
+      ]
+    },
+    {
+      "id": "swamp",
+      "name": "Swamp",
+      "region": "Kelly County",
+      "landmark": "Pontile di legno vicino alla torre di osservazione al centro di Buckskin Swamp.",
+      "modes": [
+        "jason",
+        "lucia"
+      ]
+    },
+    {
+      "id": "worn-stone",
+      "name": "Worn Stone",
+      "region": "Kelly County",
+      "landmark": "Sponda dell’Emerald River presso Camp Moonflower.",
+      "modes": [
+        "jason",
+        "lucia"
+      ]
+    },
+    {
+      "id": "red-rocks",
+      "name": "Red Rocks",
+      "region": "Kelly County",
+      "landmark": "Manifest Canyon, vicino all’incrocio fra binari ferroviari e strada principale.",
+      "modes": [
+        "jason",
+        "lucia"
+      ]
+    },
+    {
+      "id": "water-wheel",
+      "name": "Water Wheel",
+      "region": "Lummox County",
+      "landmark": "Vecchio mulino di carta in rovina con ruota idraulica lungo il fiume, a sud di Moreau.",
+      "modes": [
+        "jason",
+        "lucia"
+      ]
+    },
+    {
+      "id": "jutting-cliff",
+      "name": "Jutting Cliff",
+      "region": "Lummox County",
+      "landmark": "Torre panoramica sulla miniera nel Mount Kalaga National Park.",
+      "modes": [
+        "jason",
+        "lucia"
+      ]
+    },
+    {
+      "id": "waterfall",
+      "name": "Waterfall",
+      "region": "Lummox County",
+      "landmark": "Belvedere sopra una cascata, a nord-ovest di Tallaloko.",
+      "modes": [
+        "jason",
+        "lucia"
+      ]
+    },
+    {
+      "id": "seaside",
+      "name": "Seaside",
+      "region": "Leonard County",
+      "landmark": "Scogli sulla spiaggia a est di Waning Sands.",
+      "modes": [
+        "jason",
+        "lucia"
+      ]
+    },
+    {
+      "id": "ascent-mountain",
+      "name": "Ascent Mountain",
+      "region": "Lummox County",
+      "landmark": "Cerchio di pietre sulla vetta di Mount Kalaga. L’icona viola compare solo dopo il completamento delle meditazioni precedenti.",
+      "modes": [
+        "final"
+      ],
+      "phase": "final",
+      "warning": "Compare soltanto alla fine. Per il metodo della sessione conclusiva segui il prompt in gioco; il conteggio finale è di una meditazione."
+    }
+  ]
+}
