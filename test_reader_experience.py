@@ -26,6 +26,23 @@ class ReaderTests(unittest.TestCase):
         for bad in ('x', 'token\" onload=\"danger', '<script>alert(1)</script>', 'ä'*30):
             with self.assertRaises(ValueError):gsc_verification_meta(bad)
 
+    def test_google_search_console_file_and_meta_survive_static_generation(self):
+        from reader_experience import GSC_PUBLIC_VERIFICATION_TOKEN
+        token='U1WNfaHHGPHzojaeFvn_GGhVrWb5TYeDyUPgpmCX6Nw'
+        name='google232edbd3526a5a1d.html'
+        exact=b'google-site-verification: google232edbd3526a5a1d.html'
+        self.assertEqual(GSC_PUBLIC_VERIFICATION_TOKEN,token)
+        self.assertEqual((Path('site')/name).read_bytes(),exact)
+        homepage=(ROOT/'index.html').read_text(encoding='utf-8')
+        tag='<meta name="google-site-verification" content="'+token+'">'
+        self.assertEqual(homepage.count(tag),1)
+        self.assertIn('<link rel="canonical" href="'+BASE+'">',homepage)
+        self.assertNotIn('google-site-verification',(ROOT/'trofei/index.html').read_text(encoding='utf-8'))
+        workflow=Path('.github/workflows/deploy-site.yml').read_text(encoding='utf-8')
+        self.assertIn('GSC_VERIFICATION_FILE_INCLUDED',workflow)
+        self.assertIn('PUBLIC_GSC_VERIFICATION_FILE_OK',workflow)
+        self.assertIn('PUBLIC_GSC_META_TAG_OK',workflow)
+
     def test_all_pages_initialize_responsive_theme_before_stylesheets(self):
         for file in ROOT.rglob('*.html'):
             text=file.read_text(encoding='utf-8')
