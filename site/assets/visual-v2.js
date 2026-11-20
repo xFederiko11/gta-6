@@ -41,14 +41,31 @@
   });
   document.querySelectorAll('img[data-visual-image]').forEach(image => {
     function fallback() {
+      if (image.dataset.unavailable === 'true') return;
       image.dataset.unavailable = 'true';
-      image.alt = 'Immagine non disponibile. Le istruzioni e il collegamento alla fonte restano consultabili.';
+      const label = image.alt || 'Schermata della guida';
       const link = image.closest('a');
       if (link && link.dataset.imageSource) {
         link.href = link.dataset.imageSource;
+        link.setAttribute('aria-label', 'Apri la fonte originale: ' + label);
         const badge = link.querySelector('.v-image-label');
         if (badge) badge.textContent = 'Apri la fonte';
       }
+      const replacement = document.createElement('div');
+      replacement.className = 'v-missing-media';
+      replacement.setAttribute('role', 'img');
+      replacement.setAttribute('aria-label', 'Immagine non disponibile: ' + label);
+      replacement.dataset.mediaMissing = image.dataset.visualImage || 'unknown';
+      const symbol = document.createElement('span');
+      symbol.className = 'v-missing-icon';
+      symbol.setAttribute('aria-hidden', 'true');
+      symbol.textContent = '▧';
+      const heading = document.createElement('strong');
+      heading.textContent = 'Immagine non disponibile';
+      const help = document.createElement('small');
+      help.textContent = 'Consulta la fonte originale indicata nella guida.';
+      replacement.append(symbol, heading, help);
+      image.replaceWith(replacement);
     }
     image.addEventListener('error', fallback);
     if (image.complete && image.naturalWidth === 0) fallback();
