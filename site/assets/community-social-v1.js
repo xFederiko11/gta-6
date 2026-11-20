@@ -67,6 +67,11 @@
     if(primary){
       primary.href="https://x.com/intent/tweet?in_reply_to="+lead.x_url.split("/").pop();
       primary.textContent="💬 Rispondi al post su X";
+      // SSR fallback is an X contact intent. When a verified real post
+      // arrives, reclassify the same CTA: otherwise analytics silently
+      // misattributes genuine replies as contact-intent clicks.
+      if(document.getElementById("growth-analytics-v1"))
+        primary.dataset.umamiEvent="x-reply-intent";
     }
     const note=section.querySelector("[data-x-reply-note]");
     if(note)note.textContent="Post pubblicato e permalink X recuperato dalle ricevute Buffer. "
