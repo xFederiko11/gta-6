@@ -62,7 +62,7 @@ def render(write,layout,url,crumbs):
     # NOT used because the public feed provides no verified popularity data.
     ranked=sorted(rows,key=lambda item:(
         item["source"] not in {"GTA Series Videos","PowerPyx","GTABase"},
-        item.get("published_utc","")),reverse=False)
+        -datetime.fromisoformat(item["published_utc"].replace("Z","+00:00")).timestamp()))
     title="GTA VI: scoperte della community, X, Reddit e GTAForums"
     desc=("Scoperte GTA VI in italiano: X, Reddit, GTAForums, community Discord, "
           "guide e video con fonti, stato di verifica, commenti e discussioni.")
@@ -104,6 +104,7 @@ def render(write,layout,url,crumbs):
       '<p>Indica il luogo, la versione del gioco, i passaggi e — se esiste — '
       'un video o uno screenshot della scoperta. Non pubblicare dati personali.</p>'
       '</section>'
+      '<script src="'+url("assets/community-interactions.js")+'" defer></script>'
     )
     structured={"@context":"https://schema.org","@type":"CollectionPage",
                 "name":title,"description":desc,"url":url("scoperte/"),
