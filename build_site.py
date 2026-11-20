@@ -22,6 +22,7 @@ from community_page import render as render_community_page
 from related_research import for_guide as new_related_research, for_catalog as new_catalog_research
 from trophy_experience import ornament, related_trophies, shootist_content, SHOOTING_SOURCE, video_panel
 from social_preview import render as render_social_preview
+from guide_source_validation import validate_guide_source
 
 BASE = "https://xfederiko11.github.io/gta-6"
 OUT = Path(os.getenv("SITE_OUT", "_site"))
@@ -475,7 +476,8 @@ def main():
     assert len(guides)>=6 and len({g["id"] for g in guides})==len(guides)
     assert Counter(t["tier"] for t in trophies)==Counter({"Platino":1,"Oro":2,"Argento":6,"Bronzo":46})
     assert sum(t["hidden"] for t in trophies)==28
-    assert all(g["source_url"].startswith("https://www.powerpyx.com/") for g in guides)
+    if not all(validate_guide_source(g.get("source_url")) for g in guides):
+        raise ValueError("Unapproved or malformed guide source URL")
     OUT.mkdir(parents=True,exist_ok=True)
     shutil.copytree(SITE/"assets",OUT/"assets",dirs_exist_ok=True)
     render_social_preview(OUT/"assets"/"social-preview.png")

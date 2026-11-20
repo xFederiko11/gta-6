@@ -1,6 +1,7 @@
 """Offline validation of generated GTA 6 Pages. No scraping or API calls."""
 from __future__ import annotations
 import json
+from datetime import datetime, timezone
 import html
 import os
 from pathlib import Path
@@ -32,7 +33,8 @@ class PortalTests(unittest.TestCase):
 
     def test_content_counts_and_links(self):
         self.assertEqual(len(self.trophies),55)
-        self.assertEqual(len(self.guides),6)
+        self.assertGreaterEqual(len(self.guides),8)
+        self.assertEqual(len({g["id"] for g in self.guides}),len(self.guides))
         self.assertEqual(len(self.hdr["families"]),21)
         self.assertEqual(sum(len(f["models"]) for f in self.hdr["families"]),92)
         self.assertEqual(len(self.cheats),17)
@@ -149,7 +151,7 @@ class PortalTests(unittest.TestCase):
         raw=(self.out/"sitemap.xml").read_text(encoding="utf-8")
         root=ET.fromstring(raw)
         locs=[x.text for x in root.iter() if x.tag.endswith("loc")]
-        self.assertEqual(len(locs),7+27+6+1+len(self.hdr["families"])+1+len(self.cheats))
+        self.assertEqual(len(locs),7+(55 if datetime.now(timezone.utc)>=datetime(2026,11,21,tzinfo=timezone.utc) else 27)+len(self.guides)+1+len(self.hdr["families"])+1+len(self.cheats))
         self.assertEqual(len(locs),len(set(locs)))
         self.assertTrue(all(x.startswith("https://xfederiko11.github.io/gta-6/") for x in locs))
         self.assertTrue((self.out/"trofei"/"medaglie-oro"/"index.html").exists())
@@ -175,7 +177,7 @@ class PortalTests(unittest.TestCase):
         pages += [self.out/"privacy"/"index.html"]
         pages += [self.out/"trucchi"/"index.html"]
         pages += [self.out/"trucchi"/x["slug"]/"index.html" for x in self.cheats]
-        self.assertEqual(len(pages),7+55+6+1+len(self.hdr["families"])+1+len(self.cheats))
+        self.assertEqual(len(pages),7+55+len(self.guides)+1+len(self.hdr["families"])+1+len(self.cheats))
         for page in pages:
             markup=page.read_text(encoding="utf-8")
             self.assertIn('class="page-meta"',markup,str(page))
@@ -506,7 +508,7 @@ class PortalTests(unittest.TestCase):
     def test_no_external_paid_dependencies(self):
         self.assertFalse((self.out/"node_modules").exists())
         self.assertEqual(len(list((self.out/"trofei").glob("trofeo-*/index.html"))),55)
-        self.assertEqual(len(list((self.out/"guide-e-tutorial").glob("*/index.html"))),6)
+        self.assertEqual(len(list((self.out/"guide-e-tutorial").glob("*/index.html"))),len(self.guides))
 
 if __name__=="__main__":
     unittest.main()
