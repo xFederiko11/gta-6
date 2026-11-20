@@ -20,6 +20,19 @@ Dopo PR #62 (titoli 55 trofei, metadata 11 guide) e PR #63 (21 schede HDR OLED, 
 
 ---
 
+## Umami Cloud — attivazione 20 novembre 2026, ore 21:35 CET
+
+Il proprietario ha creato il sito **GTA VI Italia** in Umami Cloud (dominio `xfederiko11.github.io`) e consegnato il **Website ID pubblico** `ec3592c0-e9f7-4e13-8c29-f9c7d59aa8fd`. L'ID è un identificatore pubblico inseribile nell'HTML, **non** una chiave API e non richiede credenziali GitHub, OAuth o segreti.
+
+- Il workflow Pages carica automaticamente `https://cloud.umami.is/script.js` con `data-website-id` e `data-domains="xfederiko11.github.io"` **solo in produzione**. Le build delle Pull Request e i test grafici non caricano Umami e non dichiarano falsamente che il sistema di analytics sia attivo.
+- `growth_tracking_v1.py` aggiunge gli eventi `x-follow-intent`, `x-share-intent`, `x-reply-intent`, `x-profile-open`, `x-post-open`, `youtube-video-open` ai soli collegamenti autentici esistenti. Il pulsante che **carica su richiesta** il player YouTube genera `youtube-player-open`, non una visualizzazione video confermata. Nessuno script viene iniettato in pagine al di fuori della sottocartella `/gta-6/`.
+- La pagina `/privacy/` spiega il servizio esterno, la natura aggregata delle statistiche, il rispetto di Do Not Track quando disponibile e la differenza tra clic social e acquisizione effettiva di follower. Le checklist continuano ad essere esclusivamente locali e non vengono associate agli eventi.
+- I controlli GitHub post-deploy verificano **una sola** presenza dello script e dell'ID sulle pagine principali. L'assenza di eventi in dashboard **non** è una prova che lo script non funzioni: può dipendere da DNT, ad blocker o propagazione della pubblicazione.
+- Importante: il badge `hitscounter.dev` rimane un contatore di richieste, diverso dagli utenti e dalle sessioni di Umami; i due valori non vanno sommati. Non registrare dati personali, password PSN, identificatori dei visitatori o conversioni reali su X.
+- **Da verificare dopo il deploy:** un evento `x-follow-intent` e almeno una pageview nella dashboard Umami, eseguiti manualmente da un browser che consente l'analytics e senza DNT. Questo non dimostra nuovi follower o impression su X.
+
+---
+
 ## Storico — audit prima della verifica GSC
 
 

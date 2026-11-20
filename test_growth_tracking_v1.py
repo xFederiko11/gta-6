@@ -59,6 +59,27 @@ class GrowthTrackingTests(unittest.TestCase):
           'https://x.com/xFederiko11/status/2123741902625218841#hidden',
         ):
             self.assertIsNone(classify('<a href="'+link+'">test</a>'), link)
+    def test_real_owner_umami_id_is_public_not_secret_and_event_names_are_honest(self):
+        owner_id='ec3592c0-e9f7-4e13-8c29-f9c7d59aa8fd'
+        page=PAGE.replace('</body>','<button type="button" data-load-youtube>Riproduci</button></body>')
+        result=enhance(page,owner_id)
+        self.assertEqual(result.count('data-website-id="'+owner_id+'"'),1)
+        self.assertEqual(result.count('id="growth-analytics-v1"'),1)
+        self.assertEqual(result.count('data-umami-event="youtube-player-open"'),1)
+        self.assertIn('data-umami-event="x-follow-intent"',result)
+        self.assertEqual(enhance(result,owner_id),result)
+        self.assertEqual(enhance(page,None),page)
+        self.assertNotIn('data-umami-event="youtube-player-open"',enhance(page,None))
+        self.assertNotIn('followers-acquired',result)
+        self.assertNotIn('video-watched',result)
+
+    def test_workflow_tracks_only_production_builds(self):
+        from pathlib import Path
+        workflow=Path('.github/workflows/deploy-site.yml').read_text(encoding='utf-8')
+        self.assertIn("UMAMI_WEBSITE_ID: ${{ github.event_name != 'pull_request' && 'ec3592c0-e9f7-4e13-8c29-f9c7d59aa8fd' || '' }}",workflow)
+        self.assertIn('PUBLIC_GTA6_UMAMI_TAG_OK',workflow)
+        self.assertNotIn("UMAMI_WEBSITE_ID: ${{ vars.UMAMI_WEBSITE_ID }}",workflow)
+
     def test_missing_head_fails_closed_only_when_configured(self):
         self.assertEqual(enhance("<body>ok</body>", ""), "<body>ok</body>")
         with self.assertRaises(ValueError):
