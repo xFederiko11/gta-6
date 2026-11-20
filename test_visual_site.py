@@ -182,6 +182,55 @@ class VisualSiteTests(unittest.TestCase):
             self.assertNotIn('github.com/xFederiko11/gta-6/issues/',contents)
         self.assertNotIn('UMAMI_WEBSITE_ID',specs['note'])
 
+    def test_verified_gameplay_clips_and_maps_are_real_source_linked_and_click_to_load(self):
+        import html
+        catalog=json.loads(Path('data/guide_visual_refs.json').read_text(encoding='utf-8'))
+        self.assertEqual(catalog['schema'],'gta6-guide-video-evidence-v1')
+        expected={
+            'guide-e-tutorial/soldi-facili-capitolo-1/':('1GtrjKhSwzM',285,1),
+            'guide-e-tutorial/soldi-2500-three-sheets-liquor/':('1GtrjKhSwzM',455,1),
+            'salvare-auto/':('R0GdEkPZSvM',675,2),
+        }
+        for path,(video_id,start,map_count) in expected.items():
+            text,tags=parse(ROOT/path/'index.html')
+            self.assertIn('id="riferimenti-visivi"',text,path)
+            self.assertIn('data-youtube-id="'+video_id+'"',text,path)
+            self.assertIn('data-youtube-start="'+str(start)+'"',text,path)
+            self.assertIn('data-load-youtube',text,path)
+            self.assertIn('www.youtube.com/watch?v='+video_id+'&amp;t='+str(start)+'s',text,path)
+            self.assertEqual(sum(t=='div' and a.get('class')=='v-map-reference' for t,a in tags.tags),map_count,path)
+            self.assertEqual(sum(t=='details' and a.get('class')=='v-video-reference' for t,a in tags.tags),1,path)
+            self.assertNotIn('youtube-nocookie.com/embed/',text,path)
+            self.assertNotIn('<iframe',text,path)
+            self.assertIn('trari.com/en/story/',text,path)
+        money=(ROOT/'guide-e-tutorial/soldi-2500-three-sheets-liquor/index.html').read_text(encoding='utf-8')
+        self.assertIn('Three Sheets Liquor a Key Lento',money)
+        self.assertIn('feature=liquor-store',money)
+        self.assertIn('Get Shirley’s Rum',money)
+        self.assertIn('Steal the Scooter',money)
+        self.assertIn('mancabili, ma non richieste per il platino',money)
+        self.assertIn('gta-6-all-strangers-freaks-side-missions/',money)
+        car=(ROOT/'salvare-auto/index.html').read_text(encoding='utf-8')
+        self.assertIn('Watkins Auto Parts',car)
+        self.assertIn('Girl’s Trip',car)
+        self.assertIn('Slim Jim',car)
+        self.assertIn('Respray',car)
+        self.assertIn('Register',car)
+        self.assertIn('feature=garages',car)
+        self.assertIn('feature=vehicle-mod-shop',car)
+        self.assertIn('Prima registrazione',car)
+        self.assertEqual(car.count('class="v-step"'),7)
+        script=Path('site/assets/visual-v2.js').read_text(encoding='utf-8')
+        self.assertIn("document.querySelectorAll('[data-load-youtube]')",script)
+        self.assertIn("document.createElement('iframe')",script)
+        self.assertIn('https://www.youtube-nocookie.com/embed/',script)
+        self.assertIn("button.addEventListener('click'",script)
+        self.assertNotIn('fetch(',script)
+        report=json.loads((ROOT/'media-quality.json').read_text(encoding='utf-8'))
+        # Video/map references are never counted as real screenshot media.
+        self.assertEqual(report['guides_checked'],10)
+        self.assertEqual(report['ready']+report['below_target'],report['guides_checked'])
+
     def test_screenshots_have_real_provenance(self):
         manifest=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
         for key,item in manifest.items():

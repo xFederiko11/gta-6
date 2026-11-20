@@ -28,7 +28,7 @@ HERO = {
 STEP_MEDIA = {
     'soldi-2500-three-sheets-liquor': {0:'shirley-house',1:'liquor-store'},
     'soldi-facili-capitolo-1': {0:'liquor-store'},
-    'registrare-auto-personale': {0:'save-car',1:'register-car',3:'scooter-menu'},
+    'registrare-auto-personale': {0:'save-car',4:'register-car',6:'scooter-menu'},
     'viaggio-rapido-taxi': {0:'taxi-phone',1:'taxi-ride'},
 }
 HEADINGS = {
@@ -90,11 +90,17 @@ def enrich(records):
         if ident in {'soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor'}:
             g['extra_sources']=list(dict.fromkeys([*g.get('extra_sources',[]),
                 'https://www.gtabase.com/gta-6/articles/how-to-keep-your-money-safe-in-gta-6',
-                'https://gta.tech4gamers.com/gta-6/guides/money-end-of-chapter-1/']))
+                'https://gta.tech4gamers.com/gta-6/guides/money-end-of-chapter-1/',
+                'https://www.powerpyx.com/gta-6-all-strangers-freaks-side-missions/']))
         if ident=='registrare-auto-personale':
-            g['extra_sources']=['https://www.powerpyx.com/gta-6-how-to-get-new-personal-car/','https://www.gamesradar.com/games/grand-theft-auto/gta-6-personal-vehicles-how-to-register-switch-recover-car/']
-            g['requirements']='Registrazione sbloccata dalla storia, spazio libero per il veicolo e denaro per la tariffa mostrata. I mezzi con tracker richiedono ulteriori sblocchi.'
-            g['location']='Pay ’N’ Spray: cerca l’officina nell’indice della mappa, sezione Vehicles (Veicoli).'
-            g['checks']=['L’officina ha aperto il menu del veicolo.','Register e il prezzo sono visibili.','La registrazione è completata, non soltanto il parcheggio.','Il mezzo compare fra quelli richiamabili.']
+            # The current guide source already covers Moses in Chapter 2.
+            # Never overwrite its researched steps and checks with outdated
+            # all-Pay-n-Spray instructions from an earlier presentation layer.
+            g['extra_sources']=list(dict.fromkeys([*g.get('extra_sources',[]),
+                'https://www.powerpyx.com/gta-6-moses-take-a-vehicle-to-moses-walkthrough/',
+                'https://www.gtabase.com/gta-6/articles/how-to-unlock-garages-in-gta-6',
+                'https://www.gamesradar.com/games/grand-theft-auto/gta-6-personal-vehicles-how-to-register-switch-recover-car/']))
+            if len(g.get('steps',[]))<7 or len(g.get('checks',[]))!=len(g['steps']):
+                raise ValueError('Car registration steps/checks must include Moses Chapter 2 and later unlocks')
         result.append(g)
     return result

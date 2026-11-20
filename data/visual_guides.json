@@ -9,20 +9,35 @@
       "title": "Come salvare un'auto in GTA 6: registrazione e garage",
       "safe_title": "Come tenere un'auto e ritrovarla",
       "tag": "Garage",
-      "summary": "Rubare un'auto, parcheggiarla e registrarla non sono la stessa cosa. Ecco la procedura da seguire quando la storia sblocca la funzione.",
-      "requirements": "Funzione di registrazione sbloccata nel Capitolo 2, uno slot Stored Vehicle libero e denaro sufficiente per la tariffa mostrata.",
-      "location": "Un Pay 'N' Spray disponibile sulla tua mappa. Il parcheggio da solo e' un deposito temporaneo, non una registrazione.",
+      "summary": "Capitolo 2: sblocca Moses e registra gratuitamente la prima auto senza tracker. Poi scopri slot, Pay ’n’ Spray e richiamo dal telefono.",
+      "requirements": "Lucia, Capitolo 2: completa Girl’s Trip per sbloccare Moses a Port Gellhorn. Prima registrazione gratuita durante la missione. Auto senza tracker e uno slot disponibile.",
+      "location": "Watkins Auto Parts, Port Gellhorn, per la prima registrazione. I Pay ’n’ Spray diventano disponibili più avanti nella storia.",
       "steps": [
-        "Porta l'auto che vuoi conservare dentro un Pay 'N' Spray.",
-        "Seleziona Register (Registra). Controlla il costo: dipende dal veicolo.",
-        "Completa la registrazione solo se hai uno slot Stored Vehicle libero. Non sostituire un mezzo che vuoi tenere senza controllare la scelta.",
-        "Per richiamare un veicolo registrato, apri il telefono con la freccia su e usa Scooter Bros. Il servizio mostra una tariffa."
+        "Nel Capitolo 2 completa Girl’s Trip (Find Painkillers) e raggiungi Watkins Auto Parts a Port Gellhorn. Porta pure un’auto: Moses accetta inizialmente soltanto veicoli senza tracker.",
+        "Segui Moses nel cortile. Tieni premuto ↑ sul D-pad per aprire WAiNK e R1 inquadrando i tre veicoli: la schermata indica nessun tracker, tracker standard o avanzato.",
+        "Prendi lo Slim Jim accanto a Moses. Per aprire il veicolo di prova premi △ (Triangolo) e inclina la levetta destra fino alla zona evidenziata in rosa.",
+        "Scegli un’auto senza tracker. Se non ne hai una, cerca sulla strada principale di Port Gellhorn: Moses può rifiutare veicoli rubati troppo vicino all’officina.",
+        "Riporta il veicolo da Moses, cambia il colore con Respray (Rivernicia) e scegli Register (Registra). La prima registrazione durante la missione è gratuita.",
+        "Controlla che l’auto risulti personale e che ci sia spazio fra gli Stored Vehicles. Per registrazioni successive valuta uno slot acquistato o la sostituzione di un veicolo: non vendere distrattamente quelli speciali.",
+        "Dopo gli sblocchi della storia puoi richiamare i veicoli tramite Scooter Bros dal telefono. Più avanti nel Capitolo 3 trovi anche i Pay ’n’ Spray e strumenti per tracker più avanzati: non anticipare queste funzioni al Capitolo 2."
       ],
-      "checks": ["Sei dentro l'officina con l'auto scelta.", "Il menu mostra Register e il relativo prezzo.", "Il veicolo risulta registrato: non fermarti al solo parcheggio.", "Il mezzo e' selezionabile nel servizio, quando disponibile."],
-      "benefit": "Distingui la conservazione temporanea dal possesso del veicolo; evita di presumere che ogni auto guidata sia gia' tua.",
-      "caution": "Nel Capitolo 1 non puoi ancora registrare nuove auto personali. Le fonti non certificano glitch o veicoli speciali ottenuti fuori dalla progressione normale.",
+      "checks": [
+        "La missione Moses compare dopo Girl’s Trip; non confondere questa officina con i Pay ’n’ Spray che si sbloccano più tardi.",
+        "La WAiNK indica chiaramente il tipo di tracker. I veicoli senza tracker sono idonei alla prima registrazione.",
+        "Hai raccolto lo Slim Jim e completato l’azione di apertura senza allarme.",
+        "Il veicolo è idoneo e non risulta tracciato; Moses lo accetta.",
+        "Vedi Respray, poi Register. La prima auto risulta registrata a Lucia.",
+        "Verifica lo slot occupato e il veicolo personale, non soltanto il garage in cui l’hai parcheggiato.",
+        "L’auto è selezionabile in Scooter Bros quando il servizio è disponibile; evita promesse su opzioni non ancora sbloccate."
+      ],
+      "benefit": "Il primo possesso permanente si ottiene con Moses nel Capitolo 2; registrare un veicolo non significa parcheggiarlo. L’obiettivo del trofeo da dieci auto registrate va monitorato separatamente.",
+      "caution": "Non si possono registrare nuove auto nel Capitolo 1. Nel Capitolo 2 Moses accetta auto senza tracker; con tracker avanzati servono sblocchi successivi. Le scelte di vendita/sostituzione possono farti perdere un veicolo che volevi conservare. Nessun glitch o compatibilità trofei di exploit è certificato.",
       "source_url": "https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know",
-      "extra_sources": ["https://www.powerpyx.com/gta-6-just-a-scratch-fix-your-car-walkthrough/", "https://www.gamesradar.com/games/grand-theft-auto/gta-6-personal-vehicles-how-to-register-switch-recover-car/"],
+      "extra_sources": [
+        "https://www.powerpyx.com/gta-6-moses-take-a-vehicle-to-moses-walkthrough/",
+        "https://www.gtabase.com/gta-6/articles/how-to-unlock-garages-in-gta-6",
+        "https://www.gamesradar.com/games/grand-theft-auto/gta-6-personal-vehicles-how-to-register-switch-recover-car/"
+      ],
       "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_02.0c5.7qx17u9kl.jpg?akim=1&imdensity=1&imwidth=1280",
       "spoiler": false,
       "related_trophy": null
@@ -41,11 +56,18 @@
         "Usa WAiNK tenendo premuta la freccia su. La scansione o l'ingresso nel mezzo puo' mostrare l'avviso che il veicolo e' richiesto.",
         "Per la consegna, raggiungi il simbolo verde RK nella zona ovest di Vice City e limita i danni. Consegnare l'auto al compratore non equivale a conservarla nel tuo garage."
       ],
-      "checks": ["La lista e' disponibile nella mappa.", "Stai cercando nelle zone documentate, non su un punto inventato.", "Il gioco segnala che il veicolo e' richiesto.", "Scegli consapevolmente tra consegna e conservazione del mezzo."],
+      "checks": [
+        "La lista e' disponibile nella mappa.",
+        "Stai cercando nelle zone documentate, non su un punto inventato.",
+        "Il gioco segnala che il veicolo e' richiesto.",
+        "Scegli consapevolmente tra consegna e conservazione del mezzo."
+      ],
       "benefit": "Una ricerca piu' mirata, senza confondere le auto richieste con veicoli unici o garantiti.",
       "caution": "I punti segnalati possono cambiare con l'avanzamento della lista. Non indichiamo coordinate o modelli rari non documentati.",
       "source_url": "https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/",
-      "extra_sources": ["https://www.powerpyx.com/gta-6-money-guide-how-to-get-money-fast/"],
+      "extra_sources": [
+        "https://www.powerpyx.com/gta-6-money-guide-how-to-get-money-fast/"
+      ],
       "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_03.0nqz~lrqdmlze.jpg?akim=1&imdensity=1&imwidth=1280",
       "spoiler": true,
       "related_trophy": null

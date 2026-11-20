@@ -23,6 +23,7 @@ ORIGINAL_LAYOUT=legacy.layout
 ORIGINAL_SOURCES=site_info.sources_for
 MEDIA=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
 VISUAL_REQUESTS=json.loads(Path('data/visual_requests.json').read_text(encoding='utf-8'))['guides']
+VISUAL_EVIDENCE=json.loads(Path('data/guide_visual_refs.json').read_text(encoding='utf-8'))
 CACHE=Path('.visual-media/manifest.json')
 LOCAL_MEDIA=json.loads(CACHE.read_text(encoding='utf-8')) if CACHE.exists() else {}
 ASSET_VERSION=hashlib.sha256(b''.join(Path(p).read_bytes() for p in ('site/assets/visual-v2.css','site/assets/visual-v2.js'))).hexdigest()[:12]
@@ -158,6 +159,72 @@ def visual_contribution(g):
     )
 
 
+def walkthrough_visuals(g):
+    """Source-linked genuine gameplay clips and maps. Player loads only on click.
+
+    This section never claims that videos are verified by our own playback.
+    The verified timestamps and linked positions refer to independent sources.
+    Videos do not count toward five locally verified screenshots.
+    """
+    ident=g['id']
+    vid=VISUAL_EVIDENCE.get('guides',{}).get(ident)
+    maps=VISUAL_EVIDENCE.get('maps',{})
+    selected=[ident]
+    if ident=='registrare-auto-personale':
+        selected.append('salvare-auto-garages')
+    map_refs=[maps[key] for key in selected if key in maps]
+    if not vid and not map_refs:return ''
+    out='<section class="v-reference-hub" id="riferimenti-visivi"><span class="v-kicker">FONTI VISIVE</span><h2>Vedi il percorso nel gameplay</h2>'
+    out+='<p class="v-reference-intro">Solo video reali e mappe di terzi: nessuna posizione o schermata ricostruita artificialmente.</p>'
+    for mp in map_refs:
+        target=mp['url']
+        parsed=urlsplit(target)
+        if parsed.scheme!='https' or parsed.hostname!='www.gtabase.com' or parsed.username or parsed.password or parsed.port not in (None,443):
+            raise ValueError('Unverified map URL')
+        out+=('<div class="v-map-reference"><span aria-hidden="true">▤</span><div>'
+              '<strong>Mappa interattiva del luogo</strong>'
+              '<p>'+e(mp['caution'])+'</p>'
+              '<a href="'+e(target)+'" target="_blank" rel="noopener noreferrer">'
+              +e(mp['label'])+' ↗</a></div></div>')
+    if vid:
+        video_id=vid.get('youtube_id','')
+        start=vid.get('start_seconds')
+        if not isinstance(video_id,str) or not re.fullmatch(r'[A-Za-z0-9_-]{11}',video_id):
+            raise ValueError('Invalid YouTube video identifier')
+        if type(start) is not int or not 0<=start<=100000:
+            raise ValueError('Invalid YouTube timestamp')
+        source=vid.get('context_source','')
+        u=urlsplit(source)
+        if u.scheme!='https' or u.hostname not in ('trari.com','www.trari.com'):
+            raise ValueError('Unknown external video reference provenance')
+        open_url='https://www.youtube.com/watch?v='+video_id+'&t='+str(start)+'s'
+        out+=('<details class="v-video-reference"><summary>▶ '+e(vid['title'])+
+              ' (attenzione: filmato con possibili spoiler)</summary>'
+              '<div class="v-video-copy"><strong>Gameplay: '+e(vid['creator'])+'</strong>'
+              '<p>'+e(vid['why'])+'</p>'
+              '<div class="v-video-shell" data-youtube-id="'+e(video_id)+
+              '" data-youtube-start="'+str(start)+'">'
+              '<div class="v-video-embed" data-youtube-holder>'
+              '<span class="v-video-play-art" aria-hidden="true">▶</span>'
+              '<button type="button" data-load-youtube>▶ Riproduci video originale</button>'
+              '<small>Il player YouTube viene caricato solo dopo il clic.</small></div></div>'
+              '<div class="v-video-links"><a href="'+e(open_url)+'" target="_blank" rel="noopener noreferrer">Apri su YouTube dal punto utile ↗</a>')
+        chapters=vid.get('chapters',[])
+        if not isinstance(chapters,list) or len(chapters)>5:
+            raise ValueError('Invalid chapter reference set')
+        out+='<ul>'
+        for ch in chapters:
+            sec=ch.get('at')
+            if type(sec) is not int or not 0<=sec<=100000:
+                raise ValueError('Invalid chapter timestamp')
+            target='https://www.youtube.com/watch?v='+video_id+'&t='+str(sec)+'s'
+            out+='<li><a href="'+e(target)+'" target="_blank" rel="noopener noreferrer">'+e(ch['label'])+'</a></li>'
+        out+='</ul><a href="'+e(source)+'" target="_blank" rel="noopener noreferrer">Fonte della cronologia ↗</a></div>'
+        out+='<p class="v-ref-caveat">Il video è del creator indicato, non di Rockstar Games. Se l’embed è bloccato, usa il link YouTube originale. I minuti sono quelli indicati dalla fonte, non una verifica personale del filmato.</p>'
+        out+='</div></details>'
+    return out+'</section>'
+
+
 def reading_time(g):
     count=len((' '.join(g['steps'])+' '+g['summary']+' '+g.get('benefit','')+' '+g.get('caution','')).split())
     return max(1,round(count/180))
@@ -250,6 +317,13 @@ def guide(g,guides):
     body+='<section class="v-intro"><div>'+f'<span class="v-tag">{e(g["tag"])} · PS5</span><h1>{e(title)}</h1><p>{e(g["summary"])}</p><div class="v-read-meta"><span>{len(g["steps"])} passaggi</span><span>~{reading_time(g)} min di lettura</span><span>Fonti in fondo</span></div><a class="v-button" href="#procedura">Vai ai passaggi ↓</a></div><figure>'+image(g['hero_media'],eager=True)+f'<figcaption class="v-caption">{e(MEDIA[g["hero_media"]]["caption"])}</figcaption></figure></section>'
     body+='<div class="v-guide-layout"><article class="v-guide-main">'
     if g['id'] in {'soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor'}:
+        body+=('<aside class="v-missable-notice" role="note"><strong>🏆 Attività mancabili, ma non richieste per il platino.</strong>'
+               '<p>Gli incarichi Get Shirley’s Rum e Steal the Scooter sono esclusivi del Capitolo 1. '
+               'PowerPyx li indica come mancabili, ma non necessari per il 100% o per i trofei. '
+               'Falli prima del finale del capitolo se vuoi vedere tutto; '
+               'non serve ricominciare la partita soltanto per questi due incarichi.</p>'
+               '<a href="https://www.powerpyx.com/gta-6-all-strangers-freaks-side-missions/" '
+               'target="_blank" rel="noopener noreferrer">Verifica la lista PowerPyx ↗</a></aside>')
         body+=('<aside class="v-cash-safety" role="note"><strong>⚠️ Prima di farmare: una perdita possibile nel Capitolo 1.</strong>'
                '<details class="v-cash-details" id="avviso-capitolo-1">'
                '<summary>Mostra le precauzioni e il punto di non ritorno (spoiler leggero)</summary>'
@@ -274,6 +348,7 @@ def guide(g,guides):
                '</details></aside>')
     benefit=g.get('benefit','')
     body+=f'<div class="v-answer"><strong>La cosa da sapere</strong><p>{e(benefit)}</p></div><div class="v-facts"><div class="v-fact"><strong>Prima di iniziare</strong><p>{e(g["requirements"])}</p></div><div class="v-fact"><strong>Dove andare</strong><p>{e(g["location"])}</p></div></div>'
+    body+=walkthrough_visuals(g)
     body+='<section id="procedura">'+section_head('UNA COSA ALLA VOLTA','Il percorso, passo per passo')
     if g['spoiler']:
         body+='<div class="v-spoiler-warning" role="note"><strong>⚠️ Questa guida contiene spoiler.</strong> Continuando leggerai luoghi, obiettivi e ricompense.</div>'
@@ -328,7 +403,7 @@ def main():
     records+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
     guides=enrich(records)
     validate(guides)
-    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','site/assets/visual-v2.css','site/assets/visual-v2.js')
+    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','site/assets/visual-v2.css','site/assets/visual-v2.js')
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
     from community_discovery_v2 import render as community_render
