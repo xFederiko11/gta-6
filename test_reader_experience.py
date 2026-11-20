@@ -43,6 +43,34 @@ class ReaderTests(unittest.TestCase):
         self.assertIn('PUBLIC_GSC_VERIFICATION_FILE_OK',workflow)
         self.assertIn('PUBLIC_GSC_META_TAG_OK',workflow)
 
+    def test_umami_publication_is_site_wide_but_never_in_pull_request_preview(self):
+        import os
+        from growth_tracking_v1 import normalize_id
+        site_id=normalize_id(os.getenv('UMAMI_WEBSITE_ID',''))
+        urls=('index.html','trofei/index.html','guide-e-tutorial/index.html',
+              'hdr-oled/index.html','privacy/index.html',
+              'guide-e-tutorial/glitch-prima-persona-ps5/index.html')
+        for path in urls:
+            with self.subTest(page=path):
+                source=(ROOT/path).read_text(encoding='utf-8')
+                scripts=source.count('id="growth-analytics-v1"')
+                self.assertEqual(scripts,1 if site_id else 0)
+                if site_id:
+                    self.assertEqual(source.count('data-website-id="'+site_id+'"'),1)
+                    self.assertIn('data-domains="xfederiko11.github.io"',source)
+                    self.assertIn('data-do-not-track="true"',source)
+                else:
+                    self.assertNotIn('cloud.umami.is/script.js',source)
+                    self.assertNotIn('data-umami-event=',source)
+        privacy=(ROOT/'privacy/index.html').read_text(encoding='utf-8')
+        if site_id:
+            self.assertIn('Umami Cloud è attivo',privacy)
+            self.assertIn('Un clic per seguire',privacy)
+            guide=(ROOT/'guide-e-tutorial/glitch-prima-persona-ps5/index.html').read_text(encoding='utf-8')
+            self.assertIn('data-umami-event="youtube-player-open"',guide)
+        else:
+            self.assertNotIn('Umami Cloud è attivo',privacy)
+
     def test_all_pages_initialize_responsive_theme_before_stylesheets(self):
         for file in ROOT.rglob('*.html'):
             text=file.read_text(encoding='utf-8')
