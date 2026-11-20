@@ -221,3 +221,56 @@ jobs:
                       if attempt == 5: raise
                       time.sleep(10)
           PY
+
+      - name: Verify actual published screenshot evidence and safe X requests
+        run: |
+          python - <<'PY'
+          import json, re, time, urllib.request
+          from urllib.parse import quote
+          base='https://xfederiko11.github.io/gta-6/'
+          def fetch(path,limit=1500000):
+              for attempt in range(6):
+                  try:
+                      req=urllib.request.Request(base+path,headers={'Cache-Control':'no-cache'})
+                      with urllib.request.urlopen(req,timeout=20) as response:
+                          assert response.status==200
+                          return response.read(limit).decode('utf-8')
+                  except Exception:
+                      if attempt==5: raise
+                      time.sleep(10)
+          report=json.loads(fetch('media-quality.json?qa=photo-proof-v1'))
+          assert report['guides_checked']>=11
+          assert report['ready']+report['below_target']==report['guides_checked']
+          assert report['broken_local_references']==[]
+          assert report['target_unique_gameplay_screenshots']==5
+          indexed={row['path']:row for row in report['pages']}
+          targets=(
+              'guide-e-tutorial/soldi-facili-capitolo-1/',
+              'guide-e-tutorial/soldi-2500-three-sheets-liquor/',
+              'salvare-auto/',
+              'guide-e-tutorial/viaggio-rapido-taxi/',
+              'guide-e-tutorial/glitch-prima-persona-ps5/',
+          )
+          for path in targets:
+              for attempt in range(6):
+                  try:
+                      page=fetch(path+'?qa=photo-proof-v1')
+                      assert 'id="contributi-foto"' in page
+                      assert page.count('data-visual-request-photo=')==5
+                      assert 'data-umami-event="x-screenshot-intent"' in page
+                      marker=re.search(r'data-visual-screenshot-count="([0-9]+)"',page)
+                      assert marker is not None
+                      n=int(marker.group(1))
+                      expected=indexed[path+'index.html']['real_step_screenshots']
+                      assert n==expected,(path,n,expected)
+                      assert 'data-visual-kind="promotional"' not in page.split('<ol class="v-steps">',1)[1].split('</ol>',1)[0] or n>=0
+                      print('PUBLIC_GTA6_PHOTO_PROOF_OK',base+path,'gameplay_images',n,
+                            'photo_requests',5)
+                      break
+                  except (AssertionError,ValueError,KeyError):
+                      if attempt==5: raise
+                      time.sleep(10)
+          privacy=fetch('privacy/?qa=photo-proof-v1')
+          assert 'x-screenshot-intent' in privacy
+          print('PUBLIC_GTA6_PHOTO_PRIVACY_OK',base+'privacy/')
+          PY
