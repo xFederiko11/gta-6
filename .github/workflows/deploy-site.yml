@@ -64,9 +64,9 @@ jobs:
       - name: Build visual production pages with responsive reader and sourced tips
         env:
           GSC_SITE_VERIFICATION: ${{ vars.GSC_SITE_VERIFICATION }}
-          # Public Umami website UUID supplied by the owner. No secret/API token.
-          # reader_experience.py clears it for PR events BEFORE the site build.
-          UMAMI_WEBSITE_ID: ec3592c0-e9f7-4e13-8c29-f9c7d59aa8fd
+          # Public Umami UUID from the owner; NEVER track PR browser QA.
+          # Evaluated before the generator and privacy page run.
+          UMAMI_WEBSITE_ID: ${{ github.event_name != 'pull_request' && 'ec3592c0-e9f7-4e13-8c29-f9c7d59aa8fd' || '' }}
         run: python reader_experience.py --build
       - name: Audit actual local media and five-image guide target
         run: python media_quality_v1.py
