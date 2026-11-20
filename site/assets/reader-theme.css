@@ -76,3 +76,5 @@ html[data-theme=dark] :is(a,button,summary,input,select):focus-visible{outline-c
 .r-lightbox-viewport[data-zoom=true] img{width:200%;max-width:none}
 .r-lightbox p{font-size:.75rem;margin:12px 0 0;color:var(--r-muted)}
 @media(max-width:760px){.r-theme-control{flex-basis:100%;justify-content:space-between;padding-bottom:5px;border-bottom:1px solid var(--r-line)}.r-theme-control>span{font-size:.72rem}.r-gallery{grid-template-columns:1fr}.r-extra h2{font-size:1.25rem}.r-tip{padding:17px}.r-lightbox{padding:12px}.r-lightbox header strong{max-width:100%;font-size:.79rem}.r-lightbox-viewport{max-height:61dvh}}
+/* Preserve the complete brand and menu on narrow phones instead of clipping the page. */
+@media(max-width:360px){.v-header-inner{gap:8px}.v-header .v-brand{flex:1;min-width:0;gap:8px}.v-header .v-brand>span:last-child{min-width:0}.v-header .v-brand strong{font-size:.92rem}.v-header .v-brand small{font-size:.53rem;letter-spacing:.04em;white-space:normal}.v-menu{flex:none}.v-menu summary{padding-inline:9px}.v-footer .v-brand{gap:8px;max-width:100%}.v-footer .v-brand small{white-space:normal}}
