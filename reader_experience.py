@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Final idempotent reader pass. Run with --build for the production pipeline.
 
-Canonical URLs, H1s, structured data and native spoiler controls are retained.
+Canonical URLs, H1s and structured data remain; guide spoilers are visible after warning.
 No network calls, invented claims or credentials. Source timestamps use Git.
 """
 from __future__ import annotations
@@ -16,12 +16,12 @@ from urllib.parse import urlsplit
 
 ROOT = Path('_site')
 BASE = 'https://xfederiko11.github.io/gta-6/'
-VERSION = 'reader-dark-v1-20261120'
+VERSION = 'reader-adaptive-v2-20261120'
 ASSETS = ('reader-theme.css', 'reader-theme.js')
-BOOT = '''<meta name="color-scheme" content="dark light">
-<style id="reader-first-paint">html{background:#0c0b13;color-scheme:dark}html[data-theme="light"]{background:#fcf8fc;color-scheme:light}body{background:inherit}</style>
-<script id="reader-theme-boot">(function(){var t='dark';try{if(localStorage.getItem('gta6-theme-v1')==='light')t='light';}catch(e){}document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;})();</script>'''
-CONTROLS = '''<div class="r-theme-control"><span>Aspetto</span><div class="v-switch" role="group" aria-label="Scegli tema scuro o chiaro"><button type="button" data-theme-choice="dark" aria-pressed="true">Scuro</button><button type="button" data-theme-choice="light" aria-pressed="false">Chiaro</button></div></div>'''
+BOOT = '''<meta name="color-scheme" content="light dark">
+<style id="reader-first-paint">html{background:#fcf8fc;color-scheme:light}html[data-theme="dark"]{background:#0c0b13;color-scheme:dark}@media(max-width:760px){html[data-theme="auto"]{background:#0c0b13;color-scheme:dark}}body{background:inherit}</style>
+<script id="reader-theme-boot">(function(){var t=matchMedia('(max-width:760px)').matches?'dark':'light';try{var v=localStorage.getItem('gta6-theme-v1');if(v==='light'||v==='dark')t=v;}catch(e){}document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;})();</script>'''
+CONTROLS = '''<div class="r-theme-control"><span>Aspetto</span><div class="v-switch" role="group" aria-label="Scegli tema scuro o chiaro"><button type="button" data-theme-choice="dark" aria-pressed="false">Scuro</button><button type="button" data-theme-choice="light" aria-pressed="false">Chiaro</button></div></div>'''
 DIALOG = '''<dialog class="r-lightbox" data-image-dialog aria-labelledby="reader-image-title"><header><strong id="reader-image-title" data-image-title>Immagine della guida</strong><div class="r-lightbox-tools"><button type="button" data-image-zoom aria-pressed="false">Zoom 2x</button><button type="button" data-image-close autofocus>Chiudi</button></div></header><div class="r-lightbox-viewport" data-image-viewport data-zoom="false"><img alt="" width="960" height="540"></div><p><a data-image-credit target="_blank" rel="noopener noreferrer">Fonte originale</a> &middot; Colori originali, nessuna mappa ridisegnata. Premi Esc per chiudere.</p></dialog>'''
 LABELS = {'tip':'Consiglio utile', 'avoid':'Da evitare', 'curiosity':'Curiosità'}
 HOSTS = {'www.powerpyx.com','powerpyx.com','insider-gaming.com','www.pushsquare.com','www.gamesradar.com'}
@@ -77,30 +77,31 @@ def render_extras(entry):
 
 
 def augment_guide(page, entry):
-    gallery, tips, refs = render_extras(entry)
+    """Place maps and sourced advice directly in the readable article flow."""
+    gallery,tips,refs = render_extras(entry)
     source_marker = '<section class="v-sources" id="fonti">'
     if source_marker not in page:
         raise ValueError('Guide source section missing')
-    if entry['spoiler']:
-        marker = '<div class="v-spoiler-body">'
-        if page.count(marker) != 1:
-            raise ValueError('Expected exactly one existing native spoiler panel')
-        keys = {item['key'] for item in entry.get('gallery', [])}
-        page = re.sub(r'<figure>.*?</figure>', lambda match: '' if any(f'data-visual-image="{key}"' in match[0] for key in keys) else match[0], page, flags=re.S)
-        page = page.replace(marker, marker+gallery, 1)
-        closing = '</div></details></section>'
-        if closing not in page:
-            raise ValueError('Missing spoiler closing boundary')
-        page = page.replace(closing, tips+closing, 1)
-    else:
-        page = page.replace(source_marker, gallery+tips+source_marker, 1)
-    page = page.replace('<h2>Fonti, immagini e verifica</h2>', '<h2>Fonti, immagini e verifica</h2>'+refs, 1)
-    warning = ' (spoiler)' if entry['spoiler'] else ''
-    page = page.replace('<a href="#fonti">Fonti e immagini</a>', '<a href="#consigli" data-reader-anchor>Consigli e curiosità'+warning+'</a><a href="#fonti">Fonti e immagini</a>', 1)
+    keys = {item['key'] for item in entry.get('gallery', [])}
+    # Avoid duplicate screenshot galleries; retain the original source credits.
+    if keys:
+        page = re.sub(r'<figure>.*?</figure>',
+                      lambda match: '' if any(f'data-visual-image="{key}"' in match[0] for key in keys) else match[0],
+                      page, flags=re.S)
     if gallery:
-        page = page.replace('<a href="#procedura">Il percorso passo per passo</a>', '<a href="#procedura">Il percorso passo per passo</a><a href="#mappa" data-reader-anchor>Mappa e immagini'+warning+'</a>', 1)
+        before_steps='<ol class="v-steps">'
+        if before_steps not in page:
+            raise ValueError('Guide steps missing')
+        page=page.replace(before_steps,gallery+before_steps,1)
+    page=page.replace(source_marker,tips+source_marker,1)
+    page=page.replace('<h2>Fonti, immagini e verifica</h2>',
+                      '<h2>Fonti, immagini e verifica</h2>'+refs,1)
+    page=page.replace('<a href="#fonti">Fonti e immagini</a>',
+                      '<a href="#consigli" data-reader-anchor>Consigli e curiosità</a><a href="#fonti">Fonti e immagini</a>',1)
+    if gallery:
+        page=page.replace('<a href="#procedura">Il percorso passo per passo</a>',
+                          '<a href="#procedura">Il percorso passo per passo</a><a href="#mappa" data-reader-anchor>Mappa e immagini</a>',1)
     return page
-
 
 def transform(page, *, version, entry=None):
     if f'name="reader-version" content="{VERSION}"' in page:
@@ -108,8 +109,8 @@ def transform(page, *, version, entry=None):
     if entry:
         page = augment_guide(page, entry)
     page = re.sub(r'<meta name="color-scheme"[^>]*>', '', page)
-    page = re.sub(r'<meta name="theme-color"[^>]*>', '<meta name="theme-color" content="#0c0b13">', page)
-    page = page.replace('<html lang="it">', '<html lang="it" data-theme="dark">', 1)
+    page = re.sub(r'<meta name="theme-color"[^>]*>', '<meta name="theme-color" content="#fcf8fc">', page)
+    page = page.replace('<html lang="it">', '<html lang="it" data-theme="auto">', 1)
     page = page.replace('<head>', '<head>'+BOOT, 1)
     page = page.replace('</head>', f'<meta name="reader-version" content="{VERSION}"><link rel="stylesheet" href="{BASE}assets/reader-theme.css?v={version}"></head>', 1)
     page = page.replace('<div class="wrap v-spoiler-inner">', '<div class="wrap v-spoiler-inner">'+CONTROLS, 1)
@@ -155,7 +156,7 @@ def main():
             raise ValueError('Extras point to a missing guide')
     release_path = ROOT/'design-version.json'
     release = json.loads(release_path.read_text(encoding='utf-8'))
-    release.update(reader_version=VERSION, default_theme='dark', reader_asset_version=version,
+    release.update(reader_version=VERSION, default_theme='mobile-dark-desktop-light', reader_asset_version=version,
                    guides_with_extras=len(data['guides']), tip_count=sum(len(x['tips']) for x in data['guides'].values()))
     release_path.write_text(json.dumps(release,indent=2)+'\n', encoding='utf-8')
     print('READER_EXPERIENCE_OK',count,'pages',release['guides_with_extras'],'guides',release['tip_count'],'tips')
