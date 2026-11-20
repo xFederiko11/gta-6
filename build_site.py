@@ -391,7 +391,7 @@ def guide_detail(g, tro):
         '<article class="prose guide-prose">'
         '<div class="guide-answer"><span class="eyebrow">⚡ RISPOSTA RAPIDA</span>'
         f'<p>{e(g["benefit"])}</p></div>'
-        +photo+
+        +photo
         + ('<details class="source-details"><summary>⚠️ Spoiler: vuoi visualizzare luoghi e procedura?</summary><p>Le istruzioni rivelano posizioni ed eventi iniziali.</p>' if spoiler_guard else '')
         + f'<section id="passaggi" class="guide-steps" data-guide-steps="{e(g["id"])}" data-guide-version="{step_revision}">'
         f'<div class="guide-steps-header"><span class="eyebrow">CHECKLIST PERSONALE</span>'
