@@ -103,7 +103,9 @@ class VisualSiteTests(unittest.TestCase):
         self.assertIn('X, Reddit, GTAForums e Discord',page)
         self.assertIn('https://www.reddit.com/r/GTA6/new/',page)
         self.assertIn('https://gtaforums.com/',page)
-        self.assertIn('data-discussion-path="scoperte/"',page)
+        self.assertTrue('data-discussion-path="scoperte/"' in page or
+                        'data-discussion-issue=' in page,
+                        'Community discussion must show a real issue or a safe placeholder')
         self.assertIn('Attenzione spoiler',page)
 
     def test_home_and_articles_have_social_discussion_and_x_content(self):
