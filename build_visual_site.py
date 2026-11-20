@@ -13,6 +13,7 @@ import xml.etree.ElementTree as ET
 import build_site as legacy
 import site_info
 from visual_guide_content import enrich
+from community_social_v1 import home_rail
 
 e=legacy.e
 url=legacy.url
@@ -154,6 +155,7 @@ def home(guides):
     body+='<section class="v-section v-promo">'+image('scooter-menu')+'<div><span class="eyebrow">NON PERDERE IL MEZZO CHE HAI SCELTO</span><h2>Prima di scendere,<br>pensa a come ritrovarlo.</h2><p>La guida distingue un’auto lasciata in parcheggio da un veicolo registrato. Segui i passaggi e controlla la conferma nel gioco.</p>'+f'<a class="v-button" href="{url("salvare-auto/")}">Apri la guida al garage →</a></div></section>'
     remaining=[by[k] for k in ('scansionare-veicoli','viaggio-rapido-taxi','70-sfide-100-percento')]
     body+='<section class="v-section">'+section_head('PICCOLE AZIONI, MENO TEMPO PERSO','Continua con le guide pratiche')+'<div class="v-grid">'+''.join(card(g) for g in remaining)+'</div></section>'
+    body+=home_rail()
     body+='<section class="v-section">'+section_head('ANCHE NEL SITO','Platino e immagine, senza confusione')+'<div class="v-links">'+f'<a class="v-button secondary" href="{url("trofei/")}">Checklist trofei</a><a class="v-button secondary" href="{url("hdr-oled/")}">Trova la tua TV OLED</a><a class="v-button secondary" href="{url("scoperte/")}">Scoperte della community</a></div></section>'
     return body
 
@@ -252,6 +254,8 @@ def main():
     site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','site/assets/visual-v2.css','site/assets/visual-v2.js')
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
+    from community_discovery_v2 import render as community_render
+    legacy.render_community_page=community_render
     legacy.main()
     title='GTA 6 Italia: soldi facili, auto speciali e guide PS5'
     desc='Guide GTA VI in italiano: soldi facili, auto speciali, garage, trofei e HDR OLED. Passaggi chiari, immagini attribuite e avviso spoiler.'

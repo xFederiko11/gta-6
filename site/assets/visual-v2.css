@@ -92,3 +92,67 @@ html{scroll-padding-top:100px}body{background:#fcf8fc;color:#201735;font:17px/1.
  .v-x-link{width:36px;min-width:36px;padding:5px}
  .v-menu summary{padding-inline:8px}
 }
+
+/* GTA VI community v2: social-first discovery and readable source cards. */
+.community-new-intro{margin:18px 0 25px;padding:24px 0 18px}
+.community-new-intro h1{font-size:clamp(2.1rem,4vw,3.5rem);margin:9px 0 14px;line-height:1.12}
+.community-new-intro p{max-width:75ch}
+.community-new-intro .v-button{margin:4px 8px 4px 0}
+.community-discussions-feature{margin:18px 0 34px;background:linear-gradient(110deg,#1c1833,#302044);padding:24px;border-radius:16px;color:#fcebf7}
+.community-discussions-feature h2{color:#fff;margin:8px 0 17px}
+.community-discovery-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.community-discovery-source{display:flex;flex-direction:column;gap:7px;min-width:0;background:#fff1fc17;border:1px solid #ffffff45;border-radius:12px;padding:15px;color:#fff!important;text-decoration:none}
+.community-discovery-source>span{font-size:1.6rem;line-height:1.1}
+.community-discovery-source strong{font-size:.96rem;line-height:1.25;color:#fff}
+.community-discovery-source small{font-size:.75rem;line-height:1.45;color:#e7d7ef;flex:1}
+.community-discovery-source em{font-size:.77rem;font-weight:800;color:#ffa8dd;font-style:normal}
+.community-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.community-card{min-width:0;overflow:hidden;border-radius:13px}
+.community-card-art,.community-video-slot{height:155px;min-height:0}
+.community-card-art{display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;background:linear-gradient(135deg,#153a4c,#302044);color:#e1fff6}
+.community-card-art>span{font-size:2.4rem}
+.community-card-art small{font-size:.68rem;letter-spacing:.08em}
+.community-video-slot{position:relative;overflow:hidden;background:#1a233d}
+.community-video-slot img{display:block;object-fit:cover;width:100%;height:100%}
+.community-video-play{position:absolute;inset:auto 13px 13px auto;background:#ed3574;color:white;border:0;border-radius:8px;min-height:38px;padding:7px 12px;font-size:.78rem;font-weight:800;cursor:pointer}
+.community-video-frame{width:100%;height:100%;border:0}
+.community-card-copy{padding:15px 17px}
+.community-card-copy h3{font-size:1.08rem;line-height:1.35}
+.community-card-label{display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap;font-size:.66rem;line-height:1.4}
+.community-verification{font-size:.75rem;line-height:1.45}
+.community-card-link{font-size:.79rem;font-weight:800}
+.community-card p.micro{font-size:.73rem}
+.social-discussion,.social-x-excerpt,.social-home-rail{margin:30px 0 42px;padding:24px;border:1px solid var(--r-line,#ded5e6);background:var(--r-surface,#fff);border-radius:15px;color:var(--r-text,#211735);scroll-margin-top:100px}
+.social-discussion-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px}
+.social-discussion-head h2{font-size:1.48rem;line-height:1.2;margin:9px 0}
+.social-discussion-head p{font-size:.86rem;color:var(--r-muted,#655572)}
+.social-count{flex:none;font-weight:800;font-size:.73rem;color:#8c2a70;background:#f6e6f0;padding:6px 9px;border-radius:15px}
+.social-discussion-cta{display:flex;flex-wrap:wrap;gap:9px;margin:15px 0}
+.social-disclosure{font-size:.76rem;line-height:1.55;color:var(--r-muted,#655572)}
+.social-comment-list{display:grid;gap:9px}
+.social-comment{border:1px solid var(--r-line,#ddcedc);border-radius:10px;padding:12px;background:var(--r-soft,#fbf6fa)}
+.social-comment-meta,.social-comment-footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.75rem}
+.social-comment-body{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.85rem;line-height:1.55;margin:9px 0;color:var(--r-text,#211735)}
+.social-comment-footer a{font-weight:700}
+.social-x-excerpt blockquote{border-left:3px solid #c72d80;margin:17px 0;padding:12px 17px;background:var(--r-soft,#f6edf5);color:var(--r-text,#211735);white-space:pre-wrap;font-size:.92rem}
+.social-x-excerpt>p,.social-home-x p{font-size:.8rem;color:var(--r-muted,#655572)}
+.social-home-rail{padding:24px}
+.social-home-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.social-comment-card{background:var(--r-soft,#f9f1f7);border:1px solid var(--r-line,#d8cde2);border-radius:10px;padding:15px;min-width:0}
+.social-comment-card>span{font-weight:800;font-size:.77rem;color:#ac3b7d}
+.social-comment-card p{font-size:.86rem;line-height:1.45;margin:8px 0;overflow-wrap:anywhere;color:var(--r-text,#211735)}
+.social-comment-card>a{font-size:.8rem;font-weight:800}
+.social-home-x{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:18px;padding-top:17px;border-top:1px solid var(--r-line,#d8cde2)}
+.social-home-x>div:first-child{flex:1 1 280px}
+.social-home-x>div:first-child strong{display:block;font-size:1rem}
+.social-home-x>div:first-child p{margin:7px 0 0}
+.social-home-x [data-x-timeline-slot]{flex-basis:100%;max-width:100%;overflow:hidden}
+.social-x-latest h3{font-size:1.1rem;margin:18px 0}
+.social-empty{padding:12px;font-size:.84rem;color:var(--r-muted,#655572)}
+html[data-theme=dark] .community-card{background:#17141f;border-color:#3b2d49;color:#f0e8f6}
+html[data-theme=dark] .community-card-copy h3,html[data-theme=dark] .community-card-copy p{color:#f0e8f6}
+html[data-theme=dark] .community-card-copy .micro,html[data-theme=dark] .community-verification{color:#c0aecb}
+html[data-theme=dark] .social-count{background:#30233d;color:#ffb0dc}
+html[data-theme=dark] .social-comment-card>span{color:#ff9bcd}
+@media(max-width:950px){.community-discovery-links{grid-template-columns:repeat(2,minmax(0,1fr))}.community-grid,.social-home-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.community-discovery-links{grid-template-columns:1fr 1fr;gap:8px}.community-discovery-source{padding:11px}.community-discovery-source strong{font-size:.83rem}.community-discovery-source small{font-size:.68rem}.community-grid,.social-home-grid{grid-template-columns:1fr}.community-discussions-feature,.social-home-rail,.social-discussion,.social-x-excerpt{padding:17px;margin:19px 0 26px}.community-card-art,.community-video-slot{height:175px}.social-discussion-head{flex-direction:column}.social-count{align-self:flex-start}.social-home-x{align-items:stretch}.social-home-x .v-button{min-height:36px}}

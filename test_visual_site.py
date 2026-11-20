@@ -96,6 +96,28 @@ class VisualSiteTests(unittest.TestCase):
         html=(ROOT/'index.html').read_text()
         self.assertLess(html.index('class="v-categories"'),html.index('class="v-hero"'))
 
+    def test_discovery_page_has_no_filters_and_contains_social_sources(self):
+        page=(ROOT/'scoperte/index.html').read_text(encoding='utf-8')
+        self.assertNotIn('data-community-filter-source',page)
+        self.assertNotIn('id="community-search"',page)
+        self.assertIn('X, Reddit, GTAForums e Discord',page)
+        self.assertIn('https://www.reddit.com/r/GTA6/new/',page)
+        self.assertIn('https://gtaforums.com/',page)
+        self.assertIn('data-discussion-path="scoperte/"',page)
+        self.assertIn('Attenzione spoiler',page)
+
+    def test_home_and_articles_have_social_discussion_and_x_content(self):
+        home=(ROOT/'index.html').read_text(encoding='utf-8')
+        self.assertIn('data-x-timeline-load',home)
+        self.assertIn('Ultimi commenti e discussioni',home)
+        self.assertIn('Ultimi post',home)
+        for pagepath in ('salvare-auto/','soldi-facili/','guide-e-tutorial/soldi-facili-capitolo-1/'):
+            text=(ROOT/pagepath/'index.html').read_text(encoding='utf-8')
+            self.assertIn('class="social-x-excerpt"',text)
+            self.assertIn('class="social-discussion"',text)
+            self.assertIn('community-social-v1.js?v=',text)
+            self.assertNotIn('data-community-filter-source',text)
+
     def test_screenshots_have_real_provenance(self):
         manifest=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
         for key,item in manifest.items():
