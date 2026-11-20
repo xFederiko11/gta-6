@@ -105,6 +105,18 @@ Un'immagine segnalata diventa candidabile **solo dopo revisione umana**: corrett
 L'invito è un canale di partecipazione e può aumentare le conversazioni sul nostro X, ma **non dimostra nuovi follower, numero di invii o licenze**. Le 50 richieste restano aperte finché non esistono le rispettive immagini autentiche. Gli utenti possono interagire solo se lo desiderano, senza registrarsi al portale.
 
 
+## Tracciamento fotografico per passaggio (20 novembre 2026)
+
+La sezione **Contribuisci con immagini** di tutte le undici guide mostra ora il numero reale di **schermate gameplay locali inserite nei passaggi** rapportato all'obiettivo di cinque. Una foto promozionale Rockstar, un video YouTube, un link a una mappa esterna, una schermata mancante o un'immagine non scaricata non aumenta il contatore. Il conteggio non certifica il diritto di ripubblicazione: la provenienza e l'autorizzazione di ogni foto vanno valutate prima del riuso.
+
+- Una piccola nota `Screenshot del passaggio non ancora disponibile` appare nel passo che non ha una schermata di gameplay associata, senza coprirne le istruzioni. Il link raggiunge la sezione delle richieste.
+- Il pannello dettagliato rimane chiuso per impostazione predefinita perché le cinque richieste possono rivelare luoghi o oggetti della storia. Dentro, ogni richiesta ha un link X distinto con ruolo fotografico, URL canonico della guida e hashtag, pronto per allegare manualmente la foto. I cinque ruoli **non sono assegnati automaticamente a passaggi numerati**, per evitare di indicare un'immagine come prova di un passaggio differente.
+- Il pulsante X generale resta disponibile, ma **non invia** un'immagine. Il tracciamento Umami `x-screenshot-intent` registra solo il clic sull'apertura della bozza (se consentito dal browser), mai un contributo effettivamente ricevuto, un follower o il permesso di pubblicare.
+- `media_quality_v1.py` espone `real_step_screenshots`, `promotional_images`, `gameplay_screenshots_in_steps` e lo stato `needs_more_verified_images`; cinque screenshot distinti sono indispensabili per `target_met`. La metrica legacy `unique_real_images` resta per compatibilità ma **non** include automaticamente il criterio editoriale.
+- Il risultato test viene verificato in entrambi i temi e su mobile, senza creare nuove immagini, punti mappa, premi o mappe ipotetiche. I contributi della community devono essere valutati e autorizzati manualmente prima di poter accrescere la copertura.
+
+---
+
 ## Video di gameplay verificabili e mappe (20 novembre 2026)
 
 Le guide iniziali possono mostrare un blocco **Fonti visive**, immediatamente prima della procedura, con un link alla categoria reale della mappa GTABase e/o un video YouTube con minuti specifici. Le associazioni fra guida, video, capitoli, timestamp, autore e fonte della cronologia sono curate in `data/guide_visual_refs.json`.
