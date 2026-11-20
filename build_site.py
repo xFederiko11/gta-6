@@ -450,8 +450,37 @@ def privacy_page():
         '<p>Questo sito statico non dispone di statistiche su visitatori unici, '
         'provenienza o conversioni: non presentiamo stime come dati reali.</p></section>'
     )
+    from growth_tracking_v1 import normalize_id
+    if normalize_id(os.getenv("UMAMI_WEBSITE_ID", "")):
+        # Only disclose enabled collection if the build actually loads Umami.
+        body = body.replace(
+            "Un contatore pubblico semplice, senza account analytics.",
+            "Statistiche aggregate e contatore pubblico: cosa misuriamo davvero.")
+        body = body.replace(
+            "Non utilizziamo GoatCounter né altri strumenti aggiuntivi di analytics o profilazione.",
+            "Non utilizziamo GoatCounter. Umami Cloud è attivo per contare visite "
+            "aggregate e clic sui collegamenti X/YouTube, senza account obbligatori "
+            "o cookie impostati dal nostro codice. Il gestore di Umami può ricevere "
+            "dati tecnici delle richieste; il tracciamento rispetta il segnale "
+            "Do Not Track quando disponibile. Il servizio è di un soggetto terzo: "
+            "consulta anche la sua informativa sulla privacy.")
+        body = body.replace(
+            "Questo sito statico non dispone di statistiche su visitatori unici, "
+            "provenienza o conversioni: non presentiamo stime come dati reali.",
+            "Umami misura statistiche aggregate per pagina e gli eventi "
+            "x-follow-intent, x-share-intent, x-reply-intent e x-post-open. "
+            "Un clic per seguire il profilo NON prova che un follower sia stato "
+            "acquisito. Non registriamo identità PSN o account X, non "
+            "colleghiamo visitatori individuali ai follower e non inventiamo "
+            "dati di conversione finale. Il blocco degli strumenti di analisi "
+            "nel browser può ridurre i conteggi.")
+        body = body.replace(
+            "Il player YouTube si carica solo su richiesta.",
+            "Il player YouTube si carica solo su richiesta.")
     title="GTA 6 Italia: privacy e contatore visite"
-    desc="Come funziona il contatore pubblico di visualizzazioni del sito GTA 6 Italia, senza account analytics."
+    desc=("Statistiche aggregate Umami e contatore pagine: informazioni sulla privacy."
+          if normalize_id(os.getenv("UMAMI_WEBSITE_ID", "")) else
+          "Come funziona il contatore pubblico di visualizzazioni del sito GTA 6 Italia, senza account analytics.")
     write("privacy/index.html",layout(title,desc,"privacy/",body,structured={
         "@context":"https://schema.org","@type":"WebPage","name":title,
         "url":url("privacy/"),"inLanguage":"it-IT"}))
