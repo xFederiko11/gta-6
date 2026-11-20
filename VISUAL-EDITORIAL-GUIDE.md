@@ -103,3 +103,21 @@ Flusso previsto: il lettore cattura una schermata PS5 con **Crea (Create)**, apr
 Un'immagine segnalata diventa candidabile **solo dopo revisione umana**: correttezza dell'immagine rispetto al passaggio/patch, provenienza, titolarità e autorizzazione esplicita alla ripubblicazione, didascalia/alt text, spoiler, ottimizzazione locale e nuovo audit. Il tweet pubblico da solo **non concede** diritti di ripubblicazione; i crediti da soli non sostituiscono il consenso.
 
 L'invito è un canale di partecipazione e può aumentare le conversazioni sul nostro X, ma **non dimostra nuovi follower, numero di invii o licenze**. Le 50 richieste restano aperte finché non esistono le rispettive immagini autentiche. Gli utenti possono interagire solo se lo desiderano, senza registrarsi al portale.
+
+
+## Video di gameplay verificabili e mappe (20 novembre 2026)
+
+Le guide iniziali possono mostrare un blocco **Fonti visive**, immediatamente prima della procedura, con un link alla categoria reale della mappa GTABase e/o un video YouTube con minuti specifici. Le associazioni fra guida, video, capitoli, timestamp, autore e fonte della cronologia sono curate in `data/guide_visual_refs.json`.
+
+- I video del creator TGG sono riferimenti **non ufficiali**; il player `youtube-nocookie.com` viene creato dal JavaScript **solo dopo il clic esplicito del lettore**. In assenza di JavaScript resta il link diretto YouTube già impostato al minuto utile.
+- Per il negozio Three Sheets Liquor, il filmato di TGG documentato da Trari contiene i punti 4:45 (arrivo al negozio) e 7:35 (pappagallo). Non dimostra gli altri tre luoghi dell'articolo sui soldi.
+- Per la registrazione auto iniziale, il video di TGG pubblicato il 19 novembre è collegato ai punti 4:26 (tracker spiegati da Moses) e 11:15 (Dinka Blista e registrazione). Va distinto dallo sblocco più tardo dei Pay 'n' Spray.
+- Le mappe GTABase filtrate per `liquor-store`, `vehicle-mod-shop` e `garages` **non** sono screenshot della nostra guida, né pin sempre precisamente equivalenti. Il testo specifica il luogo e i limiti. Non inserire coordinate, marcatori o immagini di mappe inventate.
+- I video sono embeddati tramite il player **originale**; nessuna copia, ripubblicazione, screenshot o miniatura esterna viene memorizzata. Gli utenti possono aprire direttamente YouTube se l'embed è bloccato. I minuti provengono dalla cronologia di fonte e non rappresentano test manuali effettuati da ChatGPT.
+- I video e le mappe **non contano** come le cinque schermate autentiche desiderate per guida: `media_quality_v1.py` continua a misurare esclusivamente immagini locali con attributi reali.
+
+### Passaggi di sicurezza migliorati per la prima auto
+
+Non iniziare dai Pay 'n' Spray generici: nel **Capitolo 2** la prima registrazione è durante Moses a Watkins Auto Parts (Port Gellhorn) dopo *Girl's Trip*. Si controllano i tracker con WAiNK, si ottiene lo Slim Jim, si prende un'auto senza tracker, la si rivernicia e si sceglie Register. Solo dopo vengono sbloccati ulteriori strumenti e officine. Le prove raccolte sono [PowerPyx](https://www.powerpyx.com/gta-6-moses-take-a-vehicle-to-moses-walkthrough/) e [GTABase](https://www.gtabase.com/gta-6/articles/how-to-unlock-garages-in-gta-6). Non inventare disponibilità di funzionalità o costi fuori dal contesto della storia.
+
+Le missioni **Get Shirley's Rum** e **Steal the Scooter** sono mancabili nel Capitolo 1, ma PowerPyx indica che **non sono richieste per trofei o 100%**: chiarirlo sulle guide permette di scegliere senza allarmismi chi punta al platino.
