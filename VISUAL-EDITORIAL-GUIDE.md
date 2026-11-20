@@ -135,3 +135,13 @@ La guida pubblica `guide-e-tutorial/meditazione-capitolo-1/` include un pannello
 - Le nuove spunte non rappresentano schermate di gioco né aumentano `media-quality.json`. Quando non ci sono screenshot originali autorizzati, mostrare soltanto i collegamenti alle fonti.
 
 La priorità è che nessuno perda una componente eventualmente necessaria al platino per una nostra guida troppo vaga: evitare formulazioni che promettono **Trophy Safe** quando il criterio non è stato verificato.
+
+
+## Scoperta Reddit: glitch prima persona PS5 · 20 novembre 2026
+
+- Nuova guida: `guide-e-tutorial/glitch-prima-persona-ps5/`; segnalazione bot [Issue #77](https://github.com/xFederiko11/federiko-gta-playstation-bot/issues/77), post originale [r/GTA6](https://www.reddit.com/r/GTA6/comments/1y15kfv/).
+- Riscontri tecnici indipendenti: [VGC](https://www.videogameschronicle.com/guide/gta-6-first-person-mode-glitch-grand-theft-auto/), [PC Gamer, prova autonoma](https://www.pcgamer.com/games/grand-theft-auto/gta-6-is-playable-in-first-person-heres-how-to-activate-it/), [Dexerto](https://www.dexerto.com/gta/gta-6-glitch-lets-players-access-first-person-mode-3430025/) e la discussione [r/gtaglitches](https://www.reddit.com/r/gtaglitches/comments/1y0ude9/gta_6_enter_first_person_view/). Distinguere i racconti comunitari da test effettuati dalla redazione. Il video originale è di oneboyler, attribuzione della scoperta a Kackalack secondo Reddit.
+- Stato alla data: **🟡 Probabilmente funzionante** su versioni di lancio PS5/PS5 Pro; versione specifica della patch **non documentata**. **⚠️ Trophy Status Uncertain**: il glitch non è la scelta principale per chi protegge il platino. Prima un **salvataggio manuale separato**. Nessun guadagno di soldi o XP; solo visuale.
+- Metodo documentato: `Settings > Controller > Touch Pad Button > Camera (2/2)`; entra al volante; telefono con ↑; riponilo con ○ e premi ripetutamente il touchpad mentre il telefono scompare. Se la camera rimane in prima persona, l'effetto è riuscito. Per tornare, ricarica un salvataggio; cambio abito o personaggio è una segnalazione community, non garantita.
+- La guida include il video originale YouTube caricato soltanto dopo il clic (o link diretto), **non** un download, fotogramma copiato o immagine di gameplay prodotta artificialmente. Il target immagini aumenta da **10 a 11 guide**; non inventare cinque screenshot per raggiungerlo.
+- Il nostro bot **non** deve fare auto-reply su Reddit/X o dichiarare un exploit «trophy safe» perché è stato citato in un thread. Citare la fonte e la data nei futuri post.

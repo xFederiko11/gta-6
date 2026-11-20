@@ -267,3 +267,11 @@ html[data-theme=dark] .social-comment-card>span{color:#ff9bcd}
 .v-meditation-actions button:focus-visible{outline:3px solid #b63d88;outline-offset:2px}
 .v-meditation-source{font-size:.72rem;line-height:1.55;color:var(--r-muted,#675770);margin:14px 0 0}
 @media(max-width:700px){.v-meditation-tracker{padding:13px}.v-meditation-stats{grid-template-columns:1fr 1fr}.v-meditation-stats>div:last-child{grid-column:1 / -1}.v-meditation-stats strong{font-size:1.12rem}.v-meditation-spot{padding:12px}.v-meditation-spot-head{gap:8px}.v-meditation-missable{margin:6px 0 0}.v-meditation-actions{gap:12px}.v-meditation-option{flex:1 1 126px;justify-content:center}}
+
+
+/* PS5 community glitch evidence: never claim a trophy-safe exploit. */
+.v-glitch-status{margin:15px 0 20px;padding:15px 17px;border:1px solid var(--r-line,#d8c9df);border-left:4px solid #bb8f40;border-radius:11px;background:var(--r-soft,#faf2fa);color:var(--r-text,#291938)}
+.v-glitch-status>strong{display:block;font-size:.9rem;line-height:1.45;color:var(--r-text,#291938)}
+.v-glitch-status p{margin:9px 0 0;font-size:.8rem;line-height:1.58;color:var(--r-muted,#675770)}
+.v-glitch-status a{font-size:.77rem;line-height:1.5;font-weight:720;overflow-wrap:anywhere}
+@media(max-width:640px){.v-glitch-status{padding:13px 14px}.v-glitch-status p{font-size:.79rem}}

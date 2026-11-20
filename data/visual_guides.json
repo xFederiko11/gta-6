@@ -71,6 +71,44 @@
       "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_03.0nqz~lrqdmlze.jpg?akim=1&imdensity=1&imwidth=1280",
       "spoiler": true,
       "related_trophy": null
+    },
+    {
+      "id": "prima-persona-glitch-ps5",
+      "canonical_path": "guide-e-tutorial/glitch-prima-persona-ps5/",
+      "title": "GTA 6 PS5: glitch prima persona, procedura DualSense e ripristino",
+      "safe_title": "Glitch prima persona: guida PS5 aggiornata",
+      "tag": "Glitch",
+      "summary": "Attiva temporaneamente la visuale in prima persona su PS5 tramite telefono e touchpad. Le segnalazioni del 19–20 novembre sono positive, ma patch e sicurezza dei trofei non sono accertate.",
+      "requirements": "GTA VI su PS5 o PS5 Pro, un veicolo guidabile, accesso alle impostazioni del controller e un salvataggio manuale separato. Non servono mod, account aggiuntivi o online.",
+      "location": "Free roam in single-player, al posto di guida di un'automobile qualsiasi. Non è noto un luogo o una missione specifica obbligatoria.",
+      "steps": [
+        "Prima di sperimentare, crea un salvataggio manuale separato nel gioco. Per una run del platino usa preferibilmente un salvataggio di prova: l'effetto sui trofei non è documentato.",
+        "Premi OPTIONS, apri Impostazioni (Settings) > Controller e cerca Touch Pad Button nella sezione delle funzioni del controller. Cambia l'assegnazione da Map (1/2) a Camera (2/2); i testi italiani possono variare.",
+        "Esci dal menu e siediti al posto di guida di un veicolo. Resta nell'auto durante la preparazione; non occorre possederla o portarla in officina.",
+        "Premi ↑ sulla croce direzionale del DualSense per estrarre il telefono in gioco.",
+        "Premi ○ (Cerchio) per riporre il telefono e, immediatamente mentre scompare, premi rapidamente il touchpad più volte. Se non riesce, riestrai il telefono e ripeti. La finestra temporale è molto breve; non è stato documentato un numero esatto di tentativi garantito.",
+        "Se la camera resta in prima persona dopo che il telefono è scomparso, prova a scendere dall'auto: il personaggio può camminare o guidare da quella visuale. Sono possibili animazioni anomale. Per ripristinare con certezza la visuale normale ricarica il salvataggio manuale; alcuni giocatori segnalano anche cambio abiti o personaggio, non verificati in modo uniforme."
+      ],
+      "checks": [
+        "Esiste un salvataggio precedente e sai come ricaricarlo: non eliminare, sovrascrivere o manipolare backup PS5.",
+        "Il touchpad ora controlla Camera (2/2), non l'apertura diretta della mappa.",
+        "Sei seduto al volante e puoi aprire il telefono.",
+        "Vedi l'interfaccia del telefono, non la schermata di pausa.",
+        "Il telefono scompare mentre la telecamera rimane vicina al volto: se torni subito in terza persona, ritenta.",
+        "Se riesci a muoverti a piedi in prima persona hai attivato il glitch. Se no, interrompi senza cambiare la progressione e riprova in un'area sicura."
+      ],
+      "benefit": "Cambio temporaneo di visuale per esplorazione e riprese, non genera soldi, XP o veicoli. 🟡 Probabilmente funzionante nelle versioni di lancio PS5, con prova indipendente da PC Gamer; nessuna patch esatta documentata.",
+      "caution": "⚠️ Trophy Status Uncertain: nessuna fonte ha dimostrato che il glitch conservi la piena ottenibilità dei trofei. Non consigliato come metodo principale per una run platino. Possibili bug grafici, camera bloccata e necessità di ricaricare. Solo single-player; nessuna garanzia su patch future.",
+      "source_url": "https://www.videogameschronicle.com/guide/gta-6-first-person-mode-glitch-grand-theft-auto/",
+      "extra_sources": [
+        "https://www.pcgamer.com/games/grand-theft-auto/gta-6-is-playable-in-first-person-heres-how-to-activate-it/",
+        "https://www.dexerto.com/gta/gta-6-glitch-lets-players-access-first-person-mode-3430025/",
+        "https://www.reddit.com/r/gtaglitches/comments/1y0ude9/gta_6_enter_first_person_view/",
+        "https://www.reddit.com/r/GTA6/comments/1y15kfv/"
+      ],
+      "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_02.0c5.7qx17u9kl.jpg?akim=1&imdensity=1&imwidth=1280",
+      "spoiler": false,
+      "related_trophy": null
     }
   ]
 }
