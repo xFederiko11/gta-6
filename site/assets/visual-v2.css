@@ -174,3 +174,14 @@ html[data-theme=dark] .social-comment-card>span{color:#ff9bcd}
 .v-follow-home .v-button{flex:none;min-height:36px;padding:7px 13px;font-size:.79rem}
 .social-follow-link,.social-share-link{font-size:.76rem;min-height:36px}
 @media(max-width:620px){.v-follow-home{flex-direction:column;align-items:flex-start;padding:15px;gap:11px;margin:12px 0 23px}.v-follow-home .v-button{width:auto;max-width:100%}}
+
+
+/* Verified chapter-one resource-loss warning: readable in both color themes. */
+.v-cash-safety{margin:15px 0 21px;border:1px solid var(--r-line,var(--border));border-left:4px solid #c77c23;border-radius:13px;background:var(--r-soft,var(--surface2));padding:16px 19px;color:var(--r-text,var(--text))}
+.v-cash-safety>strong{display:block;line-height:1.35;color:var(--r-text,var(--text))}
+.v-cash-safety p{margin:9px 0 0;color:var(--r-muted,var(--muted));font-size:.88rem;line-height:1.55}
+.v-cash-safety a{font-weight:700}
+.v-cash-details{margin-top:10px}
+.v-cash-details summary{display:list-item;cursor:pointer;min-height:42px;padding:8px 2px;font-weight:700;color:var(--r-text,var(--text))}
+.v-cash-details[open]{border-top:1px solid var(--r-line,var(--border));padding-top:9px}
+@media(max-width:620px){.v-cash-safety{padding:12px 14px}.v-cash-safety p{font-size:.82rem}}
