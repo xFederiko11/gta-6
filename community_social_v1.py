@@ -93,6 +93,29 @@ def load(path=INDEX):
     if data.get("schema")!="community-social-v1":raise ValueError("Unsafe community social snapshot")
     return data
 
+def xpost_for(path:str):
+    """Expose only an actual Buffer-sent first-party excerpt, never X statistics."""
+    posts=load().get("x_posts",[])
+    target=BASE+path
+    for post in posts:
+        if post.get("url","").rstrip("/")==target.rstrip("/") and post.get("buffer_status")=="sent":
+            text=str(post.get("text") or "").strip()[:420]
+            return ('<section class="social-x-excerpt" aria-label="Estratto del nostro post X">'
+                    '<span class="eyebrow">𝕏 DAL NOSTRO ACCOUNT</span><h2>Ne abbiamo parlato su X</h2>'
+                    '<blockquote>'+escape(text)+'</blockquote>'
+                    '<p>Testo registrato come inviato da Buffer. Like e impression non sono disponibili '
+                    'senza dati verificati di X.</p>'
+                    '<a href="https://x.com/xFederiko11" rel="me noopener noreferrer" '
+                    'target="_blank">Visita @xFederiko11 ↗</a></section>')
+    return ('<section class="social-x-excerpt" aria-label="Conversazione X">'
+            '<span class="eyebrow">𝕏 PARLIAMONE</span>'
+            '<h2>Questa guida merita una conversazione</h2>'
+            '<p>Quando nasce una discussione pertinente, il bot può proporre un post originale '
+            'sull’argomento, senza copiare le parole dei lettori.</p>'
+            '<a href="https://x.com/xFederiko11" rel="me noopener noreferrer" '
+            'target="_blank">Segui @xFederiko11 ↗</a></section>')
+
+
 def widget(path:str, *, title="Partecipa alla discussione"):
     info=load().get("issues",{}).get(path)
     label="💬 "+title
@@ -132,7 +155,16 @@ def home_rail():
     if not items:
         parts.append('<p class="social-empty">Ancora nessun commento verificato. '
                      'Apri una guida e inaugura la conversazione!</p>')
-    parts.append('</div><div class="social-home-x"><div><strong>𝕏 Gli ultimi post di Federiko</strong>'
+    parts.append('</div>')
+    posts=[x for x in data.get("x_posts",[]) if x.get("buffer_status")=="sent"][:3]
+    if posts:
+        parts.append('<div class="social-x-latest"><h3>Ultimi post registrati come inviati</h3><div class="social-home-grid">')
+        for p in posts:
+            parts.append('<article class="social-comment-card"><span>𝕏 @xFederiko11</span>'
+                         '<p>'+escape(str(p.get("text") or "")[:170])+'</p>'
+                         '<span class="micro">Impression e like X non disponibili</span></article>')
+        parts.append('</div></div>')
+    parts.append('<div class="social-home-x"><div><strong>𝕏 Gli ultimi post di Federiko</strong>'
                  '<p>Apri la conversazione originale. Like, repost e visualizzazioni sono mostrati da X '
                  'quando disponibili: qui non inventiamo contatori.</p></div>'
                  '<button type="button" class="v-button secondary" data-x-timeline-load>'
