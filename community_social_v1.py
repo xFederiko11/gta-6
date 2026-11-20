@@ -151,7 +151,7 @@ def home_rail():
     for c in items:
         parts.append('<article class="social-comment-card"><span>💬 @'+escape(c["author"])+'</span>'
                      '<p>'+escape(c["body"][:170])+'</p><a href="'+escape(c["url"],quote=True)
-                     '" rel="noopener noreferrer" target="_blank">Vai al commento ↗</a></article>')
+                     +'" rel="noopener noreferrer" target="_blank">Vai al commento ↗</a></article>')
     if not items:
         parts.append('<p class="social-empty">Ancora nessun commento verificato. '
                      'Apri una guida e inaugura la conversazione!</p>')
