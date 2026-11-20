@@ -68,6 +68,14 @@ def classify(tag):
                 return "x-follow-intent"
         elif u.path == "/intent/tweet":
             query = parse_qs(u.query)
+            if 'data-visual-send-x' in tag or 'data-visual-request-photo' in tag:
+                message=query.get("text", [""])[0]
+                # Opening a voluntary compose dialog is NOT a photo
+                # submission, a follower, or a copyright license.
+                if ('@xFederiko11' in message and '#GTA6Italia' in message
+                        and 'https://xfederiko11.github.io/gta-6/' in message):
+                    return "x-screenshot-intent"
+                return None
             if "in_reply_to" in query:
                 return "x-reply-intent"
             if "url" in query or "social-share-link" in tag:
