@@ -1,0 +1,15 @@
+# GTA VI Italia — OpenSEO audit (20 novembre 2026)
+
+Audit: https://app.openseo.so/p/99a43785-0c0a-45a3-aaaa-7883b4fa8c75/audit?auditId=fb235245-2ff7-46c8-8d04-1be28351c2f7
+
+- Progetto OpenSEO: **GTA VI Italia**; mercato **Italia/italiano**; proprietà editoriale: https://xfederiko11.github.io/gta-6/ (sottopercorso GitHub Pages del dominio condiviso, non un intero dominio esclusivo).
+- Audit preliminare: **50 pagine su 115 URL individuati**, **34 segnalazioni** (una pagina-limit, 20 titoli lunghi, 5 meta description fuori intervallo, 4 gerarchie di intestazioni, 4 pagine `noindex` intenzionali). Nessuna segnalazione critica nel campione; **non è una certificazione completa delle 170+ pagine**.
+- La sitemap ufficiale del sottosito è https://xfederiko11.github.io/gta-6/sitemap.xml. Il file `/gta-6/robots.txt` non equivale al file `/robots.txt` di dominio e non garantisce che Google scopra la sitemap automaticamente; inviarla esplicitamente nella Search Console URL-prefix appropriata, senza sovrascrivere il dominio root gestito da un'altra repository.
+- Soluzioni: titoli SEO di massimo 60 caratteri sui 55 trofei senza troncare i nomi; titoli brevi per fonti, HDR e trucchi; meta-description sorgente per le 11 guide visuali (70–160 caratteri) senza togliere avvisi spoiler e incertezza dei trofei; H2 semantici nelle directory e H3 nelle schede di poligono.
+- Il `noindex,follow` dei trofei nascosti è temporaneo **fino al 21 novembre 2026 UTC**; il generatore li include in sitemap quando la finestra termina. Il suo scopo è limitare spoiler nei primissimi giorni del lancio; non rimuoverlo per inseguire i punteggi dell'audit senza scelta editoriale esplicita.
+- **Google Search Console non collegata** ad OpenSEO nell'audit del 20 novembre; **GA4 non collegata**. OpenSEO non dispone di dati Google reali su impression, clic, CTR, posizione, indicizzazione, utenti o conversioni. Nessun conteggio di follower può essere dedotto da Buffer, da un click su X o dalla scansione del sito.
+- Umami resta **opt-in** tramite il solo `UMAMI_WEBSITE_ID` (UUID) in GitHub Pages; senza quel valore non viene caricato alcuno script di tracciamento. Non incollare credenziali o API token in repository pubbliche.
+- Azione proprietario per dati Google: configurare Search Console con proprietà **URL-prefix** `https://xfederiko11.github.io/gta-6/`, verificarla tramite il metodo consentito da Google e inviare `sitemap.xml`, quindi collegare l'account Google da OpenSEO → Search Performance. L'esito dipende dalla verifica della proprietà; non dichiarare che questa sia già riuscita.
+- Riprova l'audit di pagina dopo il deploy; confronta le stesse 50 URL o usa sottosezioni, evitando di descrivere i 65 URL non verificati come privi di problemi.
+
+**SEO e crescita:** misurare prima impression e query reali di Search Console, poi click X/YouTube con analytics consensuali configurati, poi confrontare i dati X follower solo quando disponibili. **Un click `x-follow-intent` non dimostra una conversione in follower.**
