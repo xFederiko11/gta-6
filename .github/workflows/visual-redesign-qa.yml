@@ -1,0 +1,51 @@
+name: Visual redesign QA
+on:
+  push:
+    branches: [feature/visual-guide-redesign-20261120]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: visual-redesign-qa-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
+        with:
+          python-version: '3.12'
+      - name: Install browser and image tools
+        run: |
+          python -m pip install playwright 'Pillow>=11,<13'
+          python -m playwright install --with-deps chromium
+      - name: Validate original content and new source code
+        run: |
+          python -m py_compile build_visual_site.py visual_guide_content.py prepare_visual_media.py
+          node --check site/assets/visual-v2.js
+          python -m unittest -q test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
+      - name: Prepare responsive images and build actual website
+        run: |
+          python prepare_visual_media.py
+          python build_visual_site.py
+          python -m unittest -q test_visual_site.py
+      - name: Browser checks at 390, 768 and 1440 pixels
+        run: python visual_browser_qa.py
+      - name: Package preview and source for inspection
+        if: always()
+        run: |
+          mkdir -p qa-bundle
+          git archive HEAD | gzip > qa-bundle/source.tar.gz
+          if [ -d _site ]; then cp -R _site qa-bundle/site; fi
+          if [ -d visual-qa ]; then cp -R visual-qa qa-bundle/screens; fi
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        if: always()
+        with:
+          name: visual-redesign-preview
+          path: qa-bundle
+          retention-days: 3

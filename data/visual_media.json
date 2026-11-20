@@ -1,0 +1,112 @@
+{
+  "schema": "visual-media-v1",
+  "policy": "Schermate contestuali per spiegare le istruzioni, con attribuzione e collegamento alla fonte. Nessun mockup generato viene usato come prova di gameplay. Le immagini promozionali non identificano luoghi del tutorial.",
+  "images": {
+    "vice-city": {
+      "url": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_01.135x56yoeu.6t.jpg?akim=1&imdensity=1&imwidth=1280",
+      "source": "https://www.rockstargames.com/VI/",
+      "credit": "Rockstar Games",
+      "kind": "promotional",
+      "alt": "Scena urbana con un aereo dal materiale promozionale di GTA VI",
+      "caption": "Materiale promozionale Rockstar Games: immagine di atmosfera, non una mappa del percorso."
+    },
+    "leonida": {
+      "url": "https://www.rockstargames.com/VI/_next/static/media/Leonida_Keys_02.0~ptk-53gl0lq.jpg?akim=1&imdensity=1&imwidth=1280",
+      "source": "https://www.rockstargames.com/VI/",
+      "credit": "Rockstar Games",
+      "kind": "promotional",
+      "alt": "Scena di strada dal materiale promozionale di GTA VI",
+      "caption": "Scena promozionale di GTA VI: non identifica la posizione del bottino."
+    },
+    "traffic": {
+      "url": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_02.0c5.7qx17u9kl.jpg?akim=1&imdensity=1&imwidth=1280",
+      "source": "https://www.rockstargames.com/VI/",
+      "credit": "Rockstar Games",
+      "kind": "promotional",
+      "alt": "Personaggi affacciati su una terrazza nel materiale promozionale di GTA VI",
+      "caption": "Immagine promozionale Rockstar Games: non documenta un passaggio o uno spawn."
+    },
+    "liquor-store": {
+      "url": "https://insider-gaming.com/wp-content/uploads/2026/11/GTA-6-Liquor-Store-1024x576.jpg",
+      "source": "https://insider-gaming.com/how-to-complete-strange-noises-in-gta-6-shirley-house-liquor-store-location-guide/",
+      "credit": "Insider Gaming / Rockstar Games",
+      "kind": "screenshot",
+      "alt": "Schermata del negozio di liquori nella guida Strange Noises",
+      "caption": "Il negozio nella guida di Insider Gaming. Apri la schermata per osservarne i riferimenti.",
+      "spoiler": true
+    },
+    "shirley-house": {
+      "url": "https://insider-gaming.com/wp-content/uploads/2026/11/GTA-6-Shirley-House-1024x576.jpg",
+      "source": "https://insider-gaming.com/how-to-complete-strange-noises-in-gta-6-shirley-house-liquor-store-location-guide/",
+      "credit": "Insider Gaming / Rockstar Games",
+      "kind": "screenshot",
+      "alt": "Schermata della casa di Shirley nella guida Strange Noises",
+      "caption": "Il punto di partenza mostrato da Insider Gaming.",
+      "spoiler": true
+    },
+    "save-car": {
+      "url": "https://images.pushsquare.com/533020dfdb99b/how-do-you-save-cars-for-future-use-in-gta-6-1.900x.jpg",
+      "source": "https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know",
+      "credit": "Push Square / Rockstar Games",
+      "kind": "screenshot",
+      "alt": "Auto scelta per la conservazione nella guida di Push Square",
+      "caption": "L'auto da conservare: riferimento visivo dalla guida di Push Square."
+    },
+    "register-car": {
+      "url": "https://images.pushsquare.com/ea7cbc4c4e89b/how-do-you-save-cars-for-future-use-in-gta-6-4.900x.jpg",
+      "source": "https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know",
+      "credit": "Push Square / Rockstar Games",
+      "kind": "screenshot",
+      "alt": "Schermata della procedura di conservazione del veicolo",
+      "caption": "Conservazione dei veicoli: schermata pubblicata da Push Square."
+    },
+    "scooter-phone": {
+      "url": "https://images.pushsquare.com/b649e6b6a34d0/how-do-you-instantly-spawn-your-car-in-gta-6-1.900x.jpg",
+      "source": "https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know",
+      "credit": "Push Square / Rockstar Games",
+      "kind": "screenshot",
+      "alt": "Telefono e servizio per richiamare il proprio veicolo",
+      "caption": "Richiamo dell'auto dal telefono: schermata della guida Push Square."
+    },
+    "scooter-menu": {
+      "url": "https://images.pushsquare.com/aa035904b5f0c/how-do-you-instantly-spawn-your-car-in-gta-6-2.900x.jpg",
+      "source": "https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know",
+      "credit": "Push Square / Rockstar Games",
+      "kind": "screenshot",
+      "alt": "Selezione del veicolo nel servizio Scooter Bros",
+      "caption": "Controlla il mezzo e la tariffa prima di confermare la consegna."
+    },
+    "bank-phone": {
+      "url": "https://images.pushsquare.com/2f33d0b563e0e/how-do-you-protect-your-money-in-gta-6-2.900x.jpg",
+      "source": "https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know",
+      "credit": "Push Square / Rockstar Games",
+      "kind": "screenshot",
+      "alt": "Telefono con la funzione per individuare un bancomat",
+      "caption": "Protezione del denaro: schermata della guida Push Square."
+    },
+    "bank-deposit": {
+      "url": "https://images.pushsquare.com/21b28ece06133/how-do-you-protect-your-money-in-gta-6-3.900x.jpg",
+      "source": "https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know",
+      "credit": "Push Square / Rockstar Games",
+      "kind": "screenshot",
+      "alt": "Schermata del deposito del denaro al bancomat",
+      "caption": "Deposito al bancomat: controlla la cifra prima della conferma."
+    },
+    "taxi-phone": {
+      "url": "https://images.pushsquare.com/c74b28fd31bb6/how-do-you-fast-travel-in-gta-6-1.900x.jpg",
+      "source": "https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know",
+      "credit": "Push Square / Rockstar Games",
+      "kind": "screenshot",
+      "alt": "Schermata del servizio taxi nella guida di Push Square",
+      "caption": "Il servizio taxi nella guida di Push Square."
+    },
+    "taxi-ride": {
+      "url": "https://images.pushsquare.com/50d8a0805b5c5/how-do-you-fast-travel-in-gta-6-2.900x.jpg",
+      "source": "https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know",
+      "credit": "Push Square / Rockstar Games",
+      "kind": "screenshot",
+      "alt": "Schermata del viaggio in taxi in GTA VI",
+      "caption": "Viaggio in taxi: verifica i comandi mostrati dalla tua versione."
+    }
+  }
+}
