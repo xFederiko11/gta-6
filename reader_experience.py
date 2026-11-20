@@ -8,6 +8,7 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import os
 from pathlib import Path
 import re
 import shutil
@@ -103,7 +104,16 @@ def augment_guide(page, entry):
                           '<a href="#procedura">Il percorso passo per passo</a><a href="#mappa" data-reader-anchor>Mappa e immagini</a>',1)
     return page
 
-def transform(page, *, version, entry=None, discussion_path=None):
+def gsc_verification_meta(token):
+    """Explicitly configured public Search Console proof; never a tracker."""
+    if token is None or token == '':
+        return ''
+    if not isinstance(token,str) or not re.fullmatch(r'[A-Za-z0-9_-]{10,160}',token):
+        raise ValueError('Invalid Search Console verification token')
+    return '<meta name="google-site-verification" content="'+token+'">'
+
+
+def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None):
     if f'name="reader-version" content="{VERSION}"' in page:
         return page
     if entry:
@@ -111,7 +121,7 @@ def transform(page, *, version, entry=None, discussion_path=None):
     page = re.sub(r'<meta name="color-scheme"[^>]*>', '', page)
     page = re.sub(r'<meta name="theme-color"[^>]*>', '<meta name="theme-color" content="#fcf8fc">', page)
     page = page.replace('<html lang="it">', '<html lang="it" data-theme="auto">', 1)
-    page = page.replace('<head>', '<head>'+BOOT, 1)
+    page = page.replace('<head>', '<head>'+BOOT+gsc_verification_meta(gsc_token), 1)
     page = page.replace('</head>', f'<meta name="reader-version" content="{VERSION}"><link rel="stylesheet" href="{BASE}assets/reader-theme.css?v={version}"></head>', 1)
     page = page.replace('<div class="wrap v-spoiler-inner">', '<div class="wrap v-spoiler-inner">'+CONTROLS, 1)
     if discussion_path is not None:
@@ -161,13 +171,16 @@ def main():
             raise ValueError('Invalid article discussion path')
         discussable.add(path)
     count = 0
+    gsc_token = os.getenv('GSC_SITE_VERIFICATION', '')
+    gsc_verification_meta(gsc_token)  # Fail build for unsafe/mistyped tokens.
     for path in ROOT.rglob('*.html'):
         relative = path.relative_to(ROOT).as_posix().removesuffix('index.html')
         page = path.read_text(encoding='utf-8')
         is_trophy_article=relative.startswith('trofei/trofeo-') and relative.endswith('/')
         discussion_path=relative if (relative in discussable or is_trophy_article) else None
         path.write_text(transform(page, version=version, entry=data['guides'].get(relative),
-                                  discussion_path=discussion_path), encoding='utf-8')
+                                  discussion_path=discussion_path,
+                                  gsc_token=gsc_token if relative=='' else None), encoding='utf-8')
         count += 1
     for path in data['guides']:
         if not (ROOT/path/'index.html').is_file():
