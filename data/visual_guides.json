@@ -1,0 +1,54 @@
+{
+  "schema": "visual-guides-v1",
+  "reviewed": "2026-11-20",
+  "note": "Sintesi editoriali originali da fonti indipendenti. Nessun test personale, spawn garantito o compatibilita exploit certificata.",
+  "guides": [
+    {
+      "id": "registrare-auto-personale",
+      "canonical_path": "salvare-auto/",
+      "title": "Come salvare un'auto in GTA 6: registrazione e garage",
+      "safe_title": "Come tenere un'auto e ritrovarla",
+      "tag": "Garage",
+      "summary": "Rubare un'auto, parcheggiarla e registrarla non sono la stessa cosa. Ecco la procedura da seguire quando la storia sblocca la funzione.",
+      "requirements": "Funzione di registrazione sbloccata nel Capitolo 2, uno slot Stored Vehicle libero e denaro sufficiente per la tariffa mostrata.",
+      "location": "Un Pay 'N' Spray disponibile sulla tua mappa. Il parcheggio da solo e' un deposito temporaneo, non una registrazione.",
+      "steps": [
+        "Porta l'auto che vuoi conservare dentro un Pay 'N' Spray.",
+        "Seleziona Register (Registra). Controlla il costo: dipende dal veicolo.",
+        "Completa la registrazione solo se hai uno slot Stored Vehicle libero. Non sostituire un mezzo che vuoi tenere senza controllare la scelta.",
+        "Per richiamare un veicolo registrato, apri il telefono con la freccia su e usa Scooter Bros. Il servizio mostra una tariffa."
+      ],
+      "checks": ["Sei dentro l'officina con l'auto scelta.", "Il menu mostra Register e il relativo prezzo.", "Il veicolo risulta registrato: non fermarti al solo parcheggio.", "Il mezzo e' selezionabile nel servizio, quando disponibile."],
+      "benefit": "Distingui la conservazione temporanea dal possesso del veicolo; evita di presumere che ogni auto guidata sia gia' tua.",
+      "caution": "Nel Capitolo 1 non puoi ancora registrare nuove auto personali. Le fonti non certificano glitch o veicoli speciali ottenuti fuori dalla progressione normale.",
+      "source_url": "https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know",
+      "extra_sources": ["https://www.powerpyx.com/gta-6-just-a-scratch-fix-your-car-walkthrough/", "https://www.gamesradar.com/games/grand-theft-auto/gta-6-personal-vehicles-how-to-register-switch-recover-car/"],
+      "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_02.0c5.7qx17u9kl.jpg?akim=1&imdensity=1&imwidth=1280",
+      "spoiler": false,
+      "related_trophy": null
+    },
+    {
+      "id": "sportive-randy-posizioni",
+      "title": "GTA 6: dove cercare le sportive richieste da Randy",
+      "safe_title": "Sportive ricercate: dove iniziare la ricerca",
+      "tag": "Auto speciali",
+      "summary": "Zone da controllare e strumenti per riconoscere le auto richieste. Non e' una lista di spawn rari garantiti.",
+      "requirements": "Lista di Randy sbloccata dalla storia nel Capitolo 3. I nomi di missione e le zone sono protetti dal controllo spoiler.",
+      "location": "Vice Beach e Ocean Beach, nella parte orientale di Vice City: controlla il traffico e i parcheggi davanti agli hotel.",
+      "steps": [
+        "Dopo la missione Clonin' Keys, Makin' GS, apri Mappa > Robberies > Randy's Wish List per vedere le richieste disponibili.",
+        "Controlla prima le posizioni che Randy ha segnato. In alternativa cerca sportive a Vice Beach e Ocean Beach, soprattutto davanti agli hotel.",
+        "Usa WAiNK tenendo premuta la freccia su. La scansione o l'ingresso nel mezzo puo' mostrare l'avviso che il veicolo e' richiesto.",
+        "Per la consegna, raggiungi il simbolo verde RK nella zona ovest di Vice City e limita i danni. Consegnare l'auto al compratore non equivale a conservarla nel tuo garage."
+      ],
+      "checks": ["La lista e' disponibile nella mappa.", "Stai cercando nelle zone documentate, non su un punto inventato.", "Il gioco segnala che il veicolo e' richiesto.", "Scegli consapevolmente tra consegna e conservazione del mezzo."],
+      "benefit": "Una ricerca piu' mirata, senza confondere le auto richieste con veicoli unici o garantiti.",
+      "caution": "I punti segnalati possono cambiare con l'avanzamento della lista. Non indichiamo coordinate o modelli rari non documentati.",
+      "source_url": "https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/",
+      "extra_sources": ["https://www.powerpyx.com/gta-6-money-guide-how-to-get-money-fast/"],
+      "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_03.0nqz~lrqdmlze.jpg?akim=1&imdensity=1&imwidth=1280",
+      "spoiler": true,
+      "related_trophy": null
+    }
+  ]
+}
