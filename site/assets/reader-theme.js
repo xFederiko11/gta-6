@@ -1,8 +1,11 @@
-/* Dark by default, independent from OS. No network requests or analytics. */
+/* Adaptive default: dark on mobile, light on desktop. Explicit preference persists. */
 (() => {
   'use strict';
   const key = 'gta6-theme-v1';
   const root = document.documentElement;
+  const mobile = window.matchMedia('(max-width:760px)');
+  const chooseDefault = () => mobile.matches ? 'dark' : 'light';
+  const stored = () => { try { const value=localStorage.getItem(key); return value === 'dark' || value === 'light' ? value : null; } catch (_) { return null; } };
   const buttons = Array.from(document.querySelectorAll('[data-theme-choice]'));
   const meta = document.querySelector('meta[name="theme-color"]');
   function apply(value, save) {
@@ -13,17 +16,11 @@
     buttons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.themeChoice === theme)));
     if (save) { try { localStorage.setItem(key, theme); } catch (_) {} }
   }
-  apply(root.dataset.theme, false);
+  apply(stored() || chooseDefault(), false);
   buttons.forEach(button => button.addEventListener('click', () => apply(button.dataset.themeChoice, true)));
-  window.addEventListener('storage', event => { if (event.key === key || event.key === null) apply(event.newValue, false); });
-  window.addEventListener('pageshow', () => {
-    try { apply(localStorage.getItem(key), false); } catch (_) { apply(root.dataset.theme, false); }
-  });
-  document.querySelectorAll('[data-reader-anchor]').forEach(link => link.addEventListener('click', () => {
-    const target = document.getElementById(link.hash.slice(1));
-    const panel = target && target.closest('details[data-spoiler]');
-    if (panel) panel.open = true;
-  }));
+  window.addEventListener('storage', event => { if (event.key === key || event.key === null) apply(stored() || chooseDefault(), false); });
+  mobile.addEventListener('change', () => { if (!stored()) apply(chooseDefault(),false); });
+  window.addEventListener('pageshow', () => apply(stored() || chooseDefault(), false));
   const dialog = document.querySelector('[data-image-dialog]');
   if (!dialog || typeof dialog.showModal !== 'function') return;
   const photo = dialog.querySelector('img');
@@ -54,5 +51,4 @@
   dialog.querySelector('[data-image-close]').addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
   dialog.addEventListener('close', () => { photo.removeAttribute('src'); resetZoom(); });
-  document.querySelectorAll('[data-spoiler-choice="hide"]').forEach(button => button.addEventListener('click', () => { if (dialog.open) dialog.close(); }));
 })();

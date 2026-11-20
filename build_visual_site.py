@@ -32,28 +32,31 @@ def brand():
 
 
 def header(path):
-    primary=[('Home',''),('Soldi facili','soldi-facili/'),('Auto e garage','auto-speciali/'),('Guide','guide-e-tutorial/')]
+    primary=[('Home',''),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare auto','salvare-auto/'),('Guide','guide-e-tutorial/')]
     secondary=[('Trofei e platino','trofei/'),('HDR OLED','hdr-oled/'),('Trucchi PS5','trucchi/'),('Scoperte community','scoperte/'),('Fonti e metodo','fonti/')]
     def link(label,target):
         current=' aria-current="page"' if path==target else ''
         return f'<a href="{url(target)}"{current}>{e(label)}</a>'
     main=''.join(link(*item) for item in primary)
     more=''.join(link(*item) for item in secondary)
+    x_link=('<a class="v-x-link" href="https://x.com/xFederiko11" '
+            'target="_blank" rel="me noopener noreferrer" aria-label="Segui Federiko su X">'
+            '<span aria-hidden="true">𝕏</span><span>Segui</span></a>')
     return ('<header class="v-header" id="inizio"><div class="wrap v-header-inner">'+brand()+
             '<nav class="v-nav" aria-label="Navigazione principale">'+main+
             '<details class="v-more"><summary>Altro</summary><div>'+more+'</div></details></nav>'+
-            f'<a class="v-search-link" href="{url("guide-e-tutorial/#cerca-guide")}">Cerca una guida</a>'+
+            x_link+
             '<details class="v-menu"><summary aria-label="Apri il menu">Menu ☰</summary><nav aria-label="Navigazione mobile">'+main+more+'</nav></details></div></header>'+
-            '<div class="v-spoilerbar"><div class="wrap v-spoiler-inner"><p><strong data-spoiler-label>Spoiler nascosti</strong><span> · Vuoi mostrare luoghi e dettagli?</span></p>'+
-            '<div class="v-switch" role="group" aria-label="Vuoi mostrare o nascondere gli spoiler?"><button type="button" data-spoiler-choice="hide" aria-pressed="true">Nascondi</button><button type="button" data-spoiler-choice="show" aria-pressed="false">Mostra spoiler</button></div></div></div>')
-
+            '<div class="v-spoilerbar"><div class="wrap v-spoiler-inner">'
+            '<p><strong>⚠️ Attenzione spoiler:</strong> proseguendo potresti leggere dettagli di missioni, luoghi e ricompense.</p>'
+            '</div></div>')
 
 def footer():
     links=[('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
     return ('<footer class="v-footer"><div class="wrap"><div class="v-footer-grid"><div>'+brand()+
-            '<p>Guide indipendenti per PS5 e PS5 Pro. Sintesi originali, schermate attribuite e dettagli protetti. Non affiliato a Rockstar Games.</p></div><nav class="v-footer-links" aria-label="Link utili">'+
+            '<p>Guide indipendenti per PS5 e PS5 Pro. Sintesi originali, schermate attribuite e avvisi spoiler. Non affiliato a Rockstar Games.</p></div><nav class="v-footer-links" aria-label="Link utili">'+
             ''.join(f'<a href="{url(p)}">{e(t)}</a>' for t,p in links)+
-            '</nav></div><div class="v-footer-note"><span>La preferenza spoiler resta in questo browser. Le schermate appartengono ai rispettivi titolari.</span><a href="https://x.com/xFederiko11" target="_blank" rel="me noopener noreferrer">𝕏 @xFederiko11</a></div></div></footer><a class="v-top" href="#inizio" aria-label="Torna all’inizio">↑</a>')
+            '</nav></div><div class="v-footer-note"><span>Le guide possono contenere spoiler. Le schermate appartengono ai rispettivi titolari.</span><a href="https://x.com/xFederiko11" target="_blank" rel="me noopener noreferrer">𝕏 @xFederiko11</a></div></div></footer><a class="v-top" href="#inizio" aria-label="Torna all’inizio">↑</a>')
 
 
 def layout(title,desc,path,body,section=None,image=None,robots='index,follow',structured=None):
@@ -141,13 +144,13 @@ def home(guides):
     by={g['id']:g for g in guides}
     featured=by['registrare-auto-personale']
     hero=('<section class="v-hero">'+image('vice-city',eager=True)+
-          '<div><span class="eyebrow">GUIDE IN ITALIANO · PS5 / PS5 PRO</span><h1>GTA 6, senza<br><span>giri a vuoto.</span></h1><p>Trova soldi, scegli la tua prossima auto e scopri come conservarla. Passaggi chiari, immagini utili e spoiler sotto il tuo controllo.</p>'+
+          '<div><span class="eyebrow">GUIDE IN ITALIANO · PS5 / PS5 PRO</span><h1>GTA 6, senza<br><span>giri a vuoto.</span></h1><p>Trova soldi, scegli la tua prossima auto e scopri come conservarla. Passaggi chiari, mappe quando disponibili e avviso sui possibili spoiler.</p>'+
           f'<a class="v-button" href="{url("soldi-facili/")}">Inizia dai soldi facili →</a></div>'+
           f'<a class="v-featured" href="{url(featured["canonical_path"])}">'+image('save-car')+
           '<div class="v-featured-copy"><span class="v-kicker">DA SAPERE PRIMA DI RIPARTIRE</span><h2>Hai trovato un’auto che vuoi tenere?</h2><p>Parcheggio, registrazione e richiamo: non sono la stessa cosa. Apri la guida →</p></div></a></section>'+
           '<p class="v-hero-credit">Sfondo promozionale: <a href="https://www.rockstargames.com/VI/">Rockstar Games</a> · Schermata veicolo: <a href="https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know">Push Square</a></p>')
     chosen=[by[k] for k in ('soldi-facili-capitolo-1','registrare-auto-personale','sportive-randy-posizioni')]
-    body=hero+categories()+'<section class="v-section">'+section_head('LE PRIORITÀ','Soldi, auto, garage. Parti da qui.','Tre percorsi pratici, senza mescolare notizie e tutorial.','guide-e-tutorial/')+'<div class="v-grid">'+''.join(card(g) for g in chosen)+'</div></section>'
+    body=categories()+hero+'<section class="v-section">'+section_head('LE PRIORITÀ','Soldi, auto, garage. Parti da qui.','Tre percorsi pratici, senza mescolare notizie e tutorial.','guide-e-tutorial/')+'<div class="v-grid">'+''.join(card(g) for g in chosen)+'</div></section>'
     body+='<section class="v-section v-promo">'+image('scooter-menu')+'<div><span class="eyebrow">NON PERDERE IL MEZZO CHE HAI SCELTO</span><h2>Prima di scendere,<br>pensa a come ritrovarlo.</h2><p>La guida distingue un’auto lasciata in parcheggio da un veicolo registrato. Segui i passaggi e controlla la conferma nel gioco.</p>'+f'<a class="v-button" href="{url("salvare-auto/")}">Apri la guida al garage →</a></div></section>'
     remaining=[by[k] for k in ('scansionare-veicoli','viaggio-rapido-taxi','70-sfide-100-percento')]
     body+='<section class="v-section">'+section_head('PICCOLE AZIONI, MENO TEMPO PERSO','Continua con le guide pratiche')+'<div class="v-grid">'+''.join(card(g) for g in remaining)+'</div></section>'
@@ -191,11 +194,11 @@ def guide(g,guides):
     body=legacy.crumbs([('Guide','guide-e-tutorial/'),(title,path)])
     body+='<section class="v-intro"><div>'+f'<span class="v-tag">{e(g["tag"])} · PS5</span><h1>{e(title)}</h1><p>{e(g["summary"])}</p><div class="v-read-meta"><span>{len(g["steps"])} passaggi</span><span>~{reading_time(g)} min di lettura</span><span>Fonti in fondo</span></div><a class="v-button" href="#procedura">Vai ai passaggi ↓</a></div><figure>'+image(g['hero_media'],eager=True)+f'<figcaption class="v-caption">{e(MEDIA[g["hero_media"]]["caption"])}</figcaption></figure></section>'
     body+='<div class="v-guide-layout"><article class="v-guide-main">'
-    benefit='Apri il percorso protetto per vedere bottino e riferimenti precisi.' if g['spoiler'] else g.get('benefit','')
-    body+=f'<div class="v-answer"><strong>La cosa da sapere</strong><p>{e(benefit)}</p></div><div class="v-facts"><div class="v-fact"><strong>Prima di iniziare</strong><p>{e(g["requirements"])}</p></div><div class="v-fact"><strong>Dove andare</strong><p>{e("I riferimenti precisi sono protetti nel percorso qui sotto." if g["spoiler"] else g["location"])}</p></div></div>'
+    benefit=g.get('benefit','')
+    body+=f'<div class="v-answer"><strong>La cosa da sapere</strong><p>{e(benefit)}</p></div><div class="v-facts"><div class="v-fact"><strong>Prima di iniziare</strong><p>{e(g["requirements"])}</p></div><div class="v-fact"><strong>Dove andare</strong><p>{e(g["location"])}</p></div></div>'
     body+='<section id="procedura">'+section_head('UNA COSA ALLA VOLTA','Il percorso, passo per passo')
     if g['spoiler']:
-        body+='<details class="v-spoiler" data-spoiler><summary>Vuoi vedere posizioni e dettagli?<small>Apri per leggere i passaggi e vedere le immagini. Puoi richiudere in qualsiasi momento.</small></summary><div class="v-spoiler-body">'
+        body+='<div class="v-spoiler-warning" role="note"><strong>⚠️ Questa guida contiene spoiler.</strong> Continuando leggerai luoghi, obiettivi e ricompense.</div>'
         body+=f'<div class="v-fact"><strong>Riferimenti e bottino</strong><p>{e(g.get("benefit",""))}</p></div>'
     body+='<ol class="v-steps">'
     used=[g['hero_media']]
@@ -213,8 +216,6 @@ def guide(g,guides):
     body+='</ol>'
     if not g['step_media']:
         body+='<div class="v-no-image">Non abbiamo ancora una schermata verificata per ogni passaggio di questa guida. I riferimenti disponibili restano nella fonte: non li sostituiamo con una mappa inventata.<br>'+f'<a href="{e(g["source_url"])}" target="_blank" rel="noopener noreferrer">Apri la guida di riferimento ↗</a></div>'
-    if g['spoiler']:
-        body+='</div></details>'
     body+='</section>'+f'<aside class="v-notice"><strong>Prima di continuare</strong>{e(g.get("caution","Controlla il progresso in gioco."))}</aside>'
     if g['id']=='poligoni-concentrazione':
         body+=f'<p><a class="v-button secondary" href="{url("trofei/trofeo-17-cecchino/")}">Apri la checklist delle medaglie →</a></p>'
@@ -253,7 +254,7 @@ def main():
     legacy.layout=layout
     legacy.main()
     title='GTA 6 Italia: soldi facili, auto speciali e guide PS5'
-    desc='Guide GTA VI in italiano: soldi, auto speciali, garage, trofei e HDR OLED. Passaggi chiari, immagini attribuite e spoiler a scelta.'
+    desc='Guide GTA VI in italiano: soldi facili, auto speciali, garage, trofei e HDR OLED. Passaggi chiari, immagini attribuite e avviso spoiler.'
     legacy.write('index.html',layout(title,desc,'',home(guides),'home',structured={'@context':'https://schema.org','@type':'WebSite','name':'GTA 6 Italia','url':url(),'inLanguage':'it-IT'}))
     new_paths=[]
     for kind in ('all','soldi','auto'):

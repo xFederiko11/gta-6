@@ -75,14 +75,26 @@ class VisualSiteTests(unittest.TestCase):
             self.assertIn(guide['source_url'].replace('&','&amp;'),text)
         self.assertEqual(len(list((ROOT/'trofei').glob('trofeo-*/index.html'))),55)
 
-    def test_spoilers_are_closed_without_javascript(self):
+    def test_guides_show_spoilers_directly_with_clear_warning(self):
         for path in ('guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/sportive-randy-posizioni/'):
             text,tags=parse(ROOT/path/'index.html')
-            panels=[a for t,a in tags.tags if t=='details' and 'data-spoiler' in a]
-            self.assertTrue(panels,path)
-            self.assertTrue(all('open' not in a for a in panels),path)
-            self.assertIn('Mostra spoiler',text)
-            self.assertIn('Nascondi',text)
+            self.assertFalse(any(t=='details' and 'data-spoiler' in a for t,a in tags.tags))
+            self.assertIn('v-spoiler-warning',text)
+            self.assertIn('Attenzione spoiler',text)
+            self.assertNotIn('Mostra spoiler',text)
+            self.assertNotIn('data-spoiler-choice=',text)
+            self.assertIn('id="procedura"',text)
+
+    def test_header_x_link_and_primary_shortcuts_on_every_page(self):
+        for target in (ROOT/'index.html',ROOT/'salvare-auto/index.html',ROOT/'trofei/index.html'):
+            text,tags=parse(target)
+            self.assertIn('class="v-x-link"',text)
+            self.assertIn('href="https://x.com/xFederiko11"',text)
+            self.assertIn('aria-label="Segui Federiko su X"',text)
+            for path in ('soldi-facili/','auto-speciali/','salvare-auto/'):
+                self.assertIn(BASE+path,text)
+        html=(ROOT/'index.html').read_text()
+        self.assertLess(html.index('class="v-categories"'),html.index('class="v-hero"'))
 
     def test_screenshots_have_real_provenance(self):
         manifest=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
@@ -121,7 +133,7 @@ class VisualSiteTests(unittest.TestCase):
         script=Path('site/assets/visual-v2.js').read_text()
         for token in ('api.buffer.com','Authorization','createPost','innerHTML','fetch('):
             self.assertNotIn(token,script)
-        self.assertIn('localStorage',script)
+        self.assertNotIn('data-spoiler-choice',script)
         self.assertIn('aria-pressed',script)
         self.assertIn('prefers-reduced-motion',Path('site/assets/visual-v2.css').read_text())
 

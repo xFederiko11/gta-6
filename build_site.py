@@ -226,12 +226,12 @@ def trophy_index(trophies):
     hidden=[t for t in trophies if t["hidden"]]
     counts=Counter(t["tier"] for t in trophies)
     lead=crumbs([("Trofei","trofei/")])+f'''<div class="page-intro"><span class="eyebrow">🏆 Trofei PlayStation 5</span><h1>Tutti i 55 trofei<br><span class="highlight">GTA VI in italiano</span></h1>
-    <p class="lead">Requisiti e consigli per il platino, con accesso diretto a ogni scheda. I trofei nascosti sono protetti dagli spoiler nella lista principale.</p>
+    <p class="lead">Requisiti e consigli per il platino, con accesso diretto a ogni scheda. Attenzione: anche le schede dei trofei nascosti possono contenere spoiler.</p>
     <div class="statline"><span>💎 {counts["Platino"]} Platino</span><span>🥇 {counts["Oro"]} Oro</span><span>🥈 {counts["Argento"]} Argento</span><span>🥉 {counts["Bronzo"]} Bronzo</span></div>
     </div><div class="info warn">⚠️ Una meditazione iniziale potrebbe essere mancabile. Prima di proseguire conserva un salvataggio manuale e consulta <a href="{url("guide-e-tutorial/meditazione-capitolo-1/")}">questa guida</a>.</div>
     <p><a href="{url("trofei/medaglie-oro/")}">🥇 Trofei Oro e medaglie Oro: guida ai requisiti →</a></p>'''
     cards=list_search()+'<h2>Trofei visibili</h2><div class="index-list">'+"".join(trophy_card(t) for t in shown)+'</div>'
-    secrets='<details><summary>⚠️ Mostra i 28 trofei nascosti (spoiler)</summary><div class="index-list">'+"".join(trophy_card(t) for t in hidden)+'</div></details>'
+    secrets='<div class="v-spoiler-warning" role="note">⚠️ <strong>Attenzione spoiler:</strong> i trofei nascosti possono rivelare eventi della storia.</div><h2>Trofei nascosti</h2><div class="index-list">'+"".join(trophy_card(t) for t in hidden)+'</div>'
     sources=f'<div class="source">Fonti: <a href="{e(TROPHY_SOURCE)}" rel="noopener noreferrer">PowerPyx – Trophy Roadmap</a> e <a href="{e(LIST_SOURCE)}" rel="noopener noreferrer">elenco italiano</a>. Le indicazioni possono cambiare con le patch.</div>'
     progress=('<section class="trophy-index-progress" data-trophy-index-progress>'
               '<div><span class="eyebrow">IL TUO PERCORSO</span>'
@@ -393,7 +393,7 @@ def guide_detail(g, tro):
         + '<div class="guide-answer"><span class="eyebrow">⚡ RISPOSTA RAPIDA</span>'
         + f'<p>{e(g["benefit"])}</p></div>'
         +photo
-        + ('<details class="source-details"><summary>⚠️ Spoiler: vuoi visualizzare luoghi e procedura?</summary><p>Le istruzioni rivelano posizioni ed eventi iniziali.</p>' if spoiler_guard else '')
+        + ('<p class="v-spoiler-warning" role="note">⚠️ <strong>Attenzione spoiler:</strong> qui trovi luoghi, passaggi e possibili eventi della storia.</p>' if spoiler_guard else '')
         + f'<section id="passaggi" class="guide-steps" data-guide-steps="{e(g["id"])}" data-guide-version="{step_revision}">'
         + f'<div class="guide-steps-header"><span class="eyebrow">CHECKLIST PERSONALE</span>'
         + f'<span class="guide-steps-count" data-guide-count aria-live="polite">0 / {len(g["steps"])}</span></div>'
@@ -403,7 +403,6 @@ def guide_detail(g, tro):
         + '<div class="guide-steps-footer"><span data-guide-feedback role="status" aria-live="polite">'
         + 'Spunta i passaggi mentre giochi. Solo su questo dispositivo, senza collegamento PSN.</span>'
         + '<button class="guide-copy" type="button" data-guide-copy>📋 Copia passaggi</button></div></section>'
-        + ('</details>' if spoiler_guard else '')
         + f'<div class="guide-caution"><strong>⚠️ Da verificare prima di procedere</strong><p>{e(g["caution"])}</p></div>'
         + (video_panel() if g["id"]=="poligoni-concentrazione" else "")
         +new_related_research(g["id"])

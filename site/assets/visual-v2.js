@@ -1,22 +1,6 @@
 /* Local-only preferences. No publication APIs, credentials or tracking. */
 (() => {
   'use strict';
-  const key = 'gta6-spoilers-v2';
-  const switches = Array.from(document.querySelectorAll('[data-spoiler-choice]'));
-  const spoilers = Array.from(document.querySelectorAll('details[data-spoiler]'));
-  const label = document.querySelector('[data-spoiler-label]');
-  let preference = 'hide';
-  try { preference = localStorage.getItem(key) === 'show' ? 'show' : 'hide'; } catch (_) {}
-  function apply(value, save) {
-    preference = value === 'show' ? 'show' : 'hide';
-    spoilers.forEach(panel => { panel.open = preference === 'show'; });
-    switches.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.spoilerChoice === preference)));
-    if (label) label.textContent = preference === 'show' ? 'Spoiler visibili' : 'Spoiler nascosti';
-    if (save) { try { localStorage.setItem(key, preference); } catch (_) {} }
-  }
-  switches.forEach(button => button.addEventListener('click', () => apply(button.dataset.spoilerChoice, true)));
-  apply(preference, false);
-  window.addEventListener('storage', event => { if (event.key === key) apply(event.newValue, false); });
   document.querySelectorAll('[data-guide-directory]').forEach(directory => {
     const input = directory.querySelector('[data-guide-search]');
     const buttons = Array.from(directory.querySelectorAll('[data-guide-filter]'));

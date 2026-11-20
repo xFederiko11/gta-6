@@ -50,13 +50,13 @@ jobs:
         run: |
           python -m pip install 'Pillow>=11,<13'
           python prepare_visual_media.py
-      - name: Build visual production pages with dark-first reader and sourced tips
+      - name: Build visual production pages with responsive reader and sourced tips
         run: python reader_experience.py --build
       - name: Audit actual local media and five-image guide target
         run: python media_quality_v1.py
       - name: Validate actual production pages, media and canonical continuity
         run: python -m unittest -q test_visual_site.py test_reader_experience.py test_media_quality_v1.py
-      - name: Check theme persistence spoilers and zoom in a real browser
+      - name: Check responsive theme, visible spoiler notices and zoom in a real browser
         if: github.event_name != 'schedule'
         run: |
           python -m pip install playwright
@@ -104,7 +104,7 @@ jobs:
       - name: Deploy verified visual site
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346
-      - name: Verify public pages actually serve dark-first reader and theme controls
+      - name: Verify public pages serve responsive reader, X header and spoiler warnings
         run: |
           python - <<'PY'
           import urllib.request, time
@@ -112,19 +112,21 @@ jobs:
           for path in ('','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/'):
               for attempt in range(6):
                   try:
-                      request=urllib.request.Request(base+path+'?reader=dark-v1-20261120',headers={'Cache-Control':'no-cache'})
+                      request=urllib.request.Request(base+path+'?reader=adaptive-v2-20261120',headers={'Cache-Control':'no-cache'})
                       with urllib.request.urlopen(request,timeout=20) as response:
                           text=response.read(1500000).decode('utf-8'); status=response.status
                       assert status==200
                       assert 'data-design-version="visual-v2-20261120"' in text
                       assert 'visual-v2.css?v=' in text and 'visual-v2.js?v=' in text
                       assert '<link rel="canonical" href="'+base+path+'"' in text
-                      assert 'data-theme="dark"' in text
-                      assert 'reader-dark-v1-20261120' in text
+                      assert 'data-theme="auto"' in text
+                      assert 'reader-adaptive-v2-20261120' in text
                       assert 'reader-theme.css?v=' in text and 'data-theme-choice="light"' in text
+                      assert 'class="v-x-link"' in text and 'https://x.com/xFederiko11' in text
+                      assert 'data-spoiler-choice' not in text
                       if path in ('salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/'):
                           assert 'id="consigli"' in text and 'Fonti dei consigli' in text
-                      print('PUBLIC_DARK_READER_DEPLOY_OK',base+path)
+                      print('PUBLIC_ADAPTIVE_READER_DEPLOY_OK',base+path)
                       break
                   except Exception:
                       if attempt==5: raise
