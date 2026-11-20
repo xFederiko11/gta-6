@@ -196,9 +196,9 @@ def render(write, layout, schema_article, url, crumbs):
         + f'<p class="micro">Menu e valori iniziali: <a href="{e(game_hdr["source_menu"])}" '
         'target="_blank" rel="noopener noreferrer">schermate PS5 del 19 novembre</a>.</p>'
         + '</section>')
-    title = "GTA 6 HDR: Max Brightness, Black Levels e Paper White per TV OLED"
-    desc = (f"Valori HDR GTA VI nel gioco (Max Brightness, Black Levels, Paper White) per {total} codici OLED in "
-            f"{len(families)} famiglie LG, Samsung, Sony, Philips e Panasonic. HGiG, Game HDR e calibrazione.")
+    title = "GTA 6 HDR OLED: valori per PS5, LG, Samsung e Sony"
+    desc = (f"Valori HDR GTA VI per {total} codici OLED LG, Samsung, Sony, Philips e Panasonic: "
+            "Max Brightness, Black Levels, Paper White e HGiG su PS5.")
     page = (intro + in_game_index + '<section class="section" id="trova-tv"><h2>Trova il modello OLED esatto</h2>' + form
             + filters + '<div class="hdr-list">' + "".join(blocks) + "</div>" + script + "</section>"
             + '<section class="section"><span class="eyebrow">🎮 Consoles</span>'
