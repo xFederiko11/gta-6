@@ -4,17 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'build_site.py'
-      - 'social_preview.py'
-      - 'community_page.py'
-      - 'related_research.py'
-      - 'test_related_research.py'
-      - 'fetch_community_feed.py'
-      - 'test_community_feed.py'
-      - 'guide_source_validation.py'
-      - 'test_guide_source_validation.py'
-      - 'site_info.py'
-      - 'test_site.py'
+      - '*.py'
       - 'data/**'
       - 'site/**'
       - '.github/workflows/deploy-site.yml'
@@ -27,14 +17,14 @@ on:
 
 permissions:
   contents: read
-
 concurrency:
-  group: gta6-pages
+  group: gta6-pages-${{ github.event_name == 'pull_request' && github.ref || 'production' }}
   cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout pinned
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -50,12 +40,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python fetch_community_feed.py
-      - name: Build public site
+      - name: Validate preserved content and existing SEO contracts
         run: |
-          python -m py_compile build_site.py guide_source_validation.py
-          python build_site.py
-      - name: Validate pages and SEO
-        run: python -m unittest -q test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
+          python -m py_compile build_site.py build_visual_site.py visual_guide_content.py guide_source_validation.py prepare_visual_media.py
+          python -m unittest -q test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
+          node --check site/assets/visual-v2.js
+      - name: Optimize curated screenshots for mobile
+        run: |
+          python -m pip install 'Pillow>=11,<13'
+          python prepare_visual_media.py
+      - name: Build the visual production site
+        run: python build_visual_site.py
+      - name: Validate actual production pages and canonical continuity
+        run: python -m unittest -q test_visual_site.py
       - name: Upload static site to GitHub Pages
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
@@ -66,6 +63,7 @@ jobs:
     needs: build
     if: github.event_name != 'pull_request' && github.event.repository.private == false
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     permissions:
       pages: write
       id-token: write
@@ -74,7 +72,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check Pages is enabled for Actions
-        id: pages
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -83,13 +80,31 @@ jobs:
             -H "Authorization: Bearer $GH_TOKEN" \
             -H "Accept: application/vnd.github+json" \
             "https://api.github.com/repos/$GITHUB_REPOSITORY/pages")
-          if [ "$code" = "200" ] && grep -Eq '"build_type"[[:space:]]*:[[:space:]]*"workflow"' /tmp/pages.json; then
-            echo "ready=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "PAGES_NOT_ENABLED: Settings > Pages > Source: GitHub Actions"
-            echo "ready=false" >> "$GITHUB_OUTPUT"
+          if [ "$code" != "200" ] || ! grep -Eq '"build_type"[[:space:]]*:[[:space:]]*"workflow"' /tmp/pages.json; then
+            echo '::error::Pages must use GitHub Actions before deployment.'
+            exit 1
           fi
-      - name: Deploy verified site
-        if: steps.pages.outputs.ready == 'true'
+      - name: Deploy verified visual site
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346
+      - name: Verify public pages actually serve the new design
+        run: |
+          python - <<'PY'
+          import urllib.request, time
+          base='https://xfederiko11.github.io/gta-6/'
+          for path in ('','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/'):
+              for attempt in range(6):
+                  try:
+                      request=urllib.request.Request(base+path+'?design=visual-v2-20261120',headers={'Cache-Control':'no-cache'})
+                      with urllib.request.urlopen(request,timeout=20) as response:
+                          text=response.read(1500000).decode('utf-8'); status=response.status
+                      assert status==200
+                      assert 'data-design-version="visual-v2-20261120"' in text
+                      assert 'visual-v2.css?v=' in text and 'visual-v2.js?v=' in text
+                      assert '<link rel="canonical" href="'+base+path+'"' in text
+                      print('PUBLIC_VISUAL_DEPLOY_OK',base+path)
+                      break
+                  except Exception:
+                      if attempt==5: raise
+                      time.sleep(10)
+          PY
