@@ -15,6 +15,7 @@ import site_info
 from visual_guide_content import enrich
 from community_social_v1 import home_rail
 from meditation_tracker_v1 import render as render_meditation_tracker
+from photo_request_hub_v1 import render as render_photo_hub
 
 e=legacy.e
 url=legacy.url
@@ -37,7 +38,7 @@ def brand():
 
 def header(path):
     primary=[('Home',''),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare auto','salvare-auto/'),('Guide','guide-e-tutorial/')]
-    secondary=[('Trofei e platino','trofei/'),('HDR OLED','hdr-oled/'),('Trucchi PS5','trucchi/'),('Scoperte community','scoperte/'),('Fonti e metodo','fonti/')]
+    secondary=[('Trofei e platino','trofei/'),('HDR OLED','hdr-oled/'),('Trucchi PS5','trucchi/'),('Scoperte community','scoperte/'),('Screenshot PS5','screenshot-ps5/'),('Fonti e metodo','fonti/')]
     def link(label,target):
         current=' aria-current="page"' if path==target else ''
         return f'<a href="{url(target)}"{current}>{e(label)}</a>'
@@ -56,7 +57,7 @@ def header(path):
             '</div></div>')
 
 def footer():
-    links=[('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
+    links=[('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
     return ('<footer class="v-footer"><div class="wrap"><div class="v-footer-grid"><div>'+brand()+
             '<p>Guide indipendenti per PS5 e PS5 Pro. Sintesi originali, schermate attribuite e avvisi spoiler. Non affiliato a Rockstar Games.</p></div><nav class="v-footer-links" aria-label="Link utili">'+
             ''.join(f'<a href="{url(p)}">{e(t)}</a>' for t,p in links)+
@@ -304,6 +305,12 @@ def home(guides):
     body+='<section class="v-section v-promo">'+image('scooter-menu')+'<div><span class="eyebrow">NON PERDERE IL MEZZO CHE HAI SCELTO</span><h2>Prima di scendere,<br>pensa a come ritrovarlo.</h2><p>La guida distingue un’auto lasciata in parcheggio da un veicolo registrato. Segui i passaggi e controlla la conferma nel gioco.</p>'+f'<a class="v-button" href="{url("salvare-auto/")}">Apri la guida al garage →</a></div></section>'
     remaining=[by[k] for k in ('scansionare-veicoli','viaggio-rapido-taxi','70-sfide-100-percento')]
     body+='<section class="v-section">'+section_head('PICCOLE AZIONI, MENO TEMPO PERSO','Continua con le guide pratiche')+'<div class="v-grid">'+''.join(card(g) for g in remaining)+'</div></section>'
+    body+=('<section class="v-photo-hub-invite"><div>'
+           '<span class="v-kicker">📸 GTA VI ITALIA · FOTO COMMUNITY</span>'
+           '<h2>Hai uno screenshot PS5 che può aiutare altri giocatori?</h2>'
+           '<p>Mappe, comandi, menu e risultati reali: scegli fra 55 esempi di fotografie utili nelle nostre 11 guide. Nessun caricamento su GitHub, nessuna immagine inventata.</p>'
+           '</div><a class="v-button secondary" href="'+url('screenshot-ps5/')+'">Scopri le richieste di screenshot →</a>'
+           '</section>')
     body+=home_rail()
     body+='<section class="v-section">'+section_head('ANCHE NEL SITO','Platino e immagine, senza confusione')+'<div class="v-links">'+f'<a class="v-button secondary" href="{url("trofei/")}">Checklist trofei</a><a class="v-button secondary" href="{url("hdr-oled/")}">Trova la tua TV OLED</a><a class="v-button secondary" href="{url("scoperte/")}">Scoperte della community</a></div></section>'
     return body
@@ -390,7 +397,7 @@ def guide(g,guides):
                ' · <a href="https://www.powerpyx.com/gta-6-tourist-trap-take-up-mattias-offer-walkthrough/" target="_blank" rel="noopener noreferrer">PowerPyx: punto di non ritorno</a>'
                ' · <a href="https://www.reddit.com/r/GTA6/comments/1y0sv2n/something_you_should_know_about_the_end_of/" target="_blank" rel="noopener noreferrer">Discussione r/GTA6</a>. '
                'Fonti indipendenti, non test diretti del nostro team.</p>'
-               '</details></aside>')
+               '</details><p class="v-photo-hub-guide-callout"><a href="'+url('screenshot-ps5/')+'">Vedi tutte le richieste fotografiche della community →</a></p></aside>')
     if g['id']=='prima-persona-glitch-ps5':
         body+=('<aside class="v-glitch-status" role="note"><strong>🟡 Probabilmente funzionante su PS5 · 19–20 novembre 2026</strong>'
                '<p>PC Gamer riferisce una prova indipendente sul lancio, '
@@ -472,7 +479,7 @@ def main():
     records+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
     guides=enrich(records)
     validate(guides)
-    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js')
+    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js')
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
     from community_discovery_v2 import render as community_render
@@ -488,6 +495,21 @@ def main():
         new_paths.append(path)
     for g in guides:
         guide(g,guides); new_paths.append(g['canonical_path'])
+    photo_hub,photo_audit=render_photo_hub(
+        guides,VISUAL_REQUESTS,MEDIA,
+        json.loads(Path('data/guide_extras.json').read_text(encoding='utf-8'))['guides'],media_src)
+    photo_path='screenshot-ps5/'
+    photo_title='Screenshot GTA 6 PS5: collabora con GTA VI Italia'
+    photo_description=('Screenshot GTA 6 su PS5 e PS5 Pro: scegli tra 55 richieste per migliorare '
+                       'le guide italiane. Proponi foto reali su X con verifica e consenso.')
+    photo_schema={'@context':'https://schema.org','@type':'CollectionPage',
+                  'name':photo_title,'url':url(photo_path),'description':photo_description,
+                  'inLanguage':'it-IT'}
+    legacy.write(photo_path+'index.html',layout(
+        photo_title,photo_description,photo_path,photo_hub,'guide',
+        structured=photo_schema))
+    legacy.write('photo-requests.json',json.dumps(photo_audit,ensure_ascii=False,indent=2)+'\n')
+    new_paths.append(photo_path)
     ET.register_namespace('','http://www.sitemaps.org/schemas/sitemap/0.9')
     tree=ET.parse(OUT/'sitemap.xml'); root=tree.getroot(); ns='{http://www.sitemaps.org/schemas/sitemap/0.9}'
     existing={loc.text for loc in root.iter(ns+'loc')}

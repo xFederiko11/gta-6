@@ -197,7 +197,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','hdr-oled/','trucchi/','scoperte/','guide-e-tutorial/']
+                paths=['','salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -265,6 +265,20 @@ def browser_qa():
                         page.screenshot(path=str(out/f'home-dark-{width}.png'))
                         page.locator('[data-theme-choice="light"]').click();page.screenshot(path=str(out/f'home-light-{width}.png'))
                         page.locator('[data-theme-choice="dark"]').click()
+                    if path=='screenshot-ps5/':
+                        cards=page.locator('.v-photo-hub-card')
+                        assert cards.count()==11
+                        assert page.locator('[data-visual-request-photo]').count()==55
+                        assert page.locator('details.v-photo-hub-details[open]').count()==0
+                        if width in (320,390):
+                            first=page.locator('details.v-photo-hub-details').first
+                            first.locator('summary').click()
+                            assert first.get_attribute('open') is not None
+                            assert first.locator('li.v-photo-hub-task').count()==5
+                            assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1')
+                            page.screenshot(path=str(out/f'photo-hub-mobile-{width}.png'))
+                            first.locator('summary').click()
+                            assert first.get_attribute('open') is None
                     if path=='guide-e-tutorial/':
                         page.locator('[data-guide-search]').fill('taxi')
                         assert page.locator('[data-guide-searchable]:visible').count()==1
