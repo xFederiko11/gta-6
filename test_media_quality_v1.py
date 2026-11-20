@@ -48,8 +48,8 @@ class MediaQualityTests(unittest.TestCase):
             self.assertEqual(row['real_step_screenshots'],4)
             self.assertEqual(row['promotional_images'],2)
             self.assertEqual(report['target_unique_gameplay_screenshots'],5)
-            self.assertEqual(report['gameplay_screenshots_in_steps'],4)
-            self.assertEqual(report['promotional_images_in_steps'],2)
+            self.assertEqual(report['gameplay_screenshots_in_guide'],4)
+            self.assertEqual(report['promotional_images_in_guide'],2)
             page.write_text(page.read_text(encoding='utf-8').replace(
                 'data-visual-kind="promotional"','data-visual-kind="screenshot"',1),
                 encoding='utf-8')
