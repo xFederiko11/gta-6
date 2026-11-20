@@ -40,7 +40,7 @@ def header(path):
         return f'<a href="{url(target)}"{current}>{e(label)}</a>'
     main=''.join(link(*item) for item in primary)
     more=''.join(link(*item) for item in secondary)
-    x_link=('<a class="v-x-link" href="https://x.com/xFederiko11" '
+    x_link=('<a class="v-x-link" href="https://x.com/intent/follow?screen_name=xFederiko11" '
             'target="_blank" rel="me noopener noreferrer" aria-label="Segui Federiko su X">'
             '<span aria-hidden="true">𝕏</span><span>Segui</span></a>')
     return ('<header class="v-header" id="inizio"><div class="wrap v-header-inner">'+brand()+
@@ -152,6 +152,14 @@ def home(guides):
           '<p class="v-hero-credit">Sfondo promozionale: <a href="https://www.rockstargames.com/VI/">Rockstar Games</a> · Schermata veicolo: <a href="https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know">Push Square</a></p>')
     chosen=[by[k] for k in ('soldi-facili-capitolo-1','registrare-auto-personale','sportive-randy-posizioni')]
     body=categories()+hero+'<section class="v-section">'+section_head('LE PRIORITÀ','Soldi, auto, garage. Parti da qui.','Tre percorsi pratici, senza mescolare notizie e tutorial.','guide-e-tutorial/')+'<div class="v-grid">'+''.join(card(g) for g in chosen)+'</div></section>'
+    body+=('<aside class="v-follow-home" aria-label="Seguici su X per nuove guide">'
+           '<div><span class="v-kicker">𝕏 SEGUI IL PROGETTO</span>'
+           '<h2>Soldi, auto e platino: le prossime scoperte arrivano su X.</h2>'
+           '<p>Guide in italiano, segnalazioni con fonti e novità per PS5 e PS5 Pro. '
+           'Seguici per ritrovare le nuove procedure appena pubblicate.</p></div>'
+           '<a class="v-button" href="https://x.com/intent/follow?screen_name=xFederiko11" '
+           'target="_blank" rel="noopener noreferrer">𝕏 Segui @xFederiko11</a>'
+           '</aside>')
     body+='<section class="v-section v-promo">'+image('scooter-menu')+'<div><span class="eyebrow">NON PERDERE IL MEZZO CHE HAI SCELTO</span><h2>Prima di scendere,<br>pensa a come ritrovarlo.</h2><p>La guida distingue un’auto lasciata in parcheggio da un veicolo registrato. Segui i passaggi e controlla la conferma nel gioco.</p>'+f'<a class="v-button" href="{url("salvare-auto/")}">Apri la guida al garage →</a></div></section>'
     remaining=[by[k] for k in ('scansionare-veicoli','viaggio-rapido-taxi','70-sfide-100-percento')]
     body+='<section class="v-section">'+section_head('PICCOLE AZIONI, MENO TEMPO PERSO','Continua con le guide pratiche')+'<div class="v-grid">'+''.join(card(g) for g in remaining)+'</div></section>'

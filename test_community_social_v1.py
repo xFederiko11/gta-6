@@ -4,7 +4,7 @@ import json,tempfile,unittest
 from pathlib import Path
 from unittest.mock import patch
 from urllib.parse import unquote
-from community_social_v1 import widget,home_rail,verified_x_url,suggested_tweet,relevant_youtube,xpost_for
+from community_social_v1 import widget,home_rail,verified_x_url,suggested_tweet,relevant_youtube,xpost_for,share_intent,FOLLOW_INTENT
 
 class SocialParticipationTests(unittest.TestCase):
     def test_url_validation(self):
@@ -19,11 +19,17 @@ class SocialParticipationTests(unittest.TestCase):
     def test_no_github_login_or_fake_comment_form(self):
         html=widget("salvare-auto/")
         self.assertIn("x.com/intent/tweet?",html)
-        self.assertIn("Scrivi a Federiko su X",html)
+        self.assertTrue("Scrivi a Federiko su X" in html or
+                        "Rispondi al post su X" in html)
         self.assertNotIn("github.com",html.lower())
         self.assertNotIn("GitHub Issues",html)
         self.assertIn("salvare-auto%2F",html)
         self.assertIn("x.com/intent/tweet",suggested_tweet("scoperte/"))
+        self.assertIn('x.com/intent/follow?screen_name=xFederiko11',html)
+        self.assertIn('Condividi la guida su X',html)
+        self.assertIn('url=https%3A%2F%2Fxfederiko11.github.io%2Fgta-6%2Fscoperte%2F',
+                      share_intent("scoperte/"))
+        with self.assertRaises(ValueError):share_intent("../other")
         with self.assertRaises(ValueError):suggested_tweet("../secret")
 
     def test_known_x_post_reply_target(self):
