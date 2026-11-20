@@ -17,7 +17,7 @@ from urllib.parse import urlsplit
 ROOT = Path('_site')
 BASE = 'https://xfederiko11.github.io/gta-6/'
 VERSION = 'reader-adaptive-v2-20261120'
-ASSETS = ('reader-theme.css', 'reader-theme.js')
+ASSETS = ('reader-theme.css', 'reader-theme.js', 'community-social-v1.js')
 BOOT = '''<meta name="color-scheme" content="light dark">
 <style id="reader-first-paint">html{background:#fcf8fc;color-scheme:light}html[data-theme="dark"]{background:#0c0b13;color-scheme:dark}@media(max-width:760px){html[data-theme="auto"]{background:#0c0b13;color-scheme:dark}}body{background:inherit}</style>
 <script id="reader-theme-boot">(function(){var t=matchMedia('(max-width:760px)').matches?'dark':'light';try{var v=localStorage.getItem('gta6-theme-v1');if(v==='light'||v==='dark')t=v;}catch(e){}document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;})();</script>'''
@@ -103,7 +103,7 @@ def augment_guide(page, entry):
                           '<a href="#procedura">Il percorso passo per passo</a><a href="#mappa" data-reader-anchor>Mappa e immagini</a>',1)
     return page
 
-def transform(page, *, version, entry=None):
+def transform(page, *, version, entry=None, discussion_path=None):
     if f'name="reader-version" content="{VERSION}"' in page:
         return page
     if entry:
@@ -114,7 +114,13 @@ def transform(page, *, version, entry=None):
     page = page.replace('<head>', '<head>'+BOOT, 1)
     page = page.replace('</head>', f'<meta name="reader-version" content="{VERSION}"><link rel="stylesheet" href="{BASE}assets/reader-theme.css?v={version}"></head>', 1)
     page = page.replace('<div class="wrap v-spoiler-inner">', '<div class="wrap v-spoiler-inner">'+CONTROLS, 1)
-    page = page.replace('</body>', DIALOG+f'<script src="{BASE}assets/reader-theme.js?v={version}" defer></script></body>', 1)
+    if discussion_path is not None:
+        from community_social_v1 import widget, xpost_for
+        if '</main>' not in page:
+            raise ValueError('Article has no closing main content region')
+        page=page.replace('</main>',xpost_for(discussion_path)+widget(discussion_path)+'</main>',1)
+    page = page.replace('</body>', DIALOG+f'<script src="{BASE}assets/reader-theme.js?v={version}" defer></script>'
+                        +f'<script src="{BASE}assets/community-social-v1.js?v={version}" defer></script></body>', 1)
     return page
 
 
@@ -124,7 +130,7 @@ def build_base():
     original_sources = builder.ORIGINAL_SOURCES
     builder.ORIGINAL_SOURCES = lambda path: original_sources(path) + (
         'reader_experience.py','data/guide_extras.json',
-        'site/assets/reader-theme.css','site/assets/reader-theme.js')
+        'site/assets/reader-theme.css','site/assets/reader-theme.js','site/assets/community-social-v1.js','community_social_v1.py','community_discovery_v2.py','data/community_social.json')
     original_enrich = builder.enrich
     def reviewed(records):
         guides = original_enrich(records)
@@ -145,11 +151,15 @@ def main():
     version = hashlib.sha256(b''.join((Path('site/assets')/name).read_bytes() for name in ASSETS)).hexdigest()[:12]
     for name in ASSETS:
         shutil.copy2(Path('site/assets')/name, ROOT/'assets'/name)
+    from community_social_sync_v1 import topics
+    discussable={path for path,_ in topics()}
     count = 0
     for path in ROOT.rglob('*.html'):
         relative = path.relative_to(ROOT).as_posix().removesuffix('index.html')
         page = path.read_text(encoding='utf-8')
-        path.write_text(transform(page, version=version, entry=data['guides'].get(relative)), encoding='utf-8')
+        discussion_path=relative if relative in discussable else None
+        path.write_text(transform(page, version=version, entry=data['guides'].get(relative),
+                                  discussion_path=discussion_path), encoding='utf-8')
         count += 1
     for path in data['guides']:
         if not (ROOT/path/'index.html').is_file():
