@@ -50,7 +50,7 @@ jobs:
         run: python community_social_sync_v1.py
       - name: Validate preserved content and existing SEO contracts
         run: |
-          python -m py_compile build_site.py build_visual_site.py visual_guide_content.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py
+          python -m py_compile photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py
           python -m unittest -q test_meditation_tracker_v1.py test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
           node --check site/assets/visual-v2.js
           node --check site/assets/reader-theme.js
@@ -71,7 +71,7 @@ jobs:
       - name: Audit actual local media and five-image guide target
         run: python media_quality_v1.py
       - name: Validate actual production pages, media and canonical continuity
-        run: python -m unittest -q test_visual_site.py test_reader_experience.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py
+        run: python -m unittest -q test_visual_site.py test_reader_experience.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py
       - name: Audit static Google discovery links (no network or tracking)
         run: |
           python -m unittest -q test_internal_link_graph_v1.py
@@ -268,6 +268,18 @@ jobs:
                   except (AssertionError,ValueError,KeyError):
                       if attempt==5: raise
                       time.sleep(10)
+          hub=fetch('screenshot-ps5/?qa=photo-hub-v1')
+          assert hub.count('data-photo-guide=')==11
+          assert hub.count('data-visual-request-photo=')==55
+          assert hub.count('data-umami-event="x-screenshot-intent"')==55
+          assert '<link rel="canonical" href="'+base+'screenshot-ps5/"' in hub
+          photo_audit=json.loads(fetch('photo-requests.json?qa=photo-hub-v1'))
+          assert photo_audit['guides']==11 and photo_audit['photo_role_examples']==55
+          assert photo_audit['guides_at_target']==report['ready']
+          for guide in photo_audit['entries']:
+              assert guide['screenshot_count']==indexed[guide['path']+'index.html']['real_step_screenshots']
+          print('PUBLIC_GTA6_COMMUNITY_PHOTO_HUB_OK',base+'screenshot-ps5/',
+                'guides',11,'requested_roles',55)
           privacy=fetch('privacy/?qa=photo-proof-v1')
           assert 'x-screenshot-intent' in privacy
           print('PUBLIC_GTA6_PHOTO_PRIVACY_OK',base+'privacy/')
