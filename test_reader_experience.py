@@ -141,7 +141,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','trofei/','hdr-oled/','trucchi/','scoperte/','guide-e-tutorial/']
+                paths=['','salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','hdr-oled/','trucchi/','scoperte/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -189,6 +189,11 @@ def browser_qa():
                         page.locator('[data-meditation-reset]').click()
                         assert page.locator('[data-meditation-summary]').inner_text()=='0 / 18'
                         assert not page.locator('#mt-jasons-house-one').is_checked()
+                    if path=='guide-e-tutorial/glitch-prima-persona-ps5/' and width==390:
+                        assert page.locator('.v-glitch-status').is_visible()
+                        assert page.locator('iframe[data-original-video-player]').count()==0
+                        assert page.locator('.v-video-reference').count()==1
+                        assert page.locator('.v-step').count()==6
                     if path=='salvare-auto/' and width==390:
                         # Third-party YouTube is never loaded merely by visiting.
                         assert page.locator('iframe[data-original-video-player]').count()==0
