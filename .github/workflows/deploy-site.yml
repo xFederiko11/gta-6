@@ -19,7 +19,9 @@ permissions:
   contents: read
 concurrency:
   group: gta6-pages-${{ github.event_name == 'pull_request' && github.ref || 'production' }}
-  cancel-in-progress: false
+  # During launch, a fresh main-branch commit supersedes stale builds.
+  # The latest deployment receives its own post-deploy HTTP checks.
+  cancel-in-progress: true
 
 jobs:
   build:
