@@ -48,6 +48,14 @@
   const addLink=(parent,label,url)=>{
     const a=make("a","",label);
     a.href=url;a.target="_blank";a.rel="noopener noreferrer";
+    // The optional Umami script is only present after the owner opts in.
+    // Classify only these known destinations, not any user's content.
+    if(document.getElementById("growth-analytics-v1")){
+      if(/^https:\/\/x\.com\/xFederiko11\/status\/[0-9]+$/.test(url))
+        a.dataset.umamiEvent="x-post-open";
+      else if(/^https:\/\/x\.com\/intent\/tweet\?in_reply_to=[0-9]+$/.test(url))
+        a.dataset.umamiEvent="x-reply-intent";
+    }
     parent.append(a);
   };
   function connectArticle(section,posts){
