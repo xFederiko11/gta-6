@@ -77,6 +77,67 @@
       holder.replaceChildren(frame);
     }, {once: true});
   });
+  // A manually maintained, local-only collector checklist; NEVER PSN progression.
+  document.querySelectorAll('[data-meditation-tracker]').forEach(tracker => {
+    const KEY = 'gta6-meditations-v1';
+    const boxes = Array.from(tracker.querySelectorAll('input[data-meditation-check]'));
+    const keys = new Set(boxes.map(box => box.dataset.meditationCheck));
+    if (boxes.length !== 18 || keys.size !== 18) return;
+    const summary = tracker.querySelector('[data-meditation-summary]');
+    const goal = tracker.querySelector('[data-meditation-100]');
+    const house = tracker.querySelector('[data-meditation-house]');
+    const progress = tracker.querySelector('[data-meditation-progress]');
+    const unlock = tracker.querySelector('[data-meditation-unlock]');
+    const save = tracker.querySelector('[data-meditation-save-status]');
+    const reset = tracker.querySelector('[data-meditation-reset]');
+    if (!summary || !goal || !house || !progress || !unlock || !save || !reset) return;
+    let localAvailable = true;
+    try {
+      const old = JSON.parse(localStorage.getItem(KEY) || '[]');
+      if (Array.isArray(old)) {
+        const selected = new Set(old.filter(key => typeof key === 'string' && keys.has(key)));
+        boxes.forEach(box => { box.checked = selected.has(box.dataset.meditationCheck); });
+      }
+    } catch (_) {
+      localAvailable = false;
+    }
+    function update(persist) {
+      const completed = boxes.filter(box => box.checked).map(box => box.dataset.meditationCheck);
+      const done = completed.length;
+      const beforeFinal = boxes.filter(box => box.dataset.meditationCheck !== 'ascent-mountain:final' && box.checked).length;
+      summary.textContent = done + ' / 18';
+      goal.textContent = Math.min(done, 15) + ' / 15';
+      house.textContent = completed.includes('jasons-house:one') ? 'Completata' : 'Da fare';
+      progress.value = done;
+      unlock.textContent = beforeFinal === 17
+        ? 'Le 17 sessioni precedenti risultano segnate nella checklist: verifica che il simbolo finale di Ascent Mountain sia disponibile nel gioco.'
+        : 'Per sbloccare Ascent Mountain, completa tutte le altre 17 meditazioni nel gioco. Il conteggio del sito è soltanto un promemoria.';
+      if (persist) {
+        try {
+          localStorage.setItem(KEY, JSON.stringify(completed));
+          localAvailable = true;
+        } catch (_) {
+          localAvailable = false;
+        }
+      }
+      save.textContent = localAvailable
+        ? 'Progressi conservati solo in questo browser. Non sincronizzati con PS5, X o il nostro server.'
+        : 'Salvataggio locale non disponibile: queste spunte potrebbero perdersi chiudendo la pagina.';
+    }
+    boxes.forEach(box => box.addEventListener('change', () => update(true)));
+    reset.addEventListener('click', () => {
+      if (!window.confirm('Azzera tutte le 18 spunte salvate in questo browser?')) return;
+      boxes.forEach(box => { box.checked = false; });
+      try {
+        localStorage.removeItem(KEY);
+        localAvailable = true;
+      } catch (_) {
+        localAvailable = false;
+      }
+      update(false);
+    });
+    update(false);
+  });
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape') document.querySelectorAll('.v-menu[open],.v-more[open]').forEach(menu => { menu.open = false; });
   });
