@@ -79,6 +79,12 @@
       "label": "Mappa GTABase · garage acquistabili o ottenibili nella storia",
       "caution": "Elenco generale; le proprietà si sbloccano progredendo nella storia.",
       "source": "https://www.gtabase.com/gta-6/articles/how-to-unlock-garages-in-gta-6"
+    },
+    "soldi-facili-capitolo-1": {
+      "url": "https://www.gtabase.com/gta-6/map/?feature=liquor-store",
+      "label": "Mappa GTABase · Three Sheets Liquor a Key Lento",
+      "caution": "Questa mappa verifica soltanto il negozio Three Sheets, il primo dei quattro luoghi elencati. Gli altri tre richiedono ancora una mappa verificata specifica.",
+      "source": "https://www.gtabase.com/gta-6/map/?feature=liquor-store"
     }
   }
 }
