@@ -7,7 +7,7 @@ import hashlib
 import json
 import re
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urlencode
 import xml.etree.ElementTree as ET
 
 import build_site as legacy
@@ -22,6 +22,7 @@ OUT=legacy.OUT
 ORIGINAL_LAYOUT=legacy.layout
 ORIGINAL_SOURCES=site_info.sources_for
 MEDIA=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
+VISUAL_REQUESTS=json.loads(Path('data/visual_requests.json').read_text(encoding='utf-8'))['guides']
 CACHE=Path('.visual-media/manifest.json')
 LOCAL_MEDIA=json.loads(CACHE.read_text(encoding='utf-8')) if CACHE.exists() else {}
 ASSET_VERSION=hashlib.sha256(b''.join(Path(p).read_bytes() for p in ('site/assets/visual-v2.css','site/assets/visual-v2.js'))).hexdigest()[:12]
@@ -117,6 +118,44 @@ def figure(key):
             f'data-image-source="{e(record["source"])}" target="_blank" rel="noopener noreferrer" '
             f'aria-label="Ingrandisci: {e(record["alt"])}">'+image(key)+
             '<span class="v-image-label">Ingrandisci ↗</span></a>'+credit+'</figure>')
+
+
+def visual_contribution(g):
+    """Invite voluntary, original PS5 screenshots on X; no login on our site.
+
+    An X compose intent is NOT an upload, licensing agreement, published post,
+    delivered message or automated inbox. Manual editorial review is required.
+    """
+    requested=VISUAL_REQUESTS.get(g['id'])
+    if not isinstance(requested,list) or len(requested)!=5:
+        raise ValueError('Incomplete five-role visual request: '+g['id'])
+    if any(not isinstance(item,str) or not 8<=len(item)<=150 for item in requested):
+        raise ValueError('Invalid visual request')
+    path=g['canonical_path']
+    if not re.fullmatch(r'(?:[a-z0-9-]+/)+',path):
+        raise ValueError('Invalid contribution guide path')
+    original='@xFederiko11 Ho uno screenshot PS5 originale utile a questa guida GTA VI: '+url(path)+' #GTA6Italia'
+    target='https://x.com/intent/tweet?'+urlencode({'text':original})
+    list_items=''.join('<li>'+e(item)+'</li>' for item in requested)
+    return (
+        '<aside class="v-visual-help" data-visual-request-id="'+e(g['id'])+'" '
+        'aria-label="Contribuisci con immagini di gioco autentiche">'
+        '<div class="v-visual-help-head"><div><span class="v-kicker">𝕏 COMMUNITY · SCHERMATE PS5</span>'
+        '<h2>Hai uno screenshot che chiarisce un passaggio?</h2>'
+        '<p>Ci interessano immagini reali di mappe, menu e risultati del gioco, '
+        'non foto promozionali. Nessun account GitHub necessario.</p></div>'
+        '<a class="v-button secondary" href="'+e(target)+'" '
+        'target="_blank" rel="noopener noreferrer" data-visual-send-x>'
+        '𝕏 Proponi uno screenshot</a></div>'
+        '<details class="v-visual-request-details"><summary>Cinque esempi di immagini utili</summary>'
+        '<ol>'+list_items+'</ol>'
+        '<p>Premi Crea (Create) su PS5 per catturare la schermata e allegala '
+        '<strong>manualmente</strong> al post che aprirai su X. '
+        'Indica PS5/PS5 Pro, patch se conosciuta e segnala eventuali spoiler. '
+        'Condividi soltanto screenshot di cui possiedi i diritti; per ripubblicarli '
+        'ti chiederemo un permesso esplicito. Nessun invio o pubblicazione automatica.</p>'
+        '</details></aside>'
+    )
 
 
 def reading_time(g):
@@ -258,6 +297,7 @@ def guide(g,guides):
     body+='</section>'+f'<aside class="v-notice"><strong>Prima di continuare</strong>{e(g.get("caution","Controlla il progresso in gioco."))}</aside>'
     if g['id']=='poligoni-concentrazione':
         body+=f'<p><a class="v-button secondary" href="{url("trofei/trofeo-17-cecchino/")}">Apri la checklist delle medaglie →</a></p>'
+    body+=visual_contribution(g)
     body+=sources(g,used)+'</article><aside class="v-guide-aside"><h2>In questa guida</h2><a href="#procedura">Il percorso passo per passo</a><a href="#fonti">Fonti e immagini</a>'+f'<a href="{url("soldi-facili/")}">Altri modi per fare soldi</a><a href="{url("auto-speciali/")}">Auto e garage</a><a href="{url("trofei/")}">Percorso platino</a></aside></div>'
     related=[x for x in guides if x['id']!=g['id'] and (x['category']==g['category'] or x['category'] in ('garage','soldi'))][:3]
     body+='<section class="v-section">'+section_head('IL PROSSIMO PASSO','Potrebbero servirti anche')+'<div class="v-grid">'+''.join(card(x) for x in related)+'</div></section>'
@@ -288,7 +328,7 @@ def main():
     records+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
     guides=enrich(records)
     validate(guides)
-    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','site/assets/visual-v2.css','site/assets/visual-v2.js')
+    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','site/assets/visual-v2.css','site/assets/visual-v2.js')
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
     from community_discovery_v2 import render as community_render
