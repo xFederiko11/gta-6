@@ -103,16 +103,18 @@ def widget(path, *, title="Partecipa alla discussione", youtube_url=None):
             '<p class="social-disclosure">Il video può essere di un creator esterno: i commenti '
             'rimangono sul relativo canale YouTube.</p>')
     return (
-      '<section class="social-discussion" id="commenti" aria-label="Partecipa su X o YouTube">'
+      '<section class="social-discussion" id="commenti" data-x-article-url="'+escape(BASE+path,quote=True)+'" '
+      'aria-label="Partecipa su X o YouTube">'
       '<div class="social-discussion-head"><div><span class="eyebrow">LA COMMUNITY PARTECIPA</span>'
       '<h2>'+escape(title)+'</h2>'
       '<p>Domande, posizioni, suggerimenti ed eventuali correzioni: scegli il social che usi già.</p>'
       '</div><span class="social-count">𝕏 Community</span></div>'
-      '<div class="social-discussion-cta"><a class="v-button" href="'+escape(target,quote=True)+'" '
+      '<div class="social-discussion-cta"><a class="v-button" data-x-primary-action '
+      'href="'+escape(target,quote=True)+'" '
       'target="_blank" rel="noopener noreferrer">'+label+'</a>'
       '<a class="v-button secondary" href="'+PROFILE+'" target="_blank" '
       'rel="me noopener noreferrer">𝕏 Vai al profilo</a>'+youtube+'</div>'
-      '<p class="social-disclosure">'+escape(description)+' '
+      '<p class="social-disclosure" data-x-reply-note>'+escape(description)+' '
       'Non servono GitHub né nuove registrazioni al sito. Le risposte sono pubblicate '
       'e moderate dalle rispettive piattaforme.</p></section>')
 
