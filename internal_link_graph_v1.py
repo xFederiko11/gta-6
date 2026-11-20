@@ -117,7 +117,7 @@ def analyze(root=ROOT):
             continue
         parser = AnchorParser()
         parser.feed(target_path.read_text(encoding="utf-8"))
-        if any("noindex" in tags.split(",") for tags in parser.robots):
+        if any("noindex" in [flag.strip() for flag in tags.split(",")] for tags in parser.robots):
             noindex.add(target)
         else:
             indexable_omitted.add(target)
