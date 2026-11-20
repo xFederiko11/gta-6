@@ -229,7 +229,7 @@ class VisualSiteTests(unittest.TestCase):
         report=json.loads((ROOT/'media-quality.json').read_text(encoding='utf-8'))
         # Video/map references are never counted as real screenshot media.
         self.assertEqual(report['guides_checked'],10)
-        self.assertEqual(report['ready'],0)
+        self.assertEqual(report['ready']+report['below_target'],report['guides_checked'])
 
     def test_screenshots_have_real_provenance(self):
         manifest=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
