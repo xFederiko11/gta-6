@@ -23,6 +23,55 @@ class MediaQualityTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError,'Broken or remote'):
                 audit(root)
 
+    def test_promotional_images_never_satisfy_five_gameplay_screenshots(self):
+        with TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            page=root/'guide-e-tutorial'/'example'/'index.html'
+            page.parent.mkdir(parents=True)
+            media=root/'assets'/'visual'
+            media.mkdir(parents=True)
+            imgs=[]
+            for n in range(6):
+                filename=f'proof-{n}-960.webp'
+                (media/filename).write_bytes(b'local-screenshot-fixture')
+                kind='screenshot' if n<4 else 'promotional'
+                imgs.append('<img data-visual-image="proof-'+str(n)+
+                            '" data-visual-kind="'+kind+
+                            '" alt="Riferimento" src="https://xfederiko11.github.io/gta-6/assets/visual/'+filename+'">')
+            page.write_text('<article class="v-guide-main">'+''.join(imgs)+'</article><aside></aside>',
+                            encoding='utf-8')
+            report=audit(root)
+            self.assertEqual(report['ready'],0)
+            self.assertEqual(report['below_target'],1)
+            row=report['pages'][0]
+            self.assertEqual(row['unique_real_images'],6)
+            self.assertEqual(row['real_step_screenshots'],4)
+            self.assertEqual(row['promotional_images'],2)
+            self.assertEqual(report['target_unique_gameplay_screenshots'],5)
+            self.assertEqual(report['gameplay_screenshots_in_steps'],4)
+            self.assertEqual(report['promotional_images_in_steps'],2)
+            page.write_text(page.read_text(encoding='utf-8').replace(
+                'data-visual-kind="promotional"','data-visual-kind="screenshot"',1),
+                encoding='utf-8')
+            improved=audit(root)
+            self.assertEqual(improved['ready'],1)
+            self.assertEqual(improved['pages'][0]['real_step_screenshots'],5)
+
+    def test_unclassified_photo_fails_source_provenance_audit(self):
+        with TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            media=root/'assets'/'visual'
+            media.mkdir(parents=True)
+            (media/'photo-960.webp').write_bytes(b'test')
+            page=root/'guide-e-tutorial'/'example'/'index.html'
+            page.parent.mkdir(parents=True)
+            page.write_text('<article class="v-guide-main">'
+                            '<img data-visual-image="photo" alt="test" '
+                            'src="https://xfederiko11.github.io/gta-6/assets/visual/photo-960.webp">'
+                            '</article><aside></aside>',encoding='utf-8')
+            with self.assertRaisesRegex(RuntimeError,'visual provenance'):
+                audit(root)
+
     def test_missing_placeholder_is_allowed_but_does_not_count_as_photo(self):
         with TemporaryDirectory() as tmp:
             root=Path(tmp)
