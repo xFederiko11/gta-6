@@ -108,7 +108,7 @@ def shooting_tracker():
                 for n,level in enumerate(levels,1))
             course_rows.append(
                 '<div class="medal-course">'
-                f'<h4>{e(name)}</h4>'
+                f'<h3>{e(name)}</h3>'
                 '<div class="medal-options" role="group" '
                 f'aria-label="Medaglie Oro {e(name)}">{controls}</div></div>'
             )
