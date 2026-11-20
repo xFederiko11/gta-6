@@ -87,6 +87,19 @@ jobs:
           path: reader-qa
           retention-days: 7
           if-no-files-found: warn
+      - name: Preserve Google Search Console verification document
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          name = 'google232edbd3526a5a1d.html'
+          expected = b'google-site-verification: google232edbd3526a5a1d.html'
+          source = Path('site') / name
+          assert source.read_bytes() == expected, 'Unexpected Google verification file contents'
+          destination = Path('_site') / name
+          destination.write_bytes(source.read_bytes())
+          assert destination.read_bytes() == expected
+          print('GSC_VERIFICATION_FILE_INCLUDED',destination)
+          PY
       - name: Upload static site to GitHub Pages
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
@@ -148,4 +161,24 @@ jobs:
                   except Exception:
                       if attempt==5: raise
                       time.sleep(10)
+          # Verify the public file byte-for-byte. It is a single-purpose
+          # Google-owned proof, not part of our reader HTML templates.
+          expected = b'google-site-verification: google232edbd3526a5a1d.html'
+          for attempt in range(6):
+              try:
+                  request=urllib.request.Request(base+'google232edbd3526a5a1d.html',headers={'Cache-Control':'no-cache'})
+                  with urllib.request.urlopen(request,timeout=20) as response:
+                      raw=response.read(2048)
+                      assert response.status==200
+                  assert raw==expected
+                  print('PUBLIC_GSC_VERIFICATION_FILE_OK',base+'google232edbd3526a5a1d.html')
+                  break
+              except Exception:
+                  if attempt==5: raise
+                  time.sleep(10)
+          # Google also supports the supplied meta tag on the URL-prefix home.
+          with urllib.request.urlopen(urllib.request.Request(base,headers={'Cache-Control':'no-cache'}),timeout=20) as response:
+              homepage=response.read(1500000).decode('utf-8')
+          assert '<meta name="google-site-verification" content="U1WNfaHHGPHzojaeFvn_GGhVrWb5TYeDyUPgpmCX6Nw">' in homepage
+          print('PUBLIC_GSC_META_TAG_OK',base)
           PY
