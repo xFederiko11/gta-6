@@ -6,13 +6,26 @@ from pathlib import Path
 import re
 import sys
 import unittest
-from reader_experience import VERSION, validate, transform
+from reader_experience import VERSION, validate, transform, gsc_verification_meta
 from test_visual_site import Tags
 
 ROOT=Path('_site')
 BASE='https://xfederiko11.github.io/gta-6/'
 
 class ReaderTests(unittest.TestCase):
+    def test_search_console_verification_opt_in_without_new_tracking(self):
+        homepage='<html lang="it"><head></head><body></body></html>'
+        token='verified_public_sample_token_123456'
+        self.assertEqual(gsc_verification_meta(''), '')
+        default=transform(homepage,version='unit')
+        self.assertNotIn('google-site-verification',default)
+        verified=transform(homepage,version='unit',gsc_token=token)
+        self.assertIn('<meta name="google-site-verification" content="'+token+'">',verified)
+        self.assertNotIn('cloudflareinsights',verified)
+        self.assertNotIn('google-analytics',verified)
+        for bad in ('x', 'token\" onload=\"danger', '<script>alert(1)</script>', 'ä'*30):
+            with self.assertRaises(ValueError):gsc_verification_meta(bad)
+
     def test_all_pages_initialize_responsive_theme_before_stylesheets(self):
         for file in ROOT.rglob('*.html'):
             text=file.read_text(encoding='utf-8')
