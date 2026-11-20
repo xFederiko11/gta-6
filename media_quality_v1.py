@@ -79,8 +79,8 @@ def audit(root=ROOT):
             'target_unique_gameplay_screenshots':TARGET,
             'guides_checked':len(pages),'ready':sum(p['status']=='target_met' for p in pages),
             'below_target':sum(p['status']!='target_met' for p in pages),
-            'gameplay_screenshots_in_steps':sum(p['real_step_screenshots'] for p in pages),
-            'promotional_images_in_steps':sum(p['promotional_images'] for p in pages),
+            'gameplay_screenshots_in_guide':sum(p['real_step_screenshots'] for p in pages),
+            'promotional_images_in_guide':sum(p['promotional_images'] for p in pages),
             'broken_local_references':broken,'pages':pages,
             'editorial_policy':'Five DISTINCT local gameplay screenshots in each guide procedure are the target; promotional images, videos, external links and missing-media placeholders never count. Missing evidence remains editorial debt; do not invent screenshots, map pins or rewards.'}
     (root/'media-quality.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
