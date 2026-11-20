@@ -364,10 +364,12 @@ def guide_detail(g, tro):
     onerror="this.remove();this.parentElement.classList.add('media-unavailable')"></div>
     <figcaption>Immagine promozionale di Rockstar Games, illustrativa e non specifica della procedura. Diritti dei rispettivi titolari.</figcaption></figure>'''
     theme=g["tag"]
+    guide_source = "Insider Gaming" if "insider-gaming.com" in g["source_url"] else "PowerPyx"
+    spoiler_guard = g["tag"] == "Soldi"
     intro_block=f'''{intro}<section class="guide-hero"><span class="eyebrow">🎮 {e(theme)} · GTA VI PS5 / PS5 Pro</span>
     <h1>{e(g["title"])}</h1><p class="lead">{e(g["summary"])}</p>
     <div class="guide-hero-facts"><span>🧭 {len(g["steps"])} passaggi</span>
-    <span>🎮 PS5 / PS5 Pro</span><span>🔎 Fonte: PowerPyx</span></div>
+    <span>🎮 PS5 / PS5 Pro</span><span>🔎 Fonte: {e(guide_source)}</span></div>
     <div class="guide-hero-actions"><a class="button" href="#passaggi">↓ Vai ai passaggi</a>
     <a class="button secondary" href="#fonte-guida">↗ Fonti</a></div></section>'''
     # Prefer related trophy and topic; never silently fill the rail with unrelated items.
@@ -390,7 +392,8 @@ def guide_detail(g, tro):
         '<div class="guide-answer"><span class="eyebrow">⚡ RISPOSTA RAPIDA</span>'
         f'<p>{e(g["benefit"])}</p></div>'
         +photo+
-        f'<section id="passaggi" class="guide-steps" data-guide-steps="{e(g["id"])}" data-guide-version="{step_revision}">'
+        + ('<details class="source-details"><summary>⚠️ Spoiler: vuoi visualizzare luoghi e procedura?</summary><p>Le istruzioni rivelano posizioni ed eventi iniziali.</p>' if spoiler_guard else '')
+        + f'<section id="passaggi" class="guide-steps" data-guide-steps="{e(g["id"])}" data-guide-version="{step_revision}">'
         f'<div class="guide-steps-header"><span class="eyebrow">CHECKLIST PERSONALE</span>'
         f'<span class="guide-steps-count" data-guide-count aria-live="polite">0 / {len(g["steps"])}</span></div>'
         f'<h2>🎯 Procedura passo passo</h2><ol>{steps}</ol>'
@@ -399,12 +402,13 @@ def guide_detail(g, tro):
         '<div class="guide-steps-footer"><span data-guide-feedback role="status" aria-live="polite">'
         'Spunta i passaggi mentre giochi. Solo su questo dispositivo, senza collegamento PSN.</span>'
         '<button class="guide-copy" type="button" data-guide-copy>📋 Copia passaggi</button></div></section>'
+        + ('</details>' if spoiler_guard else '')
         f'<div class="guide-caution"><strong>⚠️ Da verificare prima di procedere</strong><p>{e(g["caution"])}</p></div>'
         + (video_panel() if g["id"]=="poligoni-concentrazione" else "")
         +new_related_research(g["id"])
         +f'<details class="source-details" id="fonte-guida"><summary>🔎 Fonti e note editoriali</summary>'
         f'<p>Approfondimento originale: <a href="{e(g["source_url"])}" target="_blank" '
-        'rel="noopener noreferrer">PowerPyx — guida consultata ↗</a>.</p>'
+        f'rel="noopener noreferrer">{e(guide_source)} — guida consultata ↗</a>.</p>'
         '<p>Le istruzioni sono una sintesi originale in italiano e non riproducono l’articolo integrale. '
         'La foto è illustrativa: non rappresenta il passaggio descritto.</p></details>'
         '</article><aside class="sidebox guide-sidebar"><h3>Continua a giocare</h3>'
