@@ -177,8 +177,16 @@ jobs:
                   if attempt==5: raise
                   time.sleep(10)
           # Google also supports the supplied meta tag on the URL-prefix home.
-          with urllib.request.urlopen(urllib.request.Request(base,headers={'Cache-Control':'no-cache'}),timeout=20) as response:
-              homepage=response.read(1500000).decode('utf-8')
-          assert '<meta name="google-site-verification" content="U1WNfaHHGPHzojaeFvn_GGhVrWb5TYeDyUPgpmCX6Nw">' in homepage
-          print('PUBLIC_GSC_META_TAG_OK',base)
+          for attempt in range(6):
+              try:
+                  request=urllib.request.Request(base+'?gsc-proof=20261120',headers={'Cache-Control':'no-cache'})
+                  with urllib.request.urlopen(request,timeout=20) as response:
+                      homepage=response.read(1500000).decode('utf-8')
+                      assert response.status==200
+                  assert '<meta name="google-site-verification" content="U1WNfaHHGPHzojaeFvn_GGhVrWb5TYeDyUPgpmCX6Nw">' in homepage
+                  print('PUBLIC_GSC_META_TAG_OK',base)
+                  break
+              except Exception:
+                  if attempt==5: raise
+                  time.sleep(10)
           PY
