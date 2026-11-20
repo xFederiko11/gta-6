@@ -87,7 +87,9 @@ def collect(*,token="",read=api):
             "x_posts":[],"x_metrics_available":False,
             "comment_provider":"GitHub Issues; signin required; comment moderation/report available on GitHub"}
 
-def load(path=INDEX):
+def load(path=None):
+    if path is None:path=INDEX
+    path=Path(path)
     if not path.exists():return {"issues":{},"latest_comments":[],"x_posts":[]}
     data=json.loads(path.read_text(encoding="utf-8"))
     if data.get("schema")!="community-social-v1":raise ValueError("Unsafe community social snapshot")
