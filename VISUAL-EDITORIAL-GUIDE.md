@@ -16,7 +16,7 @@ Il sito e' implementato in HTML/CSS/JavaScript. Il workflow di produzione esegue
 
 ## Tema e lettura notturna
 
-Scuro e' il tema predefinito anche con sistema operativo chiaro. Il lettore puo' scegliere Scuro o Chiaro nella barra superiore. La preferenza e' locale al browser (`gta6-theme-v1`), indipendente dagli spoiler. Il tema viene applicato prima dei fogli di stile per evitare un iniziale sfondo bianco durante la navigazione. Se la memoria del browser non e' disponibile, il cambio resta utilizzabile nella pagina ma non viene promesso il salvataggio della scelta.
+Per impostazione attuale il tema e' scuro su mobile (fino a 760 px) e chiaro su desktop; una scelta manuale del lettore prevale e persiste durante la navigazione. Il lettore puo' scegliere Scuro o Chiaro nella barra superiore. La preferenza e' locale al browser (`gta6-theme-v1`), indipendente dagli spoiler. Il tema viene applicato prima dei fogli di stile per evitare un iniziale sfondo bianco durante la navigazione. Se la memoria del browser non e' disponibile, il cambio resta utilizzabile nella pagina ma non viene promesso il salvataggio della scelta.
 
 Le schermate di gioco mantengono i colori originali: non applicare inversioni, filtri o oscuramenti alle immagini operative. Lo zoom nella pagina serve a leggere mappe e menu; non crea dettaglio che manca nell'immagine originale. Il dialogo si chiude con Chiudi o Esc e conserva la fonte dell'immagine.
 
@@ -55,6 +55,12 @@ La prima raccolta aggiunge nove note in cinque guide. La galleria usa risorse gi
 - Tema e spoiler sono scelte separate: cambiare colore non deve rivelare contenuti.
 - Titoli, descrizioni, copertine e anteprime pubbliche non devono rivelare dettagli protetti.
 - Mappe, consigli e curiosita' sensibili devono stare dentro il pannello. Gli eventuali collegamenti interni di apertura devono indicare chiaramente `(spoiler)`.
+
+## Revisione delle segnalazioni: Buffer Community (senza nuove API)
+
+La funzione **Proponi uno screenshot** apre un tweet dall'account del lettore contenente `@xFederiko11`, il permalink della guida e `#GTA6Italia`. Per recuperare eventuali contributi, il gestore puo' aprire [Buffer Community](https://community.buffer.com/) o la sezione **Community** dall'app Buffer, selezionare il canale X connesso e la scheda **Mentions**. In base alla [documentazione ufficiale Buffer](https://support.buffer.com/en-us/articles/using-community-on-the-buffer-mobile-app-mCNla9C1We), le menzioni X sono disponibili anche nella Community mobile; per X la lettura e gestione dei commenti **non e' disponibile via API Buffer**: [limiti dell'API](https://support.buffer.com/articles/what-is-buffers-api-GtIYIQilz5).
+
+I contributi restano quindi da verificare manualmente. Non promettere uno scanner automatico delle menzioni, una raccolta certa degli allegati o la ripubblicazione dei media. Quando un lettore offre uno screenshot, verificare che sia suo, chiedere consenso esplicito e registrare la fonte prima di ottimizzare e inserire l'immagine. La scheda Community e' utile anche per rispondere alle domande sulle guide senza obbligare i visitatori ad accedere a GitHub.
 
 ## Da una scoperta a una guida italiana
 
