@@ -22,12 +22,14 @@ def topics():
     outputs=list(TARGETS)
     data=json.loads(Path("data/guide.json").read_text(encoding="utf-8"))["guides"]
     data+=json.loads(Path("data/visual_guides.json").read_text(encoding="utf-8"))["guides"]
+    known={p for p,_ in outputs}
     for item in data:
         path=item.get("canonical_path") or ("guide-e-tutorial/"+item.get("id","")+"/")
+        if path in known:continue  # e.g. salvar-auto/ is already a hub
         if not path.endswith("/") or not path.startswith("guide-e-tutorial/"):
             raise ValueError("Unsupported discussion guide path")
         name=item.get("safe_title") or item.get("title") or item.get("id")
-        outputs.append((path,str(name)[:100]))
+        outputs.append((path,str(name)[:100]));known.add(path)
     if len(set(p for p,_ in outputs))!=len(outputs):
         raise ValueError("Duplicate discussion paths")
     return outputs
