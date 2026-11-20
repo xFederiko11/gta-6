@@ -157,12 +157,11 @@ class PortalTests(unittest.TestCase):
         self.assertTrue((self.out/"trofei"/"medaglie-oro"/"index.html").exists())
         self.assertIn("https://xfederiko11.github.io/gta-6/hdr-oled/",locs)
 
-    def test_spoiler_indexing_before_launch_grace(self):
-        # When executed after 21 November, all 55 pages become indexable.
-        # The homepage keeps spoiler list collapsed in both cases.
+    def test_hidden_trophies_are_readable_after_nonblocking_spoiler_warning(self):
         html=(self.out/"trofei"/"index.html").read_text(encoding="utf-8")
-        self.assertIn("<details>",html)
-        self.assertIn("28 trofei nascosti",html)
+        self.assertIn('Trofei nascosti',html)
+        self.assertIn('Attenzione spoiler',html)
+        self.assertNotIn('Mostra i 28 trofei nascosti',html)
 
     def test_all_public_pages_show_real_update_views_and_x(self):
         pages=[self.out/"index.html",self.out/"trofei"/"index.html",
