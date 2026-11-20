@@ -67,6 +67,18 @@
       "label": "Mappa interattiva GTABase · categoria negozi di liquori",
       "caution": "Filtro generale, non un pin verificato in questa pagina. Il negozio è a Key Lento, poco a nord del Pay 'n' Spray secondo GamesRadar+.",
       "source": "https://www.gamesradar.com/games/grand-theft-auto/exotic-animals-front-illegal-operation-gta-6/"
+    },
+    "registrare-auto-personale": {
+      "url": "https://www.gtabase.com/gta-6/map/?feature=vehicle-mod-shop",
+      "label": "Mappa GTABase · officine, compresa Watkins Auto Parts",
+      "caution": "La categoria mostra anche altre officine: per la prima registrazione cerca Watkins Auto Parts a Port Gellhorn dopo Girl’s Trip, non un Pay ’n’ Spray qualsiasi.",
+      "source": "https://www.gtabase.com/gta-6/map/?feature=vehicle-mod-shop"
+    },
+    "salvare-auto-garages": {
+      "url": "https://www.gtabase.com/gta-6/map/?feature=garages",
+      "label": "Mappa GTABase · garage acquistabili o ottenibili nella storia",
+      "caution": "Elenco generale; le proprietà si sbloccano progredendo nella storia.",
+      "source": "https://www.gtabase.com/gta-6/articles/how-to-unlock-garages-in-gta-6"
     }
   }
 }
