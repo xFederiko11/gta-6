@@ -112,7 +112,7 @@ class VisualSiteTests(unittest.TestCase):
         home=(ROOT/'index.html').read_text(encoding='utf-8')
         self.assertIn('data-x-timeline-load',home)
         self.assertIn('Post recenti e conversazioni GTA VI',home)
-        self.assertIn('Ultimi post',home)
+        self.assertIn('Mostra i post X',home)
         for pagepath in ('salvare-auto/','soldi-facili/','guide-e-tutorial/soldi-facili-capitolo-1/'):
             text=(ROOT/pagepath/'index.html').read_text(encoding='utf-8')
             self.assertIn('x.com/intent/tweet?',text)
