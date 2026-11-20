@@ -125,7 +125,7 @@ def home_rail():
            '<h2>Post recenti e conversazioni GTA VI</h2>'
            '<p>Guide dal nostro account X. Rispondi sul social che usi, senza account GitHub.</p>'
            '</div><a href="'+PROFILE+'" target="_blank" rel="me noopener noreferrer">Segui Federiko su X ↗</a></div>'
-           '<div class="social-home-grid">']
+           '<div class="social-home-grid" data-x-live-grid>']
     for post in items:
         link=verified_x_url(post.get("x_url"))
         parts.append('<article class="social-comment-card"><span>𝕏 @xFederiko11</span>'
