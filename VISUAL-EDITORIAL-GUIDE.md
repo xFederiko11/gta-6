@@ -2,61 +2,76 @@
 
 ## Il sito reale, non i mockup
 
-La versione `visual-v2-20261120` e' implementata in HTML/CSS/JavaScript. Il workflow di produzione esegue `build_visual_site.py`, non soltanto il vecchio `build_site.py`.
+Il sito e' implementato in HTML/CSS/JavaScript. Il workflow di produzione esegue ora `python reader_experience.py --build`: non pubblicare soltanto il risultato del vecchio generatore, altrimenti tema e approfondimenti vengono persi.
 
-- `build_site.py` mantiene pagine e contenuti precedenti.
-- `build_visual_site.py` applica la nuova navigazione a tutte le pagine e genera home, categorie e tutorial visivi.
-- `visual_guide_content.py` gestisce titoli pubblici senza spoiler, introduzioni, requisiti, riferimenti e associazioni fra passaggi e immagini.
-- `data/visual_guides.json` contiene nuove guide originali in italiano con fonti.
-- `data/visual_media.json` contiene solo immagini selezionate: URL, fonte, attribuzione, testo alternativo, didascalia e distinzione tra schermata e materiale promozionale.
-- `prepare_visual_media.py` prepara varianti WebP da 480 e 960 pixel. Non esegue una copia indiscriminata degli articoli.
-- `site/assets/visual-v2.css` e `visual-v2.js` sono gli asset del nuovo sito. Il loro hash viene aggiunto agli URL per aggiornare la cache dopo le modifiche.
+- `build_site.py` mantiene le pagine e i contenuti precedenti.
+- `build_visual_site.py` applica la navigazione e genera home, categorie e tutorial visivi.
+- `reader_experience.py --build` richiama il generatore visivo, concilia i dettagli editoriali ricontrollati e applica tema, controlli di lettura e approfondimenti all'HTML finale.
+- `visual_guide_content.py` gestisce titoli pubblici senza spoiler, introduzioni, requisiti e associazioni fra passaggi e immagini.
+- `data/visual_guides.json` contiene le nuove guide originali in italiano con fonti.
+- `data/visual_media.json` contiene immagini selezionate: URL, fonte, attribuzione, testo alternativo, didascalia e distinzione fra schermata e materiale promozionale.
+- `data/guide_extras.json` contiene consigli, errori da evitare e curiosita' documentate, con fonte per ogni nota, data di verifica e classificazione spoiler esplicita.
+- `prepare_visual_media.py` prepara varianti WebP da 480 e 960 pixel, senza copiare indiscriminatamente gli articoli.
+- `visual-v2.css/js` e `reader-theme.css/js` sono gli asset del sito; hash negli URL aggiornano la cache dopo le modifiche.
+
+## Tema e lettura notturna
+
+Scuro e' il tema predefinito anche con sistema operativo chiaro. Il lettore puo' scegliere Scuro o Chiaro nella barra superiore. La preferenza e' locale al browser (`gta6-theme-v1`), indipendente dagli spoiler. Il tema viene applicato prima dei fogli di stile per evitare un iniziale sfondo bianco durante la navigazione. Se la memoria del browser non e' disponibile, il cambio resta utilizzabile nella pagina ma non viene promesso il salvataggio della scelta.
+
+Le schermate di gioco mantengono i colori originali: non applicare inversioni, filtri o oscuramenti alle immagini operative. Lo zoom nella pagina serve a leggere mappe e menu; non crea dettaglio che manca nell'immagine originale. Il dialogo si chiude con Chiudi o Esc e conserva la fonte dell'immagine.
 
 ## Struttura delle guide
 
-Una guida parte dall'obiettivo, non da un'introduzione generica. Ordine: risposta pratica, requisiti, dove andare, azioni numerate, controlli di riuscita documentati, rischi, fonti in fondo e percorsi correlati.
+Una guida parte dall'obiettivo, non da un'introduzione generica. Ordine: risposta pratica, requisiti, dove andare, mappe pertinenti quando disponibili, azioni numerate, controlli di riuscita documentati, consigli contestuali, rischi, fonti in fondo e percorsi correlati.
 
-Ogni immagine deve aiutare a riconoscere una posizione, un menu, un oggetto o un'azione. Le immagini promozionali sono dichiarate e non devono essere presentate come prova del passaggio. Una schermata mancante non va sostituita con una mappa, un'interfaccia o una ricompensa generata.
+Ogni immagine deve aiutare a riconoscere una posizione, un menu, un oggetto o un'azione. Le immagini promozionali sono dichiarate e non costituiscono prova del passaggio. Una schermata mancante non va sostituita con una mappa, un'interfaccia o una ricompensa generata.
 
-Le schermate nel tutorial sono ingrandibili. Il testo resta leggibile senza JavaScript. Il caricamento delle immagini sotto la prima schermata e' differito; dimensioni e varianti responsive riducono il peso e gli spostamenti del layout.
+Il testo resta leggibile senza JavaScript e gli spoiler rimangono apribili con i controlli nativi. Le immagini sotto la prima schermata sono caricate in modo differito. Le mappe vanno raggruppate vicino alle istruzioni di posizione, con didascalie e apertura ingrandita; evitare duplicati decorativi.
+
+## Consigli e curiosita'
+
+Inserire una nota solo quando aggiunge qualcosa rispetto ai passaggi principali. Tipi previsti: `tip` (consiglio utile), `avoid` (errore da evitare), `curiosity` (dettaglio interessante). Non aggiungere paragrafi riempitivi per avere una curiosita' in ogni pagina.
+
+Ogni nota deve avere titolo, testo originale in italiano, fonte esatta, data di controllo e classificazione spoiler. Il riferimento numerato rimanda alla fonte in fondo alla guida. Non trasformare supposizioni, commenti isolati o titoli di feed in fatti verificati. Se una nuova fonte corregge il procedimento principale, correggere anche quel procedimento: non lasciare due istruzioni contraddittorie nella stessa pagina.
+
+La prima raccolta aggiunge nove note in cinque guide. La galleria usa risorse gia' selezionate: questo aggiornamento non aumenta il numero di immagini uniche e non certifica tutte le posizioni mancanti.
 
 ## Spoiler
 
 - I dettagli sensibili partono chiusi con elementi HTML `details`.
 - La barra chiede al lettore se mostrare o nascondere gli spoiler.
-- La preferenza viene conservata solo nel browser con la chiave `gta6-spoilers-v2`.
-- Titoli, descrizioni, copertine e anteprime pubbliche non devono rivelare i dettagli che il pannello protegge.
-- Le mappe e le immagini di luoghi sensibili devono stare dentro il pannello, non nella copertina pubblica.
+- La preferenza e' conservata solo nel browser con la chiave `gta6-spoilers-v2`.
+- Tema e spoiler sono scelte separate: cambiare colore non deve rivelare contenuti.
+- Titoli, descrizioni, copertine e anteprime pubbliche non devono rivelare dettagli protetti.
+- Mappe, consigli e curiosita' sensibili devono stare dentro il pannello. Gli eventuali collegamenti interni di apertura devono indicare chiaramente `(spoiler)`.
 
 ## Da una scoperta a una guida italiana
 
-1. Aprire la fonte originale e registrare cosa documenta davvero, distinguendo piattaforma, patch e data quando disponibili. Il titolo di un feed non certifica il contenuto.
-2. Confrontare riscontri indipendenti per affermazioni importanti. Non sommare siti che riprendono lo stesso video come verifiche indipendenti.
+1. Aprire la fonte originale e registrare cosa documenta, distinguendo piattaforma, patch e data quando disponibili. Il titolo di un feed non certifica il contenuto.
+2. Confrontare riscontri indipendenti per affermazioni importanti. Non contare siti che riprendono lo stesso video come verifiche indipendenti.
 3. Scrivere una sintesi operativa originale in italiano, senza inventare pulsanti, coordinate, tempi, ricompense o condizioni di spawn.
-4. Distinguere la funzionalita' normale del gioco da un exploit. L'esistenza di una guida non certifica automaticamente la compatibilita' con i trofei.
-5. Selezionare immagini pertinenti con una base di riutilizzo appropriata e mantenerne provenienza e attribuzione. La semplice reperibilita' online non e' una licenza generale.
-6. Inserire dati e associazioni dei passaggi, classificare gli spoiler e generare la pagina prima di promuoverla.
-7. Eseguire i test sul risultato effettivamente pubblicato. Verificare che il link pubblico risponda e contenga il nuovo tutorial.
-8. Solo dopo il deploy, rendere il contenuto eleggibile per il bot, mantenendo il registro anti-duplicazione e le regole editoriali. Nessun retry cieco dei post dall'esito incerto.
+4. Distinguere funzionalita' normale ed exploit. Una guida non certifica automaticamente la compatibilita' con i trofei.
+5. Selezionare immagini pertinenti con una base di riutilizzo appropriata, conservando provenienza e attribuzione. La reperibilita' online non e' una licenza generale.
+6. Inserire dati, immagini e consigli verificati; classificare tutti gli spoiler e generare la pagina prima di promuoverla.
+7. Eseguire i test sul risultato effettivo e verificare il link pubblico dopo il deploy.
+8. Solo dopo il deploy rendere il contenuto eleggibile per il bot, conservando anti-duplicazione e regole editoriali. Nessun retry cieco di post dall'esito incerto.
 
-Questa e' la procedura editoriale del repository: non implica che il solo feed crei, verifichi e pubblichi automaticamente nuove guide senza revisione.
+Questa procedura non significa che il feed crei, verifichi e pubblichi nuove guide senza revisione.
 
 ## SEO e verifiche
 
-Conservare gli indirizzi delle guide gia' esistenti. Ogni pagina deve avere un solo H1, titolo, descrizione, canonical, dati strutturati coerenti, collegamenti interni validi e una data di aggiornamento derivata dai file sorgente, non soltanto dall'orario del deploy. Non inventare numeri di visite, classifiche o attestazioni di test personali.
-
-Comandi di verifica:
+Conservare gli indirizzi delle guide esistenti. Ogni pagina deve avere un H1, titolo, descrizione, canonical, dati strutturati coerenti, collegamenti interni validi e data di aggiornamento derivata dai sorgenti, non solo dall'orario del deploy. Non inventare visite, classifiche o test personali.
 
 ```sh
 python -m unittest -q test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
 python prepare_visual_media.py
-python build_visual_site.py
-python -m unittest -q test_visual_site.py
-python visual_browser_qa.py
+python reader_experience.py --build
+python -m unittest -q test_visual_site.py test_reader_experience.py
+python test_reader_experience.py --browser
 ```
 
-Il controllo browser copre home, garage e tutorial del negozio a 390, 768 e 1440 pixel, immagini caricate, assenza di overflow, ricerca, filtri, menu mobile e persistenza della preferenza spoiler. Il deploy controlla anche le risposte pubbliche di home e sezioni principali e il marker `data-design-version`.
+Il controllo reader usa otto pagine a 320, 390, 768 e 1440 pixel in entrambi i temi, verifica ricaricamento e persistenza, assenza di overflow, ricerca, spoiler, zoom, JavaScript disabilitato e memoria locale non disponibile. Se un controllo fallisce, il deploy non prosegue. La produzione controlla anche gli indirizzi pubblici e i marker del tema dopo la pubblicazione.
 
-## Limiti mantenuti espliciti
+## Limiti espliciti
 
-La prima versione contiene dieci tutorial e tredici immagini selezionate, non le centinaia di immagini ipotizzate nel progetto. La copertura visiva dei singoli passaggi non e' completa per tutte le guide. Dove mancano immagini verificate, resta il collegamento alla fonte: nessun riferimento di gioco inventato. Il redesign non modifica da solo le impostazioni di Buffer o la frequenza dei post X.
+Il catalogo visivo contiene dieci tutorial e tredici immagini selezionate. Non ogni passaggio ha una schermata o una posizione verificata. Dove manca il materiale resta il riferimento alla fonte: nessun punto sulla mappa inventato. Tema e contenuti del sito non modificano automaticamente coda o frequenza dei post Buffer/X.
