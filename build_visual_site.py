@@ -67,23 +67,52 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
 
 
 def media_src(key,width=960):
+    """Never hotlink a provider asset when local optimization failed.
+
+    A third-party URL can expire, rate-limit, or reject mobile browsers.
+    Instead, readers get an attributed, actionable source link.
+    """
     local=LOCAL_MEDIA.get(key,{})
-    return url(local[str(width)]) if str(width) in local else MEDIA[key]['url']
+    candidate=local.get(str(width))
+    if candidate and candidate.startswith('assets/visual/') and Path('site',candidate).is_file():
+        return url(candidate)
+    return None
+
+
+def unavailable_media(key):
+    record=MEDIA[key]
+    kind='Mappa' if 'mapp' in record['alt'].lower() else 'Schermata'
+    return (f'<div class="v-missing-media" role="img" data-media-missing="{e(key)}" '
+            f'aria-label="{e(kind)} non disponibile: {e(record["alt"])}">'
+            '<span class="v-missing-icon" aria-hidden="true">▧</span>'
+            f'<strong>{kind} non disponibile</strong>'
+            '<small>La fonte originale è disponibile in fondo a questo riquadro.</small></div>')
 
 
 def image(key,*,eager=False):
     record=MEDIA[key]
+    original=media_src(key)
+    if not original:
+        return unavailable_media(key)
     extra=' loading="eager" fetchpriority="high"' if eager else ' loading="lazy"'
-    srcset=''
-    if '480' in LOCAL_MEDIA.get(key,{}) and '960' in LOCAL_MEDIA.get(key,{}):
-        srcset=f' srcset="{e(media_src(key,480))} 480w, {e(media_src(key,960))} 960w" sizes="(max-width: 600px) 92vw, (max-width: 900px) 48vw, 600px"'
-    return f'<img class="v-photo" data-visual-image="{e(key)}" src="{e(media_src(key))}"{srcset} alt="{e(record["alt"])}" width="960" height="540" decoding="async"{extra}>'
+    source_480=media_src(key,480)
+    srcset=(f' srcset="{e(source_480)} 480w, {e(original)} 960w" '
+            'sizes="(max-width: 600px) 92vw, (max-width: 900px) 48vw, 600px"') if source_480 else ''
+    return f'<img class="v-photo" data-visual-image="{e(key)}" src="{e(original)}"{srcset} alt="{e(record["alt"])}" width="960" height="540" decoding="async"{extra}>'
 
 
 def figure(key):
     record=MEDIA[key]
-    return (f'<figure><a class="v-image-link" href="{e(media_src(key))}" data-image-source="{e(record["source"])}" target="_blank" rel="noopener noreferrer" aria-label="Ingrandisci: {e(record["alt"])}">'+image(key)+
-            '<span class="v-image-label">Ingrandisci ↗</span></a>'+f'<figcaption class="v-caption">{e(record["caption"])} <a href="{e(record["source"])}" target="_blank" rel="noopener noreferrer">{e(record["credit"])}</a></figcaption></figure>')
+    photo=media_src(key)
+    credit=(f'<figcaption class="v-caption">{e(record["caption"])} '
+            f'<a href="{e(record["source"])}" target="_blank" rel="noopener noreferrer">'
+            f'{e(record["credit"])} — apri la fonte ↗</a></figcaption>')
+    if not photo:
+        return '<figure class="v-unavailable-figure">'+unavailable_media(key)+credit+'</figure>'
+    return (f'<figure><a class="v-image-link" href="{e(photo)}" '
+            f'data-image-source="{e(record["source"])}" target="_blank" rel="noopener noreferrer" '
+            f'aria-label="Ingrandisci: {e(record["alt"])}">'+image(key)+
+            '<span class="v-image-label">Ingrandisci ↗</span></a>'+credit+'</figure>')
 
 
 def reading_time(g):

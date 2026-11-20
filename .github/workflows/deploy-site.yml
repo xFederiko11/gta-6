@@ -42,7 +42,7 @@ jobs:
         run: python fetch_community_feed.py
       - name: Validate preserved content and existing SEO contracts
         run: |
-          python -m py_compile build_site.py build_visual_site.py visual_guide_content.py guide_source_validation.py prepare_visual_media.py reader_experience.py
+          python -m py_compile build_site.py build_visual_site.py visual_guide_content.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py
           python -m unittest -q test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
           node --check site/assets/visual-v2.js
           node --check site/assets/reader-theme.js
@@ -52,8 +52,10 @@ jobs:
           python prepare_visual_media.py
       - name: Build visual production pages with dark-first reader and sourced tips
         run: python reader_experience.py --build
-      - name: Validate actual production pages and canonical continuity
-        run: python -m unittest -q test_visual_site.py test_reader_experience.py
+      - name: Audit actual local media and five-image guide target
+        run: python media_quality_v1.py
+      - name: Validate actual production pages, media and canonical continuity
+        run: python -m unittest -q test_visual_site.py test_reader_experience.py test_media_quality_v1.py
       - name: Check theme persistence spoilers and zoom in a real browser
         if: github.event_name != 'schedule'
         run: |
