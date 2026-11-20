@@ -1,176 +1,147 @@
-"""Public GitHub Issues discussions and recent site activity.
+"""X-first, optionally YouTube, community participation for static GTA VI pages.
 
-GitHub Pages has no server: one issue per guide is created by an Actions
-workflow, never in a visitor browser. Comments require GitHub authentication,
-are written on github.com, and displayed read-only through its public API.
-No invented X metrics, no arbitrary HTML or stored visitor credentials.
+No GitHub account required by the site. A visitor writes on the real X
+conversation (or a vetted YouTube video), not in a fake local comment form.
+Buffer delivery receipts are not X comment or like metrics.
 """
 from __future__ import annotations
-from datetime import datetime,timezone
 from html import escape
-import json,re
+import json
 from pathlib import Path
-from urllib.parse import quote,urlsplit
-from urllib.request import Request,urlopen
+import re
+from urllib.parse import urlencode, urlsplit
 
-REPO="xFederiko11/gta-6"
-ROOT="https://api.github.com/repos/"+REPO
 BASE="https://xfederiko11.github.io/gta-6/"
+PROFILE="https://x.com/xFederiko11"
 INDEX=Path("data/community_social.json")
-MARKER="<!-- gta6-discussion-v1 "
-LABEL="community-discussion"
-MAX_ITEMS=100
-
-def api(path:str, *, opener=urlopen, token:str=""):
-    if not path.startswith("/"):
-        raise ValueError("Relative GitHub endpoint required")
-    headers={"Accept":"application/vnd.github+json","User-Agent":"Federiko11-GTA6-site/1",
-             "X-GitHub-Api-Version":"2022-11-28"}
-    if token:headers["Authorization"]="Bearer "+token
-    req=Request(ROOT+path,headers=headers)
-    with opener(req,timeout=15) as r:raw=r.read(600000)
-    return json.loads(raw.decode("utf-8"))
-
-def path_from_issue(issue:dict):
-    body=str(issue.get("body") or "")
-    match=re.search(r"<!-- gta6-discussion-v1 path=([a-z0-9-]+(?:/[a-z0-9-]+)*/?) -->",body)
-    if not match:return None
-    path=match.group(1)
-    if not path.endswith("/") or path.startswith("/") or ".." in path:return None
-    if not issue.get("html_url","").startswith("https://github.com/"+REPO+"/issues/"):
-        return None
-    if issue.get("state")!="open" or issue.get("pull_request"):
-        return None
-    if LABEL not in [v.get("name") for v in issue.get("labels",[]) if isinstance(v,dict)]:
-        return None
-    return path
-
-def public_comment(c):
-    if not isinstance(c,dict):return None
-    user=c.get("user") or {}
-    body=str(c.get("body") or "").strip()
-    if user.get("type")!="User" or not user.get("login") or not body:return None
-    if c.get("author_association")=="BOT":return None
-    link=str(c.get("html_url",""))
-    if not re.fullmatch(r"https://github\.com/"+re.escape(REPO)+r"/issues/\d+#issuecomment-\d+",link):return None
-    stamp=c.get("created_at")
-    try:
-        if datetime.fromisoformat(str(stamp).replace("Z","+00:00")).tzinfo is None:return None
-    except (ValueError,TypeError):return None
-    return {"author":str(user["login"])[:39],"body":body[:260],
-            "created_at":stamp,"url":link}
-
-def collect(*,token="",read=api):
-    entries=read("/issues?state=open&labels="+LABEL+"&per_page=100",token=token)
-    if not isinstance(entries,list):raise ValueError("Untrusted GitHub Issues response")
-    issues={};activity=[]
-    for issue in entries[:MAX_ITEMS]:
-        path=path_from_issue(issue)
-        if not path or path in issues:continue
-        number=issue["number"]
-        comments=int(issue.get("comments") or 0)
-        reactions=issue.get("reactions") or {}
-        likes=max(0,int(reactions.get("+1") or 0))
-        issues[path]={"number":number,"url":issue["html_url"],"title":str(issue.get("title",""))[:180],
-                      "comment_count":comments,"likes":likes}
-        if comments:
-            try:
-                recent=read(f"/issues/{number}/comments?per_page=5&page=1",token=token)
-            except (ValueError,KeyError,TypeError):
-                recent=[]
-            for c in recent if isinstance(recent,list) else []:
-                comment=public_comment(c)
-                if comment:activity.append({**comment,"path":path})
-    activity.sort(key=lambda x:x["created_at"],reverse=True)
-    return {"schema":"community-social-v1","generated_utc":datetime.now(timezone.utc).isoformat(),
-            "issues":issues,"latest_comments":activity[:6],
-            "x_posts":[],"x_metrics_available":False,
-            "comment_provider":"GitHub Issues; signin required; comment moderation/report available on GitHub"}
+VERSION="community-social-v2"
 
 def load(path=None):
-    if path is None:path=INDEX
-    path=Path(path)
-    if not path.exists():return {"issues":{},"latest_comments":[],"x_posts":[]}
+    path=Path(path or INDEX)
+    if not path.exists():
+        return {"schema":VERSION,"x_posts":[],"x_metrics_available":False}
     data=json.loads(path.read_text(encoding="utf-8"))
-    if data.get("schema")!="community-social-v1":raise ValueError("Unsafe community social snapshot")
+    if data.get("schema") not in (VERSION,"community-social-v1"):
+        raise ValueError("Unsupported community feed")
     return data
 
-def xpost_for(path:str):
-    """Expose only an actual Buffer-sent first-party excerpt, never X statistics."""
-    posts=load().get("x_posts",[])
-    target=BASE+path
-    for post in posts:
-        if post.get("url","").rstrip("/")==target.rstrip("/") and post.get("buffer_status")=="sent":
-            text=str(post.get("text") or "").strip()[:420]
-            return ('<section class="social-x-excerpt" aria-label="Estratto del nostro post X">'
-                    '<span class="eyebrow">𝕏 DAL NOSTRO ACCOUNT</span><h2>Ne abbiamo parlato su X</h2>'
-                    '<blockquote>'+escape(text)+'</blockquote>'
-                    '<p>Testo registrato come inviato da Buffer. Like e impression non sono disponibili '
-                    'senza dati verificati di X.</p>'
-                    '<a href="https://x.com/xFederiko11" rel="me noopener noreferrer" '
-                    'target="_blank">Visita @xFederiko11 ↗</a></section>')
-    return ('<section class="social-x-excerpt" aria-label="Conversazione X">'
-            '<span class="eyebrow">𝕏 PARLIAMONE</span>'
-            '<h2>Questa guida merita una conversazione</h2>'
-            '<p>Quando nasce una discussione pertinente, il bot può proporre un post originale '
-            'sull’argomento, senza copiare le parole dei lettori.</p>'
-            '<a href="https://x.com/xFederiko11" rel="me noopener noreferrer" '
-            'target="_blank">Segui @xFederiko11 ↗</a></section>')
+def verified_x_url(value):
+    """Permalinks from Buffer's verified externalLink only; never guess post IDs."""
+    if not isinstance(value,str) or any(ord(c)<33 for c in value):return None
+    try:u=urlsplit(value)
+    except ValueError:return None
+    if u.scheme!="https" or u.hostname not in {"x.com","www.x.com","twitter.com","www.twitter.com"}:
+        return None
+    if u.username or u.password or u.port not in (None,443) or u.query or u.fragment:
+        return None
+    match=re.fullmatch(r"/xFederiko11/status/([0-9]{8,25})/?",u.path,re.I)
+    return "https://x.com/xFederiko11/status/"+match.group(1) if match else None
 
+def relevant_youtube(page):
+    """Offer YouTube comments only when the actual article embeds a real video."""
+    candidates=(
+      r'https://www\\.youtube-nocookie\\.com/embed/([A-Za-z0-9_-]{11})',
+      r'https://www\\.youtube\\.com/embed/([A-Za-z0-9_-]{11})',
+      r'https://www\\.youtube\\.com/watch\\?v=([A-Za-z0-9_-]{11})(?:&amp;|&|")',
+    )
+    for pattern in candidates:
+        hit=re.search(pattern,page)
+        if hit:return "https://www.youtube.com/watch?v="+hit.group(1)
+    return None
 
-def widget(path:str, *, title="Partecipa alla discussione"):
-    info=load().get("issues",{}).get(path)
-    label="💬 "+title
-    if not info:
-        return ('<section class="social-discussion" aria-label="Commenti" data-discussion-path="'+escape(path,quote=True)+'">'
-                '<h2>'+escape(label)+'</h2><p>Discussione in preparazione. '
-                'Nel frattempo puoi partecipare dalla nostra pagina community su X.</p>'
-                '<a href="https://x.com/xFederiko11" target="_blank" rel="noopener noreferrer">Apri @xFederiko11 su X ↗</a></section>')
-    number=info["number"];url=escape(info["url"],quote=True)
-    return (f'<section class="social-discussion" id="commenti" data-discussion-issue="{number}" '
-            f'aria-label="Commenti su {escape(path,quote=True)}">'
-            '<div class="social-discussion-head"><div><span class="eyebrow">LA COMMUNITY PARTECIPA</span>'
-            f'<h2>{escape(label)}</h2><p>Consigli, posizioni, dubbi e segnalazioni in italiano.</p>'
-            '</div><span class="social-count" data-comment-count>'
-            f'{int(info["comment_count"])} commenti</span></div>'
-            '<div class="social-discussion-cta">'
-            f'<a class="v-button" href="{url}#new_comment_field" target="_blank" rel="noopener noreferrer">💬 Scrivi un commento</a>'
-            f'<a class="v-button secondary" href="{url}" target="_blank" rel="noopener noreferrer">Leggi su GitHub</a>'
-            '</div><p class="social-disclosure">Per commentare serve un account GitHub. '
-            'Il tuo testo è pubblico e soggetto alle regole di GitHub; non viene pubblicato automaticamente su X. '
-            'Una nuova discussione pertinente può ispirare un nostro post originale dopo i controlli editoriali.</p>'
-            '<div data-comments-list class="social-comment-list" aria-live="polite">'
-            '<p>Caricamento dei commenti pubblici…</p></div></section>')
+def post_for(path):
+    expected=BASE+path
+    for post in load().get("x_posts",[]):
+        if post.get("url","").rstrip("/") == expected.rstrip("/") and post.get("buffer_status")=="sent":
+            return post
+    return None
+
+def suggested_tweet(path):
+    """Tweet compose opens at X; posting always requires a visitor action."""
+    if not re.fullmatch(r"(?:[a-z0-9-]+/)+",path):
+        raise ValueError("Invalid first-party article path")
+    text="@xFederiko11 Ho una domanda o scoperta su questa guida GTA VI: "+BASE+path
+    return "https://x.com/intent/tweet?"+urlencode({"text":text})
+
+def xpost_for(path):
+    item=post_for(path)
+    if not item:return ""
+    text=str(item.get("text") or "").strip()[:440]
+    if not text:return ""
+    link=verified_x_url(item.get("x_url"))
+    second=(
+       '<a href="'+escape(link,quote=True)+'" target="_blank" rel="noopener noreferrer">Apri il post originale su X ↗</a>'
+       if link else
+       '<p class="micro">Il collegamento diretto al post X non è ancora disponibile nei dati Buffer.</p>'
+    )
+    return ('<section class="social-x-excerpt" aria-label="Post inviato su X">'
+            '<span class="eyebrow">𝕏 POST SU X</span><h2>Ne abbiamo parlato su X</h2>'
+            '<blockquote>'+escape(text)+'</blockquote>'+second+'</section>')
+
+def widget(path, *, title="Partecipa alla discussione", youtube_url=None):
+    if not re.fullmatch(r"(?:[a-z0-9-]+/)+",path):
+        raise ValueError("Unsupported article URL")
+    item=post_for(path)
+    url=verified_x_url(item.get("x_url")) if item else None
+    if url:
+        number=url.rsplit("/",1)[-1]
+        target="https://x.com/intent/tweet?"+urlencode({"in_reply_to":number})
+        label="💬 Rispondi al post su X"
+        description="La conversazione si svolge sul post X originale. Puoi leggere le risposte e partecipare con il tuo account X."
+    else:
+        target=suggested_tweet(path)
+        label="💬 Scrivi a Federiko su X"
+        description=("Non c'è ancora un post X collegato con permalink verificato. "
+                     "Il pulsante apre una bozza con @xFederiko11 e il link alla guida: "
+                     "pubblichi tu, soltanto se lo desideri.")
+    youtube=""
+    verified_video=relevant_youtube(youtube_url or "") if youtube_url else None
+    if verified_video:
+        youtube=(
+            '<a class="v-button secondary" href="'+escape(verified_video,quote=True)+'" '
+            'target="_blank" rel="noopener noreferrer">▶ Commenta il video su YouTube</a>'
+            '<p class="social-disclosure">Il video può essere di un creator esterno: i commenti '
+            'rimangono sul relativo canale YouTube.</p>')
+    return (
+      '<section class="social-discussion" id="commenti" aria-label="Partecipa su X o YouTube">'
+      '<div class="social-discussion-head"><div><span class="eyebrow">LA COMMUNITY PARTECIPA</span>'
+      '<h2>'+escape(title)+'</h2>'
+      '<p>Domande, posizioni, suggerimenti ed eventuali correzioni: scegli il social che usi già.</p>'
+      '</div><span class="social-count">𝕏 Community</span></div>'
+      '<div class="social-discussion-cta"><a class="v-button" href="'+escape(target,quote=True)+'" '
+      'target="_blank" rel="noopener noreferrer">'+label+'</a>'
+      '<a class="v-button secondary" href="'+PROFILE+'" target="_blank" '
+      'rel="me noopener noreferrer">𝕏 Vai al profilo</a>'+youtube+'</div>'
+      '<p class="social-disclosure">'+escape(description)+' '
+      'Non servono GitHub né nuove registrazioni al sito. Le risposte sono pubblicate '
+      'e moderate dalle rispettive piattaforme.</p></section>')
 
 def home_rail():
-    data=load()
-    items=data.get("latest_comments",[])[:4]
-    parts=['<section class="social-home-rail" aria-label="Attività della community">'
-           '<div class="v-section-head"><div><span class="v-kicker">LA COMMUNITY PARTECIPA</span>'
-           '<h2>Ultimi commenti e discussioni</h2>'
-           '<p>Contributi pubblici alle nostre guide, non recensioni inventate.</p></div>'
-           '<a href="'+BASE+'scoperte/">Tutte le scoperte →</a></div><div class="social-home-grid">']
-    for c in items:
-        parts.append('<article class="social-comment-card"><span>💬 @'+escape(c["author"])+'</span>'
-                     '<p>'+escape(c["body"][:170])+'</p><a href="'+escape(c["url"],quote=True)
-                     +'" rel="noopener noreferrer" target="_blank">Vai al commento ↗</a></article>')
+    items=[x for x in load().get("x_posts",[]) if x.get("buffer_status")=="sent"][:4]
+    parts=['<section class="social-home-rail" aria-label="Attività e discussioni GTA VI">'
+           '<div class="v-section-head"><div><span class="v-kicker">𝕏 PARLIAMONE</span>'
+           '<h2>Post recenti e conversazioni GTA VI</h2>'
+           '<p>Guide dal nostro account X. Rispondi sul social che usi, senza account GitHub.</p>'
+           '</div><a href="'+PROFILE+'" target="_blank" rel="me noopener noreferrer">Segui Federiko su X ↗</a></div>'
+           '<div class="social-home-grid">']
+    for post in items:
+        link=verified_x_url(post.get("x_url"))
+        parts.append('<article class="social-comment-card"><span>𝕏 @xFederiko11</span>'
+                     '<p>'+escape(str(post.get("text") or "")[:220])+'</p>'
+                     +(('<a href="'+escape(link,quote=True)+'" target="_blank" '
+                       'rel="noopener noreferrer">Rispondi al post ↗</a>') if link
+                       else '<span class="micro">Registrato come inviato da Buffer</span>')
+                     +'</article>')
     if not items:
-        parts.append('<p class="social-empty">Ancora nessun commento verificato. '
-                     'Apri una guida e inaugura la conversazione!</p>')
-    parts.append('</div>')
-    posts=[x for x in data.get("x_posts",[]) if x.get("buffer_status")=="sent"][:3]
-    if posts:
-        parts.append('<div class="social-x-latest"><h3>Ultimi post registrati come inviati</h3><div class="social-home-grid">')
-        for p in posts:
-            parts.append('<article class="social-comment-card"><span>𝕏 @xFederiko11</span>'
-                         '<p>'+escape(str(p.get("text") or "")[:170])+'</p>'
-                         '<span class="micro">Impression e like X non disponibili</span></article>')
-        parts.append('</div></div>')
-    parts.append('<div class="social-home-x"><div><strong>𝕏 Gli ultimi post di Federiko</strong>'
-                 '<p>Apri la conversazione originale. Like, repost e visualizzazioni sono mostrati da X '
-                 'quando disponibili: qui non inventiamo contatori.</p></div>'
+        parts.append('<p class="social-empty">Gli estratti dei post non sono disponibili adesso. '
+                     'Apri il profilo X per le conversazioni aggiornate.</p>')
+    parts.append('</div><div class="social-home-x"><div>'
+                 '<strong>𝕏 Vedi gli ultimi post e le risposte su X</strong>'
+                 '<p>Il feed X si carica solo su richiesta. I contatori dei commenti '
+                 'e dei like non vengono inventati.</p></div>'
                  '<button type="button" class="v-button secondary" data-x-timeline-load>'
-                 'Mostra il feed X</button><a class="v-button" href="https://x.com/xFederiko11" '
-                 'target="_blank" rel="me noopener noreferrer">Partecipa su X ↗</a>'
+                 'Mostra i post X</button>'
+                 '<a class="v-button" href="'+PROFILE+'" rel="me noopener noreferrer" '
+                 'target="_blank">Commenta su X ↗</a>'
                  '<div data-x-timeline-slot aria-live="polite"></div></div></section>')
     return "".join(parts)
