@@ -508,7 +508,7 @@ def main():
     legacy.write(photo_path+'index.html',layout(
         photo_title,photo_description,photo_path,photo_hub,'guide',
         structured=photo_schema))
-    legacy.write('photo-requests.json',json.dumps(photo_audit,ensure_ascii=False,indent=2)+'\\n')
+    legacy.write('photo-requests.json',json.dumps(photo_audit,ensure_ascii=False,indent=2)+'\n')
     new_paths.append(photo_path)
     ET.register_namespace('','http://www.sitemaps.org/schemas/sitemap/0.9')
     tree=ET.parse(OUT/'sitemap.xml'); root=tree.getroot(); ns='{http://www.sitemaps.org/schemas/sitemap/0.9}'
