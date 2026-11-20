@@ -28,7 +28,7 @@ HERO = {
 STEP_MEDIA = {
     'soldi-2500-three-sheets-liquor': {0:'shirley-house',1:'liquor-store'},
     'soldi-facili-capitolo-1': {0:'liquor-store'},
-    'registrare-auto-personale': {0:'save-car',1:'register-car',3:'scooter-menu'},
+    'registrare-auto-personale': {0:'save-car',4:'register-car',6:'scooter-menu'},
     'viaggio-rapido-taxi': {0:'taxi-phone',1:'taxi-ride'},
 }
 HEADINGS = {
