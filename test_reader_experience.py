@@ -46,7 +46,18 @@ class ReaderTests(unittest.TestCase):
     def test_umami_publication_is_site_wide_but_never_in_pull_request_preview(self):
         import os
         from growth_tracking_v1 import normalize_id
-        site_id=normalize_id(os.getenv('UMAMI_WEBSITE_ID',''))
+        owner_id='ec3592c0-e9f7-4e13-8c29-f9c7d59aa8fd'
+        homepage=(ROOT/'index.html').read_text(encoding='utf-8')
+        matched=re.search(r'<script id="growth-analytics-v1"[^>]*data-website-id="([^"]+)"',homepage)
+        # The build step has the configuration, but this separate test step
+        # does not inherit its step-scoped UMAMI_WEBSITE_ID environment value.
+        # Inspect the *generated HTML*, then check the actual GitHub event.
+        site_id=normalize_id(matched.group(1)) if matched else None
+        event=os.getenv('GITHUB_EVENT_NAME')
+        if event=='pull_request':
+            self.assertIsNone(site_id,'PR preview must not load Umami')
+        elif event:
+            self.assertEqual(site_id,owner_id,'Production must use the verified Umami site')
         urls=('index.html','trofei/index.html','guide-e-tutorial/index.html',
               'hdr-oled/index.html','privacy/index.html',
               'guide-e-tutorial/glitch-prima-persona-ps5/index.html')
