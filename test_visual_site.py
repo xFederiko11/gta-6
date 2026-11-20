@@ -133,6 +133,7 @@ class VisualSiteTests(unittest.TestCase):
             self.assertIn('id="avviso-capitolo-1"',text,path)
             self.assertIn('Family Savings',text,path)
             self.assertIn('Tourist Trap',text,path)
+            self.assertIn('PRIMA di Recalibration',text,path)
             self.assertIn('https://www.gtabase.com/gta-6/articles/how-to-keep-your-money-safe-in-gta-6',text)
             self.assertIn('https://gta.tech4gamers.com/gta-6/guides/money-end-of-chapter-1/',text)
             self.assertIn('La compatibilità con i trofei',text)
