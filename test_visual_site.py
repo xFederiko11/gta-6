@@ -173,9 +173,31 @@ class VisualSiteTests(unittest.TestCase):
             self.assertIn(BASE+path,query['text'][0])
             self.assertLessEqual(len(query['text'][0]),280)
             contents=text.split('<details class="v-visual-request-details">',1)[1].split('</details>',1)[0]
-            self.assertEqual(contents.count('<li>'),5,path)
-            for item in request:
+            role_links=[a for t,a in tags.tags if t=='a' and 'data-visual-request-photo' in a]
+            self.assertEqual(len(role_links),5,path)
+            self.assertIn('class="v-visual-request-row"',contents)
+            self.assertIn('data-visual-screenshot-count=',text)
+            for index,(item,link) in enumerate(zip(request,role_links),1):
                 self.assertIn(unescape(item.split('>')[0]),unescape(contents),path)
+                self.assertEqual(link['data-visual-request-photo'],str(index))
+                destination=urlsplit(unescape(link['href']))
+                self.assertEqual((destination.scheme,destination.netloc,destination.path),
+                                 ('https','x.com','/intent/tweet'))
+                draft=parse_qs(destination.query)['text'][0]
+                self.assertIn('@xFederiko11',draft)
+                self.assertIn('#GTA6Italia',draft)
+                self.assertIn(BASE+path,draft)
+                self.assertIn(item,draft)
+                self.assertLessEqual(len(draft),280)
+            procedure=text.split('<ol class="v-steps">',1)[1].split('</ol>',1)[0]
+            step_tags=Tags();step_tags.feed(procedure)
+            real_screenshots={a['data-visual-image'] for t,a in step_tags.tags
+                              if t=='img' and a.get('data-visual-kind')=='screenshot'}
+            marker=[a for t,a in tags.tags if t=='p' and 'data-visual-screenshot-count' in a]
+            self.assertEqual(len(marker),1,path)
+            self.assertEqual(int(marker[0]['data-visual-screenshot-count']),len(real_screenshots),path)
+            absent=sum(t=='p' and a.get('data-step-photo-status')=='missing' for t,a in step_tags.tags)
+            self.assertEqual(absent,len(g['steps'])-len(real_screenshots),path)
             self.assertIn('Crea (Create) su PS5',text)
             self.assertIn('ti chiederemo un permesso esplicito',text)
             self.assertNotIn('input type="file"',contents)
