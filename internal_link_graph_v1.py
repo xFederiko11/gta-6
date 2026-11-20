@@ -102,8 +102,9 @@ def analyze(root=ROOT):
                 broken.append({"source": page, "target": link})
     if missing:
         raise ValueError("Missing HTML files for sitemap URLs: " + repr(missing[:5]))
-    if broken:
-        raise ValueError("Canonical internal links not in sitemap: " + repr(broken[:8]))
+    # A deliberately noindex page may be linked by the site but absent
+    # from the sitemap, especially the spoiler-gated trophy pages. Report it,
+    # don't claim a broken URL or block publishing without verifying it.
     distance = {BASE: 0}
     todo = deque([BASE])
     while todo:
@@ -122,6 +123,8 @@ def analyze(root=ROOT):
         "links": sum(len(v) for v in graph.values()),
         "reachable": len(distance),
         "not_linked_from_home": len(orphan),
+        "html_links_outside_sitemap": len(broken),
+        "outside_sitemap_sample": broken[:MAX_SAMPLED],
         "orphan_sample": orphan[:MAX_SAMPLED],
         "over_three_clicks": len(deep),
         "deep_sample": [{"clicks": dist, "url": page} for dist, page in deep[:MAX_SAMPLED]],
