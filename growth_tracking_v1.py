@@ -16,6 +16,7 @@ SCRIPT = "https://cloud.umami.is/script.js"
 HOSTNAME = "xfederiko11.github.io"
 TAG = "growth-analytics-v1"
 ANCHOR = re.compile(r'<a\b[^>]*>', re.I | re.S)
+BUTTON = re.compile(r'<button\b[^>]*>', re.I | re.S)
 HREF = re.compile(r'\bhref="([^"]{1,2048})"', re.I)
 EVENT_ATTR = 'data-umami-event='
 OWN_STATUS = re.compile(r'/xFederiko11/status/[0-9]{8,25}/?', re.I)
@@ -90,7 +91,15 @@ def annotate(html):
             return anchor
         event = classify(anchor)
         return anchor[:-1] + ' data-umami-event="'+event+'">' if event else anchor
-    return ANCHOR.sub(add, html)
+    html = ANCHOR.sub(add, html)
+    # Original YouTube player loads on an explicit user button press.
+    # Measure the intent, not a video view or a completed watch.
+    def video_intent(match):
+        button = match.group(0)
+        if ('data-load-youtube' not in button or EVENT_ATTR in button):
+            return button
+        return button[:-1] + ' data-umami-event="youtube-player-open">'
+    return BUTTON.sub(video_intent, html)
 
 def enhance(page, value):
     """No changes to HTML when analytics is unconfigured."""
