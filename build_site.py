@@ -242,6 +242,27 @@ def trophy_index(trophies):
               'aria-label="Trofei segnati manualmente"></progress></section>')
     return lead+progress+cards+secrets+sources+f'<script src="{url("assets/trophy-experience.js")}" defer></script>'
 
+def trophy_seo_title(t):
+    """Keep the complete PS5 trophy name while respecting concise SERP titles.
+
+    The name (including spoiler-related wording) is never truncated; the
+    suffix is shortened instead. The full requirement remains on the page.
+    """
+    name=t["name_it"].strip()
+    choices=(
+        f'{name} | Trofeo {t["tier"]} GTA 6 PS5',
+        f'{name} | Trofeo GTA 6 PS5',
+        f'{name} | GTA 6 PS5',
+        f'{name} | GTA 6',
+    )
+    title=next((item for item in choices if len(item)<=60),choices[-1])
+    if len(title)<=43:
+        for suffix in (" | Guida italiana"," | Guida"):
+            if len(title)+len(suffix)<=60:
+                return title+suffix
+    return title
+
+
 def trophy_detail(t, guides, trophies):
     path=trophy_path(t)
     intro=crumbs([("Trofei","trofei/"),(t["name_it"],path)])
@@ -308,7 +329,7 @@ def trophy_detail(t, guides, trophies):
     )
     body=hero+article+related_trophies(t,trophies,url)
     body+=f'<script src="{url("assets/trophy-experience.js")}" defer></script>'
-    title=f'{t["name_it"]} — Trofeo {t["tier"]} GTA VI PS5 | Guida italiana'
+    title=trophy_seo_title(t)
     desc=f'Come sbloccare {t["name_it"]} in GTA 6 su PS5. Requisito: {t["requirement_it"]}'
     robots=("noindex,follow" if t["hidden"] and TODAY<datetime(2026,11,21,tzinfo=timezone.utc) else "index,follow")
     write(Path(path)/"index.html",layout(title,desc,path,body,"trofei",robots=robots,structured=schema_article(title,desc,url(path))))
@@ -515,7 +536,7 @@ def main():
     home_struct={"@context":"https://schema.org","@type":"WebSite","name":"GTA 6 Italia",
                  "url":url(),"inLanguage":"it-IT"}
     write("index.html",layout(home_title,home_desc,"",site_home(trophies,guides),"home",structured=home_struct))
-    title="GTA 6 Trofei PS5: elenco completo dei 55 requisiti in italiano"
+    title="Trofei GTA 6 PS5: 55 requisiti e guida al platino"
     desc="Tutti i 55 trofei GTA VI su PS5: Platino, 2 Oro, 6 Argento, 46 Bronzo, trofei nascosti e guida ai requisiti."
     write("trofei/index.html",layout(title,desc,"trofei/",trophy_index(trophies),"trofei",
           structured={"@context":"https://schema.org","@type":"CollectionPage",
