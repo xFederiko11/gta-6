@@ -126,7 +126,7 @@ def refresh_screenshot_count(page):
         return page
     article=page.split('<article class="v-guide-main">',1)[1].split('</article>',1)[0]
     keys=set(re.findall(
-        r'<img\\b[^>]*data-visual-image="([^"]+)"[^>]*data-visual-kind="screenshot"',
+        r'<img\b[^>]*data-visual-image="([^"]+)"[^>]*data-visual-kind="screenshot"',
         article,flags=re.I))
     target=('<p class="v-visual-coverage" data-visual-screenshot-count="')
     start=page.find(target)
