@@ -64,6 +64,16 @@ def suggested_tweet(path):
     text="@xFederiko11 Ho una domanda o scoperta su questa guida GTA VI: "+BASE+path
     return "https://x.com/intent/tweet?"+urlencode({"text":text})
 
+def share_intent(path):
+    """Reader-controlled native X share; no external tracking or API call."""
+    if not re.fullmatch(r"(?:[a-z0-9-]+/)+",path):
+        raise ValueError("Invalid owned guide path")
+    return "https://x.com/intent/tweet?"+urlencode({
+        "text":"🎮 GTA VI su PS5: guida pratica in italiano, con fonti e avvisi sul platino.",
+        "url":BASE+path
+    })
+
+
 def xpost_for(path):
     item=post_for(path)
     if not item:return ""
@@ -114,7 +124,9 @@ def widget(path, *, title="Partecipa alla discussione", youtube_url=None):
       'href="'+escape(target,quote=True)+'" '
       'target="_blank" rel="noopener noreferrer">'+label+'</a>'
       '<a class="v-button secondary social-follow-link" href="'+FOLLOW_INTENT+'" target="_blank" '
-      'rel="noopener noreferrer">𝕏 Segui Federiko per altre guide</a>'+youtube+'</div>'
+      'rel="noopener noreferrer">𝕏 Segui Federiko per altre guide</a>'
+      '<a class="v-button secondary social-share-link" href="'+escape(share_intent(path),quote=True)+'" '
+      'target="_blank" rel="noopener noreferrer">Condividi la guida su X</a>'+youtube+'</div>'
       '<p class="social-disclosure" data-x-reply-note>'+escape(description)+' '
       'Non servono GitHub né nuove registrazioni al sito. Le risposte sono pubblicate '
       'e moderate dalle rispettive piattaforme.</p></section>')
