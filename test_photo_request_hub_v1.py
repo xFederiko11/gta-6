@@ -107,7 +107,7 @@ class CommunityPhotoHubTests(unittest.TestCase):
         self.assertEqual(html.count('data-visual-request-photo='),55)
         self.assertIn("Prepara su X",html)
         self.assertIn("Non",html)
-        self.assertIn("permesso",html)
+        self.assertIn("consenso esplicito",html)
         self.assertNotIn("<iframe",html)
         self.assertNotIn('input type="file"',html)
         self.assertNotIn("l'immagine inviata",html)
