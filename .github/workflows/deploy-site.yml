@@ -24,6 +24,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
     timeout-minutes: 10
     steps:
       - name: Checkout pinned
@@ -40,12 +43,25 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python fetch_community_feed.py
+      - name: Initialize community discussions on the main branch only
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create community-discussion --color d43b93 --description "GTA VI website comments" --force
+          python community_social_sync_v1.py --mode ensure
+      - name: Refresh authentic site comments and sent X excerpts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python community_social_sync_v1.py --mode read
       - name: Validate preserved content and existing SEO contracts
         run: |
-          python -m py_compile build_site.py build_visual_site.py visual_guide_content.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py
+          python -m py_compile build_site.py build_visual_site.py visual_guide_content.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py
           python -m unittest -q test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
           node --check site/assets/visual-v2.js
           node --check site/assets/reader-theme.js
+          node --check site/assets/community-social-v1.js
+          python -m unittest -q test_community_social_v1.py
       - name: Optimize curated screenshots for mobile
         run: |
           python -m pip install 'Pillow>=11,<13'
@@ -55,7 +71,7 @@ jobs:
       - name: Audit actual local media and five-image guide target
         run: python media_quality_v1.py
       - name: Validate actual production pages, media and canonical continuity
-        run: python -m unittest -q test_visual_site.py test_reader_experience.py test_media_quality_v1.py
+        run: python -m unittest -q test_visual_site.py test_reader_experience.py test_media_quality_v1.py test_community_social_v1.py
       - name: Check responsive theme, visible spoiler notices and zoom in a real browser
         if: github.event_name != 'schedule'
         run: |
