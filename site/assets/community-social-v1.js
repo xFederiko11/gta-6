@@ -32,6 +32,8 @@
       list.replaceChildren();
       const accepted=rows.filter(row => row && row.user &&
         row.user.type==="User" && row.body && safeLink(row.html_url,number));
+      const counter=section.querySelector("[data-comment-count]");
+      if(counter) counter.textContent=(rows.length>=30?"Almeno ":"")+rows.length+" commenti";
       if (!accepted.length) {
         list.append(make("p","social-empty","Non ci sono ancora commenti: puoi essere il primo."));
         return;
