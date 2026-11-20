@@ -147,6 +147,41 @@ class VisualSiteTests(unittest.TestCase):
         self.assertIn('soldi-facili-capitolo-1/#avviso-capitolo-1',catalog)
         self.assertNotIn('Tourist Trap',catalog)
 
+    def test_each_guide_invites_original_ps5_screenshots_without_github_or_fake_media(self):
+        from urllib.parse import parse_qs
+        from html import unescape
+        specs=json.loads(Path('data/visual_requests.json').read_text(encoding='utf-8'))
+        self.assertEqual(specs['schema'],'gta6-visual-contribution-requests-v1')
+        self.assertEqual(len(specs['guides']),10)
+        guides=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
+        guides+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
+        for g in guides:
+            path=g.get('canonical_path') or 'guide-e-tutorial/'+g['id']+'/'
+            text,tags=parse(ROOT/path/'index.html')
+            request=specs['guides'][g['id']]
+            self.assertEqual(len(request),5)
+            panels=[a for t,a in tags.tags if t=='aside' and a.get('data-visual-request-id')==g['id']]
+            self.assertEqual(len(panels),1,path)
+            links=[a for t,a in tags.tags if t=='a' and 'data-visual-send-x' in a]
+            self.assertEqual(len(links),1,path)
+            target=urlsplit(unescape(links[0]['href']))
+            self.assertEqual((target.scheme,target.netloc,target.path),('https','x.com','/intent/tweet'))
+            query=parse_qs(target.query)
+            self.assertEqual(len(query['text']),1)
+            self.assertIn('@xFederiko11',query['text'][0])
+            self.assertIn('#GTA6Italia',query['text'][0])
+            self.assertIn(BASE+path,query['text'][0])
+            self.assertLessEqual(len(query['text'][0]),280)
+            contents=text.split('<details class="v-visual-request-details">',1)[1].split('</details>',1)[0]
+            self.assertEqual(contents.count('<li>'),5,path)
+            for item in request:
+                self.assertIn(unescape(item.split('>')[0]),unescape(contents),path)
+            self.assertIn('Crea (Create) su PS5',text)
+            self.assertIn('ti chiederemo un permesso esplicito',text)
+            self.assertNotIn('input type="file"',contents)
+            self.assertNotIn('github.com/xFederiko11/gta-6/issues/',contents)
+        self.assertNotIn('UMAMI_WEBSITE_ID',specs['note'])
+
     def test_screenshots_have_real_provenance(self):
         manifest=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
         for key,item in manifest.items():
