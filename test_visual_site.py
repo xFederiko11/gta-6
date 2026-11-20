@@ -89,12 +89,15 @@ class VisualSiteTests(unittest.TestCase):
         for target in (ROOT/'index.html',ROOT/'salvare-auto/index.html',ROOT/'trofei/index.html'):
             text,tags=parse(target)
             self.assertIn('class="v-x-link"',text)
-            self.assertIn('href="https://x.com/xFederiko11"',text)
+            self.assertIn('class="v-x-link" href="https://x.com/intent/follow?screen_name=xFederiko11"',text)
             self.assertIn('aria-label="Segui Federiko su X"',text)
             for path in ('soldi-facili/','auto-speciali/','salvare-auto/'):
                 self.assertIn(BASE+path,text)
         html=(ROOT/'index.html').read_text()
         self.assertLess(html.index('class="v-categories"'),html.index('class="v-hero"'))
+        self.assertIn('class="v-follow-home"',html)
+        self.assertIn('Segui @xFederiko11',html)
+        self.assertNotIn('followers: 0',html)
 
     def test_discovery_page_has_no_filters_and_contains_social_sources(self):
         page=(ROOT/'scoperte/index.html').read_text(encoding='utf-8')
