@@ -1,0 +1,72 @@
+{
+  "schema": "gta6-guide-video-evidence-v1",
+  "verified_utc": "2026-11-20",
+  "policy": "Third-party videos are only linked or embedded from YouTube after user click; no thumbnails, screenshots, streams or footage copied onto this site. Source references independently describe the specific timestamps; video content has not been personally playback-tested by the bot. Do not count video as a screenshot.",
+  "guides": {
+    "soldi-2500-three-sheets-liquor": {
+      "youtube_id": "1GtrjKhSwzM",
+      "start_seconds": 455,
+      "title": "Il pappagallo e il nascondiglio dietro Three Sheets Liquor",
+      "creator": "TGG",
+      "why": "Riferimento video della gabbia del pappagallo dietro al negozio, indicato a 7:35 nella cronologia della fonte. Il bottino può variare.",
+      "context_source": "https://trari.com/en/story/tgg-42070/",
+      "chapters": [
+        {
+          "at": 285,
+          "label": "4:45 · negozio Three Sheets"
+        },
+        {
+          "at": 455,
+          "label": "7:35 · pappagallo e indizio del bottino"
+        }
+      ],
+      "spoiler": true
+    },
+    "soldi-facili-capitolo-1": {
+      "youtube_id": "1GtrjKhSwzM",
+      "start_seconds": 285,
+      "title": "Localizzare il negozio Three Sheets Liquor",
+      "creator": "TGG",
+      "why": "Il filmato mostra esclusivamente il primo dei quattro luoghi della guida; non dimostra gli altri tre. Fonte cronologia a 4:45.",
+      "context_source": "https://trari.com/en/story/tgg-42070/",
+      "chapters": [
+        {
+          "at": 285,
+          "label": "4:45 · arrivare al negozio"
+        },
+        {
+          "at": 455,
+          "label": "7:35 · pappagallo e nascondiglio"
+        }
+      ],
+      "spoiler": true
+    },
+    "registrare-auto-personale": {
+      "youtube_id": "R0GdEkPZSvM",
+      "start_seconds": 675,
+      "title": "Capitolo 2: Lucia porta un'auto a Moses",
+      "creator": "TGG",
+      "why": "Riferimento al minuto 11:15 del filmato con scelta della Dinka Blista e registrazione da Moses. Non rappresenta la procedura Pay 'n' Spray del Capitolo 3.",
+      "context_source": "https://trari.com/en/story/tgg-43109/",
+      "chapters": [
+        {
+          "at": 266,
+          "label": "4:26 · Moses spiega i tracker"
+        },
+        {
+          "at": 675,
+          "label": "11:15 · scelta dell'auto e registrazione"
+        }
+      ],
+      "spoiler": true
+    }
+  },
+  "maps": {
+    "soldi-2500-three-sheets-liquor": {
+      "url": "https://www.gtabase.com/gta-6/map/?feature=liquor-store",
+      "label": "Mappa interattiva GTABase · categoria negozi di liquori",
+      "caution": "Filtro generale, non un pin verificato in questa pagina. Il negozio è a Key Lento, poco a nord del Pay 'n' Spray secondo GamesRadar+.",
+      "source": "https://www.gamesradar.com/games/grand-theft-auto/exotic-animals-front-illegal-operation-gta-6/"
+    }
+  }
+}
