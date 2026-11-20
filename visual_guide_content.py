@@ -76,6 +76,18 @@ SUMMARIES = {
 }
 
 
+# SEO snippets are separate from human-readable guide summaries. Reuse only
+# verified guide facts; do not turn an uncertain trophy status into a promise.
+SEO_DESCRIPTIONS = {
+    'scansionare-veicoli': 'GTA 6 PS5: come usare WAiNK per scansionare i veicoli e completare il catalogo verso il 100%. Passaggi pratici e controlli nel gioco.',
+    'studiare-animali': 'GTA VI PS5: studia le specie con il binocolo per il completamento al 100%. Scopri i comandi, il controllo dei progressi e le fonti della guida.',
+    '70-sfide-100-percento': 'GTA VI 100% su PS5: completa 70 sfide su 80 scegliendo quelle più rapide. Checklist e consigli per ridurre il tempo necessario al platino.',
+    'meditazione-capitolo-1': 'GTA VI PS5: checklist delle 18 meditazioni in 10 luoghi, la prima occasione mancabile nel Capitolo 1 e gli avvisi per il platino.',
+    'viaggio-rapido-taxi': 'GTA 6 su PS5: chiama Paradise Taxi, scegli la destinazione e salta i tragitti tra missioni. Procedura, pulsanti e costi documentati.',
+    'poligoni-concentrazione': 'GTA VI PS5: allenati ai poligoni di tiro e distingui Concentrazione e medaglie Oro. Controlla le prove richieste per il platino.',
+}
+
+
 def enrich(records):
     result=[]
     for original in records:
@@ -88,6 +100,9 @@ def enrich(records):
         g['requirements']=g.get('requirements') or REQUIREMENTS.get(ident,'Controlla i requisiti nella procedura e nella fonte.')
         g['location']=g.get('location') or LOCATIONS.get(ident,'Segui i riferimenti documentati nella procedura.')
         g['summary']=SUMMARIES.get(ident,g['summary'])
+        g['seo_description']=SEO_DESCRIPTIONS.get(ident,g['summary'])
+        if not 70 <= len(g['seo_description']) <= 160:
+            raise ValueError('Guide SEO description needs a sourced, readable 70-160 char snippet: '+ident)
         g['spoiler']=g.get('spoiler',ident in {'soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor','meditazione-capitolo-1'})
         g['category']=('soldi' if g['tag']=='Soldi' else 'garage' if g['tag']=='Garage' else 'auto' if ident in {'sportive-randy-posizioni','scansionare-veicoli'} else 'inizio')
         g['canonical_path']=g.get('canonical_path') or 'guide-e-tutorial/'+ident+'/'
