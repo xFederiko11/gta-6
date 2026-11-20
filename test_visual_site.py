@@ -124,6 +124,71 @@ class VisualSiteTests(unittest.TestCase):
             self.assertIn('community-social-v1.js?v=',text)
             self.assertNotIn('data-community-filter-source',text)
 
+    def test_early_money_guides_warn_about_chapter_transition_without_spoiling_titles(self):
+        pages=('guide-e-tutorial/soldi-facili-capitolo-1/',
+               'guide-e-tutorial/soldi-2500-three-sheets-liquor/')
+        for path in pages:
+            text,tags=parse(ROOT/path/'index.html')
+            self.assertIn('class="v-cash-safety"',text,path)
+            self.assertIn('id="avviso-capitolo-1"',text,path)
+            self.assertIn('Family Savings',text,path)
+            self.assertIn('5.000 GTA
+        manifest=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
+        for key,item in manifest.items():
+            self.assertEqual(urlsplit(item['url']).scheme,'https')
+            self.assertEqual(urlsplit(item['source']).scheme,'https')
+            self.assertIn(item['kind'],('screenshot','promotional'))
+            self.assertTrue(item['alt']); self.assertTrue(item['credit'])
+            self.assertNotIn('imagegen',item['url'])
+        for path in ('salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/'):
+            text,tags=parse(ROOT/path/'index.html')
+            images=[a for t,a in tags.tags if t=='img' and 'data-visual-image' in a]
+            unavailable=[a for t,a in tags.tags if t=='div' and 'data-media-missing' in a]
+            self.assertGreaterEqual(len(images)+len(unavailable),3)
+            for a in images:
+                self.assertIn('alt',a); self.assertIn('width',a); self.assertIn('height',a)
+                self.assertIn('loading',a)
+                self.assertIn('/gta-6/assets/visual/',a['src'])
+                self.assertTrue((ROOT/a['src'].split('/gta-6/',1)[1]).is_file())
+            for a in unavailable:
+                self.assertIn('aria-label',a)
+
+    def test_internal_links_and_assets_do_not_point_to_ghost_pages(self):
+        for target in ROOT.rglob('index.html'):
+            text,tags=parse(target)
+            for t,a in tags.tags:
+                value=a.get('href' if t=='a' else 'src','')
+                if not value.startswith(BASE): continue
+                rel=unquote(urlsplit(value).path.removeprefix('/gta-6/'))
+                local=ROOT/rel
+                if value.split('?',1)[0].split('#',1)[0].endswith('/'):
+                    local=local/'index.html'
+                self.assertTrue(local.exists(),f'{target}: {value}')
+
+    def test_no_credentials_or_external_mutations_in_client(self):
+        script=Path('site/assets/visual-v2.js').read_text()
+        for token in ('api.buffer.com','Authorization','createPost','innerHTML','fetch('):
+            self.assertNotIn(token,script)
+        self.assertNotIn('data-spoiler-choice',script)
+        self.assertIn('aria-pressed',script)
+        self.assertIn('prefers-reduced-motion',Path('site/assets/visual-v2.css').read_text())
+
+if __name__=='__main__': unittest.main()
+,text,path)
+            self.assertIn('Tourist Trap',text,path)
+            self.assertIn('https://www.gtabase.com/gta-6/articles/how-to-keep-your-money-safe-in-gta-6',text)
+            self.assertIn('https://gta.tech4gamers.com/gta-6/guides/money-end-of-chapter-1/',text)
+            self.assertIn('La compatibilità con i trofei',text)
+            details=[a for t,a in tags.tags if t=='details' and a.get('id')=='avviso-capitolo-1']
+            self.assertEqual(len(details),1)
+            self.assertNotIn('Tourist Trap</h1>',text)
+        catalog=(ROOT/'soldi-facili/index.html').read_text(encoding='utf-8')
+        self.assertIn('Non farmare alla cieca',catalog)
+        self.assertIn('Family Savings',catalog)
+        self.assertIn('Checking Account di BuckMe non protegge',catalog)
+        self.assertIn('soldi-facili-capitolo-1/#avviso-capitolo-1',catalog)
+        self.assertNotIn('Tourist Trap',catalog)
+
     def test_screenshots_have_real_provenance(self):
         manifest=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
         for key,item in manifest.items():
