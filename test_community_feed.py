@@ -46,6 +46,15 @@ class BridgeTests(unittest.TestCase):
             validate({**feed(),"items":[{**youtube,
                 "url":"https://www.youtube.com.evil.example/watch?v=ABCD1234567"}]})
 
+    def test_public_reddit_gta6_source_is_attributed_and_spoofing_rejected(self):
+        original=feed()["items"][0]
+        reddit={**original,"source":"Reddit r/GTA6","status":"🟡 COMMUNITY",
+                "url":"https://www.reddit.com/r/GTA6/comments/abcdef/rare_cars/"}
+        self.assertEqual(len(validate({**feed(),"items":[reddit]})),1)
+        with self.assertRaises(ValueError):
+            validate({**feed(),"items":[{**reddit,
+                "url":"https://www.reddit.com.evil.example/r/GTA6/comments/abc"}]})
+
     def test_single_public_issue_bridge_only(self):
         data=feed()
         encoded=base64.urlsafe_b64encode(json.dumps(data).encode()).decode()
