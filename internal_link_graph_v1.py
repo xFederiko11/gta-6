@@ -23,13 +23,14 @@ class AnchorParser(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.hrefs = []
+        self.robots = []
 
     def handle_starttag(self, tag, attrs):
-        if tag != "a":
-            return
-        for key, value in attrs:
-            if key == "href" and value is not None:
-                self.hrefs.append(value)
+        attrs = dict(attrs)
+        if tag == "a" and attrs.get("href") is not None:
+            self.hrefs.append(attrs["href"])
+        if tag == "meta" and str(attrs.get("name", "")).casefold() == "robots":
+            self.robots.append(str(attrs.get("content", "")).casefold())
 
 
 def normalized_page_link(href: str, current: str) -> str | None:
@@ -102,9 +103,24 @@ def analyze(root=ROOT):
                 broken.append({"source": page, "target": link})
     if missing:
         raise ValueError("Missing HTML files for sitemap URLs: " + repr(missing[:5]))
-    # A deliberately noindex page may be linked by the site but absent
-    # from the sitemap, especially the spoiler-gated trophy pages. Report it,
-    # don't claim a broken URL or block publishing without verifying it.
+    # Spoiler-gated trophy pages are deliberately missing from the sitemap
+    # during launch. Distinguish them from genuinely missing or indexable
+    # targets; none of these are proof of Google actually indexing a page.
+    noindex = set()
+    indexable_omitted = set()
+    missing_targets = set()
+    for row in broken:
+        target = row["target"]
+        target_path = file_for(target, root)
+        if not target_path.is_file():
+            missing_targets.add(target)
+            continue
+        parser = AnchorParser()
+        parser.feed(target_path.read_text(encoding="utf-8"))
+        if any("noindex" in tags.split(",") for tags in parser.robots):
+            noindex.add(target)
+        else:
+            indexable_omitted.add(target)
     distance = {BASE: 0}
     todo = deque([BASE])
     while todo:
@@ -124,6 +140,9 @@ def analyze(root=ROOT):
         "reachable": len(distance),
         "not_linked_from_home": len(orphan),
         "html_links_outside_sitemap": len(broken),
+        "linked_noindex_pages": len(noindex),
+        "indexable_pages_omitted_from_sitemap": len(indexable_omitted),
+        "missing_link_target_files": len(missing_targets),
         "outside_sitemap_sample": broken[:MAX_SAMPLED],
         "orphan_sample": orphan[:MAX_SAMPLED],
         "over_three_clicks": len(deep),
@@ -143,6 +162,8 @@ def main():
     for hub, dist in result["primary_hubs_clicks"].items():
         if dist is None or dist > 2:
             raise SystemExit("CRITICAL HUB ISOLATED: " + hub + " hops=" + str(dist))
+    if result["indexable_pages_omitted_from_sitemap"] or result["missing_link_target_files"]:
+        raise SystemExit("SEO internal link points to an indexable page missing from sitemap or a missing file")
 
 
 if __name__ == "__main__":
