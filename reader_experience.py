@@ -88,11 +88,17 @@ def augment_guide(page, entry):
     if source_marker not in page:
         raise ValueError('Guide source section missing')
     keys = {item['key'] for item in entry.get('gallery', [])}
-    # Avoid duplicate screenshot galleries; retain the original source credits.
+    # Avoid duplicate screenshot galleries; retain source credits in the
+    # gallery AND an in-step pointer so the evidence does not disappear from
+    # the reader's numbered walkthrough.
     if keys:
-        page = re.sub(r'<figure>.*?</figure>',
-                      lambda match: '' if any(f'data-visual-image="{key}"' in match[0] for key in keys) else match[0],
-                      page, flags=re.S)
+        def move_to_gallery(match):
+            if not any(f'data-visual-image="{key}"' in match[0] for key in keys):
+                return match[0]
+            return ('<p class="v-step-photo-gallery" data-step-photo-status="gallery">'
+                    '📸 Schermata di questo passaggio nella '
+                    '<a href="#mappa">galleria documentata ↑</a>.</p>')
+        page = re.sub(r'<figure>.*?</figure>',move_to_gallery,page,flags=re.S)
     if gallery:
         before_steps='<ol class="v-steps">'
         if before_steps not in page:
@@ -108,6 +114,37 @@ def augment_guide(page, entry):
                           '<a href="#procedura">Il percorso passo per passo</a><a href="#mappa" data-reader-anchor>Mappa e immagini</a>',1)
     return page
 
+def refresh_screenshot_count(page):
+    """Use ACTUAL published article image tags after extra gallery relocation.
+
+    Counts distinct local gameplay screenshots displayed in this guide.
+    Promotional hero art and missing image placeholders do not count.
+    """
+    if 'data-visual-request-id=' not in page:
+        return page
+    if '<article class="v-guide-main">' not in page:
+        return page
+    article=page.split('<article class="v-guide-main">',1)[1].split('</article>',1)[0]
+    keys=set(re.findall(
+        r'<img\\b[^>]*data-visual-image="([^"]+)"[^>]*data-visual-kind="screenshot"',
+        article,flags=re.I))
+    target=('<p class="v-visual-coverage" data-visual-screenshot-count="')
+    start=page.find(target)
+    if start<0:
+        raise ValueError('Guide visual coverage counter missing')
+    beginning=page[:start]
+    last=page[start:]
+    original=re.compile(
+        r'<p class="v-visual-coverage" data-visual-screenshot-count="[0-9]+">'
+        r'<strong>[0-9]+/5 screenshot</strong>')
+    replacement=('<p class="v-visual-coverage" data-visual-screenshot-count="'
+                 +str(len(keys))+'"><strong>'+str(len(keys))+'/5 screenshot</strong>')
+    updated,n=original.subn(lambda match:replacement,last,count=1)
+    if n!=1:
+        raise ValueError('Invalid guide visual coverage counter')
+    return beginning+updated
+
+
 def gsc_verification_meta(token):
     """Explicitly configured public Search Console proof; never a tracker."""
     if token is None or token == '':
@@ -122,6 +159,7 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
         return page
     if entry:
         page = augment_guide(page, entry)
+    page = refresh_screenshot_count(page)
     page = re.sub(r'<meta name="color-scheme"[^>]*>', '', page)
     page = re.sub(r'<meta name="theme-color"[^>]*>', '<meta name="theme-color" content="#fcf8fc">', page)
     page = page.replace('<html lang="it">', '<html lang="it" data-theme="auto">', 1)
