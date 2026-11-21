@@ -50,8 +50,9 @@ jobs:
         run: python community_social_sync_v1.py
       - name: Validate preserved content and existing SEO contracts
         run: |
-          python -m py_compile photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py
-          python -m unittest -q test_meditation_tracker_v1.py test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
+          python -m py_compile platinum_roadmap_v1.py guide_step_references_v1.py test_group3_roadmap_step_refs_v1.py photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py
+          python -m unittest -q test_group3_roadmap_step_refs_v1.py test_meditation_tracker_v1.py test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
+          node --check site/assets/platinum-roadmap.js
           node --check site/assets/visual-v2.js
           node --check site/assets/reader-theme.js
           node --check site/assets/community-social-v1.js
@@ -71,7 +72,7 @@ jobs:
       - name: Audit actual local media and five-image guide target
         run: python media_quality_v1.py
       - name: Validate actual production pages, media and canonical continuity
-        run: python -m unittest -q test_visual_site.py test_reader_experience.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py
+        run: python -m unittest -q test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py
       - name: Audit static Google discovery links (no network or tracking)
         run: |
           python -m unittest -q test_internal_link_graph_v1.py
@@ -164,6 +165,10 @@ jobs:
                       assert 'reader-theme.css?v=' in text and 'data-theme-choice="light"' in text
                       assert 'class="v-x-link"' in text and 'https://x.com/xFederiko11' in text
                       assert 'data-spoiler-choice' not in text
+                      if path == 'trofei/roadmap-platino/':
+                          assert 'data-platinum-roadmap' in text
+                          assert '/gta-6/assets/platinum-roadmap.js?v=' in text
+                          assert '/gta-6/assets/platinum-roadmap.css?v=' in text
                       if path in ('salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/'):
                           assert 'id="consigli"' in text and 'Fonti dei consigli' in text
                       print('PUBLIC_ADAPTIVE_READER_DEPLOY_OK',base+path)
