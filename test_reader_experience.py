@@ -290,6 +290,24 @@ def browser_qa():
                         page.reload(wait_until='load')
                         assert page.locator('[data-cr-done]').first.is_checked()
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                    if path=='collezionabili/percorsi/' and width==390:
+                        viewer=page.locator('[data-vi-map]')
+                        assert viewer.count()==1
+                        assert viewer.locator('iframe').count()==0,'external map must not autoload'
+                        viewer.locator('[data-vim-provider="city"]').click()
+                        assert viewer.locator('iframe').count()==0
+                        viewer.locator('[data-vim-load]').click()
+                        frame=viewer.locator('iframe.vim-iframe')
+                        assert frame.count()==1
+                        assert frame.get_attribute('src')=='https://gta6.city/embed/map'
+                        viewer.locator('[data-vim-provider="vice"]').click()
+                        assert frame.get_attribute('src')=='https://vice-map.com/embed/map'
+                        page.locator('[data-vim-map-search]').first.click()
+                        assert frame.get_attribute('src').startswith('https://vice-map.com/embed/map?marker=')
+                        assert 'non è un pin esatto' in viewer.inner_text()
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                        viewer.scroll_into_view_if_needed()
+                        page.screenshot(path=str(out/'mobile-interactive-map-390.png'))
                     if path=='screenshot-ps5/invia/' and width in (390,1440):
                         assert page.locator('template[data-pi-role-options]').evaluate(
                             "(el)=>el.content.querySelectorAll('[data-photo-guide]').length")==55
