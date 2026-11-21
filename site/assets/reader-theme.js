@@ -1,10 +1,9 @@
-/* Adaptive default: dark on mobile, light on desktop. Explicit preference persists. */
+/* Unified default: GTA VI midnight on phones and desktops; explicit light choice persists. */
 (() => {
   'use strict';
   const key = 'gta6-theme-v1';
   const root = document.documentElement;
-  const mobile = window.matchMedia('(max-width:760px)');
-  const chooseDefault = () => mobile.matches ? 'dark' : 'light';
+  const chooseDefault = () => 'dark';
   const stored = () => { try { const value=localStorage.getItem(key); return value === 'dark' || value === 'light' ? value : null; } catch (_) { return null; } };
   const buttons = Array.from(document.querySelectorAll('[data-theme-choice]'));
   const meta = document.querySelector('meta[name="theme-color"]');
@@ -12,14 +11,13 @@
     const theme = value === 'light' ? 'light' : 'dark';
     root.dataset.theme = theme;
     root.style.colorScheme = theme;
-    if (meta) meta.content = theme === 'light' ? '#fcf8fc' : '#0c0b13';
+    if (meta) meta.content = theme === 'light' ? '#f7f5fa' : '#10131d';
     buttons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.themeChoice === theme)));
     if (save) { try { localStorage.setItem(key, theme); } catch (_) {} }
   }
   apply(stored() || chooseDefault(), false);
   buttons.forEach(button => button.addEventListener('click', () => apply(button.dataset.themeChoice, true)));
   window.addEventListener('storage', event => { if (event.key === key || event.key === null) apply(stored() || chooseDefault(), false); });
-  mobile.addEventListener('change', () => { if (!stored()) apply(chooseDefault(),false); });
   window.addEventListener('pageshow', () => apply(stored() || chooseDefault(), false));
   const dialog = document.querySelector('[data-image-dialog]');
   if (!dialog || typeof dialog.showModal !== 'function') return;
