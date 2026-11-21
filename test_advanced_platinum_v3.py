@@ -59,7 +59,7 @@ class AdvancedPlatinumTests(unittest.TestCase):
         self.assertIn("Gutterball Moreland 850",markup)
         self.assertIn("Forza",markup)
         self.assertIn('data-hard-status="incerto"',markup)
-        self.assertIn("non li copiamo",markup)
+        self.assertIn("Non li copiamo",markup)
         self.assertNotIn('<img ',markup)
         self.assertNotIn('<iframe',markup)
         for n in (38,46,47,48,49,50,30):
