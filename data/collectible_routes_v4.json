@@ -1,7 +1,7 @@
 {
-  "schema": "gta6-region-routes-v7",
+  "schema": "gta6-region-routes-v8",
   "checked": "2026-11-21",
-  "notes": "Editorial proximity by sourced districts; NOT measured GPS routes. 101 described checkpoints: 23 cards, 38 WAiNK, 5 playlist posters, 6 underwater discoveries, 24 named stunt jumps, 3 standout vehicles and 2 books. Key Lento extension comes from a complete location-by-location walkthrough with photo references. Sources remain WIP. 27 underwater discoveries still not located in this atlas. Promotional art cannot count as gameplay screenshot and map coordinates are not fabricated.",
+  "notes": "Editorial proximity by sourced districts, NOT measured GPS routes. 123 individually described checkpoints: 23 cards, 38 WAiNK scans, 5 playlist posters, 6 underwater discoveries, 24 stunt jumps, 3 WAiNK vehicles, 2 previous readables, 20 source-identified magazines/books/comics, 2 Kenton treasure-only dive sites. Warning: nine magazine COPY LOCATIONS can close after Chapters 1/2/3, but the same titles have alternative copies. Locations are from PowerPyx 18 Nov 2026 and Push Square 21 Nov 2026. All sources remain WIP; 27 of 33 underwater discoveries remain unmapped. No fabricated GPS, gameplay screenshots or trophies.",
   "sources": {
     "playlist": "https://www.powerpyx.com/gta-6-all-unique-playlist-collectible-locations/",
     "ed": "https://www.powerpyx.com/gta-6-ed-comics-universe-collectible-card-set-locations/",
@@ -27,7 +27,8 @@
     "noflusher": "https://www.pushsquare.com/guides/gta-6-no-flusher-tag-locations",
     "sculptures": "https://www.pushsquare.com/guides/gta-6-waink-sculpture-locations",
     "curio_push": "https://www.pushsquare.com/guides/gta-6-waink-curiosities-locations",
-    "key_lento": "https://www.pushsquare.com/guides/gta-6-key-lento-collectibles-and-secrets-walkthrough"
+    "key_lento": "https://www.pushsquare.com/guides/gta-6-key-lento-collectibles-and-secrets-walkthrough",
+    "magazines": "https://www.powerpyx.com/gta-6-all-magazines-books-comics-locations/"
   },
   "regions": [
     {
@@ -1097,6 +1098,255 @@
       "hint": "Raggiungi lo scaffale per lo scambio di libri vicino al gruppo di case e raccogli l'oggetto documentato.",
       "source": "key_lento",
       "confidence": "described"
+    },
+    {
+      "id": "pt-102",
+      "region": "mariana",
+      "type": "magazines",
+      "name": "Ashes of Glory",
+      "place": "Key Lento · casa di Jason, vicino al letto",
+      "hint": "Leggi il volume sul tavolino accanto al letto durante il Capitolo 1; questa copia scompare con l'accesso alla casa.",
+      "source": "magazines",
+      "confidence": "described",
+      "location_limited": true,
+      "before_chapter": 1,
+      "location_note": "Questa copia non è più raggiungibile dopo il Capitolo 1; PowerPyx segnala copie alternative altrove. Non è confermato che il titolo diventi definitivamente mancabile."
+    },
+    {
+      "id": "pt-103",
+      "region": "mariana",
+      "type": "magazines",
+      "name": "Lethal By Design",
+      "place": "Key Lento · casa di Jason, tavolo del soggiorno",
+      "hint": "Prima di uscire dal Capitolo 1 esamina il titolo sul tavolo del salotto; la copia in casa non sarà più accessibile.",
+      "source": "magazines",
+      "confidence": "described",
+      "location_limited": true,
+      "before_chapter": 1,
+      "location_note": "Questa copia non è più raggiungibile dopo il Capitolo 1; PowerPyx segnala copie alternative altrove. Non è confermato che il titolo diventi definitivamente mancabile."
+    },
+    {
+      "id": "pt-104",
+      "region": "mariana",
+      "type": "magazines",
+      "name": "Orca: A Whole Different Animal",
+      "place": "Key Lento · casa di Jason, finestra orientale del soggiorno",
+      "hint": "Cerca il volume sul tavolo vicino alla finestra rivolta a est; leggi la copia prima di lasciare il Capitolo 1.",
+      "source": "magazines",
+      "confidence": "described",
+      "location_limited": true,
+      "before_chapter": 1,
+      "location_note": "Questa copia non è più raggiungibile dopo il Capitolo 1; PowerPyx segnala copie alternative altrove. Non è confermato che il titolo diventi definitivamente mancabile."
+    },
+    {
+      "id": "pt-105",
+      "region": "mariana",
+      "type": "magazines",
+      "name": "Off the Hook",
+      "place": "Key Lento · capanno degli attrezzi sotto casa di Jason",
+      "hint": "Scendi nel deposito sottostante la casa e leggi la rivista; l'accesso al capanno si chiude dopo il Capitolo 1.",
+      "source": "magazines",
+      "confidence": "described",
+      "location_limited": true,
+      "before_chapter": 1,
+      "location_note": "Questa copia non è più raggiungibile dopo il Capitolo 1; PowerPyx segnala copie alternative altrove. Non è confermato che il titolo diventi definitivamente mancabile."
+    },
+    {
+      "id": "pt-106",
+      "region": "mariana",
+      "type": "magazines",
+      "name": "Body Copy",
+      "place": "Key Lento · terrazza posteriore di casa Jason, presso i pesi",
+      "hint": "Esamina la rivista appoggiata vicino all'attrezzatura fitness sul retro; controlla prima del Capitolo 2.",
+      "source": "magazines",
+      "confidence": "described",
+      "location_limited": true,
+      "before_chapter": 1,
+      "location_note": "Questa copia non è più raggiungibile dopo il Capitolo 1; PowerPyx segnala copie alternative altrove. Non è confermato che il titolo diventi definitivamente mancabile."
+    },
+    {
+      "id": "pt-107",
+      "region": "mariana",
+      "type": "magazines",
+      "name": "RX Men",
+      "place": "Key Lento · negozio 24/7, espositore di riviste",
+      "hint": "Sfoglia la rivista dall'espositore del negozio 24/7; non confonderla con le riviste Style.",
+      "source": "magazines",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-108",
+      "region": "kelly",
+      "type": "magazines",
+      "name": "Help Me Help You Help Me",
+      "place": "Gellhorn · reception dello Starlet Motel, tavolo",
+      "hint": "Durante il Capitolo 2 leggi la rivista sul tavolo della reception prima di perdere accesso al motel.",
+      "source": "magazines",
+      "confidence": "described",
+      "location_limited": true,
+      "before_chapter": 2,
+      "location_note": "Questa copia non è più raggiungibile dopo il Capitolo 2; PowerPyx segnala copie alternative altrove. Non è confermato che il titolo diventi definitivamente mancabile."
+    },
+    {
+      "id": "pt-109",
+      "region": "kelly",
+      "type": "magazines",
+      "name": "Wizard Wang",
+      "place": "Gellhorn · mensa dello Starlet Motel, tavolo",
+      "hint": "Raccogli la lettura sul tavolo della mensa durante il Capitolo 2; questa specifica posizione è poi inaccessibile.",
+      "source": "magazines",
+      "confidence": "described",
+      "location_limited": true,
+      "before_chapter": 2,
+      "location_note": "Questa copia non è più raggiungibile dopo il Capitolo 2; PowerPyx segnala copie alternative altrove. Non è confermato che il titolo diventi definitivamente mancabile."
+    },
+    {
+      "id": "pt-110",
+      "region": "kelly",
+      "type": "magazines",
+      "name": "Dicked Down Deep in Space",
+      "place": "Port Gellhorn · Lost Vista, roulotte a nord-ovest del Station Garage",
+      "hint": "Entra nella roulotte dell'area indicata da Dunk per la rapina e cerca il volume al suo interno.",
+      "source": "magazines",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-111",
+      "region": "vice-city",
+      "type": "magazines",
+      "name": "Passion B.C.",
+      "place": "Bayside · appartamento Bayside, vicino alla vasca",
+      "hint": "Leggi il titolo nell'appartamento vicino alla vasca prima della conclusione del Capitolo 3.",
+      "source": "magazines",
+      "confidence": "described",
+      "location_limited": true,
+      "before_chapter": 3,
+      "location_note": "Questa copia non è più raggiungibile dopo il Capitolo 3; PowerPyx segnala copie alternative altrove. Non è confermato che il titolo diventi definitivamente mancabile."
+    },
+    {
+      "id": "pt-112",
+      "region": "vice-city",
+      "type": "magazines",
+      "name": "Two Pricks in the Bush",
+      "place": "Bayside · appartamento Bayside, tavolo davanti alla TV",
+      "hint": "Prima della fine del Capitolo 3 esamina il volume sul tavolo davanti al televisore.",
+      "source": "magazines",
+      "confidence": "described",
+      "location_limited": true,
+      "before_chapter": 3,
+      "location_note": "Questa copia non è più raggiungibile dopo il Capitolo 3; PowerPyx segnala copie alternative altrove. Non è confermato che il titolo diventi definitivamente mancabile."
+    },
+    {
+      "id": "pt-113",
+      "region": "vice-beach",
+      "type": "magazines",
+      "name": "Remote Strike",
+      "place": "Washington Beach · Ajax Gym, stanza trauma room",
+      "hint": "Solo dopo lo sblocco di Lucia nel Capitolo 4 entra nell'Ajax Gym e cerca la lettura nell'area trauma room.",
+      "source": "magazines",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-114",
+      "region": "leonard",
+      "type": "magazines",
+      "name": "Foiled",
+      "place": "Belville · garage accessibile nella fila nord di case a ovest di Andy",
+      "hint": "Usa l'ingresso del garage nella fila settentrionale; la rivista si trova su un letto.",
+      "source": "magazines",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-115",
+      "region": "kelly",
+      "type": "magazines",
+      "name": "The Johnsons (Issue 1)",
+      "place": "Gellhorn · Alpha Gas a nord-est dello Starlet Motel",
+      "hint": "Raggiungi il distributore Alpha Gas, a nord-est del motel, e cerca il primo numero dei Johnsons.",
+      "source": "magazines",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-116",
+      "region": "lummox",
+      "type": "magazines",
+      "name": "The Cowboy's Prayer is to Die Young",
+      "place": "Moreau · edificio senza nome a nord del Taco Bomb West Kalaga",
+      "hint": "Entra nella struttura a nord di Taco Bomb; la pubblicazione è sul tavolo della stanza principale.",
+      "source": "magazines",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-117",
+      "region": "vice-city",
+      "type": "magazines",
+      "name": "Ratface (Issue 1)",
+      "place": "La Perle · Xero Food Mart, espositore di riviste",
+      "hint": "Leggi il primo numero di Ratface nello Xero Food Mart; nello stesso negozio trovi un altro fumetto.",
+      "source": "magazines",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-118",
+      "region": "vice-city",
+      "type": "magazines",
+      "name": "Special Friends Force (Issue 1)",
+      "place": "La Perle · Xero Food Mart, espositore di riviste",
+      "hint": "Nello stesso Xero Food Mart di Ratface esamina anche Special Friends Force Issue 1.",
+      "source": "magazines",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-119",
+      "region": "vice-city",
+      "type": "magazines",
+      "name": "Lights, Camera, Affirmative Action",
+      "place": "Tequesta Retreat · Pegassi Residences, attico al piano 3",
+      "hint": "La pubblicazione è su un tavolo nell'attico di Pegassi Residences, accessibile nel Capitolo 5.",
+      "source": "magazines",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-120",
+      "region": "vice-city",
+      "type": "magazines",
+      "name": "High Rollerz (Issue 37)",
+      "place": "Crosstown · Jack of Hearts, secondo piano, corridoio ovest",
+      "hint": "Sali al secondo piano, poi cerca il corridoio a ovest delle cabine di registrazione.",
+      "source": "magazines",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-121",
+      "region": "vice-beach",
+      "type": "magazines",
+      "name": "¡BOMBAZO! (Issue 2342)",
+      "place": "Washington Beach · Ron Stop'n'Snack su Oldby Island",
+      "hint": "Sfoglia il numero 2342 nell'espositore di riviste di Ron Stop'n'Snack.",
+      "source": "magazines",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-122",
+      "region": "mariana",
+      "type": "kenton",
+      "name": "Belpoint Strait — tesori di Kenton",
+      "place": "Al largo della punta meridionale di Belpoint · a ovest di Bobcat Bight",
+      "hint": "Cinque tesori in immersione profonda, senza relitto. Push Square specifica che il punto non conta nel totale delle 33 Underwater Discoveries.",
+      "source": "under",
+      "confidence": "described",
+      "counts_underwater": false
+    },
+    {
+      "id": "pt-123",
+      "region": "mariana",
+      "type": "kenton",
+      "name": "Bobcat Dive Site — tesori di Kenton",
+      "place": "A ovest di Bobcat Key · settore sud-occidentale di Mariana County",
+      "hint": "Sei tesori Kenton fra gli scenari subacquei, senza relitto; la fonte lo esclude esplicitamente dalle 33 scoperte subacquee.",
+      "source": "under",
+      "confidence": "described",
+      "counts_underwater": false
     }
   ],
   "stunts": {
@@ -1150,5 +1400,18 @@
     "known_in_atlas": 23,
     "source": "cardmap",
     "note": "372 carte è un minimo teorico, non un percorso di raccolta già completo."
+  },
+  "magazines": {
+    "total_titles": 27,
+    "documented_titles": 20,
+    "combined_total_with_book_swaps": 34,
+    "required_for_100_percent": 30,
+    "location_limited_copies": 9,
+    "note": "20 titoli localizzati, non necessariamente unici per copia; ogni titolo si legge una volta. Le nove copie in luoghi chiusi dopo un capitolo hanno copie alternative secondo PowerPyx. Le riviste Style non rientrano nel conteggio."
+  },
+  "kenton": {
+    "treasure_only": 2,
+    "counts_underwater": false,
+    "note": "Belpoint Strait e Bobcat Dive Site contengono tesori Kenton ma non sono contati fra le 33 Underwater Discoveries."
   }
 }
