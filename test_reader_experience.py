@@ -291,7 +291,8 @@ def browser_qa():
                         assert page.locator('[data-cr-done]').first.is_checked()
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
                     if path=='screenshot-ps5/invia/' and width in (390,1440):
-                        assert page.locator('[data-photo-guide]').count()==55
+                        assert page.locator('template[data-pi-role-options]').evaluate(
+                            "(el)=>el.content.querySelectorAll('[data-photo-guide]').length")==55
                         assert page.locator('[data-pi-role] option').count()==5
                         assert page.locator('[data-pi-submit]').is_disabled()
                         page.locator('[data-pi-credit]').fill('@samplephoto')
