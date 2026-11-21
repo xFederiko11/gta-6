@@ -62,6 +62,8 @@ def entry_html(item):
     return ('<li class="g-loc-item"><div class="g-loc-icon" aria-hidden="true">⌖</div>'
             '<div><strong>'+e(item["name"])+'</strong><p>'+e(item["where"])+'</p>'
             '<small>'+e(precision)+' · '+e(item["note"])+'</small>'
+            + ('<button class="g-loc-map-find" type="button" data-vim-map-search="'+e(item["name"])+'">Cerca nome nella mappa ↗</button> '
+               if item["precision"]!="no-fixed-location" else '')+
             '<a href="'+e(item["url"])+'" target="_blank" rel="noopener noreferrer">'
             +e(kind)+' ↗</a></div></li>')
 

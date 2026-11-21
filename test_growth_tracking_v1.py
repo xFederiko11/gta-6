@@ -65,6 +65,18 @@ class GrowthTrackingTests(unittest.TestCase):
         self.assertNotIn('license-granted',tagged)
         self.assertEqual(tagged.count('data-umami-event="x-screenshot-intent"'),1)
 
+    def test_unofficial_map_provider_and_follow_intents_are_not_conversions(self):
+        src = ('<a data-vim-full href="https://vice-map.com/map">Vice Map</a>'
+               '<a data-vim-full href="https://gta6.city/">GTA6.city</a>'
+               '<a data-vim-follow href="https://x.com/intent/follow?screen_name=xFederiko11">Segui</a>'
+               '<a data-vim-full href="https://vice-map.com.evil.test/map">Falso</a>')
+        annotated=annotate(src)
+        self.assertEqual(annotated.count('data-umami-event="game-map-external-open"'),2)
+        self.assertEqual(annotated.count('data-umami-event="game-map-follow-intent"'),1)
+        self.assertNotIn("followers-acquired",annotated)
+        self.assertIn('https://vice-map.com.evil.test/map',annotated)
+        self.assertNotIn('data-umami-event="game-map-loaded"',annotated)
+
     def test_never_track_untrusted_hosts(self):
         for link in (
           'https://x.com.evil.test/intent/follow?screen_name=xFederiko11',
