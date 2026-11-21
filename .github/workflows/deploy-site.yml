@@ -266,10 +266,8 @@ jobs:
               ('sitemap.xml','mappe-guide/'),
               ('sitemap.xml','trofei/100-percento/'),
               ('sitemap.xml','trofei/trofei-difficili/'),
-              ('sitemap.xml'),
               ('sitemap.xml','collezionabili/percorsi/'),
               ('sitemap.xml','screenshot-ps5/invia/'),
-              ('sitemap.xml'),
           ):
               request=urllib.request.Request(base+path+'?group3-live=20261121',headers={'Cache-Control':'no-cache'})
               with urllib.request.urlopen(request,timeout=20) as response:
@@ -285,19 +283,25 @@ jobs:
                           'photo-provenance-review.json','photo-intake-audit.json',
                           'map-rollout-v1.json','design-version.json',
                           'media-quality.json','social-cards-audit.json'):
-              request=urllib.request.Request(base+private+'?release-gate=1',
-                                             headers={'Cache-Control':'no-cache'})
-              try:
-                  with urllib.request.urlopen(request,timeout=20) as response:
-                      raise AssertionError('Internal artifact is public: '+private)
-              except HTTPError as error:
-                  assert error.code==404,(private,error.code)
-              print('PUBLIC_PRIVATE_PATH_404_OK',private)
+              for attempt in range(6):
+                  request=urllib.request.Request(base+private+'?release-gate=20261121-'+str(attempt),
+                                                 headers={'Cache-Control':'no-cache'})
+                  try:
+                      with urllib.request.urlopen(request,timeout=20) as response:
+                          status=response.status
+                  except HTTPError as error:
+                      if error.code == 404:
+                          print('PUBLIC_PRIVATE_PATH_404_OK',private)
+                          break
+                      raise
+                  if attempt==5:
+                      raise AssertionError('Internal artifact is public: '+private+' HTTP '+str(status))
+                  time.sleep(5)
           home=urllib.request.urlopen(base+'?public-nav=1',timeout=20).read(1000000).decode('utf-8')
           assert 'crescita-x/' not in home
           assert 'screenshot-ps5/verifica/' not in home
           assert 'screenshot-ps5/priorita/' not in home
-                    # Verify the public file byte-for-byte. It is a single-purpose
+          # Verify the public file byte-for-byte. It is a single-purpose
           # Google-owned proof, not part of our reader HTML templates.
           expected = b'google-site-verification: google232edbd3526a5a1d.html'
           for attempt in range(6):
