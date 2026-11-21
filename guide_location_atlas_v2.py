@@ -130,16 +130,14 @@ def render_hub(guides, data, media, extras, get_local, approved=()):
                 +e(item["credit"])+' · fonte ↗</a></figcaption></figure>'
             )
             if len(snapshots)>=2: break
-        previews=('<div class="g-map-preview">'+''.join(snapshots)+'</div>' if snapshots else
-                  '<p class="g-map-preview-empty">📸 Screenshot del passaggio non ancora disponibile. '
-                  'Nessun render viene sostituito a una prova di gameplay.</p>')
+        previews=('<div class="g-map-preview">'+''.join(snapshots)+'</div>' if snapshots else '')
         if g.get("spoiler") and snapshots:
             previews=('<details class="g-map-photo-details"><summary>Apri screenshot '
                       '(possibili spoiler)</summary>'+previews+'</details>')
         cards.append(
             '<article class="g-map-card" data-location-guide="'+e(g["id"])+'" '
             'data-screenshot-count="'+str(local)+'">'
-            '<span class="v-kicker">'+e(g["tag"])+' · '+str(local)+'/5 schermate gameplay</span>'
+            '<span class="v-kicker">'+e(g["tag"])+' · RIFERIMENTI GEOGRAFICI</span>'
             '<h2>'+e(g["safe_title"])+'</h2>'
             '<p>'+e(g.get("location","Segui i riferimenti documentati nella guida."))+'</p>'
             +previews+
@@ -150,15 +148,13 @@ def render_hub(guides, data, media, extras, get_local, approved=()):
     return (
         '<section class="g-map-hub"><header class="g-map-hero">'
         '<span class="eyebrow">⌖ GTA VI ITALIA · MAPPE E POSIZIONI PS5</span>'
-        '<h1>Mappe GTA 6: luoghi e screenshot delle guide</h1>'
+        '<h1>Mappe GTA 6: luoghi e riferimenti documentati</h1>'
         '<p>Trova l’area giusta prima di seguire una procedura. '
-        'Ogni riferimento distingue <strong>categoria sulla mappa</strong>, '
-        '<strong>descrizione della fonte</strong> e screenshot di gameplay '
-        'disponibili sul sito. Non creiamo coordinate o spawn non verificati.</p>'
+        'Ogni riferimento distingue <strong>categorie sulla mappa</strong> e '
+        '<strong>descrizioni delle fonti</strong>. Non inventiamo pin, spawn o schermate.</p>'
         '<p class="g-map-hub-caution"><strong>Importante:</strong> una mappa di '
         'categoria non significa che tutti i punti elencati abbiano pin precisi. '
-        'I filmati, i render promozionali e le richieste della community non '
-        'contano come screenshot autentici.</p>'
+        'Le immagini generiche non dimostrano una posizione esatta.</p>'
         '<nav class="g-map-links" aria-label="Guide e checklist">'
         '<a class="v-button" href="'+BASE+'screenshot-ps5/">Contribuisci con screenshot PS5 →</a>'
         '<a class="v-button secondary" href="'+BASE+'trofei/roadmap-platino/#guida-55-trofei">'
