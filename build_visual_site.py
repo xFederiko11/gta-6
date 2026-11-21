@@ -247,7 +247,10 @@ def visual_contribution(g):
         'e avvisa degli spoiler. Pubblica solo immagini che puoi condividere. '
         'Per ripubblicarle sul sito ti chiederemo un permesso esplicito; '
         'un tweet non concede automaticamente una licenza. Nessun invio '
-        'automatico né promessa di essere pubblicati.</p></details></aside>'
+        'automatico né promessa di essere pubblicati.</p></details>'
+        '<p class="v-visual-follow"><a href="https://x.com/intent/follow?screen_name=xFederiko11" '
+        'target="_blank" rel="noopener noreferrer" data-visual-follow-x>'
+        '𝕏 Segui @xFederiko11 per aggiornamenti verificati di questa guida ↗</a></p></aside>'
     )
 
 
