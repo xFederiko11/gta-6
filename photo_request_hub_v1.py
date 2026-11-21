@@ -22,16 +22,12 @@ PRIORITY = (
 
 
 def screenshot_count(guide, media, extras, get_local, approved=()):
-    """Count only distinct real gameplay screenshots in steps or gallery.
+    """Count only approved, local, action-specific screenshots shown in steps.
 
-    The final Reader pipeline moves some in-step figures into a front gallery;
-    both locations are part of the same final guide. Hero promotional art,
-    placeholders, remote URLs and videos do not count.
+    Source-only galleries, unrelated images and commercial hero artwork never
+    count toward tutorial photography coverage.
     """
-    path = guide["canonical_path"]
-    gallery = extras.get(path, {}).get("gallery", [])
     keys = set(guide.get("step_media", {}).values())
-    keys.update(x["key"] for x in gallery)
     original=sum(bool(media.get(key, {}).get("kind") == "screenshot" and get_local(key))
                  for key in keys)
     approved_unique={record["role"] for record in approved if record["guide_id"]==guide["id"]}
