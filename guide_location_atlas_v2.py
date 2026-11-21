@@ -109,9 +109,10 @@ def render_hub(guides, data, media, extras, get_local, approved=()):
           x["safe_title"].casefold())):
         local=screenshot_count(g,media,extras,get_local,approved)
         links=''.join(entry_html(x) for x in data["guides"][g["id"]])
-        # Only screenshots matched to a numbered tutorial action are eligible.
-        # Wide-area and gallery imagery never proves a specific gameplay step.
-        evidence=list(dict.fromkeys(g.get("step_media",{}).values()))
+        # A gameplay-step screenshot is not automatically a photo of a map pin.
+        # No location-specific screenshot approvals have yet been verified.
+        # Keep text references; never imply a phone screen identifies a location.
+        evidence=[]
         snapshots=[]
         for key in evidence:
             item=media.get(key)
