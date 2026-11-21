@@ -28,7 +28,7 @@ from advanced_platinum_v3 import (render_100 as render_advanced_100, render_hard
 from photo_provenance_v3 import render as render_photo_provenance, validate as validate_provenance, PATH as PROVENANCE_PATH
 from collectible_routes_v4 import render as render_collectible_routes, validate_routes, PATH as COLLECTIBLE_ROUTE_PATH
 from photo_intake_v4 import (render as render_photo_intake, validate_approved,
-                              render_approved_for_guide, approved_count, PATH as PHOTO_INTAKE_PATH)
+                              render_approved_for_guide, render_approved_for_step, approved_count, PATH as PHOTO_INTAKE_PATH)
 from guide_location_atlas_v2 import (render_hub as render_map_hub, render_guide as render_guide_locations,
                                      validate as validate_map_references, HUB_PATH as MAP_HUB_PATH)
 from interactive_article_maps_v1 import (render as render_interactive_map, validate as validate_interactive_maps,
@@ -567,6 +567,12 @@ def guide(g,guides):
                        '<p class="v-proof-label">FOTO DEL LUOGO · SOLO RIFERIMENTO</p>'
                        +figure(context_key,context['caption'])+'</div>')
                 photo_shown=True
+        # Only photos explicitly approved for this numbered instruction
+        # appear here. A requested photo-role ID does not imply a step.
+        community_photo=render_approved_for_step(g,APPROVED_PHOTOS,n)
+        if community_photo:
+            body+=community_photo
+            photo_shown=True
         photo_ref=render_step_photo_source(PHOTO_SOURCE_REFS,g['id'],n)
         if photo_ref:
             if photo_shown:
