@@ -24,7 +24,7 @@ from advanced_platinum_v3 import (render_100 as render_advanced_100, render_hard
 from photo_provenance_v3 import render as render_photo_provenance, validate as validate_provenance, PATH as PROVENANCE_PATH
 from collectible_routes_v4 import render as render_collectible_routes, validate_routes, PATH as COLLECTIBLE_ROUTE_PATH
 from photo_intake_v4 import (render as render_photo_intake, validate_approved,
-                              render_approved_for_guide, PATH as PHOTO_INTAKE_PATH)
+                              render_approved_for_guide, approved_count, PATH as PHOTO_INTAKE_PATH)
 from guide_location_atlas_v2 import (render_hub as render_map_hub, render_guide as render_guide_locations,
                                      validate as validate_map_references, HUB_PATH as MAP_HUB_PATH)
 
@@ -197,7 +197,7 @@ def visual_contribution(g):
         key for key in g['step_media'].values()
         if key in MEDIA and MEDIA[key]['kind']=='screenshot' and media_src(key)
     }
-    count=len(screenshots)
+    count=len(screenshots)+approved_count(APPROVED_PHOTOS,g['id'])
     original='@xFederiko11 Ho uno screenshot PS5 originale utile a questa guida GTA VI: '+url(path)+' #GTA6Italia'
     target='https://x.com/intent/tweet?'+urlencode({'text':original})
     if len(original)>280:
@@ -566,7 +566,8 @@ def main():
               '10 luoghi di meditazione e schermate PS5 con provenienza dichiarata.')
     map_body=render_map_hub(
         guides, LOCATION_REFS, MEDIA,
-        json.loads(Path('data/guide_extras.json').read_text(encoding='utf-8'))['guides'], media_src)
+        json.loads(Path('data/guide_extras.json').read_text(encoding='utf-8'))['guides'], media_src,
+        APPROVED_PHOTOS['photos'])
     map_schema={'@context':'https://schema.org','@type':'CollectionPage',
                 'name':map_title,'description':map_desc,
                 'url':url(MAP_HUB_PATH),'inLanguage':'it-IT','numberOfItems':len(guides)}
@@ -615,7 +616,8 @@ def main():
         guide(g,guides); new_paths.append(g['canonical_path'])
     photo_hub,photo_audit=render_photo_hub(
         guides,VISUAL_REQUESTS,MEDIA,
-        json.loads(Path('data/guide_extras.json').read_text(encoding='utf-8'))['guides'],media_src)
+        json.loads(Path('data/guide_extras.json').read_text(encoding='utf-8'))['guides'],media_src,
+        APPROVED_PHOTOS['photos'])
     photo_path='screenshot-ps5/'
     photo_title='Screenshot GTA 6 PS5: collabora con GTA VI Italia'
     photo_description=('Screenshot GTA 6 su PS5 e PS5 Pro: scegli tra 55 richieste per migliorare '
