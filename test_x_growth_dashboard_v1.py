@@ -152,7 +152,7 @@ class ReportTests(unittest.TestCase):
         self.assertIn("growth-evidence-v1.json",html)
         self.assertIn("https://github.com/xFederiko11/federiko-gta-playstation-bot/issues/48",html)
         self.assertIn("https://github.com/xFederiko11/federiko-gta-playstation-bot/issues/72",html)
-        self.assertIn("Statistiche X",(ROOT/"index.html").read_text(encoding="utf-8"))
+        self.assertNotIn('>Statistiche X</a>', (ROOT/"index.html").read_text(encoding="utf-8"))
         self.assertTrue((ROOT/"assets/x-growth-dashboard-v1.css").exists())
         public=json.loads((ROOT/"growth-evidence-v1.json").read_text(encoding="utf-8"))
         self.assertEqual(public["schema"],SCHEMA)
