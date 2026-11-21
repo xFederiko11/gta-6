@@ -435,3 +435,19 @@ html[data-theme=dark] .social-comment-card>span{color:#ff9bcd}
 .pr-links a{font-size:.78rem;font-weight:750}
 .pr-intake-steps{padding-left:23px;line-height:1.8;font-size:.91rem}
 @media(max-width:760px){.pr-list{grid-template-columns:1fr}.pr-totals{grid-template-columns:repeat(2,minmax(0,1fr))}.pr-hero,.pr-group{padding:17px}}
+
+/* Reader-first walkthrough: controls and a clear success check at every numbered action.
+   Authentic gameplay photographs stay beside the numbered instruction. */
+.v-tutorial-start{margin:20px 0 28px;padding:19px 22px;border:1px solid var(--r-line,var(--border));border-radius:15px;background:var(--r-soft,var(--surface2));color:var(--r-text,var(--text))}
+.v-tutorial-start h2{font-size:1.15rem;line-height:1.28;margin:0 0 10px;color:var(--r-text,var(--text))}
+.v-tutorial-start p{font-size:.89rem;line-height:1.65;margin:8px 0;color:var(--r-text,var(--text))}
+.v-tutorial-start p strong{color:var(--r-text,var(--text))}
+.v-step>figure{margin:0 18px 16px}
+.v-step>figure img.v-photo{width:100%;height:auto;max-height:540px;object-fit:contain;border:1px solid var(--r-line,var(--border));border-radius:10px}
+.v-step .v-check{margin:12px 17px 19px;padding:12px 14px;border-radius:10px;border-left:3px solid var(--r-cyan,var(--cyan));background:var(--r-soft,var(--surface2))}
+.v-step .v-check strong{display:block;font-size:.8rem;margin-bottom:4px;color:var(--r-text,var(--text))}
+.reader-photo-invite{margin:22px 0;padding:16px 20px;border-radius:12px;border:1px solid var(--r-line,var(--border));background:var(--r-soft,var(--surface2));color:var(--r-text,var(--text))}
+.reader-photo-invite strong{display:block;font-size:.91rem}
+.reader-photo-invite p{font-size:.82rem;line-height:1.55;margin:8px 0}
+.reader-photo-invite a{font-size:.84rem;font-weight:750}
+@media(max-width:600px){.v-tutorial-start{padding:15px 16px}.v-step>figure{margin:0 12px 14px}.reader-photo-invite{padding:14px 16px}}

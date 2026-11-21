@@ -87,18 +87,8 @@ def augment_guide(page, entry):
     source_marker = '<section class="v-sources" id="fonti">'
     if source_marker not in page:
         raise ValueError('Guide source section missing')
-    keys = {item['key'] for item in entry.get('gallery', [])}
-    # Avoid duplicate screenshot galleries; retain source credits in the
-    # gallery AND an in-step pointer so the evidence does not disappear from
-    # the reader's numbered walkthrough.
-    if keys:
-        def move_to_gallery(match):
-            if not any(f'data-visual-image="{key}"' in match[0] for key in keys):
-                return match[0]
-            return ('<p class="v-step-photo-gallery" data-step-photo-status="gallery">'
-                    '📸 Schermata di questo passaggio nella '
-                    '<a href="#mappa">galleria documentata ↑</a>.</p>')
-        page = re.sub(r'<figure>.*?</figure>',move_to_gallery,page,flags=re.S)
+    # Keep verified screenshots immediately next to the numbered action.
+    # A reference gallery must never replace the in-step image.
     if gallery:
         before_steps='<ol class="v-steps">'
         if before_steps not in page:
