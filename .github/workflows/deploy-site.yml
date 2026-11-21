@@ -293,6 +293,10 @@ jobs:
                       if error.code == 404:
                           print('PUBLIC_PRIVATE_PATH_404_OK',private)
                           break
+                      if error.code in (429,500,502,503,504) and attempt < 5:
+                          print('PUBLIC_PRIVATE_PATH_RETRY',private,'HTTP',error.code,'attempt',attempt+1)
+                          time.sleep(5*(attempt+1))
+                          continue
                       raise
                   if attempt==5:
                       raise AssertionError('Internal artifact is public: '+private+' HTTP '+str(status))
