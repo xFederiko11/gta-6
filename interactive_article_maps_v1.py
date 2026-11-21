@@ -110,8 +110,8 @@ def guide_points(guide,locations,meditations):
 def trophy_points(number,route,collectibles):
     """Only source-backed suggestions: chapter tasks have no inferred pin."""
     group=route.get("group")
-    if number==3:
-        return [_point("Jason’s House","Key Lento · prima del cambio Capitolo 1","described")]
+    if number==28:
+        return [_point("Jason’s House","Key Lento · potenziale attività di meditazione mancabile nel Capitolo 1","described")]
     if group=="collezionabili":
         samples=[x for x in collectibles["points"] if x.get("missable")]
         return [_point(x["name"],x["place"],"described") for x in samples[:2]]
