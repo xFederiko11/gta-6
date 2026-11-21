@@ -42,7 +42,11 @@ class VisualSiteTests(unittest.TestCase):
         self.assertIn('/soldi-facili/',text)
         self.assertIn('/auto-speciali/',text)
         self.assertIn('/salvare-auto/',text)
-        self.assertGreaterEqual(sum((t=='img' and 'data-visual-image' in a) or (t=='div' and 'data-media-missing' in a) for t,a in tags.tags),8)
+        # Promotional art may be used once for site identity, never as card evidence.
+        self.assertGreaterEqual(sum(t=='img' and 'data-visual-image' in a for t,a in tags.tags),0)
+        for part in text.split('class="v-guide-card v-guide-card-plain"')[1:]:
+            self.assertNotIn('data-visual-image=',part.split('</article>',1)[0])
+        self.assertIn('v-promo-no-media',text)
 
     def test_sitemap_pages_exist_keep_canonicals_and_one_h1(self):
         root=ET.parse(ROOT/'sitemap.xml').getroot()
@@ -92,7 +96,7 @@ class VisualSiteTests(unittest.TestCase):
                 self.assertIn('TUTORIAL PASSO PASSO',source[:first])
                 self.assertIn('class="v-guide-intro"',source.replace('v-intro v-guide-intro','v-guide-intro'))
                 self.assertNotIn('class="v-guide-aside"',source)
-                self.assertIn('Mappe, video, avvisi completi, consigli e fonti',source)
+                self.assertIn('Non fanno parte del tutorial: mappe, video, fonti e note',source)
                 self.assertIn('class="v-guide-social"',source)
                 self.assertEqual(source.count('class="v-step"'),len(guide['steps']))
                 for number in range(1,len(guide['steps'])+1):
@@ -228,12 +232,13 @@ class VisualSiteTests(unittest.TestCase):
             marker=[a for t,a in tags.tags if t=='p' and 'data-visual-screenshot-count' in a]
             self.assertEqual(len(marker),1,path)
             self.assertEqual(int(marker[0]['data-visual-screenshot-count']),len(in_article),path)
-            absent=sum(t=='p' and a.get('data-step-photo-status')=='missing' for t,a in step_tags.tags)
-            gallery_refs=sum(t=='p' and a.get('data-step-photo-status')=='gallery' for t,a in step_tags.tags)
-            self.assertEqual(absent+gallery_refs+len(steps_shown),len(g['steps']),path)
-            if gallery_refs:
-                self.assertIn('id="mappa"',article,path)
-                self.assertIn('href="#mappa"',procedure,path)
+            # Unknown photos are excluded instead of presented as proof.
+            self.assertFalse(any(t=='p' and 'data-step-photo-status' in a for t,a in step_tags.tags))
+            review=json.loads(Path('data/tutorial_photo_review.json').read_text(encoding='utf-8'))
+            allowed={item['key'] for item in review['guide_step_approved'].get(g['id'],{}).values()}
+            self.assertTrue(steps_shown.issubset(allowed),(path,steps_shown,allowed))
+            self.assertFalse(any(t=='img' and a.get('data-visual-kind')=='promotional'
+                                 for t,a in step_tags.tags),path)
             self.assertIn('Crea (Create) su PS5',text)
             self.assertIn('ti chiederemo un permesso esplicito',text)
             self.assertNotIn('input type="file"',contents)
@@ -457,18 +462,32 @@ class VisualSiteTests(unittest.TestCase):
             self.assertIn(item['kind'],('screenshot','promotional'))
             self.assertTrue(item['alt']); self.assertTrue(item['credit'])
             self.assertNotIn('imagegen',item['url'])
-        for path in ('salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/'):
-            text,tags=parse(ROOT/path/'index.html')
-            images=[a for t,a in tags.tags if t=='img' and 'data-visual-image' in a]
-            unavailable=[a for t,a in tags.tags if t=='div' and 'data-media-missing' in a]
-            self.assertGreaterEqual(len(images)+len(unavailable),3)
-            for a in images:
-                self.assertIn('alt',a); self.assertIn('width',a); self.assertIn('height',a)
-                self.assertIn('loading',a)
-                self.assertIn('/gta-6/assets/visual/',a['src'])
-                self.assertTrue((ROOT/a['src'].split('/gta-6/',1)[1]).is_file())
-            for a in unavailable:
-                self.assertIn('aria-label',a)
+        review=json.loads(Path('data/tutorial_photo_review.json').read_text(encoding='utf-8'))
+        self.assertEqual(review['schema'],'gta6-tutorial-photo-review-v2')
+        guides=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
+        guides+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
+        for guide in guides:
+            path=guide.get('canonical_path') or 'guide-e-tutorial/'+guide['id']+'/'
+            page=ROOT/path/'index.html'
+            text,tags=parse(page)
+            procedure=text.split('<ol class="v-steps">',1)[1].split('</ol>',1)[0]
+            step_tags=Tags();step_tags.feed(procedure)
+            approved={rec['key'] for rec in review['guide_step_approved'].get(guide['id'],{}).values()}
+            actual={a['data-visual-image'] for t,a in step_tags.tags if t=='img' and 'data-visual-image' in a}
+            self.assertTrue(actual.issubset(approved),(path,actual,approved))
+            self.assertNotIn('data-media-missing=',procedure)
+            self.assertNotIn('data-step-photo-status=',procedure)
+            self.assertNotIn('class="r-gallery"',text)
+            self.assertNotIn('class="v-guide-aside"',text)
+            self.assertLess(text.index('FINE DEI PASSAGGI'),text.index('class="v-guide-more"'))
+            for t,a in step_tags.tags:
+                if t=='img':
+                    self.assertEqual(a['data-visual-kind'],'screenshot')
+                    self.assertIn('alt',a)
+                    self.assertIn('/gta-6/assets/visual/',a['src'])
+                    self.assertTrue((ROOT/a['src'].split('/gta-6/',1)[1]).is_file())
+        self.assertEqual(len(review['rejected_assignments']),8)
+
 
     def test_internal_links_and_assets_do_not_point_to_ghost_pages(self):
         for target in ROOT.rglob('index.html'):
