@@ -21,6 +21,7 @@ from photo_request_hub_v1 import render as render_photo_hub
 from photo_coverage_v5 import audit as audit_photo_coverage, render as render_photo_coverage, json_report as export_photo_coverage, PATH as PHOTO_COVERAGE_PATH
 from platinum_roadmap_v1 import render as render_platinum_roadmap, ROADMAP_PATH
 from guide_step_references_v1 import render as render_step_evidence, validate as validate_step_evidence
+from step_image_sources_v1 import load as load_step_photo_sources, validate as validate_step_photo_sources, render as render_step_photo_source
 from platinum_atlas_v2 import render as render_trophy_atlas, validate as validate_trophy_atlas
 from advanced_platinum_v3 import (render_100 as render_advanced_100, render_hard as render_advanced_hard,
                                   validate as validate_advanced, COLLECTIBLE_PATH, HARD_PATH)
@@ -44,6 +45,7 @@ ORIGINAL_LAYOUT=legacy.layout
 ORIGINAL_SOURCES=site_info.sources_for
 MEDIA=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
 PHOTO_STEP_REVIEW=json.loads(Path('data/tutorial_photo_review.json').read_text(encoding='utf-8'))
+PHOTO_SOURCE_REFS=load_step_photo_sources()
 if PHOTO_STEP_REVIEW.get('schema')!='gta6-tutorial-photo-review-v2':
     raise ValueError('Invalid audited step-photo schema')
 VISUAL_REQUESTS=json.loads(Path('data/visual_requests.json').read_text(encoding='utf-8'))['guides']
@@ -547,6 +549,7 @@ def guide(g,guides):
                 body+=('<div class="v-proof-media"><p class="v-proof-label">SCHERMATA DEL PASSAGGIO</p>'
                        +figure(key)+'</div>')
                 used.append(key)
+        body+=render_step_photo_source(PHOTO_SOURCE_REFS,g['id'],n)
         evidence=render_step_evidence(g,n,STEP_EVIDENCE,VISUAL_EVIDENCE)
         if evidence:
             step_evidence.append((n+1,heading,evidence))
@@ -665,6 +668,7 @@ def main():
     records+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
     guides=enrich(records)
     validate(guides)
+    validate_step_photo_sources(PHOTO_SOURCE_REFS,guides)
     validate_step_evidence(guides,STEP_EVIDENCE,VISUAL_EVIDENCE)
     validate_map_references(guides,LOCATION_REFS,MEDITATION_PLACES)
     trophies=json.loads(Path('data/trofei.json').read_text(encoding='utf-8'))['trophies']
@@ -677,7 +681,7 @@ def main():
     validate_routes(COLLECTIBLE_ROUTES)
     validate_approved(APPROVED_PHOTOS,guides,VISUAL_REQUESTS)
     PHOTO_COVERAGE=audit_photo_coverage(guides,VISUAL_REQUESTS,APPROVED_PHOTOS,PHOTO_REVIEW)
-    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','collectible_routes_v4.py','data/collectible_routes_v4.json','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/map_external_permalinks_v1.json','interactive_article_maps_v1.py','site/assets/interactive-map-v1.css','site/assets/interactive-map-v1.js','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
+    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','collectible_routes_v4.py','data/collectible_routes_v4.json','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/step_image_sources_v1.json','step_image_sources_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/map_external_permalinks_v1.json','interactive_article_maps_v1.py','site/assets/interactive-map-v1.css','site/assets/interactive-map-v1.js','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
     from community_discovery_v2 import render as community_render
@@ -699,9 +703,9 @@ def main():
     title='GTA 6 Italia: soldi facili, auto speciali e guide PS5'
     desc='Guide GTA VI in italiano: soldi facili, auto speciali, garage, trofei e HDR OLED. Passaggi chiari, immagini attribuite e avviso spoiler.'
     legacy.write('index.html',layout(title,desc,'',home(guides),'home',structured={'@context':'https://schema.org','@type':'WebSite','name':'GTA 6 Italia','url':url(),'inLanguage':'it-IT'}))
-    map_title='Mappe GTA 6 PS5: 11 guide con posizioni e screenshot'
+    map_title='Mappe GTA 6 PS5: 11 guide con posizioni documentate'
     map_desc=('Mappe GTA VI in italiano: 11 guide con riferimenti alle posizioni, '
-              '10 luoghi di meditazione e schermate PS5 con provenienza dichiarata.')
+              '10 luoghi di meditazione e collegamenti alle fonti originali.')
     map_body=render_interactive_map('I luoghi delle nostre guide',
         interactive_collectible_points(COLLECTIBLE_ROUTES),id_suffix='directory',
         page_label='raccolta',curated_refs=EXTERNAL_MAP_REFS['items'])+render_map_hub(
