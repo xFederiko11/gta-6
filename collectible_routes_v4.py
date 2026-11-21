@@ -124,6 +124,7 @@ def render(data):
         '<a class="v-button" href="#cr-kelly">Prima: carte mancabili →</a>',
         '<a class="v-button secondary" href="'+BASE+'trofei/100-percento/">Checklist 100% →</a>',
         '<a class="v-button secondary" href="'+BASE+'screenshot-ps5/invia/">Invia screenshot PS5 →</a>',
+        '<a class="v-button secondary" href="https://x.com/intent/follow?screen_name=xFederiko11" target="_blank" rel="noopener noreferrer" data-cr-follow>Segui X per nuove posizioni ↗</a>',
         '</nav></header>',
         '<aside class="cr-alert" role="note"><strong>⚠️ Prima di lasciare il Capitolo 2:</strong>',
         ' recupera Vicki nel bagno dell’ufficio e Victor Maravilla nella cucina dello Starlet Motel',
