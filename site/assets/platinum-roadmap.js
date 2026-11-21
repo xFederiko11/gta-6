@@ -54,6 +54,7 @@
     for (const key of read(KEY)) if (valid.has(key)) selected.add(key);
     render();
   });
+  window.addEventListener("gta6-italia:trophy-progress-changed", render);
   window.addEventListener("pageshow", render);
   render();
 })();
