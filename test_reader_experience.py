@@ -211,22 +211,62 @@ def browser_qa():
                         assert page.locator('html').get_attribute('data-theme')==theme,'persistence'
                         check_layout(page,out,width,path,theme)
                     if page.locator('details.v-guide-more').count():
-                        # The main tutorial must be visible FIRST, while maps,
-                        # social widgets and editorial information start closed.
-                        assert not page.locator('details.v-guide-more').evaluate('(el) => el.open')
+                        # The beginner experience is a WIZARD, not an article full
+                        # of unrelated boxes. Only one numbered step visible.
+                        steps=page.locator('#procedura .v-step')
+                        count=steps.count()
+                        assert count>=3
                         assert page.locator('.v-tutorial-start-here').is_visible()
-                        assert page.locator('#procedura .v-step').count()>=3
-                        assert page.locator('.v-tutorial-finish').count()==1
+                        assert page.locator('.gf-progress').is_visible()
+                        assert page.locator('[data-gf-status]').inner_text()=='PASSO 1 DI '+str(count)
+                        assert page.locator('.v-step:visible').count()==1
+                        assert page.locator('#passaggio-1').is_visible()
+                        assert page.locator('.gf-next').is_visible()
+                        assert not page.locator('.gf-back').is_visible()
+                        assert not page.locator('.v-guide-more').is_visible(),'Extras must be hidden during task mode'
+                        assert page.locator('.v-tutorial-finish').is_hidden()
                         if width==390:
                             first=page.locator('#passaggio-1').bounding_box()
-                            assert first and first['y']<900, (path,'first numbered step below mobile viewport',first)
+                            assert first and first['y']<900,(path,'first numbered step below mobile viewport',first)
                             page.screenshot(path=str(out/('tutorial-first-'+path.strip('/').replace('/','-')+'.png')))
-                            print('MOBILE_FIRST_STEP_VISIBLE',path,round(first['y']),flush=True)
+                            print('GUIDED_MOBILE_FIRST_STEP',path,round(first['y']),flush=True)
+                            page.locator('[data-gf-next]').click()
+                            assert page.locator('.v-step:visible').count()==1
+                            assert page.locator('#passaggio-1').is_hidden()
+                            assert page.locator('#passaggio-2').is_visible()
+                            assert page.locator('[data-gf-status]').inner_text()=='PASSO 2 DI '+str(count)
+                            assert page.locator('.gf-back').is_visible()
+                            page.locator('[data-gf-back]').click()
+                            assert page.locator('#passaggio-1').is_visible()
+                            assert page.locator('.gf-back').is_hidden()
+                            # Read all remains an explicit accessible alternative.
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==count
+                            assert page.locator('.v-guide-more').is_visible()
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==1
+                            assert page.locator('#passaggio-1').is_visible()
+                            # End-to-end beginner flow, including extra materials
+                            # which appear only when the procedure is completed.
+                            for n in range(count):
+                                assert page.locator('.v-step:visible').count()==1
+                                assert page.locator('#passaggio-'+str(n+1)).is_visible()
+                                page.locator('[data-gf-next]').click()
+                            assert page.locator('.gf-done').is_visible()
+                            assert page.locator('.gf-next').is_hidden()
+                            assert page.locator('.v-guide-more').is_visible()
+                            page.screenshot(path=str(out/('tutorial-finished-'+path.strip('/').replace('/','-')+'.png')))
+                            print('GUIDED_MOBILE_COMPLETE',path,count,flush=True)
                         assert page.evaluate('''() => {
                             const first=document.querySelector('#passaggio-1');
                             const extras=document.querySelector('details.v-guide-more');
                             return first && extras && !!(first.compareDocumentPosition(extras) & Node.DOCUMENT_POSITION_FOLLOWING);
                         }''')
+                        if width!=390:
+                            # Reach completion for all widths, then inspect extras.
+                            for n in range(count):
+                                page.locator('[data-gf-next]').click()
+                            assert page.locator('.gf-done').is_visible()
                         page.locator('details.v-guide-more > summary').click()
                         assert page.locator('details.v-guide-more').evaluate('(el) => el.open')
                     if path.endswith('soldi-2500-three-sheets-liquor/'):
