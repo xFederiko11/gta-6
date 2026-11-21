@@ -230,3 +230,10 @@ Il sito supporta **Umami Cloud Hobby**, senza richiedere servizi di analisi per 
 **KPI iniziale:** `clic Segui verso X / visualizzazioni pagina` (per pagina o insieme di pagine nello stesso intervallo). Non confonderlo con **nuovi follower**: l'account X può essere seguito o meno dopo il clic, e X non restituisce questa conferma a Umami. Tenere separati `click verso X`, `sessioni`, `visite profilo X` e `follower reali`. Per la conversione follower definitiva servono dati aggregati dell'account X provenienti da X Analytics o un'integrazione autorizzata, non stime dal badge.
 
 La funzione rispetta **Do Not Track** quando esposto dal browser, evita il caricamento durante le pull request e non aggiunge cookie, identificatori persistenti, dati PSN o eventi su azioni nel gioco. La pagina **Privacy e visite** riflette la configurazione: in assenza dell'ID spiega che non ci sono tracker; con ID valido descrive Umami e la raccolta aggregata. Verificare gli obblighi di informativa e consenso applicabili prima dell'attivazione. Per disattivare basta eliminare la variabile e ricostruire il sito.
+
+## Gruppo 3 · Guide, screenshot e Platino (21 novembre 2026)
+
+- `trofei/roadmap-platino/`: roadmap in cinque fasi, checklist locale senza accesso PSN, avviso del Capitolo 1, link alle guide e alle schede trofeo. Sorgente: `platinum_roadmap_v1.py`; JS e CSS dedicati in `site/assets/platinum-roadmap.*`.
+- `data/guide_step_refs.json` + `guide_step_references_v1.py`: riferimenti mappe e video **specifici per un passaggio** (con minuto derivato dalle cronologie di fonti terze). Sono link esterni, non schermate catturate da noi né prova della compatibilità trofei.
+- Le 11 guide conservano gli avvisi sui veri screenshot ancora mancanti, la galleria e la pagina `screenshot-ps5/`. Nessun render generato o clip di terzi conta come screenshot documentale, nessuna licenza di riuso presunta.
+- Nuovi test `test_group3_roadmap_step_refs_v1.py` nel workflow di build e PR, e verifica HTTP di `trofei/roadmap-platino/` dopo il deploy. Il sito **non** modifica le checklist PSN né pubblica nuovi post su X automaticamente.
