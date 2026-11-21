@@ -130,7 +130,7 @@ def render(ledger,media,guides,get_local):
         '<li>Prima di pubblicare chiediamo un permesso esplicito per la riproduzione',
         ' dell’immagine e conserviamo il credito.</li></ol>',
         '<p>La coda di revisione del bot è visibile alla redazione '
-        '<a href="https://github.com/xFederiko11/federiko-gta-playstation-bot/issues" '
+        '<a href="https://github.com/xFederiko11/federiko-gta-playstation-bot/issues/103" '
         'target="_blank" rel="noopener noreferrer">nelle Issue GitHub del bot ↗</a>, '
         'ma i giocatori inviano le foto soltanto tramite X e non devono accedere a GitHub.</p>',
         '<p>Inventario aggiornato il '+e(ledger["reviewed"])+
