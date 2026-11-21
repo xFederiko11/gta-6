@@ -1,0 +1,49 @@
+{
+  "schema": "gta6-per-step-external-evidence-v1",
+  "reviewed": "2026-11-21",
+  "policy": "Only link a documented specific map or source-attributed video moment, never pass external clips off as screenshots or independently verified trophy evidence.",
+  "guides": {
+    "soldi-facili-capitolo-1": {
+      "0": {
+        "kind": "map",
+        "ref": "soldi-facili-capitolo-1",
+        "note": "La mappa individua la categoria dei negozi di liquori, non tutti e quattro i luoghi della guida."
+      }
+    },
+    "soldi-2500-three-sheets-liquor": {
+      "2": {
+        "kind": "video",
+        "ref": "soldi-2500-three-sheets-liquor",
+        "at": 455,
+        "note": "La cronologia esterna colloca il pappagallo e l'indizio al minuto 7:35; non prova il bottino garantito."
+      }
+    },
+    "registrare-auto-personale": {
+      "0": {
+        "kind": "map",
+        "ref": "registrare-auto-personale",
+        "note": "Officine sulla mappa GTABase: cerca Watkins Auto Parts, non un Pay ’n’ Spray del Capitolo 3."
+      },
+      "1": {
+        "kind": "video",
+        "ref": "registrare-auto-personale",
+        "at": 266,
+        "note": "La cronologia della fonte cita la spiegazione dei tracker al minuto 4:26."
+      },
+      "4": {
+        "kind": "video",
+        "ref": "registrare-auto-personale",
+        "at": 675,
+        "note": "Il minuto 11:15 è associato alla scelta e registrazione di un'auto da Moses."
+      }
+    },
+    "prima-persona-glitch-ps5": {
+      "4": {
+        "kind": "video",
+        "ref": "prima-persona-glitch-ps5",
+        "at": 0,
+        "note": "La dimostrazione mostra la visuale, non la sicurezza dei trofei né la validità dopo nuove patch."
+      }
+    }
+  }
+}

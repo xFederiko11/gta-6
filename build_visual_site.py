@@ -16,6 +16,8 @@ from visual_guide_content import enrich
 from community_social_v1 import home_rail
 from meditation_tracker_v1 import render as render_meditation_tracker
 from photo_request_hub_v1 import render as render_photo_hub
+from platinum_roadmap_v1 import render as render_platinum_roadmap, ROADMAP_PATH
+from guide_step_references_v1 import render as render_step_evidence, validate as validate_step_evidence
 
 e=legacy.e
 url=legacy.url
@@ -26,6 +28,7 @@ ORIGINAL_SOURCES=site_info.sources_for
 MEDIA=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
 VISUAL_REQUESTS=json.loads(Path('data/visual_requests.json').read_text(encoding='utf-8'))['guides']
 VISUAL_EVIDENCE=json.loads(Path('data/guide_visual_refs.json').read_text(encoding='utf-8'))
+STEP_EVIDENCE=json.loads(Path('data/guide_step_refs.json').read_text(encoding='utf-8'))
 CACHE=Path('.visual-media/manifest.json')
 LOCAL_MEDIA=json.loads(CACHE.read_text(encoding='utf-8')) if CACHE.exists() else {}
 ASSET_VERSION=hashlib.sha256(b''.join(Path(p).read_bytes() for p in ('site/assets/visual-v2.css','site/assets/visual-v2.js'))).hexdigest()[:12]
@@ -38,7 +41,7 @@ def brand():
 
 def header(path):
     primary=[('Home',''),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare auto','salvare-auto/'),('Guide','guide-e-tutorial/')]
-    secondary=[('Trofei e platino','trofei/'),('HDR OLED','hdr-oled/'),('Trucchi PS5','trucchi/'),('Scoperte community','scoperte/'),('Screenshot PS5','screenshot-ps5/'),('Fonti e metodo','fonti/')]
+    secondary=[('Trofei e platino','trofei/'),('Roadmap platino','trofei/roadmap-platino/'),('HDR OLED','hdr-oled/'),('Trucchi PS5','trucchi/'),('Scoperte community','scoperte/'),('Screenshot PS5','screenshot-ps5/'),('Fonti e metodo','fonti/')]
     def link(label,target):
         current=' aria-current="page"' if path==target else ''
         return f'<a href="{url(target)}"{current}>{e(label)}</a>'
@@ -57,7 +60,7 @@ def header(path):
             '</div></div>')
 
 def footer():
-    links=[('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
+    links=[('Roadmap platino','trofei/roadmap-platino/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
     return ('<footer class="v-footer"><div class="wrap"><div class="v-footer-grid"><div>'+brand()+
             '<p>Guide indipendenti per PS5 e PS5 Pro. Sintesi originali, schermate attribuite e avvisi spoiler. Non affiliato a Rockstar Games.</p></div><nav class="v-footer-links" aria-label="Link utili">'+
             ''.join(f'<a href="{url(p)}">{e(t)}</a>' for t,p in links)+
@@ -71,6 +74,13 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
     page=page.replace('<body>',f'<body data-design-version="{DESIGN_VERSION}">',1)
     page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/visual-v2.css")}?v={ASSET_VERSION}"><meta name="color-scheme" content="light"></head>',1)
     page=page.replace('</body>',f'<script src="{url("assets/visual-v2.js")}?v={ASSET_VERSION}" defer></script></body>',1)
+    if path == ROADMAP_PATH:
+        version=hashlib.sha256(
+            Path('site/assets/platinum-roadmap.css').read_bytes()
+            + Path('site/assets/platinum-roadmap.js').read_bytes()
+        ).hexdigest()[:12]
+        page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/platinum-roadmap.css")}?v={version}"></head>',1)
+        page=page.replace('</body>',f'<script src="{url("assets/platinum-roadmap.js")}?v={version}" defer></script></body>',1)
     return page
 
 
@@ -279,7 +289,7 @@ def section_head(kicker,title,desc='',href=None):
 
 
 def categories():
-    items=[('€','Soldi facili','Dove cercare e cosa raccogliere','soldi-facili/'),('↗','Auto speciali','Zone, richieste e veicoli','auto-speciali/'),('⌂','Salvare le auto','Registrazione e garage','salvare-auto/'),('★','Trofei e platino','Requisiti e checklist','trofei/')]
+    items=[('€','Soldi facili','Dove cercare e cosa raccogliere','soldi-facili/'),('↗','Auto speciali','Zone, richieste e veicoli','auto-speciali/'),('⌂','Salvare le auto','Registrazione e garage','salvare-auto/'),('★','Trofei e platino','Requisiti e checklist','trofei/roadmap-platino/')]
     return '<nav class="v-categories" aria-label="Scegli il tuo obiettivo">'+''.join(f'<a class="v-category" href="{url(p)}"><span class="v-icon" aria-hidden="true">{e(icon)}</span><span><strong>{e(t)}</strong><small>{e(d)}</small></span><span class="v-arrow" aria-hidden="true">→</span></a>' for icon,t,d,p in items)+'</nav>'
 
 
@@ -312,7 +322,7 @@ def home(guides):
            '</div><a class="v-button secondary" href="'+url('screenshot-ps5/')+'">Scopri le richieste di screenshot →</a>'
            '</section>')
     body+=home_rail()
-    body+='<section class="v-section">'+section_head('ANCHE NEL SITO','Platino e immagine, senza confusione')+'<div class="v-links">'+f'<a class="v-button secondary" href="{url("trofei/")}">Checklist trofei</a><a class="v-button secondary" href="{url("hdr-oled/")}">Trova la tua TV OLED</a><a class="v-button secondary" href="{url("scoperte/")}">Scoperte della community</a></div></section>'
+    body+='<section class="v-section">'+section_head('ANCHE NEL SITO','Platino e immagine, senza confusione')+'<div class="v-links">'+f'<a class="v-button secondary" href="{url("trofei/roadmap-platino/")}">Roadmap Platino</a><a class="v-button secondary" href="{url("hdr-oled/")}">Trova la tua TV OLED</a><a class="v-button secondary" href="{url("scoperte/")}">Scoperte della community</a></div></section>'
     return body
 
 
@@ -430,6 +440,7 @@ def guide(g,guides):
             body+=('<p class="v-step-photo-gap" data-step-photo-status="missing">'
                    '📸 Screenshot del passaggio non ancora disponibile. '
                    '<a href="#contributi-foto">Vedi le richieste foto ↓</a></p>')
+        body+=render_step_evidence(g,n,STEP_EVIDENCE,VISUAL_EVIDENCE)
         checks=g.get('checks',[])
         if n<len(checks):
             body+=f'<p class="v-check"><strong>Controllo:</strong> {e(checks[n])}</p>'
@@ -479,16 +490,27 @@ def main():
     records+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
     guides=enrich(records)
     validate(guides)
-    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js')
+    validate_step_evidence(guides,STEP_EVIDENCE,VISUAL_EVIDENCE)
+    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js') if path==ROADMAP_PATH else ())
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
     from community_discovery_v2 import render as community_render
     legacy.render_community_page=community_render
     legacy.main()
+    roadmap_title='Roadmap Platino GTA 6 PS5: guida ai 55 trofei'
+    roadmap_desc='Roadmap per il Platino di GTA VI su PS5: meditazioni mancabili, 5 fasi, 100%, medaglie Oro e checklist privata dei progressi.'
+    roadmap_trophies=json.loads(Path('data/trofei.json').read_text(encoding='utf-8'))['trophies']
+    roadmap_body=legacy.crumbs([('Trofei','trofei/'),('Roadmap platino',ROADMAP_PATH)])+render_platinum_roadmap(roadmap_trophies)
+    roadmap_schema={'@context':'https://schema.org','@type':'WebPage',
+                    'name':roadmap_title,'description':roadmap_desc,
+                    'url':url(ROADMAP_PATH),'inLanguage':'it-IT'}
+    legacy.write(ROADMAP_PATH+'index.html',layout(
+        roadmap_title,roadmap_desc,ROADMAP_PATH,roadmap_body,'trofei',
+        structured=roadmap_schema))
     title='GTA 6 Italia: soldi facili, auto speciali e guide PS5'
     desc='Guide GTA VI in italiano: soldi facili, auto speciali, garage, trofei e HDR OLED. Passaggi chiari, immagini attribuite e avviso spoiler.'
     legacy.write('index.html',layout(title,desc,'',home(guides),'home',structured={'@context':'https://schema.org','@type':'WebSite','name':'GTA 6 Italia','url':url(),'inLanguage':'it-IT'}))
-    new_paths=[]
+    new_paths=[ROADMAP_PATH]
     for kind in ('all','soldi','auto'):
         title,desc,path,body=directory(guides,kind)
         legacy.write(path+'index.html',layout(title+' | GTA 6 Italia',desc,path,body,'guide',structured={'@context':'https://schema.org','@type':'CollectionPage','name':title,'url':url(path),'inLanguage':'it-IT'}))

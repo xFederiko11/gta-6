@@ -357,3 +357,9 @@ html[data-theme=dark] .social-comment-card>span{color:#ff9bcd}
 .v-photo-hub-stats>div{padding:9px}
 .v-photo-hub-card{padding:13px}
 }
+
+/* Group 3: contextual external step evidence, distinct from authentic PS5 screenshots. */
+.v-step-source{margin:13px 0 4px;padding:14px 17px;border:1px solid var(--r-line,var(--border,#d0c6d1));border-left:3px solid var(--r-cyan,var(--cyan,#176579));border-radius:10px;background:var(--r-soft,var(--surface2,#f5eef8));color:var(--r-text,var(--text,#28202b))}
+.v-step-source strong{display:block;font-size:.79rem;letter-spacing:.015em}
+.v-step-source p{margin:8px 0;font-size:.85rem;line-height:1.56;color:var(--r-muted,var(--muted,#62566e))}
+.v-step-source a{font-size:.84rem;font-weight:750}
