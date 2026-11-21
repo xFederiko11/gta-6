@@ -101,11 +101,11 @@ def render_guide(g, data, meditations):
             '<h2>Dove andare: luoghi e mappe</h2>'+inner+'</section>')
 
 
-def render_hub(guides, data, media, extras, get_local):
+def render_hub(guides, data, media, extras, get_local, approved=()):
     cards=[]
     for g in sorted(guides,key=lambda x:(0 if x["id"]=="meditazione-capitolo-1" else 1,
           x["safe_title"].casefold())):
-        local=screenshot_count(g,media,extras,get_local)
+        local=screenshot_count(g,media,extras,get_local,approved)
         links=''.join(entry_html(x) for x in data["guides"][g["id"]])
         # Curated authentic screenshots already downloaded by the normal build;
         # never use promotional art, remote hotlinks or unverifiable uploads.
