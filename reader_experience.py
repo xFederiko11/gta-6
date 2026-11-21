@@ -18,14 +18,14 @@ from growth_tracking_v1 import enhance, normalize_id
 
 ROOT = Path('_site')
 BASE = 'https://xfederiko11.github.io/gta-6/'
-VERSION = 'reader-adaptive-v2-20261120'
+VERSION = 'reader-unified-night-v3-20261121'
 # This public token is specifically for the https://xfederiko11.github.io/gta-6/ property.
 # It is intended to appear in the homepage HTML, never as an authentication secret.
 GSC_PUBLIC_VERIFICATION_TOKEN = 'U1WNfaHHGPHzojaeFvn_GGhVrWb5TYeDyUPgpmCX6Nw'
 ASSETS = ('reader-theme.css', 'reader-theme.js', 'community-social-v1.js')
-BOOT = '''<meta name="color-scheme" content="light dark">
-<style id="reader-first-paint">html{background:#fcf8fc;color-scheme:light}html[data-theme="dark"]{background:#0c0b13;color-scheme:dark}@media(max-width:760px){html[data-theme="auto"]{background:#0c0b13;color-scheme:dark}}body{background:inherit}</style>
-<script id="reader-theme-boot">(function(){var t=matchMedia('(max-width:760px)').matches?'dark':'light';try{var v=localStorage.getItem('gta6-theme-v1');if(v==='light'||v==='dark')t=v;}catch(e){}document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;})();</script>'''
+BOOT = '''<meta name="color-scheme" content="dark light">
+<style id="reader-first-paint">html{background:#10131d;color-scheme:dark}html[data-theme="light"]{background:#f7f5fa;color-scheme:light}body{background:inherit}</style>
+<script id="reader-theme-boot">(function(){var t='dark';try{var v=localStorage.getItem('gta6-theme-v1');if(v==='light'||v==='dark')t=v;}catch(e){}document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;})();</script>'''
 CONTROLS = '''<div class="r-theme-control"><span>Aspetto</span><div class="v-switch" role="group" aria-label="Scegli tema scuro o chiaro"><button type="button" data-theme-choice="dark" aria-pressed="false">Scuro</button><button type="button" data-theme-choice="light" aria-pressed="false">Chiaro</button></div></div>'''
 DIALOG = '''<dialog class="r-lightbox" data-image-dialog aria-labelledby="reader-image-title"><header><strong id="reader-image-title" data-image-title>Immagine della guida</strong><div class="r-lightbox-tools"><button type="button" data-image-zoom aria-pressed="false">Zoom 2x</button><button type="button" data-image-close autofocus>Chiudi</button></div></header><div class="r-lightbox-viewport" data-image-viewport data-zoom="false"><img alt="" width="960" height="540"></div><p><a data-image-credit target="_blank" rel="noopener noreferrer">Fonte originale</a> &middot; Colori originali, nessuna mappa ridisegnata. Premi Esc per chiudere.</p></dialog>'''
 LABELS = {'tip':'Consiglio utile', 'avoid':'Da evitare', 'curiosity':'Curiosità'}
@@ -161,7 +161,7 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
         page = augment_guide(page, entry)
     page = refresh_screenshot_count(page)
     page = re.sub(r'<meta name="color-scheme"[^>]*>', '', page)
-    page = re.sub(r'<meta name="theme-color"[^>]*>', '<meta name="theme-color" content="#fcf8fc">', page)
+    page = re.sub(r'<meta name="theme-color"[^>]*>', '<meta name="theme-color" content="#10131d">', page)
     page = page.replace('<html lang="it">', '<html lang="it" data-theme="auto">', 1)
     page = page.replace('<head>', '<head>'+BOOT+gsc_verification_meta(gsc_token), 1)
     page = page.replace('</head>', f'<meta name="reader-version" content="{VERSION}"><link rel="stylesheet" href="{BASE}assets/reader-theme.css?v={version}"></head>', 1)
@@ -234,7 +234,7 @@ def main():
             raise ValueError('Extras point to a missing guide')
     release_path = ROOT/'design-version.json'
     release = json.loads(release_path.read_text(encoding='utf-8'))
-    release.update(reader_version=VERSION, default_theme='mobile-dark-desktop-light', reader_asset_version=version,
+    release.update(reader_version=VERSION, default_theme='unified-dark-mobile-desktop', reader_asset_version=version,
                    guides_with_extras=len(data['guides']), tip_count=sum(len(x['tips']) for x in data['guides'].values()))
     release_path.write_text(json.dumps(release,indent=2)+'\n', encoding='utf-8')
     print('READER_EXPERIENCE_OK',count,'pages',release['guides_with_extras'],'guides',release['tip_count'],'tips')
