@@ -1,7 +1,7 @@
 {
-  "schema": "gta6-region-routes-v4",
+  "schema": "gta6-region-routes-v5",
   "checked": "2026-11-21",
-  "notes": "Grouping is editorial proximity by documented districts, NOT an optimal measured route, not complete coverage. No in-game coordinates, inferred travel times, screen captures, or auto-PSN progress.",
+  "notes": "Editorial proximity by sourced districts, NOT measured GPS routes. 76 described checkpoints: 21 cards, 20 WAiNK, 5 playlist posters, 6 underwater discoveries and 24 named stunt jumps. Source guides are WIP; not complete world coverage. No fabricated coordinates, timing or PSN sync.",
   "sources": {
     "playlist": "https://www.powerpyx.com/gta-6-all-unique-playlist-collectible-locations/",
     "ed": "https://www.powerpyx.com/gta-6-ed-comics-universe-collectible-card-set-locations/",
@@ -19,7 +19,12 @@
     "stuntall": "https://www.powerpyx.com/gta-6-100-completion-checklist-guide/",
     "cardmap": "https://www.gtabase.com/gta-6/map/?feature=collectible-card",
     "waink": "https://www.powerpyx.com/gta-6-all-waink-scan-locations/",
-    "allmap": "https://www.gtabase.com/gta-6/map/"
+    "allmap": "https://www.gtabase.com/gta-6/map/",
+    "corkers": "https://www.pushsquare.com/guides/gta-6-los-santos-corkers-collectible-card-locations",
+    "ed_push": "https://www.pushsquare.com/guides/gta-6-ed-comics-universe-card-locations",
+    "nine": "https://www.pushsquare.com/guides/gta-6-nine1nine-dancers-card-locations",
+    "landmark_push": "https://www.pushsquare.com/guides/gta-6-waink-landmark-locations",
+    "noflusher": "https://www.pushsquare.com/guides/gta-6-no-flusher-tag-locations"
   },
   "regions": [
     {
@@ -47,15 +52,15 @@
       "id": "mariana",
       "name": "Mariana County",
       "subtitle": "Key Lento → Watson Bay → Belpoint",
-      "description": "Combina carte, WAiNK e immersioni Kenton nella stessa zona. Prevedi una barca e l'attrezzatura sub.",
+      "description": "Combina carte, WAiNK, immersioni e salti acrobatici nelle aree Key Lento → Watson Bay → Belpoint, con attrezzatura sub per i relitti.",
       "warning": "Le guide pubbliche mappano solo parte delle 33 scoperte subacquee."
     },
     {
       "id": "kelly",
       "name": "Kelly County",
       "subtitle": "Gellhorn → Port Gellhorn",
-      "description": "Per una run Platinum-safe visita subito lo Starlet Motel per la carta Vicki entro il Capitolo 2. Poi passa agli altri punti a Port Gellhorn.",
-      "warning": "Vicki: l'accesso al luogo è segnalato come mancabile dopo il Capitolo 2."
+      "description": "Prima di lasciare il Capitolo 2 recupera Vicki nel bagno e Victor Maravilla nella cucina dello Starlet Motel; poi continua verso i punti documentati di Port Gellhorn.",
+      "warning": "Due carte nello Starlet Motel sono segnalate come mancabili dopo il Capitolo 2; salva e controlla le due raccolte."
     },
     {
       "id": "leonard",
@@ -487,6 +492,358 @@
       "source": "under",
       "confidence": "described",
       "missable": false
+    },
+    {
+      "id": "pt-42",
+      "region": "mariana",
+      "type": "stunt",
+      "name": "Salto — Mile Zero Air Station Southeast",
+      "place": "Mile Zero Air Station Southeast · Mariana County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-43",
+      "region": "mariana",
+      "type": "stunt",
+      "name": "Salto — Saltrock Bridge West",
+      "place": "Saltrock Bridge West · Mariana County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-44",
+      "region": "mariana",
+      "type": "stunt",
+      "name": "Salto — Saltrock Bridge East",
+      "place": "Saltrock Bridge East · Mariana County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-45",
+      "region": "mariana",
+      "type": "stunt",
+      "name": "Salto — Key Lento Bridge West",
+      "place": "Key Lento Bridge West · Mariana County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-46",
+      "region": "mariana",
+      "type": "stunt",
+      "name": "Salto — Key Lento Bridge East",
+      "place": "Key Lento Bridge East · Mariana County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-47",
+      "region": "mariana",
+      "type": "stunt",
+      "name": "Salto — Longneck Trail",
+      "place": "Longneck Trail · Mariana County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-48",
+      "region": "mariana",
+      "type": "stunt",
+      "name": "Salto — Nehrling River",
+      "place": "Nehrling River · Mariana County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-49",
+      "region": "vice-dale",
+      "type": "stunt",
+      "name": "Salto — Hamlet Backyard",
+      "place": "Hamlet Backyard · Vice-Dale County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-50",
+      "region": "vice-dale",
+      "type": "stunt",
+      "name": "Salto — VCIA Storage Facility",
+      "place": "VCIA Storage Facility · Vice-Dale County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-51",
+      "region": "vice-dale",
+      "type": "stunt",
+      "name": "Salto — SW 4th Avenue Construction",
+      "place": "SW 4th Avenue Construction · Vice-Dale County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-52",
+      "region": "vice-dale",
+      "type": "stunt",
+      "name": "Salto — Blackwell Sandrock",
+      "place": "Blackwell Sandrock · Vice-Dale County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-53",
+      "region": "vice-dale",
+      "type": "stunt",
+      "name": "Salto — Apollo Aggregates South",
+      "place": "Apollo Aggregates South · Vice-Dale County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-54",
+      "region": "vice-dale",
+      "type": "stunt",
+      "name": "Salto — West Vice-Dale County Broken Bridge",
+      "place": "West Vice-Dale County Broken Bridge · Vice-Dale County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-55",
+      "region": "vice-dale",
+      "type": "stunt",
+      "name": "Salto — Nolan Center Parking",
+      "place": "Nolan Center Parking · Vice-Dale County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-56",
+      "region": "leonard",
+      "type": "stunt",
+      "name": "Salto — Lake Bonner Construction East",
+      "place": "Lake Bonner Construction East · Leonard County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-57",
+      "region": "leonard",
+      "type": "stunt",
+      "name": "Salto — Lake Leonida Lock South",
+      "place": "Lake Leonida Lock South · Leonard County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-58",
+      "region": "leonard",
+      "type": "stunt",
+      "name": "Salto — Richard Barebone Overpass South",
+      "place": "Richard Barebone Overpass South · Leonard County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-59",
+      "region": "kelly",
+      "type": "stunt",
+      "name": "Salto — Gellhorn International Raceway",
+      "place": "Gellhorn International Raceway · Kelly County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-60",
+      "region": "kelly",
+      "type": "stunt",
+      "name": "Salto — Prairie Court",
+      "place": "Prairie Court · Kelly County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-61",
+      "region": "kelly",
+      "type": "stunt",
+      "name": "Salto — Starlet Motel Construction",
+      "place": "Starlet Motel Construction · Kelly County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-62",
+      "region": "kelly",
+      "type": "stunt",
+      "name": "Salto — Howe Dairy",
+      "place": "Howe Dairy · Kelly County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-63",
+      "region": "kelly",
+      "type": "stunt",
+      "name": "Salto — Saputka River",
+      "place": "Saputka River · Kelly County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-64",
+      "region": "kelly",
+      "type": "stunt",
+      "name": "Salto — South Ambrosia Broken Bridge",
+      "place": "South Ambrosia Broken Bridge · Kelly County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-65",
+      "region": "lummox",
+      "type": "stunt",
+      "name": "Salto — North Moreau Broken Bridge",
+      "place": "North Moreau Broken Bridge · Lummox County",
+      "hint": "Punto nominato nella lista PowerPyx ancora in aggiornamento. Consulta lo screenshot della fonte e verifica il marker sulla mappa del gioco; qui non ci sono coordinate esatte.",
+      "source": "stunt",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-66",
+      "region": "kelly",
+      "type": "cards",
+      "name": "Victor Maravilla — Los Santos Corkers",
+      "place": "Port Gellhorn · cucina dello Starlet Motel",
+      "hint": "Carta attaccata al frigorifero sul lato ovest della cucina. Recuperala prima della fine del Capitolo 2.",
+      "source": "corkers",
+      "confidence": "described",
+      "missable": true,
+      "when": "Prima della fine del Capitolo 2"
+    },
+    {
+      "id": "pt-67",
+      "region": "kelly",
+      "type": "cards",
+      "name": "General Surgeon — ED Comics",
+      "place": "Port Gellhorn · trailer park presso Dunk’s Robbery Tip",
+      "hint": "Entra nella roulotte azzurra all'estremità sud dell'area, la carta è sul frigorifero.",
+      "source": "ed_push",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-68",
+      "region": "mariana",
+      "type": "cards",
+      "name": "Aimie — Nine1Nine Dancers",
+      "place": "Key Lento · The Rusty Bucket",
+      "hint": "Nel bagno The Captain's Log Room del locale, controlla il box.",
+      "source": "nine",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-69",
+      "region": "kelly",
+      "type": "cards",
+      "name": "Braelynn — Nine1Nine Dancers",
+      "place": "North Kelly County · Hoffman Observatory",
+      "hint": "Usa il rottame per salire sulla piattaforma, entra nell'osservatorio; carta vicino alle riviste.",
+      "source": "nine",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-70",
+      "region": "mariana",
+      "type": "cards",
+      "name": "Georgia — Nine1Nine Dancers",
+      "place": "Key Lento · Steven Strachan Construction, Sunbelt Hwy",
+      "hint": "Entra dalla porta posteriore, cerca la carta vicino al container verde.",
+      "source": "nine",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-71",
+      "region": "kelly",
+      "type": "waink",
+      "name": "Farmer Scrumpy’s Apple Orchard",
+      "place": "Manifest Canyon · a nord di Rodgers Ranch",
+      "hint": "Scansiona l'edificio principale del frutteto in Kelly County.",
+      "source": "landmark_push",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-72",
+      "region": "mariana",
+      "type": "waink",
+      "name": "Badger R&D Tower",
+      "place": "Key Lento · di fronte alla roulotte di Donny, Sunset Dr",
+      "hint": "Scansiona la torre dall'area antistante.",
+      "source": "landmark_push",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-73",
+      "region": "kelly",
+      "type": "waink",
+      "name": "Tucker’s Citrus Farms Water Tower",
+      "place": "Emerald Springs · Tucker’s Citrus Farms",
+      "hint": "Scansiona la torre d'acqua a est di Port Gellhorn.",
+      "source": "landmark_push",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-74",
+      "region": "mariana",
+      "type": "waink",
+      "name": "Thicc Herbie",
+      "place": "Abismo Key · belvedere nord-ovest, rivolto verso Maroon Key",
+      "hint": "Scansiona il dirigibile visibile sull'altra isola.",
+      "source": "landmark_push",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-75",
+      "region": "vice-beach",
+      "type": "waink",
+      "name": "Vice City Utility Marking #1",
+      "place": "Ocean Beach · Shore Dr, di fronte a The Buckingham",
+      "hint": "Scansiona il segno sulla pavimentazione con WAiNK; fa parte di No Flusher.",
+      "source": "noflusher",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-76",
+      "region": "vice-beach",
+      "type": "waink",
+      "name": "Vice City Utility Marking #2",
+      "place": "Ocean Beach · Shore Dr, fuori The Banana Hole",
+      "hint": "Scansiona il secondo segno sulla pavimentazione; non confonderlo con i murales AHOL.",
+      "source": "noflusher",
+      "confidence": "described"
     }
   ],
   "stunts": {
@@ -518,7 +875,8 @@
         "lummox",
         16
       ]
-    ]
+    ],
+    "known_in_atlas": 24
   },
   "underwater": {
     "required": 33,
@@ -529,14 +887,14 @@
   },
   "waink": {
     "required": 100,
-    "known_in_atlas": 14,
+    "known_in_atlas": 20,
     "source": "waink",
     "note": "AHOL Street Art e murales 1010 hanno contatori separati; non fanno avanzare i 100 WAiNK."
   },
   "cards": {
     "required_sets": 15,
     "total_sets": 18,
-    "known_in_atlas": 16,
+    "known_in_atlas": 21,
     "source": "cardmap",
     "note": "372 carte è un minimo teorico, non un percorso di raccolta già completo."
   }
