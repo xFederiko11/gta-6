@@ -27,12 +27,12 @@ HERO = {
     'sportive-randy-posizioni': 'register-car',
     'prima-persona-glitch-ps5': 'traffic',
 }
+# Only step-specific screenshots approved in data/tutorial_photo_review.json
+# may appear in a numbered tutorial. Other media remains in source records only.
 STEP_MEDIA = {
-    'soldi-2500-three-sheets-liquor': {0:'shirley-house',1:'liquor-store'},
-    'soldi-facili-capitolo-1': {0:'liquor-store'},
-    'registrare-auto-personale': {0:'save-car',4:'register-car',6:'scooter-menu'},
-    'viaggio-rapido-taxi': {0:'taxi-phone',1:'taxi-ride'},
+    'registrare-auto-personale': {6:'scooter-phone'},
 }
+
 HEADINGS = {
     'soldi-facili-capitolo-1': ['Il retro del negozio','Il motel da esplorare','La casa sull’acqua','L’oggetto di valore nel magazzino'],
     'soldi-2500-three-sheets-liquor': ['Parti dall’incarico giusto','Raggiungi il retro','Individua il riferimento','Controlla il nascondiglio','Completa l’esplorazione'],
