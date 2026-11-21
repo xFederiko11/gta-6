@@ -66,7 +66,7 @@ def compact_guide(html: str) -> str:
                 'La pubblicazione richiede una verifica e il tuo consenso.</p>'
                 '<a href="' + escape(target, quote=True) + '">Condividi una schermata PS5 →</a>'
                 '</aside>')
-    html = re.sub(r'<aside id="contributi-foto"\b.*?</aside>',
+    html = re.sub(r'<aside id="contributi-foto"[^>]*>.*?</aside>',
                   contribution, html, flags=re.S)
     html = re.sub(r'<p class="v-step-photo-gap" data-step-photo-status="missing">.*?</p>',
                   '', html, flags=re.S)
