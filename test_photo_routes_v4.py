@@ -76,7 +76,7 @@ class RegionalRouteTests(unittest.TestCase):
         text=render_routes(routes)
         self.assertIn("300 su 397",text)
         self.assertIn("non li inseriamo",text)
-        self.assertIn("dati",str(routes["notes"]).lower() if "dati" in str(routes["notes"]).lower() else "dati")
+        self.assertIn("not complete coverage",routes["notes"])
 
 
 class ConsentPhotoTests(unittest.TestCase):
