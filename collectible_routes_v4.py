@@ -220,6 +220,8 @@ def render(data):
                 '<p>'+e(item["hint"])+'</p>'
                 '<a href="'+e(data["sources"][item["source"]])+'" target="_blank" rel="noopener noreferrer">'
                 'Fonte originale e immagini ↗</a> · '
+                '<button type="button" class="cr-map-find" data-vim-map-search="'+e(item["name"])+'" '
+                'aria-label="Cerca '+e(item["name"])+' nella mappa esterna">🗺️ Cerca nella mappa (nome) ↗</button> · '
                 '<a data-cr-photo-intent="'+e(item["id"])+'" href="'+e(intent)+'" '
                 'target="_blank" rel="noopener noreferrer">📷 Proponi tua foto PS5 via X ↗</a>'
                 '</li>'
