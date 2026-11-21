@@ -459,6 +459,21 @@ class VisualSiteTests(unittest.TestCase):
                 self.assertIn('data-copy-sequence=',html)
                 self.assertIn('rel="canonical"',html)
 
+    def test_trophy_article_photos_must_be_evidence_not_decorative_art(self):
+        # All 55 trophy pages currently have operational text and ornamental
+        # tier icons, but no confirmed gameplay screenshot licenses/placements.
+        # Do not silently reintroduce unrelated stock or launch artwork.
+        pages=sorted((ROOT/'trofei').glob('trofeo-*/index.html'))
+        self.assertEqual(len(pages),55)
+        for page in pages:
+            html=page.read_text(encoding='utf-8')
+            self.assertIn('class="prose trophy-prose"',html)
+            article=html.split('class="prose trophy-prose"',1)[1].split('</article>',1)[0]
+            with self.subTest(page=page.relative_to(ROOT)):
+                self.assertNotIn('<img ',article)
+                self.assertNotIn('data-visual-kind="promotional"',article)
+                self.assertNotIn('data-visual-image=',article)
+
     def test_screenshots_have_real_provenance(self):
         manifest=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
         for key,item in manifest.items():
