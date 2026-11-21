@@ -54,7 +54,7 @@
       "id": "kelly",
       "name": "Kelly County",
       "subtitle": "Gellhorn → Port Gellhorn",
-      "description": "Dai priorità alla carta Vicki dello Starlet Motel prima della fine del Capitolo 2; poi recupera le altre carte e scansioni.",
+      "description": "Per una run Platinum-safe visita subito lo Starlet Motel per la carta Vicki entro il Capitolo 2. Poi passa agli altri punti a Port Gellhorn.",
       "warning": "Vicki: l'accesso al luogo è segnalato come mancabile dopo il Capitolo 2."
     },
     {
@@ -454,6 +454,39 @@
       "hint": "Punto panoramico documentato fra i landmark WAiNK.",
       "source": "landmarks",
       "confidence": "described"
+    },
+    {
+      "id": "pt-39",
+      "region": "mariana",
+      "type": "underwater",
+      "name": "Nuestra Señora del Ocio",
+      "place": "Key Lento · Island Dreams",
+      "hint": "Si visita durante la missione della storia Island Dreams: cerca 10 dobloni, conferma il completamento sul menu in gioco.",
+      "source": "under",
+      "confidence": "described",
+      "missable": false
+    },
+    {
+      "id": "pt-40",
+      "region": "mariana",
+      "type": "underwater",
+      "name": "Nuestra Señora de la Noche",
+      "place": "Mare a sud di Key Lento",
+      "hint": "Relitto con sette tesori descritti dalla fonte; immersione e metal detector necessari.",
+      "source": "under",
+      "confidence": "described",
+      "missable": false
+    },
+    {
+      "id": "pt-41",
+      "region": "mariana",
+      "type": "underwater",
+      "name": "Nuestra Señora de la Ética Laxa",
+      "place": "Mare a sud di Key Lento e Abismo Key",
+      "hint": "Relitto con cinque tesori descritti; verifica se il set è completo in Progressi.",
+      "source": "under",
+      "confidence": "described",
+      "missable": false
     }
   ],
   "stunts": {
@@ -490,9 +523,9 @@
   "underwater": {
     "required": 33,
     "total": 33,
-    "known_in_atlas": 3,
+    "known_in_atlas": 6,
     "source": "under",
-    "note": "La guida Push Square copre solo una parte delle 33 scoperte. Usa la checklist in gioco e non considerare completi gli altri 30 punti."
+    "note": "Push Square ha documentato sei relitti che contano per il 100%; 27 delle 33 scoperte restano fuori da questa selezione, non considerarle completate. Altri siti subacquei possono fornire tesori di Kenton senza aumentare questo contatore."
   },
   "waink": {
     "required": 100,
