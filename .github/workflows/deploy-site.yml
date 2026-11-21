@@ -169,7 +169,7 @@ jobs:
       - name: Verify public pages serve responsive reader, X header and spoiler warnings
         run: |
           python - <<'PY'
-          import urllib.request, time
+          import urllib.request, time, json
           base='https://xfederiko11.github.io/gta-6/'
           for path in ('','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/trofeo-15-stunt-da-capogiro/','trofei/roadmap-platino/','mappe-guide/','trofei/100-percento/','trofei/trofei-difficili/','screenshot-ps5/verifica/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/'):
               for attempt in range(6):
