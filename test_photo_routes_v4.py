@@ -78,7 +78,7 @@ class RegionalRouteTests(unittest.TestCase):
         text=render_routes(routes)
         self.assertIn("300 su 397",text)
         self.assertIn("non presentiamo 300",text)
-        self.assertIn("not complete world coverage",routes["notes"])
+        self.assertIn("work in progress",routes["notes"])
 
 
 class ConsentPhotoTests(unittest.TestCase):
