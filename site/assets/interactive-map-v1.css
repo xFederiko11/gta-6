@@ -38,3 +38,16 @@
 .cr-map-find,.g-loc-map-find{color:var(--r-cyan,#8ae7da);font:inherit;font-size:.82rem;font-weight:800;padding:6px 8px;background:transparent;border:1px solid var(--r-line,#41465c);border-radius:7px;cursor:pointer}
 .cr-map-find:hover,.g-loc-map-find:hover{border-color:var(--r-pink,#f1a8cc)}
 .cr-map-find:focus-visible,.g-loc-map-find:focus-visible{outline:3px solid var(--r-cyan,#8ae7da);outline-offset:2px}
+
+/* Curated, source-scoped map permalinks. A building pin is not an item marker. */
+.vim-curated{margin:16px 0;border:1px solid var(--r-line,#41465c);border-left:4px solid var(--r-cyan,#8ae7da);padding:16px;border-radius:10px;background:var(--r-soft,#212839)}
+.vim-curated h3{margin:0 0 9px;font-size:1.05rem}
+.vim-curated p{font-size:.86rem;line-height:1.5;color:var(--r-muted,#cbd0dc)}
+.vim-curated ul{padding:0;margin:10px 0 0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.vim-curated li{min-width:0;display:grid;gap:4px;border:1px solid var(--r-line,#41465c);border-radius:8px;padding:12px;background:var(--r-surface,#12192a)}
+.vim-curated li>a{color:var(--r-cyan,#8ae7da);font-size:.88rem;font-weight:800}
+.vim-curated li>small{font-size:.74rem;color:var(--r-muted,#b5c1d2);line-height:1.35}
+.cr-direct-map{background:var(--r-soft,#212839);padding:9px 12px;border:1px solid var(--r-line,#41465c);border-radius:7px;display:grid;gap:3px}
+.cr-direct-map a{font-weight:800;font-size:.88rem;color:var(--r-cyan,#8ae7da)}
+.cr-direct-map small{font-size:.74rem;color:var(--r-muted,#c5cedb)}
+@media(max-width:650px){.vim-curated ul{grid-template-columns:1fr}}

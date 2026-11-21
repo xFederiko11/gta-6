@@ -103,7 +103,7 @@ def validate_routes(data):
     return True
 
 
-def render(data):
+def render(data,curated_refs=()):
     validate_routes(data)
     regions={x["id"]:x for x in data["regions"]}
     counts=Counter(x["type"] for x in data["points"])
@@ -207,6 +207,14 @@ def render(data):
             if len(tweet)>270:
                 raise ValueError("Oversize social screenshot request")
             intent="https://x.com/intent/tweet?"+urlencode({"text":tweet})
+            curated=next((ref for ref in curated_refs if item["id"] in ref["checkpoint_ids"]),None)
+            contextual_link=(
+                '<p class="cr-direct-map"><a data-cr-curated-link '
+                'data-umami-event="game-map-curated-link-open-intent" href="'+e(curated["url"])+
+                '" target="_blank" rel="noopener noreferrer">📍 '+e(curated["label"])+
+                ' ↗</a><small>Riferimento esterno a un edificio o zona, '
+                'NON pin della posizione esatta dell’oggetto</small></p>'
+                if curated else '')
             output.append(
                 '<li class="cr-step" id="cr-'+e(item["id"])+'" data-cr-step="'+e(item["id"])+'" data-cr-type="'+e(item["type"])+'" '
                 'data-cr-search="'+e(item["name"]+" "+item["place"]+" "+item["hint"])+'">'
@@ -217,7 +225,7 @@ def render(data):
                 'aria-label="Segna '+e(item["name"])+' come trovato"><span>Fatto</span></label></div>'
                 +warning+limited+
                 '<p><strong>Dove:</strong> '+e(item["place"])+'</p>'
-                '<p>'+e(item["hint"])+'</p>'
+                '<p>'+e(item["hint"])+'</p>'+contextual_link+
                 '<a href="'+e(data["sources"][item["source"]])+'" target="_blank" rel="noopener noreferrer">'
                 'Fonte originale e immagini ↗</a> · '
                 '<button type="button" class="cr-map-find" data-vim-map-search="'+e(item["name"])+'" '

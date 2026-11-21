@@ -30,6 +30,15 @@ PROVIDERS=(
 ID=re.compile(r"[a-z0-9-]{3,100}")
 SAFE_PATH=re.compile(r"(?:[a-z0-9-]+/)+")
 SOURCE_PRECISION={"category","described","no-fixed-location"}
+REGISTRY_SCHEMA="gta6-verified-external-map-references-v1"
+EXTERNAL_ALLOWED={
+ "jasons-safehouse":"https://gtamap.io/?m=jasons-safehouse",
+ "permit-keys":"https://gtamap.io/?m=permit-keys",
+ "starlet-motel":"https://gtamap.io/gta-6-map/starlet-motel/",
+ "key-lento":"https://gtamap.io/gta-6-map/key-lento/",
+}
+KINDS={"community-marker-permalink","community-region-permalink","location-detail-permalink"}
+
 
 
 def e(value): return escape(str(value),quote=True)
@@ -101,8 +110,8 @@ def guide_points(guide,locations,meditations):
 def trophy_points(number,route,collectibles):
     """Only source-backed suggestions: chapter tasks have no inferred pin."""
     group=route.get("group")
-    if number==3:
-        return [_point("Jason’s House","Key Lento · prima del cambio Capitolo 1","described")]
+    if number==28:
+        return [_point("Jason’s House","Key Lento · potenziale attività di meditazione mancabile nel Capitolo 1","described")]
     if group=="collezionabili":
         samples=[x for x in collectibles["points"] if x.get("missable")]
         return [_point(x["name"],x["place"],"described") for x in samples[:2]]
@@ -124,7 +133,82 @@ def collectible_points(collectibles):
     return unique[:12]
 
 
-def render(title,points=(),*,id_suffix="article",page_label="articolo"):
+def validate_curated_external_refs(registry,guides,trophies,collectibles):
+    """Source-scoped external permalink evidence, NOT exact GTA VI coordinates."""
+    if registry.get("schema")!=REGISTRY_SCHEMA:
+        raise ValueError("Unreviewed external map registry")
+    entries=registry.get("items")
+    if not isinstance(entries,list) or len(entries)!=len(EXTERNAL_ALLOWED):
+        raise ValueError("External map registry must be deliberately reviewed")
+    guide_ids={x["id"] for x in guides}
+    trophies_set={x["number"] for x in trophies}
+    point_ids={x["id"] for x in collectibles["points"]}
+    results=[]
+    for row in entries:
+        ident=row.get("id")
+        if ident not in EXTERNAL_ALLOWED or row.get("url")!=EXTERNAL_ALLOWED[ident]:
+            raise ValueError("Untrusted external map permalink")
+        if row.get("kind") not in KINDS or row.get("in_game_coordinate_verified") is not False:
+            raise ValueError("Community pin is not PS5-verified GPS")
+        if any(not isinstance(row.get(key),str) or not 4<=len(row[key])<=180
+               for key in ("place","label","source_page")):
+            raise ValueError("Incomplete source reference")
+        if not row["source_page"].startswith("https://gtamap.io/"):
+            raise ValueError("Untrusted map reference origin")
+        if not isinstance(row.get("guide_ids"),list) or not set(row["guide_ids"])<=guide_ids:
+            raise ValueError("Unknown guide linked to map pin")
+        if not isinstance(row.get("trophy_numbers"),list) or not set(row["trophy_numbers"])<=trophies_set:
+            raise ValueError("Unknown trophy linked to map pin")
+        if not isinstance(row.get("checkpoint_ids"),list) or not set(row["checkpoint_ids"])<=point_ids:
+            raise ValueError("Unknown collectible linked to map pin")
+        if row.get("kind")=="community-marker-permalink" and ident!="jasons-safehouse":
+            raise ValueError("Only Jason's building has an indexed direct marker")
+        results.append(row)
+    if {x["id"] for x in results}!=set(EXTERNAL_ALLOWED):
+        raise ValueError("Duplicate or missing community map links")
+    if sum(x["kind"]=="community-marker-permalink" for x in results)!=1:
+        raise ValueError("Do not claim multiple direct map markers")
+    return {"external_map_references_reviewed":len(results),
+            "external_community_building_markers":1,
+            "external_community_region_links":1,
+            "external_location_detail_links":2,
+            "exact_gameplay_coordinate_pairs_verified":0,
+            "individual_collectible_pins_verified":0,
+            "external_link_verification":"indexed_public_source_not_in_game_or_live_api",
+            "warning":"A place/building marker is not a collectible-specific pin."}
+
+
+def external_refs_for(registry,*,guide=None,trophy=None,checkpoints=None):
+    checkpoint_set=set(checkpoints or ())
+    matched=[]
+    for row in registry["items"]:
+        if (guide in row["guide_ids"] if guide is not None else False) or (
+            trophy in row["trophy_numbers"] if trophy is not None else False) or (
+            bool(checkpoint_set.intersection(row["checkpoint_ids"]))):
+            matched.append(row)
+    return matched
+
+
+def render_curated_refs(refs):
+    if not refs:return ""
+    rows=[]
+    for row in refs:
+        if row["id"] not in EXTERNAL_ALLOWED or row["url"]!=EXTERNAL_ALLOWED[row["id"]]:
+            raise ValueError("Unvalidated external map link")
+        rows.append('<li><a data-vim-curated-link data-umami-event="game-map-curated-link-open-intent" href="'+
+                    e(row["url"])+'" target="_blank" rel="noopener noreferrer">'+
+                    e(row["label"])+' ↗</a><small>Fonte: GTA Map · '+
+                    e({"community-marker-permalink":"marker esterno di un edificio",
+                        "community-region-permalink":"area geografica esterna",
+                        "location-detail-permalink":"scheda di località"}[row["kind"]])+
+                    '. Nessuna coordinata del singolo oggetto confermata.</small></li>')
+    return ('<aside class="vim-curated"><h3>📍 Riferimenti geografici con permalink</h3>'
+            '<p>I collegamenti portano al luogo o alla zona sulla mappa della community: '
+            'non sono pin esatti per carte, riviste o altri oggetti.</p><ul>'+
+            ''.join(rows)+'</ul></aside>')
+
+
+def render(title,points=(),*,id_suffix="article",page_label="articolo",curated_refs=()):
     if not ID.fullmatch(id_suffix):
         raise ValueError("Unsafe map id")
     if len(points)>23:
@@ -170,7 +254,7 @@ def render(title,points=(),*,id_suffix="article",page_label="articolo"):
         'target="_blank" rel="noopener noreferrer">Apri Vice Map a schermo intero ↗</a>'
         '<span>Mappe non ufficiali; alcune posizioni e categorie sono stime della community.</span></div>'
         '<details class="vim-places" open><summary>Luoghi collegati a questa guida ('+str(len(points))+')</summary>'
-        '<ol>'+''.join(rows)+'</ol></details>'
+        '<ol>'+''.join(rows)+'</ol></details>'+render_curated_refs(curated_refs)+
         '<p class="vim-credit">Mappa ospitata e mantenuta da <a href="https://vice-map.com/" '
         'target="_blank" rel="noopener noreferrer">Vice Map</a> o '
         '<a href="https://gta6.city/" target="_blank" rel="noopener noreferrer">GTA6.city</a>. '

@@ -31,7 +31,8 @@ from guide_location_atlas_v2 import (render_hub as render_map_hub, render_guide 
 from interactive_article_maps_v1 import (render as render_interactive_map, validate as validate_interactive_maps,
                                          guide_points as interactive_guide_points, trophy_points as interactive_trophy_points,
                                          collectible_points as interactive_collectible_points,
-                                         as_json as export_map_rollout)
+                                         as_json as export_map_rollout,validate_curated_external_refs,
+                                         external_refs_for)
 
 e=legacy.e
 url=legacy.url
@@ -46,6 +47,7 @@ STEP_EVIDENCE=json.loads(Path('data/guide_step_refs.json').read_text(encoding='u
 TROPHY_ROUTES=json.loads(Path('data/platinum_trophy_routes_v2.json').read_text(encoding='utf-8'))
 LOCATION_REFS=json.loads(Path('data/guide_locations_v2.json').read_text(encoding='utf-8'))
 MEDITATION_PLACES=json.loads(Path('data/meditation_checklist_v1.json').read_text(encoding='utf-8'))
+EXTERNAL_MAP_REFS=json.loads(Path('data/map_external_permalinks_v1.json').read_text(encoding='utf-8'))
 ADVANCED=json.loads(Path('data/advanced_platinum_v3.json').read_text(encoding='utf-8'))
 PHOTO_REVIEW=json.loads(Path('data/photo_provenance_review_v3.json').read_text(encoding='utf-8'))
 COLLECTIBLE_ROUTES=json.loads(Path('data/collectible_routes_v4.json').read_text(encoding='utf-8'))
@@ -102,7 +104,8 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
         route=TROPHY_ROUTES['records'][number-1]
         body+=render_interactive_map(trophy['name'] if 'name' in trophy else trophy['slug'],
               interactive_trophy_points(number,route,COLLECTIBLE_ROUTES),
-              id_suffix='trofeo-'+str(number),page_label='trofeo')
+              id_suffix='trofeo-'+str(number),page_label='trofeo',
+              curated_refs=external_refs_for(EXTERNAL_MAP_REFS,trophy=number))
     page=ORIGINAL_LAYOUT(title,desc,path,body,section,image,robots,structured)
     page=re.sub(r'<header class="site-header">.*?</header>',lambda _:header(path),page,count=1,flags=re.S)
     page=re.sub(r'<footer class="footer">.*?</footer>',lambda _:footer(),page,count=1,flags=re.S)
@@ -498,7 +501,8 @@ def guide(g,guides):
     body+=render_guide_locations(g,LOCATION_REFS,MEDITATION_PLACES)
     interactive=render_interactive_map(g['safe_title'],
           interactive_guide_points(g,LOCATION_REFS,MEDITATION_PLACES),
-          id_suffix=g['id'],page_label='guida')
+          id_suffix=g['id'],page_label='guida',
+          curated_refs=external_refs_for(EXTERNAL_MAP_REFS,guide=g['id']))
     if g.get('spoiler'):
         interactive=('<details class="v-map-spoiler"><summary>Mostra la mappa interattiva '
                      'e i luoghi di questa guida (spoiler)</summary>'+interactive+'</details>')
@@ -576,6 +580,7 @@ def main():
     validate_map_references(guides,LOCATION_REFS,MEDITATION_PLACES)
     trophies=json.loads(Path('data/trofei.json').read_text(encoding='utf-8'))['trophies']
     map_rollout=validate_interactive_maps(guides,trophies,LOCATION_REFS,COLLECTIBLE_ROUTES)
+    map_rollout.update(validate_curated_external_refs(EXTERNAL_MAP_REFS,guides,trophies,COLLECTIBLE_ROUTES))
     GUIDE_MAP_PATHS={row['canonical_path'] for row in guides}
     MAP_RENDER_PATHS=set(TROPHY_MAP_PATHS)|GUIDE_MAP_PATHS|{MAP_HUB_PATH,COLLECTIBLE_ROUTE_PATH}
     validate_advanced(ADVANCED,trophies)
@@ -583,7 +588,7 @@ def main():
     validate_routes(COLLECTIBLE_ROUTES)
     validate_approved(APPROVED_PHOTOS,guides,VISUAL_REQUESTS)
     PHOTO_COVERAGE=audit_photo_coverage(guides,VISUAL_REQUESTS,APPROVED_PHOTOS,PHOTO_REVIEW)
-    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','collectible_routes_v4.py','data/collectible_routes_v4.json','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','interactive_article_maps_v1.py','site/assets/interactive-map-v1.css','site/assets/interactive-map-v1.js','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
+    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','collectible_routes_v4.py','data/collectible_routes_v4.json','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/map_external_permalinks_v1.json','interactive_article_maps_v1.py','site/assets/interactive-map-v1.css','site/assets/interactive-map-v1.js','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
     from community_discovery_v2 import render as community_render
@@ -610,7 +615,7 @@ def main():
               '10 luoghi di meditazione e schermate PS5 con provenienza dichiarata.')
     map_body=render_interactive_map('I luoghi delle nostre guide',
         interactive_collectible_points(COLLECTIBLE_ROUTES),id_suffix='directory',
-        page_label='raccolta')+render_map_hub(
+        page_label='raccolta',curated_refs=EXTERNAL_MAP_REFS['items'])+render_map_hub(
         guides, LOCATION_REFS, MEDIA,
         json.loads(Path('data/guide_extras.json').read_text(encoding='utf-8'))['guides'], media_src,
         APPROVED_PHOTOS['photos'])
@@ -644,7 +649,8 @@ def main():
         route_title,route_desc,COLLECTIBLE_ROUTE_PATH,
         render_interactive_map('I 123 checkpoint di Leonida',
            interactive_collectible_points(COLLECTIBLE_ROUTES),id_suffix='collectibles',
-           page_label='raccolta')+render_collectible_routes(COLLECTIBLE_ROUTES),
+           page_label='raccolta',curated_refs=EXTERNAL_MAP_REFS['items'])+
+           render_collectible_routes(COLLECTIBLE_ROUTES,EXTERNAL_MAP_REFS['items']),
         'guide',structured=route_schema))
     legacy.write('map-rollout-v1.json',export_map_rollout(map_rollout))
     intake_title='Invia screenshot GTA 6 PS5: consenso e guida alla foto'
