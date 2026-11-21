@@ -216,6 +216,12 @@ def browser_qa():
                         assert not page.locator('details.v-guide-more').evaluate('(el) => el.open')
                         assert page.locator('.v-tutorial-start-here').is_visible()
                         assert page.locator('#procedura .v-step').count()>=3
+                        assert page.locator('.v-tutorial-finish').count()==1
+                        if width==390:
+                            first=page.locator('#passaggio-1').bounding_box()
+                            assert first and first['y']<900, (path,'first numbered step below mobile viewport',first)
+                            page.screenshot(path=str(out/('tutorial-first-'+path.strip('/').replace('/','-')+'.png')))
+                            print('MOBILE_FIRST_STEP_VISIBLE',path,round(first['y']),flush=True)
                         assert page.evaluate('''() => {
                             const first=document.querySelector('#passaggio-1');
                             const extras=document.querySelector('details.v-guide-more');
