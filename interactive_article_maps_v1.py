@@ -254,7 +254,7 @@ def render(title,points=(),*,id_suffix="article",page_label="articolo",curated_r
         'target="_blank" rel="noopener noreferrer">Apri Vice Map a schermo intero ↗</a>'
         '<span>Mappe non ufficiali; alcune posizioni e categorie sono stime della community.</span></div>'
         '<details class="vim-places" open><summary>Luoghi collegati a questa guida ('+str(len(points))+')</summary>'
-        '<ol>'+''.join(rows)+'</ol></details>'+render_curated_refs(curated_refs)
+        '<ol>'+''.join(rows)+'</ol></details>'+render_curated_refs(curated_refs)+
         '<p class="vim-credit">Mappa ospitata e mantenuta da <a href="https://vice-map.com/" '
         'target="_blank" rel="noopener noreferrer">Vice Map</a> o '
         '<a href="https://gta6.city/" target="_blank" rel="noopener noreferrer">GTA6.city</a>. '
