@@ -589,7 +589,7 @@ def main():
             title,description,path,legacy.crumbs([('Trofei','trofei/'),(title,path)])+body,
             'trofei',structured=schema))
     route_title='Collezionabili GTA 6: percorsi e mappe per regione PS5'
-    route_desc=('GTA VI: 76 checkpoint documentati in 7 aree, carte, WAiNK, 24 salti, relitti, '
+    route_desc=('GTA VI: 92 checkpoint documentati in 7 aree, carte, WAiNK, 24 salti, relitti, '
                 'carta mancabile del Capitolo 2 e checklist locale. Nessun pin inventato.')
     route_schema={'@context':'https://schema.org','@type':'CollectionPage',
                   'name':route_title,'description':route_desc,'url':url(COLLECTIBLE_ROUTE_PATH),
