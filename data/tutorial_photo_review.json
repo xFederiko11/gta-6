@@ -1,0 +1,80 @@
+{
+  "schema": "gta6-tutorial-photo-review-v2",
+  "reviewed": "2026-11-21",
+  "policy": "No screenshot is shown as a numbered-step illustration merely because it depicts GTA VI, the same topic, or a similar mechanic. Match exact action, exact chapter/mode and source. In the absence of positive evidence, show no image; retain source links and add to editorial backlog only.",
+  "guide_step_approved": {
+    "registrare-auto-personale": {
+      "6": {
+        "key": "scooter-phone",
+        "why": "The source explicitly labels this frame as opening the Scooter Bros phone app; the corresponding numbered step explains calling the vehicle after unlocking the app.",
+        "source": "https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know",
+        "evidence_level": "publisher-caption-and-article; not independently captured by GTA VI Italia"
+      }
+    }
+  },
+  "rejected_assignments": [
+    {
+      "guide": "soldi-facili-capitolo-1",
+      "step": 0,
+      "key": "liquor-store",
+      "reason": "Shows a liquor store; the action is searching a guarded back area for specific loot. The photo does not establish that action."
+    },
+    {
+      "guide": "soldi-2500-three-sheets-liquor",
+      "step": 0,
+      "key": "shirley-house",
+      "reason": "The photo of Shirley's house does not demonstrate starting or completing the mission at this step."
+    },
+    {
+      "guide": "soldi-2500-three-sheets-liquor",
+      "step": 1,
+      "key": "liquor-store",
+      "reason": "The broad store shot does not prove a route into the back of the building or enemies at that moment."
+    },
+    {
+      "guide": "registrare-auto-personale",
+      "step": 0,
+      "key": "save-car",
+      "reason": "Push Square's Pay n Spray car example does not depict meeting Moses at Watkins Auto Parts."
+    },
+    {
+      "guide": "registrare-auto-personale",
+      "step": 4,
+      "key": "register-car",
+      "reason": "Generic registration demonstration not confirmed to show the free Moses mission Respray > Register menu."
+    },
+    {
+      "guide": "registrare-auto-personale",
+      "step": 6,
+      "key": "scooter-menu",
+      "reason": "Use the more exact phone-app screenshot rather than claiming a generic vehicle selection matches the tutorial."
+    },
+    {
+      "guide": "viaggio-rapido-taxi",
+      "step": 0,
+      "key": "taxi-phone",
+      "reason": "The Push Square article demonstrates RydeMe phone-booking flows; no direct proof this image shows Contacts > Paradise Taxi."
+    },
+    {
+      "guide": "viaggio-rapido-taxi",
+      "step": 1,
+      "key": "taxi-ride",
+      "reason": "The image source may show a RydeMe ride, not the Paradise Taxi pickup described in the step."
+    }
+  ],
+  "image_roles": {
+    "vice-city": "editorial-only / official promotional art",
+    "leonida": "editorial-only / official promotional art",
+    "traffic": "editorial-only / official promotional art",
+    "bank-phone": "ATM finder / not hidden-liquor-store cash",
+    "bank-deposit": "cash deposit / not four chapter-one loot locations",
+    "save-car": "general car selection / not Moses workshop",
+    "register-car": "general car registration / not verified Moses respray screen",
+    "scooter-phone": "Scooter Bros phone access / relevant to guide step 7",
+    "scooter-menu": "Scooter Bros car selection / not needed as step image",
+    "taxi-phone": "RydeMe-or-taxi article screenshot / Paradise Taxi state not verified",
+    "taxi-ride": "RydeMe-or-taxi article screenshot / Paradise Taxi state not verified",
+    "liquor-store": "building reference / not evidence of cash at back",
+    "shirley-house": "building reference / not evidence of entering the shop"
+  }
+}
