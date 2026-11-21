@@ -470,7 +470,16 @@ class VisualSiteTests(unittest.TestCase):
             self.assertIn('class="prose trophy-prose"',html)
             article=html.split('class="prose trophy-prose"',1)[1].split('</article>',1)[0]
             with self.subTest(page=page.relative_to(ROOT)):
-                self.assertNotIn('<img ',article)
+                images=re.findall(r'<img\\b[^>]*>',article)
+                if 'trofeo-17-cecchino' in page.as_posix():
+                    # This is the labeled YouTube *video poster*, not a claimed
+                    # gameplay-step photo or evidence of medal requirements.
+                    self.assertEqual(len(images),1)
+                    self.assertIn('i.ytimg.com/vi/tJbzMqJGH4k/hqdefault.jpg',images[0])
+                    self.assertIn('È un riferimento visivo, non una guida',article)
+                    self.assertIn('Apri l’originale sul canale Rockstar Games',article)
+                else:
+                    self.assertFalse(images, page)
                 self.assertNotIn('data-visual-kind="promotional"',article)
                 self.assertNotIn('data-visual-image=',article)
 
