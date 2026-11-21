@@ -1,0 +1,186 @@
+"""Consent-first GTA VI interactive maps for 11 guides and 55 trophy articles.
+
+Official embed permissions:
+  Vice Map: https://vice-map.com/embed (credit REQUIRED; marker= optional)
+  GTA6.city: https://gta6.city/embed (keep brand/CC-BY 4.0 attribution)
+No coordinates are generated, scraped or inferred from a textual landmark.
+The map runs inside the reader's browser only after they explicitly press
+'Carica mappa'; the provider may or may not have a selected named marker.
+"""
+from __future__ import annotations
+from html import escape
+from pathlib import Path
+from urllib.parse import urlsplit
+import json
+import re
+
+BASE="https://xfederiko11.github.io/gta-6/"
+PRIMARY="https://vice-map.com/embed/map"
+SECONDARY="https://gta6.city/embed/map"
+PRIMARY_FULL="https://vice-map.com/map"
+SECONDARY_FULL="https://gta6.city/"
+SCHEMA="gta6-interactive-maps-v1"
+VERSION="2026-11-21"
+PROVIDERS=(
+    {"id":"vice","name":"Vice Map","embed":PRIMARY,"full":PRIMARY_FULL,
+     "terms":"https://vice-map.com/embed","marker_query":True},
+    {"id":"city","name":"GTA6.city","embed":SECONDARY,"full":SECONDARY_FULL,
+     "terms":"https://gta6.city/embed","marker_query":False}
+)
+ID=re.compile(r"[a-z0-9-]{3,100}")
+SAFE_PATH=re.compile(r"(?:[a-z0-9-]+/)+")
+SOURCE_PRECISION={"category","described","no-fixed-location"}
+
+
+def e(value): return escape(str(value),quote=True)
+
+
+def article_paths(guides,trophies):
+    g={x["canonical_path"]:x["id"] for x in guides}
+    t={"trofei/"+x["slug"]+"/" for x in trophies}
+    if len(g)!=11 or len(t)!=55 or any(not SAFE_PATH.fullmatch(k) for k in [*g,*t]):
+        raise ValueError("Exactly 11 guides and 55 trophy routes required")
+    if set(g)&t: raise ValueError("Guide/trophy canonical overlap")
+    return g,t
+
+
+def validate(guides,trophies,locations,collectibles):
+    g,t=article_paths(guides,trophies)
+    if set(g.values())!=set(locations.get("guides",{})) or len(locations["guides"])!=11:
+        raise ValueError("No invented/missing guide location data")
+    count=0
+    for path,ident in g.items():
+        for point in locations["guides"][ident]:
+            if point.get("precision") not in SOURCE_PRECISION:
+                raise ValueError("Unknown precision")
+            if not isinstance(point.get("name"),str) or not 3<=len(point["name"])<=110:
+                raise ValueError("Invalid map search name")
+            if point.get("precision")=="no-fixed-location" and point.get("kind")=="map-category":
+                raise ValueError("Cannot promise a marker for an abstract mechanic")
+            count+=1
+    if count!=18:
+        raise ValueError("Expected exactly 18 existing verified text/map references")
+    points=collectibles.get("points",[])
+    if len(points)!=123 or len({x["id"] for x in points})!=123:
+        raise ValueError("Current catalog 123 must have unique IDs")
+    if any(not isinstance(x.get("name"),str) or not 3<=len(x["name"])<=110 for x in points):
+        raise ValueError("Cannot look up unknown collectible names")
+    for provider in PROVIDERS:
+        for key in ("embed","full","terms"):
+            u=urlsplit(provider[key])
+            if u.scheme!="https" or u.username or u.password or u.query or u.fragment or u.port not in (None,443):
+                raise ValueError("Untrusted map provider URL")
+    return {"schema":SCHEMA,"reviewed":VERSION,"guide_articles":len(g),
+            "trophy_articles":len(t),"collectible_pages":1,"directory_pages":1,
+            "articles_with_map":len(g)+len(t),
+            "pages_with_interactive_map":len(g)+len(t)+2,
+            "guide_location_descriptions":count,
+            "collectible_descriptions":len(points),
+            "exact_gameplay_coordinate_pairs_verified":0,
+            "named_place_search_is_exact_pin":False,
+            "external_maps_loaded_automatically":False,
+            "providers":[{"name":x["name"],"embed":x["embed"],"terms":x["terms"]} for x in PROVIDERS],
+            "source":"https://vice-map.com/embed ; https://gta6.city/embed",
+            "policy":"User-activated third-party iframe. Named search only; a label is not a proven marker or coordinate. Unofficial fan-made maps. Embedded maps are externally hosted and must keep original attribution. No paid APIs, map rehosting, PSN tracking or follower assertions."}
+
+
+def _point(title,subtitle,precision):
+    return {"name":title,"where":subtitle,"precision":precision}
+
+
+def guide_points(guide,locations,meditations):
+    rows=[]
+    for item in locations["guides"][guide["id"]]:
+        rows.append(_point(item["name"],item["where"],item["precision"]))
+    if guide["id"]=="meditazione-capitolo-1":
+        for item in meditations["spots"]:
+            rows.append(_point(item["name"],item["region"]+" · "+item["landmark"],"described"))
+    return rows[:23]
+
+
+def trophy_points(number,route,collectibles):
+    """Only source-backed suggestions: chapter tasks have no inferred pin."""
+    group=route.get("group")
+    if number==3:
+        return [_point("Jason’s House","Key Lento · prima del cambio Capitolo 1","described")]
+    if group=="collezionabili":
+        samples=[x for x in collectibles["points"] if x.get("missable")]
+        return [_point(x["name"],x["place"],"described") for x in samples[:2]]
+    return []
+
+
+def collectible_points(collectibles):
+    items=[x for x in collectibles["points"] if x.get("missable") or x.get("location_limited")]
+    items+=next((x for x in collectibles["points"] if x.get("type")==typ),None)
+    for typ in ()]
+    # No exact map markers: these are source-described examples only.
+    unique=[];seen=set()
+    for item in items:
+        if item is not None and item["id"] not in seen:
+            unique.append(_point(item["name"],item["place"],"described"))
+            seen.add(item["id"])
+    return unique[:12]
+
+
+def render(title,points=(),*,id_suffix="article",page_label="articolo"):
+    if not ID.fullmatch(id_suffix):
+        raise ValueError("Unsafe map id")
+    if len(points)>23:
+        raise ValueError("Cannot overload map with unreviewed markers")
+    rows=[]
+    for i,item in enumerate(points,1):
+        name=item.get("name")
+        where=item.get("where","")
+        precision=item.get("precision")
+        if precision not in SOURCE_PRECISION or not isinstance(name,str) or not 3<=len(name)<=110 or not isinstance(where,str) or len(where)>260:
+            raise ValueError("Unreviewed map reference")
+        if precision=="no-fixed-location":
+            rows.append('<li class="vim-location vim-no-point"><strong>'+e(name)+
+                        '</strong><span>Non ha una posizione fissa; consulta la procedura.</span></li>')
+        else:
+            rows.append('<li class="vim-location"><button type="button" data-vim-seek="'+e(name)+'" '
+                        'aria-label="Cerca '+e(name)+' nella mappa esterna">'+
+                        '<strong>'+str(i).zfill(2)+' · '+e(name)+'</strong>'
+                        '<span>'+e(where)+'</span>'
+                        '<small>Ricerca nominale del provider: non è un pin esatto verificato</small>'
+                        '</button></li>')
+    if not rows:
+        rows=['<li class="vim-no-point">Nessun punto fisso verificato per questo '+e(page_label)+
+              '. Puoi comunque esplorare liberamente Leonida, ma non esiste un marker ufficiale associato.</li>']
+    return (
+        '<section class="vim-root" data-vi-map data-map-context="'+e(id_suffix)+'" id="mappa-interattiva">'
+        '<header class="vim-head"><span class="v-kicker">🗺️ MAPPA INTERATTIVA · LEONIDA</span>'
+        '<h2>Esplora sulla mappa: '+e(title)+'</h2>'
+        '<p>Trascina e ingrandisci la mappa di GTA VI. Le etichette qui sotto sono luoghi '
+        'descritti nelle nostre fonti: la ricerca per nome <strong>non certifica '
+        'la posizione esatta</strong>, né l’esistenza del pin presso il fornitore.</p></header>'
+        '<div class="vim-tools"><div class="vim-provider-tabs" role="group" aria-label="Fornitore mappa">'
+        '<button type="button" data-vim-provider="vice" aria-pressed="true">Vice Map</button>'
+        '<button type="button" data-vim-provider="city" aria-pressed="false">GTA6.city</button>'
+        '</div><button type="button" class="vim-load" data-vim-load aria-controls="vim-frame-'+e(id_suffix)+'">'
+        '🗺️ Carica mappa interattiva</button></div>'
+        '<p class="vim-status" data-vim-status role="status" aria-live="polite">'
+        'Mappa esterna non caricata. Aprila solo se vuoi trasferire la visita a un altro sito.</p>'
+        '<div id="vim-frame-'+e(id_suffix)+'" class="vim-frame" data-vim-frame>'
+        '<div class="vim-placeholder"><span aria-hidden="true">⌖</span>'
+        '<strong>Vice City e Leonida</strong><p>Zoom e trascinamento dopo il caricamento volontario.</p></div>'
+        '</div><div class="vim-meta"><a data-vim-full href="'+PRIMARY_FULL+'" '
+        'target="_blank" rel="noopener noreferrer">Apri Vice Map a schermo intero ↗</a>'
+        '<span>Mappe non ufficiali; alcune posizioni e categorie sono stime della community.</span></div>'
+        '<details class="vim-places" open><summary>Luoghi collegati a questa guida ('+str(len(points))+')</summary>'
+        '<ol>'+''.join(rows)+'</ol></details>'
+        '<p class="vim-credit">Mappa ospitata e mantenuta da <a href="https://vice-map.com/" '
+        'target="_blank" rel="noopener noreferrer">Vice Map</a> o '
+        '<a href="https://gta6.city/" target="_blank" rel="noopener noreferrer">GTA6.city</a>. '
+        'Crediti originali preservati. GTA VI appartiene a Rockstar Games. '
+        'La mappa non sincronizza salvataggi o trofei PSN.</p>'
+        '<p class="vim-follow"><a data-vim-follow href="https://x.com/intent/follow?screen_name=xFederiko11" '
+        'target="_blank" rel="noopener noreferrer">𝕏 Segui GTA VI Italia per nuovi percorsi verificati ↗</a></p>'
+        '</section>'
+    )
+
+
+def as_json(data):
+    if data.get("schema")!=SCHEMA or data.get("pages_with_interactive_map")!=68:
+        raise ValueError("Cannot export invalid map rollout")
+    return json.dumps(data,ensure_ascii=False,indent=2)+"\n"
