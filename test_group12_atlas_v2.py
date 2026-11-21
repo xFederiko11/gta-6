@@ -91,7 +91,7 @@ class Group12AtlasTests(unittest.TestCase):
         self.assertIn('assets/platinum-atlas-v2.js?v=',roadmap)
         self.assertIn('assets/platinum-atlas-v2.css?v=',roadmap)
         self.assertIn('data-trophy-atlas',roadmap)
-        self.assertIn("gta6-italia",roadmap)
+        self.assertIn('data-atlas-trophy="28"',roadmap)
         hub=(ROOT/HUB_PATH/"index.html").read_text(encoding="utf-8")
         self.assertEqual(hub.count("data-location-guide="),11)
         self.assertIn('<link rel="canonical" href="'+BASE+HUB_PATH+'"',hub)
