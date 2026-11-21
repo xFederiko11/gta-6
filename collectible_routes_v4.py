@@ -1,6 +1,6 @@
 """Sourced regional collectible circuits for GTA VI PS5. Never fabricate GPS pins.
 
-76 described POIs grouped by neighborhood (editorial grouping, not measured route).
+101 described POIs grouped by neighborhood (editorial grouping, not measured route).
 Only published source URLs are linked and no gameplay screenshots are claimed.
 """
 from __future__ import annotations
@@ -12,7 +12,7 @@ import re
 BASE="https://xfederiko11.github.io/gta-6/"
 PATH="collezionabili/percorsi/"
 REGION_ORDER=("kelly","vice-city","vice-dale","vice-beach","mariana","leonard","lummox")
-TYPES={"playlist":"Playlist","cards":"Carte","waink":"Scansioni WAiNK","underwater":"Immersioni","stunt":"Salti acrobatici"}
+TYPES={"playlist":"Playlist","cards":"Carte","waink":"Scansioni WAiNK","underwater":"Immersioni","stunt":"Salti acrobatici","vehicles":"Veicoli WAiNK","reading":"Libri e letture"}
 ALLOWED={"www.powerpyx.com","www.pushsquare.com","www.gtabase.com"}
 
 
@@ -21,7 +21,7 @@ def e(value):
 
 
 def validate_routes(data):
-    if data.get("schema")!="gta6-region-routes-v6":
+    if data.get("schema")!="gta6-region-routes-v7":
         raise ValueError("Unexpected region route schema")
     if data.get("checked")!="2026-11-21":
         raise ValueError("Missing review date")
@@ -40,10 +40,10 @@ def validate_routes(data):
         if not 20<=len(group.get("warning",""))<=220:
             raise ValueError("Regional caveat missing")
     items=data.get("points",[])
-    if len(items)!=92 or len({x.get("id") for x in items})!=92:
-        raise ValueError("Expected exactly 92 individually documented stops")
+    if len(items)!=101 or len({x.get("id") for x in items})!=101:
+        raise ValueError("Expected exactly 101 individually documented stops")
     counts=Counter(x["type"] for x in items)
-    if counts!={"playlist":5,"cards":21,"waink":36,"underwater":6,"stunt":24}:
+    if counts!={"playlist":5,"cards":23,"waink":38,"underwater":6,"stunt":24,"vehicles":3,"reading":2}:
         raise ValueError("Unreviewed waypoint distribution")
     for n,item in enumerate(items,1):
         if item.get("id")!="pt-"+str(n).zfill(2):
@@ -72,7 +72,7 @@ def validate_routes(data):
         raise ValueError("Underwater count incorrectly claims full coverage")
     if data.get("cards",{}).get("required_sets")!=15 or data.get("cards",{}).get("total_sets")!=18:
         raise ValueError("Card 100 percent threshold mismatch")
-    if data.get("waink",{}).get("required")!=100 or data["waink"].get("known_in_atlas")!=36 or data.get("cards",{}).get("known_in_atlas")!=21:
+    if data.get("waink",{}).get("required")!=100 or data["waink"].get("known_in_atlas")!=38 or data.get("cards",{}).get("known_in_atlas")!=23:
         raise ValueError("Wrong WAiNK target")
     stunts=data.get("stunts",{})
     if [stunts.get(x) for x in ("total","needed","under_bridges","stunt_jumps","knife_flights","base_jumps")]!=[397,300,202,130,40,25]:
@@ -90,12 +90,12 @@ def render(data):
         '<section class="cr-root" data-collectible-routes>',
         '<header class="cr-hero"><span class="eyebrow">⌖ GTA VI ITALIA · PS5 / PS5 PRO</span>',
         '<h1>Percorsi collezionabili GTA 6: regioni e checkpoint</h1>',
-        '<p><strong>92 posizioni documentate in sette aree</strong>,',
+        '<p><strong>101 posizioni documentate in sette aree</strong>,',
         ' raggruppate per vicinanza editoriale. Non sono tracciati GPS né',
-        ' 92 pin di una mappa verificata; ogni checkpoint rimanda alla',
+        ' 101 pin di una mappa verificata; ogni checkpoint rimanda alla',
         ' fonte originale con screenshot e indicazioni dettagliate.</p>',
         '<div class="cr-stats" role="group" aria-label="Copertura percorsi">',
-        '<div><strong>92</strong><small>checkpoint documentati</small></div>',
+        '<div><strong>101</strong><small>checkpoint documentati</small></div>',
         '<div><strong>7</strong><small>aree di raccolta</small></div>',
         '<div><strong>6/33</strong><small>siti subacquei verificati qui</small></div>',
         '<div><strong>2</strong><small>carte potenzialmente mancabili</small></div>',
@@ -113,22 +113,27 @@ def render(data):
         '<label class="cr-search">Cerca oggetto o luogo',
         '<input type="search" data-cr-query placeholder="Es. Vicki, Key Lento, poster" autocomplete="off"></label>',
         '<div class="cr-filter-group" aria-label="Tipo di collezionabile">',
-        '<button type="button" data-cr-filter="all" aria-pressed="true">Tutti · 92</button>'
+        '<button type="button" data-cr-filter="all" aria-pressed="true">Tutti · 101</button>'
     ]
     for typ,name in TYPES.items():
         output.append('<button type="button" data-cr-filter="'+e(typ)+'" aria-pressed="false">'+e(name)+' · '+str(counts[typ])+'</button>')
     output.extend([
-        '</div><div class="cr-progress-wrap"><strong data-cr-progress>0 / 92 checkpoint segnati</strong>',
-        '<progress max="92" value="0" data-cr-bar aria-label="Checkpoint segnati"></progress>',
+        '</div><div class="cr-progress-wrap"><strong data-cr-progress>0 / 101 checkpoint segnati</strong>',
+        '<progress max="101" value="0" data-cr-bar aria-label="Checkpoint segnati"></progress>',
         '<small data-cr-storage>Spunte private in questo browser, non collegate al PSN.</small></div>',
-        '<p data-cr-visible role="status" aria-live="polite">92 checkpoint mostrati</p></section>',
+        '<p data-cr-visible role="status" aria-live="polite">101 checkpoint mostrati</p></section>',
         '<section class="cr-status" aria-label="Limiti del tracciamento"><h2>Ottimizzazione senza mappe inventate</h2>',
         '<p>Per una run orientata al Platino, <strong>Kelly County prima del cambio capitolo</strong>,',
         ' poi le aree urbane di Vice City e le immersioni in Mariana County quando',
         ' hai barca ed equipaggiamento. Questo ordine è una proposta basata sulle',
         ' posizioni documentate, non un itinerario calcolato con tempi o chilometri.</p>',
-        '<p><strong>Copertura parziale:</strong> queste 21 carte sono una selezione delle 480',
-        ' e queste 36 scansioni una selezione dei punti WAiNK.',
+        '<p><strong>Prima area utile:</strong> il circuito di Key Lento riunisce curiosità WAiNK,',
+        ' carte, veicoli da scansionare e due letture. I veicoli sono conteggiati come',
+        ' categoria separata e non vanno scambiati per le scansioni di luoghi WAiNK.',
+        ' <a href="'+e(data["sources"]["key_lento"])+'" target="_blank" rel="noopener noreferrer">',
+        'Apri la guida fotografica Key Lento ↗</a>.</p>',
+        '<p><strong>Copertura parziale:</strong> queste 23 carte sono una selezione delle 480',
+        ' e queste 38 scansioni una selezione dei punti WAiNK.',
         ' Per le immersioni, sei luoghi su 33 sono documentati qui: mancano',
         ' ancora 27 posizioni. Anche i 24 salti qui documentati non coprono i 130 totali. Usa la checklist di gioco per il vero 100%.</p>',
         '<p><a href="'+e(data["sources"]["allmap"])+'" target="_blank" rel="noopener noreferrer">',
