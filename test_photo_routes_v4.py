@@ -26,11 +26,11 @@ def data():
 
 
 class RegionalRouteTests(unittest.TestCase):
-    def test_exactly_101_sourced_waypoints_and_caveats(self):
+    def test_exactly_123_sourced_waypoints_and_caveats(self):
         routes,*_=data()
         self.assertTrue(validate_routes(routes))
         points=routes["points"]
-        self.assertEqual(len(points),101)
+        self.assertEqual(len(points),123)
         self.assertEqual(len(routes["regions"]),7)
         self.assertEqual(sum(p["type"]=="cards" for p in points),23)
         self.assertEqual(sum(p["type"]=="playlist" for p in points),5)
@@ -39,20 +39,36 @@ class RegionalRouteTests(unittest.TestCase):
         self.assertEqual(sum(p["type"]=="stunt" for p in points),24)
         self.assertEqual(sum(p["type"]=="vehicles" for p in points),3)
         self.assertEqual(sum(p["type"]=="reading" for p in points),2)
+        self.assertEqual(sum(p["type"]=="magazines" for p in points),20)
+        self.assertEqual(sum(p["type"]=="kenton" for p in points),2)
+        self.assertEqual(sum(p.get("location_limited") is True for p in points),9)
         self.assertIn("Christmas House",render_routes(routes))
         self.assertEqual(len([p for p in points if p.get("missable")]),2)
         self.assertEqual(routes["underwater"]["required"],33)
         self.assertEqual(routes["underwater"]["known_in_atlas"],6)
         markup=render_routes(routes)
-        self.assertEqual(markup.count('data-cr-step='),101)
-        self.assertEqual(markup.count('data-cr-done='),101)
+        self.assertEqual(markup.count('data-cr-step='),123)
+        self.assertEqual(markup.count('data-cr-done='),123)
         self.assertEqual(markup.count('data-cr-region='),7)
-        self.assertEqual(markup.count('data-cr-filter='),8)
+        self.assertEqual(markup.count('data-cr-filter='),10)
         self.assertIn('id="cr-kelly"',markup)
         self.assertIn("Vicki",markup)
         self.assertIn("Victor Maravilla",markup)
         self.assertIn("Capitolo 2",markup)
         self.assertIn("6/33",markup)
+        self.assertIn("30 su 34",markup)
+        self.assertIn("Belpoint Strait",markup)
+        self.assertIn("Bobcat Dive Site",markup)
+        self.assertEqual(markup.count('data-cr-photo-intent='),123)
+        self.assertEqual(markup.count('class="cr-limited-copy"'),9)
+        self.assertIn('data-cr-follow',markup)
+        self.assertIn('target="_blank" rel="noopener noreferrer"',markup)
+        self.assertEqual(len({p["id"] for p in points}),123)
+        for p in points:
+            self.assertIn('id="cr-'+p["id"]+'"',markup)
+        for p in points:
+            if p["type"]=="kenton":self.assertIs(p["counts_underwater"],False)
+
         self.assertIn("mancano",markup)
         self.assertIn("Fonte originale e immagini",markup)
         self.assertNotIn("<img",markup)
@@ -71,6 +87,13 @@ class RegionalRouteTests(unittest.TestCase):
         original=deepcopy(routes)
         original["underwater"]["known_in_atlas"]=33
         with self.assertRaises(ValueError):validate_routes(original)
+        original=deepcopy(routes)
+        original["points"][101]["location_note"]="This is forever missable"
+        with self.assertRaises(ValueError):validate_routes(original)
+        original=deepcopy(routes)
+        original["points"][121]["counts_underwater"]=True
+        with self.assertRaises(ValueError):validate_routes(original)
+
 
     def test_stunt_recommendations_do_not_fake_300_map_pins(self):
         routes,*_=data()
@@ -138,7 +161,7 @@ class ConsentPhotoTests(unittest.TestCase):
             self.skipTest("Production site is not generated")
         route=(ROOT/ROUTE_PATH/"index.html").read_text(encoding="utf-8")
         self.assertIn('<link rel="canonical" href="'+BASE+ROUTE_PATH+'"',route)
-        self.assertEqual(route.count('data-cr-step='),101)
+        self.assertEqual(route.count('data-cr-step='),123)
         self.assertEqual(route.count('data-cr-region='),7)
         self.assertIn('/assets/collectible-routes-v4.js?v=',route)
         self.assertIn('/assets/collectible-routes-v4.css?v=',route)
