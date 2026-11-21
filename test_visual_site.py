@@ -240,7 +240,8 @@ class VisualSiteTests(unittest.TestCase):
             self.assertFalse(any(t=='p' and 'data-step-photo-status' in a for t,a in step_tags.tags))
             review=json.loads(Path('data/tutorial_photo_review.json').read_text(encoding='utf-8'))
             allowed={item['key'] for item in review['guide_step_approved'].get(g['id'],{}).values()}
-            self.assertTrue(steps_shown.issubset(allowed),(path,steps_shown,allowed))
+            context={entry['key'] for entry in review.get('context_approved',{}).get(g['id'],{}).values()}
+            self.assertTrue(steps_shown.issubset(allowed|context),(path,steps_shown,allowed,context))
             self.assertFalse(any(t=='img' and a.get('data-visual-kind')=='promotional'
                                  for t,a in step_tags.tags),path)
             self.assertIn('Crea (Create) su PS5',text)
