@@ -1,7 +1,7 @@
 {
-  "schema": "gta6-region-routes-v6",
+  "schema": "gta6-region-routes-v7",
   "checked": "2026-11-21",
-  "notes": "Editorial proximity by sourced districts, NOT measured GPS routes. 92 described checkpoints: 21 cards, 36 WAiNK, 5 playlist posters, 6 underwater discoveries and 24 named stunt jumps. Sources remain work in progress; no fabricated coordinates, timing, game screenshots, rights claims or PSN sync.",
+  "notes": "Editorial proximity by sourced districts; NOT measured GPS routes. 101 described checkpoints: 23 cards, 38 WAiNK, 5 playlist posters, 6 underwater discoveries, 24 named stunt jumps, 3 standout vehicles and 2 books. Key Lento extension comes from a complete location-by-location walkthrough with photo references. Sources remain WIP. 27 underwater discoveries still not located in this atlas. Promotional art cannot count as gameplay screenshot and map coordinates are not fabricated.",
   "sources": {
     "playlist": "https://www.powerpyx.com/gta-6-all-unique-playlist-collectible-locations/",
     "ed": "https://www.powerpyx.com/gta-6-ed-comics-universe-collectible-card-set-locations/",
@@ -26,7 +26,8 @@
     "landmark_push": "https://www.pushsquare.com/guides/gta-6-waink-landmark-locations",
     "noflusher": "https://www.pushsquare.com/guides/gta-6-no-flusher-tag-locations",
     "sculptures": "https://www.pushsquare.com/guides/gta-6-waink-sculpture-locations",
-    "curio_push": "https://www.pushsquare.com/guides/gta-6-waink-curiosities-locations"
+    "curio_push": "https://www.pushsquare.com/guides/gta-6-waink-curiosities-locations",
+    "key_lento": "https://www.pushsquare.com/guides/gta-6-key-lento-collectibles-and-secrets-walkthrough"
   },
   "regions": [
     {
@@ -1006,6 +1007,96 @@
       "hint": "Cerca il grande silo dipinto a forma di mucca, visibile dalla strada.",
       "source": "landmark_push",
       "confidence": "described"
+    },
+    {
+      "id": "pt-93",
+      "region": "mariana",
+      "type": "waink",
+      "name": "Christmas House — Curiosity WAiNK",
+      "place": "Key Lento · Sunset Dr, vicino all'incrocio con Laguna Dr",
+      "hint": "Scansiona la casa addobbata con decorazioni natalizie, visibile soprattutto di notte; non confonderla con il veicolo decorato parcheggiato fuori.",
+      "source": "key_lento",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-94",
+      "region": "mariana",
+      "type": "waink",
+      "name": "Plunge Masters Deep Sea Chalet — Curiosity WAiNK",
+      "place": "Key Lento · Pacific Dr, retro del Plunge Masters B.E.N.D.S. Certified Dive Center",
+      "hint": "Raggiungi il retro del centro immersioni e inquadra l'installazione con WAiNK. La fonte mostra immagini del luogo.",
+      "source": "key_lento",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-95",
+      "region": "mariana",
+      "type": "cards",
+      "name": "Lionel Taber — Los Santos Pounders",
+      "place": "Key Lento · Dolphin Dr, casa della festa presso ponte per Corsair Key",
+      "hint": "Nella casa raggiungibile dalla scala per il piano superiore, cerca la carta nel bagno vicino alla camera con l'orologio.",
+      "source": "key_lento",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-96",
+      "region": "mariana",
+      "type": "cards",
+      "name": "Thelma — Delights Dancers",
+      "place": "Key Lento · sommità della Badger R&D Tower, Sunset Dr",
+      "hint": "Sali fino in cima alla torre per recuperare la carta; la scansione della torre è un obiettivo WAiNK separato.",
+      "source": "key_lento",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-97",
+      "region": "mariana",
+      "type": "vehicles",
+      "name": "Bravado Tropic Dawn Youga — Standout Vehicle",
+      "place": "Key Lento · magazzino New Wave Custom & Repairs, Dolphin Dr / Sunbelt Hwy",
+      "hint": "La fonte indica l'accesso tramite Snap Gun: solo dopo essere entrato scansiona con WAiNK il veicolo esposto.",
+      "source": "key_lento",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-98",
+      "region": "mariana",
+      "type": "vehicles",
+      "name": "Nagasaki Rudolph Tao — Standout Vehicle",
+      "place": "Key Lento · esterno della Christmas House, Sunset Dr",
+      "hint": "Scansiona il veicolo natalizio parcheggiato davanti alla casa: il veicolo e la curiosità della casa sono due obiettivi distinti.",
+      "source": "key_lento",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-99",
+      "region": "mariana",
+      "type": "vehicles",
+      "name": "Vapid Shrimp & Save Shifter — Standout Vehicle",
+      "place": "Key Lento · parcheggio Shrimp & Save, Pacific Dr",
+      "hint": "Inquadra con WAiNK il veicolo davanti al negozio; confronta il nome con quello del menu di avanzamento.",
+      "source": "key_lento",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-100",
+      "region": "mariana",
+      "type": "reading",
+      "name": "Trigger Happy — Libro",
+      "place": "Key Lento · beach house sul lungomare, Sunset Dr",
+      "hint": "Entra dalla scala della casa sulla spiaggia e cerca il libro sull'angolo del tavolo da pranzo.",
+      "source": "key_lento",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-101",
+      "region": "mariana",
+      "type": "reading",
+      "name": "Killer Prom — Book Swap",
+      "place": "Key Lento · Dolphin Dr, scaffale con tartaruga lungo la strada",
+      "hint": "Raggiungi lo scaffale per lo scambio di libri vicino al gruppo di case e raccogli l'oggetto documentato.",
+      "source": "key_lento",
+      "confidence": "described"
     }
   ],
   "stunts": {
@@ -1049,14 +1140,14 @@
   },
   "waink": {
     "required": 100,
-    "known_in_atlas": 36,
+    "known_in_atlas": 38,
     "source": "waink",
     "note": "36 scansioni di vari tipi sono incluse in questa selezione, ma i 100 obiettivi richiesti non sono necessariamente 100 landmark: includono curiosità, sculture e altre categorie. Le guide pubbliche sono ancora WIP."
   },
   "cards": {
     "required_sets": 15,
     "total_sets": 18,
-    "known_in_atlas": 21,
+    "known_in_atlas": 23,
     "source": "cardmap",
     "note": "372 carte è un minimo teorico, non un percorso di raccolta già completo."
   }
