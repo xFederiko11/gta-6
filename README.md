@@ -237,3 +237,11 @@ La funzione rispetta **Do Not Track** quando esposto dal browser, evita il caric
 - `data/guide_step_refs.json` + `guide_step_references_v1.py`: riferimenti mappe e video **specifici per un passaggio** (con minuto derivato dalle cronologie di fonti terze). Sono link esterni, non schermate catturate da noi né prova della compatibilità trofei.
 - Le 11 guide conservano gli avvisi sui veri screenshot ancora mancanti, la galleria e la pagina `screenshot-ps5/`. Nessun render generato o clip di terzi conta come screenshot documentale, nessuna licenza di riuso presunta.
 - Nuovi test `test_group3_roadmap_step_refs_v1.py` nel workflow di build e PR, e verifica HTTP di `trofei/roadmap-platino/` dopo il deploy. Il sito **non** modifica le checklist PSN né pubblica nuovi post su X automaticamente.
+
+## Gruppi 1+2: atlante visivo e 55 strategie Platino (21 novembre 2026)
+
+- `trofei/roadmap-platino/#guida-55-trofei`: sezione con 55 schede curate individualmente, filtri per obiettivo, ricerca, riquadri spoiler per 28 trofei nascosti e spunte manuali coerenti con `gta6-italia:trophies:v1`. Le condizioni sconosciute **non** hanno procedure inventate.
+- `mappe-guide/`: 11 guide e 18 riferimenti geografici documentati, con 10 landmark delle meditazioni. I link a GTABase sono **filtri di categoria**, non pin assoluti; gli altri puntano a guide sorgente con descrizione del luogo.
+- `data/guide_locations_v2.json` distingue mappe filtrate, riferimenti descrittivi e attività senza luogo fisso. `guide_location_atlas_v2.py` mostra i riferimenti nelle guide originali e conserva gli spoiler.
+- I conteggi foto restano quelli verificati dalle immagini gameplay realmente disponibili nel build: non aumentano per immagini promozionali, video, link a mappe o richieste non ancora ricevute.
+- Generazione e test automatici: `platinum_atlas_v2.py`, `test_group12_atlas_v2.py`, `site/assets/platinum-atlas-v2.*`. Nessun login GitHub o PSN richiesto, nessuna chiamata API per memorizzare le spunte.
