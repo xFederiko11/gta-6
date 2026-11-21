@@ -35,7 +35,8 @@ class MediaQualityTests(unittest.TestCase):
                 filename=f'proof-{n}-960.webp'
                 (media/filename).write_bytes(b'local-screenshot-fixture')
                 kind='screenshot' if n<4 else 'promotional'
-                imgs.append('<img data-visual-image="proof-'+str(n)+
+                marker=('data-visual-proof-image="proof-'+str(n)+'" ' if n<4 else '')
+                imgs.append('<img '+marker+'data-visual-image="proof-'+str(n)+
                             '" data-visual-kind="'+kind+
                             '" alt="Riferimento" src="https://xfederiko11.github.io/gta-6/assets/visual/'+filename+'">')
             page.write_text('<article class="v-guide-main">'+''.join(imgs)+'</article><aside></aside>',
@@ -50,9 +51,11 @@ class MediaQualityTests(unittest.TestCase):
             self.assertEqual(report['target_unique_gameplay_screenshots'],5)
             self.assertEqual(report['gameplay_screenshots_in_guide'],4)
             self.assertEqual(report['promotional_images_in_guide'],2)
-            page.write_text(page.read_text(encoding='utf-8').replace(
-                'data-visual-kind="promotional"','data-visual-kind="screenshot"',1),
-                encoding='utf-8')
+            updated=page.read_text(encoding='utf-8').replace(
+                'data-visual-kind="promotional"','data-visual-kind="screenshot"',1)
+            updated=updated.replace('data-visual-image="proof-4"',
+                                    'data-visual-proof-image="proof-4" data-visual-image="proof-4"')
+            page.write_text(updated,encoding='utf-8')
             improved=audit(root)
             self.assertEqual(improved['ready'],1)
             self.assertEqual(improved['pages'][0]['real_step_screenshots'],5)

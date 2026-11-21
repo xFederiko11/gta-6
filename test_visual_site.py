@@ -231,12 +231,17 @@ class VisualSiteTests(unittest.TestCase):
                          if t=='img' and a.get('data-visual-kind')=='screenshot'}
             marker=[a for t,a in tags.tags if t=='p' and 'data-visual-screenshot-count' in a]
             self.assertEqual(len(marker),1,path)
-            self.assertEqual(int(marker[0]['data-visual-screenshot-count']),len(in_article),path)
+            # Only screenshots proving an ACTION count toward the 5-photo target.
+            # An exterior shot can identify a shop, but not prove its hidden loot.
+            proof_images=set(re.findall(r'data-visual-proof-image="([^"]+)"',article))
+            self.assertEqual(int(marker[0]['data-visual-screenshot-count']),len(proof_images),path)
+            self.assertTrue(proof_images.issubset(in_article),path)
             # Unknown photos are excluded instead of presented as proof.
             self.assertFalse(any(t=='p' and 'data-step-photo-status' in a for t,a in step_tags.tags))
             review=json.loads(Path('data/tutorial_photo_review.json').read_text(encoding='utf-8'))
             allowed={item['key'] for item in review['guide_step_approved'].get(g['id'],{}).values()}
-            self.assertTrue(steps_shown.issubset(allowed),(path,steps_shown,allowed))
+            context={entry['key'] for entry in review.get('context_approved',{}).get(g['id'],{}).values()}
+            self.assertTrue(steps_shown.issubset(allowed|context),(path,steps_shown,allowed,context))
             self.assertFalse(any(t=='img' and a.get('data-visual-kind')=='promotional'
                                  for t,a in step_tags.tags),path)
             self.assertIn('Crea (Create) su PS5',text)
@@ -454,6 +459,30 @@ class VisualSiteTests(unittest.TestCase):
                 self.assertIn('data-copy-sequence=',html)
                 self.assertIn('rel="canonical"',html)
 
+    def test_trophy_article_photos_must_be_evidence_not_decorative_art(self):
+        # All 55 trophy pages currently have operational text and ornamental
+        # tier icons, but no confirmed gameplay screenshot licenses/placements.
+        # Do not silently reintroduce unrelated stock or launch artwork.
+        pages=sorted((ROOT/'trofei').glob('trofeo-*/index.html'))
+        self.assertEqual(len(pages),55)
+        for page in pages:
+            html=page.read_text(encoding='utf-8')
+            self.assertIn('class="prose trophy-prose"',html)
+            article=html.split('class="prose trophy-prose"',1)[1].split('</article>',1)[0]
+            with self.subTest(page=page.relative_to(ROOT)):
+                images=re.findall(r'<img\b[^>]*>',article)
+                if 'trofeo-17-cecchino' in page.as_posix():
+                    # This is the labeled YouTube *video poster*, not a claimed
+                    # gameplay-step photo or evidence of medal requirements.
+                    self.assertEqual(len(images),1)
+                    self.assertIn('i.ytimg.com/vi/tJbzMqJGH4k/hqdefault.jpg',images[0])
+                    self.assertIn('È un riferimento visivo, non una guida',article)
+                    self.assertIn('Apri l’originale sul canale Rockstar Games',article)
+                else:
+                    self.assertFalse(images, page)
+                self.assertNotIn('data-visual-kind="promotional"',article)
+                self.assertNotIn('data-visual-image=',article)
+
     def test_screenshots_have_real_provenance(self):
         manifest=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
         for key,item in manifest.items():
@@ -474,7 +503,18 @@ class VisualSiteTests(unittest.TestCase):
             step_tags=Tags();step_tags.feed(procedure)
             approved={rec['key'] for rec in review['guide_step_approved'].get(guide['id'],{}).values()}
             actual={a['data-visual-image'] for t,a in step_tags.tags if t=='img' and 'data-visual-image' in a}
-            self.assertTrue(actual.issubset(approved),(path,actual,approved))
+            approved_context={item['key'] for item in review.get('context_approved',{}).get(guide['id'],{}).values()}
+            self.assertTrue(actual.issubset(approved|approved_context),(path,actual,approved,approved_context))
+            proof=set(re.findall(r'data-visual-proof-image="([^"]+)"',procedure))
+            context=set(re.findall(r'data-visual-location-image="([^"]+)"',procedure))
+            self.assertTrue(proof.issubset(approved),path)
+            self.assertEqual(context,approved_context,path)
+            self.assertTrue(context.isdisjoint(proof),path)
+            for media_id in actual:
+                self.assertIn('data-visual-image="'+media_id+'"',procedure)
+            self.assertEqual(procedure.count('class="v-caption v-photo-attribution"'),len(actual))
+            self.assertEqual(procedure.count('class="v-photo-origin"'),len(actual))
+            self.assertEqual(procedure.count('Fonte foto:'),len(actual))
             self.assertNotIn('data-media-missing=',procedure)
             self.assertNotIn('data-step-photo-status=',procedure)
             self.assertNotIn('class="r-gallery"',text)

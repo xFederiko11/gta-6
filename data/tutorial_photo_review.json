@@ -1,7 +1,7 @@
 {
   "schema": "gta6-tutorial-photo-review-v2",
   "reviewed": "2026-11-21",
-  "policy": "No screenshot is shown as a numbered-step illustration merely because it depicts GTA VI, the same topic, or a similar mechanic. Match exact action, exact chapter/mode and source. In the absence of positive evidence, show no image; retain source links and add to editorial backlog only.",
+  "policy": "No screenshot is shown as a numbered-step illustration merely because it depicts GTA VI, the same topic, or a similar mechanic. Match exact action, exact chapter/mode and source. In the absence of positive evidence, show no image; retain source links and add to editorial backlog only. Location-reference screenshots may appear only under the exact corresponding location step and must be visibly labelled as references, not proof of the action or loot. A visible, small source link is required directly beneath each image. All rights remain with their respective holders; captioning does not imply redistribution permission.",
   "guide_step_approved": {
     "registrare-auto-personale": {
       "6": {
@@ -76,5 +76,29 @@
     "taxi-ride": "RydeMe-or-taxi article screenshot / Paradise Taxi state not verified",
     "liquor-store": "building reference / not evidence of cash at back",
     "shirley-house": "building reference / not evidence of entering the shop"
+  },
+  "context_approved": {
+    "soldi-2500-three-sheets-liquor": {
+      "0": {
+        "key": "shirley-house",
+        "role": "riferimento-luogo",
+        "why": "Shows Shirley's house, the starting point for her early quest; not proof of store interior or reward.",
+        "caption": "Casa di Shirley: riferimento per riconoscere il punto di partenza della missione, non il luogo del bottino."
+      },
+      "1": {
+        "key": "liquor-store",
+        "role": "riferimento-luogo",
+        "why": "Shows the exterior of Three Sheets Liquor to recognize the building; not the rear, enemies or hidden vent.",
+        "caption": "Three Sheets Liquor: riconosci l'edificio, poi raggiungi il retro seguendo le istruzioni. La foto non mostra la grata."
+      }
+    },
+    "soldi-facili-capitolo-1": {
+      "0": {
+        "key": "liquor-store",
+        "role": "riferimento-luogo",
+        "why": "Shows the exterior of Three Sheets Liquor, which is this step's location; does not show guards or money.",
+        "caption": "Esterno del Three Sheets Liquor: aiuta a identificare il negozio, non mostra il percorso fino ai soldi."
+      }
+    }
   }
 }

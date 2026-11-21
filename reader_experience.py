@@ -120,9 +120,9 @@ def refresh_screenshot_count(page):
     if '<article class="v-guide-main">' not in page:
         return page
     article=page.split('<article class="v-guide-main">',1)[1].split('</article>',1)[0]
-    keys=set(re.findall(
-        r'<img\b[^>]*data-visual-image="([^"]+)"[^>]*data-visual-kind="screenshot"',
-        article,flags=re.I))
+    # Counts only screenshots proving the numbered action. A picture of the
+    # location is useful to the reader, but is not proof of the action or reward.
+    keys=set(re.findall(r'data-visual-proof-image="([^"]+)"',article))
     target=('<p class="v-visual-coverage" data-visual-screenshot-count="')
     start=page.find(target)
     if start<0:

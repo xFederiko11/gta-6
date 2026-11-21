@@ -27,6 +27,7 @@ def validate_approved(registry,guides,requests):
     if registry.get("schema")!="gta6-approved-screenshots-v4":
         raise ValueError("Unknown approved screenshot manifest")
     known={g["id"] for g in guides}
+    by_guide={g["id"]:g for g in guides}
     if known!=set(requests) or len(known)!=11:
         raise ValueError("Every guide must have a five-role screenshot request")
     records=registry.get("photos",[])
@@ -43,6 +44,12 @@ def validate_approved(registry,guides,requests):
         slot=photo.get("role")
         if guide not in known or type(slot) is not int or not 1<=slot<=5:
             raise ValueError("Photo must map to exactly one existing guide and step")
+        # A photo request role (1-5) is NOT the same as a guide step.
+        # A human editor must explicitly associate the real image with one
+        # numbered instruction before it can be displayed inside a tutorial.
+        step=photo.get("step_number")
+        if type(step) is not int or not 1<=step<=len(by_guide[guide]['steps']):
+            raise ValueError("Approved photo requires reviewed numbered tutorial step")
         if (guide,slot) in slots:
             raise ValueError("Duplicate approved screenshot role for guide")
         slots.add((guide,slot))
@@ -94,32 +101,35 @@ def approved_count(registry,guide_id):
     return sum(1 for p in registry["photos"] if p["guide_id"]==guide_id)
 
 
+def render_approved_for_step(guide,registry,index):
+    """Embed a consent-cleared PS5 capture under its explicitly approved step."""
+    entries=[p for p in registry["photos"]
+             if p["guide_id"]==guide["id"] and p["step_number"]==index+1]
+    result=[]
+    for photo in entries:
+        link=BASE+e(photo["file"])
+        result.append(
+            '<div class="v-proof-media v-community-step-photo" '
+            'data-visual-proof-image="community-'+e(photo["id"])+'">'
+            '<p class="v-proof-label">FOTO REALE PS5 · PASSAGGIO '+str(index+1)+'</p>'
+            '<figure class="v-verified-figure">'
+            '<a class="v-image-link" href="'+link+'" target="_blank" rel="noopener noreferrer" '
+            'aria-label="Ingrandisci: '+e(photo["alt"])+'">'
+            '<img class="v-photo" data-visual-image="community-'+e(photo["id"])+'" '
+            'data-visual-kind="screenshot" src="'+link+'" loading="lazy" decoding="async" '
+            'data-approved-community-photo="'+e(photo["id"])+'" alt="'+e(photo["alt"])+'"></a>'
+            '<figcaption class="v-caption v-photo-attribution">'
+            '<span class="v-photo-caption">'+e(photo["caption"])+'</span>'
+            '<small class="v-photo-origin">'
+            '<a href="'+e(photo["source_post"])+'" target="_blank" rel="noopener noreferrer">'
+            'Fonte foto: '+e(photo["credit"])+' ↗</a></small></figcaption></figure></div>'
+        )
+    return ''.join(result)
+
+
 def render_approved_for_guide(guide,registry):
-    items=[p for p in registry["photos"] if p["guide_id"]==guide["id"]]
-    if not items:
-        return ""
-    body=[
-        '<section class="pi-approved" id="foto-community-approvate">',
-        '<h2>Foto PS5 della community approvate</h2>',
-        '<p>Screenshot originali verificati editorialmente, con consenso',
-        ' esplicito alla ripubblicazione. Non sono sincronizzati con PSN.</p>',
-        '<div class="pi-approved-grid">'
-    ]
-    for photo in items:
-        body.extend([
-            '<figure><a href="'+BASE+e(photo["file"])+'" target="_blank" rel="noopener noreferrer">',
-            '<img class="v-photo" data-visual-image="community-'+e(photo["id"])+'" data-visual-kind="screenshot" '
-            'data-approved-community-photo="'+e(photo["id"])+'" src="'+BASE+e(photo["file"])+'" loading="lazy" decoding="async" ',
-            'alt="'+e(photo["alt"])+'" width="960" height="540"></a>',
-            '<figcaption>'+e(photo["caption"])+
-            ' · Step '+str(photo["role"])+' · © '+e(photo["credit"])+' ',
-            '<a href="'+e(photo["consent_evidence"])+'" target="_blank" rel="noopener noreferrer">',
-            'Fonte e consenso verificati ↗</a></figcaption></figure>'
-        ])
-    body.append('</div></section>')
-    if guide.get("spoiler"):
-        return '<details class="pi-approved-spoilers"><summary>Apri screenshot approvati (spoiler)</summary>'+''.join(body)+'</details>'
-    return ''.join(body)
+    """No second gallery: approved photos now live under their actual steps."""
+    return ""
 
 
 def render(guides,requests,registry):
