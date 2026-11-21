@@ -126,7 +126,7 @@ def render(guides,requests,registry):
         options.append('<option value="'+e(g["id"])+'" data-guide-link="'+e(g["canonical_path"])+'">'+e(g["safe_title"])+'</option>')
         for index,role in enumerate(requests[g["id"]],1):
             roleoptions.append('<option value="'+str(index)+'" data-photo-guide="'+e(g["id"])+'">'+str(index)+'. '+e(role)+'</option>')
-    return (
+    return ''.join((
         '<section class="pi-page" data-photo-intake><header class="pi-hero">'
         '<span class="eyebrow">📸 GTA VI ITALIA · CONTRIBUTI PS5</span>',
         '<h1>Invia uno screenshot PS5 per una guida GTA 6</h1>',
@@ -184,4 +184,4 @@ def render(guides,requests,registry):
         '</strong> nuove foto di community autorizzate in archivio.',
         ' Il sito non legge automaticamente i post X, quindi i contributi',
         ' non sono pubblicati in modo automatico.</p></section></section>'
-    )
+    ))
