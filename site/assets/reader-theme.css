@@ -256,3 +256,48 @@ body:has(.v-guide-intro) .v-spoiler-inner{padding-block:5px}
 .v-guide-prep-content{padding:9px 13px 12px;background:var(--r-soft)}
 .v-guide-prep-content p{font-size:.83rem;line-height:1.52;margin:5px 0;color:var(--r-text)}
 .v-guide-prep-content strong{color:var(--r-text)}
+
+/* Tutorial evidence audit: no unrelated stock photos on guide cards.
+   Visible numbered instructions remain separate from optional references. */
+.v-guide-card.v-guide-card-plain{box-shadow:none;border:1px solid var(--r-line);background:var(--r-surface);border-radius:12px;transition:border-color .18s}
+.v-guide-card.v-guide-card-plain:hover{transform:none;box-shadow:none;border-color:var(--r-pink)}
+.v-guide-card.v-guide-card-plain .v-card-copy{padding:21px 22px}
+.v-guide-card.v-guide-card-plain .v-card-copy h3{color:var(--r-text);font-size:clamp(1.05rem,1.4vw,1.2rem)}
+.v-guide-card.v-guide-card-plain .v-card-copy p{color:var(--r-muted);line-height:1.52}
+.v-guide-card.v-guide-card-plain .v-card-meta{border-top:1px solid var(--r-line);color:var(--r-muted)}
+.v-featured-symbol{display:grid;place-items:center;background:var(--r-soft);color:var(--r-text);min-height:80px;font-size:2.2rem}
+.v-promo.v-promo-no-media{display:block;max-width:none}
+.v-promo.v-promo-no-media>div{max-width:720px}
+.v-tutorial{border-left:3px solid var(--r-cyan);padding-left:12px}
+.v-tutorial .v-tutorial-head{border-top:0;padding-top:0}
+.v-tutorial .v-tutorial-start-here{font-size:.77rem;font-weight:850;color:var(--r-cyan)}
+.v-tutorial .v-tutorial-head h2{font-size:clamp(1.22rem,2.5vw,1.55rem)}
+.v-tutorial .v-step{border:1px solid var(--r-line);background:var(--r-surface)}
+.v-tutorial .v-step h3{color:var(--r-text)}
+.v-tutorial .v-step>figure{margin:0 14px 15px}
+.v-proof-media{border-top:1px solid var(--r-line);padding-top:12px}
+.v-proof-label{font-size:.7rem!important;letter-spacing:.05em;font-weight:800;color:var(--r-cyan)!important;margin:0 15px 8px!important}
+.v-proof-media .v-caption{font-size:.76rem;line-height:1.5;color:var(--r-muted)}
+.v-tutorial-finish{margin:14px 0 24px;padding:13px 15px;border-top:2px solid var(--r-cyan);background:var(--r-soft);border-radius:0 0 9px 9px;color:var(--r-muted);font-size:.81rem;line-height:1.55}
+.v-tutorial-finish strong{color:var(--r-cyan);font-size:.75rem;letter-spacing:.04em}
+.v-guide-more{margin-top:28px;border:1px solid var(--r-line);background:var(--r-surface)}
+.v-guide-more>summary{padding:14px 18px;cursor:pointer}
+.v-guide-more>summary strong{color:var(--r-muted)}
+.v-guide-more>summary small{color:var(--r-muted)}
+.v-guide-more[open]>summary strong{color:var(--r-text)}
+.v-gallery-sources-only{border-top:1px solid var(--r-line);padding-top:14px;color:var(--r-muted)}
+.v-gallery-sources-only h2{font-size:1.05rem;color:var(--r-text)}
+.v-gallery-sources-only p{font-size:.82rem;line-height:1.55}
+.v-gallery-sources-only ul{padding-left:19px}
+.v-gallery-sources-only li{margin:8px 0;line-height:1.5}
+.v-guide-ref-list{border:1px solid var(--r-line);border-radius:10px;background:var(--r-soft);padding:14px 15px;margin:20px 0}
+.v-guide-ref-list h3{font-size:1rem;color:var(--r-text);margin:0 0 10px}
+.v-guide-ref-entry{padding:9px 0;border-top:1px solid var(--r-line)}
+.v-guide-ref-entry>strong{font-size:.84rem;color:var(--r-text)}
+@media(max-width:700px){
+  .v-guide-card.v-guide-card-plain .v-card-copy{padding:17px 18px}
+  .v-tutorial{padding-left:9px}
+  .v-tutorial .v-tutorial-head{margin-bottom:12px}
+  .v-proof-label{margin:0 12px 8px!important}
+  .v-guide-more>summary{padding:13px 14px}
+}
