@@ -162,6 +162,6 @@ def render_hub(guides, data, media, extras, get_local):
         '<nav class="g-map-links" aria-label="Guide e checklist">'
         '<a class="v-button" href="'+BASE+'screenshot-ps5/">Contribuisci con screenshot PS5 →</a>'
         '<a class="v-button secondary" href="'+BASE+'trofei/roadmap-platino/#guida-55-trofei">'
-        'Roadmap di tutti i 55 trofei →</a></nav>'
+        'Roadmap di tutti i 55 trofei →</a><a class="v-button secondary" href="'+BASE+'collezionabili/percorsi/">Percorsi collezionabili per area →</a></nav>'
         '</header><div class="g-map-cards">'+''.join(cards)+'</div></section>'
     )
