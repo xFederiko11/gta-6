@@ -313,7 +313,8 @@ def browser_qa():
                         link=page.locator('[data-pc-task] a.pc-send').first
                         target=link.get_attribute('href')
                         assert '?guida=' in target and '&passo=' in target
-                        page.goto(target,wait_until='load')
+                        assert target.startswith('https://xfederiko11.github.io/gta-6/')
+                        page.goto(origin+target.split('/gta-6/',1)[1],wait_until='load')
                         assert page.locator('[data-pi-guide]').input_value() in target
                         assert ('passo='+page.locator('[data-pi-role]').input_value()) in target
                         assert not page.locator('[data-pi-owner]').is_checked()
