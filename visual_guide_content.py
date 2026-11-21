@@ -68,7 +68,7 @@ LOCATIONS = {
 }
 SUMMARIES = {
     'soldi-facili-capitolo-1': 'Scegli un luogo, controlla il bottino indicato e valuta i rischi prima di muoverti. Posizioni e incontri restano nascosti finché non li apri.',
-    'soldi-2500-three-sheets-liquor': 'Un percorso breve: incarico, retro del negozio e nascondiglio. Due schermate aiutano a riconoscere i riferimenti della fonte.',
+    'soldi-2500-three-sheets-liquor': 'Un percorso breve: incarico, retro del negozio e nascondiglio. Passi numerati e fonti consultabili senza immagini fuori contesto.',
     'meditazione-capitolo-1': 'La prima meditazione è mancabile nel Capitolo 1. Hai 10 luoghi e 18 sessioni: 15 bastano per il 100%; per il trofeo punta a tutti, anche se la necessità della sessione iniziale resta da verificare.',
     'prima-persona-glitch-ps5': 'Premi Cerchio per riporre il telefono mentre tocchi rapidamente il touchpad impostato su Camera. PC Gamer ha provato il metodo, ma i trofei restano da verificare.',
     'sportive-randy-posizioni': 'Parti dalle richieste del gioco, cerca nelle zone documentate e controlla l’auto prima della consegna. Non promettiamo spawn fissi o veicoli unici.',
