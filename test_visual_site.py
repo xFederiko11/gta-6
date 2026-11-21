@@ -93,7 +93,7 @@ class VisualSiteTests(unittest.TestCase):
                 self.assertLess(procedure,first)
                 self.assertLess(first,optional)
                 self.assertIn('▶ INIZIA QUI',source[:first])
-                self.assertIn('TUTORIAL PASSO PASSO',source[:first])
+                self.assertIn('TUTORIAL · ISTRUZIONI DA SEGUIRE',source[:first])
                 self.assertIn('class="v-guide-intro"',source.replace('v-intro v-guide-intro','v-guide-intro'))
                 self.assertNotIn('class="v-guide-aside"',source)
                 self.assertIn('Non fanno parte del tutorial: mappe, video, fonti e note',source)
