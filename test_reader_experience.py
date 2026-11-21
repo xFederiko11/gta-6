@@ -210,6 +210,19 @@ def browser_qa():
                         page.reload(wait_until='load')
                         assert page.locator('html').get_attribute('data-theme')==theme,'persistence'
                         check_layout(page,out,width,path,theme)
+                    if page.locator('details.v-guide-more').count():
+                        # The main tutorial must be visible FIRST, while maps,
+                        # social widgets and editorial information start closed.
+                        assert not page.locator('details.v-guide-more').evaluate('(el) => el.open')
+                        assert page.locator('.v-tutorial-start-here').is_visible()
+                        assert page.locator('#procedura .v-step').count()>=3
+                        assert page.evaluate('''() => {
+                            const first=document.querySelector('#passaggio-1');
+                            const extras=document.querySelector('details.v-guide-more');
+                            return first && extras && !!(first.compareDocumentPosition(extras) & Node.DOCUMENT_POSITION_FOLLOWING);
+                        }''')
+                        page.locator('details.v-guide-more > summary').click()
+                        assert page.locator('details.v-guide-more').evaluate('(el) => el.open')
                     if path.endswith('soldi-2500-three-sheets-liquor/'):
                         assert page.locator('#mappa').is_visible()
                         assert page.locator('#consigli').is_visible()
