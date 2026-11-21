@@ -70,6 +70,14 @@
       ? "Bozza aperta. Allega la foto e pubblica solo se desideri: nulla è stato inviato al sito."
       : "Se la bozza non si è aperta, premi il link qui sotto. Non abbiamo ricevuto la foto.";
   });
+  // Prefill only known guide IDs / roles from the public priority board.
+  // Never precheck copyright/consent or open X without a user gesture.
+  const params=new URLSearchParams(window.location.search);
+  const requestedGuide=params.get("guida");
+  const requestedRole=params.get("passo");
+  if (requestedGuide && validGuides.has(requestedGuide)) guide.value=requestedGuide;
   fillRoles();
+  if (["1","2","3","4","5"].includes(requestedRole) &&
+      [...role.options].some(option=>option.value===requestedRole)) role.value=requestedRole;
   update();
 })();
