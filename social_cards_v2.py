@@ -261,6 +261,18 @@ def render_card(title,relative, art=None):
     return base
 
 
+def artwork_for_page(relative, artworks):
+    """Only generic project homepage may use illustrative Rockstar photography.
+
+    Tutorials, trophy pages, HDR guides and location articles get their own
+    original text-first branded cards. A random character/scene cannot be
+    confused for the exact gameplay action illustrated by that article.
+    """
+    if not artworks or relative != '':
+        return None
+    return artworks[0]
+
+
 def publish():
     if not ROOT.is_dir():
         raise RuntimeError("No generated Pages site to process")
@@ -277,7 +289,7 @@ def publish():
         if parsed is None:continue
         html,relative,title=parsed
         key=cover_key(relative)
-        art=artworks[int(key,16)%len(artworks)] if artworks else None
+        art=artwork_for_page(relative,artworks)
         photo=render_card(title,relative,art["image"] if art else None)
         dest=path/(key+".jpg")
         photo.save(dest,"JPEG",quality=83,optimize=True,progressive=True,subsampling=0)

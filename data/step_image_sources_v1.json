@@ -1,0 +1,121 @@
+{
+  "schema": "gta6-step-image-sources-v1",
+  "reviewed": "2026-11-21",
+  "policy": "References are source-page photo examples for the precise indexed action, not locally hosted gameplay screenshots. Links stay on publisher domains; no copying, hotlinking or license inference. Publisher headings are provided to locate an image on the original page. Where a source does not document a specific image, no photo link is added. Visual examples for meditation and Randy's wish list come from Push Square and must not be represented as guaranteed spawn evidence.",
+  "guides": {
+    "registrare-auto-personale": {
+      "0": {
+        "source": "https://gta6data.com/gta-6-moses-walkthrough-how-to-register-your-first-personal-vehicle/",
+        "label": "Foto dell'ingresso di Watkins Auto Parts",
+        "section": "1. Bring Moses a vehicle he will accept",
+        "scope": "L'ingresso e il marcatore MW, non la registrazione finale"
+      },
+      "1": {
+        "source": "https://gta6data.com/gta-6-moses-walkthrough-how-to-register-your-first-personal-vehicle/",
+        "label": "Screenshot della scansione WAiNK",
+        "section": "2. Scan the lot with WAiNK",
+        "scope": "HUD con tipo di tracker dei veicoli"
+      },
+      "2": {
+        "source": "https://gta6data.com/gta-6-moses-walkthrough-how-to-register-your-first-personal-vehicle/",
+        "label": "Foto del punto in cui prendere lo Slim Jim",
+        "section": "3. Complete the Montagne XL tutorial",
+        "scope": "Cassa di legno davanti all'edificio Tire Service"
+      },
+      "3": {
+        "source": "https://gta6data.com/gta-6-moses-walkthrough-how-to-register-your-first-personal-vehicle/",
+        "label": "Foto del messaggio «veicolo adatto a Moses»",
+        "section": "1. Bring Moses a vehicle he will accept",
+        "scope": "Esempio della conferma sul veicolo, non spawn garantito"
+      },
+      "4": {
+        "source": "https://gta6data.com/gta-6-moses-walkthrough-how-to-register-your-first-personal-vehicle/",
+        "label": "Schermate Respray → Register a Watkins",
+        "section": "4. Respray and register the vehicle you want to keep",
+        "scope": "Menu di riverniciatura e conferma Register nella missione introduttiva"
+      },
+      "5": {
+        "source": "https://gta6data.com/gta-6-moses-walkthrough-how-to-register-your-first-personal-vehicle/",
+        "label": "Foto della conferma «owned vehicle»",
+        "section": "4. Respray and register the vehicle you want to keep",
+        "scope": "Avviso di registrazione e nome del veicolo di Lucia"
+      },
+      "6": {
+        "source": "https://gta6data.com/gta-6-moses-walkthrough-how-to-register-your-first-personal-vehicle/",
+        "label": "Foto del menu Scooter Bros «My Vehicles»",
+        "section": "How to find or request your car in Scooter Bros",
+        "scope": "Schermata della selezione del mezzo, non prova della consegna"
+      }
+    },
+    "scansionare-veicoli": {
+      "1": {
+        "source": "https://gta6data.com/gta-6-moses-walkthrough-how-to-register-your-first-personal-vehicle/",
+        "label": "Esempio reale di veicolo inquadrato con WAiNK",
+        "section": "2. Scan the lot with WAiNK",
+        "scope": "Scansione del tracker nell'incarico di Moses; la meccanica è quella illustrata, non un mezzo da collezionare"
+      }
+    },
+    "soldi-2500-three-sheets-liquor": {
+      "0": {
+        "source": "https://insider-gaming.com/how-to-complete-strange-noises-in-gta-6-shirley-house-liquor-store-location-guide/",
+        "label": "Screenshot della posizione della casa di Shirley",
+        "section": "Where to Find Shirley in GTA 6",
+        "scope": "Posizione iniziale sulla mappa, non il negozio"
+      },
+      "1": {
+        "source": "https://insider-gaming.com/how-to-complete-strange-noises-in-gta-6-shirley-house-liquor-store-location-guide/",
+        "label": "Screenshot della posizione di Three Sheets Liquor",
+        "section": "How to Complete Strange Noises in GTA 6",
+        "scope": "Mappa del negozio, non la posizione della grata con il denaro"
+      }
+    },
+    "soldi-facili-capitolo-1": {
+      "0": {
+        "source": "https://insider-gaming.com/gta-6-early-game-locations-make-money/",
+        "label": "Foto del Three Sheets Liquor",
+        "section": "Three Sheets Liquor Robbery",
+        "scope": "Riconoscimento generale del negozio, non percorso garantito"
+      },
+      "1": {
+        "source": "https://insider-gaming.com/gta-6-early-game-locations-make-money/",
+        "label": "Foto del Manatee Motel",
+        "section": "Manatee Motel Gang Location",
+        "scope": "Riconoscimento del luogo descritto dalla fonte"
+      },
+      "2": {
+        "source": "https://insider-gaming.com/gta-6-early-game-locations-make-money/",
+        "label": "Foto della casa su palafitte",
+        "section": "Secret Ocean Stilt House",
+        "scope": "Riconoscimento della struttura, non prova di un bottino infinito"
+      },
+      "3": {
+        "source": "https://insider-gaming.com/gta-6-early-game-locations-make-money/",
+        "label": "Foto del magazzino South Vice-Dale",
+        "section": "South Vice-Dale County Warehouse",
+        "scope": "Riconoscimento del magazzino, non valore garantito dell'oggetto"
+      }
+    },
+    "meditazione-capitolo-1": {
+      "0": {
+        "source": "https://www.pushsquare.com/guides/gta-6-meditation-locations",
+        "label": "Mappa reale della casa di Jason a Key Lento",
+        "section": "1. Jason's House Meditation Location",
+        "scope": "Indica la casa da raggiungere nel Capitolo 1, non riproduce l'interazione con Lucia"
+      }
+    },
+    "sportive-randy-posizioni": {
+      "1": {
+        "source": "https://www.pushsquare.com/guides/gta-6-randys-wish-list-vehicle-locations",
+        "label": "Mappe fotografate dei luoghi segnalati per le auto richieste da Randy",
+        "section": "Where to Find Every Car from Randy's Wish List in GTA 6",
+        "scope": "Posizioni osservate nella sessione della fonte, non spawn garantiti nella tua partita"
+      },
+      "2": {
+        "source": "https://www.pushsquare.com/guides/gta-6-randys-wish-list-vehicle-locations",
+        "label": "Foto del veicolo Bravado Banshee e dell'area di ricerca",
+        "section": "1. Bravado Banshee Location",
+        "scope": "Esempio di come riconoscere un modello richiesto, non prova che sia disponibile ora"
+      }
+    }
+  }
+}
