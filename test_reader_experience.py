@@ -95,7 +95,7 @@ class ReaderTests(unittest.TestCase):
                 self.assertEqual(text.count('data-theme-choice="light"'),1)
     def test_release_and_idempotence(self):
         release=json.loads((ROOT/'design-version.json').read_text())
-        self.assertEqual(release['default_theme'],'mobile-dark-desktop-light')
+        self.assertEqual(release['default_theme'],'unified-dark-mobile-desktop')
         self.assertEqual(release['reader_version'],VERSION)
         self.assertEqual(release['guides_with_extras'],5)
         self.assertEqual(release['tip_count'],9)
@@ -128,7 +128,7 @@ class ReaderTests(unittest.TestCase):
         css=Path('site/assets/reader-theme.css').read_text();js=Path('site/assets/reader-theme.js').read_text()
         self.assertNotIn('filter:invert',css.replace(' ',''));self.assertNotIn('brightness(',css)
         self.assertIn('gta6-theme-v1',js);self.assertNotIn('data-spoiler-choice',js)
-        self.assertIn('max-width:760px',js)
+        self.assertIn("const chooseDefault = () => 'dark'",js)
         self.assertNotIn('fetch(',js);self.assertNotIn('prefers-color-scheme',js)
         self.assertIn('showModal()',js);self.assertIn('event.ctrlKey',js)
     def test_reviewed_details_not_contradicted_by_guide(self):
@@ -201,11 +201,11 @@ def browser_qa():
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
-                    if path=='':assert page.locator('html').get_attribute('data-theme')==('dark' if width<=760 else 'light')
+                    if path=='':assert page.locator('html').get_attribute('data-theme')=='dark'
                     for theme in ('light','dark'):
                         page.locator(f'[data-theme-choice="{theme}"]').click()
                         assert page.locator('html').get_attribute('data-theme')==theme
-                        expected='rgb(12, 11, 19)' if theme=='dark' else 'rgb(252, 248, 252)'
+                        expected='rgb(16, 19, 29)' if theme=='dark' else 'rgb(247, 245, 250)'
                         assert page.evaluate('getComputedStyle(document.body).backgroundColor')==expected,(path,theme)
                         page.reload(wait_until='load')
                         assert page.locator('html').get_attribute('data-theme')==theme,'persistence'
@@ -293,10 +293,10 @@ def browser_qa():
                     bind(context)
                     if blocked:context.add_init_script("Object.defineProperty(window,'localStorage',{get(){throw new Error('disabled')}})")
                     page=context.new_page();page.goto(origin,wait_until='load')
-                    expected='dark' if width<=760 else 'light'
+                    expected='dark'
                     self_theme=page.locator('html').get_attribute('data-theme')
                     assert self_theme==('auto' if nojs else expected),(width,nojs,self_theme)
-                    expected_bg='rgb(12, 11, 19)' if width<=760 else 'rgb(252, 248, 252)'
+                    expected_bg='rgb(16, 19, 29)'
                     assert page.evaluate('getComputedStyle(document.body).backgroundColor')==expected_bg
                     if blocked:
                         page.locator('[data-theme-choice="dark"]').click()
