@@ -229,7 +229,7 @@ def trophy_index(trophies):
     <p class="lead">Requisiti e consigli per il platino, con accesso diretto a ogni scheda. Attenzione: anche le schede dei trofei nascosti possono contenere spoiler.</p>
     <div class="statline"><span>💎 {counts["Platino"]} Platino</span><span>🥇 {counts["Oro"]} Oro</span><span>🥈 {counts["Argento"]} Argento</span><span>🥉 {counts["Bronzo"]} Bronzo</span></div>
     </div><div class="info warn">⚠️ Una meditazione iniziale potrebbe essere mancabile. Prima di proseguire conserva un salvataggio manuale e consulta <a href="{url("guide-e-tutorial/meditazione-capitolo-1/")}">questa guida</a>.</div>
-    <p><a href="{url("trofei/medaglie-oro/")}">🥇 Trofei Oro e medaglie Oro: guida ai requisiti →</a></p>'''
+    <p><a href="{url("trofei/medaglie-oro/")}">🥇 Trofei Oro e medaglie Oro: guida ai requisiti →</a></p><p><a class="button secondary" href="{url("trofei/roadmap-platino/")}">🗺️ Roadmap Platino GTA 6: cinque fasi e checklist →</a></p>'''
     cards=list_search()+'<h2>Trofei visibili</h2><div class="index-list">'+"".join(trophy_card(t) for t in shown)+'</div>'
     secrets='<div class="v-spoiler-warning" role="note">⚠️ <strong>Attenzione spoiler:</strong> i trofei nascosti possono rivelare eventi della storia.</div><h2>Trofei nascosti</h2><div class="index-list">'+"".join(trophy_card(t) for t in hidden)+'</div>'
     sources=f'<div class="source">Fonti: <a href="{e(TROPHY_SOURCE)}" rel="noopener noreferrer">PowerPyx – Trophy Roadmap</a> e <a href="{e(LIST_SOURCE)}" rel="noopener noreferrer">elenco italiano</a>. Le indicazioni possono cambiare con le patch.</div>'
@@ -322,6 +322,7 @@ def trophy_detail(t, guides, trophies):
         + '</article>'
         '<aside class="sidebox trophy-sidebar"><h3>Scopri altre guide</h3>'
         f'<a href="{url("trofei/")}">🏆 Elenco completo dei 55 trofei</a>'
+        f'<a href="{url("trofei/roadmap-platino/")}">🗺️ Roadmap Platino in cinque fasi</a>'
         f'<a href="{url("trofei/medaglie-oro/")}">🥇 Medaglie Oro e 100%</a>'
         +guides_html
         +f'<a href="{url("guide-e-tutorial/")}">⚡ Guide pratiche PS5 →</a>'
