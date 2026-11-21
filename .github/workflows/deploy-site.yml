@@ -150,7 +150,7 @@ jobs:
           python - <<'PY'
           import urllib.request, time
           base='https://xfederiko11.github.io/gta-6/'
-          for path in ('','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/'):
+          for path in ('','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/roadmap-platino/'):
               for attempt in range(6):
                   try:
                       request=urllib.request.Request(base+path+'?reader=adaptive-v2-20261120',headers={'Cache-Control':'no-cache'})
@@ -176,6 +176,18 @@ jobs:
                   except Exception:
                       if attempt==5: raise
                       time.sleep(10)
+          # The roadmap must also ship its own interactive assets and sitemap entry.
+          for path, marker in (
+              ('assets/platinum-roadmap.js','gta6-italia:platinum-roadmap:v1'),
+              ('assets/platinum-roadmap.css','.p-roadmap'),
+              ('sitemap.xml','trofei/roadmap-platino/'),
+          ):
+              request=urllib.request.Request(base+path+'?group3-live=20261121',headers={'Cache-Control':'no-cache'})
+              with urllib.request.urlopen(request,timeout=20) as response:
+                  body=response.read(1500000).decode('utf-8')
+                  assert response.status==200
+              assert marker in body, (path, marker)
+              print('PUBLIC_GROUP3_ASSET_OK',base+path)
           # Verify the public file byte-for-byte. It is a single-purpose
           # Google-owned proof, not part of our reader HTML templates.
           expected = b'google-site-verification: google232edbd3526a5a1d.html'
