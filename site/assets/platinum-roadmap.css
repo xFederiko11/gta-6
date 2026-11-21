@@ -1,0 +1,37 @@
+.p-roadmap{max-width:1120px;margin:0 auto;padding:26px 0 52px;color:var(--r-text,var(--text,#222))}
+.p-roadmap a{font-weight:650}
+.p-roadmap-hero{padding:clamp(22px,4vw,45px);border-radius:23px;border:1px solid var(--r-line,#dbc9dd);background:linear-gradient(135deg,var(--r-soft,#f9f1f7),var(--r-surface,#fff))}
+.p-roadmap-hero h1{max-width:760px;line-height:1.15;font-size:clamp(2rem,4vw,3.2rem);margin:10px 0 16px}
+.p-roadmap-hero p{max-width:760px;line-height:1.6;margin:0 0 16px;color:var(--r-muted,#5a5362)}
+.p-roadmap-stats{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}
+.p-roadmap-stats>div{display:grid;gap:3px;min-width:125px;padding:14px 17px;border:1px solid var(--r-line,#dbc9dd);border-radius:12px;background:var(--r-surface,#fff)}
+.p-roadmap-stats strong{font-size:1.5rem;color:var(--r-pink,#a41360)}
+.p-roadmap-stats small{font-size:.78rem;color:var(--r-muted,#5a5362)}
+.p-roadmap-links{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0 0}
+.p-roadmap-warning,.p-roadmap-summary,.p-roadmap-critical,.p-roadmap-sources{border:1px solid var(--r-line,#dbc9dd);border-radius:16px;background:var(--r-surface,#fff);padding:24px;margin:22px 0}
+.p-roadmap-warning{border-left:4px solid var(--r-warn,#90541e)}
+.p-roadmap-warning h2,.p-roadmap-critical h2,.p-roadmap-sources h2{margin:0 0 9px;font-size:1.35rem}
+.p-roadmap-warning p,.p-roadmap-critical p,.p-roadmap-sources p{margin:10px 0;line-height:1.65;color:var(--r-muted,#5a5362)}
+.p-roadmap-summary{display:grid;grid-template-columns:1fr minmax(160px,36%);gap:15px;align-items:center;background:var(--r-soft,#f9f1f7)}
+.p-roadmap-summary p{font-size:.85rem;margin:6px 0 0;color:var(--r-muted,#5a5362)}
+.p-roadmap-summary progress,.p-roadmap-tasks progress{width:100%;accent-color:var(--r-pink,#a41360);height:13px}
+.p-roadmap-phase{padding:23px;margin:22px 0;border:1px solid var(--r-line,#dbc9dd);border-radius:16px;background:var(--r-surface,#fff);scroll-margin-top:110px}
+.p-roadmap-phase[data-completed=true]{border-color:var(--r-cyan,#176579)}
+.p-roadmap-phase-head{display:flex;gap:17px;align-items:flex-start}
+.p-roadmap-index{display:grid;place-items:center;flex:none;width:48px;height:48px;border-radius:12px;background:var(--r-soft,#f9f1f7);color:var(--r-pink,#a41360);font-weight:900;font-size:1.2rem}
+.p-roadmap-phase-head>div{flex:1}
+.p-roadmap-phase-head h2{font-size:1.3rem;margin:4px 0}
+.p-roadmap-phase-head p{font-size:.92rem;color:var(--r-muted,#5a5362);margin:5px 0 15px;line-height:1.55}
+.p-roadmap-timing{text-transform:uppercase;letter-spacing:.075em;font-size:.7rem;font-weight:800;color:var(--r-pink,#a41360)}
+.p-roadmap-phase-count{font-size:.82rem;white-space:nowrap;color:var(--r-muted,#5a5362)}
+.p-roadmap-tasks{padding:0;margin:5px 0 0;list-style:none;display:grid;gap:10px}
+.p-roadmap-tasks li{padding:13px;border:1px solid var(--r-line,#dbc9dd);border-radius:11px;background:var(--r-soft,#f9f1f7)}
+.p-roadmap-tasks label{display:flex;gap:12px;align-items:flex-start;cursor:pointer;line-height:1.5}
+.p-roadmap-tasks input{width:20px;height:20px;flex:none;margin:3px 0 0;accent-color:var(--r-pink,#a41360)}
+.p-roadmap-tasks li>a{display:inline-block;margin:8px 0 0 32px;font-size:.82rem}
+.p-roadmap-trophy-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:16px}
+.p-roadmap-trophy{display:flex;flex-direction:column;gap:8px;padding:15px;border:1px solid var(--r-line,#dbc9dd);border-radius:12px;background:var(--r-soft,#f9f1f7)}
+.p-roadmap-trophy span{font-size:.79rem;color:var(--r-muted,#5a5362)}
+.p-roadmap-trophy[data-earned=true]{border-color:var(--r-cyan,#176579)}
+.p-roadmap-sources ul{padding-left:20px;line-height:1.9}
+@media(max-width:720px){.p-roadmap{padding:14px 0 32px}.p-roadmap-stats>div{flex:1;min-width:92px}.p-roadmap-summary{grid-template-columns:1fr}.p-roadmap-phase{padding:17px}.p-roadmap-phase-head{gap:11px}.p-roadmap-index{width:39px;height:39px}.p-roadmap-trophy-grid{grid-template-columns:1fr}.p-roadmap-warning,.p-roadmap-summary,.p-roadmap-critical,.p-roadmap-sources{padding:18px}}
