@@ -1,0 +1,78 @@
+{
+  "schema": "gta6-verified-external-map-references-v1",
+  "reviewed_on": "2026-11-21",
+  "policy": "Verified URLs are links to community map pins/regions or specific location pages. No game-coordinate accuracy or collectible-specific marker is implied. Named locations can be linked as building/region context only. No coordinates invented.",
+  "items": [
+    {
+      "id": "jasons-safehouse",
+      "url": "https://gtamap.io/?m=jasons-safehouse",
+      "source_page": "https://gtamap.io/gta-6-map/key-lento/",
+      "kind": "community-marker-permalink",
+      "place": "Jason's Safehouse",
+      "scope": "building",
+      "guide_ids": [
+        "meditazione-capitolo-1"
+      ],
+      "trophy_numbers": [
+        3
+      ],
+      "checkpoint_ids": [
+        "pt-102",
+        "pt-103",
+        "pt-104",
+        "pt-105"
+      ],
+      "label": "Pin esterno della casa di Jason (NON del singolo oggetto)",
+      "in_game_coordinate_verified": false
+    },
+    {
+      "id": "permit-keys",
+      "url": "https://gtamap.io/?m=permit-keys",
+      "source_page": "https://gtamap.io/gta-6-map/key-lento/",
+      "kind": "community-region-permalink",
+      "place": "Permit Keys",
+      "scope": "area",
+      "guide_ids": [],
+      "trophy_numbers": [],
+      "checkpoint_ids": [
+        "pt-88"
+      ],
+      "label": "Regione Permit Keys sulla mappa (NON il Fingerpost esatto)",
+      "in_game_coordinate_verified": false
+    },
+    {
+      "id": "starlet-motel",
+      "url": "https://gtamap.io/gta-6-map/starlet-motel/",
+      "source_page": "https://gtamap.io/gta-6-map/starlet-motel/",
+      "kind": "location-detail-permalink",
+      "place": "Starlet Motel",
+      "scope": "building-information",
+      "guide_ids": [],
+      "trophy_numbers": [],
+      "checkpoint_ids": [
+        "pt-26",
+        "pt-66",
+        "pt-108",
+        "pt-109"
+      ],
+      "label": "Scheda Starlet Motel (NON pin specifico del collezionabile)",
+      "in_game_coordinate_verified": false
+    },
+    {
+      "id": "key-lento",
+      "url": "https://gtamap.io/gta-6-map/key-lento/",
+      "source_page": "https://gtamap.io/gta-6-map/key-lento/",
+      "kind": "location-detail-permalink",
+      "place": "Key Lento",
+      "scope": "town-information",
+      "guide_ids": [
+        "soldi-facili-capitolo-1",
+        "soldi-2500-three-sheets-liquor"
+      ],
+      "trophy_numbers": [],
+      "checkpoint_ids": [],
+      "label": "Scheda della zona Key Lento (NON il negozio esatto)",
+      "in_game_coordinate_verified": false
+    }
+  ]
+}
