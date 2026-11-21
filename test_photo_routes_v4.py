@@ -26,25 +26,28 @@ def data():
 
 
 class RegionalRouteTests(unittest.TestCase):
-    def test_exactly_92_sourced_waypoints_and_caveats(self):
+    def test_exactly_101_sourced_waypoints_and_caveats(self):
         routes,*_=data()
         self.assertTrue(validate_routes(routes))
         points=routes["points"]
-        self.assertEqual(len(points),92)
+        self.assertEqual(len(points),101)
         self.assertEqual(len(routes["regions"]),7)
-        self.assertEqual(sum(p["type"]=="cards" for p in points),21)
+        self.assertEqual(sum(p["type"]=="cards" for p in points),23)
         self.assertEqual(sum(p["type"]=="playlist" for p in points),5)
-        self.assertEqual(sum(p["type"]=="waink" for p in points),36)
+        self.assertEqual(sum(p["type"]=="waink" for p in points),38)
         self.assertEqual(sum(p["type"]=="underwater" for p in points),6)
         self.assertEqual(sum(p["type"]=="stunt" for p in points),24)
+        self.assertEqual(sum(p["type"]=="vehicles" for p in points),3)
+        self.assertEqual(sum(p["type"]=="reading" for p in points),2)
+        self.assertIn("Christmas House",render_routes(routes))
         self.assertEqual(len([p for p in points if p.get("missable")]),2)
         self.assertEqual(routes["underwater"]["required"],33)
         self.assertEqual(routes["underwater"]["known_in_atlas"],6)
         markup=render_routes(routes)
-        self.assertEqual(markup.count('data-cr-step='),92)
-        self.assertEqual(markup.count('data-cr-done='),92)
+        self.assertEqual(markup.count('data-cr-step='),101)
+        self.assertEqual(markup.count('data-cr-done='),101)
         self.assertEqual(markup.count('data-cr-region='),7)
-        self.assertEqual(markup.count('data-cr-filter='),6)
+        self.assertEqual(markup.count('data-cr-filter='),8)
         self.assertIn('id="cr-kelly"',markup)
         self.assertIn("Vicki",markup)
         self.assertIn("Victor Maravilla",markup)
@@ -78,7 +81,7 @@ class RegionalRouteTests(unittest.TestCase):
         text=render_routes(routes)
         self.assertIn("300 su 397",text)
         self.assertIn("non presentiamo 300",text)
-        self.assertIn("work in progress",routes["notes"])
+        self.assertIn("Sources remain WIP",routes["notes"])
 
 
 class ConsentPhotoTests(unittest.TestCase):
@@ -135,7 +138,7 @@ class ConsentPhotoTests(unittest.TestCase):
             self.skipTest("Production site is not generated")
         route=(ROOT/ROUTE_PATH/"index.html").read_text(encoding="utf-8")
         self.assertIn('<link rel="canonical" href="'+BASE+ROUTE_PATH+'"',route)
-        self.assertEqual(route.count('data-cr-step='),92)
+        self.assertEqual(route.count('data-cr-step='),101)
         self.assertEqual(route.count('data-cr-region='),7)
         self.assertIn('/assets/collectible-routes-v4.js?v=',route)
         self.assertIn('/assets/collectible-routes-v4.css?v=',route)

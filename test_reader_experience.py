@@ -197,7 +197,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','guide-e-tutorial/']
+                paths=['','salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -280,13 +280,13 @@ def browser_qa():
                             first.locator('summary').click()
                             assert first.get_attribute('open') is None
                     if path=='collezionabili/percorsi/' and width in (390,1440):
-                        assert page.locator('[data-cr-step]').count()==92
-                        assert page.locator('[data-cr-filter]').count()==6
+                        assert page.locator('[data-cr-step]').count()==101
+                        assert page.locator('[data-cr-filter]').count()==8
                         page.locator('[data-cr-query]').fill('Victor Maravilla')
                         assert page.locator('[data-cr-step]:visible').count()==1
                         page.locator('[data-cr-query]').fill('')
                         page.locator('[data-cr-done]').first.check()
-                        assert '1 / 92' in page.locator('[data-cr-progress]').inner_text()
+                        assert '1 / 101' in page.locator('[data-cr-progress]').inner_text()
                         page.reload(wait_until='load')
                         assert page.locator('[data-cr-done]').first.is_checked()
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
@@ -301,6 +301,27 @@ def browser_qa():
                         assert page.locator('[data-pi-submit]').is_enabled()
                         assert page.locator('[data-pi-fallback]').is_hidden()
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                    if path=='screenshot-ps5/priorita/' and width in (390,1440):
+                        tasks=page.locator('[data-pc-task]')
+                        assert tasks.count()==55
+                        assert page.locator('[data-pc-guide]').count()==11
+                        page.locator('[data-pc-filter]').select_option('alta')
+                        shown=page.locator('[data-pc-task]:visible').count()
+                        assert 12<=shown<55
+                        page.locator('[data-pc-filter]').select_option('all')
+                        assert page.locator('[data-pc-task]:visible').count()==55
+                        link=page.locator('[data-pc-task] a.pc-send').first
+                        target=link.get_attribute('href')
+                        assert '?guida=' in target and '&passo=' in target
+                        assert '/screenshot-ps5/invia/' in target
+                        # QA hosts canonical absolute links on localhost; compare the
+                        # actual user-selected query without fetching external Pages.
+                        page.goto(origin+'screenshot-ps5/invia/?'+target.split('?',1)[1],wait_until='load')
+                        assert page.locator('[data-pi-guide]').input_value() in target
+                        assert ('passo='+page.locator('[data-pi-role]').input_value()) in target
+                        assert not page.locator('[data-pi-owner]').is_checked()
+                        assert not page.locator('[data-pi-rights]').is_checked()
+                        assert page.locator('[data-pi-submit]').is_disabled()
                     if path=='guide-e-tutorial/':
                         page.locator('[data-guide-search]').fill('taxi')
                         assert page.locator('[data-guide-searchable]:visible').count()==1

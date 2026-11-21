@@ -50,8 +50,9 @@ jobs:
         run: python community_social_sync_v1.py
       - name: Validate preserved content and existing SEO contracts
         run: |
-          python -m py_compile social_cards_v2.py test_social_cards_v2.py collectible_routes_v4.py photo_intake_v4.py test_photo_routes_v4.py advanced_platinum_v3.py photo_provenance_v3.py test_advanced_platinum_v3.py platinum_atlas_v2.py guide_location_atlas_v2.py test_group12_atlas_v2.py platinum_roadmap_v1.py guide_step_references_v1.py test_group3_roadmap_step_refs_v1.py photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py
-          python -m unittest -q test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_meditation_tracker_v1.py test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
+          python -m py_compile photo_coverage_v5.py test_photo_coverage_v5.py social_cards_v2.py test_social_cards_v2.py collectible_routes_v4.py photo_intake_v4.py test_photo_routes_v4.py advanced_platinum_v3.py photo_provenance_v3.py test_advanced_platinum_v3.py platinum_atlas_v2.py guide_location_atlas_v2.py test_group12_atlas_v2.py platinum_roadmap_v1.py guide_step_references_v1.py test_group3_roadmap_step_refs_v1.py photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py
+          python -m unittest -q test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_meditation_tracker_v1.py test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
+          node --check site/assets/photo-coverage-v5.js
           node --check site/assets/photo-intake-v4.js
           node --check site/assets/collectible-routes-v4.js
           node --check site/assets/advanced-platinum-v3.js
@@ -82,7 +83,7 @@ jobs:
       - name: Audit actual local media and five-image guide target
         run: python media_quality_v1.py
       - name: Validate actual production pages, media and canonical continuity
-        run: python -m unittest -q test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py
+        run: python -m unittest -q test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py
       - name: Audit static Google discovery links (no network or tracking)
         run: |
           python -m unittest -q test_internal_link_graph_v1.py
@@ -160,7 +161,7 @@ jobs:
           python - <<'PY'
           import urllib.request, time
           base='https://xfederiko11.github.io/gta-6/'
-          for path in ('','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/roadmap-platino/','mappe-guide/','trofei/100-percento/','trofei/trofei-difficili/','screenshot-ps5/verifica/','collezionabili/percorsi/','screenshot-ps5/invia/'):
+          for path in ('','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/roadmap-platino/','mappe-guide/','trofei/100-percento/','trofei/trofei-difficili/','screenshot-ps5/verifica/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/'):
               for attempt in range(6):
                   try:
                       request=urllib.request.Request(base+path+'?reader=adaptive-v2-20261120',headers={'Cache-Control':'no-cache'})
@@ -206,10 +207,15 @@ jobs:
                           assert text.count('data-photo-source-lead=') == 8
                           assert 'non documentato' in text
                       if path == 'collezionabili/percorsi/':
-                          assert text.count('data-cr-step=') == 92
+                          assert text.count('data-cr-step=') == 101
                           assert text.count('data-cr-region=') == 7
                           assert 'data-cr-done' in text and 'Vicki' in text and 'Victor Maravilla' in text
                           assert 'collectible-routes-v4.js?v=' in text
+                      if path == 'screenshot-ps5/priorita/':
+                          assert text.count('data-pc-task=') == 55
+                          assert text.count('data-pc-guide=') == 11
+                          assert 'photo-coverage-v5.css?v=' in text
+                          assert 'photo-coverage-v5.js?v=' in text
                       if path == 'screenshot-ps5/invia/':
                           assert text.count('data-photo-guide=') == 55
                           assert 'data-pi-rights' in text
@@ -238,6 +244,9 @@ jobs:
               ('assets/reader-theme.js',"const chooseDefault = () => 'dark'"),
               ('assets/reader-theme.css','--r-bg:#10131d'),
               ('photo-intake-audit.json','"approved_new_community_photos": 0'),
+              ('photo-backlog-v5.json','"total_requests": 55'),
+              ('assets/photo-coverage-v5.css','.pc-root'),
+              ('assets/photo-coverage-v5.js','data-pc-filter'),
               ('photo-provenance-review.json','"new_images_rehosted": 0'),
               ('sitemap.xml','trofei/roadmap-platino/'),
               ('sitemap.xml','mappe-guide/'),
@@ -246,6 +255,7 @@ jobs:
               ('sitemap.xml','screenshot-ps5/verifica/'),
               ('sitemap.xml','collezionabili/percorsi/'),
               ('sitemap.xml','screenshot-ps5/invia/'),
+              ('sitemap.xml','screenshot-ps5/priorita/'),
               ('social-cards-audit.json','"unique_images"'),
           ):
               request=urllib.request.Request(base+path+'?group3-live=20261121',headers={'Cache-Control':'no-cache'})
