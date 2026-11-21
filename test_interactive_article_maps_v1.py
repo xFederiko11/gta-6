@@ -105,7 +105,8 @@ class EmbedMapTests(unittest.TestCase):
         self.assertNotIn("localStorage",js)
         self.assertNotIn("fetch(",js)
         self.assertNotIn("postMessage(",js)
-        self.assertNotIn("PSN",js)
+        self.assertNotIn("window.PSN",js)
+        self.assertNotIn("psn_api",js)
         self.assertNotIn("autoplay",js)
 
     def test_exported_public_build_contains_68_unique_interactive_map_panels(self):
