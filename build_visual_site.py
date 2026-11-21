@@ -512,8 +512,8 @@ def guide(g,guides):
     body+=('<section id="procedura" class="v-tutorial" aria-labelledby="titolo-procedura">'
            '<header class="v-tutorial-head">'
            '<span class="v-tutorial-start-here">▶ INIZIA QUI</span>'
-           '<h2 id="titolo-procedura">TUTORIAL PASSO PASSO</h2>'
-           '<p>Segui un passaggio alla volta. Le schermate vere sono accanto alle azioni.</p>'
+           '<h2 id="titolo-procedura">TUTORIAL · ISTRUZIONI DA SEGUIRE</h2>'
+           '<p>Questa è la procedura da eseguire. Segui i passaggi in ordine.</p>'
            '</header>')
     if g['spoiler']:
         body+=('<p class="v-spoiler-warning" role="note">'
@@ -521,6 +521,7 @@ def guide(g,guides):
                '</p>')
     body+='<ol class="v-steps">'
     used=[]
+    step_evidence=[]
     for n,raw in enumerate(g['steps']):
         text=re.sub(r'^SPOILER(?: LUOGHI)?:\s*','',raw)
         heading=g['step_headings'][n] if n<len(g['step_headings']) else 'Segui il passaggio'
@@ -533,35 +534,43 @@ def guide(g,guides):
             f'<h3>{e(heading)}</h3><p>{e(text)}</p>'
             '</div></div>')
         key=g['step_media'].get(n)
+        approved=PHOTO_STEP_REVIEW['guide_step_approved'].get(g['id'],{}).get(str(n))
+        if key and (not approved or approved['key']!=key):
+            raise ValueError('Photo not approved for tutorial: '+g['id']+' step '+str(n+1))
+        if approved and not key:
+            raise ValueError('Approved tutorial photo not configured: '+g['id']+' step '+str(n+1))
         if key:
-            body+=figure(key); used.append(key)
-        if not key or key not in MEDIA or MEDIA[key]['kind']!='screenshot' or not media_src(key):
-            body+=('<p class="v-step-photo-gap" data-step-photo-status="missing">'
-                   'Screenshot del passaggio non ancora disponibile. '
-                   '<a href="#contributi-foto">Contribuisci con una foto ↓</a></p>')
+            if key not in MEDIA or MEDIA[key]['kind']!='screenshot':
+                raise ValueError('Non-gameplay image in a tutorial: '+str(key))
+            if MEDIA[key]['source']!=approved['source']:
+                raise ValueError('Photo source differs from audited record: '+key)
+            if media_src(key):
+                body+=('<div class="v-proof-media"><p class="v-proof-label">SCHERMATA DEL PASSAGGIO</p>'
+                       +figure(key)+'</div>')
+                used.append(key)
         evidence=render_step_evidence(g,n,STEP_EVIDENCE,VISUAL_EVIDENCE)
         if evidence:
-            body+=('<details class="v-step-evidence">'
-                   '<summary>Mappa o video di questo passaggio (facoltativo)</summary>'
-                   +evidence+'</details>')
+            step_evidence.append((n+1,heading,evidence))
         checks=g.get('checks',[])
         if n<len(checks):
             body+=f'<p class="v-check"><strong>✓ Controllo:</strong> {e(checks[n])}</p>'
         body+='</li>'
     body+='</ol>'
-    if not g['step_media']:
-        body+=('<p class="v-no-image">Gli screenshot dei passaggi non sono ancora disponibili. '
-               f'<a href="{e(g["source_url"])}" target="_blank" rel="noopener noreferrer">'
-               'Vedi la guida originale ↗</a></p>')
+    body+='<p class="v-tutorial-finish"><strong>FINE DEI PASSAGGI</strong> · Da qui in poi trovi soltanto informazioni aggiuntive.</p>'
     body+='</section>'
     if g['id']=='meditazione-capitolo-1':
         body+=render_meditation_tracker()
     # Readers can stop here: reference material is genuinely optional.
     body+=('<details class="v-guide-more" id="approfondimenti">'
            '<summary><span><strong>Approfondimenti e materiali extra</strong>'
-           '<small>Mappe, video, avvisi completi, consigli e fonti</small></span>'
+           '<small>Non fanno parte del tutorial: mappe, video, fonti e note</small></span>'
            '<span class="v-more-chevron" aria-hidden="true">⌄</span></summary>'
            '<div class="v-guide-more-content">')
+    if step_evidence:
+        body+='<section class="v-guide-ref-list"><h3>Riferimenti per alcuni passaggi (facoltativi)</h3>'
+        for number,heading,fragment in step_evidence:
+            body+='<div class="v-guide-ref-entry"><strong>Passaggio '+str(number)+': '+e(heading)+'</strong>'+fragment+'</div>'
+        body+='</section>'
     if g['id'] in {'soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor'}:
         body+=('<aside class="v-missable-notice" role="note"><strong>🏆 Attività mancabili, ma non richieste per il platino.</strong>'
                '<p>Gli incarichi Get Shirley’s Rum e Steal the Scooter sono esclusivi del Capitolo 1. '
@@ -626,8 +635,8 @@ def guide(g,guides):
     body+=f'<p class="v-guide-return"><a href="{url("guide-e-tutorial/")}">← Torna a tutte le guide</a></p>'
     description=g['seo_description']
     seo_title=guide_seo_title(title)
-    structured=legacy.schema_article(seo_title,description,url(path),media_src(g['hero_media']))
-    legacy.write(path+'index.html',layout(seo_title,description,path,body,'guide',media_src(g['hero_media']),structured=structured))
+    structured=legacy.schema_article(seo_title,description,url(path),None)
+    legacy.write(path+'index.html',layout(seo_title,description,path,body,'guide',None,structured=structured))
 
 
 
