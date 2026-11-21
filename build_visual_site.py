@@ -556,10 +556,12 @@ def guide(g,guides):
             body+=f'<p class="v-check"><strong>✓ Controllo:</strong> {e(checks[n])}</p>'
         body+='</li>'
     body+='</ol>'
+    if g['id']=='meditazione-capitolo-1':
+        # The in-game meditation checklist belongs to the actionable guide,
+        # not to the references that follow after completion.
+        body+=render_meditation_tracker()
     body+='<p class="v-tutorial-finish"><strong>FINE DEI PASSAGGI</strong> · Da qui in poi trovi soltanto informazioni aggiuntive.</p>'
     body+='</section>'
-    if g['id']=='meditazione-capitolo-1':
-        body+=render_meditation_tracker()
     # Readers can stop here: reference material is genuinely optional.
     body+=('<details class="v-guide-more" id="approfondimenti">'
            '<summary><span><strong>Approfondimenti e materiali extra</strong>'
