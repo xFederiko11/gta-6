@@ -77,7 +77,7 @@ class RegionalRouteTests(unittest.TestCase):
         self.assertEqual(sum(x[1] for x in s["jump_by_region"]),130)
         text=render_routes(routes)
         self.assertIn("300 su 397",text)
-        self.assertIn("non li inseriamo",text)
+        self.assertIn("non presentiamo 300",text)
         self.assertIn("not complete world coverage",routes["notes"])
 
 
