@@ -144,6 +144,7 @@ def render(guides, requests, media, extras, get_local):
         'Non sostituiremo mai schermate assenti con mappe inventate, '
         'render fittizi o immagini promozionali spacciate per gameplay.</p>'
         '<a class="v-button secondary" href="'+BASE+'guide-e-tutorial/">Tutte le guide GTA VI →</a>'
+        '<p><a href="' + BASE + 'mappe-guide/">Consulta tutti i riferimenti geografici delle 11 guide →</a></p>'
         '</section>'
     )
     snapshot={

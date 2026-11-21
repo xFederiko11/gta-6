@@ -96,6 +96,8 @@ def render(trophies):
         '</div><nav class="p-roadmap-links" aria-label="Collegamenti rapidi">',
         '<a class="v-button" href="' + BASE + 'trofei/">Tutti i 55 trofei →</a>',
         '<a class="v-button secondary" href="' + BASE + 'guide-e-tutorial/meditazione-capitolo-1/">Meditazione mancabile →</a>',
+        '<a class="v-button secondary" href="#guida-55-trofei">Strategia per tutti i 55 trofei ↓</a>',
+        '<a class="v-button secondary" href="' + BASE + 'mappe-guide/">Mappe e posizioni delle guide →</a>',
         '</nav></header>',
         '<aside class="p-roadmap-warning" role="note"><h2>⚠️ Il rischio del Capitolo 1</h2>',
         '<p>La meditazione iniziale a casa di Jason diventa inaccessibile dopo il capitolo. ', 
