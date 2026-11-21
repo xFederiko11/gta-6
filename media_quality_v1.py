@@ -53,8 +53,10 @@ def audit(root=ROOT):
             url=urlsplit(src)
             rel=url.path.removeprefix('/gta-6/')
             path=(root/rel).resolve()
+            allowed_prefix=('/gta-6/assets/approved/' if
+                            a.get('data-approved-community-photo') else '/gta-6/assets/visual/')
             if (url.scheme!='https' or url.netloc!='xfederiko11.github.io'
-                or not url.path.startswith('/gta-6/assets/visual/')
+                or not url.path.startswith(allowed_prefix)
                 or not path.is_relative_to(root.resolve()) or not path.is_file()):
                 broken.append({'page':page.relative_to(root).as_posix(),'image':key,'src':src})
             for entry in a.get('srcset','').split(','):
