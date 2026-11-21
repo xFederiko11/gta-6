@@ -231,7 +231,11 @@ class VisualSiteTests(unittest.TestCase):
                          if t=='img' and a.get('data-visual-kind')=='screenshot'}
             marker=[a for t,a in tags.tags if t=='p' and 'data-visual-screenshot-count' in a]
             self.assertEqual(len(marker),1,path)
-            self.assertEqual(int(marker[0]['data-visual-screenshot-count']),len(in_article),path)
+            # Only screenshots proving an ACTION count toward the 5-photo target.
+            # An exterior shot can identify a shop, but not prove its hidden loot.
+            proof_images=set(re.findall(r'data-visual-proof-image="([^"]+)"',article))
+            self.assertEqual(int(marker[0]['data-visual-screenshot-count']),len(proof_images),path)
+            self.assertTrue(proof_images.issubset(in_article),path)
             # Unknown photos are excluded instead of presented as proof.
             self.assertFalse(any(t=='p' and 'data-step-photo-status' in a for t,a in step_tags.tags))
             review=json.loads(Path('data/tutorial_photo_review.json').read_text(encoding='utf-8'))
@@ -474,7 +478,18 @@ class VisualSiteTests(unittest.TestCase):
             step_tags=Tags();step_tags.feed(procedure)
             approved={rec['key'] for rec in review['guide_step_approved'].get(guide['id'],{}).values()}
             actual={a['data-visual-image'] for t,a in step_tags.tags if t=='img' and 'data-visual-image' in a}
-            self.assertTrue(actual.issubset(approved),(path,actual,approved))
+            approved_context={item['key'] for item in review.get('context_approved',{}).get(guide['id'],{}).values()}
+            self.assertTrue(actual.issubset(approved|approved_context),(path,actual,approved,approved_context))
+            proof=set(re.findall(r'data-visual-proof-image="([^"]+)"',procedure))
+            context=set(re.findall(r'data-visual-location-image="([^"]+)"',procedure))
+            self.assertTrue(proof.issubset(approved),path)
+            self.assertEqual(context,approved_context,path)
+            self.assertTrue(context.isdisjoint(proof),path)
+            for media_id in actual:
+                self.assertIn('data-visual-image="'+media_id+'"',procedure)
+            self.assertEqual(procedure.count('class="v-caption v-photo-attribution"'),len(actual))
+            self.assertEqual(procedure.count('class="v-photo-origin"'),len(actual))
+            self.assertEqual(procedure.count('Fonte foto:'),len(actual))
             self.assertNotIn('data-media-missing=',procedure)
             self.assertNotIn('data-step-photo-status=',procedure)
             self.assertNotIn('class="r-gallery"',text)
