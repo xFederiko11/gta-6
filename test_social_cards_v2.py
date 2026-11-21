@@ -36,6 +36,18 @@ class SocialCardTests(unittest.TestCase):
             binaries.append(hashlib.sha256(data.getvalue()).hexdigest())
         self.assertEqual(len(binaries),len(set(binaries)))
 
+    def test_no_random_rockstar_photo_on_specific_article_social_cards(self):
+        images=[{'image':Image.new('RGB',(1400,800)), 'name':'official art'}]
+        self.assertIs(c.artwork_for_page('',images),images[0])
+        for page in ('salvare-auto/','guide-e-tutorial/',
+                     'guide-e-tutorial/soldi-facili-capitolo-1/',
+                     'guide-e-tutorial/meditazione-capitolo-1/',
+                     'guide-e-tutorial/glitch-prima-persona-ps5/',
+                     'trofei/trofeo-17-cecchino/','hdr-oled/',
+                     'mappe-guide/','scoperte/'):
+            self.assertIsNone(c.artwork_for_page(page,images),page)
+        self.assertIsNone(c.artwork_for_page('',[]))
+
     def test_zip_parses_only_landscape_images_and_deduplicates(self):
         with TemporaryDirectory() as temp:
             image=Image.new("RGB",(1400,800),(42,65,81))
@@ -99,6 +111,9 @@ class SocialCardTests(unittest.TestCase):
         self.assertEqual(obj["schema"],"gta6-social-cards-v2")
         self.assertGreaterEqual(obj["pages"],65)
         self.assertEqual(obj["unique_images"],obj["pages"])
+        # Article thumbnails must be topical text cards, not random promotional scenes.
+        self.assertTrue(all(row['artwork'] is None for row in obj['entries'] if row['path']))
+        self.assertLessEqual(obj['artwork_backed_cards'],1)
         urls=set()
         for record in obj["entries"]:
             name=c.cover_key(record["path"])
