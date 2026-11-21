@@ -31,6 +31,20 @@ WIDTH,HEIGHT=1200,630
 MAX_ZIP=240_000_000
 MAX_IMAGE=20_000_000
 MAX_ARTWORKS=35
+# Individually linked Rockstar image variants visible on the official artwork page.
+# Used only if the complete user-provided ZIP exceeds the archive limit.
+DIRECT_ARTWORKS=(
+    ("Jason and Lucia Robbery", "https://www.rockstargames.com/VI/_next/static/media/Jason_and_Lucia_Robbery_landscape.09c8a~do21h4p.jpg?akim=1&imdensity=1&imwidth=3840"),
+    ("Jason and Lucia Motel", "https://www.rockstargames.com/VI/_next/static/media/Jason_and_Lucia_Motel_landscape.08edvuwtm-20v.jpg?akim=1&imdensity=1&imwidth=3840"),
+    ("Cal Hampton", "https://www.rockstargames.com/VI/_next/static/media/Cal_Hampton_landscape.17k7bnt3myg.2.jpg?akim=1&imdensity=1&imwidth=3840"),
+    ("Boobie Ike", "https://www.rockstargames.com/VI/_next/static/media/Boobie_Ike_landscape.0ldnbn87k-8mq.jpg?akim=1&imdensity=1&imwidth=3840"),
+    ("Vice City Postcard", "https://www.rockstargames.com/VI/_next/static/media/Vice_City_Postcard_landscape.0v2njmlk2n-qm.jpg?akim=1&imdensity=1&imwidth=3840"),
+    ("Leonida Keys Postcard", "https://www.rockstargames.com/VI/_next/static/media/Leonida_Keys_Postcard_landscape.05oezf2h--~ed.jpg?akim=1&imdensity=1&imwidth=3840"),
+    ("Port Gellhorn Postcard", "https://www.rockstargames.com/VI/_next/static/media/Port_Gellhorn_Postcard_landscape.176c2o75nmcr8.jpg?akim=1&imdensity=1&imwidth=3840"),
+    ("Ambrosia Postcard", "https://www.rockstargames.com/VI/_next/static/media/Ambrosia_Postcard_landscape.0gd~9a41ia-rt.jpg?akim=1&imdensity=1&imwidth=3840"),
+    ("Grassrivers Postcard", "https://www.rockstargames.com/VI/_next/static/media/Grassrivers_Postcard_landscape.15-10i39nhex2.jpg?akim=1&imdensity=1&imwidth=3840"),
+    ("Mount Kalaga National Park Postcard", "https://www.rockstargames.com/VI/_next/static/media/Mount_Kalaga_National_Park_Postcard_landscape.0c1cb4ocq16n3.jpg?akim=1&imdensity=1&imwidth=3840"),
+)
 Image.MAX_IMAGE_PIXELS=45_000_000
 PALETTES=("#fa9ec5","#85e3d4","#c6acff","#ffc8a1","#8ac6ff","#f5b2f6")
 
@@ -153,6 +167,56 @@ def fetch_artworks(enabled=False,opener=urlopen):
         return [],"source_unavailable_"+type(exc).__name__
 
 
+def fetch_direct_official_artworks(enabled=False, opener=urlopen):
+    """Download a capped subset of actual artwork variants linked by Rockstar.
+
+    Never scrape third-party wallpaper mirrors, redirect to CDN unknown hosts
+    or treat these as game screenshots. Official ZIP is still preferred.
+    """
+    if not enabled:
+        return [], "direct_disabled"
+    entries=[];signatures=[];errors=0
+    for name,url in DIRECT_ARTWORKS:
+        if not url.startswith("https://www.rockstargames.com/VI/_next/static/media/"):
+            raise ValueError("Official artwork list was modified unsafely")
+        try:
+            req=Request(url,headers={"User-Agent":"GTA6Italia-OfficialArtwork/1.0",
+                                     "Accept":"image/jpeg"})
+            with opener(req,timeout=10) as response:
+                if response.geturl()!=url:
+                    errors+=1
+                    continue
+                if response.headers.get("Content-Type","").split(";")[0].lower() not in ("image/jpeg","image/jpg"):
+                    errors+=1
+                    continue
+                size=response.headers.get("Content-Length","")
+                if size.isdigit() and int(size)>9_000_000:
+                    errors+=1
+                    continue
+                raw=response.read(9_000_001)
+            if len(raw)>9_000_000 or not raw.startswith(b"\xff\xd8\xff"):
+                errors+=1
+                continue
+            with Image.open(BytesIO(raw)) as opened:
+                opened.load()
+                if opened.width<1000 or opened.height<560 or opened.width/opened.height<1.25:
+                    errors+=1
+                    continue
+                art=opened.convert("RGB")
+                art.thumbnail((1500,1000))
+            sig=dhash(art)
+            if any((sig^existing).bit_count()<=7 for existing in signatures):
+                continue
+            signatures.append(sig)
+            entries.append({"image":art,"name":"Official artwork: "+name,
+                            "hash":hashlib.sha256(raw).hexdigest()})
+        except (OSError,ValueError,UnidentifiedImageError,Image.DecompressionBombError,
+                TimeoutError,RuntimeError) as exc:
+            errors+=1
+            continue
+    return entries, ("direct_ok" if entries else "direct_sources_unavailable") + "_errors_"+str(errors)
+
+
 def render_card(title,relative, art=None):
     key=cover_key(relative)
     accent=PALETTES[int(key[:3],16)%len(PALETTES)]
@@ -202,6 +266,9 @@ def publish():
         raise RuntimeError("No generated Pages site to process")
     enabled=os.environ.get("GTA6_FETCH_ROCKSTAR_ART","false").lower()=="true"
     artworks,source_status=fetch_artworks(enabled)
+    direct_status='not_needed' if artworks else 'not_enabled'
+    if enabled and not artworks:
+        artworks,direct_status=fetch_direct_official_artworks(enabled=True)
     path=ROOT/"assets/social-cards"
     path.mkdir(parents=True,exist_ok=True)
     entries=[];digest=set()
@@ -248,12 +315,12 @@ def publish():
     report={"schema":"gta6-social-cards-v2","generated_utc":datetime.now(timezone.utc).isoformat(),
             "pages":len(entries),"unique_images":len(digest),"artwork_source":ARCHIVE,
             "official_media_page":OFFICIAL_PAGE,"rights_policy":COPYRIGHT_PAGE,
-            "official_zip_status":source_status,"artworks_loaded":len(artworks),
+            "official_zip_status":source_status,"official_direct_status":direct_status,"artworks_loaded":len(artworks),
             "artwork_backed_cards":sum(bool(x["artwork"]) for x in entries),
             "description":"Artwork is illustrative, not trophy/mission evidence. Commercial licensing not asserted.",
             "entries":entries}
     (ROOT/"social-cards-audit.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    print("GTA6_SOCIAL_CARDS",len(entries),"unique",len(digest),"artworks",len(artworks),"source",source_status)
+    print("GTA6_SOCIAL_CARDS",len(entries),"unique",len(digest),"artworks",len(artworks),"source",source_status,"direct",direct_status)
     return report
 
 

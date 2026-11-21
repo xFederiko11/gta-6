@@ -60,6 +60,29 @@ class SocialCardTests(unittest.TestCase):
             self.assertEqual(rows[0]["name"],"GTAVI_Landscape_1.jpg")
             self.assertEqual(rows[0]["image"].mode,"RGB")
 
+    def test_direct_official_artworks_are_bounded_and_not_rehosted_untrusted(self):
+        self.assertEqual(len(c.DIRECT_ARTWORKS),10)
+        self.assertEqual(len(set(url for name,url in c.DIRECT_ARTWORKS)),10)
+        im=Image.new("RGB",(1600,900),(83,43,109))
+        img=BytesIO();im.save(img,"JPEG",quality=90)
+        raw=img.getvalue()
+        class Fake:
+            headers={"Content-Length":str(len(raw)),"Content-Type":"image/jpeg"}
+            def __init__(self,url):self.target=url;self.stream=BytesIO(raw)
+            def __enter__(self):return self
+            def __exit__(self,*args):pass
+            def geturl(self):return self.target
+            def read(self,n=-1):return self.stream.read(n)
+        def opener(request,timeout):
+            self.assertLessEqual(timeout,10)
+            return Fake(request.full_url)
+        rows,status=c.fetch_direct_official_artworks(True,opener=opener)
+        self.assertEqual(len(rows),1)  # perceptually duplicate images are dropped
+        self.assertTrue(status.startswith("direct_ok_"))
+        self.assertIn("Official artwork:",rows[0]["name"])
+        disabled,reason=c.fetch_direct_official_artworks(False,opener=opener)
+        self.assertEqual((disabled,reason),([],"direct_disabled"))
+
     def test_zip_is_optional_and_fallback_is_predictable(self):
         rows,status=c.fetch_artworks(False)
         self.assertEqual(rows,[])
