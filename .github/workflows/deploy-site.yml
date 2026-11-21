@@ -379,10 +379,16 @@ jobs:
               'guide-e-tutorial/glitch-prima-persona-ps5/',
           ):
               page=fetch(path)
-              assert 'class="v-tutorial-start"' in page
+              assert 'class="v-intro v-guide-intro"' in page
+              assert 'class="v-tutorial-start-here"' in page
+              assert 'id="procedura"' in page
               assert 'class="v-steps"' in page
+              assert 'class="v-guide-prep"' in page
+              assert 'class="v-guide-more"' in page
+              assert page.index('id="passaggio-1"') < page.index('class="v-guide-more"')
+              assert page.index('id="procedura"') < page.index('id="passaggio-1"')
               if path in ('salvare-auto/', 'guide-e-tutorial/glitch-prima-persona-ps5/'):
-                  assert 'Controllo prima di proseguire:' in page
+                  assert '✓ Controllo:' in page
               assert 'class="reader-photo-invite"' in page
               assert 'class="v-step-photo-gap"' not in page
               assert 'data-visual-screenshot-count' not in page
