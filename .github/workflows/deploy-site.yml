@@ -50,7 +50,7 @@ jobs:
         run: python community_social_sync_v1.py
       - name: Validate preserved content and existing SEO contracts
         run: |
-          python -m py_compile collectible_routes_v4.py photo_intake_v4.py test_photo_routes_v4.py advanced_platinum_v3.py photo_provenance_v3.py test_advanced_platinum_v3.py platinum_atlas_v2.py guide_location_atlas_v2.py test_group12_atlas_v2.py platinum_roadmap_v1.py guide_step_references_v1.py test_group3_roadmap_step_refs_v1.py photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py
+          python -m py_compile social_cards_v2.py test_social_cards_v2.py collectible_routes_v4.py photo_intake_v4.py test_photo_routes_v4.py advanced_platinum_v3.py photo_provenance_v3.py test_advanced_platinum_v3.py platinum_atlas_v2.py guide_location_atlas_v2.py test_group12_atlas_v2.py platinum_roadmap_v1.py guide_step_references_v1.py test_group3_roadmap_step_refs_v1.py photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py
           python -m unittest -q test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_meditation_tracker_v1.py test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
           node --check site/assets/photo-intake-v4.js
           node --check site/assets/collectible-routes-v4.js
@@ -73,6 +73,12 @@ jobs:
           # Evaluated before the generator and privacy page run.
           UMAMI_WEBSITE_ID: ${{ github.event_name != 'pull_request' && 'ec3592c0-e9f7-4e13-8c29-f9c7d59aa8fd' || '' }}
         run: python reader_experience.py --build
+      - name: Generate distinct 1200x630 cards for all canonical article URLs
+        env:
+          GTA6_FETCH_ROCKSTAR_ART: ${{ github.event_name != 'pull_request' && 'true' || 'false' }}
+        run: |
+          python social_cards_v2.py
+          python -m unittest -q test_social_cards_v2.py
       - name: Audit actual local media and five-image guide target
         run: python media_quality_v1.py
       - name: Validate actual production pages, media and canonical continuity
@@ -162,6 +168,9 @@ jobs:
                           text=response.read(1500000).decode('utf-8'); status=response.status
                       assert status==200
                       assert 'data-design-version="visual-v2-20261120"' in text
+                      assert 'assets/social-cards/' in text
+                      assert text.count('<meta property="og:image" content="')==1
+                      assert text.count('<meta name="twitter:image" content="')==1
                       assert 'visual-v2.css?v=' in text and 'visual-v2.js?v=' in text
                       assert '<link rel="canonical" href="'+base+path+'"' in text
                       assert 'data-theme="auto"' in text
@@ -197,7 +206,7 @@ jobs:
                           assert text.count('data-photo-source-lead=') == 8
                           assert 'non documentato' in text
                       if path == 'collezionabili/percorsi/':
-                          assert text.count('data-cr-step=') == 76
+                          assert text.count('data-cr-step=') == 92
                           assert text.count('data-cr-region=') == 7
                           assert 'data-cr-done' in text and 'Vicki' in text and 'Victor Maravilla' in text
                           assert 'collectible-routes-v4.js?v=' in text
@@ -237,6 +246,7 @@ jobs:
               ('sitemap.xml','screenshot-ps5/verifica/'),
               ('sitemap.xml','collezionabili/percorsi/'),
               ('sitemap.xml','screenshot-ps5/invia/'),
+              ('social-cards-audit.json','"unique_images"'),
           ):
               request=urllib.request.Request(base+path+'?group3-live=20261121',headers={'Cache-Control':'no-cache'})
               with urllib.request.urlopen(request,timeout=20) as response:
