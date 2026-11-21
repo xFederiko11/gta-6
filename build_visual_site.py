@@ -247,7 +247,10 @@ def visual_contribution(g):
         'e avvisa degli spoiler. Pubblica solo immagini che puoi condividere. '
         'Per ripubblicarle sul sito ti chiederemo un permesso esplicito; '
         'un tweet non concede automaticamente una licenza. Nessun invio '
-        'automatico né promessa di essere pubblicati.</p></details></aside>'
+        'automatico né promessa di essere pubblicati.</p></details>'
+        '<p class="v-visual-follow"><a href="https://x.com/intent/follow?screen_name=xFederiko11" '
+        'target="_blank" rel="noopener noreferrer" data-visual-follow-x>'
+        '𝕏 Segui @xFederiko11 per aggiornamenti verificati di questa guida ↗</a></p></aside>'
     )
 
 
@@ -596,7 +599,7 @@ def main():
             title,description,path,legacy.crumbs([('Trofei','trofei/'),(title,path)])+body,
             'trofei',structured=schema))
     route_title='Collezionabili GTA 6: percorsi e mappe per regione PS5'
-    route_desc=('GTA VI: 101 checkpoint documentati in 7 aree, carte, WAiNK, 24 salti, relitti, '
+    route_desc=('GTA VI: 123 checkpoint documentati in 7 aree, riviste e copie da controllare nei capitoli, WAiNK, 24 salti, '
                 'carta mancabile del Capitolo 2 e checklist locale. Nessun pin inventato.')
     route_schema={'@context':'https://schema.org','@type':'CollectionPage',
                   'name':route_title,'description':route_desc,'url':url(COLLECTIBLE_ROUTE_PATH),

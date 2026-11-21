@@ -48,3 +48,11 @@
 .cr-footer-note{font-size:.77rem;color:var(--r-muted,#777);line-height:1.6}
 @media(max-width:760px){.cr-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.cr-region{padding:16px}.cr-region-head{gap:9px}.cr-area-number{width:40px;height:40px;font-size:1rem}.cr-region-head h2{font-size:1.25rem}.cr-shortcuts>a{flex:1}}
 @media(max-width:410px){.cr-step-head{flex-wrap:wrap}.cr-check{margin-left:39px}}
+
+/* Original PS5 photo suggestions and chapter-limited collectible COPY warnings. */
+.cr-limited-copy{padding:12px 14px;background:var(--r-surface,#141a2a);border-left:4px solid var(--r-warn,#e0a36c);border-radius:7px;margin:12px 0;color:var(--r-text,#fff);line-height:1.55;font-size:.82rem}
+.cr-limited-copy strong{color:var(--r-warn,#e0a36c)}
+.cr-note-count{background:var(--r-surface,#141a2a);border-radius:7px;padding:10px 13px;font-size:.84rem;line-height:1.5}
+.cr-step>a[data-cr-photo-intent]{font-weight:700;color:var(--r-cyan,#8ae7da);margin-left:7px}
+.cr-step:target{outline:2px solid var(--r-cyan,#8ae7da);outline-offset:3px}
+@media(max-width:410px){.cr-step>a[data-cr-photo-intent]{display:block;margin-left:0;margin-top:10px}}
