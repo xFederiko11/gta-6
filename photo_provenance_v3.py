@@ -73,7 +73,7 @@ def render(ledger,media,guides,get_local):
         '<div><strong>'+str(len(ledger["leads"]))+
         '</strong><small>fonti prioritarie da esaminare</small></div></div>',
         '<nav class="pr-shortcuts"><a class="v-button" href="'+BASE+'screenshot-ps5/">',
-        'Contribuisci con foto originali PS5 →</a><a class="v-button secondary" href="'
+        'Guarda le 55 richieste fotografiche →</a><a class="v-button secondary" href="' + BASE + 'screenshot-ps5/invia/">Invia con consenso →</a><a class="v-button secondary" href="'
         +BASE+'mappe-guide/">Tutte le mappe delle guide →</a></nav></header>',
         '<aside class="pr-warning"><strong>Nota sui diritti:</strong> link, crediti e',
         ' screenshot già presenti nell’archivio non dimostrano una licenza',
