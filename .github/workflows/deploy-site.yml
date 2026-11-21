@@ -196,7 +196,7 @@ jobs:
                           assert 'data-vim-load' in text and 'data-vim-provider="vice"' in text
                           assert '<iframe src=' not in text
                       if path == 'mappe-guide/':
-                          assert text.count('data-vim-curated-link') == 4
+                          assert text.count('data-vim-curated-link') == 7
                           assert 'https://gtamap.io/?m=permit-keys' in text
                           assert text.count('data-location-guide=') == 11
                           assert '/gta-6/screenshot-ps5/' in text
@@ -215,7 +215,7 @@ jobs:
                           assert text.count('data-photo-source-lead=') == 8
                           assert 'non documentato' in text
                       if path == 'collezionabili/percorsi/':
-                          assert text.count('data-cr-curated-link') == 9
+                          assert text.count('data-cr-curated-link') == 10
                           assert 'https://gtamap.io/?m=jasons-safehouse' in text
                           assert 'https://gtamap.io/gta-6-map/starlet-motel/' in text
                           assert text.count('data-cr-step=') == 123
@@ -261,7 +261,7 @@ jobs:
               ('assets/interactive-map-v1.js','game-map-load-intent'),
               ('assets/interactive-map-v1.css','.vim-root'),
               ('map-rollout-v1.json','"pages_with_interactive_map": 68'),
-              ('map-rollout-v1.json','"external_map_references_reviewed": 4'),
+              ('map-rollout-v1.json','"external_map_references_reviewed": 7'),
               ('map-rollout-v1.json','"individual_collectible_pins_verified": 0'),
               ('photo-provenance-review.json','"new_images_rehosted": 0'),
               ('sitemap.xml','trofei/roadmap-platino/'),

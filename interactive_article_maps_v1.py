@@ -36,6 +36,9 @@ EXTERNAL_ALLOWED={
  "permit-keys":"https://gtamap.io/?m=permit-keys",
  "starlet-motel":"https://gtamap.io/gta-6-map/starlet-motel/",
  "key-lento":"https://gtamap.io/gta-6-map/key-lento/",
+ "hamlet-area":"https://gtamap.io/?m=hamlet",
+ "belpoint-area":"https://gtamap.io/?m=belpoint",
+ "port-gellhorn-garages":"https://gtamap.io/gta-6-map/port-gellhorn/",
 }
 KINDS={"community-marker-permalink","community-region-permalink","location-detail-permalink"}
 
@@ -166,12 +169,26 @@ def validate_curated_external_refs(registry,guides,trophies,collectibles):
         results.append(row)
     if {x["id"] for x in results}!=set(EXTERNAL_ALLOWED):
         raise ValueError("Duplicate or missing community map links")
+    required_scopes={
+        "hamlet-area":("community-region-permalink","town-area",[],["soldi-facili-capitolo-1"]),
+        "belpoint-area":("community-region-permalink","coastal-area",["pt-122"],[]),
+        "port-gellhorn-garages":("location-detail-permalink","town-information",[],["registrare-auto-personale"])}
+    for ident,(typ,scope,checkpoints,guideids) in required_scopes.items():
+        row=next(x for x in results if x["id"]==ident)
+        if (row["kind"]!=typ or row["scope"]!=scope or
+            row["checkpoint_ids"]!=checkpoints or row["guide_ids"]!=guideids or
+            row["trophy_numbers"]):
+            raise ValueError("External region source cannot be promoted to an exact point")
     if sum(x["kind"]=="community-marker-permalink" for x in results)!=1:
         raise ValueError("Do not claim multiple direct map markers")
+    if sum(x["kind"]=="community-region-permalink" for x in results)!=3:
+        raise ValueError("Exactly three source-indexed area links, NOT item markers")
+    if sum(x["kind"]=="location-detail-permalink" for x in results)!=3:
+        raise ValueError("Exactly three informational town/building pages")
     return {"external_map_references_reviewed":len(results),
             "external_community_building_markers":1,
-            "external_community_region_links":1,
-            "external_location_detail_links":2,
+            "external_community_region_links":3,
+            "external_location_detail_links":3,
             "exact_gameplay_coordinate_pairs_verified":0,
             "individual_collectible_pins_verified":0,
             "external_link_verification":"indexed_public_source_not_in_game_or_live_api",
