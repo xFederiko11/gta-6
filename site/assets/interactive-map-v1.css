@@ -1,0 +1,36 @@
+/* Dark-default, mobile-first GTA VI interactive map panel. */
+.vim-root{margin:27px 0;scroll-margin-top:90px;padding:clamp(16px,3vw,27px);background:var(--r-surface,#141a2a);border:1px solid var(--r-line,#42495a);border-radius:17px;color:var(--r-text,#fafafa)}
+.vim-head h2{font-size:clamp(1.3rem,2.8vw,1.85rem);line-height:1.2;margin:8px 0 12px}
+.vim-head p,.vim-meta,.vim-credit{font-size:.87rem;line-height:1.55;color:var(--r-muted,#bac0d0)}
+.vim-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:17px 0 8px}
+.vim-provider-tabs{display:flex;gap:5px;padding:5px;border:1px solid var(--r-line,#42495a);border-radius:10px;background:var(--r-soft,#212839)}
+.vim-provider-tabs button,.vim-load{border-radius:8px;padding:9px 13px;min-height:44px;cursor:pointer;font:inherit;font-size:.87rem;font-weight:750}
+.vim-provider-tabs button{background:transparent;color:var(--r-muted,#c8c8dd);border:1px solid transparent}
+.vim-provider-tabs button[aria-pressed="true"]{color:var(--r-text,#fff);background:var(--r-surface,#12182a);border-color:var(--r-pink,#d49dc0)}
+.vim-load{background:var(--r-pink,#de9bbd);color:#15121e;border:0}
+.vim-provider-tabs button:focus-visible,.vim-load:focus-visible,.vim-location button:focus-visible{outline:3px solid var(--r-cyan,#88e8d8);outline-offset:2px}
+.vim-status{font-size:.82rem;line-height:1.45;color:var(--r-muted,#abbac9);min-height:1.5rem;margin:10px 0}
+.vim-frame{position:relative;width:100%;height:clamp(340px,48vw,620px);border-radius:12px;overflow:hidden;background:linear-gradient(115deg,#152334,#2e2550);border:1px solid var(--r-line,#41465c)}
+.vim-placeholder{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#f3eaff;padding:22px}
+.vim-placeholder span{font-size:3.8rem;color:#f5b7d0}
+.vim-placeholder strong{font-size:1.3rem;letter-spacing:.02em}
+.vim-placeholder p{font-size:.86rem;max-width:32ch}
+.vim-iframe{border:0;width:100%;height:100%;display:block;background:#12192a}
+.vim-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0}
+.vim-meta a{font-weight:800;white-space:normal}
+.vim-places{margin-top:12px;border:1px solid var(--r-line,#41465c);border-radius:10px;padding:13px}
+.vim-places summary{font-size:.93rem;font-weight:800;cursor:pointer}
+.vim-places ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:0;margin:14px 0 0;list-style:none}
+.vim-location,.vim-no-point{list-style:none;background:var(--r-soft,#212839);border-radius:9px;min-width:0}
+.vim-location button{display:flex;flex-direction:column;align-items:flex-start;gap:4px;border:1px solid var(--r-line,#41465c);border-radius:9px;padding:11px;width:100%;height:100%;background:transparent;color:var(--r-text,#fff);font:inherit;cursor:pointer;text-align:left}
+.vim-location button:hover{border-color:var(--r-cyan,#8ae7da)}
+.vim-location button strong{font-size:.89rem}
+.vim-location button span{font-size:.79rem;color:var(--r-muted,#c9d1df);line-height:1.35}
+.vim-location button small{font-size:.73rem;line-height:1.35;color:var(--r-cyan,#9bded3)}
+.vim-no-point{padding:12px 14px;font-size:.82rem;line-height:1.45}
+.vim-no-point span{display:block;color:var(--r-muted,#bdc2d2);margin-top:3px}
+.vim-credit{margin:14px 0 0}
+.vim-follow{margin:14px 0 0;font-size:.88rem;font-weight:800}
+@media(max-width:730px){.vim-frame{height:470px}.vim-places ol{grid-template-columns:1fr}}
+@media(max-width:480px){.vim-tools{align-items:stretch}.vim-provider-tabs{width:100%;justify-content:space-between}.vim-provider-tabs button{flex:1}.vim-load{width:100%}.vim-frame{height:390px}.vim-meta{display:grid;gap:5px}}
+@media(prefers-reduced-motion:reduce){.vim-root{scroll-behavior:auto}}
