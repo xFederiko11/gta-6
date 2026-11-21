@@ -1,0 +1,173 @@
+{
+  "schema": "gta6-verified-location-references-v2",
+  "checked": "2026-11-21",
+  "policy": "Location guidance is sourced textual orientation or a named third-party map category. Unless explicitly verified, never present these as exact pins, coordinates, gameplay screenshots, complete spawns or guaranteed rewards. Video references are not screenshots.",
+  "guides": {
+    "soldi-facili-capitolo-1": [
+      {
+        "name": "Three Sheets Liquor",
+        "where": "Key Lento, Leonida Keys",
+        "kind": "map-category",
+        "url": "https://www.gtabase.com/gta-6/map/?feature=liquor-store",
+        "note": "Categoria negozi di liquori: identifica Three Sheets, non gli altri tre punti.",
+        "precision": "category"
+      },
+      {
+        "name": "Manatee Motel",
+        "where": "A sud-ovest di Hamlet, sopra Shoeless Keys",
+        "kind": "source-guide",
+        "url": "https://insider-gaming.com/gta-6-early-game-locations-make-money/",
+        "note": "Posizione descritta nella fonte. Nessun pin interattivo specifico verificato.",
+        "precision": "described"
+      },
+      {
+        "name": "Casa su palafitte",
+        "where": "A nord-est di Corsair Key, da raggiungere in barca",
+        "kind": "source-guide",
+        "url": "https://insider-gaming.com/gta-6-early-game-locations-make-money/",
+        "note": "Fonte descrittiva: non equiparare il luogo a coordinate esatte.",
+        "precision": "described"
+      },
+      {
+        "name": "Magazzino South Vice-Dale",
+        "where": "A nord-est di Hamlet",
+        "kind": "source-guide",
+        "url": "https://insider-gaming.com/gta-6-early-game-locations-make-money/",
+        "note": "Ricerca dell'oggetto di valore secondo la fonte; non è un marker di mappa.",
+        "precision": "described"
+      }
+    ],
+    "soldi-2500-three-sheets-liquor": [
+      {
+        "name": "Three Sheets Liquor",
+        "where": "Key Lento, Leonida Keys",
+        "kind": "map-category",
+        "url": "https://www.gtabase.com/gta-6/map/?feature=liquor-store",
+        "note": "Apri la categoria dei negozi di liquori e identifica Three Sheets; non è un pin univoco dell'oggetto.",
+        "precision": "category"
+      },
+      {
+        "name": "Retro del negozio",
+        "where": "Cortile posteriore, vicino al generatore",
+        "kind": "source-guide",
+        "url": "https://insider-gaming.com/how-to-complete-strange-noises-in-gta-6-shirley-house-liquor-store-location-guide/",
+        "note": "La fonte mostra il contesto del nascondiglio, non garantisce importi identici.",
+        "precision": "described"
+      }
+    ],
+    "registrare-auto-personale": [
+      {
+        "name": "Watkins Auto Parts",
+        "where": "Port Gellhorn, dopo Girl’s Trip nel Capitolo 2",
+        "kind": "map-category",
+        "url": "https://www.gtabase.com/gta-6/map/?feature=vehicle-mod-shop",
+        "note": "Filtro generale officine, cerca Watkins: non confondere con il Pay ’n’ Spray sbloccabile più avanti.",
+        "precision": "category"
+      },
+      {
+        "name": "Garage",
+        "where": "Proprietà e slot della progressione",
+        "kind": "map-category",
+        "url": "https://www.gtabase.com/gta-6/map/?feature=garages",
+        "note": "Il filtro elenca garage acquistabili o di storia; verifica sempre disponibilità e sblocco.",
+        "precision": "category"
+      }
+    ],
+    "scansionare-veicoli": [
+      {
+        "name": "WAiNK",
+        "where": "Vicino ai veicoli che incontri, non uno spawn preciso",
+        "kind": "source-guide",
+        "url": "https://www.powerpyx.com/gta-6-how-to-study-animals-scan-vehicles/",
+        "note": "Procedura per il catalogo, non mappa di un veicolo raro o un luogo garantito.",
+        "precision": "no-fixed-location"
+      }
+    ],
+    "studiare-animali": [
+      {
+        "name": "Animali da studiare",
+        "where": "Ambienti naturali dello Stato di Leonida",
+        "kind": "source-guide",
+        "url": "https://www.powerpyx.com/gta-6-how-to-study-animals-scan-vehicles/",
+        "note": "La guida spiega l'azione da eseguire; non promette spawn o coordinate di specie.",
+        "precision": "no-fixed-location"
+      }
+    ],
+    "70-sfide-100-percento": [
+      {
+        "name": "Menu Sfide",
+        "where": "Progressi nel gioco; singole sfide in luoghi differenti",
+        "kind": "source-guide",
+        "url": "https://www.powerpyx.com/gta-6-all-challenges-guide/",
+        "note": "La guida documenta le categorie; senza una sfida selezionata non esiste un solo pin.",
+        "precision": "no-fixed-location"
+      }
+    ],
+    "meditazione-capitolo-1": [
+      {
+        "name": "Tutti i 10 luoghi delle meditazioni",
+        "where": "Key Lento, Mariana County, Kelly County, Leonard County e Mount Kalaga",
+        "kind": "source-guide",
+        "url": "https://www.powerpyx.com/gta-6-all-meditation-spot-locations/",
+        "note": "La guida esterna contiene le posizioni per luogo; i dieci landmark documentati sono elencati sotto.",
+        "precision": "described"
+      }
+    ],
+    "viaggio-rapido-taxi": [
+      {
+        "name": "Paradise Taxi",
+        "where": "Telefono, contatti e destinazione selezionata dal giocatore",
+        "kind": "source-guide",
+        "url": "https://www.powerpyx.com/gta-6-how-to-fast-travel/",
+        "note": "Servizio attivabile senza uno specifico punto di partenza sulla mappa.",
+        "precision": "no-fixed-location"
+      }
+    ],
+    "poligoni-concentrazione": [
+      {
+        "name": "Griffin Shooting Range",
+        "where": "Impianto con sei percorsi e 18 prove",
+        "kind": "source-guide",
+        "url": "https://www.powerpyx.com/gta-6-all-shooting-range-gold-medal-challenges/",
+        "note": "Il riferimento elenca i percorsi; nessuna coordinata esatta verificata.",
+        "precision": "described"
+      },
+      {
+        "name": "Rodgers Ranch",
+        "where": "Impianto con sei percorsi e 24 prove",
+        "kind": "source-guide",
+        "url": "https://www.powerpyx.com/gta-6-all-shooting-range-gold-medal-challenges/",
+        "note": "La fonte distingue le 24 prove dalla prima struttura.",
+        "precision": "described"
+      }
+    ],
+    "sportive-randy-posizioni": [
+      {
+        "name": "Vice Beach",
+        "where": "Traffico e parcheggi presso gli hotel di Vice City",
+        "kind": "source-guide",
+        "url": "https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/",
+        "note": "Zona di ricerca, non spawn garantito; per la consegna consulta il marker in gioco.",
+        "precision": "described"
+      },
+      {
+        "name": "Ocean Beach",
+        "where": "Traffico e parcheggi presso gli hotel di Vice City",
+        "kind": "source-guide",
+        "url": "https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/",
+        "note": "Zona documentata, non un pin fisso o modello specifico.",
+        "precision": "described"
+      }
+    ],
+    "prima-persona-glitch-ps5": [
+      {
+        "name": "Qualsiasi automobile guidabile",
+        "where": "Free roam single-player, senza luogo obbligatorio",
+        "kind": "source-guide",
+        "url": "https://www.videogameschronicle.com/guide/gta-6-first-person-mode-glitch-grand-theft-auto/",
+        "note": "Nessuna posizione sulla mappa necessaria; la compatibilità trofei rimane incerta.",
+        "precision": "no-fixed-location"
+      }
+    ]
+  }
+}
