@@ -50,8 +50,8 @@ jobs:
         run: python community_social_sync_v1.py
       - name: Validate preserved content and existing SEO contracts
         run: |
-          python -m py_compile interactive_article_maps_v1.py test_interactive_article_maps_v1.py photo_coverage_v5.py test_photo_coverage_v5.py social_cards_v2.py test_social_cards_v2.py collectible_routes_v4.py photo_intake_v4.py test_photo_routes_v4.py advanced_platinum_v3.py photo_provenance_v3.py test_advanced_platinum_v3.py platinum_atlas_v2.py guide_location_atlas_v2.py test_group12_atlas_v2.py platinum_roadmap_v1.py guide_step_references_v1.py test_group3_roadmap_step_refs_v1.py photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py
-          python -m unittest -q test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_meditation_tracker_v1.py test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
+          python -m py_compile interactive_article_maps_v1.py test_interactive_article_maps_v1.py test_curated_map_permalinks_v1.py photo_coverage_v5.py test_photo_coverage_v5.py social_cards_v2.py test_social_cards_v2.py collectible_routes_v4.py photo_intake_v4.py test_photo_routes_v4.py advanced_platinum_v3.py photo_provenance_v3.py test_advanced_platinum_v3.py platinum_atlas_v2.py guide_location_atlas_v2.py test_group12_atlas_v2.py platinum_roadmap_v1.py guide_step_references_v1.py test_group3_roadmap_step_refs_v1.py photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py
+          python -m unittest -q test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_meditation_tracker_v1.py test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
           node --check site/assets/interactive-map-v1.js
           node --check site/assets/photo-coverage-v5.js
           node --check site/assets/photo-intake-v4.js
@@ -84,7 +84,7 @@ jobs:
       - name: Audit actual local media and five-image guide target
         run: python media_quality_v1.py
       - name: Validate actual production pages, media and canonical continuity
-        run: python -m unittest -q test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py
+        run: python -m unittest -q test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py
       - name: Audit static Google discovery links (no network or tracking)
         run: |
           python -m unittest -q test_internal_link_graph_v1.py
@@ -196,6 +196,8 @@ jobs:
                           assert 'data-vim-load' in text and 'data-vim-provider="vice"' in text
                           assert '<iframe src=' not in text
                       if path == 'mappe-guide/':
+                          assert text.count('data-vim-curated-link') == 4
+                          assert 'https://gtamap.io/?m=permit-keys' in text
                           assert text.count('data-location-guide=') == 11
                           assert '/gta-6/screenshot-ps5/' in text
                       if path == 'trofei/100-percento/':
@@ -213,6 +215,9 @@ jobs:
                           assert text.count('data-photo-source-lead=') == 8
                           assert 'non documentato' in text
                       if path == 'collezionabili/percorsi/':
+                          assert text.count('data-cr-curated-link') == 9
+                          assert 'https://gtamap.io/?m=jasons-safehouse' in text
+                          assert 'https://gtamap.io/gta-6-map/starlet-motel/' in text
                           assert text.count('data-cr-step=') == 123
                           assert text.count('data-cr-region=') == 7
                           assert 'data-cr-done' in text and 'Vicki' in text and 'Victor Maravilla' in text
@@ -256,6 +261,8 @@ jobs:
               ('assets/interactive-map-v1.js','game-map-load-intent'),
               ('assets/interactive-map-v1.css','.vim-root'),
               ('map-rollout-v1.json','"pages_with_interactive_map": 68'),
+              ('map-rollout-v1.json','"external_map_references_reviewed": 4'),
+              ('map-rollout-v1.json','"individual_collectible_pins_verified": 0'),
               ('photo-provenance-review.json','"new_images_rehosted": 0'),
               ('sitemap.xml','trofei/roadmap-platino/'),
               ('sitemap.xml','mappe-guide/'),
