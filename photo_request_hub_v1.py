@@ -21,7 +21,7 @@ PRIORITY = (
 )
 
 
-def screenshot_count(guide, media, extras, get_local):
+def screenshot_count(guide, media, extras, get_local, approved=()):
     """Count only distinct real gameplay screenshots in steps or gallery.
 
     The final Reader pipeline moves some in-step figures into a front gallery;
@@ -32,8 +32,10 @@ def screenshot_count(guide, media, extras, get_local):
     gallery = extras.get(path, {}).get("gallery", [])
     keys = set(guide.get("step_media", {}).values())
     keys.update(x["key"] for x in gallery)
-    return sum(bool(media.get(key, {}).get("kind") == "screenshot" and get_local(key))
-               for key in keys)
+    original=sum(bool(media.get(key, {}).get("kind") == "screenshot" and get_local(key))
+                 for key in keys)
+    approved_unique={record["role"] for record in approved if record["guide_id"]==guide["id"]}
+    return original+len(approved_unique)
 
 
 def x_photo_intent(role, guide_url):
@@ -48,7 +50,7 @@ def x_photo_intent(role, guide_url):
     return "https://x.com/intent/tweet?" + urlencode({"text": message})
 
 
-def render(guides, requests, media, extras, get_local):
+def render(guides, requests, media, extras, get_local, approved=()):
     """Return valid static HTML and a factual public audit JSON snapshot."""
     if len(guides) < 11:
         raise ValueError("Guide catalog is incomplete")
@@ -69,7 +71,7 @@ def render(guides, requests, media, extras, get_local):
         tasks = requests[ident]
         if not isinstance(tasks,list) or len(tasks)!=TARGET:
             raise ValueError("Exactly five source requests required per guide")
-        n=screenshot_count(g,media,extras,get_local)
+        n=screenshot_count(g,media,extras,get_local,approved)
         if n < 0:
             raise ValueError("Bad photo count")
         canonical=BASE+path
