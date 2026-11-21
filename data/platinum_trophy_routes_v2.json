@@ -1,0 +1,371 @@
+{
+  "schema": "gta6-55-route-playbook-v2",
+  "reviewed": "2026-11-21",
+  "source": "https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/",
+  "editorial_policy": "Each numbered tactic derives from the trophy catalog and cited guides, not personal gameplay. Unknown secret trophy solutions are labeled uncertain. No exploit is certified trophy-safe. No PSN data or sync.",
+  "groups": {
+    "inizio": "Priorità inizio partita",
+    "storia": "Storia e filoni narrativi",
+    "cento": "Checklist 100%",
+    "attivita": "Gare, sfide e attività",
+    "collezionabili": "Esplorazione e raccolta",
+    "crimine": "Rapine e inseguimenti",
+    "economia": "Denaro e proprietà",
+    "segreti": "Trofei nascosti e da verificare",
+    "finale": "Platino finale"
+  },
+  "records": [
+    {
+      "number": 1,
+      "group": "finale",
+      "action": "Controlla che tutti gli altri 54 trofei risultino ottenuti nel menu PS5.",
+      "check": "Verifica il Platino soltanto dopo gli altri obiettivi."
+    },
+    {
+      "number": 2,
+      "group": "storia",
+      "action": "Prosegui fino alla missione «Chi dorme…» e completala.",
+      "check": "Confronta il risultato con il trofeo nel menu PS5."
+    },
+    {
+      "number": 3,
+      "group": "storia",
+      "action": "Prima di terminare il Capitolo 1, completa la meditazione a casa di Jason, poi continua la storia.",
+      "check": "Conferma la meditazione nel contatore prima del cambio capitolo.",
+      "warning": "La sessione iniziale potrebbe essere mancabile per un trofeo successivo."
+    },
+    {
+      "number": 4,
+      "group": "storia",
+      "action": "Completa il Capitolo 2; porta avanti le attività già accessibili mentre esplori.",
+      "check": "Controlla lo sblocco del trofeo al termine del capitolo."
+    },
+    {
+      "number": 5,
+      "group": "storia",
+      "action": "Completa il Capitolo 3 senza confondere i collezionabili con le missioni obbligatorie.",
+      "check": "Verifica lo sblocco nel menu trofei."
+    },
+    {
+      "number": 6,
+      "group": "storia",
+      "action": "Completa il Capitolo 4 e conserva un salvataggio manuale separato.",
+      "check": "Controlla lo sblocco nel menu trofei."
+    },
+    {
+      "number": 7,
+      "group": "storia",
+      "action": "Completa la missione finale della trama; poi passa alla checklist 100%.",
+      "check": "Verifica il trofeo Oro e l'accesso al free roam."
+    },
+    {
+      "number": 8,
+      "group": "storia",
+      "action": "Completa «Colazione on the road» quando disponibile nella trama.",
+      "check": "Confronta il titolo della missione nel diario e lo sblocco PS5."
+    },
+    {
+      "number": 9,
+      "group": "storia",
+      "action": "Completa il colpo del cartello previsto dalla storia.",
+      "check": "Controlla che la conclusione sia stata registrata."
+    },
+    {
+      "number": 10,
+      "group": "storia",
+      "action": "Porta a termine la missione «Un gioco da ragazzi».",
+      "check": "Verifica il trofeo senza presumere che altre attività lo sostituiscano."
+    },
+    {
+      "number": 11,
+      "group": "storia",
+      "action": "Completa la missione «Le star».",
+      "check": "Controlla il trofeo nel menu PS5 dopo la missione."
+    },
+    {
+      "number": 12,
+      "group": "storia",
+      "action": "Porta a termine «Ultima chiamata al VCIA».",
+      "check": "Controlla la conclusione della missione e il trofeo."
+    },
+    {
+      "number": 13,
+      "group": "storia",
+      "action": "Completa «Operazione Savage Glory».",
+      "check": "Confronta il trofeo con la schermata PS5."
+    },
+    {
+      "number": 14,
+      "group": "cento",
+      "action": "Completa la storia e poi segui la checklist 100%; non tentare ogni attività opzionale indistintamente.",
+      "check": "Verifica il 100% in Progressi, poi lo sblocco del trofeo Oro.",
+      "warning": "Per il 100% le 70 sfide possono sostituire le 80 totali.",
+      "guide": "guide-e-tutorial/70-sfide-100-percento/"
+    },
+    {
+      "number": 15,
+      "group": "cento",
+      "action": "Accumula 250 acrobazie mentre esplori; se punti al 100%, prosegui fino alle 300 richieste.",
+      "check": "Controlla il contatore acrobazie nel menu Progressi."
+    },
+    {
+      "number": 16,
+      "group": "attivita",
+      "action": "Prova una volta ciascuna delle nove categorie di attività indicate dalla guida.",
+      "check": "Segna le categorie già provate; non confondere una gara con tutte le attività."
+    },
+    {
+      "number": 17,
+      "group": "attivita",
+      "action": "Completa le 42 medaglie Oro dei 12 percorsi distribuiti tra due impianti di tiro.",
+      "check": "Verifica 42/42 nella checklist e il trofeo individuale.",
+      "warning": "Le medaglie dei poligoni non sono medaglie Oro delle missioni.",
+      "guide": "trofei/medaglie-oro/"
+    },
+    {
+      "number": 18,
+      "group": "attivita",
+      "action": "Vinci una gara di droni Top Fun in ogni località prevista dal trofeo.",
+      "check": "Tieni un elenco delle località concluse; una sola gara non basta."
+    },
+    {
+      "number": 19,
+      "group": "attivita",
+      "action": "Vinci 20 gare differenti, non ripetere venti volte la stessa prova.",
+      "check": "Confronta i nomi delle gare vinte con il contatore."
+    },
+    {
+      "number": 20,
+      "group": "attivita",
+      "action": "Sfida Cal a pesca quando la serie di attività è disponibile.",
+      "check": "Verifica di averlo battuto, non soltanto di aver pescato."
+    },
+    {
+      "number": 21,
+      "group": "attivita",
+      "action": "Completa un gioco arcade secondo l'obiettivo del gioco.",
+      "check": "Controlla lo sblocco, non presumere che basti avviare la macchina."
+    },
+    {
+      "number": 22,
+      "group": "storia",
+      "action": "Segui la serie di incarichi di Andy fino alla missione conclusiva.",
+      "check": "Controlla che la serie sia terminata prima di segnare il trofeo."
+    },
+    {
+      "number": 23,
+      "group": "storia",
+      "action": "Completa la serie finale delle missioni assegnate da Kenton.",
+      "check": "Confronta il progresso delle missioni con il trofeo PS5."
+    },
+    {
+      "number": 24,
+      "group": "storia",
+      "action": "Porta a termine l'intera serie di missioni di Billy.",
+      "check": "Verifica il trofeo soltanto al termine della serie."
+    },
+    {
+      "number": 25,
+      "group": "attivita",
+      "action": "Completa gli otto filoni di incarichi degli sconosciuti richiesti dal tracker.",
+      "check": "Confronta i filoni riconosciuti, non tutte le missioni opzionali."
+    },
+    {
+      "number": 26,
+      "group": "storia",
+      "action": "Porta avanti la lista di Randy fino alla sua missione conclusiva.",
+      "check": "Conferma che si tratti del finale della serie, non di una consegna intermedia."
+    },
+    {
+      "number": 27,
+      "group": "storia",
+      "action": "Concludi l'ultima missione di Tyrone.",
+      "check": "Controlla lo sblocco dopo la fine della serie."
+    },
+    {
+      "number": 28,
+      "group": "inizio",
+      "action": "Completa la meditazione del Capitolo 1 e successivamente tutte le località di Leonida.",
+      "check": "Verifica le 18 sessioni/10 località con la checklist e il trofeo.",
+      "warning": "La necessità della prima sessione per il trofeo non è confermata: per prudenza non saltarla.",
+      "guide": "guide-e-tutorial/meditazione-capitolo-1/"
+    },
+    {
+      "number": 29,
+      "group": "attivita",
+      "action": "Rintraccia e caccia un animale unico per Bret nell'attività associata.",
+      "check": "Controlla che la preda sia quella richiesta, non una specie comune."
+    },
+    {
+      "number": 30,
+      "group": "collezionabili",
+      "action": "Completa tre serie di carte collezionabili, con controllo distinto per ciascuna.",
+      "check": "Verifica tutte e tre le serie nel relativo menu."
+    },
+    {
+      "number": 31,
+      "group": "collezionabili",
+      "action": "Usa WAiNK in 100 luoghi diversi e registra le scansioni richieste.",
+      "check": "Controlla il contatore dei luoghi, distinto dai 100 veicoli.",
+      "warning": "Le scansioni di luoghi e il catalogo veicoli sono contatori diversi.",
+      "guide": "guide-e-tutorial/scansionare-veicoli/"
+    },
+    {
+      "number": 32,
+      "group": "cento",
+      "action": "Completa 50 sfide; per il 100% continua fino a 70 delle 80 disponibili.",
+      "check": "Controlla 50/50 per il trofeo e poi 70/80 per il completamento.",
+      "warning": "Non fermarti a 50 se vuoi anche il 100%.",
+      "guide": "guide-e-tutorial/70-sfide-100-percento/"
+    },
+    {
+      "number": 33,
+      "group": "crimine",
+      "action": "Con il partner presente, supera un livello di sospetto di quattro stelle e semina la polizia.",
+      "check": "Controlla le quattro stelle prima della fuga e lo sblocco a fine inseguimento."
+    },
+    {
+      "number": 34,
+      "group": "crimine",
+      "action": "Con il partner rapina tre negozi consecutivi mantenendo attivo il livello di sospetto.",
+      "check": "Controlla la continuità fra le tre rapine, senza resettare il sospetto."
+    },
+    {
+      "number": 35,
+      "group": "collezionabili",
+      "action": "Scopri 100 veicoli con gli strumenti disponibili; per il 100% punta ai 200 modelli base.",
+      "check": "Controlla il catalogo dei veicoli, non i posti nel garage.",
+      "warning": "La registrazione personale e la scoperta nel catalogo sono attività distinte.",
+      "guide": "guide-e-tutorial/scansionare-veicoli/"
+    },
+    {
+      "number": 36,
+      "group": "crimine",
+      "action": "Elimina cinque avversari in una sola attivazione di concentrazione in combattimento.",
+      "check": "Controlla che le cinque eliminazioni appartengano allo stesso utilizzo."
+    },
+    {
+      "number": 37,
+      "group": "segreti",
+      "action": "Esegui la partenza non programmata dall'aeroporto VCIA richiesta dal trofeo nascosto.",
+      "check": "Confronta la condizione esatta nel gioco o nella guida prima di tentare."
+    },
+    {
+      "number": 38,
+      "group": "segreti",
+      "action": "Consulta i riscontri aggiornati sul Rhino e sul requisito preciso prima di provare.",
+      "check": "Il testo pubblico non è sufficiente per certificare una procedura.",
+      "warning": "Soluzione esatta non sufficientemente documentata."
+    },
+    {
+      "number": 39,
+      "group": "crimine",
+      "action": "Svaligia una gioielleria senza essere individuato durante l'azione.",
+      "check": "Controlla che il gioco registri un esito furtivo."
+    },
+    {
+      "number": 40,
+      "group": "crimine",
+      "action": "Completa rapina e fuga nei caveau di cinque banche diverse; per il 100% verifica tutte le otto grandi rapine.",
+      "check": "Controlla cinque completamenti effettivi, non soltanto l'ingresso nei caveau.",
+      "warning": "Per il 100% la guida ne indica otto."
+    },
+    {
+      "number": 41,
+      "group": "crimine",
+      "action": "Rapina un furgone blindato e termina la fuga dalla polizia.",
+      "check": "Verifica il completamento dell'intera sequenza."
+    },
+    {
+      "number": 42,
+      "group": "collezionabili",
+      "action": "Esplora lo Stato di Leonida e controlla le zone ancora sconosciute.",
+      "check": "Usa la schermata di esplorazione, non soltanto la mappa visibile."
+    },
+    {
+      "number": 43,
+      "group": "crimine",
+      "action": "Colpisci un'operazione criminale per ogni banda richiesta dal gioco.",
+      "check": "Segna le bande distinte; ripetere la stessa operazione non prova il requisito."
+    },
+    {
+      "number": 44,
+      "group": "segreti",
+      "action": "Segui l'indizio del cocktail con vista su Ocean Beach senza presumere un punto preciso.",
+      "check": "Verifica l'evento e lo sblocco; evita luoghi inventati."
+    },
+    {
+      "number": 45,
+      "group": "segreti",
+      "action": "Completa la sequenza di fuga dall'autosalone prevista dal trofeo nascosto.",
+      "check": "Verifica l'esito della sequenza; non confonderla con un normale furto."
+    },
+    {
+      "number": 46,
+      "group": "segreti",
+      "action": "Raggiungi il fondo della sala da bowling dei Kolt e soci nel contesto richiesto.",
+      "check": "Confronta il risultato del gioco con il trofeo."
+    },
+    {
+      "number": 47,
+      "group": "segreti",
+      "action": "Prima di tentare, consulta una soluzione documentata per la collaborazione speciale.",
+      "check": "Nessuna sequenza precisa è verificata nel catalogo attuale.",
+      "warning": "Procedura esatta ancora incerta."
+    },
+    {
+      "number": 48,
+      "group": "segreti",
+      "action": "Avanza nelle azioni registrate nel profilo criminale e consulta il contatore quando disponibile.",
+      "check": "La fonte collega il progresso a 500 azioni, ma verifica il criterio effettivo."
+    },
+    {
+      "number": 49,
+      "group": "segreti",
+      "action": "Non impegnare progressi irreversibili senza aver verificato la condizione «seconda volta».",
+      "check": "La condizione completa non è chiarita dalle fonti disponibili.",
+      "warning": "Procedura non ancora verificata."
+    },
+    {
+      "number": 50,
+      "group": "segreti",
+      "action": "Verifica la condizione dell'evento segreto prima di eseguire azioni non reversibili.",
+      "check": "Requisito dettagliato ancora in attesa di conferme.",
+      "warning": "Evento e procedura esatta non verificati."
+    },
+    {
+      "number": 51,
+      "group": "crimine",
+      "action": "Esegui l'attacco corpo a corpo da un veicolo nel contesto richiesto.",
+      "check": "Controlla lo sblocco dopo l'attacco, non l'animazione soltanto."
+    },
+    {
+      "number": 52,
+      "group": "economia",
+      "action": "Ricicla cumulativamente 250.000 GTA$ di denaro segnato attraverso i contatti disponibili.",
+      "check": "Verifica il totale cumulativo; non serve una singola consegna."
+    },
+    {
+      "number": 53,
+      "group": "economia",
+      "action": "Spendi complessivamente 100.000 GTA$ nei negozi senza perdere il conto degli acquisti.",
+      "check": "Controlla la progressione degli acquisti registrati."
+    },
+    {
+      "number": 54,
+      "group": "economia",
+      "action": "Acquista gli otto garage indicati dalla guida; non confonderli con quelli ottenuti nella trama.",
+      "check": "Verifica ogni acquisto e il trofeo.",
+      "warning": "Le proprietà della trama non sostituiscono automaticamente gli acquisti.",
+      "guide": "salvare-auto/"
+    },
+    {
+      "number": 55,
+      "group": "economia",
+      "action": "Registra dieci veicoli secondo la funzione richiesta da Scooter Bros, controllando gli slot.",
+      "check": "Verifica il contatore delle registrazioni personali dopo ogni auto.",
+      "warning": "Parcheggiare un'auto non equivale a registrarla.",
+      "guide": "salvare-auto/"
+    }
+  ]
+}
