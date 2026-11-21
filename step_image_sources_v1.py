@@ -18,6 +18,8 @@ ALLOWED={
     'www.gta6data.com',
     'insider-gaming.com',
     'www.insider-gaming.com',
+    'www.pushsquare.com',
+    'pushsquare.com',
 }
 SCHEMA='gta6-step-image-sources-v1'
 
@@ -48,7 +50,8 @@ def validate(data, guides):
             link=urlsplit(item['source'])
             if (link.scheme!='https' or link.hostname not in ALLOWED
                 or link.username or link.password or link.port
-                or not link.path.endswith('/') or link.query or link.fragment):
+                or not re.fullmatch(r'/(?:[a-z0-9-]+/)*[a-z0-9-]+/?',link.path)
+                or link.query or link.fragment):
                 raise ValueError('Untrusted source image link')
             for key in ('label','section','scope'):
                 value=item[key]
