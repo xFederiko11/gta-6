@@ -1,7 +1,7 @@
 {
   "schema": "gta6-verified-external-map-references-v1",
   "reviewed_on": "2026-11-21",
-  "policy": "Verified URLs are links to community map pins/regions or specific location pages. No game-coordinate accuracy or collectible-specific marker is implied. Named locations can be linked as building/region context only. No coordinates invented.",
+  "policy": "Verified URLs are links to community map pins/regions or specific location pages. No game-coordinate accuracy or collectible-specific marker is implied. Named locations can be linked as building/region context only. No coordinates invented. Three additional references are two geographic area links (Hamlet and Belpoint) and one Port Gellhorn town/garage information page. These do NOT identify the specific motel, Kenton dive or Mitchel garage marker. All matches are editorial context only.",
   "items": [
     {
       "id": "jasons-safehouse",
@@ -72,6 +72,51 @@
       "trophy_numbers": [],
       "checkpoint_ids": [],
       "label": "Scheda della zona Key Lento (NON il negozio esatto)",
+      "in_game_coordinate_verified": false
+    },
+    {
+      "id": "hamlet-area",
+      "url": "https://gtamap.io/?m=hamlet",
+      "source_page": "https://gtamap.io/gta-6-map/hamlet/",
+      "kind": "community-region-permalink",
+      "place": "Hamlet",
+      "scope": "town-area",
+      "guide_ids": [
+        "soldi-facili-capitolo-1"
+      ],
+      "trophy_numbers": [],
+      "checkpoint_ids": [],
+      "label": "Area Hamlet sulla mappa (NON Manatee Motel, palafitte o magazzino esatti)",
+      "in_game_coordinate_verified": false
+    },
+    {
+      "id": "belpoint-area",
+      "url": "https://gtamap.io/?m=belpoint",
+      "source_page": "https://gtamap.io/?m=belpoint",
+      "kind": "community-region-permalink",
+      "place": "Belpoint",
+      "scope": "coastal-area",
+      "guide_ids": [],
+      "trophy_numbers": [],
+      "checkpoint_ids": [
+        "pt-122"
+      ],
+      "label": "Area Belpoint (NON il punto d'immersione dei tesori Kenton)",
+      "in_game_coordinate_verified": false
+    },
+    {
+      "id": "port-gellhorn-garages",
+      "url": "https://gtamap.io/gta-6-map/port-gellhorn/",
+      "source_page": "https://gtamap.io/gta-6-map/port-gellhorn/",
+      "kind": "location-detail-permalink",
+      "place": "Port Gellhorn / Mitchel Auto Center area",
+      "scope": "town-information",
+      "guide_ids": [
+        "registrare-auto-personale"
+      ],
+      "trophy_numbers": [],
+      "checkpoint_ids": [],
+      "label": "Scheda Port Gellhorn: cita Mitchel Auto Center e Watkins (NON pin esatto del garage)",
       "in_game_coordinate_verified": false
     }
   ]
