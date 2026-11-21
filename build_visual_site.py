@@ -454,11 +454,101 @@ def guide_seo_title(name):
 
 
 def guide(g,guides):
+    """Reader-first walkthrough: tutorial immediately after title and safeguards.
+
+    All optional photos, maps, external media, editorial context and source
+    details live *after* the action steps, in a closed native details panel.
+    Never hide trophy-breaking prerequisites or invent gameplay evidence.
+    """
     path=g['canonical_path']
     title=g['safe_title']
+    count=len(g['steps'])
     body=legacy.crumbs([('Guide','guide-e-tutorial/'),(title,path)])
-    body+='<section class="v-intro"><div>'+f'<span class="v-tag">{e(g["tag"])} · PS5</span><h1>{e(title)}</h1><p>{e(g["summary"])}</p><div class="v-read-meta"><span>{len(g["steps"])} passaggi</span><span>~{reading_time(g)} min di lettura</span><span>Fonti in fondo</span></div><a class="v-button" href="#procedura">Vai ai passaggi ↓</a></div><figure>'+image(g['hero_media'],eager=True)+f'<figcaption class="v-caption">{e(MEDIA[g["hero_media"]]["caption"])}</figcaption></figure></section>'
-    body+='<div class="v-guide-layout"><article class="v-guide-main">'
+    body+=('<section class="v-intro v-guide-intro" aria-label="Introduzione alla guida">'
+           '<span class="v-tag">'+e(g['tag'])+' · PS5 / PS5 Pro</span>'
+           '<h1>'+e(title)+'</h1>'
+           '<p>'+e(g['summary'])+'</p>'
+           '<span class="v-guide-step-count">'+str(count)+' passaggi pratici</span>'
+           '</section>')
+    body+='<div class="v-guide-layout v-guide-single"><article class="v-guide-main">'
+    body+=('<div class="v-guide-quickstart" aria-label="Requisiti della procedura">'
+           '<p><strong>Serve:</strong> '+e(g["requirements"])+'</p>'
+           '<p><strong>Dove:</strong> '+e(g["location"])+'</p>'
+           '</div>')
+    # Critical trophy/save warnings must remain visible BEFORE the first step.
+    if g['id'] in {'soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor'}:
+        body+=('<p class="v-guide-urgent" role="note"><strong>⚠️ Non perdere i soldi:</strong> '
+               'il denaro del Capitolo 1 può andare perso avanzando nella storia. '
+               'Prima di accumularlo, crea un salvataggio manuale separato e leggi '
+               'le precauzioni sotto il tutorial.</p>')
+    if g['id']=='prima-persona-glitch-ps5':
+        body+=('<p class="v-guide-urgent" role="note"><strong>🏆 Trofei non verificati.</strong> '
+               'Non usare il salvataggio principale del platino: crea prima '
+               'un salvataggio di prova separato.</p>')
+    if g['id']=='meditazione-capitolo-1':
+        body+=('<p class="v-guide-urgent" role="note"><strong>🏆 Prima meditazione mancabile:</strong> '
+               'completala durante il Capitolo 1, prima di proseguire nella storia.</p>')
+    controls={
+        'registrare-auto-personale':'↑ croce direzionale · R1 · △ (Triangolo) · levetta destra',
+        'prima-persona-glitch-ps5':'OPTIONS · ↑ croce direzionale · ○ (Cerchio) · touchpad',
+        'scansionare-veicoli':'↑ croce direzionale · WAiNK (segui i comandi a schermo)',
+        'viaggio-rapido-taxi':'Telefono → Contatti → Paradise Taxi'
+    }
+    if g['id'] in controls:
+        body+='<p class="v-guide-controls"><strong>Comandi PS5:</strong> '+e(controls[g['id']])+'</p>'
+    body+=('<section id="procedura" class="v-tutorial" aria-labelledby="titolo-procedura">'
+           '<header class="v-tutorial-head">'
+           '<span class="v-tutorial-start-here">▶ INIZIA QUI</span>'
+           '<h2 id="titolo-procedura">TUTORIAL PASSO PASSO</h2>'
+           '<p>Segui un passaggio alla volta. Le schermate vere sono accanto alle azioni.</p>'
+           '</header>')
+    if g['spoiler']:
+        body+=('<p class="v-spoiler-warning" role="note">'
+               '<strong>⚠️ Spoiler:</strong> i prossimi passaggi mostrano missioni, luoghi o ricompense.'
+               '</p>')
+    body+='<ol class="v-steps">'
+    used=[]
+    for n,raw in enumerate(g['steps']):
+        text=re.sub(r'^SPOILER(?: LUOGHI)?:\s*','',raw)
+        heading=g['step_headings'][n] if n<len(g['step_headings']) else 'Segui il passaggio'
+        body+=(
+            f'<li class="v-step" id="passaggio-{n+1}">'
+            '<div class="v-step-head">'
+            f'<span class="v-step-n" aria-hidden="true">{n+1:02d}</span>'
+            '<div>'
+            f'<span class="v-step-kicker">PASSO {n+1} DI {count}</span>'
+            f'<h3>{e(heading)}</h3><p>{e(text)}</p>'
+            '</div></div>')
+        key=g['step_media'].get(n)
+        if key:
+            body+=figure(key); used.append(key)
+        if not key or key not in MEDIA or MEDIA[key]['kind']!='screenshot' or not media_src(key):
+            body+=('<p class="v-step-photo-gap" data-step-photo-status="missing">'
+                   'Screenshot del passaggio non ancora disponibile. '
+                   '<a href="#contributi-foto">Contribuisci con una foto ↓</a></p>')
+        evidence=render_step_evidence(g,n,STEP_EVIDENCE,VISUAL_EVIDENCE)
+        if evidence:
+            body+=('<details class="v-step-evidence">'
+                   '<summary>Mappa o video di questo passaggio (facoltativo)</summary>'
+                   +evidence+'</details>')
+        checks=g.get('checks',[])
+        if n<len(checks):
+            body+=f'<p class="v-check"><strong>✓ Controllo:</strong> {e(checks[n])}</p>'
+        body+='</li>'
+    body+='</ol>'
+    if not g['step_media']:
+        body+=('<p class="v-no-image">Gli screenshot dei passaggi non sono ancora disponibili. '
+               f'<a href="{e(g["source_url"])}" target="_blank" rel="noopener noreferrer">'
+               'Vedi la guida originale ↗</a></p>')
+    body+='</section>'
+    if g['id']=='meditazione-capitolo-1':
+        body+=render_meditation_tracker()
+    # Readers can stop here: reference material is genuinely optional.
+    body+=('<details class="v-guide-more" id="approfondimenti">'
+           '<summary><span><strong>Approfondimenti e materiali extra</strong>'
+           '<small>Mappe, video, avvisi completi, consigli e fonti</small></span>'
+           '<span class="v-more-chevron" aria-hidden="true">⌄</span></summary>'
+           '<div class="v-guide-more-content">')
     if g['id'] in {'soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor'}:
         body+=('<aside class="v-missable-notice" role="note"><strong>🏆 Attività mancabili, ma non richieste per il platino.</strong>'
                '<p>Gli incarichi Get Shirley’s Rum e Steal the Scooter sono esclusivi del Capitolo 1. '
@@ -501,23 +591,8 @@ def guide(g,guides):
                'target="_blank" rel="noopener noreferrer">Verifica indipendente PC Gamer ↗</a> '
                '· <a href="https://www.reddit.com/r/GTA6/comments/1y15kfv/" target="_blank" '
                'rel="noopener noreferrer">Segnalazione Reddit del 20 novembre ↗</a></p></aside>')
-    benefit=g.get('benefit','')
-    body+=f'<div class="v-answer"><strong>La cosa da sapere</strong><p>{e(benefit)}</p></div><div class="v-facts"><div class="v-fact"><strong>Prima di iniziare</strong><p>{e(g["requirements"])}</p></div><div class="v-fact"><strong>Dove andare</strong><p>{e(g["location"])}</p></div></div>'
-    controls={
-        'registrare-auto-personale':'↑ croce direzionale · R1 · △ (Triangolo) · levetta destra',
-        'prima-persona-glitch-ps5':'OPTIONS · ↑ croce direzionale · ○ (Cerchio) · touchpad',
-        'scansionare-veicoli':'↑ croce direzionale · WAiNK (verifica i comandi a schermo)',
-        'viaggio-rapido-taxi':'Telefono → Contatti → Paradise Taxi'
-    }
-    controls_html=('<p><strong>Comandi PS5:</strong> '+e(controls[g['id']])+'</p>') if g['id'] in controls else ''
-    body+=('<section class="v-tutorial-start" aria-label="Come seguire questo tutorial">'
-           '<h2>Prima di muoverti</h2>'
-           '<p><strong>Obiettivo:</strong> '+e(g['summary'])+'</p>'
-           +controls_html+
-           '<p><strong>Come procedere:</strong> segui i numeri in ordine, guarda la schermata quando presente '
-           'e, quando disponibile, usa la riga «Controllo» prima di proseguire. '
-           'Le immagini di atmosfera non sostituiscono quelle di gameplay.</p>'
-           '</section>')
+    if g.get('benefit'):
+        body+='<p class="v-guide-extra-note"><strong>Da sapere:</strong> '+e(g['benefit'])+'</p>'
     body+=walkthrough_visuals(g)
     body+=render_guide_locations(g,LOCATION_REFS,MEDITATION_PLACES)
     interactive=render_interactive_map(g['safe_title'],
@@ -528,49 +603,19 @@ def guide(g,guides):
         interactive=('<details class="v-map-spoiler"><summary>Mostra la mappa interattiva '
                      'e i luoghi di questa guida (spoiler)</summary>'+interactive+'</details>')
     body+=interactive
-    body+='<section id="procedura">'+section_head('UNA COSA ALLA VOLTA','Il percorso, passo per passo')
-    if g['spoiler']:
-        body+='<div class="v-spoiler-warning" role="note"><strong>⚠️ Questa guida contiene spoiler.</strong> Continuando leggerai luoghi, obiettivi e ricompense.</div>'
-        body+=f'<div class="v-fact"><strong>Riferimenti e bottino</strong><p>{e(g.get("benefit",""))}</p></div>'
-    body+='<ol class="v-steps">'
-    used=[g['hero_media']]
-    for n,raw in enumerate(g['steps']):
-        text=re.sub(r'^SPOILER(?: LUOGHI)?:\s*','',raw)
-        heading=g['step_headings'][n] if n<len(g['step_headings']) else 'Segui il passaggio'
-        body+=f'<li class="v-step" id="passaggio-{n+1}"><div class="v-step-head"><span class="v-step-n" aria-hidden="true">{n+1:02d}</span><div><h3>{e(heading)}</h3><p>{e(text)}</p></div></div>'
-        key=g['step_media'].get(n)
-        if key:
-            body+=figure(key); used.append(key)
-        if not key or key not in MEDIA or MEDIA[key]['kind']!='screenshot' or not media_src(key):
-            body+=('<p class="v-step-photo-gap" data-step-photo-status="missing">'
-                   '📸 Screenshot del passaggio non ancora disponibile. '
-                   '<a href="#contributi-foto">Vedi le richieste foto ↓</a></p>')
-        body+=render_step_evidence(g,n,STEP_EVIDENCE,VISUAL_EVIDENCE)
-        checks=g.get('checks',[])
-        if n<len(checks):
-            body+=f'<p class="v-check"><strong>✓ Controllo prima di proseguire:</strong> {e(checks[n])}</p>'
-        body+='</li>'
-    body+='</ol>'
-    if not g['step_media']:
-        body+='<p class="v-no-image">Le schermate dei passaggi non sono ancora disponibili. '
-        body+=f'<a href="{e(g["source_url"])}" target="_blank" rel="noopener noreferrer">Apri la fonte originale ↗</a></p>'
-    body+='</section>'
-    if g['id']=='meditazione-capitolo-1':
-        body+=render_meditation_tracker()
     body+=f'<aside class="v-notice"><strong>Prima di continuare</strong>{e(g.get("caution","Controlla il progresso in gioco."))}</aside>'
     if g['id']=='poligoni-concentrazione':
         body+=f'<p><a class="v-button secondary" href="{url("trofei/trofeo-17-cecchino/")}">Apri la checklist delle medaglie →</a></p>'
     body+=visual_contribution(g)
     body+=render_approved_for_guide(g,APPROVED_PHOTOS)
-    meditation_anchor='<a href="#meditazioni-checklist">Checklist 18 meditazioni</a>' if g['id']=='meditazione-capitolo-1' else ''
-    body+=sources(g,used)+'</article><aside class="v-guide-aside"><h2>In questa guida</h2><a href="#procedura">Il percorso passo per passo</a>'+meditation_anchor+'<a href="#luoghi-mappe">Luoghi e mappe</a><a href="#fonti">Fonti e immagini</a>'+f'<a href="{url("soldi-facili/")}">Altri modi per fare soldi</a><a href="{url("auto-speciali/")}">Auto e garage</a><a href="{url("trofei/")}">Percorso platino</a></aside></div>'
-    related=[x for x in guides if x['id']!=g['id'] and (x['category']==g['category'] or x['category'] in ('garage','soldi'))][:3]
-    body+='<section class="v-section">'+section_head('IL PROSSIMO PASSO','Potrebbero servirti anche')+'<div class="v-grid">'+''.join(card(x) for x in related)+'</div></section>'
+    body+=sources(g,used)
+    body+='</div></details></article></div>'
+    body+=f'<p class="v-guide-return"><a href="{url("guide-e-tutorial/")}">← Torna a tutte le guide</a></p>'
     description=g['seo_description']
-    # Keep the original on-page heading; shorten only the search result title.
     seo_title=guide_seo_title(title)
     structured=legacy.schema_article(seo_title,description,url(path),media_src(g['hero_media']))
     legacy.write(path+'index.html',layout(seo_title,description,path,body,'guide',media_src(g['hero_media']),structured=structured))
+
 
 
 def validate(guides):
