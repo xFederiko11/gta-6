@@ -1,4 +1,4 @@
-/* Adaptive dark mobile / light desktop reading. Screenshots retain original colors. */
+/* Unified GTA VI night-first reading, regardless of screen size. Screenshot colors unchanged. */
 :root{--r-bg:#fcf8fc;--r-surface:#fff;--r-soft:#f5eef8;--r-line:#d8c8e1;--r-text:#201735;--r-muted:#62566e;--r-pink:#a41360;--r-cyan:#176579;--r-warn:#754520}
 html[data-theme=light]{color-scheme:light;--r-bg:#fcf8fc;--r-surface:#fff;--r-soft:#f5eef8;--r-line:#d8c8e1;--r-text:#201735;--r-muted:#62566e;--r-pink:#a41360;--r-cyan:#176579;--r-warn:#754520}
 html[data-theme=dark]{--r-bg:#0c0b13;--r-surface:#17141f;--r-soft:#201a2a;--r-line:#3b2d49;--r-text:#f0e8f6;--r-muted:#c0aecb;--r-pink:#ff9bcd;--r-cyan:#87ded9;--r-warn:#f7d1a3;color-scheme:dark;--bg:var(--r-bg);--surface:var(--r-surface);--surface2:var(--r-soft);--border:var(--r-line);--text:var(--r-text);--muted:var(--r-muted);--pink:var(--r-pink);--cyan:var(--r-cyan);--violet:#ceb5fa;--yellow:var(--r-warn);--v-soft:#251827;--v-line:var(--r-line);--v-shadow:0 12px 35px #0003;background:var(--r-bg)}
@@ -79,8 +79,7 @@ html[data-theme=dark] :is(a,button,summary,input,select):focus-visible{outline-c
 /* Preserve the complete brand and menu on narrow phones instead of clipping the page. */
 @media(max-width:360px){.v-header-inner{gap:8px}.v-header .v-brand{flex:1;min-width:0;gap:8px}.v-header .v-brand>span:last-child{min-width:0}.v-header .v-brand strong{font-size:.92rem}.v-header .v-brand small{font-size:.53rem;letter-spacing:.04em;white-space:normal}.v-menu{flex:none}.v-menu summary{padding-inline:9px}.v-footer .v-brand{gap:8px;max-width:100%}.v-footer .v-brand small{white-space:normal}}
 
-/* Native no-script fallback follows viewport, not a forced global theme. */
-@media(max-width:760px){
+/* Native no-script: dark on all viewports, preserving a user-selected light override. */
 html[data-theme=auto]{--r-bg:#0c0b13;--r-surface:#17141f;--r-soft:#201a2a;--r-line:#3b2d49;--r-text:#f0e8f6;--r-muted:#c0aecb;--r-pink:#ff9bcd;--r-cyan:#87ded9;--r-warn:#f7d1a3;color-scheme:dark}
 html[data-theme=auto]{--r-bg:#0c0b13;--r-surface:#17141f;--r-soft:#201a2a;--r-line:#3b2d49;--r-text:#f0e8f6;--r-muted:#c0aecb;--r-pink:#ff9bcd;--r-cyan:#87ded9;--r-warn:#f7d1a3;color-scheme:dark;--bg:var(--r-bg);--surface:var(--r-surface);--surface2:var(--r-soft);--border:var(--r-line);--text:var(--r-text);--muted:var(--r-muted);--pink:var(--r-pink);--cyan:var(--r-cyan);--violet:#ceb5fa;--yellow:var(--r-warn);--v-soft:#251827;--v-line:var(--r-line);--v-shadow:0 12px 35px #0003;background:var(--r-bg)}
 html[data-theme=auto] body{background:var(--r-bg);color:var(--r-text)}
@@ -126,7 +125,6 @@ html[data-theme=auto] :is(.v-header a,.v-footer a){color:#f8d5eb}
 html[data-theme=auto] :is(.v-hero h1,.v-promo h2,.trophy-hero h1,.cheat-hero h1,.hdr-hero h1){color:#f8effc}
 html[data-theme=auto] .v-featured h2{color:var(--r-text)}
 html[data-theme=auto] :is(a,button,summary,input,select):focus-visible{outline-color:#82e2df}
-}
 html[data-theme=dark] .v-spoilerbar{background:#201a2a}
 html[data-theme=dark] .v-spoiler-inner p,html[data-theme=auto] .v-spoiler-inner p{color:var(--r-muted)}
 html[data-theme=dark] .v-spoiler-inner strong{color:#ffb8d9}
@@ -135,3 +133,45 @@ html[data-theme=dark] .v-spoiler-warning strong{color:#ffc0df}
 html[data-theme=dark] .v-x-link{background:#ffb4da;color:#28112c!important;border-color:#ffb4da}
 html[data-theme=light] .v-spoiler-warning{background:#fbedf6;border-color:#d8b3cc;color:#713451}
 @media(max-width:760px){html[data-theme=auto] .v-spoiler-warning{background:#2c202e;border-color:#664360;color:#f3d8eb}html[data-theme=auto] .v-spoiler-warning strong{color:#ffc0df}}
+
+/* Unified 2026 GTA VI editorial night palette. Balanced OLED-friendly navy rather
+   than pure black; all components consume semantic variables, no image inversion. */
+:root,
+html:is([data-theme=dark],[data-theme=auto]){
+  --r-bg:#10131d;--r-surface:#1a1e2b;--r-soft:#252a3a;--r-line:#40475e;
+  --r-text:#f3f3fa;--r-muted:#bbc3d8;--r-pink:#ff9bca;--r-cyan:#8ae7da;
+  --r-warn:#ffd0a1;--bg:var(--r-bg);--surface:var(--r-surface);
+  --surface2:var(--r-soft);--border:var(--r-line);--text:var(--r-text);
+  --muted:var(--r-muted);--pink:var(--r-pink);--cyan:var(--r-cyan);
+  --yellow:var(--r-warn);--violet:#d0baff;--v-soft:#292238;
+  --v-line:var(--r-line);--v-shadow:0 12px 35px #0005;
+  background:var(--r-bg);color-scheme:dark;
+}
+html:is([data-theme=dark],[data-theme=auto]) body{background:var(--r-bg);color:var(--r-text)}
+html:is([data-theme=dark],[data-theme=auto]) :is(.v-guide-card,.v-category,.v-featured,.v-fact,
+.v-step,.v-guide-aside,.card,.index-item,.community-card,.v-filterbar,.v-sources,.r-tip,.cr-step,
+.cr-region,.cr-hero,.pi-hero,.pi-form,.pr-record,.ap-metric){border-color:var(--r-line)}
+html:is([data-theme=dark],[data-theme=auto]) :is(.cr-step,.cr-hero,.pi-hero,.pi-form,
+.pr-record,.ap-metric,.ap-card-set,.p-atlas-card,.p-atlas-head,.p-atlas-nav){color:var(--r-text)}
+html:is([data-theme=dark],[data-theme=auto]) :is(.v-card-copy p,.v-intro p,.v-featured p,
+.prose p,.v-directory-head p,.v-step p,.v-caption,.v-read-meta,.cr-step>p,
+.pi-hero p,.pr-record>p,.ap-metric>p){color:var(--r-muted)}
+html:is([data-theme=dark],[data-theme=auto]) .v-spoilerbar{background:#1f2533;border-color:var(--r-line)}
+html:is([data-theme=dark],[data-theme=auto]) .v-spoiler-inner strong{color:#ffc4dc}
+html:is([data-theme=dark],[data-theme=auto]) :is(.v-hero,.v-promo){background:linear-gradient(115deg,#171b2c,#34223c)}
+html:is([data-theme=dark],[data-theme=auto]) :is(.v-tag,.v-card-meta b,.v-kicker,.eyebrow){color:var(--r-pink)}
+html:is([data-theme=dark],[data-theme=auto]) :is(a,button,input,select,summary,textarea):focus-visible{outline:3px solid var(--r-cyan);outline-offset:3px}
+html:is([data-theme=dark],[data-theme=auto]) :is(.v-button:not(.secondary),.button:not(.secondary)){background:#e97ab2;color:#17111d}
+html:is([data-theme=dark],[data-theme=auto]) :is(.v-button.secondary,.button.secondary){background:#302439;color:#ffe1f0;border-color:#6d5579}
+html:is([data-theme=dark],[data-theme=auto]) :is(.v-filterbar input,.search,.v-filters button,.r-theme-control button,select,textarea,input){color:var(--r-text)}
+html[data-theme=light]{
+  --r-bg:#f7f5fa;--r-surface:#ffffff;--r-soft:#efeaf4;--r-line:#d7cfe2;
+  --r-text:#27223a;--r-muted:#655c73;--r-pink:#9b1e62;--r-cyan:#136d72;
+  --r-warn:#7c4b25;--bg:var(--r-bg);--surface:var(--r-surface);
+  --surface2:var(--r-soft);--border:var(--r-line);--text:var(--r-text);
+  --muted:var(--r-muted);--pink:var(--r-pink);--cyan:var(--r-cyan);
+  --yellow:var(--r-warn);background:var(--r-bg);color-scheme:light;
+}
+html[data-theme=light] body{background:var(--r-bg);color:var(--r-text)}
+html[data-theme=light] :is(.cr-step,.cr-hero,.pi-hero,.pi-form,.pr-record,.ap-metric,.ap-card-set){color:var(--r-text)}
+@media(max-width:760px){html:is([data-theme=dark],[data-theme=auto]) .r-theme-control .v-switch button{min-height:38px}}

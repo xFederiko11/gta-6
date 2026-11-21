@@ -15,7 +15,7 @@
   const button=form.querySelector("[data-pi-submit]");
   const message=form.querySelector("[data-pi-status]");
   const fallback=form.querySelector("[data-pi-fallback]");
-  const roles=[...form.querySelectorAll("template[data-pi-role-options] option")];
+  const roles=[...form.querySelector("template[data-pi-role-options]").content.querySelectorAll("option")];
   const validGuides=new Set([...guide.options].map(option=>option.value));
   function fillRoles() {
     const previous=role.value;

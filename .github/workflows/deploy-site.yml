@@ -165,8 +165,9 @@ jobs:
                       assert 'visual-v2.css?v=' in text and 'visual-v2.js?v=' in text
                       assert '<link rel="canonical" href="'+base+path+'"' in text
                       assert 'data-theme="auto"' in text
-                      assert 'reader-adaptive-v2-20261120' in text
-                      assert 'reader-theme.css?v=' in text and 'data-theme-choice="light"' in text
+                      assert 'reader-unified-night-v3-20261121' in text
+                      assert 'reader-theme.css?v=' in text and 'data-theme-choice="light"' in text and 'data-theme-choice="dark"' in text
+                      assert "var t='dark'" in text
                       assert 'class="v-x-link"' in text and 'https://x.com/xFederiko11' in text
                       assert 'data-spoiler-choice' not in text
                       if path == 'trofei/roadmap-platino/':
@@ -196,9 +197,9 @@ jobs:
                           assert text.count('data-photo-source-lead=') == 8
                           assert 'non documentato' in text
                       if path == 'collezionabili/percorsi/':
-                          assert text.count('data-cr-step=') == 41
+                          assert text.count('data-cr-step=') == 76
                           assert text.count('data-cr-region=') == 7
-                          assert 'data-cr-done' in text and 'Vicki' in text
+                          assert 'data-cr-done' in text and 'Vicki' in text and 'Victor Maravilla' in text
                           assert 'collectible-routes-v4.js?v=' in text
                       if path == 'screenshot-ps5/invia/':
                           assert text.count('data-photo-guide=') == 55
@@ -225,6 +226,8 @@ jobs:
               ('assets/collectible-routes-v4.css','.cr-root'),
               ('assets/photo-intake-v4.js','x.com/intent/tweet'),
               ('assets/photo-intake-v4.css','.pi-page'),
+              ('assets/reader-theme.js',"const chooseDefault = () => 'dark'"),
+              ('assets/reader-theme.css','--r-bg:#10131d'),
               ('photo-intake-audit.json','"approved_new_community_photos": 0'),
               ('photo-provenance-review.json','"new_images_rehosted": 0'),
               ('sitemap.xml','trofei/roadmap-platino/'),

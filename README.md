@@ -259,3 +259,9 @@ La funzione rispetta **Do Not Track** quando esposto dal browser, evita il caric
 - `data/approved_screenshots_v4.json`: elenco **attualmente vuoto** delle immagini nuove autorizzate. La CI vieta foto senza consenso documentato via status X, revisore umano, WebP locale e SHA-256. Nuovi file approvati possono essere mostrati nella guida corretta dopo revisione della PR; non si presume che la sola attribuzione basti.
 - `collezionabili/percorsi/`: 41 punti con fonti, divisi in 7 aree, ricerca, filtri, spunte private nel browser. Priorità alla carta Vicki prima del Capitolo 2. **Copertura parziale**: 6/33 immersioni, 16 carte e 14 WAiNK, non 100% geolocalizzato. L’ordine è editoriale, non un navigatore GPS.
 - Test e verifiche HTTP aggiunti tramite `test_photo_routes_v4.py` e `.github/workflows/deploy-site.yml`. Nessuna credenziale o accesso PSN richiesti.
+
+## Palette uniforme e ampliamento collezionabili — 21 novembre 2026
+
+- Tema GTA VI **scuro per impostazione predefinita su mobile e desktop**, fondo blu-antracite `#10131d`, testo `#f3f3fa` e accenti rosa `#ff9bca`. I pulsanti `Scuro / Chiaro` restano attivi; `gta6-theme-v1` conserva la preferenza personale.
+- Atlante ampliato da 41 a **76 punti documentati**: 21 carte (due possibili mancabili nello Starlet Motel entro il Capitolo 2), 20 WAiNK, 5 poster playlist, 6 immersioni, 24 salti acrobatici. Fonti WIP, nessun pin fittizio. Restano 27 immersioni non localizzate in questa selezione.
+- Monitoraggio fotografico dell'account X tramite bot in sola lettura e coda GitHub per la revisione umana (abilitazione API X esplicitamente opzionale): nessun uso delle immagini senza permesso e nessun post social automatico.

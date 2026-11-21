@@ -1,6 +1,6 @@
 """Sourced regional collectible circuits for GTA VI PS5. Never fabricate GPS pins.
 
-41 described POIs grouped by neighborhood (editorial grouping, not measured route).
+76 described POIs grouped by neighborhood (editorial grouping, not measured route).
 Only published source URLs are linked and no gameplay screenshots are claimed.
 """
 from __future__ import annotations
@@ -12,7 +12,7 @@ import re
 BASE="https://xfederiko11.github.io/gta-6/"
 PATH="collezionabili/percorsi/"
 REGION_ORDER=("kelly","vice-city","vice-dale","vice-beach","mariana","leonard","lummox")
-TYPES={"playlist":"Playlist","cards":"Carte","waink":"Scansioni WAiNK","underwater":"Immersioni"}
+TYPES={"playlist":"Playlist","cards":"Carte","waink":"Scansioni WAiNK","underwater":"Immersioni","stunt":"Salti acrobatici"}
 ALLOWED={"www.powerpyx.com","www.pushsquare.com","www.gtabase.com"}
 
 
@@ -21,7 +21,7 @@ def e(value):
 
 
 def validate_routes(data):
-    if data.get("schema")!="gta6-region-routes-v4":
+    if data.get("schema")!="gta6-region-routes-v5":
         raise ValueError("Unexpected region route schema")
     if data.get("checked")!="2026-11-21":
         raise ValueError("Missing review date")
@@ -40,10 +40,10 @@ def validate_routes(data):
         if not 20<=len(group.get("warning",""))<=220:
             raise ValueError("Regional caveat missing")
     items=data.get("points",[])
-    if len(items)!=41 or len({x.get("id") for x in items})!=41:
-        raise ValueError("Expected exactly 41 individually documented stops")
+    if len(items)!=76 or len({x.get("id") for x in items})!=76:
+        raise ValueError("Expected exactly 76 individually documented stops")
     counts=Counter(x["type"] for x in items)
-    if counts!={"playlist":5,"cards":16,"waink":14,"underwater":6}:
+    if counts!={"playlist":5,"cards":21,"waink":20,"underwater":6,"stunt":24}:
         raise ValueError("Unreviewed waypoint distribution")
     for n,item in enumerate(items,1):
         if item.get("id")!="pt-"+str(n).zfill(2):
@@ -61,23 +61,23 @@ def validate_routes(data):
         if any(k in item for k in ("lat","lng","long","coordinates","duration_minutes","distance_km")):
             raise ValueError("No coordinates, timing or distances can be invented")
         if item.get("missable"):
-            if item.get("region")!="kelly" or item.get("name")!="Vicki — Delights Dancers":
+            if item.get("region")!="kelly" or item.get("name") not in ("Vicki — Delights Dancers","Victor Maravilla — Los Santos Corkers"):
                 raise ValueError("Unverified missable warning")
             if "Capitolo 2" not in item.get("when",""):
                 raise ValueError("Missing missable timing")
-    if sum(bool(x.get("missable")) for x in items)!=1:
-        raise ValueError("One source-backed missable warning required")
+    if {x["name"] for x in items if x.get("missable")}!={"Vicki — Delights Dancers","Victor Maravilla — Los Santos Corkers"}:
+        raise ValueError("Both source-backed missable cards required")
     water=data.get("underwater",{})
     if water.get("required")!=33 or water.get("known_in_atlas")!=6:
         raise ValueError("Underwater count incorrectly claims full coverage")
     if data.get("cards",{}).get("required_sets")!=15 or data.get("cards",{}).get("total_sets")!=18:
         raise ValueError("Card 100 percent threshold mismatch")
-    if data.get("waink",{}).get("required")!=100:
+    if data.get("waink",{}).get("required")!=100 or data["waink"].get("known_in_atlas")!=20 or data.get("cards",{}).get("known_in_atlas")!=21:
         raise ValueError("Wrong WAiNK target")
     stunts=data.get("stunts",{})
     if [stunts.get(x) for x in ("total","needed","under_bridges","stunt_jumps","knife_flights","base_jumps")]!=[397,300,202,130,40,25]:
         raise ValueError("Stunt subtype counts changed")
-    if sum(n for _,n in stunts.get("jump_by_region",[]))!=130:
+    if sum(n for _,n in stunts.get("jump_by_region",[]))!=130 or stunts.get("known_in_atlas")!=24:
         raise ValueError("Stunt Jump county breakdown wrong")
     return True
 
@@ -90,47 +90,47 @@ def render(data):
         '<section class="cr-root" data-collectible-routes>',
         '<header class="cr-hero"><span class="eyebrow">⌖ GTA VI ITALIA · PS5 / PS5 PRO</span>',
         '<h1>Percorsi collezionabili GTA 6: regioni e checkpoint</h1>',
-        '<p><strong>41 posizioni documentate in sette aree</strong>,',
+        '<p><strong>76 posizioni documentate in sette aree</strong>,',
         ' raggruppate per vicinanza editoriale. Non sono tracciati GPS né',
-        ' 41 pin di una mappa verificata; ogni checkpoint rimanda alla',
+        ' 76 pin di una mappa verificata; ogni checkpoint rimanda alla',
         ' fonte originale con screenshot e indicazioni dettagliate.</p>',
         '<div class="cr-stats" role="group" aria-label="Copertura percorsi">',
-        '<div><strong>41</strong><small>checkpoints documentati</small></div>',
+        '<div><strong>76</strong><small>checkpoint documentati</small></div>',
         '<div><strong>7</strong><small>aree di raccolta</small></div>',
         '<div><strong>6/33</strong><small>siti subacquei verificati qui</small></div>',
-        '<div><strong>1</strong><small>carta potenzialmente mancabile</small></div>',
+        '<div><strong>2</strong><small>carte potenzialmente mancabili</small></div>',
         '</div><nav class="cr-shortcuts" aria-label="Scorciatoie collezionabili">',
-        '<a class="v-button" href="#cr-kelly">Prima: carta mancabile →</a>',
+        '<a class="v-button" href="#cr-kelly">Prima: carte mancabili →</a>',
         '<a class="v-button secondary" href="'+BASE+'trofei/100-percento/">Checklist 100% →</a>',
         '<a class="v-button secondary" href="'+BASE+'screenshot-ps5/invia/">Invia screenshot PS5 →</a>',
         '</nav></header>',
         '<aside class="cr-alert" role="note"><strong>⚠️ Prima di lasciare il Capitolo 2:</strong>',
-        ' recupera la carta Vicki nel bagno dell’ufficio dello Starlet Motel',
-        ' a Gellhorn. PowerPyx indica che quella stanza non è più accessibile',
-        ' dopo il Capitolo 2. La carta può compromettere la relativa collezione,',
+        ' recupera Vicki nel bagno dell’ufficio e Victor Maravilla nella cucina dello Starlet Motel',
+        ' a Gellhorn. Le fonti riportano che questi luoghi non sono più accessibili',
+        ' dopo il Capitolo 2. La perdita delle carte può compromettere le relative collezioni,',
         ' anche se per il 100% bastano 15 set completi su 18.</aside>',
         '<section class="cr-controls" aria-label="Filtri dei percorsi">',
         '<label class="cr-search">Cerca oggetto o luogo',
         '<input type="search" data-cr-query placeholder="Es. Vicki, Key Lento, poster" autocomplete="off"></label>',
         '<div class="cr-filter-group" aria-label="Tipo di collezionabile">',
-        '<button type="button" data-cr-filter="all" aria-pressed="true">Tutti · 41</button>'
+        '<button type="button" data-cr-filter="all" aria-pressed="true">Tutti · 76</button>'
     ]
     for typ,name in TYPES.items():
         output.append('<button type="button" data-cr-filter="'+e(typ)+'" aria-pressed="false">'+e(name)+' · '+str(counts[typ])+'</button>')
     output.extend([
-        '</div><div class="cr-progress-wrap"><strong data-cr-progress>0 / 41 checkpoint segnati</strong>',
-        '<progress max="41" value="0" data-cr-bar aria-label="Checkpoint segnati"></progress>',
+        '</div><div class="cr-progress-wrap"><strong data-cr-progress>0 / 76 checkpoint segnati</strong>',
+        '<progress max="76" value="0" data-cr-bar aria-label="Checkpoint segnati"></progress>',
         '<small data-cr-storage>Spunte private in questo browser, non collegate al PSN.</small></div>',
-        '<p data-cr-visible role="status" aria-live="polite">41 checkpoint mostrati</p></section>',
+        '<p data-cr-visible role="status" aria-live="polite">76 checkpoint mostrati</p></section>',
         '<section class="cr-status" aria-label="Limiti del tracciamento"><h2>Ottimizzazione senza mappe inventate</h2>',
         '<p>Per una run orientata al Platino, <strong>Kelly County prima del cambio capitolo</strong>,',
         ' poi le aree urbane di Vice City e le immersioni in Mariana County quando',
         ' hai barca ed equipaggiamento. Questo ordine è una proposta basata sulle',
         ' posizioni documentate, non un itinerario calcolato con tempi o chilometri.</p>',
-        '<p><strong>Copertura parziale:</strong> queste 16 carte sono una selezione delle 480',
-        ' e queste 14 scansioni una selezione degli oltre 100 punti WAiNK.',
+        '<p><strong>Copertura parziale:</strong> queste 21 carte sono una selezione delle 480',
+        ' e queste 20 scansioni una selezione dei punti WAiNK.',
         ' Per le immersioni, sei luoghi su 33 sono documentati qui: mancano',
-        ' ancora 27 posizioni. Usa la checklist di gioco per il vero 100%.</p>',
+        ' ancora 27 posizioni. Anche i 24 salti qui documentati non coprono i 130 totali. Usa la checklist di gioco per il vero 100%.</p>',
         '<p><a href="'+e(data["sources"]["allmap"])+'" target="_blank" rel="noopener noreferrer">',
         'Apri mappa generale GTABase ↗</a> · ',
         '<a href="'+e(data["sources"]["cardmap"])+'" target="_blank" rel="noopener noreferrer">',
@@ -178,8 +178,8 @@ def render(data):
         '<section class="cr-remaining"><h2>Acrobazie, veicoli e le categorie non mappate qui</h2>',
         '<p>Per il 100% servono <strong>300 su 397 acrobazie</strong>: 202 sottoponti,',
         ' 130 salti, 40 voli radenti e 25 salti BASE. Non esiste in questo atlante',
-        ' una lista di 300 singoli pin verificati, quindi non li inseriamo come',
-        ' checkpoint raccolti. I sottoponti sono spesso più rapidi da tentare,',
+        ' una lista di 300 singoli pin verificati, quindi non presentiamo 300',
+        ' checkpoint come raccolti. I sottoponti sono spesso più rapidi da tentare,',
         ' ma dipende dal mezzo e dalle condizioni di volo.</p>',
         '<p>Salti acrobatici documentati per contea: ',
         ' · '.join(e(x)+': '+str(n) for x,n in stunts["jump_by_region"])+'. ',
