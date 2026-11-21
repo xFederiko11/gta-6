@@ -93,6 +93,7 @@ def render_100(data,trophies):
         ' Le cifre sono attribuite a PowerPyx e confrontate con GTABase.</p>',
         '<nav class="ap-top-links"><a class="v-button" href="#ap-100-categories">Le 35 categorie ↓</a>',
         '<a class="v-button secondary" href="#ap-cards">18 set di carte ↓</a>',
+        '<a class="v-button secondary" href="'+BASE+'collezionabili/percorsi/">Percorsi per regione →</a>',
         '<a class="v-button secondary" href="'+BASE+'trofei/trofei-difficili/">Trofei difficili ↗</a></nav>',
         '</header>',
         '<aside class="ap-alert"><strong>Risparmio tempo:</strong> concludi la storia, completa',

@@ -22,6 +22,9 @@ from platinum_atlas_v2 import render as render_trophy_atlas, validate as validat
 from advanced_platinum_v3 import (render_100 as render_advanced_100, render_hard as render_advanced_hard,
                                   validate as validate_advanced, COLLECTIBLE_PATH, HARD_PATH)
 from photo_provenance_v3 import render as render_photo_provenance, validate as validate_provenance, PATH as PROVENANCE_PATH
+from collectible_routes_v4 import render as render_collectible_routes, validate_routes, PATH as COLLECTIBLE_ROUTE_PATH
+from photo_intake_v4 import (render as render_photo_intake, validate_approved,
+                              render_approved_for_guide, approved_count, PATH as PHOTO_INTAKE_PATH)
 from guide_location_atlas_v2 import (render_hub as render_map_hub, render_guide as render_guide_locations,
                                      validate as validate_map_references, HUB_PATH as MAP_HUB_PATH)
 
@@ -40,6 +43,8 @@ LOCATION_REFS=json.loads(Path('data/guide_locations_v2.json').read_text(encoding
 MEDITATION_PLACES=json.loads(Path('data/meditation_checklist_v1.json').read_text(encoding='utf-8'))
 ADVANCED=json.loads(Path('data/advanced_platinum_v3.json').read_text(encoding='utf-8'))
 PHOTO_REVIEW=json.loads(Path('data/photo_provenance_review_v3.json').read_text(encoding='utf-8'))
+COLLECTIBLE_ROUTES=json.loads(Path('data/collectible_routes_v4.json').read_text(encoding='utf-8'))
+APPROVED_PHOTOS=json.loads(Path('data/approved_screenshots_v4.json').read_text(encoding='utf-8'))
 CACHE=Path('.visual-media/manifest.json')
 LOCAL_MEDIA=json.loads(CACHE.read_text(encoding='utf-8')) if CACHE.exists() else {}
 ASSET_VERSION=hashlib.sha256(b''.join(Path(p).read_bytes() for p in ('site/assets/visual-v2.css','site/assets/visual-v2.js'))).hexdigest()[:12]
@@ -52,7 +57,7 @@ def brand():
 
 def header(path):
     primary=[('Home',''),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare auto','salvare-auto/'),('Guide','guide-e-tutorial/')]
-    secondary=[('Trofei e platino','trofei/'),('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Trofei difficili','trofei/trofei-difficili/'),('Mappe dei luoghi','mappe-guide/'),('HDR OLED','hdr-oled/'),('Trucchi PS5','trucchi/'),('Scoperte community','scoperte/'),('Screenshot PS5','screenshot-ps5/'),('Fonti e metodo','fonti/')]
+    secondary=[('Trofei e platino','trofei/'),('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Mappe dei luoghi','mappe-guide/'),('HDR OLED','hdr-oled/'),('Trucchi PS5','trucchi/'),('Scoperte community','scoperte/'),('Screenshot PS5','screenshot-ps5/'),('Invia screenshot','screenshot-ps5/invia/'),('Fonti e metodo','fonti/')]
     def link(label,target):
         current=' aria-current="page"' if path==target else ''
         return f'<a href="{url(target)}"{current}>{e(label)}</a>'
@@ -71,7 +76,7 @@ def header(path):
             '</div></div>')
 
 def footer():
-    links=[('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Trofei difficili','trofei/trofei-difficili/'),('Foto e fonti','screenshot-ps5/verifica/'),('Mappe e luoghi','mappe-guide/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
+    links=[('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Foto e fonti','screenshot-ps5/verifica/'),('Invia foto','screenshot-ps5/invia/'),('Mappe e luoghi','mappe-guide/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
     return ('<footer class="v-footer"><div class="wrap"><div class="v-footer-grid"><div>'+brand()+
             '<p>Guide indipendenti per PS5 e PS5 Pro. Sintesi originali, schermate attribuite e avvisi spoiler. Non affiliato a Rockstar Games.</p></div><nav class="v-footer-links" aria-label="Link utili">'+
             ''.join(f'<a href="{url(p)}">{e(t)}</a>' for t,p in links)+
@@ -85,6 +90,13 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
     page=page.replace('<body>',f'<body data-design-version="{DESIGN_VERSION}">',1)
     page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/visual-v2.css")}?v={ASSET_VERSION}"><meta name="color-scheme" content="light"></head>',1)
     page=page.replace('</body>',f'<script src="{url("assets/visual-v2.js")}?v={ASSET_VERSION}" defer></script></body>',1)
+    if path in (COLLECTIBLE_ROUTE_PATH,PHOTO_INTAKE_PATH):
+        css,js=('collectible-routes-v4.css','collectible-routes-v4.js') if path==COLLECTIBLE_ROUTE_PATH else ('photo-intake-v4.css','photo-intake-v4.js')
+        version=hashlib.sha256(Path('site/assets',css).read_bytes()+Path('site/assets',js).read_bytes()).hexdigest()[:12]
+        page=page.replace('</head>',
+            f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
+        page=page.replace('</body>',
+            f'<script src="{url("assets/"+js)}?v={version}" defer></script></body>',1)
     if path in (COLLECTIBLE_PATH,HARD_PATH):
         version=hashlib.sha256(
             b''.join(Path('site/assets',name).read_bytes() for name in
@@ -185,7 +197,7 @@ def visual_contribution(g):
         key for key in g['step_media'].values()
         if key in MEDIA and MEDIA[key]['kind']=='screenshot' and media_src(key)
     }
-    count=len(screenshots)
+    count=len(screenshots)+approved_count(APPROVED_PHOTOS,g['id'])
     original='@xFederiko11 Ho uno screenshot PS5 originale utile a questa guida GTA VI: '+url(path)+' #GTA6Italia'
     target='https://x.com/intent/tweet?'+urlencode({'text':original})
     if len(original)>280:
@@ -485,6 +497,7 @@ def guide(g,guides):
     if g['id']=='poligoni-concentrazione':
         body+=f'<p><a class="v-button secondary" href="{url("trofei/trofeo-17-cecchino/")}">Apri la checklist delle medaglie →</a></p>'
     body+=visual_contribution(g)
+    body+=render_approved_for_guide(g,APPROVED_PHOTOS)
     meditation_anchor='<a href="#meditazioni-checklist">Checklist 18 meditazioni</a>' if g['id']=='meditazione-capitolo-1' else ''
     body+=sources(g,used)+'</article><aside class="v-guide-aside"><h2>In questa guida</h2><a href="#procedura">Il percorso passo per passo</a>'+meditation_anchor+'<a href="#luoghi-mappe">Luoghi e mappe</a><a href="#fonti">Fonti e immagini</a>'+f'<a href="{url("soldi-facili/")}">Altri modi per fare soldi</a><a href="{url("auto-speciali/")}">Auto e garage</a><a href="{url("trofei/")}">Percorso platino</a></aside></div>'
     related=[x for x in guides if x['id']!=g['id'] and (x['category']==g['category'] or x['category'] in ('garage','soldi'))][:3]
@@ -524,7 +537,9 @@ def main():
     trophies=json.loads(Path('data/trofei.json').read_text(encoding='utf-8'))['trophies']
     validate_advanced(ADVANCED,trophies)
     validate_provenance(PHOTO_REVIEW,MEDIA,guides)
-    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
+    validate_routes(COLLECTIBLE_ROUTES)
+    validate_approved(APPROVED_PHOTOS,guides,VISUAL_REQUESTS)
+    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','collectible_routes_v4.py','data/collectible_routes_v4.json','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
     from community_discovery_v2 import render as community_render
@@ -551,7 +566,8 @@ def main():
               '10 luoghi di meditazione e schermate PS5 con provenienza dichiarata.')
     map_body=render_map_hub(
         guides, LOCATION_REFS, MEDIA,
-        json.loads(Path('data/guide_extras.json').read_text(encoding='utf-8'))['guides'], media_src)
+        json.loads(Path('data/guide_extras.json').read_text(encoding='utf-8'))['guides'], media_src,
+        APPROVED_PHOTOS['photos'])
     map_schema={'@context':'https://schema.org','@type':'CollectionPage',
                 'name':map_title,'description':map_desc,
                 'url':url(MAP_HUB_PATH),'inLanguage':'it-IT','numberOfItems':len(guides)}
@@ -572,7 +588,26 @@ def main():
         legacy.write(path+'index.html',layout(
             title,description,path,legacy.crumbs([('Trofei','trofei/'),(title,path)])+body,
             'trofei',structured=schema))
-    new_paths=[ROADMAP_PATH,MAP_HUB_PATH,COLLECTIBLE_PATH,HARD_PATH]
+    route_title='Collezionabili GTA 6: percorsi e mappe per regione PS5'
+    route_desc=('GTA VI: 41 checkpoint documentati in 7 aree, carte, WAiNK, playlist, relitti, '
+                'carta mancabile del Capitolo 2 e checklist locale. Nessun pin inventato.')
+    route_schema={'@context':'https://schema.org','@type':'CollectionPage',
+                  'name':route_title,'description':route_desc,'url':url(COLLECTIBLE_ROUTE_PATH),
+                  'inLanguage':'it-IT','numberOfItems':len(COLLECTIBLE_ROUTES['points'])}
+    legacy.write(COLLECTIBLE_ROUTE_PATH+'index.html',layout(
+        route_title,route_desc,COLLECTIBLE_ROUTE_PATH,render_collectible_routes(COLLECTIBLE_ROUTES),
+        'guide',structured=route_schema))
+    intake_title='Invia screenshot GTA 6 PS5: consenso e guida alla foto'
+    intake_desc=('Contribuisci alle guide GTA VI con screenshot originali PS5: scegli uno dei 55 '
+                 'passaggi, prepara un post X e autorizza esplicitamente il riutilizzo.')
+    intake_schema={'@context':'https://schema.org','@type':'WebPage',
+                   'name':intake_title,'description':intake_desc,'url':url(PHOTO_INTAKE_PATH),
+                   'inLanguage':'it-IT'}
+    legacy.write(PHOTO_INTAKE_PATH+'index.html',layout(
+        intake_title,intake_desc,PHOTO_INTAKE_PATH,
+        render_photo_intake(guides,VISUAL_REQUESTS,APPROVED_PHOTOS),
+        'guide',structured=intake_schema))
+    new_paths=[ROADMAP_PATH,MAP_HUB_PATH,COLLECTIBLE_PATH,HARD_PATH,COLLECTIBLE_ROUTE_PATH,PHOTO_INTAKE_PATH]
     for kind in ('all','soldi','auto'):
         title,desc,path,body=directory(guides,kind)
         legacy.write(path+'index.html',layout(title+' | GTA 6 Italia',desc,path,body,'guide',structured={'@context':'https://schema.org','@type':'CollectionPage','name':title,'url':url(path),'inLanguage':'it-IT'}))
@@ -581,7 +616,8 @@ def main():
         guide(g,guides); new_paths.append(g['canonical_path'])
     photo_hub,photo_audit=render_photo_hub(
         guides,VISUAL_REQUESTS,MEDIA,
-        json.loads(Path('data/guide_extras.json').read_text(encoding='utf-8'))['guides'],media_src)
+        json.loads(Path('data/guide_extras.json').read_text(encoding='utf-8'))['guides'],media_src,
+        APPROVED_PHOTOS['photos'])
     photo_path='screenshot-ps5/'
     photo_title='Screenshot GTA 6 PS5: collabora con GTA VI Italia'
     photo_description=('Screenshot GTA 6 su PS5 e PS5 Pro: scegli tra 55 richieste per migliorare '
@@ -610,6 +646,14 @@ def main():
          'new_images_rehosted':0,'permission_records_verified':0,
          'editorial_leads':len(PHOTO_REVIEW['leads'])},ensure_ascii=False,indent=2)+'\n')
     new_paths.append(PROVENANCE_PATH)
+    legacy.write('photo-intake-audit.json',json.dumps({
+        'schema':APPROVED_PHOTOS['schema'],'reviewed':APPROVED_PHOTOS['reviewed'],
+        'approved_new_community_photos':len(APPROVED_PHOTOS['photos']),
+        'guide_role_examples':sum(len(roles) for roles in VISUAL_REQUESTS.values()),
+        'public_photo_submission':'X compose only, human posts',
+        'automatic_publication':False,
+        'rights_gate':'explicit consent + human review + local WebP + SHA-256'
+    },ensure_ascii=False,indent=2)+'\n')
     ET.register_namespace('','http://www.sitemaps.org/schemas/sitemap/0.9')
     tree=ET.parse(OUT/'sitemap.xml'); root=tree.getroot(); ns='{http://www.sitemaps.org/schemas/sitemap/0.9}'
     existing={loc.text for loc in root.iter(ns+'loc')}

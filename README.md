@@ -252,3 +252,10 @@ La funzione rispetta **Do Not Track** quando esposto dal browser, evita il caric
 - `trofei/trofei-difficili/`: procedure operative #38 Rhino, #46 Bowling, #47 Forza Jason/Lucia, #48 Profilo criminale, #50 UFO (spawn e location con caveat), #30 carte; #49 resta **incerto**.
 - `screenshot-ps5/verifica/`: 10 screenshot editoriali già catalogati, con provenienza e diritti non documentati; 8 fonti da verificare prima di acquisire nuove foto. Non aggiunge immagini di terzi senza autorizzazione.
 - Asset, test e controllo HTTP dedicati: `advanced_platinum_v3.py`, `photo_provenance_v3.py`, `test_advanced_platinum_v3.py`, `data/advanced_platinum_v3.json`, `data/photo_provenance_review_v3.json`. I contatori sono manuali e privati nel browser; il sito non legge i trofei PSN.
+
+## Gruppo acquisizione foto + percorsi regionali (21 novembre 2026)
+
+- `screenshot-ps5/invia/`: modulo statico per scegliere una delle 11 guide e uno dei 55 ruoli fotografici, con dichiarazione originale di titolarità e concessione non esclusiva, apertura manuale della bozza X. **Nessun file viene caricato dal sito** e nessun post è pubblicato dal bot; la foto va allegata su X dall’autore.
+- `data/approved_screenshots_v4.json`: elenco **attualmente vuoto** delle immagini nuove autorizzate. La CI vieta foto senza consenso documentato via status X, revisore umano, WebP locale e SHA-256. Nuovi file approvati possono essere mostrati nella guida corretta dopo revisione della PR; non si presume che la sola attribuzione basti.
+- `collezionabili/percorsi/`: 41 punti con fonti, divisi in 7 aree, ricerca, filtri, spunte private nel browser. Priorità alla carta Vicki prima del Capitolo 2. **Copertura parziale**: 6/33 immersioni, 16 carte e 14 WAiNK, non 100% geolocalizzato. L’ordine è editoriale, non un navigatore GPS.
+- Test e verifiche HTTP aggiunti tramite `test_photo_routes_v4.py` e `.github/workflows/deploy-site.yml`. Nessuna credenziale o accesso PSN richiesti.

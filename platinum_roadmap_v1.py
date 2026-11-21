@@ -98,6 +98,7 @@ def render(trophies):
         '<a class="v-button secondary" href="' + BASE + 'guide-e-tutorial/meditazione-capitolo-1/">Meditazione mancabile →</a>',
         '<a class="v-button secondary" href="#guida-55-trofei">Strategia per tutti i 55 trofei ↓</a>',
         '<a class="v-button secondary" href="' + BASE + 'mappe-guide/">Mappe e posizioni delle guide →</a>',
+        '<a class="v-button secondary" href="' + BASE + 'collezionabili/percorsi/">Itinerari collezionabili →</a>',
         '<a class="v-button secondary" href="' + BASE + 'trofei/100-percento/">Checklist 100% numerica →</a>',
         '<a class="v-button secondary" href="' + BASE + 'trofei/trofei-difficili/">Rhino, UFO e trofei difficili →</a>',
         '</nav></header>',

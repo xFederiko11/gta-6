@@ -1,0 +1,543 @@
+{
+  "schema": "gta6-region-routes-v4",
+  "checked": "2026-11-21",
+  "notes": "Grouping is editorial proximity by documented districts, NOT an optimal measured route, not complete coverage. No in-game coordinates, inferred travel times, screen captures, or auto-PSN progress.",
+  "sources": {
+    "playlist": "https://www.powerpyx.com/gta-6-all-unique-playlist-collectible-locations/",
+    "ed": "https://www.powerpyx.com/gta-6-ed-comics-universe-collectible-card-set-locations/",
+    "jack": "https://www.powerpyx.com/gta-6-jack-of-hearts-dancers-collectible-card-set-locations/",
+    "right": "https://www.powerpyx.com/gta-6-right-wing-americas-hero-collectible-card-set-locations/",
+    "los": "https://www.powerpyx.com/gta-6-los-santos-panic-collectible-card-set-locations/",
+    "pound": "https://www.powerpyx.com/gta-6-los-santos-pounders-collectible-card-set-locations/",
+    "liberty": "https://www.powerpyx.com/gta-6-liberty-city-penetrators-collectible-card-set-locations/",
+    "rat": "https://www.powerpyx.com/gta-6-the-legends-of-ratface-collectible-card-set-locations/",
+    "delights": "https://www.powerpyx.com/gta-6-delights-dancers-collectible-card-set-locations/",
+    "landmarks": "https://www.powerpyx.com/gta-6-all-landmark-scan-locations/",
+    "curios": "https://www.gtabase.com/gta-6/map/?feature=waink-curiosity",
+    "under": "https://www.pushsquare.com/guides/gta-6-underwater-discoveries-locations-and-kentons-treasures",
+    "stunt": "https://www.powerpyx.com/gta-6-all-stunt-jump-locations/",
+    "stuntall": "https://www.powerpyx.com/gta-6-100-completion-checklist-guide/",
+    "cardmap": "https://www.gtabase.com/gta-6/map/?feature=collectible-card",
+    "waink": "https://www.powerpyx.com/gta-6-all-waink-scan-locations/",
+    "allmap": "https://www.gtabase.com/gta-6/map/"
+  },
+  "regions": [
+    {
+      "id": "vice-city",
+      "name": "Vice City",
+      "subtitle": "La Perle → Crosstown → Downtown",
+      "description": "Completa la playlist Sniper of La Perle a piedi prima di spostarti verso il poster di The Vault. Approfitta delle carte nelle stesse aree.",
+      "warning": "Le fonti forniscono landmark, non distanza o percorso GPS."
+    },
+    {
+      "id": "vice-dale",
+      "name": "Vice-Dale County",
+      "subtitle": "VCIA e dintorni",
+      "description": "Cerca due carte in un'area di roulotte vicino a Pawn City prima di cambiare contea.",
+      "warning": "La roulotte potrebbe richiedere accesso alla zona; controlla la storia."
+    },
+    {
+      "id": "vice-beach",
+      "name": "Vice Beach",
+      "subtitle": "Dalton Island / Tequesta",
+      "description": "Raccogli i punti documentati lungo l'area urbana costiera; non sono una linea di viaggio calcolata.",
+      "warning": "L'ordine è geografico-editoriale, non un percorso stradale."
+    },
+    {
+      "id": "mariana",
+      "name": "Mariana County",
+      "subtitle": "Key Lento → Watson Bay → Belpoint",
+      "description": "Combina carte, WAiNK e immersioni Kenton nella stessa zona. Prevedi una barca e l'attrezzatura sub.",
+      "warning": "Le guide pubbliche mappano solo parte delle 33 scoperte subacquee."
+    },
+    {
+      "id": "kelly",
+      "name": "Kelly County",
+      "subtitle": "Gellhorn → Port Gellhorn",
+      "description": "Per una run Platinum-safe visita subito lo Starlet Motel per la carta Vicki entro il Capitolo 2. Poi passa agli altri punti a Port Gellhorn.",
+      "warning": "Vicki: l'accesso al luogo è segnalato come mancabile dopo il Capitolo 2."
+    },
+    {
+      "id": "leonard",
+      "name": "Leonard County",
+      "subtitle": "Belville",
+      "description": "Abbina due carte descritte vicino alla fila di case a nord, senza attribuire coordinate inesistenti.",
+      "warning": "Alcuni edifici richiedono un ingresso o un'azione specifica."
+    },
+    {
+      "id": "lummox",
+      "name": "Lummox County",
+      "subtitle": "Moreau → Grayson → Mount Kalaga",
+      "description": "Unisci WAiNK, una carta presso Grayson e il punto panoramico di Mount Kalaga.",
+      "warning": "Non deduciamo tempi o chilometri fra le località."
+    }
+  ],
+  "points": [
+    {
+      "id": "pt-01",
+      "region": "vice-city",
+      "type": "playlist",
+      "name": "Poster The Sniper of La Perle — 1/4",
+      "place": "La Perle · Aunt Zola’s Soul Food",
+      "hint": "Nel ristorante, accanto alla cassa. Scansiona il poster.",
+      "source": "playlist",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-02",
+      "region": "vice-city",
+      "type": "playlist",
+      "name": "Poster The Sniper of La Perle — 2/4",
+      "place": "La Perle · TWA Ponya Tattoo",
+      "hint": "Nel negozio di tatuaggi, sul tavolo accanto all'ingresso.",
+      "source": "playlist",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-03",
+      "region": "vice-city",
+      "type": "playlist",
+      "name": "Poster The Sniper of La Perle — 3/4",
+      "place": "La Perle · Drip Drops",
+      "hint": "Nel negozio di vestiti, sul bancone vicino al commesso.",
+      "source": "playlist",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-04",
+      "region": "vice-city",
+      "type": "cards",
+      "name": "Dr. Placebo (Blu) — Ed Comics",
+      "place": "La Perle · edificio sud-ovest di Pay 'n' Spray",
+      "hint": "Sala grande al pianterreno, su uno scaffale.",
+      "source": "ed",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-05",
+      "region": "vice-city",
+      "type": "cards",
+      "name": "Ratface (Bronzo) — Ed Comics",
+      "place": "La Perle · magazzino ovest di Pay 'n' Spray",
+      "hint": "Divano sulla parete sud del magazzino.",
+      "source": "ed",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-06",
+      "region": "vice-city",
+      "type": "cards",
+      "name": "Terrance Ericks (Bronzo) — Los Santos Panic",
+      "place": "La Perle · edificio chiuso a nord-ovest di Aunt Zola",
+      "hint": "Verifica il modo di accesso prima di tentare; non forzare un evento narrativo.",
+      "source": "los",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-07",
+      "region": "vice-city",
+      "type": "playlist",
+      "name": "Poster The Sniper of La Perle — 4/4",
+      "place": "Crosstown · Jack of Hearts",
+      "hint": "Al secondo piano, nella cabina di registrazione est: poster su una cassa.",
+      "source": "playlist",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-08",
+      "region": "vice-city",
+      "type": "cards",
+      "name": "Alexander Avain (Argento) — Liberty City Penetrators",
+      "place": "Crosstown · a ovest di Jack of Hearts",
+      "hint": "Terzo piano di un palazzo sopra il laboratorio legato a Tyrone.",
+      "source": "liberty",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-09",
+      "region": "vice-city",
+      "type": "playlist",
+      "name": "Poster The Vault Radio — unico",
+      "place": "Downtown · The Vault Nightclub",
+      "hint": "Scansiona il poster rosso presso l'entrata.",
+      "source": "playlist",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-10",
+      "region": "vice-city",
+      "type": "waink",
+      "name": "Dock Ring — Landmark WAiNK",
+      "place": "Downtown · Dock Ring",
+      "hint": "Raggiungi il monumento, attendi vibrazione/avviso e scansiona con WAiNK.",
+      "source": "landmarks",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-11",
+      "region": "vice-dale",
+      "type": "cards",
+      "name": "Femi-Nemesis (Argento) — Ed Comics",
+      "place": "VCIA · roulotte sud-ovest di Pawn City",
+      "hint": "Roulotte accessibile; carta su un comò.",
+      "source": "ed",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-12",
+      "region": "vice-dale",
+      "type": "cards",
+      "name": "Kadisha (Rosa) — Jack of Hearts",
+      "place": "VCIA · roulotte sud-ovest di Pawn City",
+      "hint": "Nell'area delle roulotte, su un materasso per terra.",
+      "source": "jack",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-13",
+      "region": "vice-beach",
+      "type": "cards",
+      "name": "Sione Apa (Rosso) — Los Santos Pounders",
+      "place": "Tequesta · palestra Vice Seven Condominiums",
+      "hint": "All'interno dello spogliatoio meridionale.",
+      "source": "pound",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-14",
+      "region": "vice-beach",
+      "type": "waink",
+      "name": "Big Entrance — Curiosity WAiNK",
+      "place": "Dalton Island · Vice Beach",
+      "hint": "Cerca l'oggetto Big Entrance usando il filtro curiosità: non è un pin calcolato dal nostro sito.",
+      "source": "curios",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-15",
+      "region": "mariana",
+      "type": "cards",
+      "name": "Marquise Bernard — Los Santos Panic",
+      "place": "Key Lento · botte fuori dal negozio di Kenton",
+      "hint": "Carta appoggiata su un barile, controlla il retro dell'edificio.",
+      "source": "los",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-16",
+      "region": "mariana",
+      "type": "cards",
+      "name": "Wokester (Blu) — Legends of Ratface",
+      "place": "Key Lento · The Wonder Whale",
+      "hint": "Panchina sul lato nord-est del negozio.",
+      "source": "rat",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-17",
+      "region": "mariana",
+      "type": "waink",
+      "name": "Vibrant Pond — Curiosity WAiNK",
+      "place": "Key Lento · Vibrant Pond",
+      "hint": "Voce verificata nella mappa GTABase: cerca il landmark con filtro Waink Curiosity.",
+      "source": "curios",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-18",
+      "region": "mariana",
+      "type": "waink",
+      "name": "Desert Island Piano — Curiosity WAiNK",
+      "place": "Key Lento · Desert Island Piano",
+      "hint": "Segui il filtro delle curiosità; il sito non pubblica coordinate non proprie.",
+      "source": "curios",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-19",
+      "region": "mariana",
+      "type": "underwater",
+      "name": "Relitto Urca De Cinco Torres",
+      "place": "Mare a sud-est di Key Lento · vicino agli isolotti verdi",
+      "hint": "Relitto documentato da Push Square, richiede barca e immersione.",
+      "source": "under",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-20",
+      "region": "mariana",
+      "type": "underwater",
+      "name": "Relitto Nuestra Señora Lujuriosa",
+      "place": "Mare a sud-est di Key Lento · stessi isolotti",
+      "hint": "Secondo relitto vicino a Urca De Cinco Torres: valuta un'unica uscita in barca.",
+      "source": "under",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-21",
+      "region": "mariana",
+      "type": "underwater",
+      "name": "Relitto Urca De Santa Sierra",
+      "place": "Mare a est di Key Lento",
+      "hint": "Terzo relitto documentato: verifica il contatore in Progressi dopo l'immersione.",
+      "source": "under",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-22",
+      "region": "mariana",
+      "type": "cards",
+      "name": "Flamer (Bianco) — Right Wing",
+      "place": "Watson Bay · campeggio a est",
+      "hint": "Sul lato della costruzione con bagni, fissata a un pannello.",
+      "source": "right",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-23",
+      "region": "mariana",
+      "type": "waink",
+      "name": "Dead Sharks — Curiosity WAiNK",
+      "place": "Watson Bay · Dead Sharks",
+      "hint": "Punto della categoria curiosità documentato sulla mappa GTABase.",
+      "source": "curios",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-24",
+      "region": "mariana",
+      "type": "waink",
+      "name": "Goose Key Carcass — Curiosity WAiNK",
+      "place": "Watson Bay · Goose Key Carcass",
+      "hint": "Punto documentato nella stessa regione, controlla il segnale WAiNK.",
+      "source": "curios",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-25",
+      "region": "mariana",
+      "type": "waink",
+      "name": "Belpoint Lighthouse — Landmark WAiNK",
+      "place": "Belpoint · faro",
+      "hint": "Individua il faro in Mariana County e scansiona il landmark.",
+      "source": "landmarks",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-26",
+      "region": "kelly",
+      "type": "cards",
+      "name": "Vicki — Delights Dancers",
+      "place": "Gellhorn · bagno nell'ufficio dello Starlet Motel",
+      "hint": "SUL PAVIMENTO accanto al WC: la stanza diventa inaccessibile dopo il Capitolo 2.",
+      "source": "delights",
+      "confidence": "described",
+      "missable": true,
+      "when": "Prima della fine del Capitolo 2"
+    },
+    {
+      "id": "pt-27",
+      "region": "kelly",
+      "type": "cards",
+      "name": "Side Effect (Blu) — Ed Comics",
+      "place": "Port Gellhorn · roulotte a nord-ovest di Dunk's Trailer",
+      "hint": "Camera da letto della roulotte accessibile al centro dell'area.",
+      "source": "ed",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-28",
+      "region": "kelly",
+      "type": "cards",
+      "name": "Demario Richardson (Oro) — Liberty City Penetrators",
+      "place": "Port Gellhorn · Buck’s Jewelry & Pawn",
+      "hint": "Nel retro della gioielleria e banco dei pegni, su uno scaffale.",
+      "source": "liberty",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-29",
+      "region": "kelly",
+      "type": "waink",
+      "name": "Gellhorn Fun Fair — Landmark WAiNK",
+      "place": "Port Gellhorn · luna park",
+      "hint": "Raggiungi il luogo e verifica il segnale per scansionare WAiNK.",
+      "source": "landmarks",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-30",
+      "region": "kelly",
+      "type": "waink",
+      "name": "Lovers Lookout — Curiosity WAiNK",
+      "place": "Port Gellhorn · Lovers Lookout",
+      "hint": "Usa la categoria curiosità GTABase e la notifica WAiNK.",
+      "source": "curios",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-31",
+      "region": "kelly",
+      "type": "waink",
+      "name": "Fairy Lane — Curiosity WAiNK",
+      "place": "Port Gellhorn · Fairy Lane",
+      "hint": "Cerca il punto nella mappa delle curiosità, non una coordinata inventata.",
+      "source": "curios",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-32",
+      "region": "leonard",
+      "type": "cards",
+      "name": "Malena (Rosso) — Jack of Hearts",
+      "place": "Belville · case a nord, a ovest di Andy",
+      "hint": "In una casa scassinabile, su una scrivania nella camera più interna.",
+      "source": "jack",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-33",
+      "region": "leonard",
+      "type": "cards",
+      "name": "Illuminaughty (Viola) — Legends of Ratface",
+      "place": "Belville · stessa fila di case a nord",
+      "hint": "In un garage accessibile, sulla tavola sulla destra.",
+      "source": "rat",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-34",
+      "region": "lummox",
+      "type": "waink",
+      "name": "Lawton Co. Paper Mill — Landmark WAiNK",
+      "place": "Moreau · cartiera",
+      "hint": "Punto industriale elencato fra i 31 landmark WAiNK.",
+      "source": "landmarks",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-35",
+      "region": "lummox",
+      "type": "waink",
+      "name": "Imperial Spanish Ruins — Curiosity WAiNK",
+      "place": "Moreau · rovine",
+      "hint": "Punto scansionabile della categoria curiosità.",
+      "source": "curios",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-36",
+      "region": "lummox",
+      "type": "cards",
+      "name": "Flamer (Rosso) — Right Wing",
+      "place": "Grayson · Williams Guest House",
+      "hint": "Sul ballatoio superiore, su uno scaffale.",
+      "source": "right",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-37",
+      "region": "lummox",
+      "type": "waink",
+      "name": "Grayson Assembly — Landmark WAiNK",
+      "place": "Grayson · stabilimento Grayson Assembly",
+      "hint": "Punto landmark scansionabile.",
+      "source": "landmarks",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-38",
+      "region": "lummox",
+      "type": "waink",
+      "name": "Kalaga Lookout — Landmark WAiNK",
+      "place": "Mount Kalaga National Park · belvedere",
+      "hint": "Punto panoramico documentato fra i landmark WAiNK.",
+      "source": "landmarks",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-39",
+      "region": "mariana",
+      "type": "underwater",
+      "name": "Nuestra Señora del Ocio",
+      "place": "Key Lento · Island Dreams",
+      "hint": "Si visita durante la missione della storia Island Dreams: cerca 10 dobloni, conferma il completamento sul menu in gioco.",
+      "source": "under",
+      "confidence": "described",
+      "missable": false
+    },
+    {
+      "id": "pt-40",
+      "region": "mariana",
+      "type": "underwater",
+      "name": "Nuestra Señora de la Noche",
+      "place": "Mare a sud di Key Lento",
+      "hint": "Relitto con sette tesori descritti dalla fonte; immersione e metal detector necessari.",
+      "source": "under",
+      "confidence": "described",
+      "missable": false
+    },
+    {
+      "id": "pt-41",
+      "region": "mariana",
+      "type": "underwater",
+      "name": "Nuestra Señora de la Ética Laxa",
+      "place": "Mare a sud di Key Lento e Abismo Key",
+      "hint": "Relitto con cinque tesori descritti; verifica se il set è completo in Progressi.",
+      "source": "under",
+      "confidence": "described",
+      "missable": false
+    }
+  ],
+  "stunts": {
+    "total": 397,
+    "needed": 300,
+    "under_bridges": 202,
+    "stunt_jumps": 130,
+    "knife_flights": 40,
+    "base_jumps": 25,
+    "source": "stuntall",
+    "jump_by_region": [
+      [
+        "mariana",
+        17
+      ],
+      [
+        "vice-dale",
+        55
+      ],
+      [
+        "leonard",
+        13
+      ],
+      [
+        "kelly",
+        29
+      ],
+      [
+        "lummox",
+        16
+      ]
+    ]
+  },
+  "underwater": {
+    "required": 33,
+    "total": 33,
+    "known_in_atlas": 6,
+    "source": "under",
+    "note": "Push Square ha documentato sei relitti che contano per il 100%; 27 delle 33 scoperte restano fuori da questa selezione, non considerarle completate. Altri siti subacquei possono fornire tesori di Kenton senza aumentare questo contatore."
+  },
+  "waink": {
+    "required": 100,
+    "known_in_atlas": 14,
+    "source": "waink",
+    "note": "AHOL Street Art e murales 1010 hanno contatori separati; non fanno avanzare i 100 WAiNK."
+  },
+  "cards": {
+    "required_sets": 15,
+    "total_sets": 18,
+    "known_in_atlas": 16,
+    "source": "cardmap",
+    "note": "372 carte è un minimo teorico, non un percorso di raccolta già completo."
+  }
+}
