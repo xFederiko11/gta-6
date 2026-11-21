@@ -34,3 +34,7 @@
 @media(max-width:730px){.vim-frame{height:470px}.vim-places ol{grid-template-columns:1fr}}
 @media(max-width:480px){.vim-tools{align-items:stretch}.vim-provider-tabs{width:100%;justify-content:space-between}.vim-provider-tabs button{flex:1}.vim-load{width:100%}.vim-frame{height:390px}.vim-meta{display:grid;gap:5px}}
 @media(prefers-reduced-motion:reduce){.vim-root{scroll-behavior:auto}}
+/* Map quick-find buttons in source-based location and collectible lists. */
+.cr-map-find,.g-loc-map-find{color:var(--r-cyan,#8ae7da);font:inherit;font-size:.82rem;font-weight:800;padding:6px 8px;background:transparent;border:1px solid var(--r-line,#41465c);border-radius:7px;cursor:pointer}
+.cr-map-find:hover,.g-loc-map-find:hover{border-color:var(--r-pink,#f1a8cc)}
+.cr-map-find:focus-visible,.g-loc-map-find:focus-visible{outline:3px solid var(--r-cyan,#8ae7da);outline-offset:2px}
