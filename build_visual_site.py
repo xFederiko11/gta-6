@@ -15,6 +15,8 @@ import site_info
 from visual_guide_content import enrich
 from community_social_v1 import home_rail
 from meditation_tracker_v1 import render as render_meditation_tracker
+from x_growth_dashboard_v1 import (render as render_growth_dashboard, read_report as growth_report,
+                                   to_json as export_growth_report, PATH as GROWTH_PATH)
 from photo_request_hub_v1 import render as render_photo_hub
 from photo_coverage_v5 import audit as audit_photo_coverage, render as render_photo_coverage, json_report as export_photo_coverage, PATH as PHOTO_COVERAGE_PATH
 from platinum_roadmap_v1 import render as render_platinum_roadmap, ROADMAP_PATH
@@ -68,7 +70,7 @@ def brand():
 
 def header(path):
     primary=[('Home',''),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare auto','salvare-auto/'),('Guide','guide-e-tutorial/')]
-    secondary=[('Trofei e platino','trofei/'),('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Mappe dei luoghi','mappe-guide/'),('HDR OLED','hdr-oled/'),('Trucchi PS5','trucchi/'),('Scoperte community','scoperte/'),('Screenshot PS5','screenshot-ps5/'),('Foto prioritarie','screenshot-ps5/priorita/'),('Invia screenshot','screenshot-ps5/invia/'),('Fonti e metodo','fonti/')]
+    secondary=[('Trofei e platino','trofei/'),('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Mappe dei luoghi','mappe-guide/'),('HDR OLED','hdr-oled/'),('Trucchi PS5','trucchi/'),('Scoperte community','scoperte/'),('Screenshot PS5','screenshot-ps5/'),('Foto prioritarie','screenshot-ps5/priorita/'),('Invia screenshot','screenshot-ps5/invia/'),('Statistiche X','crescita-x/'),('Fonti e metodo','fonti/')]
     def link(label,target):
         current=' aria-current="page"' if path==target else ''
         return f'<a href="{url(target)}"{current}>{e(label)}</a>'
@@ -87,7 +89,7 @@ def header(path):
             '</div></div>')
 
 def footer():
-    links=[('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Foto e fonti','screenshot-ps5/verifica/'),('Foto prioritarie','screenshot-ps5/priorita/'),('Invia foto','screenshot-ps5/invia/'),('Mappe e luoghi','mappe-guide/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
+    links=[('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Foto e fonti','screenshot-ps5/verifica/'),('Foto prioritarie','screenshot-ps5/priorita/'),('Invia foto','screenshot-ps5/invia/'),('Mappe e luoghi','mappe-guide/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/'),('Statistiche X','crescita-x/')]
     return ('<footer class="v-footer"><div class="wrap"><div class="v-footer-grid"><div>'+brand()+
             '<p>Guide indipendenti per PS5 e PS5 Pro. Sintesi originali, schermate attribuite e avvisi spoiler. Non affiliato a Rockstar Games.</p></div><nav class="v-footer-links" aria-label="Link utili">'+
             ''.join(f'<a href="{url(p)}">{e(t)}</a>' for t,p in links)+
@@ -112,6 +114,10 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
     page=page.replace('<body>',f'<body data-design-version="{DESIGN_VERSION}">',1)
     page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/visual-v2.css")}?v={ASSET_VERSION}"><meta name="color-scheme" content="light"></head>',1)
     page=page.replace('</body>',f'<script src="{url("assets/visual-v2.js")}?v={ASSET_VERSION}" defer></script></body>',1)
+    if path == GROWTH_PATH:
+        css='x-growth-dashboard-v1.css'
+        version=hashlib.sha256(Path('site/assets',css).read_bytes()).hexdigest()[:12]
+        page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
     if path in MAP_RENDER_PATHS or path in GUIDE_MAP_PATHS:
         css,js='interactive-map-v1.css','interactive-map-v1.js'
         version=hashlib.sha256(Path('site/assets',css).read_bytes()+Path('site/assets',js).read_bytes()).hexdigest()[:12]
@@ -653,6 +659,17 @@ def main():
            render_collectible_routes(COLLECTIBLE_ROUTES,EXTERNAL_MAP_REFS['items']),
         'guide',structured=route_schema))
     legacy.write('map-rollout-v1.json',export_map_rollout(map_rollout))
+    growth_data=growth_report()
+    legacy.write('growth-evidence-v1.json',export_growth_report(growth_data))
+    dashboard_title='GTA VI Italia: statistiche X e crescita trasparente'
+    dashboard_desc=('Dashboard pubblica di GTA VI Italia: Social Radar, post X verificati, '
+                    'impression Buffer solo se disponibili, visite e follower non inventati.')
+    legacy.write(GROWTH_PATH+'index.html',layout(
+        dashboard_title,dashboard_desc,GROWTH_PATH,render_growth_dashboard(growth_data),
+        'guide',robots='noindex,follow',structured={
+            '@context':'https://schema.org','@type':'WebPage',
+            'name':dashboard_title,'description':dashboard_desc,
+            'url':url(GROWTH_PATH),'inLanguage':'it-IT'}))
     intake_title='Invia screenshot GTA 6 PS5: consenso e guida alla foto'
     intake_desc=('Contribuisci alle guide GTA VI con screenshot originali PS5: scegli uno dei 55 '
                  'passaggi, prepara un post X e autorizza esplicitamente il riutilizzo.')
