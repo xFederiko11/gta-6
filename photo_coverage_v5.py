@@ -45,7 +45,7 @@ def audit(guides,requests,registry,provenance):
         roles=requests[gid]
         if len(roles)!=5 or len(set(roles))!=5:raise ValueError("Five individual roles required")
         for idx,description in enumerate(roles,1):
-            if not 12<=len(description)<=220 or any(c in description for c in "<>"):
+            if not isinstance(description,str) or not 12<=len(description)<=220:
                 raise ValueError("Unsafe screenshot description")
             status="approvato" if (gid,idx) in approved else "da documentare"
             priority=("alta" if gid in HIGH_GUIDES or gid in MEDIUM_GUIDES and idx<=2
