@@ -399,3 +399,13 @@ html[data-theme=dark] .social-comment-card>span{color:#ff9bcd}
 .g-map-card summary{cursor:pointer;font-size:.85rem;font-weight:750}
 .g-map-guide{font-size:.82rem;display:inline-block;margin-top:14px;font-weight:750}
 @media(max-width:760px){.g-map-cards{grid-template-columns:1fr}.g-location-panel{padding:16px}.g-map-card{padding:16px}}
+
+/* Screenshot thumbnails in the sourced location hub: only pre-optimized local assets. */
+.g-map-preview{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0 15px}
+.g-map-preview figure{margin:0;min-width:0}
+.g-map-preview img{display:block;aspect-ratio:16/9;width:100%;height:auto;object-fit:contain;border-radius:8px;border:1px solid var(--r-line,var(--border,#ddd));background:var(--r-soft,var(--surface2,#ddd))}
+.g-map-preview figcaption{font-size:.73rem;color:var(--r-muted,var(--muted,#555));line-height:1.5;margin:6px 0}
+.g-map-preview-empty{padding:10px;font-size:.8rem;border:1px dashed var(--r-line,var(--border,#ddd));border-radius:9px;background:var(--r-soft,var(--surface2,#fafafa))}
+.g-map-photo-details{padding:9px 11px;margin:10px 0 14px;border:1px solid var(--r-line,var(--border,#ddd));border-radius:9px}
+.g-map-photo-details summary{cursor:pointer;font-size:.81rem;font-weight:750}
+@media(max-width:420px){.g-map-preview{grid-template-columns:1fr}}
