@@ -70,7 +70,7 @@ def brand():
 
 def header(path):
     primary=[('Home',''),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare auto','salvare-auto/'),('Guide','guide-e-tutorial/')]
-    secondary=[('Trofei e platino','trofei/'),('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Mappe dei luoghi','mappe-guide/'),('HDR OLED','hdr-oled/'),('Trucchi PS5','trucchi/'),('Scoperte community','scoperte/'),('Screenshot PS5','screenshot-ps5/'),('Foto prioritarie','screenshot-ps5/priorita/'),('Invia screenshot','screenshot-ps5/invia/'),('Statistiche X','crescita-x/'),('Fonti e metodo','fonti/')]
+    secondary=[('Trofei e platino','trofei/'),('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Mappe dei luoghi','mappe-guide/'),('HDR OLED','hdr-oled/'),('Trucchi PS5','trucchi/'),('Scoperte community','scoperte/'),('Screenshot PS5','screenshot-ps5/'),('Invia screenshot','screenshot-ps5/invia/'),('Fonti e metodo','fonti/')]
     def link(label,target):
         current=' aria-current="page"' if path==target else ''
         return f'<a href="{url(target)}"{current}>{e(label)}</a>'
@@ -89,7 +89,7 @@ def header(path):
             '</div></div>')
 
 def footer():
-    links=[('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Foto e fonti','screenshot-ps5/verifica/'),('Foto prioritarie','screenshot-ps5/priorita/'),('Invia foto','screenshot-ps5/invia/'),('Mappe e luoghi','mappe-guide/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/'),('Statistiche X','crescita-x/')]
+    links=[('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Invia foto','screenshot-ps5/invia/'),('Mappe e luoghi','mappe-guide/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/'),('Statistiche X','crescita-x/')]
     return ('<footer class="v-footer"><div class="wrap"><div class="v-footer-grid"><div>'+brand()+
             '<p>Guide indipendenti per PS5 e PS5 Pro. Sintesi originali, schermate attribuite e avvisi spoiler. Non affiliato a Rockstar Games.</p></div><nav class="v-footer-links" aria-label="Link utili">'+
             ''.join(f'<a href="{url(p)}">{e(t)}</a>' for t,p in links)+
@@ -399,7 +399,7 @@ def home(guides):
     body+=('<section class="v-photo-hub-invite"><div>'
            '<span class="v-kicker">📸 GTA VI ITALIA · FOTO COMMUNITY</span>'
            '<h2>Hai uno screenshot PS5 che può aiutare altri giocatori?</h2>'
-           '<p>Mappe, comandi, menu e risultati reali: scegli fra 55 esempi di fotografie utili nelle nostre 11 guide. Nessun caricamento su GitHub, nessuna immagine inventata.</p>'
+           '<p>Mappe, comandi, menu e risultati reali: scegli fra esempi di fotografie che mostrano dove andare, quali tasti premere e cosa controllare. Solo immagini autentiche, mai schermate inventate.</p>'
            '</div><a class="v-button secondary" href="'+url('screenshot-ps5/')+'">Scopri le richieste di screenshot →</a>'
            '</section>')
     body+=home_rail()
@@ -503,6 +503,21 @@ def guide(g,guides):
                'rel="noopener noreferrer">Segnalazione Reddit del 20 novembre ↗</a></p></aside>')
     benefit=g.get('benefit','')
     body+=f'<div class="v-answer"><strong>La cosa da sapere</strong><p>{e(benefit)}</p></div><div class="v-facts"><div class="v-fact"><strong>Prima di iniziare</strong><p>{e(g["requirements"])}</p></div><div class="v-fact"><strong>Dove andare</strong><p>{e(g["location"])}</p></div></div>'
+    controls={
+        'registrare-auto-personale':'↑ croce direzionale · R1 · △ (Triangolo) · levetta destra',
+        'prima-persona-glitch-ps5':'OPTIONS · ↑ croce direzionale · ○ (Cerchio) · touchpad',
+        'scansionare-veicoli':'↑ croce direzionale · WAiNK (verifica i comandi a schermo)',
+        'viaggio-rapido-taxi':'Telefono → Contatti → Paradise Taxi'
+    }
+    controls_html=('<p><strong>Comandi PS5:</strong> '+e(controls[g['id']])+'</p>') if g['id'] in controls else ''
+    body+=('<section class="v-tutorial-start" aria-label="Come seguire questo tutorial">'
+           '<h2>Prima di muoverti</h2>'
+           '<p><strong>Obiettivo:</strong> '+e(g['summary'])+'</p>'
+           +controls_html+
+           '<p><strong>Come procedere:</strong> segui i numeri in ordine, guarda la schermata quando presente '
+           'e verifica la riga «Controllo» prima di passare all’azione successiva. '
+           'Le immagini di atmosfera non sostituiscono quelle di gameplay.</p>'
+           '</section>')
     body+=walkthrough_visuals(g)
     body+=render_guide_locations(g,LOCATION_REFS,MEDITATION_PLACES)
     interactive=render_interactive_map(g['safe_title'],
@@ -533,7 +548,7 @@ def guide(g,guides):
         body+=render_step_evidence(g,n,STEP_EVIDENCE,VISUAL_EVIDENCE)
         checks=g.get('checks',[])
         if n<len(checks):
-            body+=f'<p class="v-check"><strong>Controllo:</strong> {e(checks[n])}</p>'
+            body+=f'<p class="v-check"><strong>✓ Controllo prima di proseguire:</strong> {e(checks[n])}</p>'
         body+='</li>'
     body+='</ol>'
     if not g['step_media']:
@@ -708,8 +723,6 @@ def main():
     photo_schema={'@context':'https://schema.org','@type':'CollectionPage',
                   'name':photo_title,'url':url(photo_path),'description':photo_description,
                   'inLanguage':'it-IT'}
-    photo_hub+=('<p class="v-photo-hub-guide-callout"><a href="'+url(PHOTO_COVERAGE_PATH)+
-                '">Vedi tutte le 55 foto prioritarie con modulo già selezionato →</a></p>')
     legacy.write(photo_path+'index.html',layout(
         photo_title,photo_description,photo_path,photo_hub,'guide',
         structured=photo_schema))
