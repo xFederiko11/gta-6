@@ -278,3 +278,8 @@ L'archivio ZIP ufficiale supera il tetto di download adottato dalla build Pages 
 
 ### Key Lento raccolta integrata (21 novembre 2026)
 L'atlante regionale passa a **101 checkpoint documentati** con nuova sezione Key Lento: due curiosità WAiNK, due carte, tre scansioni di veicoli distintivi e due letture. I veicoli *non* aumentano la metrica delle 100 scansioni di luogo WAiNK e le letture non sono carte. Rimangono solo 6/33 scoperte subacquee descritte nel nostro atlante. Fonte testuale con immagini esterne consultabili: https://www.pushsquare.com/guides/gta-6-key-lento-collectibles-and-secrets-walkthrough. Nessuna immagine di terzi viene copiata in repository senza una concessione valida e verificata.
+
+### Screenshot PS5, coda di priorità autonoma (21 novembre 2026)
+
+Nuova pagina `screenshot-ps5/priorita/` con tutti i **55 ruoli** concreti delle **11 guide**, ordinabili per priorità, e URL precompilati alla pagina X `screenshot-ps5/invia/?guida=<id>&passo=<1-5>`. I tre consensi **non sono mai precompilati**, non esiste upload sul sito, né login GitHub per i lettori. `photo-backlog-v5.json` espone stato, url canonico, ruolo e conteggi effettivamente verificati. Restano 0 nuove foto community approvate e 10 foto già attribuite con riuso non documentato. Questo catalogo è una coda di richieste, non prova che 55 screenshot manchino dalla pagina o possano essere ripubblicati automaticamente.
+Il bot editoriale legge soltanto il JSON HTTPS pubblicato e aggiorna l'Issue già esistente con le prime dieci richieste, senza generare post Buffer né richiedere API X a consumo. Se il JSON non è valido o il sito non risponde, preserva i dati precedenti.
