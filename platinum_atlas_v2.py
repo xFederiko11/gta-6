@@ -12,7 +12,7 @@ import re
 
 BASE = "https://xfederiko11.github.io/gta-6/"
 SENSITIVE = {28}
-UNCERTAIN = {38,47,49,50}
+UNCERTAIN = {49} # still unverified; #50 is reported with location/time caveats
 GROUP_ORDER = ("inizio","storia","cento","collezionabili","attivita","crimine","economia","segreti","finale")
 
 
