@@ -192,7 +192,7 @@ jobs:
                       assert 'visual-v2.css?v=' in text and 'visual-v2.js?v=' in text
                       assert '<link rel="canonical" href="'+base+path+'"' in text
                       assert 'data-theme="auto"' in text
-                      assert 'reader-unified-night-v3-20261121' in text
+                      assert 'reader-guided-single-step-v4-20261121' in text
                       assert 'reader-theme.css?v=' in text and 'data-theme-choice="light"' in text and 'data-theme-choice="dark"' in text
                       assert "var t='dark'" in text
                       assert 'class="v-x-link"' in text and 'https://x.com/xFederiko11' in text
