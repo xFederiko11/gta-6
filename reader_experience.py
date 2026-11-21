@@ -62,17 +62,25 @@ def render_extras(entry):
                  f'<h3>{esc(tip["title"])}</h3><p>{esc(tip["text"])} '
                  f'<sup><a href="#extra-fonte-{number}" aria-label="Fonte del consiglio: {number}">[{number}]</a></sup></p></article>')
     tips += '</section>'
+    # An illustrated location is not proof of the numbered game action.
+    # Expose publisher sources for optional research, not misleading inline images.
     gallery = ''
     if entry.get('gallery'):
-        gallery = '<section class="r-extra" id="mappa"><h2>'+esc(entry.get('gallery_title','Immagini di riferimento'))+'</h2><p class="r-extra-intro">Tocca una schermata per aprirla e ingrandire i riferimenti. Le immagini mantengono i colori originali.</p><div class="r-gallery">'
+        gallery = ('<section class="r-extra v-gallery-sources-only" id="mappa">'
+                   '<h2>Riferimenti esterni (non sono istruzioni)</h2>'
+                   '<p>Queste fonti illustrano i luoghi, ma non certificano le azioni del tutorial.</p><ul>')
         for item in entry['gallery']:
             key = item['key']
             if key not in MEDIA or MEDIA[key]['kind'] != 'screenshot':
-                raise ValueError('Only attributed screenshots can document locations')
+                raise ValueError('Only attributed references are allowed')
             if MEDIA[key].get('spoiler') and not entry['spoiler']:
-                raise ValueError('Spoiler screenshot must stay protected')
-            gallery += '<div><h3 class="r-media-heading">'+esc(item['label'])+'</h3>'+figure(key)+'</div>'
-        gallery += '</div></section>'
+                raise ValueError('Spoiler reference must stay protected')
+            gallery += (
+                '<li><a href="'+esc(MEDIA[key]['source'],quote=True)
+                +'" target="_blank" rel="noopener noreferrer">'
+                +esc(item['label'])+' — apri la fonte originale ↗</a></li>'
+            )
+        gallery += '</ul></section>'
     source_html = '<h3>Fonti dei consigli</h3><ol>'
     for n, source in enumerate(refs, 1):
         name = urlsplit(source).hostname.removeprefix('www.')
