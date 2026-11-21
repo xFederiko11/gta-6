@@ -146,6 +146,7 @@ def render(guides, requests, media, extras, get_local):
         '<a class="v-button secondary" href="'+BASE+'guide-e-tutorial/">Tutte le guide GTA VI →</a>'
         '<p><a href="' + BASE + 'mappe-guide/">Consulta tutti i riferimenti geografici delle 11 guide →</a></p>'
         '<p><a href="' + BASE + 'screenshot-ps5/verifica/">📷 Inventario: provenienza, disponibilità e diritti degli screenshot →</a></p>'
+        '<p><a class="v-button" href="' + BASE + 'screenshot-ps5/invia/">Invia uno screenshot PS5 con consenso →</a></p>'
         '</section>'
     )
     snapshot={
