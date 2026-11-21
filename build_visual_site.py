@@ -43,6 +43,9 @@ OUT=legacy.OUT
 ORIGINAL_LAYOUT=legacy.layout
 ORIGINAL_SOURCES=site_info.sources_for
 MEDIA=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['images']
+PHOTO_STEP_REVIEW=json.loads(Path('data/tutorial_photo_review.json').read_text(encoding='utf-8'))
+if PHOTO_STEP_REVIEW.get('schema')!='gta6-tutorial-photo-review-v2':
+    raise ValueError('Invalid audited step-photo schema')
 VISUAL_REQUESTS=json.loads(Path('data/visual_requests.json').read_text(encoding='utf-8'))['guides']
 VISUAL_EVIDENCE=json.loads(Path('data/guide_visual_refs.json').read_text(encoding='utf-8'))
 STEP_EVIDENCE=json.loads(Path('data/guide_step_refs.json').read_text(encoding='utf-8'))
@@ -358,10 +361,18 @@ def reading_time(g):
 
 
 def card(g):
-    return (f'<article class="v-guide-card" data-category="{e(g["category"])}" data-guide-searchable="{e(g["safe_title"]+" "+g["tag"]+" "+g["summary"])}">'+
-            f'<a href="{url(g["canonical_path"])}">'+image(g['hero_media'])+
-            '<div class="v-card-copy">'+f'<span class="v-tag">{e(g["tag"])}</span><h3>{e(g["safe_title"])}</h3><p>{e(g["summary"])}</p>'+
-            f'<div class="v-card-meta"><span>{len(g["steps"])} passaggi · ~{reading_time(g)} min lettura</span><b>Apri la guida →</b></div></div></a></article>')
+    """Plain indexed card: no illustrative screenshot confused for game instructions."""
+    return (
+        f'<article class="v-guide-card v-guide-card-plain" data-category="{e(g["category"])}" '
+        f'data-guide-searchable="{e(g["safe_title"]+" "+g["tag"]+" "+g["summary"])}">'
+        f'<a href="{url(g["canonical_path"])}">'
+        '<div class="v-card-copy">'
+        f'<span class="v-tag">{e(g["tag"])} · GUIDA PRATICA</span>'
+        f'<h3>{e(g["safe_title"])}</h3><p>{e(g["summary"])}</p>'
+        f'<div class="v-card-meta"><span>{len(g["steps"])} passaggi</span>'
+        '<b>Apri il tutorial →</b></div></div></a></article>'
+    )
+
 
 
 def section_head(kicker,title,desc='',href=None):
@@ -380,9 +391,9 @@ def home(guides):
     hero=('<section class="v-hero">'+image('vice-city',eager=True)+
           '<div><span class="eyebrow">GUIDE IN ITALIANO · PS5 / PS5 PRO</span><h1>GTA 6, senza<br><span>giri a vuoto.</span></h1><p>Trova soldi, scegli la tua prossima auto e scopri come conservarla. Passaggi chiari, mappe quando disponibili e avviso sui possibili spoiler.</p>'+
           f'<a class="v-button" href="{url("soldi-facili/")}">Inizia dai soldi facili →</a></div>'+
-          f'<a class="v-featured" href="{url(featured["canonical_path"])}">'+image('save-car')+
+          f'<a class="v-featured" href="{url(featured["canonical_path"])}"><span class="v-featured-symbol" aria-hidden="true">🚗</span>'+
           '<div class="v-featured-copy"><span class="v-kicker">DA SAPERE PRIMA DI RIPARTIRE</span><h2>Hai trovato un’auto che vuoi tenere?</h2><p>Parcheggio, registrazione e richiamo: non sono la stessa cosa. Apri la guida →</p></div></a></section>'+
-          '<p class="v-hero-credit">Sfondo promozionale: <a href="https://www.rockstargames.com/VI/">Rockstar Games</a> · Schermata veicolo: <a href="https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know">Push Square</a></p>')
+          '<p class="v-hero-credit">Immagine ufficiale di GTA VI, non la schermata di un tutorial. Fonte: <a href="https://www.rockstargames.com/VI/">Rockstar Games</a>.</p>')
     chosen=[by[k] for k in ('soldi-facili-capitolo-1','registrare-auto-personale','sportive-randy-posizioni')]
     body=categories()+hero+'<section class="v-section">'+section_head('LE PRIORITÀ','Soldi, auto, garage. Parti da qui.','Tre percorsi pratici, senza mescolare notizie e tutorial.','guide-e-tutorial/')+'<div class="v-grid">'+''.join(card(g) for g in chosen)+'</div></section>'
     body+=('<aside class="v-follow-home" aria-label="Seguici su X per nuove guide">'
@@ -393,7 +404,7 @@ def home(guides):
            '<a class="v-button" href="https://x.com/intent/follow?screen_name=xFederiko11" '
            'target="_blank" rel="noopener noreferrer">𝕏 Segui @xFederiko11</a>'
            '</aside>')
-    body+='<section class="v-section v-promo">'+image('scooter-menu')+'<div><span class="eyebrow">NON PERDERE IL MEZZO CHE HAI SCELTO</span><h2>Prima di scendere,<br>pensa a come ritrovarlo.</h2><p>La guida distingue un’auto lasciata in parcheggio da un veicolo registrato. Segui i passaggi e controlla la conferma nel gioco.</p>'+f'<a class="v-button" href="{url("salvare-auto/")}">Apri la guida al garage →</a></div></section>'
+    body+='<section class="v-section v-promo v-promo-no-media"><div><span class="eyebrow">GUIDA PRATICA · 7 PASSAGGI</span><h2>Come salvare un’auto e ritrovarla</h2><p>Parcheggio, registrazione e richiamo non sono la stessa cosa. Segui solo le istruzioni della procedura.</p>'+f'<a class="v-button" href="{url("salvare-auto/")}">Leggi il tutorial →</a></div></section>'
     remaining=[by[k] for k in ('scansionare-veicoli','viaggio-rapido-taxi','70-sfide-100-percento')]
     body+='<section class="v-section">'+section_head('PICCOLE AZIONI, MENO TEMPO PERSO','Continua con le guide pratiche')+'<div class="v-grid">'+''.join(card(g) for g in remaining)+'</div></section>'
     body+=('<section class="v-photo-hub-invite"><div>'
@@ -427,7 +438,7 @@ def directory(guides,kind='all'):
         body+='<div class="v-filters" role="group" aria-label="Filtra per obiettivo">'+''.join(f'<button type="button" data-guide-filter="{value}" aria-pressed="{str(value=="all").lower()}">{label}</button>' for value,label in [('all','Tutte'),('soldi','Soldi'),('auto','Auto'),('garage','Garage'),('inizio','Altre guide')])+'</div>'
     body+=f'</div><h2 class="v-directory-section-title">{e({"all":"Tutte le guide pratiche","soldi":"Guide per ottenere e conservare soldi","auto":"Guide per trovare e conservare veicoli"}[kind])}</h2><p class="v-result" data-guide-result role="status" aria-live="polite">{len(selected)} guide disponibili</p><div class="v-grid">'+''.join(card(g) for g in selected)+'</div></section>'
     if kind=='soldi':
-        body+='<section class="v-section v-promo">'+image('bank-phone')+'<div><span class="eyebrow">DOPO AVER RACCOLTO IL BOTTINO</span><h2>Proteggi il bottino nel modo giusto.</h2><p>Il normale Checking Account di BuckMe non protegge il denaro dalla perdita programmata a fine Capitolo 1. Quando disponibile, Family Savings può conservarne fino a 5.000 GTA$, ma il denaro trasferito non è prelevabile normalmente. Valuta gli acquisti utili e rimanda il farming pesante al Capitolo 2.</p><p class="v-caption">Fonte e schermata: <a href="https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know">Push Square — proteggere il denaro</a>.</p></div></section>'
+        body+='<section class="v-section v-promo v-promo-no-media"><div><span class="eyebrow">PRIMA DI FARE SOLDI</span><h2>Non perdere il bottino nel passaggio al Capitolo 2</h2><p>Il normale Checking Account di BuckMe non protegge il denaro dalla perdita programmata a fine Capitolo 1. Quando disponibile, Family Savings può conservarne fino a 5.000 GTA$, ma il denaro trasferito non è prelevabile normalmente. Valuta gli acquisti utili e rimanda il farming pesante al Capitolo 2.</p><p class="v-caption">Leggi tutte le precauzioni nella <a href="'+url("guide-e-tutorial/soldi-facili-capitolo-1/")+'">guida al Capitolo 1</a>.</p></div></section>'
     return title,desc,path,body
 
 
