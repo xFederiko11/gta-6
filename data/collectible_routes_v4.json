@@ -1,7 +1,7 @@
 {
-  "schema": "gta6-region-routes-v5",
+  "schema": "gta6-region-routes-v6",
   "checked": "2026-11-21",
-  "notes": "Editorial proximity by sourced districts, NOT measured GPS routes. 76 described checkpoints: 21 cards, 20 WAiNK, 5 playlist posters, 6 underwater discoveries and 24 named stunt jumps. Source guides are WIP; not complete world coverage. No fabricated coordinates, timing or PSN sync.",
+  "notes": "Editorial proximity by sourced districts, NOT measured GPS routes. 92 described checkpoints: 21 cards, 36 WAiNK, 5 playlist posters, 6 underwater discoveries and 24 named stunt jumps. Sources remain work in progress; no fabricated coordinates, timing, game screenshots, rights claims or PSN sync.",
   "sources": {
     "playlist": "https://www.powerpyx.com/gta-6-all-unique-playlist-collectible-locations/",
     "ed": "https://www.powerpyx.com/gta-6-ed-comics-universe-collectible-card-set-locations/",
@@ -24,7 +24,9 @@
     "ed_push": "https://www.pushsquare.com/guides/gta-6-ed-comics-universe-card-locations",
     "nine": "https://www.pushsquare.com/guides/gta-6-nine1nine-dancers-card-locations",
     "landmark_push": "https://www.pushsquare.com/guides/gta-6-waink-landmark-locations",
-    "noflusher": "https://www.pushsquare.com/guides/gta-6-no-flusher-tag-locations"
+    "noflusher": "https://www.pushsquare.com/guides/gta-6-no-flusher-tag-locations",
+    "sculptures": "https://www.pushsquare.com/guides/gta-6-waink-sculpture-locations",
+    "curio_push": "https://www.pushsquare.com/guides/gta-6-waink-curiosities-locations"
   },
   "regions": [
     {
@@ -45,7 +47,7 @@
       "id": "vice-beach",
       "name": "Vice Beach",
       "subtitle": "Dalton Island / Tequesta",
-      "description": "Raccogli i punti documentati lungo l'area urbana costiera; non sono una linea di viaggio calcolata.",
+      "description": "Raggruppa statue WAiNK di Ocean Beach e Washington Beach, verificando gli ingressi alle strutture prima di raggiungere gli altri collezionabili.",
       "warning": "L'ordine è geografico-editoriale, non un percorso stradale."
     },
     {
@@ -73,7 +75,7 @@
       "id": "lummox",
       "name": "Lummox County",
       "subtitle": "Moreau → Grayson → Mount Kalaga",
-      "description": "Unisci WAiNK, una carta presso Grayson e il punto panoramico di Mount Kalaga.",
+      "description": "Unisci il T-Rex in zona Mount Kalaga con landmark WAiNK, una carta presso Grayson e il belvedere di Kalaga. Ordine editoriale, non percorso calcolato.",
       "warning": "Non deduciamo tempi o chilometri fra le località."
     }
   ],
@@ -844,6 +846,166 @@
       "hint": "Scansiona il secondo segno sulla pavimentazione; non confonderlo con i murales AHOL.",
       "source": "noflusher",
       "confidence": "described"
+    },
+    {
+      "id": "pt-77",
+      "region": "vice-city",
+      "type": "waink",
+      "name": "Gimme All Your Oil — Sculpture WAiNK",
+      "place": "Decor District · Catalan Blvd, sud-est di Blanc & Giroux",
+      "hint": "Scansiona la scultura vicino alla gioielleria; l'origine contiene immagini e vista mappa.",
+      "source": "sculptures",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-78",
+      "region": "lummox",
+      "type": "waink",
+      "name": "Junkyard T-Rex — Sculpture WAiNK",
+      "place": "Mount Kalaga · Sassafrass Rd, a nord del lago Kalaga",
+      "hint": "La scultura è a est della capanna di Bret; fai attenzione ai possibili incontri nella zona.",
+      "source": "sculptures",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-79",
+      "region": "mariana",
+      "type": "waink",
+      "name": "Fatal Incursion Plaque — Sculpture WAiNK",
+      "place": "Key Lento · estremità sud-occidentale, Sunbelt Hwy",
+      "hint": "Targa sul litorale a ovest di Barnacle Beauties; inquadra il soggetto con WAiNK.",
+      "source": "sculptures",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-80",
+      "region": "mariana",
+      "type": "waink",
+      "name": "Triangler Sculpture — Sculpture WAiNK",
+      "place": "Corsair Key · piccolo isolotto al largo, Mariana County",
+      "hint": "Individua il monumento a forma di pesce sulla costa, poi scansiona con WAiNK.",
+      "source": "sculptures",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-81",
+      "region": "vice-beach",
+      "type": "waink",
+      "name": "Large Lure — Sculpture WAiNK",
+      "place": "Ocean Beach · parco Thompson Ave, a sud di Lucciano's",
+      "hint": "Scansiona la scultura esposta nel parco lungo Thompson Avenue.",
+      "source": "sculptures",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-82",
+      "region": "vice-beach",
+      "type": "waink",
+      "name": "Neptune Rises — Sculpture WAiNK",
+      "place": "Washington Beach · Dominoe St, ponte sud per Flamingo Island",
+      "hint": "Sotto il ponte sud si trova una scultura che tiene sollevata una vecchia auto.",
+      "source": "sculptures",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-83",
+      "region": "vice-beach",
+      "type": "waink",
+      "name": "Vice Museum of Art Sculpture — WAiNK",
+      "place": "Washington Beach · Atlantic Ave, zona meridionale",
+      "hint": "Sul lato visibile da Atlantic Avenue cerca la pila di faccine e scansiona con WAiNK.",
+      "source": "sculptures",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-84",
+      "region": "vice-city",
+      "type": "waink",
+      "name": "Pixel Fountain — Sculpture WAiNK",
+      "place": "Vice City · Catalan Blvd, a ovest di Tequestra Retreat",
+      "hint": "La fontana dalle forme pixelate si trova sul viale; scansiona da vicino.",
+      "source": "sculptures",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-85",
+      "region": "mariana",
+      "type": "waink",
+      "name": "The Wonder Whale — Sculpture WAiNK",
+      "place": "Key Lento · The Wonder Whale store, Sunbelt Hwy",
+      "hint": "Scansiona la balena esterna a sud del negozio The Wonder Whale.",
+      "source": "sculptures",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-86",
+      "region": "vice-beach",
+      "type": "waink",
+      "name": "Princess Robot Bubblegum Statue — WAiNK",
+      "place": "Washington Beach · Y Hotel, lato destro dell'ingresso",
+      "hint": "Statua vicino all'entrata principale dell'hotel, sul lato destro.",
+      "source": "sculptures",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-87",
+      "region": "kelly",
+      "type": "waink",
+      "name": "Monument of Leonidan Supremacy — WAiNK",
+      "place": "Manifest Canyon · lato occidentale della SR-73",
+      "hint": "Punto presso la strada nella zona nord della contea Kelly, a nord di Port Gellhorn.",
+      "source": "sculptures",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-88",
+      "region": "mariana",
+      "type": "waink",
+      "name": "Fingerpost — Curiosity WAiNK",
+      "place": "Permit Keys · zona sabbiosa dell'isola maggiore, est di Barrage Gun Supply",
+      "hint": "Nella parte settentrionale della spiaggia, tra alberi e cespugli, scansiona il Fingerpost.",
+      "source": "curio_push",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-89",
+      "region": "vice-city",
+      "type": "waink",
+      "name": "Downtown Periscope — Landmark WAiNK",
+      "place": "Downtown · presso Catalan Blvd, Vice City",
+      "hint": "Landmark descritto dalla fonte presso Catalan Boulevard; usa le immagini per riconoscerlo.",
+      "source": "landmark_push",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-90",
+      "region": "kelly",
+      "type": "waink",
+      "name": "Sky Ride — Landmark WAiNK",
+      "place": "Emerald Springs · est dell'Emerald River",
+      "hint": "La struttura emerge dalla copertura arborea; segui la mappa della fonte per l'accesso.",
+      "source": "landmark_push",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-91",
+      "region": "kelly",
+      "type": "waink",
+      "name": "Hoffman Observatory — Landmark WAiNK",
+      "place": "North Kelly County · collina panoramica sulla parte ovest",
+      "hint": "Raggiungi l'osservatorio su una collina a ovest di North Kelly County.",
+      "source": "landmark_push",
+      "confidence": "described"
+    },
+    {
+      "id": "pt-92",
+      "region": "kelly",
+      "type": "waink",
+      "name": "Howe Dairy Farm’s Big Udder — WAiNK",
+      "place": "Emerald Springs · a sud di CR 62",
+      "hint": "Cerca il grande silo dipinto a forma di mucca, visibile dalla strada.",
+      "source": "landmark_push",
+      "confidence": "described"
     }
   ],
   "stunts": {
@@ -887,9 +1049,9 @@
   },
   "waink": {
     "required": 100,
-    "known_in_atlas": 20,
+    "known_in_atlas": 36,
     "source": "waink",
-    "note": "AHOL Street Art e murales 1010 hanno contatori separati; non fanno avanzare i 100 WAiNK."
+    "note": "36 scansioni di vari tipi sono incluse in questa selezione, ma i 100 obiettivi richiesti non sono necessariamente 100 landmark: includono curiosità, sculture e altre categorie. Le guide pubbliche sono ancora WIP."
   },
   "cards": {
     "required_sets": 15,
