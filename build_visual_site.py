@@ -471,10 +471,12 @@ def guide(g,guides):
            '<span class="v-guide-step-count">'+str(count)+' passaggi pratici</span>'
            '</section>')
     body+='<div class="v-guide-layout v-guide-single"><article class="v-guide-main">'
-    body+=('<div class="v-guide-quickstart" aria-label="Requisiti della procedura">'
+    body+=('<details class="v-guide-prep">'
+           '<summary>Prima di iniziare: requisiti e luogo di partenza</summary>'
+           '<div class="v-guide-prep-content">'
            '<p><strong>Serve:</strong> '+e(g["requirements"])+'</p>'
            '<p><strong>Dove:</strong> '+e(g["location"])+'</p>'
-           '</div>')
+           '</div></details>')
     # Critical trophy/save warnings must remain visible BEFORE the first step.
     if g['id'] in {'soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor'}:
         body+=('<p class="v-guide-urgent" role="note"><strong>⚠️ Non perdere i soldi:</strong> '
