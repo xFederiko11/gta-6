@@ -132,6 +132,12 @@ jobs:
           assert destination.read_bytes() == expected
           print('GSC_VERIFICATION_FILE_INCLUDED',destination)
           PY
+      - name: Publish only reader content (editorial artifacts remain in CI)
+        run: |
+          python -m py_compile public_release_gate.py test_public_release_gate.py
+          python -m unittest -q test_public_release_gate.py
+          python public_release_gate.py --apply
+          python public_release_gate.py
       - name: Upload static site to GitHub Pages
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
@@ -171,7 +177,7 @@ jobs:
           python - <<'PY'
           import urllib.request, time, json
           base='https://xfederiko11.github.io/gta-6/'
-          for path in ('','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/trofeo-15-stunt-da-capogiro/','trofei/roadmap-platino/','mappe-guide/','trofei/100-percento/','trofei/trofei-difficili/','screenshot-ps5/verifica/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/'):
+          for path in ('','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/trofeo-15-stunt-da-capogiro/','trofei/roadmap-platino/','mappe-guide/','trofei/100-percento/','trofei/trofei-difficili/','collezionabili/percorsi/','screenshot-ps5/invia/'):
               for attempt in range(6):
                   try:
                       request=urllib.request.Request(base+path+'?reader=adaptive-v2-20261120',headers={'Cache-Control':'no-cache'})
@@ -219,10 +225,6 @@ jobs:
                           assert text.count('data-hard-trophy="') == 7
                           assert 'data-hard-status="incerto"' in text
                           assert 'advanced-platinum-v3.css?v=' in text
-                      if path == 'screenshot-ps5/verifica/':
-                          assert text.count('data-provenance-key=') == 10
-                          assert text.count('data-photo-source-lead=') == 8
-                          assert 'non documentato' in text
                       if path == 'collezionabili/percorsi/':
                           assert text.count('data-cr-curated-link') == 10
                           assert 'https://gtamap.io/?m=jasons-safehouse' in text
@@ -231,11 +233,6 @@ jobs:
                           assert text.count('data-cr-region=') == 7
                           assert 'data-cr-done' in text and 'Vicki' in text and 'Victor Maravilla' in text
                           assert 'collectible-routes-v4.js?v=' in text
-                      if path == 'screenshot-ps5/priorita/':
-                          assert text.count('data-pc-task=') == 55
-                          assert text.count('data-pc-guide=') == 11
-                          assert 'photo-coverage-v5.css?v=' in text
-                          assert 'photo-coverage-v5.js?v=' in text
                       if path == 'screenshot-ps5/invia/':
                           assert text.count('data-photo-guide=') == 55
                           assert 'data-pi-rights' in text
@@ -263,27 +260,16 @@ jobs:
               ('assets/photo-intake-v4.css','.pi-page'),
               ('assets/reader-theme.js',"const chooseDefault = () => 'dark'"),
               ('assets/reader-theme.css','--r-bg:#10131d'),
-              ('photo-intake-audit.json','"approved_new_community_photos": 0'),
-              ('photo-backlog-v5.json','"total_requests": 55'),
-              ('assets/photo-coverage-v5.css','.pc-root'),
-              ('assets/photo-coverage-v5.js','data-pc-filter'),
               ('assets/interactive-map-v1.js','game-map-load-intent'),
-              ('assets/x-growth-dashboard-v1.css','.gx-root'),
-              ('growth-evidence-v1.json','"schema": "gta6-x-growth-provenance-v1"'),
               ('assets/interactive-map-v1.css','.vim-root'),
-              ('map-rollout-v1.json','"pages_with_interactive_map": 68'),
-              ('map-rollout-v1.json','"external_map_references_reviewed": 7'),
-              ('map-rollout-v1.json','"individual_collectible_pins_verified": 0'),
-              ('photo-provenance-review.json','"new_images_rehosted": 0'),
               ('sitemap.xml','trofei/roadmap-platino/'),
               ('sitemap.xml','mappe-guide/'),
               ('sitemap.xml','trofei/100-percento/'),
               ('sitemap.xml','trofei/trofei-difficili/'),
-              ('sitemap.xml','screenshot-ps5/verifica/'),
+              ('sitemap.xml'),
               ('sitemap.xml','collezionabili/percorsi/'),
               ('sitemap.xml','screenshot-ps5/invia/'),
-              ('sitemap.xml','screenshot-ps5/priorita/'),
-              ('social-cards-audit.json','"unique_images"'),
+              ('sitemap.xml'),
           ):
               request=urllib.request.Request(base+path+'?group3-live=20261121',headers={'Cache-Control':'no-cache'})
               with urllib.request.urlopen(request,timeout=20) as response:
@@ -291,27 +277,26 @@ jobs:
                   assert response.status==200
               assert marker in body, (path, marker)
               print('PUBLIC_GROUP3_ASSET_OK',base+path)
-          # A public read-only dashboard must remain honest even if GitHub
-          # issue diagnostics are unavailable or partial on deployment day.
-          request=urllib.request.Request(base+'crescita-x/?growth-dashboard=20261121',headers={'Cache-Control':'no-cache'})
-          with urllib.request.urlopen(request,timeout=20) as response:
-              dashboard=response.read(500000).decode('utf-8')
-              assert response.status==200
-          assert 'id="crescita-x"' in dashboard
-          assert 'x-growth-dashboard-v1.css?v=' in dashboard
-          assert 'name="robots" content="noindex,follow"' in dashboard
-          assert 'growth-evidence-v1.json' in dashboard
-          assert 'Domande X esterne verificate' in dashboard
-          with urllib.request.urlopen(urllib.request.Request(base+'growth-evidence-v1.json?source-audit=20261121',
-                                             headers={'Cache-Control':'no-cache'}),timeout=20) as response:
-              evidence=json.loads(response.read(65000).decode('utf-8'))
-              assert response.status==200
-          assert evidence['schema']=='gta6-x-growth-provenance-v1'
-          assert len(evidence['sources'])==3
-          assert [s['issue'] for s in evidence['sources']]==[48,72,42]
-          assert all(s['url']=='https://github.com/xFederiko11/federiko-gta-playstation-bot/issues/'+str(s['issue']) for s in evidence['sources'])
-          assert 'x' in evidence and 'buffer' in evidence and 'radar' in evidence
-          print('PUBLIC_GROWTH_DASHBOARD_OK',base+'crescita-x/',evidence['source_status'])
+          # Validate 404 responses for operational content, not just hidden menus.
+          from urllib.error import HTTPError
+          for private in ('crescita-x/','screenshot-ps5/verifica/',
+                          'screenshot-ps5/priorita/','growth-evidence-v1.json',
+                          'photo-backlog-v5.json','photo-requests.json',
+                          'photo-provenance-review.json','photo-intake-audit.json',
+                          'map-rollout-v1.json','design-version.json',
+                          'media-quality.json','social-cards-audit.json'):
+              request=urllib.request.Request(base+private+'?release-gate=1',
+                                             headers={'Cache-Control':'no-cache'})
+              try:
+                  with urllib.request.urlopen(request,timeout=20) as response:
+                      raise AssertionError('Internal artifact is public: '+private)
+              except HTTPError as error:
+                  assert error.code==404,(private,error.code)
+              print('PUBLIC_PRIVATE_PATH_404_OK',private)
+          home=urllib.request.urlopen(base+'?public-nav=1',timeout=20).read(1000000).decode('utf-8')
+          assert 'crescita-x/' not in home
+          assert 'screenshot-ps5/verifica/' not in home
+          assert 'screenshot-ps5/priorita/' not in home
                     # Verify the public file byte-for-byte. It is a single-purpose
           # Google-owned proof, not part of our reader HTML templates.
           expected = b'google-site-verification: google232edbd3526a5a1d.html'
@@ -363,65 +348,49 @@ jobs:
                       time.sleep(10)
           PY
 
-      - name: Verify actual published screenshot evidence and safe X requests
+      - name: Verify beginner-friendly tutorials and real screenshots in production
         run: |
           python - <<'PY'
-          import json, re, time, urllib.request
+          import urllib.request, time
           base='https://xfederiko11.github.io/gta-6/'
-          def fetch(path,limit=1500000):
+          def fetch(path):
               for attempt in range(6):
                   try:
-                      req=urllib.request.Request(base+path,headers={'Cache-Control':'no-cache'})
+                      req=urllib.request.Request(base+path+'?tutorial-qa=reader-first',
+                                                 headers={'Cache-Control':'no-cache'})
                       with urllib.request.urlopen(req,timeout=20) as response:
                           assert response.status==200
-                          return response.read(limit).decode('utf-8')
+                          return response.read(1800000).decode('utf-8')
                   except Exception:
                       if attempt==5: raise
                       time.sleep(10)
-          report=json.loads(fetch('media-quality.json?qa=photo-proof-v1'))
-          assert report['guides_checked']>=11
-          assert report['ready']+report['below_target']==report['guides_checked']
-          assert report['broken_local_references']==[]
-          assert report['target_unique_gameplay_screenshots']==5
-          indexed={row['path']:row for row in report['pages']}
-          targets=(
-              'guide-e-tutorial/soldi-facili-capitolo-1/',
-              'guide-e-tutorial/soldi-2500-three-sheets-liquor/',
+          for path in (
               'salvare-auto/',
+              'guide-e-tutorial/soldi-facili-capitolo-1/',
               'guide-e-tutorial/viaggio-rapido-taxi/',
               'guide-e-tutorial/glitch-prima-persona-ps5/',
-          )
-          for path in targets:
-              for attempt in range(6):
-                  try:
-                      page=fetch(path+'?qa=photo-proof-v1')
-                      assert 'id="contributi-foto"' in page
-                      assert page.count('data-visual-request-photo=')==5
-                      assert 'data-umami-event="x-screenshot-intent"' in page
-                      marker=re.search(r'data-visual-screenshot-count="([0-9]+)"',page)
-                      assert marker is not None
-                      n=int(marker.group(1))
-                      expected=indexed[path+'index.html']['real_step_screenshots']
-                      assert n==expected,(path,n,expected)
-                      print('PUBLIC_GTA6_PHOTO_PROOF_OK',base+path,'gameplay_images',n,
-                            'photo_requests',5)
-                      break
-                  except (AssertionError,ValueError,KeyError):
-                      if attempt==5: raise
-                      time.sleep(10)
-          hub=fetch('screenshot-ps5/?qa=photo-hub-v1')
-          assert hub.count('data-photo-guide=')==11
-          assert hub.count('data-visual-request-photo=')==55
-          assert hub.count('data-umami-event="x-screenshot-intent"')==55
-          assert '<link rel="canonical" href="'+base+'screenshot-ps5/"' in hub
-          photo_audit=json.loads(fetch('photo-requests.json?qa=photo-hub-v1'))
-          assert photo_audit['guides']==11 and photo_audit['photo_role_examples']==55
-          assert photo_audit['guides_at_target']==report['ready']
-          for guide in photo_audit['entries']:
-              assert guide['screenshot_count']==indexed[guide['path']+'index.html']['real_step_screenshots']
-          print('PUBLIC_GTA6_COMMUNITY_PHOTO_HUB_OK',base+'screenshot-ps5/',
-                'guides',11,'requested_roles',55)
-          privacy=fetch('privacy/?qa=photo-proof-v1')
-          assert 'x-screenshot-intent' in privacy
-          print('PUBLIC_GTA6_PHOTO_PRIVACY_OK',base+'privacy/')
+          ):
+              page=fetch(path)
+              assert 'class="v-tutorial-start"' in page
+              assert 'class="v-steps"' in page
+              assert 'Controllo prima di proseguire:' in page
+              assert 'class="reader-photo-invite"' in page
+              assert 'class="v-step-photo-gap"' not in page
+              assert 'data-visual-screenshot-count' not in page
+              assert 'data-visual-request-photo' not in page
+              assert 'screenshot-ps5/verifica/' not in page
+              assert 'screenshot-ps5/priorita/' not in page
+              if path=='salvare-auto/':
+                  steps=page.split('<ol class="v-steps">',1)[1].split('</ol>',1)[0]
+                  assert 'data-visual-kind="screenshot"' in steps
+                  assert 'Comandi PS5:' in page
+              print('PUBLIC_BEGINNER_TUTORIAL_OK',base+path)
+          hub=fetch('screenshot-ps5/')
+          assert 'data-photo-guide=' in hub
+          assert 'screenshot-ps5/verifica/' not in hub
+          assert 'screenshot-ps5/priorita/' not in hub
+          intake=fetch('screenshot-ps5/invia/')
+          assert 'data-pi-rights' in intake
+          assert 'screenshot-ps5/verifica/' not in intake
+          print('PUBLIC_CONTRIBUTION_PAGES_OK',base+'screenshot-ps5/')
           PY
