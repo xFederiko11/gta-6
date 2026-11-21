@@ -191,8 +191,8 @@ def render_hard(data,trophies):
             '<div class="ap-hard-content"><p>'+e(item["summary"])+'</p>'
             '<ol>'+steps+'</ol><p class="ap-hard-warning">'+e(item["warning"])+'</p>'
             '<div class="ap-hard-links">'+' '.join(links)+'</div>'
-            '<p class="ap-photo-note">📷 I link alle fonti seguenti possono contenere',
-            ' screenshot originali degli editori. Non li copiamo sul nostro sito',
+            '<p class="ap-photo-note">📷 I link alle fonti seguenti possono contenere'
+            ' screenshot originali degli editori. Non li copiamo sul nostro sito'
             ' senza una verifica dei diritti di riutilizzo.</p>'
             +_sources(data,item["sources"])+'</div>'
         )
