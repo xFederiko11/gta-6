@@ -301,3 +301,23 @@ body:has(.v-guide-intro) .v-spoiler-inner{padding-block:5px}
   .v-proof-label{margin:0 12px 8px!important}
   .v-guide-more>summary{padding:13px 14px}
 }
+
+/* On narrow screens the guide is a task, not a magazine landing page.
+   Date/view data and breadcrumbs stay in HTML but no longer push Step 1 away. */
+@media (max-width:760px){
+  body:has(.v-guide-intro) .page-meta,
+  body:has(.v-guide-intro) .breadcrumbs{display:none!important}
+  body:has(.v-guide-intro) .v-guide-intro{margin-top:5px!important;margin-bottom:3px!important}
+  body:has(.v-guide-intro) .v-guide-intro h1{margin:5px 0 5px!important;line-height:1.11}
+  body:has(.v-guide-intro) .v-guide-intro p{margin:0 0 5px!important;line-height:1.42;font-size:.89rem}
+  body:has(.v-guide-intro) .v-guide-step-count{display:none}
+  body:has(.v-guide-intro) .v-guide-prep{margin:6px 0!important}
+  body:has(.v-guide-intro) .v-guide-prep>summary{padding:8px 11px!important}
+  body:has(.v-guide-intro) .v-guide-urgent{margin:6px 0!important;padding:8px 10px!important;line-height:1.43}
+  body:has(.v-guide-intro) .v-tutorial{margin-top:7px!important}
+  body:has(.v-guide-intro) .v-tutorial-head{margin:0 0 7px!important;padding:7px 0!important}
+  body:has(.v-guide-intro) .v-tutorial-head h2{margin:3px 0!important}
+  body:has(.v-guide-intro) .v-tutorial-head p{display:none}
+  body:has(.v-guide-intro) .v-tutorial .v-spoiler-warning{margin:4px 0 8px!important;padding:7px 10px!important}
+  body:has(.v-guide-intro) .v-tutorial>.v-steps{margin:9px 0!important}
+}
