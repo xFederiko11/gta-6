@@ -515,7 +515,7 @@ def guide(g,guides):
            '<p><strong>Obiettivo:</strong> '+e(g['summary'])+'</p>'
            +controls_html+
            '<p><strong>Come procedere:</strong> segui i numeri in ordine, guarda la schermata quando presente '
-           'e verifica la riga «Controllo» prima di passare all’azione successiva. '
+           'e, quando disponibile, usa la riga «Controllo» prima di proseguire. '
            'Le immagini di atmosfera non sostituiscono quelle di gameplay.</p>'
            '</section>')
     body+=walkthrough_visuals(g)
