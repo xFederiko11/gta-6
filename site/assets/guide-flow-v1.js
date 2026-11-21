@@ -56,9 +56,12 @@
   const fill = status.querySelector('[data-gf-fill]');
   const hash = window.location.hash;
   const requested = /^#passaggio-([1-9][0-9]*)$/.exec(hash);
-  let current = requested && Number(requested[1]) <= total ? Number(requested[1]) - 1 : 0;
-  let all = !!hash && hash !== '#procedura' && hash !== '#inizio' && !requested;
-  let complete = false;
+  const alreadyComplete = hash === '#tutorial-completato';
+  let current = alreadyComplete ? total - 1
+    : (requested && Number(requested[1]) <= total ? Number(requested[1]) - 1 : 0);
+  let all = !!hash && hash !== '#procedura' && hash !== '#inizio'
+    && !requested && !alreadyComplete;
+  let complete = alreadyComplete;
 
   function moveViewport(step, focus) {
     if (focus) {
@@ -117,6 +120,7 @@
       render(true, true);
     } else {
       complete = true;
+      history.replaceState(null, '', '#tutorial-completato');
       render(true, false);
     }
   });
@@ -134,6 +138,13 @@
     render(true, true);
   });
   window.addEventListener('hashchange', () => {
+    if (location.hash === '#tutorial-completato') {
+      current = total - 1;
+      all = false;
+      complete = true;
+      render(true, false);
+      return;
+    }
     const m = /^#passaggio-([1-9][0-9]*)$/.exec(location.hash);
     if (m && Number(m[1]) <= total) {
       current = Number(m[1]) - 1;
