@@ -642,7 +642,6 @@ def main():
     photo_schema={'@context':'https://schema.org','@type':'CollectionPage',
                   'name':photo_title,'url':url(photo_path),'description':photo_description,
                   'inLanguage':'it-IT'}
-    photo_hub=photo_hub.replace('</section>', '</section>',1)
     photo_hub+=('<p class="v-photo-hub-guide-callout"><a href="'+url(PHOTO_COVERAGE_PATH)+
                 '">Vedi tutte le 55 foto prioritarie con modulo già selezionato →</a></p>')
     legacy.write(photo_path+'index.html',layout(
