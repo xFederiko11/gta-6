@@ -1,0 +1,189 @@
+{
+  "schema": "gta6-photo-provenance-review-v3",
+  "reviewed": "2026-11-21",
+  "policy": "Existing locally optimized game screenshots originate from identified third-party editorial source pages. Source attribution and technical availability are NOT proof of redistribution permission or direct owner authorship. No new external images are ingested automatically. Editorial leads are links, not photo evidence.",
+  "assets": [
+    {
+      "key": "liquor-store",
+      "subject": "Strange Noises / Three Sheets",
+      "guide": "soldi-2500-three-sheets-liquor",
+      "classification": "published-gameplay-screenshot",
+      "source_review": "editorial-original-linked",
+      "reuse_permission": "not_documented",
+      "rights_note": "Attribuzione presente; permesso specifico di ridistribuzione non documentato.",
+      "count_as_new_photo": false
+    },
+    {
+      "key": "shirley-house",
+      "subject": "Casa di Shirley, inizio missione",
+      "guide": "soldi-facili-capitolo-1",
+      "classification": "published-gameplay-screenshot",
+      "source_review": "editorial-original-linked",
+      "reuse_permission": "not_documented",
+      "rights_note": "Attribuzione presente; permesso specifico di ridistribuzione non documentato.",
+      "count_as_new_photo": false
+    },
+    {
+      "key": "save-car",
+      "subject": "Auto da conservare",
+      "guide": "registrare-auto-personale",
+      "classification": "published-gameplay-screenshot",
+      "source_review": "editorial-original-linked",
+      "reuse_permission": "not_documented",
+      "rights_note": "Attribuzione presente; permesso specifico di ridistribuzione non documentato.",
+      "count_as_new_photo": false
+    },
+    {
+      "key": "register-car",
+      "subject": "Schermata registrazione",
+      "guide": "registrare-auto-personale",
+      "classification": "published-gameplay-screenshot",
+      "source_review": "editorial-original-linked",
+      "reuse_permission": "not_documented",
+      "rights_note": "Attribuzione presente; permesso specifico di ridistribuzione non documentato.",
+      "count_as_new_photo": false
+    },
+    {
+      "key": "scooter-phone",
+      "subject": "Richiamo veicolo via telefono",
+      "guide": "registrare-auto-personale",
+      "classification": "published-gameplay-screenshot",
+      "source_review": "editorial-original-linked",
+      "reuse_permission": "not_documented",
+      "rights_note": "Attribuzione presente; permesso specifico di ridistribuzione non documentato.",
+      "count_as_new_photo": false
+    },
+    {
+      "key": "scooter-menu",
+      "subject": "Scelta auto Scooter Bros",
+      "guide": "registrare-auto-personale",
+      "classification": "published-gameplay-screenshot",
+      "source_review": "editorial-original-linked",
+      "reuse_permission": "not_documented",
+      "rights_note": "Attribuzione presente; permesso specifico di ridistribuzione non documentato.",
+      "count_as_new_photo": false
+    },
+    {
+      "key": "bank-phone",
+      "subject": "Servizio ATM Finder",
+      "guide": "soldi-facili-capitolo-1",
+      "classification": "published-gameplay-screenshot",
+      "source_review": "editorial-original-linked",
+      "reuse_permission": "not_documented",
+      "rights_note": "Attribuzione presente; permesso specifico di ridistribuzione non documentato.",
+      "count_as_new_photo": false
+    },
+    {
+      "key": "bank-deposit",
+      "subject": "Deposito bancomat",
+      "guide": "soldi-facili-capitolo-1",
+      "classification": "published-gameplay-screenshot",
+      "source_review": "editorial-original-linked",
+      "reuse_permission": "not_documented",
+      "rights_note": "Attribuzione presente; permesso specifico di ridistribuzione non documentato.",
+      "count_as_new_photo": false
+    },
+    {
+      "key": "taxi-phone",
+      "subject": "Taxi via telefono",
+      "guide": "viaggio-rapido-taxi",
+      "classification": "published-gameplay-screenshot",
+      "source_review": "editorial-original-linked",
+      "reuse_permission": "not_documented",
+      "rights_note": "Attribuzione presente; permesso specifico di ridistribuzione non documentato.",
+      "count_as_new_photo": false
+    },
+    {
+      "key": "taxi-ride",
+      "subject": "Viaggio in taxi",
+      "guide": "viaggio-rapido-taxi",
+      "classification": "published-gameplay-screenshot",
+      "source_review": "editorial-original-linked",
+      "reuse_permission": "not_documented",
+      "rights_note": "Attribuzione presente; permesso specifico di ridistribuzione non documentato.",
+      "count_as_new_photo": false
+    }
+  ],
+  "leads": [
+    {
+      "id": "meditazioni",
+      "guide": "guide-e-tutorial/meditazione-capitolo-1/",
+      "url": "https://www.powerpyx.com/gta-6-all-meditation-spot-locations/",
+      "review": "Verificare immagini e licenza dei dieci landmark prima di inserire screenshot sul sito.",
+      "priority": "alta",
+      "original_visual": "review_at_source",
+      "reuse_permission": "not_documented",
+      "copy_to_site": false
+    },
+    {
+      "id": "carte",
+      "guide": "trofei/100-percento/",
+      "url": "https://www.powerpyx.com/gta-6-all-collectible-card-sets-locations/",
+      "review": "Immagini delle posizioni delle carte sul sito della fonte; il sito può linkare la guida ma non copiarle automaticamente.",
+      "priority": "alta",
+      "original_visual": "review_at_source",
+      "reuse_permission": "not_documented",
+      "copy_to_site": false
+    },
+    {
+      "id": "poligoni",
+      "guide": "trofei/trofeo-17-cecchino/",
+      "url": "https://www.powerpyx.com/gta-6-all-shooting-range-gold-medal-challenges/",
+      "review": "Cercare schermate PS5 dei percorsi e del contatore Oro, con verifica della licenza.",
+      "priority": "alta",
+      "original_visual": "review_at_source",
+      "reuse_permission": "not_documented",
+      "copy_to_site": false
+    },
+    {
+      "id": "ufo",
+      "guide": "trofei/trofeo-50-la-verita-e-la-fuori/",
+      "url": "https://www.powerpyx.com/gta-6-ufo-aliens-easter-egg-location",
+      "review": "Riferimento al luogo vicino allo Starlet Motel; immagini dell'evento da verificare, attenzione agli spoiler.",
+      "priority": "alta",
+      "original_visual": "review_at_source",
+      "reuse_permission": "not_documented",
+      "copy_to_site": false
+    },
+    {
+      "id": "rhino",
+      "guide": "trofei/trofeo-38-pelle-coriacea/",
+      "url": "https://www.powerpyx.com/gta-6-military-tank-location/",
+      "review": "Confrontare posizione base, ingresso e veicolo con una cattura PS5 originale e autorizzata.",
+      "priority": "alta",
+      "original_visual": "review_at_source",
+      "reuse_permission": "not_documented",
+      "copy_to_site": false
+    },
+    {
+      "id": "bowling",
+      "guide": "trofei/trofeo-46-giochiamo-a-bowling/",
+      "url": "https://www.powerpyx.com/gta-6-hit-kingpin-bowling-walkthrough/",
+      "review": "Tre oggetti richiesti e percorso di fuga: manca una sequenza fotografica con permessi.",
+      "priority": "alta",
+      "original_visual": "review_at_source",
+      "reuse_permission": "not_documented",
+      "copy_to_site": false
+    },
+    {
+      "id": "animali",
+      "guide": "guide-e-tutorial/studiare-animali/",
+      "url": "https://www.powerpyx.com/gta-6-how-to-study-animals-scan-vehicles/",
+      "review": "Verificare fotografia del binocolo e del progress tracker.",
+      "priority": "media",
+      "original_visual": "review_at_source",
+      "reuse_permission": "not_documented",
+      "copy_to_site": false
+    },
+    {
+      "id": "veicoli",
+      "guide": "guide-e-tutorial/scansionare-veicoli/",
+      "url": "https://www.powerpyx.com/gta-6-how-to-study-animals-scan-vehicles/",
+      "review": "Verificare screenshot WAiNK e contatori separati, non una foto promozionale.",
+      "priority": "media",
+      "original_visual": "review_at_source",
+      "reuse_permission": "not_documented",
+      "copy_to_site": false
+    }
+  ]
+}
