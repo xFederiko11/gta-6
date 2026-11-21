@@ -204,17 +204,21 @@ def image(key,*,eager=False):
     return f'<img class="v-photo" data-visual-image="{e(key)}" data-visual-kind="{e(record["kind"])}" src="{e(original)}"{srcset} alt="{e(record["alt"])}" width="960" height="540" decoding="async"{extra}>'
 
 
-def figure(key):
+def figure(key,caption_override=None):
+    """Show the verified cached photo, with a small direct source link below it."""
     record=MEDIA[key]
     photo=media_src(key)
-    credit=(f'<figcaption class="v-caption">{e(record["caption"])} '
-            f'<a href="{e(record["source"])}" target="_blank" rel="noopener noreferrer">'
-            f'{e(record["credit"])} — apri la fonte ↗</a></figcaption>')
+    caption=record['caption'] if caption_override is None else caption_override
+    credit=('<figcaption class="v-caption v-photo-attribution">'
+            '<span class="v-photo-caption">'+e(caption)+'</span>'
+            '<small class="v-photo-origin"><a href="'+e(record['source'])+'" '
+            'target="_blank" rel="noopener noreferrer">Fonte foto: '
+            +e(record['credit'])+' ↗</a></small></figcaption>')
     if not photo:
         return '<figure class="v-unavailable-figure">'+unavailable_media(key)+credit+'</figure>'
-    return (f'<figure><a class="v-image-link" href="{e(photo)}" '
-            f'data-image-source="{e(record["source"])}" target="_blank" rel="noopener noreferrer" '
-            f'aria-label="Ingrandisci: {e(record["alt"])}">'+image(key)+
+    return ('<figure class="v-verified-figure"><a class="v-image-link" href="'+e(photo)+'" '
+            'data-image-source="'+e(record["source"])+'" target="_blank" rel="noopener noreferrer" '
+            'aria-label="Ingrandisci: '+e(record["alt"])+'">'+image(key)+
             '<span class="v-image-label">Ingrandisci ↗</span></a>'+credit+'</figure>')
 
 
@@ -540,16 +544,36 @@ def guide(g,guides):
             raise ValueError('Photo not approved for tutorial: '+g['id']+' step '+str(n+1))
         if approved and not key:
             raise ValueError('Approved tutorial photo not configured: '+g['id']+' step '+str(n+1))
+        photo_shown=False
         if key:
             if key not in MEDIA or MEDIA[key]['kind']!='screenshot':
                 raise ValueError('Non-gameplay image in a tutorial: '+str(key))
             if MEDIA[key]['source']!=approved['source']:
                 raise ValueError('Photo source differs from audited record: '+key)
             if media_src(key):
-                body+=('<div class="v-proof-media"><p class="v-proof-label">SCHERMATA DEL PASSAGGIO</p>'
+                body+=('<div class="v-proof-media" data-visual-proof-image="'+e(key)+'">'
+                       '<p class="v-proof-label">FOTO DEL PASSAGGIO</p>'
                        +figure(key)+'</div>')
                 used.append(key)
-        body+=render_step_photo_source(PHOTO_SOURCE_REFS,g['id'],n)
+                photo_shown=True
+        context=PHOTO_STEP_REVIEW.get('context_approved',{}).get(g['id'],{}).get(str(n))
+        if context:
+            context_key=context['key']
+            if context_key not in MEDIA or MEDIA[context_key]['kind']!='screenshot':
+                raise ValueError('Unverified location photo: '+str(context_key))
+            if media_src(context_key):
+                body+=('<div class="v-proof-media v-location-reference" '
+                       'data-visual-location-image="'+e(context_key)+'">'
+                       '<p class="v-proof-label">FOTO DEL LUOGO · SOLO RIFERIMENTO</p>'
+                       +figure(context_key,context['caption'])+'</div>')
+                photo_shown=True
+        photo_ref=render_step_photo_source(PHOTO_SOURCE_REFS,g['id'],n)
+        if photo_ref:
+            if photo_shown:
+                body+=('<details class="v-more-photo-sources"><summary>Altre foto e riferimenti '
+                       'sul sito originale (facoltativo)</summary>'+photo_ref+'</details>')
+            else:
+                body+=photo_ref
         evidence=render_step_evidence(g,n,STEP_EVIDENCE,VISUAL_EVIDENCE)
         if evidence:
             step_evidence.append((n+1,heading,evidence))
@@ -668,6 +692,18 @@ def main():
     records+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
     guides=enrich(records)
     validate(guides)
+    for guide_id,items in PHOTO_STEP_REVIEW.get('context_approved',{}).items():
+        guide=next((g for g in guides if g['id']==guide_id),None)
+        if guide is None:
+            raise ValueError('Photo context for unknown guide: '+guide_id)
+        for index,item in items.items():
+            if not index.isdigit() or int(index)>=len(guide['steps']) or int(index)<0:
+                raise ValueError('Location photo outside guide steps: '+guide_id)
+            key=item.get('key')
+            if (key not in MEDIA or MEDIA[key]['kind']!='screenshot'
+                or item.get('role')!='riferimento-luogo'
+                or not 40<=len(item.get('caption',''))<=230):
+                raise ValueError('Location reference without verifiable role and caption: '+guide_id)
     validate_step_photo_sources(PHOTO_SOURCE_REFS,guides)
     validate_step_evidence(guides,STEP_EVIDENCE,VISUAL_EVIDENCE)
     validate_map_references(guides,LOCATION_REFS,MEDITATION_PLACES)
