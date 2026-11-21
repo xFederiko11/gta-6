@@ -109,12 +109,9 @@ def render_hub(guides, data, media, extras, get_local, approved=()):
           x["safe_title"].casefold())):
         local=screenshot_count(g,media,extras,get_local,approved)
         links=''.join(entry_html(x) for x in data["guides"][g["id"]])
-        # Curated authentic screenshots already downloaded by the normal build;
-        # never use promotional art, remote hotlinks or unverifiable uploads.
-        evidence=list(dict.fromkeys(
-            [*g.get("step_media",{}).values(),
-             *(x["key"] for x in extras.get(g["canonical_path"],{}).get("gallery",[]))]
-        ))
+        # Only screenshots matched to a numbered tutorial action are eligible.
+        # Wide-area and gallery imagery never proves a specific gameplay step.
+        evidence=list(dict.fromkeys(g.get("step_media",{}).values()))
         snapshots=[]
         for key in evidence:
             item=media.get(key)
