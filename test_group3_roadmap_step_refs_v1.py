@@ -45,8 +45,8 @@ class GroupThreeTests(unittest.TestCase):
         _,guides,refs,data=fixtures()
         self.assertTrue(validate(guides,data,refs))
         by={g["id"]:g for g in guides}
-        self.assertIn("7:35",step_render(by["soldi-2500-three-sheets-liquor"],1,data,refs))
-        self.assertIn("t=455s",step_render(by["soldi-2500-three-sheets-liquor"],1,data,refs))
+        self.assertIn("7:35",step_render(by["soldi-2500-three-sheets-liquor"],2,data,refs))
+        self.assertIn("t=455s",step_render(by["soldi-2500-three-sheets-liquor"],2,data,refs))
         self.assertIn("gtabase.com/gta-6/map/",step_render(by["registrare-auto-personale"],0,data,refs))
         self.assertEqual(step_render(by["registrare-auto-personale"],3,data,refs),"")
         for guide_id,steps in data["guides"].items():
