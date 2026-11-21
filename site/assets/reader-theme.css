@@ -321,3 +321,27 @@ body:has(.v-guide-intro) .v-spoiler-inner{padding-block:5px}
   body:has(.v-guide-intro) .v-tutorial .v-spoiler-warning{margin:4px 0 8px!important;padding:7px 10px!important}
   body:has(.v-guide-intro) .v-tutorial>.v-steps{margin:9px 0!important}
 }
+
+/* Action-specific photo references: external publisher, never invented gameplay. */
+.v-external-step-photo{
+  display:flex;flex-direction:column;gap:5px;
+  margin:3px 16px 14px;padding:12px 14px;
+  border:1px solid var(--r-line);border-left:3px solid var(--r-cyan);
+  border-radius:8px;background:var(--r-soft);color:var(--r-text);
+}
+.v-external-step-photo-title{display:flex;align-items:center;gap:7px;color:var(--r-text)}
+.v-external-step-photo-title strong{font-size:.72rem;letter-spacing:.045em;font-weight:800;line-height:1.45}
+.v-external-step-photo p{font-size:.88rem!important;font-weight:600;color:var(--r-text)!important;margin:0!important;line-height:1.45!important}
+.v-external-step-photo a{
+  width:max-content;max-width:100%;color:var(--r-cyan);
+  font-size:.86rem;font-weight:800;line-height:1.48;text-underline-offset:3px
+}
+.v-external-step-photo small{
+  display:block;color:var(--r-muted);font-size:.74rem;line-height:1.55;max-width:65ch
+}
+.v-external-step-photo small b{color:var(--r-text);font-weight:700}
+@media(max-width:760px){
+  .v-external-step-photo{margin:2px 11px 12px;padding:10px 11px}
+  .v-external-step-photo-title strong{font-size:.68rem}
+  .v-external-step-photo a{font-size:.84rem}
+}
