@@ -470,7 +470,7 @@ class VisualSiteTests(unittest.TestCase):
             self.assertIn('class="prose trophy-prose"',html)
             article=html.split('class="prose trophy-prose"',1)[1].split('</article>',1)[0]
             with self.subTest(page=page.relative_to(ROOT)):
-                images=re.findall(r'<img\\b[^>]*>',article)
+                images=re.findall(r'<img\b[^>]*>',article)
                 if 'trofeo-17-cecchino' in page.as_posix():
                     # This is the labeled YouTube *video poster*, not a claimed
                     # gameplay-step photo or evidence of medal requirements.
