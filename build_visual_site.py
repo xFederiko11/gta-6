@@ -496,9 +496,13 @@ def guide(g,guides):
     body+=f'<div class="v-answer"><strong>La cosa da sapere</strong><p>{e(benefit)}</p></div><div class="v-facts"><div class="v-fact"><strong>Prima di iniziare</strong><p>{e(g["requirements"])}</p></div><div class="v-fact"><strong>Dove andare</strong><p>{e(g["location"])}</p></div></div>'
     body+=walkthrough_visuals(g)
     body+=render_guide_locations(g,LOCATION_REFS,MEDITATION_PLACES)
-    body+=render_interactive_map(g['safe_title'],
+    interactive=render_interactive_map(g['safe_title'],
           interactive_guide_points(g,LOCATION_REFS,MEDITATION_PLACES),
           id_suffix=g['id'],page_label='guida')
+    if g.get('spoiler'):
+        interactive=('<details class="v-map-spoiler"><summary>Mostra la mappa interattiva '
+                     'e i luoghi di questa guida (spoiler)</summary>'+interactive+'</details>')
+    body+=interactive
     body+='<section id="procedura">'+section_head('UNA COSA ALLA VOLTA','Il percorso, passo per passo')
     if g['spoiler']:
         body+='<div class="v-spoiler-warning" role="note"><strong>⚠️ Questa guida contiene spoiler.</strong> Continuando leggerai luoghi, obiettivi e ricompense.</div>'
