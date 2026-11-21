@@ -7,6 +7,7 @@ publish with a truthful warning, but never with broken URLs or remote hotlinks.
 from __future__ import annotations
 from html.parser import HTMLParser
 import json
+import re
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -69,12 +70,18 @@ def audit(root=ROOT):
             if not a.get('alt'):
                 broken.append({'page':page.relative_to(root).as_posix(),'image':key,'error':'alt missing'})
             keys.add(key)
+        # Only positively mapped action images meet the five-photo goal;
+        # a shop facade is helpful context, not proof of a cash exploit.
+        action_keys=set(re.findall(r'data-visual-proof-image="([^"]+)"',article))
+        if not action_keys.issubset(screenshot_keys):
+            broken.append({'page':page.relative_to(root).as_posix(),
+                           'error':'action-proof marker does not match displayed image'})
         missing=sorted({a.get('data-media-missing') for a in tags.missing if a.get('data-media-missing')})
         pages.append({'path':page.relative_to(root).as_posix(),
                       'unique_real_images':len(keys),'target':TARGET,
-                      'real_step_screenshots':len(screenshot_keys),
+                      'real_step_screenshots':len(action_keys),
                       'promotional_images':len(promotional_keys),
-                      'status':'target_met' if len(screenshot_keys)>=TARGET else 'needs_more_verified_images',
+                      'status':'target_met' if len(action_keys)>=TARGET else 'needs_more_verified_images',
                       'missing_sources':missing,'missing_count':len(missing)})
     if not pages: raise RuntimeError('No guide pages to check')
     report={'schema':'guide-media-quality-v1','target_unique_images':TARGET,
@@ -84,7 +91,7 @@ def audit(root=ROOT):
             'gameplay_screenshots_in_guide':sum(p['real_step_screenshots'] for p in pages),
             'promotional_images_in_guide':sum(p['promotional_images'] for p in pages),
             'broken_local_references':broken,'pages':pages,
-            'editorial_policy':'Five DISTINCT local gameplay screenshots in each guide procedure are the target; promotional images, videos, external links and missing-media placeholders never count. Missing evidence remains editorial debt; do not invent screenshots, map pins or rewards.'}
+            'editorial_policy':'Five DISTINCT action-specific gameplay screenshots are the target. An image of a place, a third-party source link, promotional art or a video does NOT prove the numbered action. Missing evidence remains editorial debt; do not invent screenshots, map pins or rewards.'}
     (root/'media-quality.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print('GUIDE_MEDIA_AUDIT',json.dumps({k:report[k] for k in ('guides_checked','ready','below_target')}),
           'invalid_references='+str(len(broken)))
