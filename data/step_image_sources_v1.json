@@ -1,7 +1,7 @@
 {
   "schema": "gta6-step-image-sources-v1",
   "reviewed": "2026-11-21",
-  "policy": "References are source-page photo examples for the precise indexed action, not locally hosted gameplay screenshots. Links stay on publisher domains; no copying, hotlinking or license inference. Publisher headings are provided to locate an image on the original page. Where a source does not document a specific image, no photo link is added.",
+  "policy": "References are source-page photo examples for the precise indexed action, not locally hosted gameplay screenshots. Links stay on publisher domains; no copying, hotlinking or license inference. Publisher headings are provided to locate an image on the original page. Where a source does not document a specific image, no photo link is added. Visual examples for meditation and Randy's wish list come from Push Square and must not be represented as guaranteed spawn evidence.",
   "guides": {
     "registrare-auto-personale": {
       "0": {
@@ -93,6 +93,28 @@
         "label": "Foto del magazzino South Vice-Dale",
         "section": "South Vice-Dale County Warehouse",
         "scope": "Riconoscimento del magazzino, non valore garantito dell'oggetto"
+      }
+    },
+    "meditazione-capitolo-1": {
+      "0": {
+        "source": "https://www.pushsquare.com/guides/gta-6-meditation-locations",
+        "label": "Mappa reale della casa di Jason a Key Lento",
+        "section": "1. Jason's House Meditation Location",
+        "scope": "Indica la casa da raggiungere nel Capitolo 1, non riproduce l'interazione con Lucia"
+      }
+    },
+    "sportive-randy-posizioni": {
+      "1": {
+        "source": "https://www.pushsquare.com/guides/gta-6-randys-wish-list-vehicle-locations",
+        "label": "Mappe fotografate dei luoghi segnalati per le auto richieste da Randy",
+        "section": "Where to Find Every Car from Randy's Wish List in GTA 6",
+        "scope": "Posizioni osservate nella sessione della fonte, non spawn garantiti nella tua partita"
+      },
+      "2": {
+        "source": "https://www.pushsquare.com/guides/gta-6-randys-wish-list-vehicle-locations",
+        "label": "Foto del veicolo Bravado Banshee e dell'area di ricerca",
+        "section": "1. Bravado Banshee Location",
+        "scope": "Esempio di come riconoscere un modello richiesto, non prova che sia disponibile ora"
       }
     }
   }
