@@ -345,3 +345,29 @@ body:has(.v-guide-intro) .v-spoiler-inner{padding-block:5px}
   .v-external-step-photo-title strong{font-size:.68rem}
   .v-external-step-photo a{font-size:.84rem}
 }
+
+/* Show one accurate screenshot directly below its instruction. Attribution is
+   a small source line below the photo, not a second oversized tutorial card. */
+.v-proof-media{padding:10px 0 4px}
+.v-proof-media.v-location-reference{border-top:1px solid var(--r-line);background:transparent}
+.v-proof-media .v-proof-label{font-size:.68rem!important;letter-spacing:.055em;line-height:1.3;color:var(--r-muted)!important;margin:0 15px 8px!important}
+.v-proof-media:not(.v-location-reference) .v-proof-label{color:var(--r-cyan)!important}
+.v-proof-media .v-verified-figure{margin:0 15px 15px!important;max-width:none}
+.v-verified-figure .v-photo{width:100%;height:auto;max-height:540px;object-fit:contain;display:block;border-radius:8px}
+.v-proof-media .v-image-link{display:block}
+.v-verified-figure .v-photo-attribution{display:flex;flex-direction:column;align-items:flex-start;gap:3px;margin:6px 0 0;padding:0!important;line-height:1.4;color:var(--r-muted);font-size:.73rem}
+.v-photo-attribution .v-photo-caption{display:block;color:var(--r-muted);font-size:.74rem;line-height:1.48}
+.v-photo-attribution .v-photo-origin{display:block;font-size:.68rem;line-height:1.35}
+.v-photo-attribution .v-photo-origin a{font-size:inherit;line-height:inherit;color:var(--r-muted);text-decoration:underline;text-decoration-color:var(--r-line);text-underline-offset:2px}
+.v-photo-attribution .v-photo-origin a:hover{color:var(--r-cyan)}
+.v-more-photo-sources{margin:1px 15px 14px;padding:0;border:none;background:transparent}
+.v-more-photo-sources>summary{cursor:pointer;font-size:.72rem;line-height:1.55;color:var(--r-muted);text-decoration:underline;text-underline-offset:3px}
+.v-more-photo-sources[open]{padding:6px 10px;border:1px solid var(--r-line);border-radius:8px}
+.v-more-photo-sources .v-external-step-photo{margin:9px 0 0}
+@media(max-width:760px){
+ .v-proof-media .v-verified-figure{margin:0 11px 11px!important}
+ .v-proof-media .v-proof-label{margin:0 11px 7px!important}
+ .v-more-photo-sources{margin:0 11px 12px}
+ .v-photo-attribution .v-photo-caption{font-size:.72rem}
+ .v-photo-attribution .v-photo-origin{font-size:.67rem}
+}
