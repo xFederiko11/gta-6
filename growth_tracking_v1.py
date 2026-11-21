@@ -61,11 +61,16 @@ def classify(tag):
             return None
     except ValueError:
         return None
+    if u.hostname in ("vice-map.com","gta6.city") and "data-vim-full" in tag:
+        # External map opened, not proof a marker exists or was found.
+        if u.hostname=="vice-map.com" and u.path=="/map" or u.hostname=="gta6.city" and u.path=="/":
+            return "game-map-external-open"
     if u.hostname == "x.com":
         if u.path == "/intent/follow":
             query = parse_qs(u.query)
             if query.get("screen_name") == ["xFederiko11"]:
-                return "x-follow-intent"
+                # Opening a follow intent does NOT prove a follower conversion.
+                return "game-map-follow-intent" if "data-vim-follow" in tag else "x-follow-intent"
         elif u.path == "/intent/tweet":
             query = parse_qs(u.query)
             if 'data-visual-send-x' in tag or 'data-visual-request-photo' in tag:
