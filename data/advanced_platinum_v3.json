@@ -1,0 +1,562 @@
+{
+  "schema": "gta6-advanced-platinum-20261121-v1",
+  "verified_on": "2026-11-21",
+  "sources": {
+    "completion": "https://www.powerpyx.com/gta-6-100-completion-checklist-guide/",
+    "cards": "https://www.powerpyx.com/gta-6-all-collectible-card-sets-locations/",
+    "medals": "https://www.powerpyx.com/gta-6-all-shooting-range-gold-medal-challenges/",
+    "trophy": "https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/",
+    "tank": "https://www.powerpyx.com/gta-6-military-tank-location/",
+    "tank_other": "https://www.gtabase.com/gta-6/achievements",
+    "bowling": "https://www.powerpyx.com/gta-6-hit-kingpin-bowling-walkthrough/",
+    "bowling_other": "https://www.gtabase.com/gta-6/missions/hit-kingpin-bowling",
+    "ufo": "https://www.powerpyx.com/gta-6-ufo-aliens-easter-egg-location",
+    "ufo_other": "https://grindcoast.com/gta-6-news/gta-6-ufo-location-truth-is-out-there",
+    "strength": "https://www.gtabase.com/gta-6/achievements",
+    "strength_other": "https://leonipedia.com/trophies/personal-best/"
+  },
+  "categories": {
+    "story": "Storia, rapine ed economia",
+    "activities": "Esplorazione e attività",
+    "discovery": "Scoperte"
+  },
+  "requirements": [
+    {
+      "id": "c01-storia-principale",
+      "category": "story",
+      "label": "Storia principale",
+      "target": 1,
+      "total": 1,
+      "kind": "storia",
+      "note": "Completa la storia prima di aprire il menu 100%.",
+      "guide": "trofei/roadmap-platino/"
+    },
+    {
+      "id": "c02-incarichi-opzionali",
+      "category": "story",
+      "label": "Incarichi opzionali",
+      "target": 100,
+      "total": null,
+      "kind": "opzionali",
+      "note": "Falli quando appaiono; molte consegne auto e meditazioni contano.",
+      "guide": "trofei/roadmap-platino/"
+    },
+    {
+      "id": "c03-operazioni-delle-bande",
+      "category": "story",
+      "label": "Operazioni delle bande",
+      "target": 39,
+      "total": 39,
+      "kind": "rapine",
+      "note": "Segna ciascuna delle 39 operazioni una sola volta."
+    },
+    {
+      "id": "c04-colpi-in-banca",
+      "category": "story",
+      "label": "Colpi in banca",
+      "target": 22,
+      "total": 22,
+      "kind": "rapine",
+      "note": "Completa l'operazione e la fuga, non solo l'ingresso."
+    },
+    {
+      "id": "c05-payday-loans",
+      "category": "story",
+      "label": "Payday Loans",
+      "target": 7,
+      "total": 7,
+      "kind": "rapine",
+      "note": "Completa le sette operazioni necessarie per il 100%."
+    },
+    {
+      "id": "c06-smash-n-grab",
+      "category": "story",
+      "label": "Smash ’N’ Grab",
+      "target": 34,
+      "total": 35,
+      "kind": "rapine",
+      "note": "Puoi saltare un solo obiettivo su 35."
+    },
+    {
+      "id": "c07-stick-up",
+      "category": "story",
+      "label": "Stick-up",
+      "target": 50,
+      "total": 91,
+      "kind": "rapine",
+      "note": "Una volta a 50, non inseguire i 41 aggiuntivi solo per il 100%."
+    },
+    {
+      "id": "c08-narcotici-rivenduti-gta",
+      "category": "story",
+      "label": "Narcotici rivenduti (GTA$)",
+      "target": 100000,
+      "total": null,
+      "kind": "denaro",
+      "note": "Il denaro viene contato quando lo rivendi ai ricettatori."
+    },
+    {
+      "id": "c09-gioielli-rivenduti-gta",
+      "category": "story",
+      "label": "Gioielli rivenduti (GTA$)",
+      "target": 100000,
+      "total": null,
+      "kind": "denaro",
+      "note": "Accumula le vendite, non soltanto la merce posseduta."
+    },
+    {
+      "id": "c10-banconote-segnate-riciclate-gta",
+      "category": "story",
+      "label": "Banconote segnate riciclate (GTA$)",
+      "target": 250000,
+      "total": null,
+      "kind": "denaro",
+      "note": "Cumulativo: serve anche per il trofeo #52."
+    },
+    {
+      "id": "c11-caveau-grandi-banche",
+      "category": "story",
+      "label": "Caveau grandi banche",
+      "target": 8,
+      "total": 8,
+      "kind": "rapine",
+      "note": "Otto per il 100%, anche se un trofeo individuale si sblocca a cinque."
+    },
+    {
+      "id": "c12-veicoli-venduti-gta",
+      "category": "story",
+      "label": "Veicoli venduti (GTA$)",
+      "target": 200000,
+      "total": null,
+      "kind": "denaro",
+      "note": "Conserva il progresso nelle vendite registrate."
+    },
+    {
+      "id": "c13-set-del-tesoro-di-kenton",
+      "category": "activities",
+      "label": "Set del tesoro di Kenton",
+      "target": 5,
+      "total": 7,
+      "kind": "collezionabili",
+      "note": "Cinque set bastano qui; alcune scoperte subacquee richiedono altro."
+    },
+    {
+      "id": "c14-set-di-carte-completi",
+      "category": "activities",
+      "label": "Set di carte completi",
+      "target": 15,
+      "total": 18,
+      "kind": "collezionabili",
+      "note": "Tre set valgono il trofeo #30; quindici servono per il 100%.",
+      "guide": "trofei/trofeo-30-non-toccare-il-mio-mazzo/"
+    },
+    {
+      "id": "c15-luoghi-waink-scansionati",
+      "category": "activities",
+      "label": "Luoghi WAiNK scansionati",
+      "target": 100,
+      "total": null,
+      "kind": "scansioni",
+      "note": "Oggetti e punti d'interesse a piedi; contatore distinto dai veicoli."
+    },
+    {
+      "id": "c16-scoperte-subacquee",
+      "category": "activities",
+      "label": "Scoperte subacquee",
+      "target": 33,
+      "total": 33,
+      "kind": "collezionabili",
+      "note": "Tutte le scoperte subacquee sono richieste."
+    },
+    {
+      "id": "c17-riviste-libri-e-fumetti",
+      "category": "activities",
+      "label": "Riviste, libri e fumetti",
+      "target": 30,
+      "total": 34,
+      "kind": "collezionabili",
+      "note": "Bastano 30 tra le 34 voci contabilizzate."
+    },
+    {
+      "id": "c18-meditazioni",
+      "category": "activities",
+      "label": "Meditazioni",
+      "target": 15,
+      "total": 18,
+      "kind": "collezionabili",
+      "note": "Per il 100% 15; per il trofeo #28 verifica tutte le località.",
+      "guide": "guide-e-tutorial/meditazione-capitolo-1/"
+    },
+    {
+      "id": "c19-fenicotteri-di-cocaina",
+      "category": "activities",
+      "label": "Fenicotteri di cocaina",
+      "target": 100,
+      "total": 125,
+      "kind": "collezionabili",
+      "note": "Identifica le figure giuste; 25 possono restare."
+    },
+    {
+      "id": "c20-playlist-speciali",
+      "category": "activities",
+      "label": "Playlist speciali",
+      "target": 2,
+      "total": 2,
+      "kind": "collezionabili",
+      "note": "Entrambe richieste."
+    },
+    {
+      "id": "c21-stili-scoperti",
+      "category": "activities",
+      "label": "Stili scoperti",
+      "target": 70,
+      "total": 79,
+      "kind": "collezionabili",
+      "note": "Ne bastano 70 di 79."
+    },
+    {
+      "id": "c22-gare-uniche-vinte",
+      "category": "activities",
+      "label": "Gare uniche vinte",
+      "target": 30,
+      "total": 40,
+      "kind": "gare",
+      "note": "Vinci gare diverse, non ripetizioni."
+    },
+    {
+      "id": "c23-oro-nelle-sfide-gara",
+      "category": "activities",
+      "label": "Oro nelle sfide gara",
+      "target": 10,
+      "total": 13,
+      "kind": "gare",
+      "note": "Puoi scegliere le 10 sfide più facili."
+    },
+    {
+      "id": "c24-medaglie-oro-poligoni",
+      "category": "activities",
+      "label": "Medaglie Oro poligoni",
+      "target": 42,
+      "total": 42,
+      "kind": "gare",
+      "note": "Tutti e 42 i livelli: due impianti e dodici percorsi.",
+      "guide": "trofei/medaglie-oro/"
+    },
+    {
+      "id": "c25-videogiochi-provati",
+      "category": "activities",
+      "label": "Videogiochi provati",
+      "target": 4,
+      "total": 4,
+      "kind": "attivita",
+      "note": "Gioca a tutti e quattro i titoli."
+    },
+    {
+      "id": "c26-avversari-biliardo-battuti",
+      "category": "activities",
+      "label": "Avversari biliardo battuti",
+      "target": 5,
+      "total": 7,
+      "kind": "attivita",
+      "note": "Cinque avversari diversi bastano."
+    },
+    {
+      "id": "c27-campi-minigolf-provati",
+      "category": "activities",
+      "label": "Campi minigolf provati",
+      "target": 2,
+      "total": 3,
+      "kind": "attivita",
+      "note": "Ne puoi saltare uno."
+    },
+    {
+      "id": "c28-canestri-differenti",
+      "category": "activities",
+      "label": "Canestri differenti",
+      "target": 90,
+      "total": 100,
+      "kind": "attivita",
+      "note": "Conta le postazioni uniche, non 90 tiri nella stessa."
+    },
+    {
+      "id": "c29-prove-droni-top-fun",
+      "category": "activities",
+      "label": "Prove droni Top Fun",
+      "target": 42,
+      "total": 42,
+      "kind": "gare",
+      "note": "Tre prove in ciascuna delle 14 località: tutte richieste."
+    },
+    {
+      "id": "c30-acrobazie",
+      "category": "activities",
+      "label": "Acrobazie",
+      "target": 300,
+      "total": 397,
+      "kind": "gare",
+      "note": "I passaggi sotto i ponti sono spesso più rapidi; non servono le medaglie delle singole acrobazie."
+    },
+    {
+      "id": "c31-sfide-completate",
+      "category": "activities",
+      "label": "Sfide completate",
+      "target": 70,
+      "total": 80,
+      "kind": "gare",
+      "note": "Lasciale come rifinitura e salta le 10 più lente.",
+      "guide": "guide-e-tutorial/70-sfide-100-percento/"
+    },
+    {
+      "id": "c32-bersagli-di-bret",
+      "category": "activities",
+      "label": "Bersagli di Bret",
+      "target": 15,
+      "total": 15,
+      "kind": "attivita",
+      "note": "Tutti e 15; filone disponibile per Jason."
+    },
+    {
+      "id": "c33-modelli-base-veicoli-waink",
+      "category": "discovery",
+      "label": "Modelli base veicoli WAiNK",
+      "target": 200,
+      "total": 277,
+      "kind": "scansioni",
+      "note": "Scansiona anche barche e aerei; gli speciali non sostituiscono i modelli base.",
+      "guide": "guide-e-tutorial/scansionare-veicoli/"
+    },
+    {
+      "id": "c34-armi-standard",
+      "category": "discovery",
+      "label": "Armi standard",
+      "target": 50,
+      "total": 66,
+      "kind": "collezionabili",
+      "note": "Ne bastano 50: anche le armi raccolte possono contare."
+    },
+    {
+      "id": "c35-animali-studiati",
+      "category": "discovery",
+      "label": "Animali studiati",
+      "target": 100,
+      "total": 255,
+      "kind": "collezionabili",
+      "note": "Studia con il binocolo, senza dover cacciare 100 specie.",
+      "guide": "guide-e-tutorial/studiare-animali/"
+    }
+  ],
+  "cards": [
+    {
+      "id": "set01",
+      "name": "Vice City Flamingos",
+      "total": 24
+    },
+    {
+      "id": "set02",
+      "name": "Vice City Narcos",
+      "total": 24
+    },
+    {
+      "id": "set03",
+      "name": "Vice City Manatees",
+      "total": 24
+    },
+    {
+      "id": "set04",
+      "name": "Vice City Club De Fútbol",
+      "total": 30
+    },
+    {
+      "id": "set05",
+      "name": "Liberty City Swingers",
+      "total": 24
+    },
+    {
+      "id": "set06",
+      "name": "Liberty City Penetrators",
+      "total": 24
+    },
+    {
+      "id": "set07",
+      "name": "Liberty City Wrath",
+      "total": 24
+    },
+    {
+      "id": "set08",
+      "name": "Los Santos Corkers",
+      "total": 24
+    },
+    {
+      "id": "set09",
+      "name": "Los Santos Panic",
+      "total": 24
+    },
+    {
+      "id": "set10",
+      "name": "Los Santos Pounders",
+      "total": 24
+    },
+    {
+      "id": "set11",
+      "name": "Backyard Wrestling",
+      "total": 12
+    },
+    {
+      "id": "set12",
+      "name": "America’s Next Top Hooker",
+      "total": 24
+    },
+    {
+      "id": "set13",
+      "name": "Delights Dancers",
+      "total": 18
+    },
+    {
+      "id": "set14",
+      "name": "Jack of Hearts Dancers",
+      "total": 36
+    },
+    {
+      "id": "set15",
+      "name": "Nine1Nine Dancers",
+      "total": 36
+    },
+    {
+      "id": "set16",
+      "name": "The Legends of Ratface",
+      "total": 36
+    },
+    {
+      "id": "set17",
+      "name": "Right Wing: America’s Hero",
+      "total": 36
+    },
+    {
+      "id": "set18",
+      "name": "Ed Comics Universe",
+      "total": 36
+    }
+  ],
+  "hard": [
+    {
+      "trophy": 38,
+      "title": "Pelle coriacea",
+      "status": "documentato",
+      "summary": "Rhino nella base Mile Zero Air Station, zona meridionale.",
+      "steps": [
+        "Porta un salvataggio manuale separato prima dell'incursione; il trofeo non richiede di conservare il veicolo.",
+        "Raggiungi la base di Mile Zero Air Station, nel settore sud-occidentale di Mariana County.",
+        "Passa dal cancello oppure dal salto nella zona sud-est; dirigiti verso i Rhino parcheggiati a sud.",
+        "Sali nel carro armato e controlla lo sblocco. Il livello di ricercato può aumentare immediatamente."
+      ],
+      "warning": "PowerPyx collega il trofeo al furto del Rhino. GTABase aggiunge il combattimento dal carro armato: se non si sblocca subito, la condizione aggiuntiva è ancora da verificare, senza rischiare il salvataggio principale.",
+      "sources": [
+        "tank",
+        "tank_other"
+      ]
+    },
+    {
+      "trophy": 46,
+      "title": "Giochiamo a bowling",
+      "status": "documentato",
+      "summary": "Kingpin Bowling a Port Gellhorn: tre preziosi e fuga.",
+      "steps": [
+        "Dopo Coffee Break nel Capitolo 2, raggiungi l'incarico opzionale Hit Kingpin Bowling.",
+        "Compra bombe adesive, fai scorta di protezioni e valuta di chiamare il partner.",
+        "Prendi l'orologio di lusso nell'ufficio sud-est e lo shotgun unico Gutterball Moreland 850 sul tavolo da biliardo a nord-est.",
+        "Apri con una bomba adesiva la cassaforte nel piccolo ufficio nord-est, recupera il bottino e fuggi dalla polizia.",
+        "Controlla il trofeo dopo esserti allontanato; se manca un oggetto, la struttura può tornare disponibile più avanti."
+      ],
+      "warning": "Fonti indicano un cooldown lungo per riprovare, ma non è segnalato come mancabile.",
+      "sources": [
+        "bowling",
+        "bowling_other"
+      ]
+    },
+    {
+      "trophy": 47,
+      "title": "Record personale",
+      "status": "documentato",
+      "summary": "Raggiungi Forza massima con Jason e Lucia insieme.",
+      "steps": [
+        "Completa Coffee Break nel Capitolo 2 per rendere utilizzabili entrambi i protagonisti.",
+        "Controlla la Forza di entrambi nel menu Jason e Lucia.",
+        "Trova una palestra tramite il filtro Attività della mappa e ottieni l'accesso se richiesto.",
+        "Chiama il partner prima di allenarti; la guida indica che l'allenamento condiviso aumenta entrambe le statistiche.",
+        "Continua fino al massimo di entrambi e verifica il trofeo. Dopo la storia puoi allenarti anche a casa."
+      ],
+      "warning": "Non usare modifiche alle statistiche o trucchi: qui non servono e la compatibilità con il Platino non sarebbe documentata.",
+      "sources": [
+        "strength",
+        "strength_other"
+      ]
+    },
+    {
+      "trophy": 48,
+      "title": "Contano i fatti",
+      "status": "documentato",
+      "summary": "500 azioni contabilizzate nel profilo criminale.",
+      "steps": [
+        "Attiva, se disponibile, le notifiche del Profilo criminale in Impostazioni → Interfaccia.",
+        "Gioca alle operazioni, fughe e altre attività della checklist 100% senza farming di violenza gratuita.",
+        "Controlla il numero di azioni registrate; la soglia indicata è 500 e si somma nel tempo.",
+        "Non forzare una reputazione irreversibile solo per aumentare rapidamente il contatore."
+      ],
+      "warning": "Le fonti descrivono l'irrevocabilità di alcune modifiche del profilo: meglio far crescere il contatore insieme alla storia.",
+      "sources": [
+        "strength",
+        "trophy"
+      ]
+    },
+    {
+      "trophy": 49,
+      "title": "Sfortuna, forse",
+      "status": "incerto",
+      "summary": "Condizione di sblocco non ancora verificata.",
+      "steps": [
+        "Non applicare tentativi irreversibili basati sull'ipotesi del prologo e dei Payday Loans.",
+        "Tieni una copia manuale separata quando ti avvicini alle attività sospettate.",
+        "Consulta un aggiornamento con video originale, patch e prova di sblocco prima di inseguire il requisito."
+      ],
+      "warning": "PowerPyx e community non confermano ancora la procedura: l'indizio «la seconda volta» non basta.",
+      "sources": [
+        "trophy"
+      ]
+    },
+    {
+      "trophy": 50,
+      "title": "La verità è là fuori",
+      "status": "probabile",
+      "summary": "Evento UFO presso Starlet Motel, Kelly County: luogo e tempistica riportati da più guide.",
+      "steps": [
+        "Se vuoi mantenere la scoperta senza spoiler, chiudi questa scheda prima di leggere oltre.",
+        "Raggiungi da solo dopo le 02:00 la strada a nord-ovest dello Starlet Motel, Kelly County. Il punto non è un pin confermato da Rockstar.",
+        "Cerca l'auto ferma con luci lampeggianti: se manca, allontanati e ritorna; la comparsa non è garantita.",
+        "Segui il sentiero verso la luce blu, parla con la donna e offriti di aiutarla.",
+        "Riportala alla macchina e controlla se l'evento UFO attiva il trofeo."
+      ],
+      "warning": "PowerPyx descrive la sequenza; altre fonti differiscono sul luogo/ora. Evidenza comunitaria, non certificazione ufficiale né exploit.",
+      "sources": [
+        "ufo",
+        "ufo_other"
+      ]
+    },
+    {
+      "trophy": 30,
+      "title": "Non toccare il mio mazzo",
+      "status": "documentato",
+      "summary": "3 set di carte per il trofeo; 15 su 18 per il 100%.",
+      "steps": [
+        "Apri Progressi → Collezioni → Carte collezionabili e individua i set già avanzati.",
+        "Termina prima i set piccoli o già quasi completi: Backyard Wrestling ha 12 carte e Delights Dancers ne ha 18.",
+        "Completa tre set per il trofeo e continua fino a 15 per il 100%; in teoria bastano 372 carte uniche su 480.",
+        "Puoi vendere le carte ritrovate: la fonte afferma che rimangono registrate; le copie duplicate non aggiungono progresso."
+      ],
+      "warning": "Il minimo di 372 è matematico, non un percorso più rapido garantito. Scegli in base ai punti già trovati e alle posizioni reali.",
+      "sources": [
+        "cards",
+        "completion"
+      ]
+    }
+  ]
+}
