@@ -245,3 +245,10 @@ La funzione rispetta **Do Not Track** quando esposto dal browser, evita il caric
 - `data/guide_locations_v2.json` distingue mappe filtrate, riferimenti descrittivi e attività senza luogo fisso. `guide_location_atlas_v2.py` mostra i riferimenti nelle guide originali e conserva gli spoiler.
 - I conteggi foto restano quelli verificati dalle immagini gameplay realmente disponibili nel build: non aumentano per immagini promozionali, video, link a mappe o richieste non ancora ricevute.
 - Generazione e test automatici: `platinum_atlas_v2.py`, `test_group12_atlas_v2.py`, `site/assets/platinum-atlas-v2.*`. Nessun login GitHub o PSN richiesto, nessuna chiamata API per memorizzare le spunte.
+
+## Gruppo Foto + Trofei difficili (21 novembre 2026)
+
+- `trofei/100-percento/`: 35 contatori del 100% secondo PowerPyx, 18 set di carte per un totale di 480, checklist locale separata dal PSN. Minimo teorico 372 carte per 15 set, non una rotta di viaggio.
+- `trofei/trofei-difficili/`: procedure operative #38 Rhino, #46 Bowling, #47 Forza Jason/Lucia, #48 Profilo criminale, #50 UFO (spawn e location con caveat), #30 carte; #49 resta **incerto**.
+- `screenshot-ps5/verifica/`: 10 screenshot editoriali già catalogati, con provenienza e diritti non documentati; 8 fonti da verificare prima di acquisire nuove foto. Non aggiunge immagini di terzi senza autorizzazione.
+- Asset, test e controllo HTTP dedicati: `advanced_platinum_v3.py`, `photo_provenance_v3.py`, `test_advanced_platinum_v3.py`, `data/advanced_platinum_v3.json`, `data/photo_provenance_review_v3.json`. I contatori sono manuali e privati nel browser; il sito non legge i trofei PSN.

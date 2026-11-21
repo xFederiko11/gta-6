@@ -50,8 +50,9 @@ jobs:
         run: python community_social_sync_v1.py
       - name: Validate preserved content and existing SEO contracts
         run: |
-          python -m py_compile platinum_atlas_v2.py guide_location_atlas_v2.py test_group12_atlas_v2.py platinum_roadmap_v1.py guide_step_references_v1.py test_group3_roadmap_step_refs_v1.py photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py
-          python -m unittest -q test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_meditation_tracker_v1.py test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
+          python -m py_compile advanced_platinum_v3.py photo_provenance_v3.py test_advanced_platinum_v3.py platinum_atlas_v2.py guide_location_atlas_v2.py test_group12_atlas_v2.py platinum_roadmap_v1.py guide_step_references_v1.py test_group3_roadmap_step_refs_v1.py photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py
+          python -m unittest -q test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_meditation_tracker_v1.py test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
+          node --check site/assets/advanced-platinum-v3.js
           node --check site/assets/platinum-atlas-v2.js
           node --check site/assets/platinum-roadmap.js
           node --check site/assets/visual-v2.js
@@ -73,7 +74,7 @@ jobs:
       - name: Audit actual local media and five-image guide target
         run: python media_quality_v1.py
       - name: Validate actual production pages, media and canonical continuity
-        run: python -m unittest -q test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py
+        run: python -m unittest -q test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py
       - name: Audit static Google discovery links (no network or tracking)
         run: |
           python -m unittest -q test_internal_link_graph_v1.py
@@ -151,7 +152,7 @@ jobs:
           python - <<'PY'
           import urllib.request, time
           base='https://xfederiko11.github.io/gta-6/'
-          for path in ('','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/roadmap-platino/','mappe-guide/'):
+          for path in ('','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/roadmap-platino/','mappe-guide/','trofei/100-percento/','trofei/trofei-difficili/','screenshot-ps5/verifica/'):
               for attempt in range(6):
                   try:
                       request=urllib.request.Request(base+path+'?reader=adaptive-v2-20261120',headers={'Cache-Control':'no-cache'})
@@ -178,6 +179,20 @@ jobs:
                       if path == 'mappe-guide/':
                           assert text.count('data-location-guide=') == 11
                           assert '/gta-6/screenshot-ps5/' in text
+                      if path == 'trofei/100-percento/':
+                          assert 'data-advanced-platinum-100' in text
+                          assert text.count('data-ap-metric="') == 35
+                          assert text.count('data-ap-card="') == 18
+                          assert 'advanced-platinum-v3.js?v=' in text
+                          assert 'advanced-platinum-v3.css?v=' in text
+                      if path == 'trofei/trofei-difficili/':
+                          assert text.count('data-hard-trophy="') == 7
+                          assert 'data-hard-status="incerto"' in text
+                          assert 'advanced-platinum-v3.css?v=' in text
+                      if path == 'screenshot-ps5/verifica/':
+                          assert text.count('data-provenance-key=') == 10
+                          assert text.count('data-photo-source-lead=') == 8
+                          assert 'non documentato' in text
                       if path in ('salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/'):
                           assert 'id="consigli"' in text and 'Fonti dei consigli' in text
                       print('PUBLIC_ADAPTIVE_READER_DEPLOY_OK',base+path)
@@ -191,8 +206,14 @@ jobs:
               ('assets/platinum-roadmap.css','.p-roadmap'),
               ('assets/platinum-atlas-v2.js','gta6-italia:trophies:v1'),
               ('assets/platinum-atlas-v2.css','.p-atlas'),
+              ('assets/advanced-platinum-v3.js','gta6-italia:100-completion:v3'),
+              ('assets/advanced-platinum-v3.css','.ap-main'),
+              ('photo-provenance-review.json','"new_images_rehosted": 0'),
               ('sitemap.xml','trofei/roadmap-platino/'),
               ('sitemap.xml','mappe-guide/'),
+              ('sitemap.xml','trofei/100-percento/'),
+              ('sitemap.xml','trofei/trofei-difficili/'),
+              ('sitemap.xml','screenshot-ps5/verifica/'),
           ):
               request=urllib.request.Request(base+path+'?group3-live=20261121',headers={'Cache-Control':'no-cache'})
               with urllib.request.urlopen(request,timeout=20) as response:

@@ -100,7 +100,7 @@
       "action": "Completa la storia e poi segui la checklist 100%; non tentare ogni attività opzionale indistintamente.",
       "check": "Verifica il 100% in Progressi, poi lo sblocco del trofeo Oro.",
       "warning": "Per il 100% le 70 sfide possono sostituire le 80 totali.",
-      "guide": "guide-e-tutorial/70-sfide-100-percento/"
+      "guide": "trofei/100-percento/"
     },
     {
       "number": 15,
@@ -200,7 +200,8 @@
       "number": 30,
       "group": "collezionabili",
       "action": "Completa tre serie di carte collezionabili, con controllo distinto per ciascuna.",
-      "check": "Verifica tutte e tre le serie nel relativo menu."
+      "check": "Verifica tutte e tre le serie nel relativo menu.",
+      "guide": "trofei/100-percento/"
     },
     {
       "number": 31,
@@ -236,7 +237,7 @@
       "action": "Scopri 100 veicoli con gli strumenti disponibili; per il 100% punta ai 200 modelli base.",
       "check": "Controlla il catalogo dei veicoli, non i posti nel garage.",
       "warning": "La registrazione personale e la scoperta nel catalogo sono attività distinte.",
-      "guide": "guide-e-tutorial/scansionare-veicoli/"
+      "guide": "trofei/100-percento/"
     },
     {
       "number": 36,
@@ -253,9 +254,10 @@
     {
       "number": 38,
       "group": "segreti",
-      "action": "Consulta i riscontri aggiornati sul Rhino e sul requisito preciso prima di provare.",
-      "check": "Il testo pubblico non è sufficiente per certificare una procedura.",
-      "warning": "Soluzione esatta non sufficientemente documentata."
+      "action": "Raggiungi Mile Zero Air Station a Mariana County, cerca un Rhino a sud della base ed entra nel veicolo. Il furto è associato al trofeo da PowerPyx.",
+      "check": "Controlla lo sblocco immediatamente dopo il furto; GTABase riporta anche azioni di combattimento dal Rhino.",
+      "warning": "Intrusione militare con livello di ricercato: salvataggio manuale separato. Trigger esatto descritto in modo leggermente diverso dalle fonti.",
+      "guide": "trofei/trofei-difficili/"
     },
     {
       "number": 39,
@@ -303,35 +305,42 @@
     {
       "number": 46,
       "group": "segreti",
-      "action": "Raggiungi il fondo della sala da bowling dei Kolt e soci nel contesto richiesto.",
-      "check": "Confronta il risultato del gioco con il trofeo."
+      "action": "A Kingpin Bowling recupera orologio, shotgun Gutterball e contenuto della cassaforte, poi completa la fuga dalla polizia.",
+      "check": "Verifica che siano stati recuperati tutti e tre i valori e che il trofeo compaia dopo la fuga.",
+      "warning": "Per la cassaforte la guida richiede bombe adesive; il bowling può tornare disponibile se salti un oggetto.",
+      "guide": "trofei/trofei-difficili/"
     },
     {
       "number": 47,
       "group": "segreti",
-      "action": "Prima di tentare, consulta una soluzione documentata per la collaborazione speciale.",
-      "check": "Nessuna sequenza precisa è verificata nel catalogo attuale.",
-      "warning": "Procedura esatta ancora incerta."
+      "action": "Porta la Forza di Jason e Lucia entrambe al massimo, allenandoti insieme al partner in palestra dopo Coffee Break.",
+      "check": "Controlla entrambe le statistiche al livello massimo nello stesso momento e la notifica del trofeo.",
+      "warning": "Nessun glitch o trucco richiesto. Progressione della statistica, non missione della storia.",
+      "guide": "trofei/trofei-difficili/"
     },
     {
       "number": 48,
       "group": "segreti",
-      "action": "Avanza nelle azioni registrate nel profilo criminale e consulta il contatore quando disponibile.",
-      "check": "La fonte collega il progresso a 500 azioni, ma verifica il criterio effettivo."
+      "action": "Completa 500 azioni che modificano il Profilo criminale lungo la progressione normale del 100%.",
+      "check": "Se disponibili, abilita le notifiche di Profilo criminale e verifica l'avanzamento verso 500.",
+      "warning": "Alcune scelte reputazionali possono essere irreversibili: non forzare un profilo estremista.",
+      "guide": "trofei/trofei-difficili/"
     },
     {
       "number": 49,
       "group": "segreti",
-      "action": "Non impegnare progressi irreversibili senza aver verificato la condizione «seconda volta».",
-      "check": "La condizione completa non è chiarita dalle fonti disponibili.",
-      "warning": "Procedura non ancora verificata."
+      "action": "Conserva un salvataggio manuale indipendente e non inseguire una presunta sequenza Payday Loans/prologo priva di prove di sblocco.",
+      "check": "Requisito ancora non documentato. Aggiornare la procedura solo dopo un video o riscontro verificabile.",
+      "warning": "Trofeo #49 incerto alla verifica del 21 novembre 2026; ipotesi del prologo non confermata.",
+      "guide": "trofei/trofei-difficili/"
     },
     {
       "number": 50,
       "group": "segreti",
-      "action": "Verifica la condizione dell'evento segreto prima di eseguire azioni non reversibili.",
-      "check": "Requisito dettagliato ancora in attesa di conferme.",
-      "warning": "Evento e procedura esatta non verificati."
+      "action": "Cerca da solo, dopo le 02:00, la strada nord-ovest dello Starlet Motel in Kelly County. Trova un'auto con luci lampeggianti e segui la sequenza UFO.",
+      "check": "Parla con la donna lasciata dall'UFO, accompagnala verso l'auto e verifica il trofeo dopo l'evento.",
+      "warning": "Comparsa casuale; altre fonti discordano su luogo e orario. Indicazione di PowerPyx, non conferma Rockstar.",
+      "guide": "trofei/trofei-difficili/"
     },
     {
       "number": 51,
