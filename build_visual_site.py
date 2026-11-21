@@ -699,11 +699,11 @@ def main():
     guides=enrich(records)
     validate(guides)
     for guide_id,items in PHOTO_STEP_REVIEW.get('context_approved',{}).items():
-        guide=next((g for g in guides if g['id']==guide_id),None)
-        if guide is None:
+        candidate=next((g for g in guides if g['id']==guide_id),None)
+        if candidate is None:
             raise ValueError('Photo context for unknown guide: '+guide_id)
         for index,item in items.items():
-            if not index.isdigit() or int(index)>=len(guide['steps']) or int(index)<0:
+            if not index.isdigit() or int(index)>=len(candidate['steps']) or int(index)<0:
                 raise ValueError('Location photo outside guide steps: '+guide_id)
             key=item.get('key')
             if (key not in MEDIA or MEDIA[key]['kind']!='screenshot'
