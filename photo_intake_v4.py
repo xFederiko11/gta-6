@@ -33,6 +33,7 @@ def validate_approved(registry,guides,requests):
     if not isinstance(records,list):
         raise ValueError("Invalid photo registry")
     seen=set()
+    slots=set()
     for photo in records:
         name=photo.get("id")
         if not isinstance(name,str) or not re.fullmatch(r"[a-z0-9-]{6,55}",name) or name in seen:
@@ -42,6 +43,9 @@ def validate_approved(registry,guides,requests):
         slot=photo.get("role")
         if guide not in known or type(slot) is not int or not 1<=slot<=5:
             raise ValueError("Photo must map to exactly one existing guide and step")
+        if (guide,slot) in slots:
+            raise ValueError("Duplicate approved screenshot role for guide")
+        slots.add((guide,slot))
         if photo.get("platform") not in ("PS5","PS5 Pro"):
             raise ValueError("Unverified screenshot platform")
         if photo.get("rights")!=AUTHORIZED_RIGHTS or photo.get("author_confirmed") is not True:
@@ -104,7 +108,8 @@ def render_approved_for_guide(guide,registry):
     for photo in items:
         body.extend([
             '<figure><a href="'+BASE+e(photo["file"])+'" target="_blank" rel="noopener noreferrer">',
-            '<img src="'+BASE+e(photo["file"])+'" loading="lazy" decoding="async" ',
+            '<img class="v-photo" data-visual-image="community-'+e(photo["id"])+'" data-visual-kind="screenshot" '
+            'data-approved-community-photo="'+e(photo["id"])+'" src="'+BASE+e(photo["file"])+'" loading="lazy" decoding="async" ',
             'alt="'+e(photo["alt"])+'" width="960" height="540"></a>',
             '<figcaption>'+e(photo["caption"])+
             ' · Step '+str(photo["role"])+' · © '+e(photo["credit"])+' ',
