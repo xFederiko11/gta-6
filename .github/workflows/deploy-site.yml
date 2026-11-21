@@ -61,6 +61,7 @@ jobs:
           node --check site/assets/platinum-roadmap.js
           node --check site/assets/visual-v2.js
           node --check site/assets/reader-theme.js
+          node --check site/assets/guide-flow-v1.js
           node --check site/assets/community-social-v1.js
           python -m py_compile community_social_sync_v1.py test_x_permalink_site_v1.py
           python -m unittest -q test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py
@@ -381,6 +382,8 @@ jobs:
               page=fetch(path)
               assert 'class="v-intro v-guide-intro"' in page
               assert 'class="v-tutorial-start-here"' in page
+              assert 'guide-flow-v1.css?v=' in page
+              assert 'guide-flow-v1.js?v=' in page
               assert 'id="procedura"' in page
               assert 'class="v-steps"' in page
               assert 'class="v-guide-prep"' in page
@@ -400,6 +403,12 @@ jobs:
                   assert 'data-visual-kind="screenshot"' in steps
                   assert 'Comandi PS5:' in page
               print('PUBLIC_BEGINNER_TUTORIAL_OK',base+path)
+          js=fetch('assets/guide-flow-v1.js')
+          css=fetch('assets/guide-flow-v1.css')
+          assert 'HO FINITO IL TUTORIAL' in js
+          assert 'PASSO PRIMA' in js
+          assert '.gf-next' in css
+          print('PUBLIC_ONE_STEP_WIZARD_ASSETS_OK')
           hub=fetch('screenshot-ps5/')
           assert 'data-photo-guide=' in hub
           assert 'screenshot-ps5/verifica/' not in hub
