@@ -111,8 +111,10 @@ def trophy_points(number,route,collectibles):
 
 def collectible_points(collectibles):
     items=[x for x in collectibles["points"] if x.get("missable") or x.get("location_limited")]
-    items+=next((x for x in collectibles["points"] if x.get("type")==typ),None)
-    for typ in ()]
+    items.extend(
+        next((x for x in collectibles["points"] if x.get("type")==typ),None)
+        for typ in ("waink","stunt","underwater","magazines","vehicles")
+    )
     # No exact map markers: these are source-described examples only.
     unique=[];seen=set()
     for item in items:
