@@ -107,12 +107,42 @@ def render_hub(guides, data, media, extras, get_local):
           x["safe_title"].casefold())):
         local=screenshot_count(g,media,extras,get_local)
         links=''.join(entry_html(x) for x in data["guides"][g["id"]])
+        # Curated authentic screenshots already downloaded by the normal build;
+        # never use promotional art, remote hotlinks or unverifiable uploads.
+        evidence=list(dict.fromkeys(
+            [*g.get("step_media",{}).values(),
+             *(x["key"] for x in extras.get(g["canonical_path"],{}).get("gallery",[]))]
+        ))
+        snapshots=[]
+        for key in evidence:
+            item=media.get(key)
+            if not item or item.get("kind")!="screenshot":
+                continue
+            local_url=get_local(key)
+            if not isinstance(local_url,str) or not local_url.startswith(BASE+"assets/visual/"):
+                continue
+            snapshots.append(
+                '<figure><a href="'+e(local_url)+'" target="_blank" rel="noopener noreferrer">'
+                '<img src="'+e(local_url)+'" alt="'+e(item["alt"])+'" loading="lazy" '
+                'decoding="async" width="960" height="540" data-map-guide-screenshot="'+e(key)+'"></a>'
+                '<figcaption>'+e(item["caption"])+' '
+                '<a href="'+e(item["source"])+'" target="_blank" rel="noopener noreferrer">'
+                +e(item["credit"])+' · fonte ↗</a></figcaption></figure>'
+            )
+            if len(snapshots)>=2: break
+        previews=('<div class="g-map-preview">'+''.join(snapshots)+'</div>' if snapshots else
+                  '<p class="g-map-preview-empty">📸 Screenshot del passaggio non ancora disponibile. '
+                  'Nessun render viene sostituito a una prova di gameplay.</p>')
+        if g.get("spoiler") and snapshots:
+            previews=('<details class="g-map-photo-details"><summary>Apri screenshot '
+                      '(possibili spoiler)</summary>'+previews+'</details>')
         cards.append(
             '<article class="g-map-card" data-location-guide="'+e(g["id"])+'" '
             'data-screenshot-count="'+str(local)+'">'
             '<span class="v-kicker">'+e(g["tag"])+' · '+str(local)+'/5 schermate gameplay</span>'
             '<h2>'+e(g["safe_title"])+'</h2>'
             '<p>'+e(g.get("location","Segui i riferimenti documentati nella guida."))+'</p>'
+            +previews+
             '<details><summary>Apri i luoghi documentati ('+
             str(len(data["guides"][g["id"]]))+')</summary><ul class="g-loc-list">'+links+'</ul></details>'
             '<a class="g-map-guide" href="'+BASE+e(g["canonical_path"])+'#luoghi-mappe">'
