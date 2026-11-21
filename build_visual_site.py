@@ -19,6 +19,9 @@ from photo_request_hub_v1 import render as render_photo_hub
 from platinum_roadmap_v1 import render as render_platinum_roadmap, ROADMAP_PATH
 from guide_step_references_v1 import render as render_step_evidence, validate as validate_step_evidence
 from platinum_atlas_v2 import render as render_trophy_atlas, validate as validate_trophy_atlas
+from advanced_platinum_v3 import (render_100 as render_advanced_100, render_hard as render_advanced_hard,
+                                  validate as validate_advanced, COLLECTIBLE_PATH, HARD_PATH)
+from photo_provenance_v3 import render as render_photo_provenance, validate as validate_provenance, PATH as PROVENANCE_PATH
 from guide_location_atlas_v2 import (render_hub as render_map_hub, render_guide as render_guide_locations,
                                      validate as validate_map_references, HUB_PATH as MAP_HUB_PATH)
 
@@ -35,6 +38,8 @@ STEP_EVIDENCE=json.loads(Path('data/guide_step_refs.json').read_text(encoding='u
 TROPHY_ROUTES=json.loads(Path('data/platinum_trophy_routes_v2.json').read_text(encoding='utf-8'))
 LOCATION_REFS=json.loads(Path('data/guide_locations_v2.json').read_text(encoding='utf-8'))
 MEDITATION_PLACES=json.loads(Path('data/meditation_checklist_v1.json').read_text(encoding='utf-8'))
+ADVANCED=json.loads(Path('data/advanced_platinum_v3.json').read_text(encoding='utf-8'))
+PHOTO_REVIEW=json.loads(Path('data/photo_provenance_review_v3.json').read_text(encoding='utf-8'))
 CACHE=Path('.visual-media/manifest.json')
 LOCAL_MEDIA=json.loads(CACHE.read_text(encoding='utf-8')) if CACHE.exists() else {}
 ASSET_VERSION=hashlib.sha256(b''.join(Path(p).read_bytes() for p in ('site/assets/visual-v2.css','site/assets/visual-v2.js'))).hexdigest()[:12]
@@ -47,7 +52,7 @@ def brand():
 
 def header(path):
     primary=[('Home',''),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare auto','salvare-auto/'),('Guide','guide-e-tutorial/')]
-    secondary=[('Trofei e platino','trofei/'),('Roadmap platino','trofei/roadmap-platino/'),('Mappe dei luoghi','mappe-guide/'),('HDR OLED','hdr-oled/'),('Trucchi PS5','trucchi/'),('Scoperte community','scoperte/'),('Screenshot PS5','screenshot-ps5/'),('Fonti e metodo','fonti/')]
+    secondary=[('Trofei e platino','trofei/'),('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Trofei difficili','trofei/trofei-difficili/'),('Mappe dei luoghi','mappe-guide/'),('HDR OLED','hdr-oled/'),('Trucchi PS5','trucchi/'),('Scoperte community','scoperte/'),('Screenshot PS5','screenshot-ps5/'),('Fonti e metodo','fonti/')]
     def link(label,target):
         current=' aria-current="page"' if path==target else ''
         return f'<a href="{url(target)}"{current}>{e(label)}</a>'
@@ -66,7 +71,7 @@ def header(path):
             '</div></div>')
 
 def footer():
-    links=[('Roadmap platino','trofei/roadmap-platino/'),('Mappe e luoghi','mappe-guide/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
+    links=[('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Trofei difficili','trofei/trofei-difficili/'),('Foto e fonti','screenshot-ps5/verifica/'),('Mappe e luoghi','mappe-guide/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
     return ('<footer class="v-footer"><div class="wrap"><div class="v-footer-grid"><div>'+brand()+
             '<p>Guide indipendenti per PS5 e PS5 Pro. Sintesi originali, schermate attribuite e avvisi spoiler. Non affiliato a Rockstar Games.</p></div><nav class="v-footer-links" aria-label="Link utili">'+
             ''.join(f'<a href="{url(p)}">{e(t)}</a>' for t,p in links)+
@@ -80,6 +85,16 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
     page=page.replace('<body>',f'<body data-design-version="{DESIGN_VERSION}">',1)
     page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/visual-v2.css")}?v={ASSET_VERSION}"><meta name="color-scheme" content="light"></head>',1)
     page=page.replace('</body>',f'<script src="{url("assets/visual-v2.js")}?v={ASSET_VERSION}" defer></script></body>',1)
+    if path in (COLLECTIBLE_PATH,HARD_PATH):
+        version=hashlib.sha256(
+            b''.join(Path('site/assets',name).read_bytes() for name in
+                     ('advanced-platinum-v3.css','advanced-platinum-v3.js'))
+        ).hexdigest()[:12]
+        page=page.replace('</head>',
+            f'<link rel="stylesheet" href="{url("assets/advanced-platinum-v3.css")}?v={version}"></head>',1)
+        if path == COLLECTIBLE_PATH:
+            page=page.replace('</body>',
+                f'<script src="{url("assets/advanced-platinum-v3.js")}?v={version}" defer></script></body>',1)
     if path == ROADMAP_PATH:
         version=hashlib.sha256(
             b''.join(Path('site/assets',name).read_bytes() for name in
@@ -506,7 +521,10 @@ def main():
     validate(guides)
     validate_step_evidence(guides,STEP_EVIDENCE,VISUAL_EVIDENCE)
     validate_map_references(guides,LOCATION_REFS,MEDITATION_PLACES)
-    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
+    trophies=json.loads(Path('data/trofei.json').read_text(encoding='utf-8'))['trophies']
+    validate_advanced(ADVANCED,trophies)
+    validate_provenance(PHOTO_REVIEW,MEDIA,guides)
+    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
     from community_discovery_v2 import render as community_render
@@ -539,7 +557,22 @@ def main():
                 'url':url(MAP_HUB_PATH),'inLanguage':'it-IT','numberOfItems':len(guides)}
     legacy.write(MAP_HUB_PATH+'index.html',layout(
         map_title,map_desc,MAP_HUB_PATH,map_body,'guide',structured=map_schema))
-    new_paths=[ROADMAP_PATH,MAP_HUB_PATH]
+    for path,title,description,body,page_type in (
+        (COLLECTIBLE_PATH,
+         'GTA 6: 100% checklist PS5, carte e collezionabili',
+         'Checklist 100% GTA VI PS5 con 35 categorie, 18 set di carte e progressi numerici salvati nel browser.',
+         render_advanced_100(ADVANCED,trophies),'CollectionPage'),
+        (HARD_PATH,
+         'GTA 6: trofei difficili Rhino, UFO, palestra e bowling',
+         'Guida pratica GTA VI ai trofei difficili: Rhino, UFO, forza di Jason e Lucia, bowling e condizioni ancora incerte.',
+         render_advanced_hard(ADVANCED,trophies),'WebPage')
+    ):
+        schema={'@context':'https://schema.org','@type':page_type,
+                'name':title,'description':description,'url':url(path),'inLanguage':'it-IT'}
+        legacy.write(path+'index.html',layout(
+            title,description,path,legacy.crumbs([('Trofei','trofei/'),(title,path)])+body,
+            'trofei',structured=schema))
+    new_paths=[ROADMAP_PATH,MAP_HUB_PATH,COLLECTIBLE_PATH,HARD_PATH]
     for kind in ('all','soldi','auto'):
         title,desc,path,body=directory(guides,kind)
         legacy.write(path+'index.html',layout(title+' | GTA 6 Italia',desc,path,body,'guide',structured={'@context':'https://schema.org','@type':'CollectionPage','name':title,'url':url(path),'inLanguage':'it-IT'}))
@@ -561,6 +594,22 @@ def main():
         structured=photo_schema))
     legacy.write('photo-requests.json',json.dumps(photo_audit,ensure_ascii=False,indent=2)+'\n')
     new_paths.append(photo_path)
+    audit_title='Screenshot GTA 6 PS5: prove, provenienza e permessi'
+    audit_desc=('Inventario di 10 screenshot di GTA VI già catalogati e 8 fonti da verificare; '
+                'separiamo foto gameplay, attribuzione e diritti di utilizzo.')
+    audit_body=render_photo_provenance(PHOTO_REVIEW,MEDIA,guides,media_src)
+    audit_schema={'@context':'https://schema.org','@type':'CollectionPage',
+                  'name':audit_title,'description':audit_desc,
+                  'url':url(PROVENANCE_PATH),'inLanguage':'it-IT'}
+    legacy.write(PROVENANCE_PATH+'index.html',layout(
+        audit_title,audit_desc,PROVENANCE_PATH,audit_body,'guide',structured=audit_schema))
+    legacy.write('photo-provenance-review.json',json.dumps(
+        {'schema':PHOTO_REVIEW['schema'],'reviewed':PHOTO_REVIEW['reviewed'],
+         'existing_attributed_editorial_images':len(PHOTO_REVIEW['assets']),
+         'existing_optimized_local_images':sum(bool(media_src(x['key'])) for x in PHOTO_REVIEW['assets']),
+         'new_images_rehosted':0,'permission_records_verified':0,
+         'editorial_leads':len(PHOTO_REVIEW['leads'])},ensure_ascii=False,indent=2)+'\n')
+    new_paths.append(PROVENANCE_PATH)
     ET.register_namespace('','http://www.sitemaps.org/schemas/sitemap/0.9')
     tree=ET.parse(OUT/'sitemap.xml'); root=tree.getroot(); ns='{http://www.sitemaps.org/schemas/sitemap/0.9}'
     existing={loc.text for loc in root.iter(ns+'loc')}
