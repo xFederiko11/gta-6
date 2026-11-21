@@ -280,13 +280,13 @@ def browser_qa():
                             first.locator('summary').click()
                             assert first.get_attribute('open') is None
                     if path=='collezionabili/percorsi/' and width in (390,1440):
-                        assert page.locator('[data-cr-step]').count()==76
+                        assert page.locator('[data-cr-step]').count()==92
                         assert page.locator('[data-cr-filter]').count()==6
                         page.locator('[data-cr-query]').fill('Victor Maravilla')
                         assert page.locator('[data-cr-step]:visible').count()==1
                         page.locator('[data-cr-query]').fill('')
                         page.locator('[data-cr-done]').first.check()
-                        assert '1 / 76' in page.locator('[data-cr-progress]').inner_text()
+                        assert '1 / 92' in page.locator('[data-cr-progress]').inner_text()
                         page.reload(wait_until='load')
                         assert page.locator('[data-cr-done]').first.is_checked()
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
