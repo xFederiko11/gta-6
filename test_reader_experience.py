@@ -93,6 +93,37 @@ class ReaderTests(unittest.TestCase):
             if 'data-design-version=' in text:
                 self.assertEqual(text.count('data-theme-choice="dark"'),1)
                 self.assertEqual(text.count('data-theme-choice="light"'),1)
+    def test_11_guides_use_single_step_wizard_without_hiding_content_from_no_js(self):
+        guides=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
+        guides+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
+        self.assertEqual(len(guides),11)
+        css=Path('site/assets/guide-flow-v1.css').read_text(encoding='utf-8')
+        js=Path('site/assets/guide-flow-v1.js').read_text(encoding='utf-8')
+        self.assertIn('[data-gf-next]',js)
+        self.assertIn('[data-gf-back]',js)
+        self.assertIn('HO FINITO IL TUTORIAL',js)
+        self.assertIn('scrollIntoView',js)
+        self.assertIn('aria-current',js)
+        self.assertIn('gf-done',css)
+        self.assertNotIn('fetch(',js)
+        self.assertNotIn('localStorage',js)
+        for guide in guides:
+            path=guide.get('canonical_path') or 'guide-e-tutorial/'+guide['id']+'/'
+            html=(ROOT/path/'index.html').read_text(encoding='utf-8')
+            with self.subTest(guide=guide['id']):
+                self.assertIn('guide-flow-v1.css?v=',html)
+                self.assertIn('guide-flow-v1.js?v=',html)
+                self.assertIn('id="procedura" class="v-tutorial"',html)
+                self.assertEqual(html.count('class="v-step"'),len(guide['steps']))
+                self.assertNotIn('hidden class="v-step"',html)
+                self.assertNotIn('class="v-step" hidden',html)
+                self.assertLess(html.index('<ol class="v-steps">'),
+                                html.index('class="v-guide-more"'))
+        for path in ('index.html','trofei/index.html','hdr-oled/index.html'):
+            html=(ROOT/path).read_text(encoding='utf-8')
+            self.assertNotIn('guide-flow-v1.js?v=',html,path)
+            self.assertNotIn('guide-flow-v1.css?v=',html,path)
+
     def test_release_and_idempotence(self):
         release=json.loads((ROOT/'design-version.json').read_text())
         self.assertEqual(release['default_theme'],'unified-dark-mobile-desktop')
