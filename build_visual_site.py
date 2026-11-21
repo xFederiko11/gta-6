@@ -18,6 +18,9 @@ from meditation_tracker_v1 import render as render_meditation_tracker
 from photo_request_hub_v1 import render as render_photo_hub
 from platinum_roadmap_v1 import render as render_platinum_roadmap, ROADMAP_PATH
 from guide_step_references_v1 import render as render_step_evidence, validate as validate_step_evidence
+from platinum_atlas_v2 import render as render_trophy_atlas, validate as validate_trophy_atlas
+from guide_location_atlas_v2 import (render_hub as render_map_hub, render_guide as render_guide_locations,
+                                     validate as validate_map_references, HUB_PATH as MAP_HUB_PATH)
 
 e=legacy.e
 url=legacy.url
@@ -29,6 +32,9 @@ MEDIA=json.loads(Path('data/visual_media.json').read_text(encoding='utf-8'))['im
 VISUAL_REQUESTS=json.loads(Path('data/visual_requests.json').read_text(encoding='utf-8'))['guides']
 VISUAL_EVIDENCE=json.loads(Path('data/guide_visual_refs.json').read_text(encoding='utf-8'))
 STEP_EVIDENCE=json.loads(Path('data/guide_step_refs.json').read_text(encoding='utf-8'))
+TROPHY_ROUTES=json.loads(Path('data/platinum_trophy_routes_v2.json').read_text(encoding='utf-8'))
+LOCATION_REFS=json.loads(Path('data/guide_locations_v2.json').read_text(encoding='utf-8'))
+MEDITATION_PLACES=json.loads(Path('data/meditation_checklist_v1.json').read_text(encoding='utf-8'))
 CACHE=Path('.visual-media/manifest.json')
 LOCAL_MEDIA=json.loads(CACHE.read_text(encoding='utf-8')) if CACHE.exists() else {}
 ASSET_VERSION=hashlib.sha256(b''.join(Path(p).read_bytes() for p in ('site/assets/visual-v2.css','site/assets/visual-v2.js'))).hexdigest()[:12]
@@ -41,7 +47,7 @@ def brand():
 
 def header(path):
     primary=[('Home',''),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare auto','salvare-auto/'),('Guide','guide-e-tutorial/')]
-    secondary=[('Trofei e platino','trofei/'),('Roadmap platino','trofei/roadmap-platino/'),('HDR OLED','hdr-oled/'),('Trucchi PS5','trucchi/'),('Scoperte community','scoperte/'),('Screenshot PS5','screenshot-ps5/'),('Fonti e metodo','fonti/')]
+    secondary=[('Trofei e platino','trofei/'),('Roadmap platino','trofei/roadmap-platino/'),('Mappe dei luoghi','mappe-guide/'),('HDR OLED','hdr-oled/'),('Trucchi PS5','trucchi/'),('Scoperte community','scoperte/'),('Screenshot PS5','screenshot-ps5/'),('Fonti e metodo','fonti/')]
     def link(label,target):
         current=' aria-current="page"' if path==target else ''
         return f'<a href="{url(target)}"{current}>{e(label)}</a>'
@@ -60,7 +66,7 @@ def header(path):
             '</div></div>')
 
 def footer():
-    links=[('Roadmap platino','trofei/roadmap-platino/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
+    links=[('Roadmap platino','trofei/roadmap-platino/'),('Mappe e luoghi','mappe-guide/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
     return ('<footer class="v-footer"><div class="wrap"><div class="v-footer-grid"><div>'+brand()+
             '<p>Guide indipendenti per PS5 e PS5 Pro. Sintesi originali, schermate attribuite e avvisi spoiler. Non affiliato a Rockstar Games.</p></div><nav class="v-footer-links" aria-label="Link utili">'+
             ''.join(f'<a href="{url(p)}">{e(t)}</a>' for t,p in links)+
@@ -76,11 +82,18 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
     page=page.replace('</body>',f'<script src="{url("assets/visual-v2.js")}?v={ASSET_VERSION}" defer></script></body>',1)
     if path == ROADMAP_PATH:
         version=hashlib.sha256(
-            Path('site/assets/platinum-roadmap.css').read_bytes()
-            + Path('site/assets/platinum-roadmap.js').read_bytes()
+            b''.join(Path('site/assets',name).read_bytes() for name in
+                     ('platinum-roadmap.css','platinum-roadmap.js',
+                      'platinum-atlas-v2.css','platinum-atlas-v2.js'))
         ).hexdigest()[:12]
-        page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/platinum-roadmap.css")}?v={version}"></head>',1)
-        page=page.replace('</body>',f'<script src="{url("assets/platinum-roadmap.js")}?v={version}" defer></script></body>',1)
+        page=page.replace('</head>',(
+            f'<link rel="stylesheet" href="{url("assets/platinum-roadmap.css")}?v={version}">'
+            f'<link rel="stylesheet" href="{url("assets/platinum-atlas-v2.css")}?v={version}"></head>'
+        ),1)
+        page=page.replace('</body>',(
+            f'<script src="{url("assets/platinum-roadmap.js")}?v={version}" defer></script>'
+            f'<script src="{url("assets/platinum-atlas-v2.js")}?v={version}" defer></script></body>'
+        ),1)
     return page
 
 
@@ -322,7 +335,7 @@ def home(guides):
            '</div><a class="v-button secondary" href="'+url('screenshot-ps5/')+'">Scopri le richieste di screenshot →</a>'
            '</section>')
     body+=home_rail()
-    body+='<section class="v-section">'+section_head('ANCHE NEL SITO','Platino e immagine, senza confusione')+'<div class="v-links">'+f'<a class="v-button secondary" href="{url("trofei/roadmap-platino/")}">Roadmap Platino</a><a class="v-button secondary" href="{url("hdr-oled/")}">Trova la tua TV OLED</a><a class="v-button secondary" href="{url("scoperte/")}">Scoperte della community</a></div></section>'
+    body+='<section class="v-section">'+section_head('ANCHE NEL SITO','Platino e immagine, senza confusione')+'<div class="v-links">'+f'<a class="v-button secondary" href="{url("trofei/roadmap-platino/")}">Roadmap Platino</a><a class="v-button secondary" href="{url("mappe-guide/")}">Mappe e luoghi</a><a class="v-button secondary" href="{url("hdr-oled/")}">Trova la tua TV OLED</a><a class="v-button secondary" href="{url("scoperte/")}">Scoperte della community</a></div></section>'
     return body
 
 
@@ -423,6 +436,7 @@ def guide(g,guides):
     benefit=g.get('benefit','')
     body+=f'<div class="v-answer"><strong>La cosa da sapere</strong><p>{e(benefit)}</p></div><div class="v-facts"><div class="v-fact"><strong>Prima di iniziare</strong><p>{e(g["requirements"])}</p></div><div class="v-fact"><strong>Dove andare</strong><p>{e(g["location"])}</p></div></div>'
     body+=walkthrough_visuals(g)
+    body+=render_guide_locations(g,LOCATION_REFS,MEDITATION_PLACES)
     body+='<section id="procedura">'+section_head('UNA COSA ALLA VOLTA','Il percorso, passo per passo')
     if g['spoiler']:
         body+='<div class="v-spoiler-warning" role="note"><strong>⚠️ Questa guida contiene spoiler.</strong> Continuando leggerai luoghi, obiettivi e ricompense.</div>'
@@ -457,7 +471,7 @@ def guide(g,guides):
         body+=f'<p><a class="v-button secondary" href="{url("trofei/trofeo-17-cecchino/")}">Apri la checklist delle medaglie →</a></p>'
     body+=visual_contribution(g)
     meditation_anchor='<a href="#meditazioni-checklist">Checklist 18 meditazioni</a>' if g['id']=='meditazione-capitolo-1' else ''
-    body+=sources(g,used)+'</article><aside class="v-guide-aside"><h2>In questa guida</h2><a href="#procedura">Il percorso passo per passo</a>'+meditation_anchor+'<a href="#fonti">Fonti e immagini</a>'+f'<a href="{url("soldi-facili/")}">Altri modi per fare soldi</a><a href="{url("auto-speciali/")}">Auto e garage</a><a href="{url("trofei/")}">Percorso platino</a></aside></div>'
+    body+=sources(g,used)+'</article><aside class="v-guide-aside"><h2>In questa guida</h2><a href="#procedura">Il percorso passo per passo</a>'+meditation_anchor+'<a href="#luoghi-mappe">Luoghi e mappe</a><a href="#fonti">Fonti e immagini</a>'+f'<a href="{url("soldi-facili/")}">Altri modi per fare soldi</a><a href="{url("auto-speciali/")}">Auto e garage</a><a href="{url("trofei/")}">Percorso platino</a></aside></div>'
     related=[x for x in guides if x['id']!=g['id'] and (x['category']==g['category'] or x['category'] in ('garage','soldi'))][:3]
     body+='<section class="v-section">'+section_head('IL PROSSIMO PASSO','Potrebbero servirti anche')+'<div class="v-grid">'+''.join(card(x) for x in related)+'</div></section>'
     description=g['seo_description']
@@ -491,7 +505,8 @@ def main():
     guides=enrich(records)
     validate(guides)
     validate_step_evidence(guides,STEP_EVIDENCE,VISUAL_EVIDENCE)
-    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js') if path==ROADMAP_PATH else ())
+    validate_map_references(guides,LOCATION_REFS,MEDITATION_PLACES)
+    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
     from community_discovery_v2 import render as community_render
@@ -500,7 +515,10 @@ def main():
     roadmap_title='Roadmap Platino GTA 6 PS5: guida ai 55 trofei'
     roadmap_desc='Roadmap per il Platino di GTA VI su PS5: meditazioni mancabili, 5 fasi, 100%, medaglie Oro e checklist privata dei progressi.'
     roadmap_trophies=json.loads(Path('data/trofei.json').read_text(encoding='utf-8'))['trophies']
-    roadmap_body=legacy.crumbs([('Trofei','trofei/'),('Roadmap platino',ROADMAP_PATH)])+render_platinum_roadmap(roadmap_trophies)
+    validate_trophy_atlas(roadmap_trophies,TROPHY_ROUTES)
+    roadmap_body=(legacy.crumbs([('Trofei','trofei/'),('Roadmap platino',ROADMAP_PATH)])+
+                  render_platinum_roadmap(roadmap_trophies)+
+                  render_trophy_atlas(roadmap_trophies,TROPHY_ROUTES))
     roadmap_schema={'@context':'https://schema.org','@type':'WebPage',
                     'name':roadmap_title,'description':roadmap_desc,
                     'url':url(ROADMAP_PATH),'inLanguage':'it-IT'}
@@ -510,7 +528,18 @@ def main():
     title='GTA 6 Italia: soldi facili, auto speciali e guide PS5'
     desc='Guide GTA VI in italiano: soldi facili, auto speciali, garage, trofei e HDR OLED. Passaggi chiari, immagini attribuite e avviso spoiler.'
     legacy.write('index.html',layout(title,desc,'',home(guides),'home',structured={'@context':'https://schema.org','@type':'WebSite','name':'GTA 6 Italia','url':url(),'inLanguage':'it-IT'}))
-    new_paths=[ROADMAP_PATH]
+    map_title='Mappe GTA 6 PS5: 11 guide con posizioni e screenshot'
+    map_desc=('Mappe GTA VI in italiano: 11 guide con riferimenti alle posizioni, '
+              '10 luoghi di meditazione e schermate PS5 con provenienza dichiarata.')
+    map_body=render_map_hub(
+        guides, LOCATION_REFS, MEDIA,
+        json.loads(Path('data/guide_extras.json').read_text(encoding='utf-8'))['guides'], media_src)
+    map_schema={'@context':'https://schema.org','@type':'CollectionPage',
+                'name':map_title,'description':map_desc,
+                'url':url(MAP_HUB_PATH),'inLanguage':'it-IT','numberOfItems':len(guides)}
+    legacy.write(MAP_HUB_PATH+'index.html',layout(
+        map_title,map_desc,MAP_HUB_PATH,map_body,'guide',structured=map_schema))
+    new_paths=[ROADMAP_PATH,MAP_HUB_PATH]
     for kind in ('all','soldi','auto'):
         title,desc,path,body=directory(guides,kind)
         legacy.write(path+'index.html',layout(title+' | GTA 6 Italia',desc,path,body,'guide',structured={'@context':'https://schema.org','@type':'CollectionPage','name':title,'url':url(path),'inLanguage':'it-IT'}))
