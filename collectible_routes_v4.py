@@ -54,7 +54,7 @@ def validate_routes(data):
             raise ValueError("Missing direct source")
         if item.get("confidence")!="described":
             raise ValueError("Unsupported proof precision")
-        for prop,low,high in (("name",9,110),("place",10,210),("hint",24,330)):
+        for prop,low,high in (("name",5 if item.get("type")=="magazines" else 9,110),("place",10,210),("hint",24,330)):
             value=item.get(prop,"")
             if not isinstance(value,str) or not low<=len(value)<=high:
                 raise ValueError("Incomplete waypoint: "+item["id"]+" "+prop)
