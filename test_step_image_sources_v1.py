@@ -19,10 +19,11 @@ def guides():
 class StepPhotoSourceTests(unittest.TestCase):
     def test_reviewed_refs_have_only_exact_source_articles(self):
         data=load()
-        self.assertEqual(validate(data,guides()),14)
+        self.assertEqual(validate(data,guides()),17)
         self.assertEqual(set(data['guides']),{
             'registrare-auto-personale','scansionare-veicoli',
-            'soldi-2500-three-sheets-liquor','soldi-facili-capitolo-1'
+            'soldi-2500-three-sheets-liquor','soldi-facili-capitolo-1',
+            'meditazione-capitolo-1','sportive-randy-posizioni'
         })
         for g in guides():
             for index in range(len(g['steps'])):
@@ -74,7 +75,7 @@ class StepPhotoSourceTests(unittest.TestCase):
                 self.assertIn('data-photo-source-step="'+str(int(index)+1)+'"',procedure)
                 self.assertIn(ref['source'],procedure)
             published+=len(expected)
-        self.assertEqual(published,14)
+        self.assertEqual(published,17)
 
 
 if __name__=='__main__':
