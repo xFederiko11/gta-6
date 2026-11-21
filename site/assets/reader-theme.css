@@ -175,3 +175,84 @@ html[data-theme=light]{
 html[data-theme=light] body{background:var(--r-bg);color:var(--r-text)}
 html[data-theme=light] :is(.cr-step,.cr-hero,.pi-hero,.pi-form,.pr-record,.ap-metric,.ap-card-set){color:var(--r-text)}
 @media(max-width:760px){html:is([data-theme=dark],[data-theme=auto]) .r-theme-control .v-switch button{min-height:38px}}
+
+/* GTA VI GUIDE / single purpose: start the numbered tutorial immediately.
+   Optional sources and editorial blocks are closed until a reader asks. */
+body:has(.v-guide-intro) .v-spoiler-inner>p{display:none}
+body:has(.v-guide-intro) .v-spoilerbar{min-height:0}
+body:has(.v-guide-intro) .v-spoiler-inner{padding-block:5px}
+.v-intro.v-guide-intro{display:block;max-width:780px;margin:12px auto 12px;gap:0;padding:0;background:transparent;box-shadow:none}
+.v-guide-intro h1{font-size:clamp(1.65rem,3vw,2.5rem);line-height:1.16;margin:8px 0 9px;color:var(--r-text)}
+.v-guide-intro p{max-width:65ch;margin:0 0 9px;font-size:clamp(.91rem,1.2vw,1.02rem);line-height:1.52;color:var(--r-muted)}
+.v-guide-intro .v-tag{font-size:.68rem;letter-spacing:.07em}
+.v-guide-step-count{display:inline-block;font-size:.72rem;font-weight:700;color:var(--r-muted)}
+.v-guide-layout.v-guide-single{display:block;max-width:780px;margin:0 auto}
+.v-guide-single .v-guide-main{width:100%;min-width:0}
+.v-guide-quickstart{margin:12px 0 10px;padding:11px 15px;background:var(--r-soft);border:1px solid var(--r-line);border-radius:10px;color:var(--r-text)}
+.v-guide-quickstart p{font-size:.84rem;line-height:1.5;margin:4px 0;color:var(--r-text)}
+.v-guide-quickstart strong{color:var(--r-text)}
+.v-guide-urgent{margin:10px 0;padding:10px 13px;border:1px solid var(--r-line);border-left:3px solid var(--r-warn);border-radius:8px;background:var(--r-surface);color:var(--r-text);font-size:.83rem;line-height:1.53}
+.v-guide-urgent strong{color:var(--r-warn)}
+.v-guide-controls{margin:8px 0 10px;color:var(--r-muted);font-size:.81rem;line-height:1.48}
+.v-guide-controls strong{color:var(--r-text)}
+.v-tutorial{scroll-margin-top:85px;margin:14px 0 0}
+.v-tutorial-head{display:block;margin:0 0 15px;padding:13px 0 11px;border-top:2px solid var(--r-pink);border-bottom:1px solid var(--r-line)}
+.v-tutorial-start-here{display:block;font-size:.78rem;letter-spacing:.065em;font-weight:850;color:var(--r-pink)}
+.v-tutorial-head h2{margin:3px 0 5px;font-size:clamp(1.32rem,2vw,1.65rem);line-height:1.2;color:var(--r-text)}
+.v-tutorial-head p{margin:0;font-size:.82rem;line-height:1.55;color:var(--r-muted)}
+.v-tutorial>.v-steps{margin:16px 0 22px;list-style:none;padding:0}
+.v-tutorial .v-step{margin:0 0 15px;padding:0;border:1px solid var(--r-line);border-radius:12px;background:var(--r-surface);box-shadow:none;scroll-margin-top:94px}
+.v-tutorial .v-step-head{padding:16px 18px 12px;gap:13px;align-items:flex-start}
+.v-tutorial .v-step-n{background:var(--r-pink);color:var(--r-bg);width:35px;height:35px;font-weight:850}
+.v-step-kicker{display:block;font-size:.65rem;font-weight:850;letter-spacing:.09em;color:var(--r-pink);margin:1px 0 3px}
+.v-tutorial .v-step h3{font-size:clamp(1.04rem,1.6vw,1.2rem);line-height:1.28;margin:0 0 7px;color:var(--r-text)}
+.v-tutorial .v-step-head p{font-size:.94rem;line-height:1.66;margin:0;color:var(--r-text)}
+.v-tutorial .v-step>figure{margin:0 18px 13px}
+.v-tutorial .v-step>figure .v-photo{width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:9px}
+.v-tutorial .v-check{margin:7px 18px 16px;padding:10px 12px;font-size:.84rem;line-height:1.55;border:1px solid var(--r-line);border-left:3px solid var(--r-cyan);border-radius:9px;background:var(--r-soft);color:var(--r-text)}
+.v-tutorial .v-check strong{display:block;color:var(--r-text);margin:0 0 2px}
+.v-tutorial .v-spoiler-warning{font-size:.79rem;line-height:1.48;margin:7px 0 13px}
+.v-step-evidence{margin:7px 18px 14px;background:var(--r-soft);border:1px solid var(--r-line);border-radius:9px;color:var(--r-text)}
+.v-step-evidence>summary{cursor:pointer;padding:10px 12px;font-size:.78rem;font-weight:700;line-height:1.5}
+.v-step-evidence .v-step-source{margin:0 10px 10px}
+.v-guide-more,.v-guide-social{display:block;margin:25px 0 16px;border:1px solid var(--r-line);border-radius:12px;background:var(--r-surface);color:var(--r-text);overflow:hidden}
+.v-guide-more>summary,.v-guide-social>summary{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 18px;cursor:pointer;color:var(--r-text);list-style:none}
+.v-guide-more>summary::-webkit-details-marker,.v-guide-social>summary::-webkit-details-marker{display:none}
+.v-guide-more>summary strong{display:block;font-size:.94rem;line-height:1.36;color:var(--r-text)}
+.v-guide-more>summary small{display:block;font-size:.75rem;font-weight:400;line-height:1.45;margin-top:3px;color:var(--r-muted)}
+.v-more-chevron{font-size:1.3rem;color:var(--r-pink);transition:transform .2s}
+.v-guide-more[open] .v-more-chevron{transform:rotate(180deg)}
+.v-guide-more-content{padding:5px 18px 20px;border-top:1px solid var(--r-line)}
+.v-guide-more-content>*{max-width:100%}
+.v-guide-extra-note{margin:16px 0;padding:10px 12px;font-size:.85rem;line-height:1.6;border-left:3px solid var(--r-cyan);color:var(--r-text);background:var(--r-soft)}
+.v-guide-more .v-sources ul{overflow-wrap:anywhere}
+.v-guide-return{max-width:780px;margin:12px auto 35px;font-size:.86rem}
+.v-guide-return a{font-weight:700;text-decoration:none}
+.v-guide-social{max-width:780px;margin:25px auto}
+.v-guide-social>summary{font-size:.85rem;font-weight:700}
+.v-guide-social-content{padding:4px 16px 16px;border-top:1px solid var(--r-line)}
+@media(max-width:760px){
+  .v-intro.v-guide-intro{margin-top:10px}
+  .v-guide-intro h1{font-size:clamp(1.56rem,6vw,2rem)}
+  .v-guide-quickstart{padding:10px 12px;margin:10px 0}
+  .v-guide-quickstart p{font-size:.82rem}
+  .v-guide-urgent{padding:9px 11px}
+  .v-tutorial{margin-top:12px}
+  .v-tutorial-head{padding:10px 0}
+  .v-tutorial .v-step-head{padding:13px 12px;gap:10px}
+  .v-tutorial .v-step-head p{font-size:.91rem;line-height:1.59}
+  .v-tutorial .v-step-n{width:31px;height:31px;font-size:.78rem}
+  .v-tutorial .v-step>figure{margin:0 11px 11px}
+  .v-tutorial .v-check{margin:6px 11px 12px}
+  .v-guide-more>summary{padding:13px 14px}
+  .v-guide-more-content{padding:4px 12px 14px}
+  .v-step-evidence{margin:6px 11px 12px}
+}
+
+/* Optional preparation: it never pushes the first numbered action below the fold. */
+.v-guide-prep{margin:10px 0;border:1px solid var(--r-line);border-radius:9px;background:var(--r-surface);color:var(--r-text)}
+.v-guide-prep>summary{padding:10px 13px;font-size:.83rem;font-weight:720;cursor:pointer;color:var(--r-text)}
+.v-guide-prep[open]>summary{border-bottom:1px solid var(--r-line)}
+.v-guide-prep-content{padding:9px 13px 12px;background:var(--r-soft)}
+.v-guide-prep-content p{font-size:.83rem;line-height:1.52;margin:5px 0;color:var(--r-text)}
+.v-guide-prep-content strong{color:var(--r-text)}

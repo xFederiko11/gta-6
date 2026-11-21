@@ -75,6 +75,34 @@ class VisualSiteTests(unittest.TestCase):
             self.assertIn(guide['source_url'].replace('&','&amp;'),text)
         self.assertEqual(len(list((ROOT/'trofei').glob('trofeo-*/index.html'))),55)
 
+    def test_all_guides_start_with_a_clear_tutorial_before_optional_content(self):
+        originals=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
+        originals+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
+        self.assertEqual(len(originals),11)
+        for guide in originals:
+            path=guide.get('canonical_path') or 'guide-e-tutorial/'+guide['id']+'/'
+            source=(ROOT/path/'index.html').read_text(encoding='utf-8')
+            with self.subTest(path=path):
+                first=source.index('id="passaggio-1"')
+                procedure=source.index('id="procedura"')
+                optional=source.index('class="v-guide-more"')
+                self.assertLess(procedure,first)
+                self.assertLess(first,optional)
+                self.assertIn('▶ INIZIA QUI',source[:first])
+                self.assertIn('TUTORIAL PASSO PASSO',source[:first])
+                self.assertIn('class="v-guide-intro"',source.replace('v-intro v-guide-intro','v-guide-intro'))
+                self.assertNotIn('class="v-guide-aside"',source)
+                self.assertIn('Mappe, video, avvisi completi, consigli e fonti',source)
+                self.assertIn('class="v-guide-social"',source)
+                self.assertEqual(source.count('class="v-step"'),len(guide['steps']))
+                for number in range(1,len(guide['steps'])+1):
+                    self.assertIn('PASSO '+str(number)+' DI '+str(len(guide['steps'])),source)
+                self.assertNotIn('class="v-reference-hub"',source[:first])
+                self.assertNotIn('id="mappa"',source[:first])
+                self.assertNotIn('id="consigli"',source[:first])
+                self.assertNotIn('class="r-gallery"',source[:first])
+                self.assertNotIn('class="v-intro" ><figure',source[:first])
+
     def test_guides_show_spoilers_directly_with_clear_warning(self):
         for path in ('guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/sportive-randy-posizioni/'):
             text,tags=parse(ROOT/path/'index.html')

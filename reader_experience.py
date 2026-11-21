@@ -87,14 +87,11 @@ def augment_guide(page, entry):
     source_marker = '<section class="v-sources" id="fonti">'
     if source_marker not in page:
         raise ValueError('Guide source section missing')
-    # Keep verified screenshots immediately next to the numbered action.
-    # A reference gallery must never replace the in-step image.
-    if gallery:
-        before_steps='<ol class="v-steps">'
-        if before_steps not in page:
-            raise ValueError('Guide steps missing')
-        page=page.replace(before_steps,gallery+before_steps,1)
-    page=page.replace(source_marker,tips+source_marker,1)
+    # Steps must be the FIRST substantial content; never place a gallery
+    # before step one. Genuine in-step screenshots remain next to their action.
+    if '<ol class="v-steps">' not in page:
+        raise ValueError('Guide steps missing')
+    page=page.replace(source_marker,gallery+tips+source_marker,1)
     page=page.replace('<h2>Fonti, immagini e verifica</h2>',
                       '<h2>Fonti, immagini e verifica</h2>'+refs,1)
     page=page.replace('<a href="#fonti">Fonti e immagini</a>',
@@ -160,7 +157,12 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
         from community_social_v1 import widget, xpost_for
         if '</main>' not in page:
             raise ValueError('Article has no closing main content region')
-        page=page.replace('</main>',xpost_for(discussion_path)+widget(discussion_path, youtube_url=page)+'</main>',1)
+        social=xpost_for(discussion_path)+widget(discussion_path, youtube_url=page)
+        if 'class="v-guide-main"' in page:
+            social=('<details class="v-guide-social">'
+                    '<summary>Discussione e aggiornamenti su X (facoltativi)</summary>'
+                    '<div class="v-guide-social-content">'+social+'</div></details>')
+        page=page.replace('</main>',social+'</main>',1)
     page = page.replace('</body>', DIALOG+f'<script src="{BASE}assets/reader-theme.js?v={version}" defer></script>'
                         +f'<script src="{BASE}assets/community-social-v1.js?v={version}" defer></script></body>', 1)
     return enhance(page, umami_website_id)
