@@ -248,3 +248,11 @@ body:has(.v-guide-intro) .v-spoiler-inner{padding-block:5px}
   .v-guide-more-content{padding:4px 12px 14px}
   .v-step-evidence{margin:6px 11px 12px}
 }
+
+/* Optional preparation: it never pushes the first numbered action below the fold. */
+.v-guide-prep{margin:10px 0;border:1px solid var(--r-line);border-radius:9px;background:var(--r-surface);color:var(--r-text)}
+.v-guide-prep>summary{padding:10px 13px;font-size:.83rem;font-weight:720;cursor:pointer;color:var(--r-text)}
+.v-guide-prep[open]>summary{border-bottom:1px solid var(--r-line)}
+.v-guide-prep-content{padding:9px 13px 12px;background:var(--r-soft)}
+.v-guide-prep-content p{font-size:.83rem;line-height:1.52;margin:5px 0;color:var(--r-text)}
+.v-guide-prep-content strong{color:var(--r-text)}
