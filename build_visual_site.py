@@ -482,12 +482,19 @@ def guide(g,guides):
            '<span class="v-guide-step-count">'+str(count)+' passaggi pratici</span>'
            '</section>')
     body+='<div class="v-guide-layout v-guide-single"><article class="v-guide-main">'
+    controls={
+        'registrare-auto-personale':'↑ croce direzionale · R1 · △ (Triangolo) · levetta destra',
+        'prima-persona-glitch-ps5':'OPTIONS · ↑ croce direzionale · ○ (Cerchio) · touchpad',
+        'scansionare-veicoli':'↑ croce direzionale · WAiNK (segui i comandi a schermo)',
+        'viaggio-rapido-taxi':'Telefono → Contatti → Paradise Taxi'
+    }
     body+=('<details class="v-guide-prep">'
            '<summary>Prima di iniziare: requisiti e luogo di partenza</summary>'
            '<div class="v-guide-prep-content">'
            '<p><strong>Serve:</strong> '+e(g["requirements"])+'</p>'
            '<p><strong>Dove:</strong> '+e(g["location"])+'</p>'
-           '</div></details>')
+           +('<p class="v-guide-controls"><strong>Comandi PS5:</strong> '+e(controls[g['id']])+'</p>' if g['id'] in controls else '')
+           +'</div></details>')
     # Critical trophy/save warnings must remain visible BEFORE the first step.
     if g['id'] in {'soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor'}:
         body+=('<p class="v-guide-urgent" role="note"><strong>⚠️ Non perdere i soldi:</strong> '
@@ -501,14 +508,6 @@ def guide(g,guides):
     if g['id']=='meditazione-capitolo-1':
         body+=('<p class="v-guide-urgent" role="note"><strong>🏆 Prima meditazione mancabile:</strong> '
                'completala durante il Capitolo 1, prima di proseguire nella storia.</p>')
-    controls={
-        'registrare-auto-personale':'↑ croce direzionale · R1 · △ (Triangolo) · levetta destra',
-        'prima-persona-glitch-ps5':'OPTIONS · ↑ croce direzionale · ○ (Cerchio) · touchpad',
-        'scansionare-veicoli':'↑ croce direzionale · WAiNK (segui i comandi a schermo)',
-        'viaggio-rapido-taxi':'Telefono → Contatti → Paradise Taxi'
-    }
-    if g['id'] in controls:
-        body+='<p class="v-guide-controls"><strong>Comandi PS5:</strong> '+e(controls[g['id']])+'</p>'
     body+=('<section id="procedura" class="v-tutorial" aria-labelledby="titolo-procedura">'
            '<header class="v-tutorial-head">'
            '<span class="v-tutorial-start-here">▶ INIZIA QUI</span>'
