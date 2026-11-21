@@ -1,7 +1,7 @@
 {
   "schema": "gta6-step-image-sources-v1",
   "reviewed": "2026-11-21",
-  "policy": "Verified editorial pages with photographs relevant to exactly the indexed action. Link to publishers; never hotlink, copy, or embed images without independently documented reuse permission. A photograph of a location proves neither loot nor an exploit.",
+  "policy": "References are source-page photo examples for the precise indexed action, not locally hosted gameplay screenshots. Links stay on publisher domains; no copying, hotlinking or license inference. Publisher headings are provided to locate an image on the original page. Where a source does not document a specific image, no photo link is added.",
   "guides": {
     "registrare-auto-personale": {
       "0": {
@@ -93,14 +93,6 @@
         "label": "Foto del magazzino South Vice-Dale",
         "section": "South Vice-Dale County Warehouse",
         "scope": "Riconoscimento del magazzino, non valore garantito dell'oggetto"
-      }
-    },
-    "prima-persona-glitch-ps5": {
-      "5": {
-        "source": "https://www.videogameschronicle.com/guide/gta-6-first-person-mode-glitch-grand-theft-auto/",
-        "label": "Immagine del risultato del glitch in prima persona",
-        "section": "First-person glitch explained – GTA 6",
-        "scope": "Visuale mostrata dall'articolo, non prova della patch attuale né dello stato dei trofei"
       }
     }
   }
