@@ -83,10 +83,10 @@ class Group12AtlasTests(unittest.TestCase):
         demo=render_hub(guides,loc,media,extras,
                         lambda key:BASE+"assets/visual/"+key+".webp"
                         if key in ("liquor-store","shirley-house","taxi-phone","save-car","scooter-phone") else None)
-        self.assertIn('data-map-guide-screenshot="scooter-phone"',demo)
-        self.assertNotIn('data-map-guide-screenshot="liquor-store"',demo)
-        self.assertNotIn('data-map-guide-screenshot="taxi-phone"',demo)
-        self.assertIn('class="g-map-preview"',demo)
+        self.assertNotIn('data-map-guide-screenshot=',demo)
+        self.assertNotIn('g-map-preview-empty',demo)
+        self.assertIn('Mappe GTA 6: luoghi e riferimenti documentati',demo)
+        self.assertIn('RIFERIMENTI GEOGRAFICI',demo)
         self.assertNotIn("rockstargames.com/VI/_next",demo)
         malformed=deepcopy(loc)
         malformed["guides"]["registrare-auto-personale"][0]["url"]="https://attacker.example/map"
