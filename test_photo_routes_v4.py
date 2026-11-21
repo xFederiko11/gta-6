@@ -123,6 +123,7 @@ class ConsentPhotoTests(unittest.TestCase):
                 self.assertNotIn(bad,text)
         intake=Path("site/assets/photo-intake-v4.js").read_text(encoding="utf-8")
         self.assertIn("window.open",intake)
+        self.assertIn(".content.querySelectorAll(\"option\")",intake)
         self.assertIn("rights.checked",intake)
         self.assertIn("text().length<=280",intake)
         routes=Path("site/assets/collectible-routes-v4.js").read_text(encoding="utf-8")
