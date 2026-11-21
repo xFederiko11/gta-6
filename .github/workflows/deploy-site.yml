@@ -206,7 +206,7 @@ jobs:
                           assert text.count('data-photo-source-lead=') == 8
                           assert 'non documentato' in text
                       if path == 'collezionabili/percorsi/':
-                          assert text.count('data-cr-step=') == 76
+                          assert text.count('data-cr-step=') == 92
                           assert text.count('data-cr-region=') == 7
                           assert 'data-cr-done' in text and 'Vicki' in text and 'Victor Maravilla' in text
                           assert 'collectible-routes-v4.js?v=' in text
