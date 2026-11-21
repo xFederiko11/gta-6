@@ -78,15 +78,16 @@ class Group12AtlasTests(unittest.TestCase):
         self.assertNotIn("lat=",hub)
         self.assertNotIn("<iframe",hub)
         self.assertNotIn("<img ",hub)
-        # The same existing screenshot assets appear only if already available locally.
+        # Source-only location photographs must NOT be presented as verified
+        # action screenshots in the maps section.
         demo=render_hub(guides,loc,media,extras,
                         lambda key:BASE+"assets/visual/"+key+".webp"
-                        if key in ("liquor-store","shirley-house","taxi-phone","save-car") else None)
-        self.assertIn('data-map-guide-screenshot="liquor-store"',demo)
-        self.assertIn('data-map-guide-screenshot="taxi-phone"',demo)
-        self.assertIn("data-map-guide-screenshot",demo)
+                        if key in ("liquor-store","shirley-house","taxi-phone","save-car","scooter-phone") else None)
+        self.assertIn('data-map-guide-screenshot="scooter-phone"',demo)
+        self.assertNotIn('data-map-guide-screenshot="liquor-store"',demo)
+        self.assertNotIn('data-map-guide-screenshot="taxi-phone"',demo)
+        self.assertIn('class="g-map-preview"',demo)
         self.assertNotIn("rockstargames.com/VI/_next",demo)
-        self.assertIn('class="g-map-photo-details"',demo)
         malformed=deepcopy(loc)
         malformed["guides"]["registrare-auto-personale"][0]["url"]="https://attacker.example/map"
         with self.assertRaises(ValueError):validate_places(guides,malformed,med)
