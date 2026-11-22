@@ -453,6 +453,7 @@ def browser_qa():
                         assert frame.get_attribute('src')=='https://gta6.city/embed/map'
                         viewer.locator('[data-vim-provider="vice"]').click()
                         assert frame.get_attribute('src')=='https://vice-map.com/embed/map'
+                        page.locator('.cr-wizard-item details.cr-step-extra > summary').click()
                         page.locator('.cr-wizard-item [data-vim-map-search]').first.click()
                         assert frame.get_attribute('src').startswith('https://vice-map.com/embed/map?marker=')
                         assert 'non è un pin esatto' in viewer.inner_text()
