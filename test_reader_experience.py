@@ -378,7 +378,7 @@ def browser_qa():
                             group=page.locator('details.tg-deep')
                             assert group.count()==1
                             assert not group.evaluate('(el)=>el.open')
-                            group.locator('summary').click()
+                            group.locator(':scope > summary').click()
                             assert page.locator('input[data-medal-id]').count()==42
                             first=page.locator('input[data-medal-id]').first
                             first.check()
