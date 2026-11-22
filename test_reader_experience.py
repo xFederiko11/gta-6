@@ -228,7 +228,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','guide-e-tutorial/']
+                paths=['','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -241,6 +241,19 @@ def browser_qa():
                         page.reload(wait_until='load')
                         assert page.locator('html').get_attribute('data-theme')==theme,'persistence'
                         check_layout(page,out,width,path,theme)
+                    if page.locator('#procedura.v-tutorial').count():
+                        assert page.locator('.v-operation-brief').is_visible()
+                        assert page.locator('.v-operation-brief dt').count()==3
+                        assert page.locator('.v-operation-brief dd').count()==3
+                        assert page.locator('.v-operation-brief').bounding_box()['y']<page.locator('#procedura').bounding_box()['y']
+                    if path=='guide-e-tutorial/veicoli-per-moses/':
+                        assert page.locator('#procedura .v-step').count()==7
+                        assert page.locator('.mo-photo-link').count()==7
+                        assert page.locator('.mo-photo-link img').count()==0
+                        assert page.locator('.v-operation-brief').is_visible()
+                        assert page.locator('.v-guide-urgent').is_visible()
+                        assert page.locator('#passaggio-5').inner_text().find('2727')!=-1
+                        assert page.locator('.v-guide-more').count()==1
                     if page.locator('details.v-guide-more').count():
                         # The beginner experience is a WIZARD, not an article full
                         # of unrelated boxes. Only one numbered step visible.
