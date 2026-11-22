@@ -372,18 +372,45 @@ def browser_qa():
                     if path=='collezionabili/percorsi/' and width in (390,1440):
                         assert page.locator('[data-cr-step]').count()==123
                         assert page.locator('[data-cr-filter]').count()==10
+                        assert page.locator('[data-cr-wizard]').is_visible()
+                        assert page.locator('[data-cr-step]:visible').count()==1
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-102'
+                        assert 'PRIORITÀ' in page.locator('[data-cr-wizard-help]').inner_text()
+                        assert not page.locator('.cr-hero').is_visible()
+                        # Skip does not claim an object collected; back returns.
+                        page.locator('[data-cr-wizard-skip]').click()
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        assert page.locator('[data-cr-progress]').inner_text().startswith('0 / 123')
+                        page.locator('[data-cr-wizard-back]').click()
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-102'
+                        page.locator('[data-cr-wizard-found]').click()
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        assert page.locator('[data-cr-progress]').inner_text().startswith('1 / 123')
+                        page.reload(wait_until='load')
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        assert '1 / 123' in page.locator('[data-cr-progress]').inner_text()
+                        page.locator('[data-cr-wizard-toggle]').click()
+                        assert page.locator('[data-cr-step]:visible').count()==123
+                        assert page.locator('[data-cr-query]').is_visible()
                         page.locator('[data-cr-query]').fill('Victor Maravilla')
                         assert page.locator('[data-cr-step]:visible').count()==1
                         page.locator('[data-cr-query]').fill('')
-                        page.locator('[data-cr-done]').first.check()
-                        assert '1 / 123' in page.locator('[data-cr-progress]').inner_text()
-                        page.reload(wait_until='load')
-                        assert page.locator('[data-cr-done]').first.is_checked()
+                        assert page.locator('[data-cr-step]:visible').count()==123
+                        page.locator('[data-cr-wizard-toggle]').click()
+                        assert page.locator('[data-cr-step]:visible').count()==1
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                        if width==390:
+                            page.screenshot(path=str(out/'mobile-collectibles-one-checkpoint-390.png'))
                     if path=='collezionabili/percorsi/' and width==390:
+                        map_details=page.locator('details.cr-map-extra')
+                        assert map_details.count()==1
+                        assert not map_details.evaluate('(el)=>el.open')
                         viewer=page.locator('[data-vi-map]')
                         assert viewer.count()==1
                         assert viewer.locator('iframe').count()==0,'external map must not autoload'
+                        map_details.locator('summary').click()
+                        assert map_details.evaluate('(el)=>el.open')
                         viewer.locator('[data-vim-provider="city"]').click()
                         assert viewer.locator('iframe').count()==0
                         viewer.locator('[data-vim-load]').click()
@@ -392,7 +419,7 @@ def browser_qa():
                         assert frame.get_attribute('src')=='https://gta6.city/embed/map'
                         viewer.locator('[data-vim-provider="vice"]').click()
                         assert frame.get_attribute('src')=='https://vice-map.com/embed/map'
-                        page.locator('[data-vim-map-search]').first.click()
+                        page.locator('.cr-wizard-item [data-vim-map-search]').first.click()
                         assert frame.get_attribute('src').startswith('https://vice-map.com/embed/map?marker=')
                         assert 'non è un pin esatto' in viewer.inner_text()
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
