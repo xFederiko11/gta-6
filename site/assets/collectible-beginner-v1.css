@@ -57,3 +57,11 @@ button:focus-visible,.cr-wizard-toggle:focus-visible{outline:3px solid var(--r-c
  .cr-wizard-item>.cr-step>p{font-size:.93rem}
  .cr-wizard-secondary button{font-size:.78rem}
 }
+
+/* A single primary "TROVATO" action: no competing checkboxes/buttons. */
+.cr-root[data-cr-guided="true"] .cr-wizard-item .cr-check{display:none!important}
+.cr-step-extra{margin:12px 0 0;padding:9px 10px;border:1px solid var(--r-line);border-radius:8px;background:var(--r-surface)}
+.cr-step-extra>summary{cursor:pointer;color:var(--r-muted);font-size:.77rem;font-weight:750;line-height:1.5}
+.cr-step-extra[open]>summary{margin-bottom:8px}
+.cr-step-extra :is(a,button){display:inline-block;font-size:.76rem;line-height:1.6;margin:5px 8px 4px 0;color:var(--r-cyan);vertical-align:middle}
+.cr-step-extra .cr-direct-map{font-size:.76rem}
