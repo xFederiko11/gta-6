@@ -10,6 +10,11 @@ PATH="guide-e-tutorial/veicoli-per-moses/"
 SOURCE="https://www.powerpyx.com/gta-6-steal-vehicles-for-moses-walkthrough/"
 GIFT="https://www.powerpyx.com/gta-6-collect-moses-gift-walkthrough/"
 DAILY="https://www.powerpyx.com/gta-6-daily-driver-steal-the-crawler-for-moses-walkthrough/"
+# Official embed version distributed by Yahoo for IGN's real vehicle walkthrough.
+# It shows the actual gameplay without copying images or video into this repository.
+IGN_EMBED="https://tech.yahoo.com/videos/gta-6-moses-vehicle-locations-222512470.html?format=embed"
+IGN_SOURCE="https://tech.yahoo.com/videos/gta-6-moses-vehicle-locations-222512470.html"
+IGN_CHAPTERS=("01:41","03:11","04:53","05:46","07:08","08:40")
 
 TASKS=(
     ("Declasse Yosemite 1500","1.850 GTA$",
@@ -53,12 +58,14 @@ def validate():
             raise ValueError("Incomplete practical objective")
     if "2727" not in TASKS[4][3] or "Daily Driver" in TASKS[0][3]:
         raise ValueError("Unverified guide summary")
+    if len(IGN_CHAPTERS)!=6 or not IGN_EMBED.endswith("?format=embed"):
+        raise ValueError("Only sourced, publisher-supplied gameplay embed allowed")
     return True
 
 def render(base):
     validate()
     body=[
-      '<section class="v-intro v-guide-intro"><span class="v-tag">GUIDA RAPIDA · PS5 / PS5 PRO</span>',
+      '<section class="v-intro v-guide-intro"><span class="v-tag">GUIDA COMPLETA · PS5 / PS5 PRO</span>',
       '<h1>Le 6 auto da rubare per Moses: luoghi e ricompense</h1>',
       '<p>Missioni facoltative dopo Daily Driver, non la missione della prima auto personale.</p></section>',
       '<div class="v-guide-layout v-guide-single"><article class="v-guide-main">',
@@ -66,43 +73,74 @@ def render(base):
       '<h2>Prima di iniziare</h2><dl>',
       '<div><dt>Quando</dt><dd>Capitolo 2, dopo Daily Driver</dd></div>',
       '<div><dt>Dove</dt><dd>Consegne all’officina Moses, Port Gellhorn</dd></div>',
-      '<div><dt>Premio</dt><dd>Denaro per auto + bonus condizioni; alla fine Moses’ Sultan</dd></div>',
+      '<div><dt>Premio</dt><dd>18.610 GTA$ di base in totale, più bonus condizioni e Moses’ Sultan</dd></div>',
       '</dl></section>',
       '<p class="v-guide-urgent" role="note"><strong>🏆 Platino:</strong> secondo le fonti citate,',
       ' queste consegne sono facoltative e non richieste per i trofei. Evita danni ai',
       ' veicoli: il bonus dipende dalle condizioni di consegna.</p>',
-      '<section id="procedura" class="v-tutorial" aria-labelledby="titolo-procedura">',
-      '<header class="v-tutorial-head"><span class="v-tutorial-start-here">▶ INIZIA QUI</span>',
-      '<h2 id="titolo-procedura">Ruba e consegna, un mezzo alla volta</h2>',
-      '<p>Moses comunica i veicoli nell’ordine indicato. Consegna il precedente per sbloccare il successivo.</p>',
-      '</header><ol class="v-steps">'
+      '<section id="procedura" class="v-tutorial" data-moses-full-article="true" aria-labelledby="titolo-procedura">',
+      '<header class="v-tutorial-head"><span class="v-tutorial-start-here">▶ IL TUTORIAL INIZIA QUI</span>',
+      '<h2 id="titolo-procedura">Tutti i 6 veicoli + il regalo finale</h2>',
+      '<p>Scorri la guida completa: nessun passaggio nascosto. Moses comunica i veicoli nell’ordine',
+      ' indicato; consegnane uno per ricevere il successivo.</p></header>',
+      '<nav class="mo-quick-nav" aria-label="Vai direttamente a un veicolo">',
+      '<strong>Vai al veicolo:</strong><div class="mo-quick-items">'
     ]
+    for i,(name,reward,where,action,check) in enumerate(TASKS,1):
+        body.append('<a href="#passaggio-'+str(i)+'">'+str(i)+' · '+e(name)+'</a>')
+    body.append('</div></nav><ol class="v-steps">')
     for i,(name,reward,where,action,check) in enumerate(TASKS,1):
         source=GIFT if i==7 else SOURCE
         body.extend([
           '<li class="v-step" id="passaggio-'+str(i)+'"><div class="v-step-head">',
           '<span class="v-step-n" aria-hidden="true">'+str(i).zfill(2)+'</span><div>',
-          '<span class="v-step-kicker">PASSO '+str(i)+' DI 7</span>',
-          '<h3>'+e(name)+' · '+e(reward)+'</h3>',
-          '<p><strong>DOVE:</strong> '+e(where)+'</p>',
-          '<p><strong>COSA FARE:</strong> '+e(action)+'</p></div></div>',
-          '<p class="v-check"><strong>✓ CONTROLLO:</strong> '+e(check)+'</p>',
+          '<span class="v-step-kicker">VEICOLO '+str(i)+' DI 7</span>',
+          '<h3>'+e(name)+' <small class="mo-reward">'+e(reward)+'</small></h3>',
+          '<p class="mo-where"><strong>📍 DOVE:</strong> '+e(where)+'</p>',
+          '<p class="mo-action"><strong>🎮 COSA FARE:</strong> '+e(action)+'</p></div></div>'
+        ])
+        if i<=6:
+            minute=IGN_CHAPTERS[i-1]
+            body.extend([
+                '<section class="mo-inline-scene" data-moses-scene data-moses-time="'+e(minute)+'">',
+                '<strong>🎥 VIDEO DEL LUOGO E DELL’AUTO</strong>',
+                '<button type="button" data-moses-watch aria-expanded="false">',
+                '▶ Mostra il gameplay qui · minuto '+e(minute)+'</button>',
+                '<div class="mo-scene-player" data-moses-scene-player hidden></div>',
+                '<small>Video originale di <a href="'+e(IGN_SOURCE)+
+                '" target="_blank" rel="noopener noreferrer">IGN ↗</a>',
+                ' · inizio del veicolo a '+e(minute)+'. Se non parte dal minuto giusto, sposta la barra del video.</small>',
+                '</section>'
+            ])
+        body.extend([
           '<p class="mo-photo-link">📷 <a href="'+e(source)+
-          '" target="_blank" rel="noopener noreferrer">Guarda le foto originali su PowerPyx ↗</a>',
-          '<small>Foto consultabili sul sito originale, non ripubblicate qui.</small></p></li>'
+          '" target="_blank" rel="noopener noreferrer">Vedi le fotografie del luogo su PowerPyx ↗</a>',
+          '<small>Fonte immagini: PowerPyx · consultabili sul sito originale, non ripubblicate senza permesso.</small></p>',
+          '<p class="v-check"><strong>✓ COME VERIFICARE:</strong> '+e(check)+'</p>',
+          '</li>'
         ])
     body.extend([
-      '</ol><p class="v-tutorial-finish"><strong>FINE DELLA PROCEDURA</strong></p></section>',
-      '<details class="v-guide-more" id="approfondimenti"><summary><span><strong>Fonti e approfondimenti</strong>',
-      '<small>Non sono altri passaggi</small></span><span class="v-more-chevron">⌄</span></summary>',
-      '<div class="v-guide-more-content"><p>Le zone indicate sono quelle della missione,',
-      ' non pin GPS verificati. I pagamenti indicati sono i valori base documentati;',
-      ' il bonus condizioni varia.</p>',
-      '<p>Prima devi sbloccare la prima registrazione con Moses, poi completare Daily Driver.</p>',
-      '<p><a href="'+e(base+'salvare-auto/')+'">Prima auto personale: guida separata →</a></p>',
-      '<ul><li><a href="'+e(DAILY)+'" target="_blank" rel="noopener noreferrer">Daily Driver — PowerPyx ↗</a></li>',
-      '<li><a href="'+e(SOURCE)+'" target="_blank" rel="noopener noreferrer">Sei auto da rubare — PowerPyx ↗</a></li>',
-      '<li><a href="'+e(GIFT)+'" target="_blank" rel="noopener noreferrer">Regalo finale — PowerPyx ↗</a></li></ul>',
-      '</div></details></article></div>'
+      '</ol><p class="v-tutorial-finish"><strong>FINE DEL TUTORIAL</strong> · Le sei consegne sono concluse: il regalo è il settimo passo.</p>',
+      '</section>',
+      '<section class="mo-visible-sources" id="approfondimenti">',
+      '<h2>Fonti e note utili</h2>',
+      '<p>I luoghi descritti sono aree di ricerca, non coordinate GPS esatte.',
+      ' I compensi indicati sono quelli base pubblicati da PowerPyx;',
+      ' i bonus per le condizioni possono variare.</p>',
+      '<p>Per iniziare la serie di consegne devi prima registrare un’auto con Moses e',
+      ' completare Daily Driver. <a href="'+e(base+'salvare-auto/')+
+      '">Prima auto personale: guida separata ↗</a></p>',
+      '<ul><li><a href="'+e(SOURCE)+'" target="_blank" rel="noopener noreferrer">',
+      'Foto e walkthrough delle sei auto — PowerPyx ↗</a></li>',
+      '<li><a href="'+e(IGN_SOURCE)+'" target="_blank" rel="noopener noreferrer">',
+      'Filmato di gameplay dei sei veicoli — IGN ↗</a></li>',
+      '<li><a href="'+e(GIFT)+'" target="_blank" rel="noopener noreferrer">',
+      'Regalo finale Moses’ Sultan — PowerPyx ↗</a></li>',
+      '<li><a href="'+e(DAILY)+'" target="_blank" rel="noopener noreferrer">',
+      'Missione Daily Driver — PowerPyx ↗</a></li></ul>',
+      '<p class="mo-publisher-note">Le immagini PowerPyx non sono caricate su questo sito:',
+      ' l’autore richiede autorizzazione scritta per riutilizzarle. Il filmato IGN',
+      ' si carica soltanto quando selezioni Mostra il gameplay.</p>',
+      '</section></article></div>'
     ])
     return ''.join(body)
