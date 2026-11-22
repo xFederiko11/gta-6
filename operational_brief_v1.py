@@ -17,7 +17,7 @@ def validate(data,guides):
             raise ValueError("Only three compact, checked fields per guide")
         for key,value in row.items():
             if (not isinstance(value,str) or not 8<=len(value)<=160
-                or any(x in value for x in "<>\\n\\r")):
+                or any(x in value for x in "<>\n\r")):
                 raise ValueError("Unclear/unsafe operational summary: "+ident+"."+key)
     if "trofei non verificati" not in data["guides"]["prima-persona-glitch-ps5"]["goal"]:
         raise ValueError("The trophy warning must never be hidden")
