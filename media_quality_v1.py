@@ -28,7 +28,10 @@ class MediaTags(HTMLParser):
 def audit(root=ROOT):
     pages=[]
     broken=[]
-    guides=list((root/'guide-e-tutorial').glob('*/index.html'))
+    # The 11-photo-target audit covers the existing guide catalog only.
+    # Moses' six-job article is a separate optional reference, not a 12th role-based submission.
+    guides=[p for p in (root/'guide-e-tutorial').glob('*/index.html')
+            if p.parent.name!='veicoli-per-moses']
     save=root/'salvare-auto/index.html'
     if save.is_file(): guides.append(save)
     for page in sorted(guides):
