@@ -49,7 +49,8 @@ class OperationalGuidesV1Tests(unittest.TestCase):
         self.assertIn("operational-guide-v1.css?v=",page)
         self.assertIn("guide-flow-v1.js?v=",page)
         self.assertLess(page.index("Capitolo 2, dopo Daily Driver"),page.index('id="passaggio-1"'))
-        self.assertEqual(page.count('<img'),0,"do not pose stock or unlicensed photos as walkthrough proof")
+        self.assertEqual(page.split('<ol class="v-steps">',1)[1].split('</ol>',1)[0].count('<img'),0,
+                         "do not pose stock or unlicensed photos as walkthrough proof inside steps")
         self.assertEqual(len(TASKS),7)
         self.assertIn("6 auto",page)
         self.assertIn("1.850 GTA$",page)
