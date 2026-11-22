@@ -13,6 +13,8 @@ import xml.etree.ElementTree as ET
 import build_site as legacy
 import site_info
 from visual_guide_content import enrich
+from operational_brief_v1 import validate as validate_operational_briefs, render as render_operational_brief
+from moses_vehicle_jobs_v1 import render as render_moses_jobs, validate as validate_moses_jobs, PATH as MOSES_JOBS_PATH
 from community_social_v1 import home_rail
 from meditation_tracker_v1 import render as render_meditation_tracker
 from x_growth_dashboard_v1 import (render as render_growth_dashboard, read_report as growth_report,
@@ -58,6 +60,7 @@ MEDITATION_PLACES=json.loads(Path('data/meditation_checklist_v1.json').read_text
 EXTERNAL_MAP_REFS=json.loads(Path('data/map_external_permalinks_v1.json').read_text(encoding='utf-8'))
 ADVANCED=json.loads(Path('data/advanced_platinum_v3.json').read_text(encoding='utf-8'))
 PHOTO_REVIEW=json.loads(Path('data/photo_provenance_review_v3.json').read_text(encoding='utf-8'))
+OPERATIONAL_BRIEFS=json.loads(Path('data/guide_operational_briefs_v1.json').read_text(encoding='utf-8'))
 COLLECTIBLE_ROUTES=json.loads(Path('data/collectible_routes_v4.json').read_text(encoding='utf-8'))
 COLLECTIBLE_PHOTOS=json.loads(Path('data/collectible_photo_evidence_v1.json').read_text(encoding='utf-8'))
 APPROVED_PHOTOS=json.loads(Path('data/approved_screenshots_v4.json').read_text(encoding='utf-8'))
@@ -490,6 +493,7 @@ def guide(g,guides):
            '<span class="v-guide-step-count">'+str(count)+' passaggi pratici</span>'
            '</section>')
     body+='<div class="v-guide-layout v-guide-single"><article class="v-guide-main">'
+    body+=render_operational_brief(OPERATIONAL_BRIEFS,g)
     controls={
         'registrare-auto-personale':'↑ croce direzionale · R1 · △ (Triangolo) · levetta destra',
         'prima-persona-glitch-ps5':'OPTIONS · ↑ croce direzionale · ○ (Cerchio) · touchpad',
@@ -602,6 +606,10 @@ def guide(g,guides):
            '<small>Non fanno parte del tutorial: mappe, video, fonti e note</small></span>'
            '<span class="v-more-chevron" aria-hidden="true">⌄</span></summary>'
            '<div class="v-guide-more-content">')
+    if g['id']=='registrare-auto-personale':
+        body+=('<p class="v-guide-next-moses"><strong>DOPO LA PRIMA AUTO:</strong> '
+               '<a href="'+url(MOSES_JOBS_PATH)+'">6 veicoli da recuperare per Moses, con ricompense →</a>'
+               '</p>')
     if step_evidence:
         body+='<section class="v-guide-ref-list"><h3>Riferimenti per alcuni passaggi (facoltativi)</h3>'
         for number,heading,fragment in step_evidence:
@@ -700,6 +708,8 @@ def main():
     records+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
     guides=enrich(records)
     validate(guides)
+    validate_operational_briefs(OPERATIONAL_BRIEFS,guides)
+    validate_moses_jobs()
     for guide_id,items in PHOTO_STEP_REVIEW.get('context_approved',{}).items():
         candidate=next((g for g in guides if g['id']==guide_id),None)
         if candidate is None:
@@ -726,7 +736,7 @@ def main():
     validate_collectible_photos(COLLECTIBLE_PHOTOS,COLLECTIBLE_ROUTES)
     validate_approved(APPROVED_PHOTOS,guides,VISUAL_REQUESTS)
     PHOTO_COVERAGE=audit_photo_coverage(guides,VISUAL_REQUESTS,APPROVED_PHOTOS,PHOTO_REVIEW)
-    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','collectible_routes_v4.py','data/collectible_routes_v4.json','data/collectible_photo_evidence_v1.json','collectible_photo_evidence_v1.py','site/assets/collectible-photo-v1.css','site/assets/collectible-beginner-v1.css','site/assets/collectible-beginner-v1.js','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/step_image_sources_v1.json','step_image_sources_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/map_external_permalinks_v1.json','interactive_article_maps_v1.py','site/assets/interactive-map-v1.css','site/assets/interactive-map-v1.js','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
+    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','moses_vehicle_jobs_v1.py','operational_brief_v1.py','data/guide_operational_briefs_v1.json','site/assets/operational-guide-v1.css','collectible_routes_v4.py','data/collectible_routes_v4.json','data/collectible_photo_evidence_v1.json','collectible_photo_evidence_v1.py','site/assets/collectible-photo-v1.css','site/assets/collectible-beginner-v1.css','site/assets/collectible-beginner-v1.js','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/step_image_sources_v1.json','step_image_sources_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/map_external_permalinks_v1.json','interactive_article_maps_v1.py','site/assets/interactive-map-v1.css','site/assets/interactive-map-v1.js','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
     from community_discovery_v2 import render as community_render
@@ -831,6 +841,16 @@ def main():
         new_paths.append(path)
     for g in guides:
         guide(g,guides); new_paths.append(g['canonical_path'])
+    # Independent optional chain: never merge it with the first-car tutorial.
+    moses_title='GTA 6: 6 auto per Moses, posizioni e ricompense PS5'
+    moses_desc=('Dopo Daily Driver trova i 6 veicoli richiesti da Moses: '
+                'luoghi, azioni rapide, pagamenti e come ritirare Moses’ Sultan.')
+    legacy.write(MOSES_JOBS_PATH+'index.html',layout(
+        moses_title,moses_desc,MOSES_JOBS_PATH,render_moses_jobs(BASE),
+        'guide',structured={'@context':'https://schema.org','@type':'WebPage',
+                            'name':moses_title,'url':url(MOSES_JOBS_PATH),
+                            'description':moses_desc,'inLanguage':'it-IT'}))
+    new_paths.append(MOSES_JOBS_PATH)
     photo_hub,photo_audit=render_photo_hub(
         guides,VISUAL_REQUESTS,MEDIA,
         json.loads(Path('data/guide_extras.json').read_text(encoding='utf-8'))['guides'],media_src,

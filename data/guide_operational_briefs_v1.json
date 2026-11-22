@@ -1,0 +1,61 @@
+{
+  "schema": "gta6-operational-guide-briefs-v1",
+  "source_policy": "Short navigational summaries verified against each guide's documented original instructions. The summary is not a new assertion about trophies, glitches, patch compatibility or location coordinates. Full procedure and warnings remain unchanged.",
+  "guides": {
+    "soldi-facili-capitolo-1": {
+      "when": "Capitolo 1",
+      "where": "Quattro luoghi indicati nella guida",
+      "goal": "Controlla il bottino e i rischi, senza investire tutto prima del cambio capitolo."
+    },
+    "soldi-2500-three-sheets-liquor": {
+      "when": "Incarico iniziale di Shirley",
+      "where": "Three Sheets Liquor, retro del negozio",
+      "goal": "Raggiungi il nascondiglio e controlla il denaro presente."
+    },
+    "scansionare-veicoli": {
+      "when": "App WAiNK disponibile",
+      "where": "Vicino al veicolo da scansionare",
+      "goal": "Registra il tipo di tracker e verifica il progresso in gioco."
+    },
+    "studiare-animali": {
+      "when": "Binocolo disponibile",
+      "where": "Vicino all'animale da osservare",
+      "goal": "Studia la specie e controlla il contatore."
+    },
+    "70-sfide-100-percento": {
+      "when": "Menu Progressi accessibile",
+      "where": "Progressi → Sfide",
+      "goal": "Scegli le prove e raggiungi 70 sfide completate."
+    },
+    "meditazione-capitolo-1": {
+      "when": "Prima attività durante il Capitolo 1",
+      "where": "Casa di Jason, balcone a Key Lento",
+      "goal": "Completa le sessioni senza perdere la prima occasione."
+    },
+    "viaggio-rapido-taxi": {
+      "when": "Dopo la prima missione",
+      "where": "Telefono → Contatti → Paradise Taxi",
+      "goal": "Seleziona una destinazione e salta il tragitto, pagando il costo indicato."
+    },
+    "poligoni-concentrazione": {
+      "when": "Poligoni accessibili",
+      "where": "Un poligono di tiro disponibile",
+      "goal": "Allenati e verifica le medaglie richieste separatamente."
+    },
+    "registrare-auto-personale": {
+      "when": "Capitolo 2, dopo Girl’s Trip",
+      "where": "Watkins Auto Parts, Port Gellhorn",
+      "goal": "Registra gratuitamente la prima auto senza tracker."
+    },
+    "sportive-randy-posizioni": {
+      "when": "Capitolo 3, lista di Randy sbloccata",
+      "where": "Vice Beach e Ocean Beach",
+      "goal": "Individua il modello richiesto, poi scegli se consegnarlo."
+    },
+    "prima-persona-glitch-ps5": {
+      "when": "Free roam, con un salvataggio di prova",
+      "where": "Al volante di un'auto, in single-player",
+      "goal": "Prova la visuale in prima persona; trofei non verificati."
+    }
+  }
+}
