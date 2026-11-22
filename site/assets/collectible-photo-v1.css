@@ -1,0 +1,38 @@
+/* Minimal photo evidence under the exact documented collectible.
+   A SOURCE link is never shown as if it were a verified image on our site. */
+.cr-photo-evidence{display:grid;gap:5px;margin:10px 0 12px;padding:9px 11px;border:1px solid var(--r-line);border-radius:9px;background:var(--r-surface);color:var(--r-text);min-width:0}
+.cr-photo-evidence>strong{font-size:.78rem;line-height:1.45;color:var(--r-muted);font-weight:750}
+.cr-photo-evidence>a{font-size:.86rem;font-weight:850;line-height:1.45;color:var(--r-cyan);text-decoration:underline;text-underline-offset:3px}
+.cr-photo-evidence>small{font-size:.67rem;line-height:1.4;color:var(--r-muted)}
+.cr-photo-approved{margin:10px 0 12px;padding:7px;background:var(--r-surface)}
+.cr-photo-approved>a{display:block}
+.cr-photo-approved img{width:100%;height:auto;max-height:450px;object-fit:contain;display:block;border-radius:7px}
+.cr-photo-approved figcaption{padding:6px 4px 2px;display:grid;gap:3px;line-height:1.4;font-size:.82rem;color:var(--r-text)}
+.cr-photo-approved figcaption small,.cr-photo-approved figcaption small a{font-size:.7rem;color:var(--r-muted)}
+.cr-instruction-where,.cr-instruction-do{border-radius:8px;padding:8px 10px;line-height:1.55!important;font-size:.98rem!important;color:var(--r-text)!important}
+.cr-instruction-where{background:var(--r-surface);border-left:3px solid var(--r-cyan)}
+.cr-instruction-do{background:var(--r-surface);border-left:3px solid var(--r-pink)}
+.cr-instruction-where>strong,.cr-instruction-do>strong{display:block;color:var(--r-text)!important;font-size:.73rem;letter-spacing:.035em;font-weight:900;margin-bottom:4px}
+.cr-wizard-item>.cr-step>p.cr-instruction-where,.cr-wizard-item>.cr-step>p.cr-instruction-do{margin:10px 0}
+@media(max-width:760px){
+ .cr-wizard{padding:10px 11px;margin:2px auto 9px}
+ .cr-wizard-start{font-size:.7rem}
+ .cr-wizard>h2{font-size:1.15rem;line-height:1.18;margin:6px 0 10px}
+ .cr-wizard-warning{font-size:.74rem;line-height:1.42;padding:7px 9px;margin:0 0 7px}
+ .cr-wizard-progress{padding:7px 0 9px;gap:2px}
+ .cr-wizard-progress>strong{font-size:.88rem}
+ .cr-wizard-progress>small{font-size:.73rem}
+ .cr-wizard-item>.cr-step{padding:9px 9px;margin:8px 0!important}
+ .cr-wizard-item .cr-step-head{gap:6px}
+ .cr-instruction-where,.cr-instruction-do{font-size:.92rem!important;line-height:1.5!important}
+ .cr-photo-evidence{padding:8px 10px;margin:8px 0}
+ .cr-photo-approved img{max-height:345px}
+ .cr-wizard-found{min-height:58px;font-size:1rem}
+ .cr-wizard-actions{gap:6px;margin:8px 0}
+ .cr-wizard-secondary button{min-height:44px}
+ /* Keep every credit immediately under its actual image; never crop media. */
+ .v-tutorial .v-photo,.v-tutorial .v-image-link img{display:block;max-width:100%;height:auto;object-fit:contain}
+ .v-tutorial .v-photo-origin{overflow-wrap:anywhere}
+ .gf-next{min-height:61px}
+ .trophy-guide-flow .tg-goal{overflow-wrap:anywhere}
+}
