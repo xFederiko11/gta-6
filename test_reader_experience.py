@@ -228,7 +228,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','guide-e-tutorial/']
+                paths=['','salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -355,6 +355,40 @@ def browser_qa():
                         page.screenshot(path=str(out/f'home-dark-{width}.png'))
                         page.locator('[data-theme-choice="light"]').click();page.screenshot(path=str(out/f'home-light-{width}.png'))
                         page.locator('[data-theme-choice="dark"]').click()
+                    if path in ('trofei/trofeo-14-una-lunga-strada/',
+                                'trofei/trofeo-17-cecchino/') and width in (390,1440):
+                        assert page.locator('[data-trophy-beginner]').count()==1
+                        assert page.locator('[data-trophy-beginner]').is_visible()
+                        assert page.locator('.tg-goal').is_visible()
+                        assert page.locator('.tg-finish [data-trophy-done]').is_visible()
+                        assert page.locator('.trophy-art-wrap').is_hidden()
+                        assert page.locator('.tg-extra:not([open])').count()==2
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                        button=page.locator('.tg-finish [data-trophy-done]')
+                        button.click()
+                        assert button.get_attribute('aria-pressed')=='true'
+                        page.reload(wait_until='load')
+                        assert button.get_attribute('aria-pressed')=='true'
+                        button.click()
+                        assert button.get_attribute('aria-pressed')=='false'
+                        if width==390:
+                            page.locator('.tg-goal').scroll_into_view_if_needed()
+                            page.screenshot(path=str(out/('mobile-trophy-'+path.split('/')[1]+'.png')))
+                        if path.endswith('trofeo-17-cecchino/'):
+                            group=page.locator('details.tg-deep')
+                            assert group.count()==1
+                            assert not group.evaluate('(el)=>el.open')
+                            group.locator('summary').click()
+                            assert page.locator('input[data-medal-id]').count()==42
+                            first=page.locator('input[data-medal-id]').first
+                            first.check()
+                            assert page.locator('[data-medal-count]').inner_text()=='1 / 42'
+                            page.reload(wait_until='load')
+                            page.locator('details.tg-deep > summary').click()
+                            assert page.locator('input[data-medal-id]').first.is_checked()
+                            page.on('dialog',lambda dialog:dialog.accept())
+                            page.locator('[data-medal-reset]').click()
+                            assert page.locator('[data-medal-count]').inner_text()=='0 / 42'
                     if path=='screenshot-ps5/':
                         cards=page.locator('.v-photo-hub-card')
                         assert cards.count()==11
