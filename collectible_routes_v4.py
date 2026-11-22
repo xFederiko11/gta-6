@@ -109,6 +109,28 @@ def render(data,curated_refs=()):
     counts=Counter(x["type"] for x in data["points"])
     output=[
         '<section class="cr-root" data-collectible-routes>',
+        '<section class="cr-wizard" data-cr-wizard hidden aria-label="Checkpoint guidato">',
+        '<span class="cr-wizard-start">▶ INIZIA QUI · UN SOLO OGGETTO ALLA VOLTA</span>',
+        '<h2>Trova un collezionabile. Poi passa al successivo.</h2>',
+        '<p class="cr-wizard-warning">🏆 Prima dei capitoli successivi: alcune copie e due carte '
+        'sono accessibili soltanto in determinati momenti della storia. '
+        'I punti urgenti vengono mostrati prima, ma controlla sempre in quale capitolo sei.</p>',
+        '<div class="cr-wizard-progress"><strong data-cr-wizard-count aria-live="polite">CHECKPOINT 1</strong>',
+        '<small data-cr-wizard-help>Leggi DOVE e COSA FARE qui sotto.</small></div>',
+        '<ol class="cr-wizard-item" data-cr-wizard-item></ol>',
+        '<div class="cr-wizard-actions">',
+        '<button type="button" class="cr-wizard-found" data-cr-wizard-found>✓ TROVATO → PROSSIMO</button>',
+        '<div class="cr-wizard-secondary">',
+        '<button type="button" data-cr-wizard-back>← Indietro</button>',
+        '<button type="button" data-cr-wizard-skip>Salta questo →</button></div></div>',
+        '<div class="cr-wizard-done" data-cr-wizard-done hidden>',
+        '<strong>Hai raggiunto la fine della selezione.</strong>',
+        '<p>Controlla i requisiti nel gioco: questa lista contiene solo 123 punti documentati '
+        'e non equivale al 100% o al platino.</p>',
+        '<button type="button" data-cr-wizard-restart>Ricomincia dai punti non spuntati</button></div>',
+        '<button type="button" class="cr-wizard-toggle" data-cr-wizard-toggle>Mostra tutti i 123 checkpoint e i filtri</button>',
+        '<p class="cr-wizard-local" data-cr-wizard-local>Le spunte restano solo in questo browser, non sul PSN.</p>',
+        '</section>',
         '<header class="cr-hero"><span class="eyebrow">⌖ GTA VI ITALIA · PS5 / PS5 PRO</span>',
         '<h1>Percorsi collezionabili GTA 6: regioni e checkpoint</h1>',
         '<p><strong>123 posizioni documentate in sette aree</strong>,',
@@ -121,7 +143,7 @@ def render(data,curated_refs=()):
         '<div><strong>6/33</strong><small>siti subacquei verificati qui</small></div>',
         '<div><strong>2</strong><small>carte potenzialmente mancabili</small></div>',
         '</div><nav class="cr-shortcuts" aria-label="Scorciatoie collezionabili">',
-        '<a class="v-button" href="#cr-kelly">Prima: carte mancabili →</a>',
+        '<a class="v-button" href="#cr-pt-26">Prima: carte mancabili →</a>',
         '<a class="v-button secondary" href="'+BASE+'trofei/100-percento/">Checklist 100% →</a>',
         '<a class="v-button secondary" href="'+BASE+'screenshot-ps5/invia/">Invia screenshot PS5 →</a>',
         '<a class="v-button secondary" href="https://x.com/intent/follow?screen_name=xFederiko11" target="_blank" rel="noopener noreferrer" data-cr-follow>Segui X per nuove posizioni ↗</a>',
@@ -217,7 +239,8 @@ def render(data,curated_refs=()):
                 if curated else '')
             output.append(
                 '<li class="cr-step" id="cr-'+e(item["id"])+'" data-cr-step="'+e(item["id"])+'" data-cr-type="'+e(item["type"])+'" '
-                'data-cr-search="'+e(item["name"]+" "+item["place"]+" "+item["hint"])+'">'
+                'data-cr-search="'+e(item["name"]+" "+item["place"]+" "+item["hint"])+'" '
+                 'data-cr-deadline="'+str(item.get("before_chapter",2 if item.get("missable") else 99))+'">'
                 '<div class="cr-step-head"><span>'+str(idx).zfill(2)+'</span>'
                 '<div><strong>'+e(item["name"])+'</strong>'
                 '<small>'+e(TYPES[item["type"]])+' · zona descritta</small></div>'
