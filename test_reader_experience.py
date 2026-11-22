@@ -228,7 +228,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','guide-e-tutorial/']
+                paths=['','salvare-auto/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -331,7 +331,7 @@ def browser_qa():
                         assert page.locator('#mt-smooth-sand-jason').is_checked()
                         page.locator('#meditazioni-checklist').scroll_into_view_if_needed()
                         page.screenshot(path=str(out/'mobile-meditations-checklist-dark.png'))
-                        page.on('dialog',lambda dialog:dialog.accept())
+                        page.once('dialog',lambda dialog:dialog.accept())
                         page.locator('[data-meditation-reset]').click()
                         assert page.locator('[data-meditation-summary]').inner_text()=='0 / 18'
                         assert not page.locator('#mt-jasons-house-one').is_checked()
@@ -355,6 +355,40 @@ def browser_qa():
                         page.screenshot(path=str(out/f'home-dark-{width}.png'))
                         page.locator('[data-theme-choice="light"]').click();page.screenshot(path=str(out/f'home-light-{width}.png'))
                         page.locator('[data-theme-choice="dark"]').click()
+                    if path in ('trofei/trofeo-14-una-lunga-strada/',
+                                'trofei/trofeo-17-cecchino/') and width in (390,1440):
+                        assert page.locator('[data-trophy-beginner]').count()==1
+                        assert page.locator('[data-trophy-beginner]').is_visible()
+                        assert page.locator('.tg-goal').is_visible()
+                        assert page.locator('.tg-finish [data-trophy-done]').is_visible()
+                        assert page.locator('.trophy-art-wrap').is_hidden()
+                        assert page.locator('.tg-extra:not([open])').count()==2
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                        button=page.locator('.tg-finish [data-trophy-done]')
+                        button.click()
+                        assert button.get_attribute('aria-pressed')=='true'
+                        page.reload(wait_until='load')
+                        assert button.get_attribute('aria-pressed')=='true'
+                        button.click()
+                        assert button.get_attribute('aria-pressed')=='false'
+                        if width==390:
+                            page.locator('.tg-goal').scroll_into_view_if_needed()
+                            page.screenshot(path=str(out/('mobile-trophy-'+path.split('/')[1]+'.png')))
+                        if path.endswith('trofeo-17-cecchino/'):
+                            group=page.locator('details.tg-deep')
+                            assert group.count()==1
+                            assert not group.evaluate('(el)=>el.open')
+                            group.locator(':scope > summary').click()
+                            assert page.locator('input[data-medal-id]').count()==42
+                            first=page.locator('input[data-medal-id]').first
+                            first.check()
+                            assert page.locator('[data-medal-count]').inner_text()=='1 / 42'
+                            page.reload(wait_until='load')
+                            page.locator('details.tg-deep > summary').click()
+                            assert page.locator('input[data-medal-id]').first.is_checked()
+                            page.once('dialog',lambda dialog:dialog.accept())
+                            page.locator('[data-medal-reset]').click()
+                            assert page.locator('[data-medal-count]').inner_text()=='0 / 42'
                     if path=='screenshot-ps5/':
                         cards=page.locator('.v-photo-hub-card')
                         assert cards.count()==11
@@ -372,18 +406,45 @@ def browser_qa():
                     if path=='collezionabili/percorsi/' and width in (390,1440):
                         assert page.locator('[data-cr-step]').count()==123
                         assert page.locator('[data-cr-filter]').count()==10
+                        assert page.locator('[data-cr-wizard]').is_visible()
+                        assert page.locator('[data-cr-step]:visible').count()==1
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-102'
+                        assert 'PRIORITÀ' in page.locator('[data-cr-wizard-help]').inner_text()
+                        assert not page.locator('.cr-hero').is_visible()
+                        # Skip does not claim an object collected; back returns.
+                        page.locator('[data-cr-wizard-skip]').click()
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        assert page.locator('[data-cr-progress]').inner_text().startswith('0 / 123')
+                        page.locator('[data-cr-wizard-back]').click()
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-102'
+                        page.locator('[data-cr-wizard-found]').click()
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        assert page.locator('[data-cr-progress]').inner_text().startswith('1 / 123')
+                        page.reload(wait_until='load')
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        assert '1 / 123' in page.locator('[data-cr-progress]').inner_text()
+                        page.locator('[data-cr-wizard-toggle]').click()
+                        assert page.locator('[data-cr-step]:visible').count()==123
+                        assert page.locator('[data-cr-query]').is_visible()
                         page.locator('[data-cr-query]').fill('Victor Maravilla')
                         assert page.locator('[data-cr-step]:visible').count()==1
                         page.locator('[data-cr-query]').fill('')
-                        page.locator('[data-cr-done]').first.check()
-                        assert '1 / 123' in page.locator('[data-cr-progress]').inner_text()
-                        page.reload(wait_until='load')
-                        assert page.locator('[data-cr-done]').first.is_checked()
+                        assert page.locator('[data-cr-step]:visible').count()==123
+                        page.locator('[data-cr-wizard-toggle]').click()
+                        assert page.locator('[data-cr-step]:visible').count()==1
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                        if width==390:
+                            page.screenshot(path=str(out/'mobile-collectibles-one-checkpoint-390.png'))
                     if path=='collezionabili/percorsi/' and width==390:
+                        map_details=page.locator('details.cr-map-extra')
+                        assert map_details.count()==1
+                        assert not map_details.evaluate('(el)=>el.open')
                         viewer=page.locator('[data-vi-map]')
                         assert viewer.count()==1
                         assert viewer.locator('iframe').count()==0,'external map must not autoload'
+                        map_details.locator(':scope > summary').click()
+                        assert map_details.evaluate('(el)=>el.open')
                         viewer.locator('[data-vim-provider="city"]').click()
                         assert viewer.locator('iframe').count()==0
                         viewer.locator('[data-vim-load]').click()
@@ -392,7 +453,8 @@ def browser_qa():
                         assert frame.get_attribute('src')=='https://gta6.city/embed/map'
                         viewer.locator('[data-vim-provider="vice"]').click()
                         assert frame.get_attribute('src')=='https://vice-map.com/embed/map'
-                        page.locator('[data-vim-map-search]').first.click()
+                        page.locator('.cr-wizard-item details.cr-step-extra > summary').click()
+                        page.locator('.cr-wizard-item [data-vim-map-search]').first.click()
                         assert frame.get_attribute('src').startswith('https://vice-map.com/embed/map?marker=')
                         assert 'non è un pin esatto' in viewer.inner_text()
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')

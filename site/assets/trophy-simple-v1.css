@@ -1,0 +1,57 @@
+/* Un solo obiettivo chiaro su ogni pagina trofeo. No falsi screenshot. */
+body:has(.trophy-guide-flow) .v-nav,
+body:has(.trophy-guide-flow) .v-menu,
+body:has(.trophy-guide-flow) .v-x-link,
+body:has(.trophy-guide-flow) .v-spoiler-inner>p,
+body:has(.trophy-guide-flow) .breadcrumbs,
+body:has(.trophy-guide-flow) .page-meta {display:none!important}
+body:has(.trophy-guide-flow) .v-header-inner{min-height:49px;gap:9px;padding-block:6px}
+body:has(.trophy-guide-flow) .v-spoilerbar{border:0;background:transparent}
+body:has(.trophy-guide-flow) .v-spoiler-inner{min-height:0;padding:4px 0;justify-content:flex-end}
+body:has(.trophy-guide-flow) .r-theme-control{font-size:.7rem}
+body:has(.trophy-guide-flow) .trophy-hero{display:block;max-width:740px;margin:8px auto 9px;padding:13px 16px;border-radius:11px;box-shadow:none;background:var(--r-soft);border:1px solid var(--r-line)}
+body:has(.trophy-guide-flow) .trophy-hero h1{font-size:clamp(1.44rem,4vw,2.2rem);line-height:1.2;letter-spacing:-.027em;margin:7px 0;color:var(--r-text)}
+body:has(.trophy-guide-flow) .trophy-hero .eyebrow{font-size:.67rem;color:var(--r-pink);letter-spacing:.045em}
+body:has(.trophy-guide-flow) .trophy-hero .trophy-hero-requirement,
+body:has(.trophy-guide-flow) .trophy-hero-facts,
+body:has(.trophy-guide-flow) .trophy-art-wrap,
+body:has(.trophy-guide-flow) .trophy-actions{display:none!important}
+body:has(.trophy-guide-flow) .article-grid.trophy-article{display:block;max-width:740px;margin:0 auto}
+body:has(.trophy-guide-flow) .trophy-prose{max-width:none;min-width:0;width:100%}
+.trophy-guide-flow{background:var(--r-surface);border:2px solid var(--r-cyan);border-radius:12px;margin:0 0 12px!important;padding:16px 18px;box-shadow:none}
+.trophy-guide-flow .tg-start{display:block;color:var(--r-pink);font-weight:900;font-size:.85rem;line-height:1.4;letter-spacing:.04em}
+.trophy-guide-flow .tg-step-label{display:block;color:var(--r-cyan);font-weight:850;font-size:.73rem;letter-spacing:.08em;margin:17px 0 3px}
+.trophy-guide-flow h2{font-size:clamp(1.2rem,3vw,1.6rem);margin:0 0 10px;color:var(--r-text);line-height:1.25}
+.trophy-guide-flow .tg-goal{font-size:clamp(1.07rem,2vw,1.32rem);line-height:1.62;font-weight:800;color:var(--r-text);margin:0;padding:13px 15px;background:var(--r-soft);border-radius:9px;border-left:4px solid var(--r-cyan)}
+.trophy-guide-flow .tg-guidance,
+.trophy-guide-flow .tg-verify{margin:14px 0 0;padding:10px 0 0;border-top:1px solid var(--r-line);color:var(--r-text);font-size:.94rem;line-height:1.64}
+.trophy-guide-flow :is(.tg-guidance,.tg-verify)>strong{display:block;font-size:.75rem;letter-spacing:.035em;margin:0 0 6px;color:var(--r-cyan)}
+.trophy-guide-flow .tg-guidance p,.trophy-guide-flow .tg-verify p{font-size:.94rem;color:var(--r-text);line-height:1.58;margin:0}
+.trophy-guide-flow .tg-no-guess{font-size:.84rem;color:var(--r-muted);line-height:1.5}
+.trophy-guide-flow .tg-no-guess strong{color:var(--r-muted)}
+.trophy-guide-flow .tg-finish{margin:17px 0 0}
+.trophy-guide-flow .trophy-done-wrap{display:grid;gap:7px;margin:0}
+.trophy-guide-flow .trophy-done-button{display:block;width:100%;min-height:61px;background:#ff72aa;border:2px solid #ff72aa;color:#10131d;border-radius:10px;font-weight:900;font-size:1rem;letter-spacing:.01em;cursor:pointer}
+.trophy-guide-flow .trophy-done-button[aria-pressed=true]{background:#175b4b;color:#ecfff9;border-color:#64c6b3}
+.trophy-guide-flow .trophy-done-wrap .micro{color:var(--r-muted);font-size:.72rem;margin:0}
+body:has(.trophy-guide-flow) .trophy-safety{max-width:740px;margin:12px auto;padding:12px 14px;font-size:.83rem}
+body:has(.trophy-guide-flow) .trophy-safety p{font-size:.82rem;line-height:1.55}
+body:has(.trophy-guide-flow) .source-details{max-width:740px;margin:8px auto}
+body:has(.trophy-guide-flow) .source-details>summary{font-size:.8rem}
+.tg-extra,.tg-deep{max-width:740px;margin:12px auto;background:var(--r-surface);border:1px solid var(--r-line);border-radius:10px;padding:0}
+.tg-extra>summary,.tg-deep>summary{cursor:pointer;color:var(--r-muted);font-size:.82rem;font-weight:700;line-height:1.45;padding:13px 14px;list-style:revert}
+.tg-deep>summary{font-size:1rem;color:var(--r-text);background:var(--r-soft);padding:16px;font-weight:850}
+.tg-extra>summary:hover,.tg-deep>summary:hover{color:var(--r-cyan)}
+.tg-extra .trophy-sidebar{margin:0!important;box-shadow:none;background:transparent}
+.tg-extra .discover-more{padding:10px 15px}
+.tg-deep-content{padding:13px 13px 18px}
+.tg-deep-content .quick-route{margin:0 0 18px}
+.tg-deep-content .medal-location-grid{min-width:0}
+body:has(.trophy-guide-flow) .v-interactive-map{max-width:740px;margin:16px auto}
+@media(max-width:760px){
+ body:has(.trophy-guide-flow) .trophy-hero{padding:10px 13px;margin:5px auto}
+ body:has(.trophy-guide-flow) .trophy-hero h1{font-size:clamp(1.35rem,6vw,1.85rem)}
+ .trophy-guide-flow{padding:13px 12px}
+ .trophy-guide-flow .tg-goal{padding:11px 12px;font-size:1.08rem;line-height:1.56}
+ .tg-deep>summary{font-size:.94rem}
+}

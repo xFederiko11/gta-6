@@ -18,11 +18,11 @@ from growth_tracking_v1 import enhance, normalize_id
 
 ROOT = Path('_site')
 BASE = 'https://xfederiko11.github.io/gta-6/'
-VERSION = 'reader-guided-single-step-v4-20261121'
+VERSION = 'reader-beginner-platinum-v5-20261122'
 # This public token is specifically for the https://xfederiko11.github.io/gta-6/ property.
 # It is intended to appear in the homepage HTML, never as an authentication secret.
 GSC_PUBLIC_VERIFICATION_TOKEN = 'U1WNfaHHGPHzojaeFvn_GGhVrWb5TYeDyUPgpmCX6Nw'
-ASSETS = ('reader-theme.css', 'reader-theme.js', 'community-social-v1.js', 'guide-flow-v1.css', 'guide-flow-v1.js')
+ASSETS = ('reader-theme.css', 'reader-theme.js', 'community-social-v1.js', 'guide-flow-v1.css', 'guide-flow-v1.js', 'trophy-simple-v1.css', 'collectible-beginner-v1.css', 'collectible-beginner-v1.js')
 BOOT = '''<meta name="color-scheme" content="dark light">
 <style id="reader-first-paint">html{background:#10131d;color-scheme:dark}html[data-theme="light"]{background:#f7f5fa;color-scheme:light}body{background:inherit}</style>
 <script id="reader-theme-boot">(function(){var t='dark';try{var v=localStorage.getItem('gta6-theme-v1');if(v==='light'||v==='dark')t=v;}catch(e){}document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;})();</script>'''
@@ -178,6 +178,17 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
             f'<link rel="stylesheet" href="{BASE}assets/guide-flow-v1.css?v={version}"></head>',1)
         page = page.replace('</body>',
             f'<script src="{BASE}assets/guide-flow-v1.js?v={version}" defer></script></body>',1)
+    if 'data-trophy-beginner' in page:
+        # Exactly 55 trophy-detail pages; the trophy index is unchanged.
+        page = page.replace('</head>',
+            f'<link rel="stylesheet" href="{BASE}assets/trophy-simple-v1.css?v={version}"></head>',1)
+    if 'data-collectible-routes' in page:
+        # One documented collectible per screen, while preserving the full
+        # original 123-point checklist for users without JavaScript.
+        page = page.replace('</head>',
+            f'<link rel="stylesheet" href="{BASE}assets/collectible-beginner-v1.css?v={version}"></head>',1)
+        page = page.replace('</body>',
+            f'<script src="{BASE}assets/collectible-beginner-v1.js?v={version}" defer></script></body>',1)
     page = page.replace('</body>', DIALOG+f'<script src="{BASE}assets/reader-theme.js?v={version}" defer></script>'
                         +f'<script src="{BASE}assets/community-social-v1.js?v={version}" defer></script></body>', 1)
     return enhance(page, umami_website_id)
@@ -189,7 +200,7 @@ def build_base():
     original_sources = builder.ORIGINAL_SOURCES
     builder.ORIGINAL_SOURCES = lambda path: original_sources(path) + (
         'reader_experience.py','growth_tracking_v1.py','data/guide_extras.json',
-        'site/assets/reader-theme.css','site/assets/reader-theme.js','site/assets/guide-flow-v1.css','site/assets/guide-flow-v1.js','site/assets/community-social-v1.js','community_social_v1.py','community_discovery_v2.py','data/community_social.json')
+        'site/assets/reader-theme.css','site/assets/reader-theme.js','site/assets/guide-flow-v1.css','site/assets/guide-flow-v1.js','site/assets/trophy-simple-v1.css','site/assets/collectible-beginner-v1.css','site/assets/collectible-beginner-v1.js','site/assets/community-social-v1.js','community_social_v1.py','community_discovery_v2.py','data/community_social.json')
     original_enrich = builder.enrich
     def reviewed(records):
         guides = original_enrich(records)

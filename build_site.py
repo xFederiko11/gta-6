@@ -277,25 +277,41 @@ def trophy_detail(t, guides, trophies):
     <h1>{e(t["name_it"])}</h1>
     <p class="trophy-hero-requirement">{e(t["requirement_it"])}</p>
     {fact}
-    <div class="trophy-actions"><a class="button" href="#{"checklist-cecchino" if is_shootist else "requisito"}">
-    {"🥇 Apri la checklist 42/42" if is_shootist else "🎯 Leggi l’obiettivo"}</a>
+    <div class="trophy-actions"><a class="button" href="#requisito">
+    ▶ INIZIA IL TUTORIAL</a>
     <a class="button secondary" href="{url("trofei/")}">← Tutti i trofei</a></div></div>
     <div class="trophy-art-wrap">{ornament(t["tier"])}</div></section>''')
     finished=(f'<div class="trophy-done-wrap"><button type="button" data-trophy-done="{t["number"]}" '
               f'class="trophy-done-button" aria-pressed="false">○ Segna trofeo ottenuto</button>'
               '<span class="micro" data-trophy-status>Solo in questo browser. Non modifica i trofei PSN.</span></div>')
-    guidance=(
-        shootist_content() if is_shootist else (
-            '<section class="quick-route" id="requisito">'
-            '<span class="eyebrow">STRATEGIA PER IL PLATINO</span>'
-            '<h2>🎯 Indicazioni operative</h2>'
-            + (f'<p>{e(t["tip_it"])}</p>' if t.get("tip_it")
-               else '<p>Non risultano passaggi aggiuntivi verificati per questa scheda. '
-                    'Segui il requisito in alto e confronta lo sblocco nel menu Trofei della PS5; '
-                    'non aggiungiamo procedure speculative.</p>')
-            + '</section>'
-        )
+    # No speculative tasks: each trophy has exactly one sourced requirement.
+    task=(
+        '<section class="quick-route trophy-guide-flow" id="requisito" data-trophy-beginner>'
+        '<span class="tg-start">▶ QUESTA È LA GUIDA · INIZIA QUI</span>'
+        '<p class="tg-step-label">UN SOLO OBIETTIVO</p>'
+        '<h2>Cosa devi fare</h2>'
+        '<p class="tg-goal">'+e(t["requirement_it"])+'</p>'
     )
+    if t.get("tip_it"):
+        task+=('<div class="tg-guidance"><strong>COME FARLO · CONSIGLIO DOCUMENTATO</strong>'
+               '<p>'+e(t["tip_it"])+'</p></div>')
+    else:
+        task+=('<p class="tg-guidance tg-no-guess"><strong>Nessun passaggio extra confermato.</strong> '
+               'Segui esattamente il requisito sopra; non aggiungiamo azioni inventate.</p>')
+    task+=(
+        '<div class="tg-verify"><strong>COME CAPIRE SE HAI FINITO</strong>'
+        '<p>Controlla che il trofeo risulti sbloccato nell’elenco Trofei della PS5. '
+        'Solo quando lo vedi ottenuto, segnalo qui sotto.</p></div>'
+        '<div class="tg-finish">'+finished+'</div>'
+        '</section>'
+    )
+    if is_shootist:
+        guidance=(task+
+            '<details class="tg-deep" id="dettagli-cecchino">'
+            '<summary>🥇 APRI LA CHECKLIST DELLE 42 MEDAGLIE →</summary>'
+            '<div class="tg-deep-content">'+shootist_content()+'</div></details>')
+    else:
+        guidance=task
     related_guides=[g for g in guides if g.get("related_trophy")==t["number"]]
     guides_html="".join(
         f'<a class="guide-related-link" href="{url(guide_path(g))}">🎮 {e(g["title"])} ↗</a>'
@@ -314,12 +330,13 @@ def trophy_detail(t, guides, trophies):
     article=(
         '<div class="article-grid trophy-article">'
         '<article class="prose trophy-prose">'
-        +disclosure+finished+guidance
+        +disclosure+guidance
         +'<div class="trophy-safety"><strong>🛡️ Platino prima di tutto</strong>'
         '<p>Questa scheda spiega il requisito del gioco, non certifica glitch o duplicazioni. '
         'Non usare trucchi che disabilitano trofei e salvataggi durante la run del platino.</p></div>'
         + sources
         + '</article>'
+        '<details class="tg-extra"><summary>Altre guide utili (facoltative)</summary>'
         '<aside class="sidebox trophy-sidebar"><h3>Scopri altre guide</h3>'
         f'<a href="{url("trofei/")}">🏆 Elenco completo dei 55 trofei</a>'
         f'<a href="{url("trofei/roadmap-platino/")}">🗺️ Roadmap Platino in cinque fasi</a>'
@@ -327,9 +344,11 @@ def trophy_detail(t, guides, trophies):
         f'<a href="{url("trofei/medaglie-oro/")}">🥇 Medaglie Oro e 100%</a>'
         +guides_html
         +f'<a href="{url("guide-e-tutorial/")}">⚡ Guide pratiche PS5 →</a>'
-        + '</aside></div>'
+        + '</aside></details></div>'
     )
-    body=hero+article+related_trophies(t,trophies,url)
+    body=hero+article+(
+        '<details class="tg-extra tg-related"><summary>Altri trofei (facoltativo)</summary>'
+        +related_trophies(t,trophies,url)+'</details>')
     body+=f'<script src="{url("assets/trophy-experience.js")}" defer></script>'
     title=trophy_seo_title(t)
     desc=f'Come sbloccare {t["name_it"]} in GTA 6 su PS5. Requisito: {t["requirement_it"]}'

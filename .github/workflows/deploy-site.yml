@@ -62,8 +62,9 @@ jobs:
           node --check site/assets/visual-v2.js
           node --check site/assets/reader-theme.js
           node --check site/assets/guide-flow-v1.js
+          node --check site/assets/collectible-beginner-v1.js
           node --check site/assets/community-social-v1.js
-          python -m py_compile community_social_sync_v1.py test_x_permalink_site_v1.py
+          python -m py_compile community_social_sync_v1.py test_x_permalink_site_v1.py test_beginner_platinum_v1.py
           python -m unittest -q test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py
       - name: Optimize curated screenshots for mobile
         run: |
@@ -94,7 +95,7 @@ jobs:
       - name: Audit actual local media and five-image guide target
         run: python media_quality_v1.py
       - name: Validate actual production pages, media and canonical continuity
-        run: python -m unittest -q test_x_growth_dashboard_v1.py test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py
+        run: python -m unittest -q test_x_growth_dashboard_v1.py test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_beginner_platinum_v1.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py
       - name: Audit static Google discovery links (no network or tracking)
         run: |
           python -m unittest -q test_internal_link_graph_v1.py
@@ -192,7 +193,7 @@ jobs:
                       assert 'visual-v2.css?v=' in text and 'visual-v2.js?v=' in text
                       assert '<link rel="canonical" href="'+base+path+'"' in text
                       assert 'data-theme="auto"' in text
-                      assert 'reader-guided-single-step-v4-20261121' in text
+                      assert 'reader-beginner-platinum-v5-20261122' in text
                       assert 'reader-theme.css?v=' in text and 'data-theme-choice="light"' in text and 'data-theme-choice="dark"' in text
                       assert "var t='dark'" in text
                       assert 'class="v-x-link"' in text and 'https://x.com/xFederiko11' in text
@@ -409,6 +410,24 @@ jobs:
           assert 'PASSO PRIMA' in js
           assert '.gf-next' in css
           print('PUBLIC_ONE_STEP_WIZARD_ASSETS_OK')
+          for trophy_path in ('trofei/trofeo-14-una-lunga-strada/',
+                              'trofei/trofeo-17-cecchino/'):
+              trophy=fetch(trophy_path)
+              assert 'data-trophy-beginner' in trophy
+              assert 'trophy-simple-v1.css?v=' in trophy
+              assert trophy.count('data-trophy-done=')>=1
+              print('PUBLIC_BEGINNER_TROPHY_OK',base+trophy_path)
+          collectibles=fetch('collezionabili/percorsi/')
+          assert 'data-cr-wizard hidden' in collectibles
+          assert collectibles.count('data-cr-step=')==123
+          assert 'collectible-beginner-v1.js?v=' in collectibles
+          assert 'collectible-beginner-v1.css?v=' in collectibles
+          assert collectibles.index('data-cr-wizard hidden') < collectibles.index('class="cr-map-extra"')
+          cbjs=fetch('assets/collectible-beginner-v1.js')
+          assert 'slot.appendChild(step)' in cbjs
+          assert 'found.addEventListener("click"' in cbjs
+          assert 'FINE DEL PERCORSO DOCUMENTATO' in cbjs
+          print('PUBLIC_BEGINNER_COLLECTIBLE_OK',base+'collezionabili/percorsi/')
           hub=fetch('screenshot-ps5/')
           assert 'data-photo-guide=' in hub
           assert 'screenshot-ps5/verifica/' not in hub
