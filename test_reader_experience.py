@@ -331,7 +331,7 @@ def browser_qa():
                         assert page.locator('#mt-smooth-sand-jason').is_checked()
                         page.locator('#meditazioni-checklist').scroll_into_view_if_needed()
                         page.screenshot(path=str(out/'mobile-meditations-checklist-dark.png'))
-                        page.on('dialog',lambda dialog:dialog.accept())
+                        page.once('dialog',lambda dialog:dialog.accept())
                         page.locator('[data-meditation-reset]').click()
                         assert page.locator('[data-meditation-summary]').inner_text()=='0 / 18'
                         assert not page.locator('#mt-jasons-house-one').is_checked()
@@ -386,7 +386,7 @@ def browser_qa():
                             page.reload(wait_until='load')
                             page.locator('details.tg-deep > summary').click()
                             assert page.locator('input[data-medal-id]').first.is_checked()
-                            page.on('dialog',lambda dialog:dialog.accept())
+                            page.once('dialog',lambda dialog:dialog.accept())
                             page.locator('[data-medal-reset]').click()
                             assert page.locator('[data-medal-count]').inner_text()=='0 / 42'
                     if path=='screenshot-ps5/':
@@ -443,7 +443,7 @@ def browser_qa():
                         viewer=page.locator('[data-vi-map]')
                         assert viewer.count()==1
                         assert viewer.locator('iframe').count()==0,'external map must not autoload'
-                        map_details.locator('summary').click()
+                        map_details.locator(':scope > summary').click()
                         assert map_details.evaluate('(el)=>el.open')
                         viewer.locator('[data-vim-provider="city"]').click()
                         assert viewer.locator('iframe').count()==0
