@@ -13,6 +13,7 @@ import xml.etree.ElementTree as ET
 import build_site as legacy
 import site_info
 from visual_guide_content import enrich
+from operational_brief_v1 import validate as validate_operational_briefs, render as render_operational_brief
 from community_social_v1 import home_rail
 from meditation_tracker_v1 import render as render_meditation_tracker
 from x_growth_dashboard_v1 import (render as render_growth_dashboard, read_report as growth_report,
@@ -58,6 +59,7 @@ MEDITATION_PLACES=json.loads(Path('data/meditation_checklist_v1.json').read_text
 EXTERNAL_MAP_REFS=json.loads(Path('data/map_external_permalinks_v1.json').read_text(encoding='utf-8'))
 ADVANCED=json.loads(Path('data/advanced_platinum_v3.json').read_text(encoding='utf-8'))
 PHOTO_REVIEW=json.loads(Path('data/photo_provenance_review_v3.json').read_text(encoding='utf-8'))
+OPERATIONAL_BRIEFS=json.loads(Path('data/guide_operational_briefs_v1.json').read_text(encoding='utf-8'))
 COLLECTIBLE_ROUTES=json.loads(Path('data/collectible_routes_v4.json').read_text(encoding='utf-8'))
 COLLECTIBLE_PHOTOS=json.loads(Path('data/collectible_photo_evidence_v1.json').read_text(encoding='utf-8'))
 APPROVED_PHOTOS=json.loads(Path('data/approved_screenshots_v4.json').read_text(encoding='utf-8'))
@@ -490,6 +492,7 @@ def guide(g,guides):
            '<span class="v-guide-step-count">'+str(count)+' passaggi pratici</span>'
            '</section>')
     body+='<div class="v-guide-layout v-guide-single"><article class="v-guide-main">'
+    body+=render_operational_brief(OPERATIONAL_BRIEFS,g)
     controls={
         'registrare-auto-personale':'↑ croce direzionale · R1 · △ (Triangolo) · levetta destra',
         'prima-persona-glitch-ps5':'OPTIONS · ↑ croce direzionale · ○ (Cerchio) · touchpad',
@@ -700,6 +703,7 @@ def main():
     records+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
     guides=enrich(records)
     validate(guides)
+    validate_operational_briefs(OPERATIONAL_BRIEFS,guides)
     for guide_id,items in PHOTO_STEP_REVIEW.get('context_approved',{}).items():
         candidate=next((g for g in guides if g['id']==guide_id),None)
         if candidate is None:
@@ -726,7 +730,7 @@ def main():
     validate_collectible_photos(COLLECTIBLE_PHOTOS,COLLECTIBLE_ROUTES)
     validate_approved(APPROVED_PHOTOS,guides,VISUAL_REQUESTS)
     PHOTO_COVERAGE=audit_photo_coverage(guides,VISUAL_REQUESTS,APPROVED_PHOTOS,PHOTO_REVIEW)
-    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','collectible_routes_v4.py','data/collectible_routes_v4.json','data/collectible_photo_evidence_v1.json','collectible_photo_evidence_v1.py','site/assets/collectible-photo-v1.css','site/assets/collectible-beginner-v1.css','site/assets/collectible-beginner-v1.js','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/step_image_sources_v1.json','step_image_sources_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/map_external_permalinks_v1.json','interactive_article_maps_v1.py','site/assets/interactive-map-v1.css','site/assets/interactive-map-v1.js','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
+    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','operational_brief_v1.py','data/guide_operational_briefs_v1.json','site/assets/operational-guide-v1.css','collectible_routes_v4.py','data/collectible_routes_v4.json','data/collectible_photo_evidence_v1.json','collectible_photo_evidence_v1.py','site/assets/collectible-photo-v1.css','site/assets/collectible-beginner-v1.css','site/assets/collectible-beginner-v1.js','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/step_image_sources_v1.json','step_image_sources_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/map_external_permalinks_v1.json','interactive_article_maps_v1.py','site/assets/interactive-map-v1.css','site/assets/interactive-map-v1.js','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
     from community_discovery_v2 import render as community_render
