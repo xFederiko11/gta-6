@@ -10,6 +10,16 @@ PATH="guide-e-tutorial/veicoli-per-moses/"
 SOURCE="https://www.powerpyx.com/gta-6-steal-vehicles-for-moses-walkthrough/"
 GIFT="https://www.powerpyx.com/gta-6-collect-moses-gift-walkthrough/"
 DAILY="https://www.powerpyx.com/gta-6-daily-driver-steal-the-crawler-for-moses-walkthrough/"
+IGN_PLAYER="https://tech.yahoo.com/videos/gta-6-moses-vehicle-locations-222512470.html?format=embed"
+IGN_TIMELINE=((101,"01:41"),(191,"03:11"),(293,"04:53"),
+              (346,"05:46"),(428,"07:08"),(520,"08:40"))
+# Link to the publisher's own embeddable VIDEO PLAYER, never copied still frames.
+# Each of the six chapters shows its actual corresponding car. Gift is not
+# included in the footage, so do not label the video as evidence for the Sultan.
+VISUAL_CUES=("Pickup giallo sul carro attrezzi","Coupé rossa dentro un garage",
+             "Fuoristrada bianco nel vialetto","Buggy argentato in movimento",
+             "Muscle car rossa in un capanno","Moto arancione nel garage")
+
 
 TASKS=(
     ("Declasse Yosemite 1500","1.850 GTA$",
@@ -53,7 +63,47 @@ def validate():
             raise ValueError("Incomplete practical objective")
     if "2727" not in TASKS[4][3] or "Daily Driver" in TASKS[0][3]:
         raise ValueError("Unverified guide summary")
+    if len(IGN_TIMELINE)!=6 or len(VISUAL_CUES)!=6 or any(
+       IGN_TIMELINE[k][0]>=IGN_TIMELINE[k+1][0] for k in range(5)):
+        raise ValueError("Missing verified video chapters")
     return True
+
+def render_source_visual(i, name):
+    """Visual evidence is the publisher's permitted player, NOT copied photos."""
+    if i==7:
+        return ('<figure class="mo-visual mo-gift-visual" data-mo-gift-ref="source-only">'
+                '<figcaption><strong>📷 Riconosci il regalo</strong>'
+                '<span>Apri il piccolo garage accanto all’officina di Moses.'
+                ' All’interno trovi la Sultan speciale.</span>'
+                '<small><a href="'+e(GIFT)+'" target="_blank" rel="noopener noreferrer">'
+                'Fonte: guida originale del regalo di Moses — PowerPyx ↗</a></small>'
+                '<small>Non è disponibile qui un’immagine riutilizzabile verificata.'
+                ' Non mostriamo foto di un veicolo diverso.</small></figcaption></figure>')
+    seconds,stamp=IGN_TIMELINE[i-1]
+    return (
+        '<figure class="mo-visual" data-mo-real-gameplay="'+str(i)+'" '
+        'data-mo-chapter-seconds="'+str(seconds)+'">'
+        '<div class="mo-video-head"><strong>🎬 Guarda il veicolo e il luogo nel gameplay</strong>'
+        '<span>'+e(VISUAL_CUES[i-1])+'</span></div>'
+        '<div class="mo-video-screen"><iframe '
+        'src="'+e(IGN_PLAYER)+'" loading="lazy" '
+        'title="IGN: GTA VI, tutti i veicoli di Moses — '+e(name)+'" '
+        'referrerpolicy="strict-origin-when-cross-origin" '
+        'allow="autoplay; encrypted-media; picture-in-picture; fullscreen" '
+        'allowfullscreen></iframe></div>'
+        '<figcaption>'
+        '<strong>▶ Nel video IGN: vai al minuto '+e(stamp)+'</strong>'
+        '<span>Il player può iniziare dall’inizio: sposta la barra a '
+        +e(stamp)+' per vedere questa consegna.</span>'
+        '<small class="mo-photo-link"><a href="'+e(IGN_PLAYER)+'" '
+        'target="_blank" rel="noopener noreferrer">'
+        'Fonte video: IGN, riprodotto tramite il player originale ↗</a> · '
+        '<a href="'+e(SOURCE)+'" target="_blank" rel="noopener noreferrer">'
+        'Guarda anche le foto sulla guida PowerPyx ↗</a></small>'
+        '<small>Non abbiamo copiato, ritagliato o ricaricato fotografie '
+        'di altri editori.</small></figcaption></figure>'
+    )
+
 
 def render(base):
     validate()
@@ -75,10 +125,11 @@ def render(base):
       '<header class="v-tutorial-head"><span class="v-tutorial-start-here">▶ INIZIA QUI</span>',
       '<h2 id="titolo-procedura">Ruba e consegna, un mezzo alla volta</h2>',
       '<p>Moses comunica i veicoli nell’ordine indicato. Consegna il precedente per sbloccare il successivo.</p>',
-      '</header><ol class="v-steps">'
+      '</header><div class="mo-viewbar"><button type="button" '
+      'data-mo-show-all>📖 Mostra l’articolo completo (7 passaggi)</button></div>'
+      '<ol class="v-steps">'
     ]
     for i,(name,reward,where,action,check) in enumerate(TASKS,1):
-        source=GIFT if i==7 else SOURCE
         body.extend([
           '<li class="v-step" id="passaggio-'+str(i)+'"><div class="v-step-head">',
           '<span class="v-step-n" aria-hidden="true">'+str(i).zfill(2)+'</span><div>',
@@ -86,10 +137,8 @@ def render(base):
           '<h3>'+e(name)+' · '+e(reward)+'</h3>',
           '<p><strong>DOVE:</strong> '+e(where)+'</p>',
           '<p><strong>COSA FARE:</strong> '+e(action)+'</p></div></div>',
-          '<p class="v-check"><strong>✓ CONTROLLO:</strong> '+e(check)+'</p>',
-          '<p class="mo-photo-link">📷 <a href="'+e(source)+
-          '" target="_blank" rel="noopener noreferrer">Guarda le foto originali su PowerPyx ↗</a>',
-          '<small>Foto consultabili sul sito originale, non ripubblicate qui.</small></p></li>'
+          render_source_visual(i,name),
+          '<p class="v-check"><strong>✓ CONTROLLO:</strong> '+e(check)+'</p></li>'
         ])
     body.extend([
       '</ol><p class="v-tutorial-finish"><strong>FINE DELLA PROCEDURA</strong></p></section>',
