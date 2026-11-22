@@ -1,0 +1,63 @@
+{
+  "schema": "gta6-collectible-photo-evidence-v1",
+  "reviewed": "2026-11-22",
+  "note": "Eleven editorial requests for chapter-limited collectible copies and two possibly missable cards. These requests do not certify a screenshot exists. Source links remain on the original publisher's site; no scraping or automatic copying. Only independently rights-cleared PS5 captures may be embedded after human review and metadata scrubbing.",
+  "requests": [
+    {
+      "checkpoint_id": "pt-102",
+      "requested_visual": "Casa di Jason: Ashes of Glory vicino al letto",
+      "approved": false
+    },
+    {
+      "checkpoint_id": "pt-103",
+      "requested_visual": "Casa di Jason: Lethal By Design sul tavolo del soggiorno",
+      "approved": false
+    },
+    {
+      "checkpoint_id": "pt-104",
+      "requested_visual": "Casa di Jason: Orca sul tavolo presso la finestra orientale",
+      "approved": false
+    },
+    {
+      "checkpoint_id": "pt-105",
+      "requested_visual": "Casa di Jason: Off the Hook nel capanno sotto casa",
+      "approved": false
+    },
+    {
+      "checkpoint_id": "pt-106",
+      "requested_visual": "Casa di Jason: Body Copy presso gli attrezzi sul retro",
+      "approved": false
+    },
+    {
+      "checkpoint_id": "pt-26",
+      "requested_visual": "Starlet Motel: Vicki sul pavimento accanto al WC dell'ufficio",
+      "approved": false
+    },
+    {
+      "checkpoint_id": "pt-66",
+      "requested_visual": "Starlet Motel: Victor Maravilla sul frigorifero in cucina",
+      "approved": false
+    },
+    {
+      "checkpoint_id": "pt-108",
+      "requested_visual": "Starlet Motel: Help Me Help You Help Me alla reception",
+      "approved": false
+    },
+    {
+      "checkpoint_id": "pt-109",
+      "requested_visual": "Starlet Motel: Wizard Wang sul tavolo della mensa",
+      "approved": false
+    },
+    {
+      "checkpoint_id": "pt-111",
+      "requested_visual": "Appartamento Bayside: Passion B.C. vicino alla vasca",
+      "approved": false
+    },
+    {
+      "checkpoint_id": "pt-112",
+      "requested_visual": "Appartamento Bayside: Two Pricks in the Bush sul tavolo davanti alla TV",
+      "approved": false
+    }
+  ],
+  "approved_photos": []
+}
