@@ -409,7 +409,14 @@ jobs:
           assert moses.count('class="v-step"')==7
           assert moses.count('mo-photo-link')==7
           assert '2727' in moses
-          assert '6.310 GTA
+          assert '6.310 GTA' in moses
+          assert moses.index('Capitolo 2, dopo Daily Driver') < moses.index('id="passaggio-1"')
+          assert 'Foto consultabili sul sito originale' in moses
+          garage=fetch('salvare-auto/')
+          assert 'guide-e-tutorial/veicoli-per-moses/' in garage
+          assert 'class="v-operation-brief"' in garage
+          print('PUBLIC_ACTION_FIRST_MOSES_OK',base+'guide-e-tutorial/veicoli-per-moses/')
+          js=fetch('assets/guide-flow-v1.js')
           css=fetch('assets/guide-flow-v1.css')
           assert 'HO FINITO IL TUTORIAL' in js
           assert 'PASSO PRIMA' in js
