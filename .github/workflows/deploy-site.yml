@@ -50,7 +50,7 @@ jobs:
         run: python community_social_sync_v1.py
       - name: Validate preserved content and existing SEO contracts
         run: |
-          python -m py_compile x_growth_dashboard_v1.py test_x_growth_dashboard_v1.py interactive_article_maps_v1.py test_interactive_article_maps_v1.py test_curated_map_permalinks_v1.py photo_coverage_v5.py test_photo_coverage_v5.py social_cards_v2.py test_social_cards_v2.py collectible_routes_v4.py collectible_photo_evidence_v1.py test_collectible_photo_evidence_v1.py photo_intake_v4.py test_photo_routes_v4.py advanced_platinum_v3.py photo_provenance_v3.py test_advanced_platinum_v3.py platinum_atlas_v2.py guide_location_atlas_v2.py test_group12_atlas_v2.py platinum_roadmap_v1.py guide_step_references_v1.py test_group3_roadmap_step_refs_v1.py photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py
+          python -m py_compile x_growth_dashboard_v1.py test_x_growth_dashboard_v1.py interactive_article_maps_v1.py test_interactive_article_maps_v1.py test_curated_map_permalinks_v1.py photo_coverage_v5.py test_photo_coverage_v5.py social_cards_v2.py test_social_cards_v2.py collectible_routes_v4.py collectible_photo_evidence_v1.py test_collectible_photo_evidence_v1.py photo_intake_v4.py test_photo_routes_v4.py advanced_platinum_v3.py photo_provenance_v3.py test_advanced_platinum_v3.py platinum_atlas_v2.py guide_location_atlas_v2.py test_group12_atlas_v2.py platinum_roadmap_v1.py guide_step_references_v1.py test_group3_roadmap_step_refs_v1.py photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py operational_brief_v1.py moses_vehicle_jobs_v1.py test_operational_guides_v1.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py
           python -m unittest -q test_x_growth_dashboard_v1.py test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_meditation_tracker_v1.py test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
           node --check site/assets/interactive-map-v1.js
           node --check site/assets/photo-coverage-v5.js
@@ -95,7 +95,7 @@ jobs:
       - name: Audit actual local media and five-image guide target
         run: python media_quality_v1.py
       - name: Validate actual production pages, media and canonical continuity
-        run: python -m unittest -q test_x_growth_dashboard_v1.py test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_beginner_platinum_v1.py test_collectible_photo_evidence_v1.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py
+        run: python -m unittest -q test_x_growth_dashboard_v1.py test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_beginner_platinum_v1.py test_operational_guides_v1.py test_collectible_photo_evidence_v1.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py
       - name: Audit static Google discovery links (no network or tracking)
         run: |
           python -m unittest -q test_internal_link_graph_v1.py
@@ -193,7 +193,7 @@ jobs:
                       assert 'visual-v2.css?v=' in text and 'visual-v2.js?v=' in text
                       assert '<link rel="canonical" href="'+base+path+'"' in text
                       assert 'data-theme="auto"' in text
-                      assert 'reader-photo-safety-mobile-v6-20261122' in text
+                      assert 'reader-action-first-v7-20261122' in text
                       assert 'reader-theme.css?v=' in text and 'data-theme-choice="light"' in text and 'data-theme-choice="dark"' in text
                       assert "var t='dark'" in text
                       assert 'class="v-x-link"' in text and 'https://x.com/xFederiko11' in text
@@ -404,6 +404,56 @@ jobs:
                   assert 'data-visual-kind="screenshot"' in steps
                   assert 'Comandi PS5:' in page
               print('PUBLIC_BEGINNER_TUTORIAL_OK',base+path)
+          moses=fetch('guide-e-tutorial/veicoli-per-moses/')
+          assert 'operational-guide-v1.css?v=' in moses
+          assert moses.count('class="v-step"')==7
+          assert moses.count('mo-photo-link')==7
+          assert '2727' in moses
+          assert '6.310 GTA
+          css=fetch('assets/guide-flow-v1.css')
+          assert 'HO FINITO IL TUTORIAL' in js
+          assert 'PASSO PRIMA' in js
+          assert '.gf-next' in css
+          print('PUBLIC_ONE_STEP_WIZARD_ASSETS_OK')
+          for trophy_path in ('trofei/trofeo-14-una-lunga-strada/',
+                              'trofei/trofeo-17-cecchino/'):
+              trophy=fetch(trophy_path)
+              assert 'data-trophy-beginner' in trophy
+              assert 'trophy-simple-v1.css?v=' in trophy
+              assert trophy.count('data-trophy-done=')>=1
+              print('PUBLIC_BEGINNER_TROPHY_OK',base+trophy_path)
+          collectibles=fetch('collezionabili/percorsi/')
+          assert 'data-cr-wizard hidden' in collectibles
+          assert collectibles.count('data-cr-step=')==123
+          assert 'collectible-beginner-v1.js?v=' in collectibles
+          assert 'collectible-beginner-v1.css?v=' in collectibles
+          assert 'collectible-photo-v1.css?v=' in collectibles
+          assert collectibles.count('data-cr-photo-state="source-only"')==11
+          assert collectibles.count('class="cr-instruction-where"')==123
+          assert collectibles.count('class="cr-instruction-do"')==123
+          assert 'Fonte: powerpyx.com' in collectibles
+          assert collectibles.index('data-cr-wizard hidden') < collectibles.index('class="cr-map-extra"')
+          cbjs=fetch('assets/collectible-beginner-v1.js')
+          assert 'slot.appendChild(step)' in cbjs
+          assert 'found.addEventListener("click"' in cbjs
+          assert 'FINE DEL PERCORSO DOCUMENTATO' in cbjs
+          print('PUBLIC_BEGINNER_COLLECTIBLE_OK',base+'collezionabili/percorsi/')
+          hub=fetch('screenshot-ps5/')
+          assert 'data-photo-guide=' in hub
+          assert 'screenshot-ps5/verifica/' not in hub
+          assert 'screenshot-ps5/priorita/' not in hub
+          intake=fetch('screenshot-ps5/invia/')
+          assert 'data-pi-rights' in intake
+          assert 'screenshot-ps5/verifica/' not in intake
+          print('PUBLIC_CONTRIBUTION_PAGES_OK',base+'screenshot-ps5/')
+          PY
+ in moses
+          assert moses.index('Capitolo 2, dopo Daily Driver') < moses.index('id="passaggio-1"')
+          assert 'Foto consultabili sul sito originale' in moses
+          garage=fetch('salvare-auto/')
+          assert 'guide-e-tutorial/veicoli-per-moses/' in garage
+          assert 'class="v-operation-brief"' in garage
+          print('PUBLIC_ACTION_FIRST_MOSES_OK',base+'guide-e-tutorial/veicoli-per-moses/')
           js=fetch('assets/guide-flow-v1.js')
           css=fetch('assets/guide-flow-v1.css')
           assert 'HO FINITO IL TUTORIAL' in js
