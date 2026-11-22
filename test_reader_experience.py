@@ -410,7 +410,19 @@ def browser_qa():
                         assert page.locator('[data-cr-step]:visible').count()==1
                         assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-102'
                         assert 'PRIORITÀ' in page.locator('[data-cr-wizard-help]').inner_text()
+                        assert page.locator('.cr-wizard-item .cr-instruction-where').is_visible()
+                        assert page.locator('.cr-wizard-item .cr-instruction-do').is_visible()
+                        assert page.locator('.cr-wizard-item [data-cr-photo-state="source-only"]').count()==1
+                        assert page.locator('.cr-wizard-item [data-cr-photo-state="approved"]').count()==0
+                        assert page.locator('.cr-wizard-item .cr-photo-evidence > a').is_visible()
+                        assert page.locator('.cr-wizard-item .cr-photo-evidence > a').get_attribute('href').startswith('https://www.powerpyx.com/')
                         assert not page.locator('.cr-hero').is_visible()
+                        if width==390:
+                            pos=page.locator('.cr-wizard-item .cr-instruction-where').bounding_box()
+                            assert pos and pos['y']<850,(path,'first real action too far down',pos)
+                            photo=page.locator('.cr-wizard-item .cr-photo-evidence').bounding_box()
+                            done=page.locator('[data-cr-wizard-found]').bounding_box()
+                            assert photo and done and photo['y']<done['y'],'source link should be before done action'
                         # Skip does not claim an object collected; back returns.
                         page.locator('[data-cr-wizard-skip]').click()
                         assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
