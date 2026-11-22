@@ -7,6 +7,7 @@ from __future__ import annotations
 from collections import Counter
 from html import escape
 from urllib.parse import urlsplit, urlencode
+from collectible_photo_evidence_v1 import validate as validate_photo_evidence, render as render_photo_evidence
 import re
 
 BASE="https://xfederiko11.github.io/gta-6/"
@@ -103,8 +104,10 @@ def validate_routes(data):
     return True
 
 
-def render(data,curated_refs=()):
+def render(data,curated_refs=(),photo_evidence=None):
     validate_routes(data)
+    if photo_evidence is not None:
+        validate_photo_evidence(photo_evidence,data)
     regions={x["id"]:x for x in data["regions"]}
     counts=Counter(x["type"] for x in data["points"])
     output=[
@@ -247,8 +250,9 @@ def render(data,curated_refs=()):
                 '<label class="cr-check"><input type="checkbox" data-cr-done="'+e(item["id"])+'" '
                 'aria-label="Segna '+e(item["name"])+' come trovato"><span>Fatto</span></label></div>'
                 +warning+limited+
-                '<p><strong>Dove:</strong> '+e(item["place"])+'</p>'
-                '<p>'+e(item["hint"])+'</p>'+
+                '<p class="cr-instruction-where"><strong>1 · VAI QUI</strong> '+e(item["place"])+'</p>'
+                '<p class="cr-instruction-do"><strong>2 · FAI QUESTO</strong> '+e(item["hint"])+'</p>'+
+                (render_photo_evidence(item,photo_evidence,data) if photo_evidence is not None else '')+
                 '<details class="cr-step-extra"><summary>📷 Foto, mappa e fonti (facoltativi)</summary>'
                 +contextual_link+
                 '<a href="'+e(data["sources"][item["source"]])+'" target="_blank" rel="noopener noreferrer">'
