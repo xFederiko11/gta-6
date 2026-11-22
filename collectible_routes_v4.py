@@ -248,14 +248,16 @@ def render(data,curated_refs=()):
                 'aria-label="Segna '+e(item["name"])+' come trovato"><span>Fatto</span></label></div>'
                 +warning+limited+
                 '<p><strong>Dove:</strong> '+e(item["place"])+'</p>'
-                '<p>'+e(item["hint"])+'</p>'+contextual_link+
+                '<p>'+e(item["hint"])+'</p>'+
+                '<details class="cr-step-extra"><summary>📷 Foto, mappa e fonti (facoltativi)</summary>'
+                +contextual_link+
                 '<a href="'+e(data["sources"][item["source"]])+'" target="_blank" rel="noopener noreferrer">'
                 'Fonte originale e immagini ↗</a> · '
                 '<button type="button" class="cr-map-find" data-vim-map-search="'+e(item["name"])+'" '
                 'aria-label="Cerca '+e(item["name"])+' nella mappa esterna">🗺️ Cerca nella mappa (nome) ↗</button> · '
                 '<a data-cr-photo-intent="'+e(item["id"])+'" href="'+e(intent)+'" '
                 'target="_blank" rel="noopener noreferrer">📷 Proponi tua foto PS5 via X ↗</a>'
-                '</li>'
+                '</details></li>'
             )
         output.extend(['</ol></section>'])
     stunts=data["stunts"]
