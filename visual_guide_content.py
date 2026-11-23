@@ -2,7 +2,7 @@
 from copy import deepcopy
 
 SAFE_TITLES = {
-    'soldi-facili-capitolo-1': 'Soldi subito: 4 luoghi da controllare',
+    'soldi-facili-capitolo-1': 'Soldi GTA VI: 4 luoghi del Capitolo 1',
     'soldi-2500-three-sheets-liquor': 'Denaro nascosto nel negozio: il percorso',
     'scansionare-veicoli': 'Scansionare i veicoli con WAiNK',
     'studiare-animali': 'Studiare gli animali senza cacciarli',
@@ -35,7 +35,7 @@ STEP_MEDIA = {
 }
 
 HEADINGS = {
-    'soldi-facili-capitolo-1': ['Il retro del negozio','Il motel da esplorare','La casa sull’acqua','L’oggetto di valore nel magazzino'],
+    'soldi-facili-capitolo-1': ['Three Sheets Liquor · Key Lento','Manatee Motel · vicino a Hamlet','Casa su palafitte · Corsair Key','Magazzino · South Vice-Dale'],
     'soldi-2500-three-sheets-liquor': ['Parti dall’incarico giusto','Raggiungi il retro','Individua il riferimento','Controlla il nascondiglio','Completa l’esplorazione'],
     'registrare-auto-personale': ['Raggiungi Moses a Port Gellhorn','Scansiona le auto con WAiNK','Apri la Montagne XL con lo Slim Jim','Scegli un’auto senza tracker, se necessario','Rivernicia l’auto da Moses','Registra gratis la prima auto','Richiama il mezzo con Scooter Bros'],
     'sportive-randy-posizioni': ['Apri la lista delle richieste','Restringi la zona di ricerca','Identifica il veicolo','Decidi se consegnarlo o conservarlo'],
@@ -58,7 +58,7 @@ REQUIREMENTS = {
     'poligoni-concentrazione': 'Accesso a un poligono di tiro. Le medaglie vanno controllate separatamente dall’allenamento.',
 }
 LOCATIONS = {
-    'soldi-facili-capitolo-1': 'Quattro luoghi diversi. Apri il riquadro spoiler per vedere i riferimenti geografici disponibili.',
+    'soldi-facili-capitolo-1': 'Quattro luoghi distinti del Capitolo 1. Le fonti descrivono le zone, senza coordinate GPS esatte verificate.',
     'soldi-2500-three-sheets-liquor': 'Il negozio dell’incarico. Le schermate e i riferimenti sono nel percorso protetto qui sotto.',
     'scansionare-veicoli': 'Davanti al veicolo che vuoi registrare nel catalogo. Non serve una posizione di spawn specifica.',
     'studiare-animali': 'Vicino a un animale visibile attraverso il binocolo.',
@@ -68,7 +68,7 @@ LOCATIONS = {
     'poligoni-concentrazione': 'Uno dei poligoni disponibili sulla mappa. La fonte completa è in fondo.',
 }
 SUMMARIES = {
-    'soldi-facili-capitolo-1': 'Scegli un luogo, controlla il bottino indicato e valuta i rischi prima di muoverti. Posizioni e incontri restano nascosti finché non li apri.',
+    'soldi-facili-capitolo-1': 'Quattro luoghi segnalati da Insider Gaming, con azioni e controlli per ciascuno. Non perdere i soldi passando al Capitolo 2: leggi prima l’avviso.',
     'soldi-2500-three-sheets-liquor': 'Un percorso breve: incarico, retro del negozio e nascondiglio. Passi numerati e fonti consultabili senza immagini fuori contesto.',
     'meditazione-capitolo-1': 'La prima meditazione è mancabile nel Capitolo 1. Hai 10 luoghi e 18 sessioni: 15 bastano per il 100%; per il trofeo punta a tutti, anche se la necessità della sessione iniziale resta da verificare.',
     'prima-persona-glitch-ps5': 'Premi Cerchio per riporre il telefono mentre tocchi rapidamente il touchpad impostato su Camera. PC Gamer ha provato il metodo, ma i trofei restano da verificare.',
@@ -80,6 +80,7 @@ SUMMARIES = {
 # SEO snippets are separate from human-readable guide summaries. Reuse only
 # verified guide facts; do not turn an uncertain trophy status into a promise.
 SEO_DESCRIPTIONS = {
+    'soldi-facili-capitolo-1': 'GTA VI PS5: dove trovare denaro e oggetti in 4 luoghi del Capitolo 1, rischi e precauzioni per non perdere i soldi.',
     'registrare-auto-personale': 'GTA VI PS5: come trovare Moses, usare WAiNK e Slim Jim, registrare gratis la prima auto e richiamarla tramite Scooter Bros.',
     'scansionare-veicoli': 'GTA 6 PS5: come usare WAiNK per scansionare i veicoli e completare il catalogo verso il 100%. Passaggi pratici e controlli nel gioco.',
     'studiare-animali': 'GTA VI PS5: studia le specie con il binocolo per il completamento al 100%. Scopri i comandi, il controllo dei progressi e le fonti della guida.',
