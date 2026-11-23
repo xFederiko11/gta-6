@@ -1,0 +1,56 @@
+/* Moses: a readable illustrated chapter guide, with the original IGN player
+   at the exact time for each car. Never substitute GTA V or generic car images. */
+body:has([data-mo-default-all]) .v-guide-single {max-width:780px}
+body:has([data-mo-default-all]) .v-guide-intro {max-width:780px}
+body:has([data-mo-default-all]) .v-operation-brief {max-width:780px}
+body:has([data-mo-default-all]) .v-tutorial-head {margin-bottom:0}
+body:has([data-mo-default-all]) .v-tutorial .v-step {
+  border:1px solid var(--r-line);border-radius:12px;margin:13px 0;
+  overflow:clip;background:var(--r-surface);
+}
+body:has([data-mo-default-all]) .v-tutorial .v-step-head {padding:16px}
+body:has([data-mo-default-all]) .v-tutorial .v-step-head h3 {font-size:1.23rem}
+body:has([data-mo-default-all]) .v-tutorial .v-step-head p {margin:8px 0 0;line-height:1.63}
+body:has([data-mo-default-all]) .v-tutorial .v-step-head p strong {display:inline}
+.mo-viewbar {display:flex;justify-content:flex-end;padding:7px 0 4px}
+.mo-viewbar button {cursor:pointer;color:var(--r-text);background:var(--r-soft);
+  border:1px solid var(--r-line);padding:10px 14px;border-radius:9px;
+  font-size:.87rem;font-weight:780;text-wrap:balance}
+.mo-viewbar button:hover,.mo-viewbar button:focus-visible {border-color:var(--r-cyan);color:var(--r-cyan)}
+.mo-video-head {display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  align-items:baseline;margin:0 0 7px;font-size:.85rem;line-height:1.42}
+.mo-video-head>strong {font-weight:850;color:var(--r-text)}
+.mo-video-head>span {color:var(--r-muted);font-size:.81rem}
+.mo-visual {display:block;margin:3px 13px 8px;padding:12px;
+  border-radius:11px;border:1px solid var(--r-line);background:var(--r-soft)}
+.mo-video-screen {position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;
+  background:#0e1017;border-radius:9px}
+.mo-video-screen iframe {position:absolute;inset:0;width:100%;height:100%;
+  border:0;display:block;max-width:100%}
+.mo-visual figcaption {display:grid;gap:5px;line-height:1.45;padding:10px 1px 0;color:var(--r-text)}
+.mo-visual figcaption strong {font-size:.91rem;font-weight:850}
+.mo-visual figcaption>span {font-size:.82rem;color:var(--r-text)}
+.mo-visual figcaption small, .mo-visual figcaption small a {
+  font-size:.73rem;line-height:1.45;color:var(--r-muted);
+  text-wrap:pretty;overflow-wrap:anywhere}
+.mo-visual figcaption .mo-photo-link {display:flex;flex-wrap:wrap;align-items:center;gap:5px 8px}
+.mo-photo-link a {font-weight:750;color:var(--r-cyan)!important;text-decoration:underline;
+  text-underline-offset:2px}
+.mo-gift-visual {padding:12px;border-left:3px solid var(--r-cyan)}
+.mo-visual a:focus-visible,.mo-viewbar button:focus-visible {outline:3px solid var(--r-cyan);outline-offset:2px}
+body:has([data-mo-default-all]) .v-tutorial .v-check {margin:6px 13px 13px!important}
+@media(max-width:760px){
+ .mo-viewbar {padding:4px 0}
+ .mo-viewbar button {font-size:.8rem;padding:9px 10px}
+ .mo-visual {margin:3px 8px 7px;padding:8px}
+ .mo-video-head {display:grid;gap:2px;margin-bottom:6px}
+ .mo-video-head>strong {font-size:.83rem}
+ .mo-video-head>span {font-size:.77rem}
+ .mo-visual figcaption {padding-top:8px}
+ .mo-visual figcaption strong {font-size:.84rem}
+ .mo-visual figcaption span {font-size:.76rem}
+ .mo-visual figcaption small,.mo-visual figcaption small a {font-size:.69rem}
+ body:has([data-mo-default-all]) .v-tutorial .v-step-head {padding:11px!important}
+ body:has([data-mo-default-all]) .v-tutorial .v-step-head h3 {font-size:1.1rem}
+}
+@media(prefers-reduced-motion:reduce){.mo-visual{scroll-behavior:auto}}
