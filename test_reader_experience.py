@@ -254,6 +254,13 @@ def browser_qa():
                             'https://www.youtube-nocookie.com/embed/UyxxY0A_kow?start=101')
                         assert page.locator('.mo-photo-link').count()==6
                         assert page.locator('.mo-photo-link img').count()==0
+                        assert page.locator('.mo-jump-link').count()==6
+                        assert page.locator('.mo-microsteps').count()==7
+                        assert page.locator('.mo-gift-reveal').count()==1
+                        assert not page.locator('.mo-gift-reveal').evaluate('(el)=>el.open')
+                        page.locator('.mo-gift-reveal summary').click()
+                        assert page.locator('.mo-gift-reveal').evaluate('(el)=>el.open')
+                        page.locator('.mo-gift-reveal summary').click()
                         assert page.locator('.v-operation-brief').is_visible()
                         assert page.locator('.v-guide-urgent').is_visible()
                         assert '2727' in page.locator('#passaggio-5').inner_text()
