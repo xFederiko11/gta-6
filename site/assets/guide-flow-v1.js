@@ -60,8 +60,11 @@
   const alreadyComplete = hash === '#tutorial-completato';
   let current = alreadyComplete ? total - 1
     : (requested && Number(requested[1]) <= total ? Number(requested[1]) - 1 : 0);
-  let all = !!hash && hash !== '#procedura' && hash !== '#inizio'
-    && !requested && !alreadyComplete;
+  // Moses is an illustrated article by default, with one-step mode optional.
+  // Deep links into a specific vehicle still focus on that vehicle.
+  let all = (!hash && tutorial.hasAttribute('data-mo-default-all'))
+    || (!!hash && hash !== '#procedura' && hash !== '#inizio'
+        && !requested && !alreadyComplete);
   let complete = alreadyComplete;
 
   function moveViewport(step, focus) {
