@@ -9,6 +9,7 @@ from html import escape
 PATH="guide-e-tutorial/veicoli-per-moses/"
 SOURCE="https://www.powerpyx.com/gta-6-steal-vehicles-for-moses-walkthrough/"
 GIFT="https://www.powerpyx.com/gta-6-collect-moses-gift-walkthrough/"
+COMPLETION="https://www.powerpyx.com/gta-6-100-completion-checklist-guide/"
 DAILY="https://www.powerpyx.com/gta-6-daily-driver-steal-the-crawler-for-moses-walkthrough/"
 IGN_VIDEO_ID="UyxxY0A_kow"
 IGN_VIDEO="https://www.youtube.com/watch?v="+IGN_VIDEO_ID
