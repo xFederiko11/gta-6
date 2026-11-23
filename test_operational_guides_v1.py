@@ -4,7 +4,7 @@ from pathlib import Path
 import unittest
 
 from operational_brief_v1 import validate as validate_briefs
-from moses_vehicle_jobs_v1 import validate as validate_moses, TASKS, PATH, SOURCE, GIFT, IGN_VIDEO_ID, IGN_TIMELINE
+from moses_vehicle_jobs_v1 import validate as validate_moses, TASKS, PATH, SOURCE, GIFT, COMPLETION, MICROSTEPS, IGN_VIDEO_ID, IGN_TIMELINE
 
 ROOT=Path("_site")
 
@@ -63,7 +63,20 @@ class OperationalGuidesV1Tests(unittest.TestCase):
         self.assertEqual(page.count(GIFT),2)
         self.assertIn("Daily Driver",page)
         self.assertIn("2727",page)
-        self.assertIn("non richieste per i trofei",page)
+        self.assertIn("ciascuna consegna conta",page)
+        self.assertIn("100 attività facoltative",page)
+        self.assertEqual(page.count('class="mo-jump-link"'),6)
+        self.assertEqual(page.count('class="mo-microsteps"'),7)
+        self.assertEqual(page.count('class="mo-instructions"'),7)
+        self.assertEqual(page.count('<details class="mo-gift-reveal">'),1)
+        self.assertIn('mo-story-warning',page)
+        self.assertIn(COMPLETION,page)
+        self.assertEqual(len(MICROSTEPS),7)
+        self.assertEqual(sum(len(action) for action in MICROSTEPS),26)
+        for n in range(1,7):
+            self.assertIn('href="#passaggio-'+str(n)+'"',page)
+        self.assertLess(page.index('class="mo-jump"'),page.index('id="procedura"'))
+        self.assertLess(page.index('class="mo-microsteps"'),page.index('class="mo-video-screen"'))
         self.assertIn("operational-guide-v1.css?v=",page)
         self.assertIn("guide-flow-v1.js?v=",page)
         self.assertLess(page.index("Capitolo 2, dopo Daily Driver"),page.index('id="passaggio-1"'))
