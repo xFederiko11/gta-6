@@ -97,8 +97,8 @@ def render_source_visual(i, name):
         'allow="autoplay; encrypted-media; picture-in-picture; fullscreen" '
         'allowfullscreen></iframe></div>'
         '<figcaption>'
-        '<strong>▶ Nel video IGN: vai al minuto '+e(stamp)+'</strong>'
-        '<span>Il player può iniziare dall’inizio: sposta la barra a '
+        '<strong>▶ Gameplay dal minuto '+e(stamp)+'</strong>'
+        '<span>Il video è impostato su questo minuto. Se parte dall’inizio, vai a '
         +e(stamp)+' per vedere questa consegna.</span>'
         '<small class="mo-photo-link"><a href="'+e(IGN_VIDEO)+'&amp;t='+str(seconds)+'s" '
         'target="_blank" rel="noopener noreferrer">'
@@ -126,9 +126,9 @@ def render(base):
       '<p class="v-guide-urgent" role="note"><strong>🏆 Platino:</strong> secondo le fonti citate,',
       ' queste consegne sono facoltative e non richieste per i trofei. Evita danni ai',
       ' veicoli: il bonus dipende dalle condizioni di consegna.</p>',
-      '<section id="procedura" class="v-tutorial" aria-labelledby="titolo-procedura">',
+      '<section id="procedura" class="v-tutorial" data-mo-default-all aria-labelledby="titolo-procedura">',
       '<header class="v-tutorial-head"><span class="v-tutorial-start-here">▶ INIZIA QUI</span>',
-      '<h2 id="titolo-procedura">Ruba e consegna, un mezzo alla volta</h2>',
+      '<h2 id="titolo-procedura">LE 6 AUTO · GUIDA COMPLETA CON GAMEPLAY</h2>',
       '<p>Moses comunica i veicoli nell’ordine indicato. Consegna il precedente per sbloccare il successivo.</p>',
       '</header><div class="mo-viewbar"><button type="button" '
       'data-mo-show-all>📖 Mostra l’articolo completo (7 passaggi)</button></div>'
