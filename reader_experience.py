@@ -160,7 +160,16 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
     page = page.replace('<html lang="it">', '<html lang="it" data-theme="auto">', 1)
     page = page.replace('<head>', '<head>'+BOOT+gsc_verification_meta(gsc_token), 1)
     page = page.replace('</head>', f'<meta name="reader-version" content="{VERSION}"><link rel="stylesheet" href="{BASE}assets/reader-theme.css?v={version}"></head>', 1)
-    page = page.replace('<div class="wrap v-spoiler-inner">', '<div class="wrap v-spoiler-inner">'+CONTROLS, 1)
+    if '<div class="wrap v-spoiler-inner">' in page:
+        page = page.replace('<div class="wrap v-spoiler-inner">',
+                            '<div class="wrap v-spoiler-inner">'+CONTROLS,1)
+    elif 'class="focus-hero"' in page:
+        # Homepage has no spoiler warning; retain the light/dark selector
+        # in the header rather than adding a redundant warning banner.
+        page = page.replace('<details class="v-menu">',
+                            '<div class="focus-theme">'+CONTROLS+'</div><details class="v-menu">',1)
+    else:
+        raise ValueError("Reader theme control has no safe placement")
     if discussion_path is not None:
         from community_social_v1 import widget, xpost_for
         if '</main>' not in page:
