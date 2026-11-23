@@ -9,6 +9,7 @@ from html import escape
 PATH="guide-e-tutorial/veicoli-per-moses/"
 SOURCE="https://www.powerpyx.com/gta-6-steal-vehicles-for-moses-walkthrough/"
 GIFT="https://www.powerpyx.com/gta-6-collect-moses-gift-walkthrough/"
+COMPLETION="https://www.powerpyx.com/gta-6-100-completion-checklist-guide/"
 DAILY="https://www.powerpyx.com/gta-6-daily-driver-steal-the-crawler-for-moses-walkthrough/"
 IGN_VIDEO_ID="UyxxY0A_kow"
 IGN_VIDEO="https://www.youtube.com/watch?v="+IGN_VIDEO_ID
@@ -56,6 +57,38 @@ TASKS=(
      "Per conservarla, verifica prima la disponibilità e procedi alla registrazione quando possibile.")
 )
 
+
+# Una sola azione per riga, con fonti e video associati al veicolo corretto.
+MICROSTEPS=(
+  ("Vai a Bastion Street, nel sud-ovest di Port Gellhorn.",
+   "Trova il pickup giallo sul carro attrezzi nel vialetto a est dell'area segnalata.",
+   "Metti KO il conducente del carro attrezzi.",
+   "Sgancia il pickup interagendo con il retro del carro."),
+  ("Raggiungi i Draper Island Docks, nel margine meridionale dell'isola.",
+   "Supera la recinzione della zona sorvegliata senza farti vedere.",
+   "Entra nell'edificio dalla porta nord per raggiungere il garage occidentale.",
+   "Apri il portone con il pulsante vicino e porta fuori la Futo."),
+  ("Raggiungi Orchard Avenue, a sud di Port Gellhorn.",
+   "Individua la casa al centro della zona di ricerca.",
+   "Prendi l'Hellion nel vialetto; puoi tranquillizzare il cane se abbaia."),
+  ("Raggiungi Buckskin Swamp, nel sud-est di Kelly County.",
+   "Individua il buggy argentato fra i fuoristrada che circolano nella palude.",
+   "Parla al conducente per farlo fermare e scendere.",
+   "Sali sul Bandito e allontanati; il veicolo ha un solo posto."),
+  ("Raggiungi la casa a nord-est di Grayson, evitando gli uomini armati.",
+   "Trova il capanno a est dell'abitazione.",
+   "Digita 2727 sulla tastiera della porta laterale.",
+   "Apri il portone tramite il pulsante interno e porta fuori la Vamos."),
+  ("Prepara armatura e armi prima di entrare nella base dei Final Chapter ad Ambrosia.",
+   "Per un ingresso meno esposto, passa dal container verde a nord e scavalca la recinzione.",
+   "Entra nel garage centrale della base.",
+   "Prendi la moto arancione al piano inferiore ed esci dalla base."),
+  ("Consegna a Moses tutti e sei i veicoli richiesti.",
+   "Aspetta il messaggio di Moses che annuncia un regalo all'officina.",
+   "Apri il piccolo garage accanto all'officina principale a Port Gellhorn.",
+   "Trova la Sultan; puoi registrarla o venderla.")
+)
+
 def e(v):
     return escape(str(v),quote=True)
 
@@ -67,6 +100,8 @@ def validate():
             raise ValueError("Incomplete practical objective")
     if "2727" not in TASKS[4][3] or "Daily Driver" in TASKS[0][3]:
         raise ValueError("Unverified guide summary")
+    if len(MICROSTEPS)!=len(TASKS) or any(not 2<=len(actions)<=5 or any(len(action)<22 for action in actions) for actions in MICROSTEPS):
+        raise ValueError('Missing clear single-action instructions')
     if len(IGN_TIMELINE)!=6 or len(VISUAL_CUES)!=6 or any(
        IGN_TIMELINE[k][0]>=IGN_TIMELINE[k+1][0] for k in range(5)):
         raise ValueError("Missing verified video chapters")
@@ -115,7 +150,7 @@ def render(base):
     body=[
       '<section class="v-intro v-guide-intro"><span class="v-tag">GUIDA RAPIDA · PS5 / PS5 PRO</span>',
       '<h1>Le 6 auto da rubare per Moses: luoghi e ricompense</h1>',
-      '<p>Missioni facoltative dopo Daily Driver, non la missione della prima auto personale.</p></section>',
+      '<p>Dopo Daily Driver, recupera sei veicoli per Moses. Ogni consegna sblocca la richiesta successiva.</p></section>',
       '<div class="v-guide-layout v-guide-single"><article class="v-guide-main">',
       '<section class="v-operation-brief" aria-label="Prima di iniziare">',
       '<h2>Prima di iniziare</h2><dl>',
@@ -123,9 +158,21 @@ def render(base):
       '<div><dt>Dove</dt><dd>Consegne all’officina Moses, Port Gellhorn</dd></div>',
       '<div><dt>Premio</dt><dd>Denaro per auto + bonus condizioni; alla fine Moses’ Sultan</dd></div>',
       '</dl></section>',
-      '<p class="v-guide-urgent" role="note"><strong>🏆 Platino:</strong> secondo le fonti citate,',
-      ' queste consegne sono facoltative e non richieste per i trofei. Evita danni ai',
-      ' veicoli: il bonus dipende dalle condizioni di consegna.</p>',
+      '<p class="mo-story-warning" role="note"><strong>⚠️ SPOILER:</strong> mostriamo luoghi e azioni delle sei consegne. Il regalo finale resta nascosto finché non lo apri.</p>',
+      '<p class="v-guide-urgent mo-trophy-note" role="note"><strong>🏆 Platino e 100%:</strong> ciascuna consegna conta come una delle 100 attività facoltative del completamento. Non occorre svolgere proprio questa serie perché le attività valide sono più di 100. ',
+      '<a href="'+e(COMPLETION)+'" target="_blank" rel="noopener noreferrer">Checklist PowerPyx ↗</a>. ',
+      'Evita danni ai veicoli: il bonus dipende dalle condizioni di consegna.</p>',
+      '<nav class="mo-jump" aria-label="Scegli il veicolo richiesto">',
+      '<h2>Quale veicolo cerchi?</h2>',
+      '<p>Seleziona il modello per trovare immediatamente posizione, azioni e video corrispondente.</p>',
+      '<div class="mo-jump-grid">',
+      *(
+        '<a class="mo-jump-link" href="#passaggio-'+str(i)+'">'
+        '<span>'+str(i).zfill(2)+'</span><strong>'+e(name)+'</strong>'
+        '<small>'+e(reward)+'</small></a>'
+        for i,(name,reward,where,action,check) in enumerate(TASKS[:6],1)
+      ),
+      '</div></nav>',
       '<section id="procedura" class="v-tutorial" data-mo-default-all aria-labelledby="titolo-procedura">',
       '<header class="v-tutorial-head"><span class="v-tutorial-start-here">▶ INIZIA QUI</span>',
       '<h2 id="titolo-procedura">LE 6 AUTO · GUIDA COMPLETA CON GAMEPLAY</h2>',
@@ -139,11 +186,16 @@ def render(base):
           '<li class="v-step" id="passaggio-'+str(i)+'"><div class="v-step-head">',
           '<span class="v-step-n" aria-hidden="true">'+str(i).zfill(2)+'</span><div>',
           '<span class="v-step-kicker">PASSO '+str(i)+' DI 7</span>',
-          '<h3>'+e(name)+' · '+e(reward)+'</h3>',
-          '<p><strong>DOVE:</strong> '+e(where)+'</p>',
-          '<p><strong>COSA FARE:</strong> '+e(action)+'</p></div></div>',
+          '<h3>'+('Regalo finale (spoiler)' if i==7 else e(name))+' · '+e(reward)+'</h3>',
+          '<p><strong>DOVE:</strong> '+e(where if i<7 else "Watkins Auto Parts, Port Gellhorn")+'</p></div></div>',
+          ('<details class="mo-gift-reveal"><summary>🎁 Mostra il regalo finale</summary><div class="mo-gift-body"><h4>'+e(name)+'</h4>' if i==7 else ''),
+          '<div class="mo-instructions"><strong>COME FARE</strong><ol class="mo-microsteps">',
+          *('<li>'+e(part)+'</li>' for part in MICROSTEPS[i-1]),
+          '</ol></div>',
           render_source_visual(i,name),
-          '<p class="v-check"><strong>✓ CONTROLLO:</strong> '+e(check)+'</p></li>'
+          '<p class="v-check"><strong>✓ VERIFICA:</strong> '+e(check)+'</p>',
+          ('</div></details>' if i==7 else ''),
+          '</li>'
         ])
     body.extend([
       '</ol><p class="v-tutorial-finish"><strong>FINE DELLA PROCEDURA</strong></p></section>',

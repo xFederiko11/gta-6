@@ -56,3 +56,49 @@ body:has([data-mo-default-all]) .v-tutorial .v-check {margin:6px 13px 13px!impor
  body:has([data-mo-default-all]) .v-tutorial .v-step-head h3 {font-size:1.1rem}
 }
 @media(prefers-reduced-motion:reduce){.mo-visual{scroll-behavior:auto}}
+
+
+/* Pilot editoriale: trova il veicolo, esegui una sola azione alla volta, controlla. */
+.mo-story-warning{max-width:780px;margin:12px auto;padding:10px 14px;border-radius:10px;
+ border:1px solid var(--r-line);border-left:3px solid var(--r-pink);background:var(--r-soft);
+ color:var(--r-text);font-size:.89rem;line-height:1.5}
+.mo-trophy-note{max-width:780px;line-height:1.52}
+.mo-trophy-note a{color:var(--r-cyan);text-underline-offset:3px}
+.mo-jump{max-width:780px;margin:16px auto 18px;padding:16px;border:1px solid var(--r-line);
+ border-radius:14px;background:var(--r-surface)}
+.mo-jump h2{margin:0 0 4px;font-size:1.2rem;color:var(--r-text)}
+.mo-jump p{margin:0 0 13px;font-size:.88rem;color:var(--r-muted);line-height:1.52}
+.mo-jump-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.mo-jump-link{display:grid;grid-template-columns:30px minmax(0,1fr);gap:2px 9px;
+ align-items:center;padding:10px 11px;min-width:0;border:1px solid var(--r-line);
+ border-radius:10px;background:var(--r-soft);color:var(--r-text)!important;
+ text-decoration:none}
+.mo-jump-link>span{grid-row:span 2;display:grid;place-items:center;width:30px;height:30px;
+ border-radius:8px;background:var(--r-surface);color:var(--r-cyan);font-weight:850;font-size:.8rem}
+.mo-jump-link>strong{font-size:.87rem;line-height:1.35;overflow-wrap:anywhere}
+.mo-jump-link>small{font-size:.75rem;color:var(--r-muted)}
+.mo-jump-link:hover,.mo-jump-link:focus-visible{border-color:var(--r-cyan);outline-offset:2px}
+.mo-instructions{padding:0 16px 7px}
+.mo-instructions>strong{font-size:.75rem;letter-spacing:.03em;color:var(--r-cyan);font-weight:900}
+.mo-microsteps{list-style:decimal;list-style-position:outside;margin:9px 0 7px;
+ padding-left:28px;display:grid;gap:9px}
+.mo-microsteps li{padding:0 0 7px 2px;border-bottom:1px solid var(--r-line);
+ color:var(--r-text);font-size:.95rem;line-height:1.5}
+.mo-microsteps li:last-child{border-bottom:0}
+.mo-microsteps li::marker{font-weight:900;color:var(--r-cyan)}
+.mo-gift-reveal{margin:8px 12px 15px;border:1px solid var(--r-line);border-radius:10px;
+ background:var(--r-soft)}
+.mo-gift-reveal>summary{cursor:pointer;padding:12px;font-weight:800;color:var(--r-text);
+ font-size:.9rem}
+.mo-gift-reveal .mo-gift-body{border-top:1px solid var(--r-line);padding:12px 0 1px}
+.mo-gift-body h4{margin:0 16px 10px;font-size:1rem}
+body:has([data-mo-default-all]) .v-tutorial .v-step[id]{scroll-margin-top:90px}
+@media(max-width:650px){
+ .mo-jump{padding:12px 10px}
+ .mo-jump-grid{grid-template-columns:1fr;gap:7px}
+ .mo-jump-link{padding:8px 10px}
+ .mo-instructions{padding:0 11px 7px}
+ .mo-microsteps{padding-left:26px;gap:7px}
+ .mo-microsteps li{font-size:.9rem;line-height:1.48}
+ .mo-story-warning{margin-top:9px;font-size:.82rem;padding:9px 10px}
+}
