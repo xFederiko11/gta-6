@@ -537,7 +537,7 @@ def guide(g,guides):
     # vehicle delivery. Make those story-gated differences visible up front.
     if g['id']=='registrare-auto-personale':
         body+=('<p class="v-guide-urgent car-story-warning" role="note">'
-               '<strong>🚘 Prima auto, senza confusione:</strong> '
+               '<strong>🚘 Prima registrazione gratuita:</strong> '
                'la prima registrazione da Moses è gratuita durante il Capitolo 2. '
                'Scooter Bros si sblocca quando concludi Moses e richiamare il veicolo '
                'prevede una tariffa mostrata nell’app. '
