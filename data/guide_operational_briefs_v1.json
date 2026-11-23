@@ -3,9 +3,9 @@
   "source_policy": "Short navigational summaries verified against each guide's documented original instructions. The summary is not a new assertion about trophies, glitches, patch compatibility or location coordinates. Full procedure and warnings remain unchanged.",
   "guides": {
     "soldi-facili-capitolo-1": {
-      "when": "Capitolo 1",
-      "where": "Quattro luoghi indicati nella guida",
-      "goal": "Controlla il bottino e i rischi, senza investire tutto prima del cambio capitolo."
+      "when": "Capitolo 1 · prima del punto di non ritorno",
+      "where": "Three Sheets Liquor · Manatee Motel · Corsair Key · South Vice-Dale",
+      "goal": "Verifica denaro e oggetti nei quattro luoghi; salva i progressi e non perdere il bottino passando al Capitolo 2."
     },
     "soldi-2500-three-sheets-liquor": {
       "when": "Incarico iniziale di Shirley",
