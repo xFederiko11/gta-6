@@ -1,0 +1,10 @@
+{
+  "schema": "gta6-rockstar-import-receipt-v1",
+  "verified_originals": 189,
+  "bytes": 202257591,
+  "verification": "Every original SHA-256 matches the owner-supplied archive manifest",
+  "source_urls": [
+    "https://media-rockstargames-com.akamaized.net/VI/downloads/screenshots/GTAVI_Screenshots.zip",
+    "https://media-rockstargames-com.akamaized.net/VI/downloads/screenshots/GTAVI_Ultimate_Edition_Benefits.zip"
+  ]
+}
