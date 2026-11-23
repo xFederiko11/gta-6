@@ -12,6 +12,8 @@ body:has([data-mo-default-all]) .v-tutorial .v-step-head {padding:16px}
 body:has([data-mo-default-all]) .v-tutorial .v-step-head h3 {font-size:1.23rem}
 body:has([data-mo-default-all]) .v-tutorial .v-step-head p {margin:8px 0 0;line-height:1.63}
 body:has([data-mo-default-all]) .v-tutorial .v-step-head p strong {display:inline}
+/* Without JavaScript the entire article stays readable, without a dead toggle. */
+html:not(.guide-flow-on) .mo-viewbar {display:none!important}
 .mo-viewbar {display:flex;justify-content:flex-end;padding:7px 0 4px}
 .mo-viewbar button {cursor:pointer;color:var(--r-text);background:var(--r-soft);
   border:1px solid var(--r-line);padding:10px 14px;border-radius:9px;
