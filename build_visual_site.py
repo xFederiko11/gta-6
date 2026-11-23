@@ -24,6 +24,7 @@ from photo_coverage_v5 import audit as audit_photo_coverage, render as render_ph
 from platinum_roadmap_v1 import render as render_platinum_roadmap, ROADMAP_PATH
 from guide_step_references_v1 import render as render_step_evidence, validate as validate_step_evidence
 from step_image_sources_v1 import load as load_step_photo_sources, validate as validate_step_photo_sources, render as render_step_photo_source
+from first_car_steps_v1 import validate as validate_first_car, render as render_first_car
 from platinum_atlas_v2 import render as render_trophy_atlas, validate as validate_trophy_atlas
 from advanced_platinum_v3 import (render_100 as render_advanced_100, render_hard as render_advanced_hard,
                                   validate as validate_advanced, COLLECTIBLE_PATH, HARD_PATH)
@@ -508,6 +509,8 @@ def guide(g,guides):
     path=g['canonical_path']
     title=g['safe_title']
     count=len(g['steps'])
+    if g['id']=='registrare-auto-personale':
+        validate_first_car(g)
     body=legacy.crumbs([('Guide','guide-e-tutorial/'),(title,path)])
     body+=('<section class="v-intro v-guide-intro" aria-label="Introduzione alla guida">'
            '<span class="v-tag">'+e(g['tag'])+' · PS5 / PS5 Pro</span>'
@@ -530,6 +533,18 @@ def guide(g,guides):
            '<p><strong>Dove:</strong> '+e(g["location"])+'</p>'
            +('<p class="v-guide-controls"><strong>Comandi PS5:</strong> '+e(controls[g['id']])+'</p>' if g['id'] in controls else '')
            +'</div></details>')
+    # Car registration is easy to confuse with owning garages or paying for
+    # vehicle delivery. Make those story-gated differences visible up front.
+    if g['id']=='registrare-auto-personale':
+        body+=('<p class="v-guide-urgent car-story-warning" role="note">'
+               '<strong>🚘 Prima registrazione gratuita:</strong> '
+               'la prima registrazione da Moses è gratuita durante il Capitolo 2. '
+               'Scooter Bros si sblocca quando concludi Moses e richiamare il veicolo '
+               'prevede una tariffa mostrata nell’app. '
+               'Il garage gratuito di Port Gellhorn e gli altri garage acquistabili '
+               'si sbloccano dopo Daily Driver. '
+               '<a href="https://www.gtabase.com/gta-6/articles/how-to-unlock-garages-in-gta-6" '
+               'target="_blank" rel="noopener noreferrer">Fonte sblocchi garage ↗</a></p>')
     # Critical trophy/save warnings must remain visible BEFORE the first step.
     if g['id'] in {'soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor'}:
         body+=('<p class="v-guide-urgent" role="note"><strong>⚠️ Non perdere i soldi:</strong> '
@@ -567,6 +582,8 @@ def guide(g,guides):
             f'<span class="v-step-kicker">PASSO {n+1} DI {count}</span>'
             f'<h3>{e(heading)}</h3><p>{e(text)}</p>'
             '</div></div>')
+        if g['id']=='registrare-auto-personale':
+            body+=render_first_car(n)
         key=g['step_media'].get(n)
         approved=PHOTO_STEP_REVIEW['guide_step_approved'].get(g['id'],{}).get(str(n))
         if key and (not approved or approved['key']!=key):
@@ -611,7 +628,12 @@ def guide(g,guides):
                 body+=photo_ref
         evidence=render_step_evidence(g,n,STEP_EVIDENCE,VISUAL_EVIDENCE)
         if evidence:
-            step_evidence.append((n+1,heading,evidence))
+            if g['id']=='registrare-auto-personale':
+                # Video/map chapter references belong beside their exact action.
+                # They remain verified external links, never screenshots or fake pins.
+                body+=evidence
+            else:
+                step_evidence.append((n+1,heading,evidence))
         checks=g.get('checks',[])
         if n<len(checks):
             body+=f'<p class="v-check"><strong>✓ Controllo:</strong> {e(checks[n])}</p>'

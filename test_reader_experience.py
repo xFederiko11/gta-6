@@ -302,8 +302,17 @@ def browser_qa():
                         assert page.locator('.mo-video-screen iframe').count()==6
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
                     if path=='salvare-auto/':
+                        assert page.locator('.car-microsteps').count()==7
+                        assert page.locator('.car-microstep').count()==21
+                        assert page.locator('.car-story-warning').is_visible()
+                        assert 'Scooter Bros si sblocca' in page.locator('.car-story-warning').inner_text()
+                        assert 'Daily Driver' in page.locator('.car-story-warning').inner_text()
+                        assert page.locator('[data-step-external-evidence="map"]').count()==1
+                        assert page.locator('[data-step-external-evidence="video"]').count()==2
+                        assert page.locator('[data-visual-proof-image="scooter-phone"]').count()==0
+                        assert page.locator('.v-step').count()==7
                         refs=page.locator('.v-external-step-photo')
-                        assert refs.count()>=1
+                        assert refs.count()==7
                         for i in range(refs.count()):
                             ref=refs.nth(i)
                             assert 'LINK ESTERNO' in ref.inner_text()
@@ -323,6 +332,19 @@ def browser_qa():
                         assert page.locator('#passaggio-1').is_visible()
                         assert page.locator('.gf-next').is_visible()
                         assert not page.locator('.gf-back').is_visible()
+                        if path=='salvare-auto/' and width in (390,1440):
+                            # Capture and assert the entire edited tutorial, not a cropped viewport.
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==7
+                            shot=page.screenshot(path=str(out/f'first-car-full-article-{width}.png'),
+                                                 full_page=True,animations='disabled')
+                            png_w=int.from_bytes(shot[16:20],'big')
+                            png_h=int.from_bytes(shot[20:24],'big')
+                            assert png_w==width and png_h>1700,(width,png_w,png_h)
+                            assert not page.locator('.gf-progress-track').is_visible()
+                            print('FIRST_CAR_FULL_PAGE_QA',width,png_h,flush=True)
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==1
                         assert not page.locator('.v-guide-more').is_visible(),'Extras must be hidden during task mode'
                         assert page.locator('.v-tutorial-finish').is_hidden()
                         if width==390:
