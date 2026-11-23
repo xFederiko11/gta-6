@@ -90,9 +90,14 @@
     });
 
     statusText.textContent = all ? 'TUTTI I ' + total + ' PASSAGGI' : 'PASSO ' + (current + 1) + ' DI ' + total;
-    instructions.textContent = all ? 'Scorri per leggere ogni passaggio.' : 'Fai questa azione. Poi premi FATTO.';
-    progress.setAttribute('aria-valuenow', String(all ? total : current + 1));
-    fill.style.width = ((all ? total : current + 1) * 100 / total) + '%';
+    instructions.textContent = all ? 'Leggi liberamente: nessun passaggio risulta completato automaticamente.' : 'Fai questa azione. Poi premi FATTO.';
+    // Reading every step is not the same as having completed them.
+    // Hide the progress track in full-article mode rather than showing a false 100%.
+    progress.hidden = all;
+    progress.style.display = all ? 'none' : '';
+    if (all) progress.removeAttribute('aria-valuenow');
+    else progress.setAttribute('aria-valuenow', String(current + 1));
+    fill.style.width = all ? '0%' : ((current + 1) * 100 / total) + '%';
 
     back.hidden = all || current === 0;
     next.hidden = all || complete;
