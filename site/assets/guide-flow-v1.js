@@ -49,6 +49,7 @@
   const back = controls.querySelector('[data-gf-back]');
   const next = controls.querySelector('[data-gf-next]');
   const showAll = controls.querySelector('[data-gf-all]');
+  const mosesShowAll = tutorial.querySelector('[data-mo-show-all]');
   const restart = done.querySelector('[data-gf-restart]');
   const statusText = status.querySelector('[data-gf-status]');
   const instructions = status.querySelector('[data-gf-instruction]');
@@ -94,6 +95,12 @@
     next.hidden = all || complete;
     next.textContent = current === total - 1 ? '✓ HO FINITO IL TUTORIAL' : 'FATTO → PASSO ' + (current + 2);
     showAll.textContent = all ? '← Torna a un passo alla volta' : 'Preferisci leggere tutto? Mostra tutti i passi';
+    if (mosesShowAll) {
+      mosesShowAll.textContent = all
+        ? '← Torna a un passaggio alla volta'
+        : '📖 Mostra l’articolo completo (' + total + ' passaggi)';
+      mosesShowAll.setAttribute('aria-pressed', String(all));
+    }
     done.hidden = !complete || all;
     if (shouldScroll) {
       if (complete && !all) {
@@ -123,6 +130,12 @@
       history.replaceState(null, '', '#tutorial-completato');
       render(true, false);
     }
+  });
+  if (mosesShowAll) mosesShowAll.addEventListener('click', () => {
+    all = !all;
+    complete = false;
+    if (!all) history.replaceState(null, '', '#passaggio-' + (current + 1));
+    render(true, false);
   });
   showAll.addEventListener('click', () => {
     all = !all;
