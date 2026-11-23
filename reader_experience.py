@@ -18,7 +18,7 @@ from growth_tracking_v1 import enhance, normalize_id
 
 ROOT = Path('_site')
 BASE = 'https://xfederiko11.github.io/gta-6/'
-VERSION = 'reader-media-truth-v10-20261123'
+VERSION = 'reader-first-car-v11-20261123'
 # This public token is specifically for the https://xfederiko11.github.io/gta-6/ property.
 # It is intended to appear in the homepage HTML, never as an authentication secret.
 GSC_PUBLIC_VERIFICATION_TOKEN = 'U1WNfaHHGPHzojaeFvn_GGhVrWb5TYeDyUPgpmCX6Nw'
