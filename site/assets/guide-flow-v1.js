@@ -137,13 +137,21 @@
   if (mosesShowAll) mosesShowAll.addEventListener('click', () => {
     all = !all;
     complete = false;
-    if (!all) history.replaceState(null, '', '#passaggio-' + (current + 1));
+    if (!all) {
+      history.replaceState(null, '', '#passaggio-' + (current + 1));
+    } else if (tutorial.hasAttribute('data-mo-default-all')) {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
     render(true, false);
   });
   showAll.addEventListener('click', () => {
     all = !all;
     complete = false;
-    if (!all) history.replaceState(null, '', '#passaggio-' + (current + 1));
+    if (!all) {
+      history.replaceState(null, '', '#passaggio-' + (current + 1));
+    } else if (tutorial.hasAttribute('data-mo-default-all')) {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
     render(true, false);
   });
   restart.addEventListener('click', () => {
