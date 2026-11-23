@@ -72,11 +72,11 @@ def render(data, guide_id, index):
     return (
         '<div class="v-external-step-photo" data-photo-source-guide="'+escape(guide_id,quote=True)
         +'" data-photo-source-step="'+str(index+1)+'">'
-        '<div class="v-external-step-photo-title"><span aria-hidden="true">📷</span>'
-        '<strong>FOTO DEL PASSAGGIO · SITO ORIGINALE</strong></div>'
+        '<div class="v-external-step-photo-title"><span aria-hidden="true">↗</span>'
+        '<strong>IMMAGINE SULLA FONTE · LINK ESTERNO</strong></div>'
         '<p>'+label+'</p>'
         '<a href="'+source+'" target="_blank" rel="noopener noreferrer">'
-        'Apri la fonte con le foto ↗</a>'
+        'Guarda la schermata sul sito originale ↗</a>'
         '<small>Cerca la sezione: <b>'+section+'</b>. '+scope
-        +'. La foto non è ospitata da GTA VI Italia.</small></div>'
+        +'. Non riproduciamo qui l’immagine: il permesso di riutilizzo non è documentato.</small></div>'
     )
