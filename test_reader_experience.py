@@ -268,6 +268,8 @@ def browser_qa():
                         assert page.locator('.v-step:visible').count()==7,'Entire visual article must be shown'
                         assert page.locator('.mo-video-screen:visible').count()==6
                         assert page.locator('html').evaluate('(el)=>el.classList.contains("guide-flow-all")')
+                        assert not page.locator('.gf-progress-track').is_visible(), 'Full article is not 100% complete'
+                        assert page.locator('.gf-progress-track').get_attribute('aria-valuenow') is None
                         assert page.locator('[data-mo-show-all]').is_visible()
                         assert page.locator('[data-mo-show-all]').get_attribute('aria-pressed')=='true'
                         if width in (390,1440):
@@ -285,10 +287,13 @@ def browser_qa():
                                     path=str(out/'moses-gift-closed-390.png'))
                         page.locator('[data-mo-show-all]').click()
                         assert page.locator('.v-step:visible').count()==1
+                        assert page.locator('.gf-progress-track').is_visible()
+                        assert page.locator('.gf-progress-track').get_attribute('aria-valuenow')=='1'
                         assert page.locator('[data-mo-show-all]').get_attribute('aria-pressed')=='false'
                         assert not page.locator('.v-guide-more').is_visible()
                         page.locator('[data-mo-show-all]').click()
                         assert page.locator('.v-step:visible').count()==7
+                        assert not page.locator('.gf-progress-track').is_visible()
                         assert page.locator('.v-guide-more').is_visible()
                         assert page.locator('[data-mo-show-all]').get_attribute('aria-pressed')=='true'
                         assert page.evaluate('location.hash===""')
