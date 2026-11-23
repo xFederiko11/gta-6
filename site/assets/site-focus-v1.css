@@ -1,0 +1,50 @@
+/* GTA VI Italia / phase 1: three obvious destinations, no filler imagery. */
+.focus-hero,.focus-content,.focus-news,.focus-x{max-width:1040px;margin-inline:auto}
+.focus-hero{margin-top:12px;padding:clamp(20px,5vw,38px);background:var(--r-surface);
+  border:1px solid var(--r-line);border-radius:16px;box-shadow:none}
+.focus-eyebrow{display:block;color:var(--r-cyan);font-size:.77rem;letter-spacing:.085em;font-weight:850}
+.focus-hero h1{font-size:clamp(1.55rem,5vw,2.75rem);letter-spacing:-.035em;
+  line-height:1.15;margin:11px 0 8px;color:var(--r-text)}
+.focus-hero>p{max-width:690px;font-size:1rem;line-height:1.55;color:var(--r-muted);margin:0 0 20px}
+.focus-choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.focus-choice{min-width:0;display:flex;flex-direction:column;gap:6px;padding:19px 16px;
+  background:var(--r-soft);color:var(--r-text);border:1px solid var(--r-line);
+  border-radius:12px;text-decoration:none;transition:border-color .14s ease}
+.focus-choice:hover,.focus-choice:focus-visible{border-color:var(--r-cyan);outline-offset:3px}
+.focus-choice>strong{font-size:1.12rem;letter-spacing:-.01em;font-weight:850}
+.focus-choice>span{font-size:.82rem;line-height:1.4;color:var(--r-muted)}
+.focus-choice>small{color:var(--r-cyan);font-size:.8rem;font-weight:800;margin-top:auto;padding-top:7px}
+.focus-content,.focus-news{padding:20px 0 0}
+.focus-content h2,.focus-news h2{font-size:1.28rem;margin:0 0 5px;color:var(--r-text);line-height:1.25}
+.focus-content>p,.focus-news>p{color:var(--r-muted);font-size:.9rem;line-height:1.5;margin:0 0 10px}
+.focus-quick{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.focus-quick li{min-width:0;margin:0}
+.focus-quick a{display:flex;flex-direction:column;height:100%;gap:8px;background:var(--r-surface);
+  border:1px solid var(--r-line);border-radius:10px;padding:15px;color:var(--r-text);text-decoration:none}
+.focus-quick a:hover,.focus-quick a:focus-visible{border-color:var(--r-pink)}
+.focus-quick strong{font-size:.94rem;line-height:1.35}
+.focus-quick span{font-size:.82rem;line-height:1.42;color:var(--r-muted)}
+.focus-quick small{font-size:.8rem;font-weight:800;color:var(--r-cyan);margin-top:auto}
+.focus-news{border-top:1px solid var(--r-line);margin-top:22px}
+.focus-source-links{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.focus-source-links a{display:inline-flex;align-items:center;padding:10px 13px;border-radius:8px;
+  border:1px solid var(--r-line);color:var(--r-text);text-decoration:none;font-size:.86rem;font-weight:750}
+.focus-source-links a:hover{border-color:var(--r-cyan)}
+.focus-source-links a:first-child{border-color:var(--r-cyan)}
+.focus-x{margin-top:18px;margin-bottom:20px;color:var(--r-muted);font-size:.82rem}
+.focus-x a{color:var(--r-cyan);font-weight:800;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:720px){
+ .focus-hero{margin-top:4px;padding:16px 12px}
+ .focus-hero h1{font-size:1.65rem}
+ .focus-hero>p{font-size:.89rem;margin:0 0 12px}
+ .focus-choice-grid,.focus-quick{grid-template-columns:1fr;gap:8px}
+ .focus-choice{padding:12px 14px;gap:3px}
+ .focus-choice>strong{font-size:1rem}
+ .focus-choice>span{font-size:.8rem}
+ .focus-choice>small{padding-top:3px}
+ .focus-quick a{padding:12px;gap:3px}
+ .focus-content,.focus-news{padding-top:16px}
+ .focus-news{margin-top:16px}
+ .focus-source-links{gap:7px}
+ .focus-source-links a{font-size:.79rem}
+}
