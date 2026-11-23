@@ -56,3 +56,11 @@
 .focus-theme .v-switch{gap:2px}
 .focus-theme [data-theme-choice]{font-size:.69rem;padding:6px 7px;min-height:36px}
 @media(max-width:540px){.focus-theme [data-theme-choice]{font-size:.65rem;padding:5px 6px}.v-header:has(.focus-theme) .v-brand small{display:none}}
+
+@media(max-width:390px){
+ .v-header:has(.focus-theme) .v-x-link{display:none!important}
+ .v-header:has(.focus-theme) .v-brand{gap:6px}
+ .v-header:has(.focus-theme) .v-brand strong{font-size:.82rem}
+ .v-header:has(.focus-theme) .v-mark{font-size:1.45rem}
+ .v-header:has(.focus-theme) .v-header-inner{gap:6px}
+}
