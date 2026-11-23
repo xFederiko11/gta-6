@@ -25,6 +25,7 @@ from platinum_roadmap_v1 import render as render_platinum_roadmap, ROADMAP_PATH
 from guide_step_references_v1 import render as render_step_evidence, validate as validate_step_evidence
 from step_image_sources_v1 import load as load_step_photo_sources, validate as validate_step_photo_sources, render as render_step_photo_source
 from first_car_steps_v1 import validate as validate_first_car, render as render_first_car
+from chapter1_money_steps_v1 import validate as validate_money, render as render_money
 from platinum_atlas_v2 import render as render_trophy_atlas, validate as validate_trophy_atlas
 from advanced_platinum_v3 import (render_100 as render_advanced_100, render_hard as render_advanced_hard,
                                   validate as validate_advanced, COLLECTIBLE_PATH, HARD_PATH)
@@ -511,6 +512,8 @@ def guide(g,guides):
     count=len(g['steps'])
     if g['id']=='registrare-auto-personale':
         validate_first_car(g)
+    if g['id']=='soldi-facili-capitolo-1':
+        validate_money(g)
     body=legacy.crumbs([('Guide','guide-e-tutorial/'),(title,path)])
     body+=('<section class="v-intro v-guide-intro" aria-label="Introduzione alla guida">'
            '<span class="v-tag">'+e(g['tag'])+' · PS5 / PS5 Pro</span>'
@@ -546,7 +549,16 @@ def guide(g,guides):
                '<a href="https://www.gtabase.com/gta-6/articles/how-to-unlock-garages-in-gta-6" '
                'target="_blank" rel="noopener noreferrer">Fonte sblocchi garage ↗</a></p>')
     # Critical trophy/save warnings must remain visible BEFORE the first step.
-    if g['id'] in {'soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor'}:
+    if g['id']=='soldi-facili-capitolo-1':
+        body+=('<p class="v-guide-urgent cash-critical-warning" role="note">'
+               '<strong>⚠️ Non perdere i soldi:</strong> '
+               'prima di Recalibration crea un salvataggio manuale separato. '
+               'Con Tourist Trap il denaro ordinario non viene conservato '
+               'nel Capitolo 2. Valuta Family Savings (massimo 5.000 GTA$, '
+               'non normalmente prelevabili) prima di avanzare. '
+               '<a href="#avviso-capitolo-1">Leggi le precauzioni (spoiler) ↓</a>'
+               '</p>')
+    if g['id']=='soldi-2500-three-sheets-liquor':
         body+=('<p class="v-guide-urgent" role="note"><strong>⚠️ Non perdere i soldi:</strong> '
                'il denaro del Capitolo 1 può andare perso avanzando nella storia. '
                'Prima di accumularlo, crea un salvataggio manuale separato e leggi '
@@ -584,6 +596,8 @@ def guide(g,guides):
             '</div></div>')
         if g['id']=='registrare-auto-personale':
             body+=render_first_car(n)
+        if g['id']=='soldi-facili-capitolo-1':
+            body+=render_money(n)
         key=g['step_media'].get(n)
         approved=PHOTO_STEP_REVIEW['guide_step_approved'].get(g['id'],{}).get(str(n))
         if key and (not approved or approved['key']!=key):
