@@ -186,11 +186,16 @@ def render(base):
           '<li class="v-step" id="passaggio-'+str(i)+'"><div class="v-step-head">',
           '<span class="v-step-n" aria-hidden="true">'+str(i).zfill(2)+'</span><div>',
           '<span class="v-step-kicker">PASSO '+str(i)+' DI 7</span>',
-          '<h3>'+e(name)+' · '+e(reward)+'</h3>',
-          '<p><strong>DOVE:</strong> '+e(where)+'</p>',
-          '<p><strong>COSA FARE:</strong> '+e(action)+'</p></div></div>',
+          '<h3>'+('Regalo finale (spoiler)' if i==7 else e(name))+' · '+e(reward)+'</h3>',
+          '<p><strong>DOVE:</strong> '+e(where if i<7 else "Watkins Auto Parts, Port Gellhorn")+'</p></div></div>',
+          ('<details class="mo-gift-reveal"><summary>🎁 Mostra il regalo finale</summary><div class="mo-gift-body"><h4>'+e(name)+'</h4>' if i==7 else ''),
+          '<div class="mo-instructions"><strong>COME FARE</strong><ol class="mo-microsteps">',
+          *('<li>'+e(part)+'</li>' for part in MICROSTEPS[i-1]),
+          '</ol></div>',
           render_source_visual(i,name),
-          '<p class="v-check"><strong>✓ CONTROLLO:</strong> '+e(check)+'</p></li>'
+          '<p class="v-check"><strong>✓ VERIFICA:</strong> '+e(check)+'</p>',
+          ('</div></details>' if i==7 else ''),
+          '</li>'
         ])
     body.extend([
       '</ol><p class="v-tutorial-finish"><strong>FINE DELLA PROCEDURA</strong></p></section>',
