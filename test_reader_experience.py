@@ -248,13 +248,37 @@ def browser_qa():
                         assert page.locator('.v-operation-brief').bounding_box()['y']<page.locator('#procedura').bounding_box()['y']
                     if path=='guide-e-tutorial/veicoli-per-moses/':
                         assert page.locator('#procedura .v-step').count()==7
-                        assert page.locator('.mo-photo-link').count()==7
+                        assert page.locator('.mo-visual').count()==7
+                        assert page.locator('.mo-video-screen iframe').count()==6
+                        assert page.locator('.mo-video-screen iframe').first.get_attribute('src').startswith(
+                            'https://www.youtube-nocookie.com/embed/UyxxY0A_kow?start=101')
+                        assert page.locator('.mo-photo-link').count()==6
                         assert page.locator('.mo-photo-link img').count()==0
                         assert page.locator('.v-operation-brief').is_visible()
                         assert page.locator('.v-guide-urgent').is_visible()
-                        assert page.locator('#passaggio-5').inner_text().find('2727')!=-1
+                        assert '2727' in page.locator('#passaggio-5').inner_text()
                         assert page.locator('.v-guide-more').count()==1
-                    if page.locator('details.v-guide-more').count():
+                        assert page.locator('.v-step:visible').count()==7,'Entire visual article must be shown'
+                        assert page.locator('.mo-video-screen:visible').count()==6
+                        assert page.locator('html').evaluate('(el)=>el.classList.contains("guide-flow-all")')
+                        assert page.locator('[data-mo-show-all]').is_visible()
+                        assert page.locator('[data-mo-show-all]').get_attribute('aria-pressed')=='true'
+                        if width==390:
+                            page.screenshot(path=str(out/'moses-full-article-390.png'))
+                        page.locator('[data-mo-show-all]').click()
+                        assert page.locator('.v-step:visible').count()==1
+                        assert page.locator('[data-mo-show-all]').get_attribute('aria-pressed')=='false'
+                        assert not page.locator('.v-guide-more').is_visible()
+                        page.locator('[data-mo-show-all]').click()
+                        assert page.locator('.v-step:visible').count()==7
+                        assert page.locator('.v-guide-more').is_visible()
+                        assert page.locator('[data-mo-show-all]').get_attribute('aria-pressed')=='true'
+                        assert page.evaluate('location.hash===""')
+                        page.reload(wait_until='load')
+                        assert page.locator('.v-step:visible').count()==7
+                        assert page.locator('.mo-video-screen iframe').count()==6
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                    if page.locator('details.v-guide-more').count() and path!='guide-e-tutorial/veicoli-per-moses/':
                         # The beginner experience is a WIZARD, not an article full
                         # of unrelated boxes. Only one numbered step visible.
                         steps=page.locator('#procedura .v-step')
