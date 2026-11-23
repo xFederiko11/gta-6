@@ -57,6 +57,38 @@ TASKS=(
      "Per conservarla, verifica prima la disponibilità e procedi alla registrazione quando possibile.")
 )
 
+
+# Una sola azione per riga, con fonti e video associati al veicolo corretto.
+MICROSTEPS=(
+  ("Vai a Bastion Street, nel sud-ovest di Port Gellhorn.",
+   "Trova il pickup giallo sul carro attrezzi nel vialetto a est dell'area segnalata.",
+   "Metti KO il conducente del carro attrezzi.",
+   "Sgancia il pickup interagendo con il retro del carro."),
+  ("Raggiungi i Draper Island Docks, nel margine meridionale dell'isola.",
+   "Supera la recinzione della zona sorvegliata senza farti vedere.",
+   "Entra nell'edificio dalla porta nord per raggiungere il garage occidentale.",
+   "Apri il portone con il pulsante vicino e porta fuori la Futo."),
+  ("Raggiungi Orchard Avenue, a sud di Port Gellhorn.",
+   "Individua la casa al centro della zona di ricerca.",
+   "Prendi l'Hellion nel vialetto; puoi tranquillizzare il cane se abbaia."),
+  ("Raggiungi Buckskin Swamp, nel sud-est di Kelly County.",
+   "Individua il buggy argentato fra i fuoristrada che circolano nella palude.",
+   "Parla al conducente per farlo fermare e scendere.",
+   "Sali sul Bandito e allontanati; il veicolo ha un solo posto."),
+  ("Raggiungi la casa a nord-est di Grayson, evitando gli uomini armati.",
+   "Trova il capanno a est dell'abitazione.",
+   "Digita 2727 sulla tastiera della porta laterale.",
+   "Apri il portone tramite il pulsante interno e porta fuori la Vamos."),
+  ("Prepara armatura e armi prima di entrare nella base dei Final Chapter ad Ambrosia.",
+   "Per un ingresso meno esposto, passa dal container verde a nord e scavalca la recinzione.",
+   "Entra nel garage centrale della base.",
+   "Prendi la moto arancione al piano inferiore ed esci dalla base."),
+  ("Consegna a Moses tutti e sei i veicoli richiesti.",
+   "Aspetta il messaggio di Moses che annuncia un regalo all'officina.",
+   "Apri il piccolo garage accanto all'officina principale a Port Gellhorn.",
+   "Trova la Sultan; puoi registrarla o venderla.")
+)
+
 def e(v):
     return escape(str(v),quote=True)
 
