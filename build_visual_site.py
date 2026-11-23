@@ -556,7 +556,7 @@ def guide(g,guides):
                'Con Tourist Trap il denaro ordinario non viene conservato '
                'nel Capitolo 2. Valuta Family Savings (massimo 5.000 GTA$, '
                'non normalmente prelevabili) prima di avanzare. '
-               '<a href="#avviso-capitolo-1">Leggi le precauzioni (spoiler) ↓</a>'
+               '<a href="https://www.powerpyx.com/gta-6-tourist-trap-take-up-mattias-offer-walkthrough/" target="_blank" rel="noopener noreferrer">Fonte del punto di non ritorno ↗</a>'
                '</p>')
     if g['id']=='soldi-2500-three-sheets-liquor':
         body+=('<p class="v-guide-urgent" role="note"><strong>⚠️ Non perdere i soldi:</strong> '
