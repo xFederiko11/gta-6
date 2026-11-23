@@ -10,7 +10,11 @@ PATH="guide-e-tutorial/veicoli-per-moses/"
 SOURCE="https://www.powerpyx.com/gta-6-steal-vehicles-for-moses-walkthrough/"
 GIFT="https://www.powerpyx.com/gta-6-collect-moses-gift-walkthrough/"
 DAILY="https://www.powerpyx.com/gta-6-daily-driver-steal-the-crawler-for-moses-walkthrough/"
-IGN_PLAYER="https://tech.yahoo.com/videos/gta-6-moses-vehicle-locations-222512470.html?format=embed"
+IGN_VIDEO_ID="UyxxY0A_kow"
+IGN_VIDEO="https://www.youtube.com/watch?v="+IGN_VIDEO_ID
+# Official IGN video on YouTube, linked from the real publisher's channel.
+# YouTube's privacy-enhanced player accepts start=N and is independently embeddable.
+
 IGN_TIMELINE=((101,"01:41"),(191,"03:11"),(293,"04:53"),
               (346,"05:46"),(428,"07:08"),(520,"08:40"))
 # Link to the publisher's own embeddable VIDEO PLAYER, never copied still frames.
@@ -86,7 +90,8 @@ def render_source_visual(i, name):
         '<div class="mo-video-head"><strong>🎬 Guarda il veicolo e il luogo nel gameplay</strong>'
         '<span>'+e(VISUAL_CUES[i-1])+'</span></div>'
         '<div class="mo-video-screen"><iframe '
-        'src="'+e(IGN_PLAYER)+'" loading="lazy" '
+        'src="https://www.youtube-nocookie.com/embed/'+e(IGN_VIDEO_ID)+
+        '?start='+str(seconds)+'&amp;rel=0" loading="lazy" '
         'title="IGN: GTA VI, tutti i veicoli di Moses — '+e(name)+'" '
         'referrerpolicy="strict-origin-when-cross-origin" '
         'allow="autoplay; encrypted-media; picture-in-picture; fullscreen" '
@@ -95,9 +100,9 @@ def render_source_visual(i, name):
         '<strong>▶ Nel video IGN: vai al minuto '+e(stamp)+'</strong>'
         '<span>Il player può iniziare dall’inizio: sposta la barra a '
         +e(stamp)+' per vedere questa consegna.</span>'
-        '<small class="mo-photo-link"><a href="'+e(IGN_PLAYER)+'" '
+        '<small class="mo-photo-link"><a href="'+e(IGN_VIDEO)+'&amp;t='+str(seconds)+'s" '
         'target="_blank" rel="noopener noreferrer">'
-        'Fonte video: IGN, riprodotto tramite il player originale ↗</a> · '
+        'Fonte video: IGN su YouTube, player ufficiale incorporato ↗</a> · '
         '<a href="'+e(SOURCE)+'" target="_blank" rel="noopener noreferrer">'
         'Guarda anche le foto sulla guida PowerPyx ↗</a></small>'
         '<small>Non abbiamo copiato, ritagliato o ricaricato fotografie '
