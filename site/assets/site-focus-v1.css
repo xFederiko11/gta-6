@@ -48,3 +48,11 @@
  .focus-source-links{gap:7px}
  .focus-source-links a{font-size:.79rem}
 }
+
+/* Keep light/dark choice on homepage without a second banner. */
+.focus-theme{min-width:0;display:flex;align-items:center;flex:none}
+.focus-theme .r-theme-control{gap:5px;margin:0;padding:0;background:transparent;border:0}
+.focus-theme .r-theme-control>span{display:none}
+.focus-theme .v-switch{gap:2px}
+.focus-theme [data-theme-choice]{font-size:.69rem;padding:6px 7px;min-height:36px}
+@media(max-width:540px){.focus-theme [data-theme-choice]{font-size:.65rem;padding:5px 6px}.v-header:has(.focus-theme) .v-brand small{display:none}}
