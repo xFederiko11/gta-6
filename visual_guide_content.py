@@ -30,7 +30,8 @@ HERO = {
 # Only step-specific screenshots approved in data/tutorial_photo_review.json
 # may appear in a numbered tutorial. Other media remains in source records only.
 STEP_MEDIA = {
-    'registrare-auto-personale': {6:'scooter-phone'},
+    # No third-party gameplay photograph may appear inline without a documented
+    # reuse permission. This guide links to original photos and video instead.
 }
 
 HEADINGS = {
