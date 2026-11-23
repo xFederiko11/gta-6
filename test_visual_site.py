@@ -529,7 +529,8 @@ class VisualSiteTests(unittest.TestCase):
                     self.assertIn('alt',a)
                     self.assertIn('/gta-6/assets/visual/',a['src'])
                     self.assertTrue((ROOT/a['src'].split('/gta-6/',1)[1]).is_file())
-        self.assertEqual(len(review['rejected_assignments']),8)
+        self.assertEqual(len(review['rejected_assignments']),9)
+        self.assertTrue(any(r['key']=='scooter-phone' and 'permission' in r['reason'] for r in review['rejected_assignments']))
 
 
     def test_internal_links_and_assets_do_not_point_to_ghost_pages(self):
