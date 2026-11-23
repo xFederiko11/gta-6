@@ -1,0 +1,4764 @@
+{
+  "schema": "gta6-rockstar-library-v1",
+  "imported_on": "2026-11-23",
+  "credit": "Rockstar Games",
+  "reference_url": "https://www.rockstargames.com/VI/media",
+  "source": "Due archivi Rockstar forniti dal proprietario del progetto",
+  "originals_preserved": true,
+  "asset_count": 189,
+  "archives": [
+    {
+      "file_name": "GTAVI_Screenshots.zip",
+      "sha256": "88682b2854f665cc60b3274eff756cfd70276f490e530d455e3936d4248d7eaf"
+    },
+    {
+      "file_name": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "sha256": "de8f72db8bd12217c4423192395eb6c21f9877af3890bfb635233ce23d00434e"
+    }
+  ],
+  "reference_check": {
+    "checked_on": "2026-11-23",
+    "url": "https://www.rockstargames.com/VI/media",
+    "finding": "La galleria ufficiale elenca 138 Screenshots e 51 Ultimate Edition Benefits, con download ZIP separati.",
+    "scope": "Verificati i nomi delle raccolte e i conteggi nella pagina; nessun confronto dei singoli file con copie scaricate dal sito."
+  },
+  "assets": [
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Boobie Ike/Boobie_Ike_01.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Boobie Ike",
+      "title": "Boobie Ike 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1535353,
+      "sha256": "dffd1367ec1358c247a9cff824c99530cd7379cbf44480698252c3a09ebffb04",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Boobie Ike/Boobie_Ike_01.jpg",
+      "preview": "previews/dffd1367ec1358c247a9-480.webp",
+      "variants": {
+        "480": "previews/dffd1367ec1358c247a9-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Boobie%20Ike/Boobie_Ike_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Boobie Ike/Boobie_Ike_02.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Boobie Ike",
+      "title": "Boobie Ike 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 647843,
+      "sha256": "9b766e593cdb4821e886f9e8b5506929c577f6d7f7ffd5919f8390b9a3253202",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Boobie Ike/Boobie_Ike_02.jpg",
+      "preview": "previews/9b766e593cdb4821e886-480.webp",
+      "variants": {
+        "480": "previews/9b766e593cdb4821e886-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Boobie%20Ike/Boobie_Ike_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Boobie Ike/Boobie_Ike_03.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Boobie Ike",
+      "title": "Boobie Ike 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 415850,
+      "sha256": "5b688149eb0403dd3875145a376698f4aeec0405d74d814bb32acdeb93064824",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Boobie Ike/Boobie_Ike_03.jpg",
+      "preview": "previews/5b688149eb0403dd3875-480.webp",
+      "variants": {
+        "480": "previews/5b688149eb0403dd3875-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Boobie%20Ike/Boobie_Ike_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Boobie Ike/Boobie_Ike_04.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Boobie Ike",
+      "title": "Boobie Ike 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 885804,
+      "sha256": "04aba1f7a8e55bb8785dc416d5b47cd1356bf646af2772fb86b28e1789243408",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Boobie Ike/Boobie_Ike_04.jpg",
+      "preview": "previews/04aba1f7a8e55bb8785d-480.webp",
+      "variants": {
+        "480": "previews/04aba1f7a8e55bb8785d-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Boobie%20Ike/Boobie_Ike_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Brian Heder/Brian_Heder_01.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Brian Heder",
+      "title": "Brian Heder 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 352917,
+      "sha256": "f38e956240503c1ffe220b78d4814a1d95e6a453cc53f99a09f5a689bafacd1a",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Brian Heder/Brian_Heder_01.jpg",
+      "preview": "previews/f38e956240503c1ffe22-480.webp",
+      "variants": {
+        "480": "previews/f38e956240503c1ffe22-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Brian%20Heder/Brian_Heder_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Brian Heder/Brian_Heder_02.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Brian Heder",
+      "title": "Brian Heder 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 451210,
+      "sha256": "2a88e5f9e011d6aa0c400412ad04cb5f437378d16b257e24a2814951651d7784",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Brian Heder/Brian_Heder_02.jpg",
+      "preview": "previews/2a88e5f9e011d6aa0c40-480.webp",
+      "variants": {
+        "480": "previews/2a88e5f9e011d6aa0c40-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Brian%20Heder/Brian_Heder_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Brian Heder/Brian_Heder_03.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Brian Heder",
+      "title": "Brian Heder 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 458032,
+      "sha256": "9c27c7cc9d7c204e15001cd761dceb65460b5d563683e746c5d9985d11375e62",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Brian Heder/Brian_Heder_03.jpg",
+      "preview": "previews/9c27c7cc9d7c204e1500-480.webp",
+      "variants": {
+        "480": "previews/9c27c7cc9d7c204e1500-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Brian%20Heder/Brian_Heder_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Brian Heder/Brian_Heder_04.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Brian Heder",
+      "title": "Brian Heder 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 650203,
+      "sha256": "60cee091607067e3683f50b8e9d77460c3f727b3073f8da37897015e62064b2d",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Brian Heder/Brian_Heder_04.jpg",
+      "preview": "previews/60cee091607067e3683f-480.webp",
+      "variants": {
+        "480": "previews/60cee091607067e3683f-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Brian%20Heder/Brian_Heder_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Cal Hampton/Cal_Hampton_01.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Cal Hampton",
+      "title": "Cal Hampton 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 536588,
+      "sha256": "9fef7a2537ed1d54d489adbe5959c139c0df1b72b4fc8f32f7ac908fc14818df",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Cal Hampton/Cal_Hampton_01.jpg",
+      "preview": "previews/9fef7a2537ed1d54d489-480.webp",
+      "variants": {
+        "480": "previews/9fef7a2537ed1d54d489-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Cal%20Hampton/Cal_Hampton_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Cal Hampton/Cal_Hampton_02.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Cal Hampton",
+      "title": "Cal Hampton 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 635434,
+      "sha256": "97fe75019bfe82c4108c2f788925be8a05b5832a9d5ba01ca205bba668746c41",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Cal Hampton/Cal_Hampton_02.jpg",
+      "preview": "previews/97fe75019bfe82c4108c-480.webp",
+      "variants": {
+        "480": "previews/97fe75019bfe82c4108c-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Cal%20Hampton/Cal_Hampton_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Cal Hampton/Cal_Hampton_03.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Cal Hampton",
+      "title": "Cal Hampton 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 609075,
+      "sha256": "76848e909e95568ac650877676adde75841484ef7e1a01bb0efb94955f348f89",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Cal Hampton/Cal_Hampton_03.jpg",
+      "preview": "previews/76848e909e95568ac650-480.webp",
+      "variants": {
+        "480": "previews/76848e909e95568ac650-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Cal%20Hampton/Cal_Hampton_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Cal Hampton/Cal_Hampton_04.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Cal Hampton",
+      "title": "Cal Hampton 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 410434,
+      "sha256": "fc7733c0a29a65ac18cf39fc38274ae83328894b80f13281be93bf645faa46e6",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Cal Hampton/Cal_Hampton_04.jpg",
+      "preview": "previews/fc7733c0a29a65ac18cf-480.webp",
+      "variants": {
+        "480": "previews/fc7733c0a29a65ac18cf-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Cal%20Hampton/Cal_Hampton_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/DreQuan Priest/DreQuan_Priest_01.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "DreQuan Priest",
+      "title": "DreQuan Priest 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 752480,
+      "sha256": "dfc18f843c8d36a90a5329ab8715340db317083e94f6809a0aac32a39ee388f1",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/DreQuan Priest/DreQuan_Priest_01.jpg",
+      "preview": "previews/dfc18f843c8d36a90a53-480.webp",
+      "variants": {
+        "480": "previews/dfc18f843c8d36a90a53-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/DreQuan%20Priest/DreQuan_Priest_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/DreQuan Priest/DreQuan_Priest_02.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "DreQuan Priest",
+      "title": "DreQuan Priest 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 352438,
+      "sha256": "19e59c9fab4ad5945dcfda4afed37785d46ab938018caa28c74780d311b4d27c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/DreQuan Priest/DreQuan_Priest_02.jpg",
+      "preview": "previews/19e59c9fab4ad5945dcf-480.webp",
+      "variants": {
+        "480": "previews/19e59c9fab4ad5945dcf-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/DreQuan%20Priest/DreQuan_Priest_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/DreQuan Priest/DreQuan_Priest_03.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "DreQuan Priest",
+      "title": "DreQuan Priest 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 227570,
+      "sha256": "7b5ae723a65c96480607cee80b089480589e5975dab022d0d930ac90cb5f8f22",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/DreQuan Priest/DreQuan_Priest_03.jpg",
+      "preview": "previews/7b5ae723a65c96480607-480.webp",
+      "variants": {
+        "480": "previews/7b5ae723a65c96480607-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/DreQuan%20Priest/DreQuan_Priest_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/DreQuan Priest/DreQuan_Priest_04.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "DreQuan Priest",
+      "title": "DreQuan Priest 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 629336,
+      "sha256": "8d527e123467d0dfbe6210604159e43639faee3d90590e900b4f344eef95d983",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/DreQuan Priest/DreQuan_Priest_04.jpg",
+      "preview": "previews/8d527e123467d0dfbe62-480.webp",
+      "variants": {
+        "480": "previews/8d527e123467d0dfbe62-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/DreQuan%20Priest/DreQuan_Priest_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_01.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 439420,
+      "sha256": "cb7d23238b49c7130507412ba63ce11055474dcc944f7eaff02a004c1a386728",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_01.jpg",
+      "preview": "previews/cb7d23238b49c7130507-480.webp",
+      "variants": {
+        "480": "previews/cb7d23238b49c7130507-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_02.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 384771,
+      "sha256": "5b18fb3967fb2d1a68adbeb041f5110b06dd65b5102fc8fdc17bb00478234ffa",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_02.jpg",
+      "preview": "previews/5b18fb3967fb2d1a68ad-480.webp",
+      "variants": {
+        "480": "previews/5b18fb3967fb2d1a68ad-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_03.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 371302,
+      "sha256": "8a43a577798c33372214d68f21fc8e0ae47f4f702a78f519d328219f2569f463",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_03.jpg",
+      "preview": "previews/8a43a577798c33372214-480.webp",
+      "variants": {
+        "480": "previews/8a43a577798c33372214-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_04.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 521404,
+      "sha256": "6263b9720a280588bb34cdbe959d02978ae984f1b541b19b276667f8b3a6943f",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_04.jpg",
+      "preview": "previews/6263b9720a280588bb34-480.webp",
+      "variants": {
+        "480": "previews/6263b9720a280588bb34-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_05.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 05",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 410561,
+      "sha256": "59b9b8587d8d12ff874ab212c3a1f8a6afb0cc641a122a1c0f61bf7dbcb3ff48",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_05.jpg",
+      "preview": "previews/59b9b8587d8d12ff874a-480.webp",
+      "variants": {
+        "480": "previews/59b9b8587d8d12ff874a-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_05.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_06.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 06",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 491345,
+      "sha256": "574868fd7e51c80dd111cef250a1f2e1c98b353fe1f156d42862e3b1c7e31970",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_06.jpg",
+      "preview": "previews/574868fd7e51c80dd111-480.webp",
+      "variants": {
+        "480": "previews/574868fd7e51c80dd111-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_06.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_07.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 07",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 939665,
+      "sha256": "f5087cffeca01493113fcebc40ff1a8c160a7555e3fac98e46b38424ac7fa3ba",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_07.jpg",
+      "preview": "previews/f5087cffeca01493113f-480.webp",
+      "variants": {
+        "480": "previews/f5087cffeca01493113f-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_07.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_08.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 08",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 827207,
+      "sha256": "c5bd34d1d328ce465d33f0aad4a7af7359ca1f81d95434019243518a5af3f00f",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_08.jpg",
+      "preview": "previews/c5bd34d1d328ce465d33-480.webp",
+      "variants": {
+        "480": "previews/c5bd34d1d328ce465d33-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_08.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_09.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 09",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 891713,
+      "sha256": "7053622dc524b1242d93069b7a71b9ebd012b10a3d547c75684cc03b9976ed5c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_09.jpg",
+      "preview": "previews/7053622dc524b1242d93-480.webp",
+      "variants": {
+        "480": "previews/7053622dc524b1242d93-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_09.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_10.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 10",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 926082,
+      "sha256": "401b8dd76e72a6dc30a57c78f319a36e8cd98bd9a006e649ca6802a91ace6509",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_10.jpg",
+      "preview": "previews/401b8dd76e72a6dc30a5-480.webp",
+      "variants": {
+        "480": "previews/401b8dd76e72a6dc30a5-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_10.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_11.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 11",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 788980,
+      "sha256": "5d95ecbd7cee306baadd68d14949933b107d0cea7ab924c5c5f7e27be16d9e7f",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_11.jpg",
+      "preview": "previews/5d95ecbd7cee306baadd-480.webp",
+      "variants": {
+        "480": "previews/5d95ecbd7cee306baadd-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_11.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_12.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 12",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 716736,
+      "sha256": "7bba22a3a362b11849cb1fe282c301fc0492a473de63ea1e7bafafefbfea614e",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_12.jpg",
+      "preview": "previews/7bba22a3a362b11849cb-480.webp",
+      "variants": {
+        "480": "previews/7bba22a3a362b11849cb-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_12.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_13.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 13",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 843359,
+      "sha256": "c509a763fd1f5744383688f522dcc0b04d3916bc308e0e4fa3d6ec4a6998c907",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_13.jpg",
+      "preview": "previews/c509a763fd1f57443836-480.webp",
+      "variants": {
+        "480": "previews/c509a763fd1f57443836-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_13.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_14.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 14",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 791051,
+      "sha256": "0cef1a7bdfcaf812ce84dfa395203adb63ee44f00e9f5d09875f3f094eff1756",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_14.jpg",
+      "preview": "previews/0cef1a7bdfcaf812ce84-480.webp",
+      "variants": {
+        "480": "previews/0cef1a7bdfcaf812ce84-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_14.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_15.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 15",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1024729,
+      "sha256": "a59fd474fab602beae31c655d7f14b8b33118b87be7ef85e11ab260eb0fbc4be",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_15.jpg",
+      "preview": "previews/a59fd474fab602beae31-480.webp",
+      "variants": {
+        "480": "previews/a59fd474fab602beae31-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_15.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_16.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 16",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 957010,
+      "sha256": "1b8dcedcf77f02c7163ad86ee30ec9318a45d8ca0129b77f97f339d9cf6cd60b",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_16.jpg",
+      "preview": "previews/1b8dcedcf77f02c7163a-480.webp",
+      "variants": {
+        "480": "previews/1b8dcedcf77f02c7163a-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_16.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_17.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 17",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1072054,
+      "sha256": "9619106be9acca57c714ebd90ef40722b9e09df8bddd8efed39a42566363ff10",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_17.jpg",
+      "preview": "previews/9619106be9acca57c714-480.webp",
+      "variants": {
+        "480": "previews/9619106be9acca57c714-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_17.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_18.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 18",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1065754,
+      "sha256": "40134fc3fde88005b9859d394daa312195a0615c56e76e33b69a7ad788d4daeb",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_18.jpg",
+      "preview": "previews/40134fc3fde88005b985-480.webp",
+      "variants": {
+        "480": "previews/40134fc3fde88005b985-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_18.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason Duval/Jason_Duval_19.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason Duval",
+      "title": "Jason Duval 19",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 990677,
+      "sha256": "93284d33441197fa3bc6e002e92b329f76b41626d34a9504cd2e75e8dace4c6f",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason Duval/Jason_Duval_19.jpg",
+      "preview": "previews/93284d33441197fa3bc6-480.webp",
+      "variants": {
+        "480": "previews/93284d33441197fa3bc6-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20Duval/Jason_Duval_19.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_01.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 942720,
+      "sha256": "a691183cb7a018f7f9ea0f98d3507a7d35a6e182a7a7d9809532d00972d7594f",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_01.jpg",
+      "preview": "previews/a691183cb7a018f7f9ea-480.webp",
+      "variants": {
+        "480": "previews/a691183cb7a018f7f9ea-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_02.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 907752,
+      "sha256": "d3664044aae19090d554ae98ac3257b809409c0e9d04d168e969281d652c020c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_02.jpg",
+      "preview": "previews/d3664044aae19090d554-480.webp",
+      "variants": {
+        "480": "previews/d3664044aae19090d554-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_03.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 887513,
+      "sha256": "94d3b89ea15a9d03a9f4ec1fe89c222b0b20c273bd8f079a7718fd62d09b0ce2",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_03.jpg",
+      "preview": "previews/94d3b89ea15a9d03a9f4-480.webp",
+      "variants": {
+        "480": "previews/94d3b89ea15a9d03a9f4-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_04.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 965900,
+      "sha256": "7b4cc077e1dcd5251bd5a3b9f46fb88528a41a280e448e5eb5c2cf1282e4e96c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_04.jpg",
+      "preview": "previews/7b4cc077e1dcd5251bd5-480.webp",
+      "variants": {
+        "480": "previews/7b4cc077e1dcd5251bd5-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_05.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 05",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 757007,
+      "sha256": "7fff2de4ac6c47de191b20396a8217c98f488a107c90d424a32eeca956e93380",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_05.jpg",
+      "preview": "previews/7fff2de4ac6c47de191b-480.webp",
+      "variants": {
+        "480": "previews/7fff2de4ac6c47de191b-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_05.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_06.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 06",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 898215,
+      "sha256": "47e8316ea52a23cc873525ea0b88eb2d584eb4548bec117314035a453e854c7c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_06.jpg",
+      "preview": "previews/47e8316ea52a23cc8735-480.webp",
+      "variants": {
+        "480": "previews/47e8316ea52a23cc8735-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_06.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_07.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 07",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 910631,
+      "sha256": "f86df3e7655fa4971a0f3c17e590982cdb3109f483b472352ccf50c3c2674a19",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_07.jpg",
+      "preview": "previews/f86df3e7655fa4971a0f-480.webp",
+      "variants": {
+        "480": "previews/f86df3e7655fa4971a0f-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_07.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_08.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 08",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 836581,
+      "sha256": "2105951f383ce92fd7ad6876e114c4330252cc810c5ad5d4619968176947a1cb",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_08.jpg",
+      "preview": "previews/2105951f383ce92fd7ad-480.webp",
+      "variants": {
+        "480": "previews/2105951f383ce92fd7ad-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_08.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_09.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 09",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 883428,
+      "sha256": "f2881a37f088521a58e027bb9811d2462385328845f466f419d1194faff340e0",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_09.jpg",
+      "preview": "previews/f2881a37f088521a58e0-480.webp",
+      "variants": {
+        "480": "previews/f2881a37f088521a58e0-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_09.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_10.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 10",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 883024,
+      "sha256": "22b002a038605bf01d2dbf88ba1f46092b6e3c773fef9c4ed793ae6fbe7f548c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_10.jpg",
+      "preview": "previews/22b002a038605bf01d2d-480.webp",
+      "variants": {
+        "480": "previews/22b002a038605bf01d2d-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_10.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_11.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 11",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 959835,
+      "sha256": "74320a1e695b63e56a1835c3d5e25806b17b9b78e863e7a615ad419d3bb884a7",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_11.jpg",
+      "preview": "previews/74320a1e695b63e56a18-480.webp",
+      "variants": {
+        "480": "previews/74320a1e695b63e56a18-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_11.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_12.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 12",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 846794,
+      "sha256": "3ca9e1006f4d908f06f2fcbf09885ed342276721ce94bef984c9c053ff8c5ecf",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_12.jpg",
+      "preview": "previews/3ca9e1006f4d908f06f2-480.webp",
+      "variants": {
+        "480": "previews/3ca9e1006f4d908f06f2-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_12.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_13.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 13",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 876529,
+      "sha256": "76c8342c561f5c428e740fdd7cb5e299b26c8e125b1909916d2b19d74f4e1d44",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_13.jpg",
+      "preview": "previews/76c8342c561f5c428e74-480.webp",
+      "variants": {
+        "480": "previews/76c8342c561f5c428e74-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_13.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_14.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 14",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1017759,
+      "sha256": "1214224b9e6c20e1abcb459b57448356f3715f93ba561f5c2a59dfb952ba6c57",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_14.jpg",
+      "preview": "previews/1214224b9e6c20e1abcb-480.webp",
+      "variants": {
+        "480": "previews/1214224b9e6c20e1abcb-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_14.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_15.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 15",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1027243,
+      "sha256": "e5ab8132040ca804493e0996ca483193fc126b4146d4f838acd8323aa370d56c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_15.jpg",
+      "preview": "previews/e5ab8132040ca804493e-480.webp",
+      "variants": {
+        "480": "previews/e5ab8132040ca804493e-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_15.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_16.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 16",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1111201,
+      "sha256": "216e630c93410353f726a40dd96e2fa86974572b1e5b484eef9425d5451f0624",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_16.jpg",
+      "preview": "previews/216e630c93410353f726-480.webp",
+      "variants": {
+        "480": "previews/216e630c93410353f726-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_16.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_17.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 17",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 993333,
+      "sha256": "555f1235c6e8ec65d2cb88d5f6318af02fc4619ca2e29a25c43813ac01e99ad5",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_17.jpg",
+      "preview": "previews/555f1235c6e8ec65d2cb-480.webp",
+      "variants": {
+        "480": "previews/555f1235c6e8ec65d2cb-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_17.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_18.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 18",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1519588,
+      "sha256": "1147cc5a796810477c362f429bb72d571982cc5d08d1100a412af53b6f038da8",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_18.jpg",
+      "preview": "previews/1147cc5a796810477c36-480.webp",
+      "variants": {
+        "480": "previews/1147cc5a796810477c36-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_18.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_19.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 19",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1020504,
+      "sha256": "e43c0f67a99ad1243d8d065daae286b4354583d7c74046389ad6a5496d51db07",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_19.jpg",
+      "preview": "previews/e43c0f67a99ad1243d8d-480.webp",
+      "variants": {
+        "480": "previews/e43c0f67a99ad1243d8d-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_19.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Jason and Lucia/Jason_and_Lucia_20.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Jason and Lucia",
+      "title": "Jason and Lucia 20",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1401233,
+      "sha256": "e8b5804e64bd981d500339da0e2e8a6ab229c19a1630ca12240765714c1da7b5",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Jason and Lucia/Jason_and_Lucia_20.jpg",
+      "preview": "previews/e8b5804e64bd981d5003-480.webp",
+      "variants": {
+        "480": "previews/e8b5804e64bd981d5003-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Jason%20and%20Lucia/Jason_and_Lucia_20.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Lucia Caminos/Lucia_Caminos_01.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Lucia Caminos",
+      "title": "Lucia Caminos 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 301343,
+      "sha256": "f79d4a251166dbf99efce8cd9c3198d28b2c829373413c8f98621e61dc6e361c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Lucia Caminos/Lucia_Caminos_01.jpg",
+      "preview": "previews/f79d4a251166dbf99efc-480.webp",
+      "variants": {
+        "480": "previews/f79d4a251166dbf99efc-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Lucia%20Caminos/Lucia_Caminos_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Lucia Caminos/Lucia_Caminos_02.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Lucia Caminos",
+      "title": "Lucia Caminos 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 637178,
+      "sha256": "d0874cfff96846166a32b72ce40e6d44685e9880815bd13dbfe687330bfcd534",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Lucia Caminos/Lucia_Caminos_02.jpg",
+      "preview": "previews/d0874cfff96846166a32-480.webp",
+      "variants": {
+        "480": "previews/d0874cfff96846166a32-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Lucia%20Caminos/Lucia_Caminos_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Lucia Caminos/Lucia_Caminos_03.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Lucia Caminos",
+      "title": "Lucia Caminos 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 454584,
+      "sha256": "ba0442f482e3f200676ff4b9c5d28b012a8f65da244d3f7f769d83e3c7f396c9",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Lucia Caminos/Lucia_Caminos_03.jpg",
+      "preview": "previews/ba0442f482e3f200676f-480.webp",
+      "variants": {
+        "480": "previews/ba0442f482e3f200676f-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Lucia%20Caminos/Lucia_Caminos_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Lucia Caminos/Lucia_Caminos_04.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Lucia Caminos",
+      "title": "Lucia Caminos 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 280220,
+      "sha256": "78017fdc67b17c832ad9fd8bca3703fe4bb04f1fcd9ee941c9069fc2d80b2921",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Lucia Caminos/Lucia_Caminos_04.jpg",
+      "preview": "previews/78017fdc67b17c832ad9-480.webp",
+      "variants": {
+        "480": "previews/78017fdc67b17c832ad9-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Lucia%20Caminos/Lucia_Caminos_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Lucia Caminos/Lucia_Caminos_05.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Lucia Caminos",
+      "title": "Lucia Caminos 05",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 418652,
+      "sha256": "f9b97c1cf4c8b642fa0f5ccabcddd17b446d6c62236a8344ba081b9ca77125c6",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Lucia Caminos/Lucia_Caminos_05.jpg",
+      "preview": "previews/f9b97c1cf4c8b642fa0f-480.webp",
+      "variants": {
+        "480": "previews/f9b97c1cf4c8b642fa0f-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Lucia%20Caminos/Lucia_Caminos_05.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Lucia Caminos/Lucia_Caminos_06.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Lucia Caminos",
+      "title": "Lucia Caminos 06",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 471321,
+      "sha256": "aa309852b8436a9479b82d88cc196a22224a9e646c95b7f66fa07a324b944ff3",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Lucia Caminos/Lucia_Caminos_06.jpg",
+      "preview": "previews/aa309852b8436a9479b8-480.webp",
+      "variants": {
+        "480": "previews/aa309852b8436a9479b8-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Lucia%20Caminos/Lucia_Caminos_06.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Lucia Caminos/Lucia_Caminos_07.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Lucia Caminos",
+      "title": "Lucia Caminos 07",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 913009,
+      "sha256": "eae13852ce6d50c6277b34ded7d7c20271f21d45f5409c952a6535bf4744a451",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Lucia Caminos/Lucia_Caminos_07.jpg",
+      "preview": "previews/eae13852ce6d50c6277b-480.webp",
+      "variants": {
+        "480": "previews/eae13852ce6d50c6277b-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Lucia%20Caminos/Lucia_Caminos_07.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Lucia Caminos/Lucia_Caminos_08.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Lucia Caminos",
+      "title": "Lucia Caminos 08",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 876981,
+      "sha256": "3a528b0bbf99b694a852381f8f6087ae7787c913df512652ae3c86b32ed429b4",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Lucia Caminos/Lucia_Caminos_08.jpg",
+      "preview": "previews/3a528b0bbf99b694a852-480.webp",
+      "variants": {
+        "480": "previews/3a528b0bbf99b694a852-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Lucia%20Caminos/Lucia_Caminos_08.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Lucia Caminos/Lucia_Caminos_09.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Lucia Caminos",
+      "title": "Lucia Caminos 09",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 898033,
+      "sha256": "ad421602f8ef60d32cad4106ab830463cb3a0aa1019897bf808b3fb918723f5c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Lucia Caminos/Lucia_Caminos_09.jpg",
+      "preview": "previews/ad421602f8ef60d32cad-480.webp",
+      "variants": {
+        "480": "previews/ad421602f8ef60d32cad-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Lucia%20Caminos/Lucia_Caminos_09.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Lucia Caminos/Lucia_Caminos_10.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Lucia Caminos",
+      "title": "Lucia Caminos 10",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 852361,
+      "sha256": "1af1b376871cfa5686e06c967e289b52f51b0c87cd82599cd2224bc958fbc35c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Lucia Caminos/Lucia_Caminos_10.jpg",
+      "preview": "previews/1af1b376871cfa5686e0-480.webp",
+      "variants": {
+        "480": "previews/1af1b376871cfa5686e0-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Lucia%20Caminos/Lucia_Caminos_10.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Lucia Caminos/Lucia_Caminos_11.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Lucia Caminos",
+      "title": "Lucia Caminos 11",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1354768,
+      "sha256": "ea5d24ee33309cff90eb982ee42df9a1f2a7bc0a1df10b213534059cee220871",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Lucia Caminos/Lucia_Caminos_11.jpg",
+      "preview": "previews/ea5d24ee33309cff90eb-480.webp",
+      "variants": {
+        "480": "previews/ea5d24ee33309cff90eb-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Lucia%20Caminos/Lucia_Caminos_11.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Lucia Caminos/Lucia_Caminos_12.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Lucia Caminos",
+      "title": "Lucia Caminos 12",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 805430,
+      "sha256": "4acabbe91787d62d4a42ff0167676084f928c1031a5f9c52e1151eaf7223b506",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Lucia Caminos/Lucia_Caminos_12.jpg",
+      "preview": "previews/4acabbe91787d62d4a42-480.webp",
+      "variants": {
+        "480": "previews/4acabbe91787d62d4a42-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Lucia%20Caminos/Lucia_Caminos_12.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Lucia Caminos/Lucia_Caminos_13.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Lucia Caminos",
+      "title": "Lucia Caminos 13",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 902836,
+      "sha256": "9e9037726c08f1387141c1c5ced87f0bb43deeab4ffa204c951ebd40ed7feb88",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Lucia Caminos/Lucia_Caminos_13.jpg",
+      "preview": "previews/9e9037726c08f1387141-480.webp",
+      "variants": {
+        "480": "previews/9e9037726c08f1387141-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Lucia%20Caminos/Lucia_Caminos_13.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Lucia Caminos/Lucia_Caminos_14.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Lucia Caminos",
+      "title": "Lucia Caminos 14",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1282767,
+      "sha256": "e5ecdd0a353c5f1439ba97498338682acd29d0c527ca9acb9b02240f8cd5c568",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Lucia Caminos/Lucia_Caminos_14.jpg",
+      "preview": "previews/e5ecdd0a353c5f1439ba-480.webp",
+      "variants": {
+        "480": "previews/e5ecdd0a353c5f1439ba-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Lucia%20Caminos/Lucia_Caminos_14.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Raul Bautista/Raul_Bautista_01.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Raul Bautista",
+      "title": "Raul Bautista 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 266164,
+      "sha256": "505abf2c0b83f157e014daea311d433aee4651e32658ae767da1675cb1adb5a4",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Raul Bautista/Raul_Bautista_01.jpg",
+      "preview": "previews/505abf2c0b83f157e014-480.webp",
+      "variants": {
+        "480": "previews/505abf2c0b83f157e014-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Raul%20Bautista/Raul_Bautista_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Raul Bautista/Raul_Bautista_02.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Raul Bautista",
+      "title": "Raul Bautista 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 500262,
+      "sha256": "31182051e675c87c2ae61b0894604f00d882ad145c0a95aa486de1d821446061",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Raul Bautista/Raul_Bautista_02.jpg",
+      "preview": "previews/31182051e675c87c2ae6-480.webp",
+      "variants": {
+        "480": "previews/31182051e675c87c2ae6-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Raul%20Bautista/Raul_Bautista_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Raul Bautista/Raul_Bautista_03.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Raul Bautista",
+      "title": "Raul Bautista 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 497296,
+      "sha256": "42dadc277aac447af90d906aaa606033201ae4523240c33c254618d5b764ded1",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Raul Bautista/Raul_Bautista_03.jpg",
+      "preview": "previews/42dadc277aac447af90d-480.webp",
+      "variants": {
+        "480": "previews/42dadc277aac447af90d-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Raul%20Bautista/Raul_Bautista_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Raul Bautista/Raul_Bautista_04.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Raul Bautista",
+      "title": "Raul Bautista 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 394705,
+      "sha256": "30b7c1f8627aad57ed4206a8ef816d9c3b2a53d5548d0b71d30d0afa0c7acfd3",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Raul Bautista/Raul_Bautista_04.jpg",
+      "preview": "previews/30b7c1f8627aad57ed42-480.webp",
+      "variants": {
+        "480": "previews/30b7c1f8627aad57ed42-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Raul%20Bautista/Raul_Bautista_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Real Dimez/Real_Dimez_01.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Real Dimez",
+      "title": "Real Dimez 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 697676,
+      "sha256": "50a13a1a2af35a6ac7e775ce3832d406e2a6c57c0c6119976ce5b61e1aa29418",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Real Dimez/Real_Dimez_01.jpg",
+      "preview": "previews/50a13a1a2af35a6ac7e7-480.webp",
+      "variants": {
+        "480": "previews/50a13a1a2af35a6ac7e7-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Real%20Dimez/Real_Dimez_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Real Dimez/Real_Dimez_02.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Real Dimez",
+      "title": "Real Dimez 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 632862,
+      "sha256": "f029f6a26f3c5ae807f148e9aa5440d703b195262738b4b0801c879a5bcc982a",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Real Dimez/Real_Dimez_02.jpg",
+      "preview": "previews/f029f6a26f3c5ae807f1-480.webp",
+      "variants": {
+        "480": "previews/f029f6a26f3c5ae807f1-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Real%20Dimez/Real_Dimez_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Real Dimez/Real_Dimez_03.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Real Dimez",
+      "title": "Real Dimez 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 509709,
+      "sha256": "a7ca18d431e72a362724823dc9c33d721ae63d46d1c7e5eed4ed2c0afd7c14ff",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Real Dimez/Real_Dimez_03.jpg",
+      "preview": "previews/a7ca18d431e72a362724-480.webp",
+      "variants": {
+        "480": "previews/a7ca18d431e72a362724-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Real%20Dimez/Real_Dimez_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "People/Real Dimez/Real_Dimez_04.jpg",
+      "collection": "Screenshot",
+      "category": "Personaggi",
+      "subject": "Real Dimez",
+      "title": "Real Dimez 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 641117,
+      "sha256": "14187594187ee69955eec1c611746d3f511e3fb2fe265bf65759cbbf1b1e376c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/People/Real Dimez/Real_Dimez_04.jpg",
+      "preview": "previews/14187594187ee69955ee-480.webp",
+      "variants": {
+        "480": "previews/14187594187ee69955ee-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/People/Real%20Dimez/Real_Dimez_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Ambrosia/Ambrosia_01.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Ambrosia",
+      "title": "Ambrosia 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 715141,
+      "sha256": "a5b0d185aa5de42d7492220119254b136efb05ea75212cac46730a9fbd862769",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Ambrosia/Ambrosia_01.jpg",
+      "preview": "previews/a5b0d185aa5de42d7492-480.webp",
+      "variants": {
+        "480": "previews/a5b0d185aa5de42d7492-480.webp",
+        "960": "previews/a5b0d185aa5de42d7492-960.webp",
+        "1600": "previews/a5b0d185aa5de42d7492-1600.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Ambrosia/Ambrosia_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Ambrosia/Ambrosia_02.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Ambrosia",
+      "title": "Ambrosia 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 480912,
+      "sha256": "b1804c192c61277e083b57677fe9b7520e59dc30aaf86c3b77305e3bdde872c7",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Ambrosia/Ambrosia_02.jpg",
+      "preview": "previews/b1804c192c61277e083b-480.webp",
+      "variants": {
+        "480": "previews/b1804c192c61277e083b-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Ambrosia/Ambrosia_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Ambrosia/Ambrosia_03.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Ambrosia",
+      "title": "Ambrosia 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 633337,
+      "sha256": "0231137253b248160422658b6e51dfe7d6610544f336033ec8580cc72e66915c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Ambrosia/Ambrosia_03.jpg",
+      "preview": "previews/0231137253b248160422-480.webp",
+      "variants": {
+        "480": "previews/0231137253b248160422-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Ambrosia/Ambrosia_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Ambrosia/Ambrosia_04.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Ambrosia",
+      "title": "Ambrosia 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1056429,
+      "sha256": "b261c794035d85579ac85c769c8e8aeecaa1b6190a70dcb572dbe7184663c429",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Ambrosia/Ambrosia_04.jpg",
+      "preview": "previews/b261c794035d85579ac8-480.webp",
+      "variants": {
+        "480": "previews/b261c794035d85579ac8-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Ambrosia/Ambrosia_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Ambrosia/Ambrosia_05.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Ambrosia",
+      "title": "Ambrosia 05",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 763131,
+      "sha256": "bb00982b05e25894e4a1eb1e97ecdcc3b6d2d395a8d9c4f640443b52370513ca",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Ambrosia/Ambrosia_05.jpg",
+      "preview": "previews/bb00982b05e25894e4a1-480.webp",
+      "variants": {
+        "480": "previews/bb00982b05e25894e4a1-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Ambrosia/Ambrosia_05.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Ambrosia/Ambrosia_06.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Ambrosia",
+      "title": "Ambrosia 06",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 898487,
+      "sha256": "bb6db1d226ef253f56bb8c27f3efb1625a1fdb00369596cf2db61cb6230494ef",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Ambrosia/Ambrosia_06.jpg",
+      "preview": "previews/bb6db1d226ef253f56bb-480.webp",
+      "variants": {
+        "480": "previews/bb6db1d226ef253f56bb-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Ambrosia/Ambrosia_06.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Grassrivers/Grassrivers_01.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Grassrivers",
+      "title": "Grassrivers 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 861338,
+      "sha256": "a4744831327d33068ea688e02503219e29a80ea35cb7b82ab39ce957f9cd2cfa",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Grassrivers/Grassrivers_01.jpg",
+      "preview": "previews/a4744831327d33068ea6-480.webp",
+      "variants": {
+        "480": "previews/a4744831327d33068ea6-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Grassrivers/Grassrivers_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Grassrivers/Grassrivers_02.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Grassrivers",
+      "title": "Grassrivers 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 859665,
+      "sha256": "89574ed17bfc0c6aaae59c25813644c2bcfad2b777739ecb855b23692b841858",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Grassrivers/Grassrivers_02.jpg",
+      "preview": "previews/89574ed17bfc0c6aaae5-480.webp",
+      "variants": {
+        "480": "previews/89574ed17bfc0c6aaae5-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Grassrivers/Grassrivers_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Grassrivers/Grassrivers_03.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Grassrivers",
+      "title": "Grassrivers 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 884187,
+      "sha256": "8120c16f300f27500fca1360d561c69c9185bd8a3611d9258bf7b7e90517b79d",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Grassrivers/Grassrivers_03.jpg",
+      "preview": "previews/8120c16f300f27500fca-480.webp",
+      "variants": {
+        "480": "previews/8120c16f300f27500fca-480.webp",
+        "960": "previews/8120c16f300f27500fca-960.webp",
+        "1600": "previews/8120c16f300f27500fca-1600.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Grassrivers/Grassrivers_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Grassrivers/Grassrivers_04.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Grassrivers",
+      "title": "Grassrivers 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1218104,
+      "sha256": "c3585cf30edfe1760390eb0e2127fba9547f1341a8dc28a58af0ca279910d1c1",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Grassrivers/Grassrivers_04.jpg",
+      "preview": "previews/c3585cf30edfe1760390-480.webp",
+      "variants": {
+        "480": "previews/c3585cf30edfe1760390-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Grassrivers/Grassrivers_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Grassrivers/Grassrivers_05.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Grassrivers",
+      "title": "Grassrivers 05",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1258095,
+      "sha256": "6549fce7cebcb03dd43385f73f1c0d3748d5b819de3c7b0577645630e7958be5",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Grassrivers/Grassrivers_05.jpg",
+      "preview": "previews/6549fce7cebcb03dd433-480.webp",
+      "variants": {
+        "480": "previews/6549fce7cebcb03dd433-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Grassrivers/Grassrivers_05.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Grassrivers/Grassrivers_06.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Grassrivers",
+      "title": "Grassrivers 06",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 903003,
+      "sha256": "de0b709ef13d8b6aee262c8ba29feec8923e5d8d6f88b1e1bfd35affdffe8417",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Grassrivers/Grassrivers_06.jpg",
+      "preview": "previews/de0b709ef13d8b6aee26-480.webp",
+      "variants": {
+        "480": "previews/de0b709ef13d8b6aee26-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Grassrivers/Grassrivers_06.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Grassrivers/Grassrivers_07.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Grassrivers",
+      "title": "Grassrivers 07",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 810487,
+      "sha256": "109c7cc5c77560aa78818fdd444bb5bc059dd492259fbcc19003a7c4ef57c5c5",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Grassrivers/Grassrivers_07.jpg",
+      "preview": "previews/109c7cc5c77560aa7881-480.webp",
+      "variants": {
+        "480": "previews/109c7cc5c77560aa7881-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Grassrivers/Grassrivers_07.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Grassrivers/Grassrivers_08.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Grassrivers",
+      "title": "Grassrivers 08",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 527287,
+      "sha256": "18250f000f1636b016e42313dfce7804734af89cb3b7051e975e41710bc4e6f7",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Grassrivers/Grassrivers_08.jpg",
+      "preview": "previews/18250f000f1636b016e4-480.webp",
+      "variants": {
+        "480": "previews/18250f000f1636b016e4-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Grassrivers/Grassrivers_08.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Leonida Keys/Leonida_Keys_01.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Leonida Keys",
+      "title": "Leonida Keys 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 846989,
+      "sha256": "90bb51136148ee7c4c44750e54fb77cf1cb9790c584e904e0c5839094769e2e1",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Leonida Keys/Leonida_Keys_01.jpg",
+      "preview": "previews/90bb51136148ee7c4c44-480.webp",
+      "variants": {
+        "480": "previews/90bb51136148ee7c4c44-480.webp",
+        "960": "previews/90bb51136148ee7c4c44-960.webp",
+        "1600": "previews/90bb51136148ee7c4c44-1600.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Leonida%20Keys/Leonida_Keys_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Leonida Keys/Leonida_Keys_02.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Leonida Keys",
+      "title": "Leonida Keys 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1156644,
+      "sha256": "4f61dab070c93acc86c1d9bb576d676bac67c6e5602ba8ac5495b46737b5993b",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Leonida Keys/Leonida_Keys_02.jpg",
+      "preview": "previews/4f61dab070c93acc86c1-480.webp",
+      "variants": {
+        "480": "previews/4f61dab070c93acc86c1-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Leonida%20Keys/Leonida_Keys_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Leonida Keys/Leonida_Keys_03.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Leonida Keys",
+      "title": "Leonida Keys 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1118929,
+      "sha256": "f5cdaa8ccf1d74ba3011ac82aac2cb63dda342d6c5caabeedd54f18f84ac55d1",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Leonida Keys/Leonida_Keys_03.jpg",
+      "preview": "previews/f5cdaa8ccf1d74ba3011-480.webp",
+      "variants": {
+        "480": "previews/f5cdaa8ccf1d74ba3011-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Leonida%20Keys/Leonida_Keys_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Leonida Keys/Leonida_Keys_04.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Leonida Keys",
+      "title": "Leonida Keys 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 592956,
+      "sha256": "800b091c1c69e2885c71d7278aac0fae9f1284c6bdedf6e08a5dbab298c9e0c3",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Leonida Keys/Leonida_Keys_04.jpg",
+      "preview": "previews/800b091c1c69e2885c71-480.webp",
+      "variants": {
+        "480": "previews/800b091c1c69e2885c71-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Leonida%20Keys/Leonida_Keys_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Leonida Keys/Leonida_Keys_05.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Leonida Keys",
+      "title": "Leonida Keys 05",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 891284,
+      "sha256": "5f2226e90602403ac0b8feea520a501c2872015627456448c0be85768d5ef7ae",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Leonida Keys/Leonida_Keys_05.jpg",
+      "preview": "previews/5f2226e90602403ac0b8-480.webp",
+      "variants": {
+        "480": "previews/5f2226e90602403ac0b8-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Leonida%20Keys/Leonida_Keys_05.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Leonida Keys/Leonida_Keys_06.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Leonida Keys",
+      "title": "Leonida Keys 06",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 909051,
+      "sha256": "1847b15e0c5df30910cb30390ebe54560a7f29cc111848a905b503c586f3141e",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Leonida Keys/Leonida_Keys_06.jpg",
+      "preview": "previews/1847b15e0c5df30910cb-480.webp",
+      "variants": {
+        "480": "previews/1847b15e0c5df30910cb-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Leonida%20Keys/Leonida_Keys_06.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Leonida Keys/Leonida_Keys_07.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Leonida Keys",
+      "title": "Leonida Keys 07",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 950756,
+      "sha256": "7a9f67b7c1c31720be8bcd86ab171102e40fc9e3bc546e0498bca095e2376c30",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Leonida Keys/Leonida_Keys_07.jpg",
+      "preview": "previews/7a9f67b7c1c31720be8b-480.webp",
+      "variants": {
+        "480": "previews/7a9f67b7c1c31720be8b-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Leonida%20Keys/Leonida_Keys_07.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Mount Kalaga National Park/Mount_Kalaga_National_Park_01.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Mount Kalaga National Park",
+      "title": "Mount Kalaga National Park 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 961160,
+      "sha256": "6f06847e2173385df416ef162e1dfbb9f6270bfcc7bf0e080f02a4803d7473b3",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Mount Kalaga National Park/Mount_Kalaga_National_Park_01.jpg",
+      "preview": "previews/6f06847e2173385df416-480.webp",
+      "variants": {
+        "480": "previews/6f06847e2173385df416-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Mount%20Kalaga%20National%20Park/Mount_Kalaga_National_Park_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Mount Kalaga National Park/Mount_Kalaga_National_Park_02.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Mount Kalaga National Park",
+      "title": "Mount Kalaga National Park 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 333806,
+      "sha256": "828ad45819b4121f3a341b25cbc93cd6595099eb2d53068d1cef4f1853ab38d4",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Mount Kalaga National Park/Mount_Kalaga_National_Park_02.jpg",
+      "preview": "previews/828ad45819b4121f3a34-480.webp",
+      "variants": {
+        "480": "previews/828ad45819b4121f3a34-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Mount%20Kalaga%20National%20Park/Mount_Kalaga_National_Park_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Mount Kalaga National Park/Mount_Kalaga_National_Park_03.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Mount Kalaga National Park",
+      "title": "Mount Kalaga National Park 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 975635,
+      "sha256": "55fbe316ad65dac4ef95a6f4572bfdae756ca343899ab6bfdf84609b6c4bf3da",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Mount Kalaga National Park/Mount_Kalaga_National_Park_03.jpg",
+      "preview": "previews/55fbe316ad65dac4ef95-480.webp",
+      "variants": {
+        "480": "previews/55fbe316ad65dac4ef95-480.webp",
+        "960": "previews/55fbe316ad65dac4ef95-960.webp",
+        "1600": "previews/55fbe316ad65dac4ef95-1600.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Mount%20Kalaga%20National%20Park/Mount_Kalaga_National_Park_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Mount Kalaga National Park/Mount_Kalaga_National_Park_04.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Mount Kalaga National Park",
+      "title": "Mount Kalaga National Park 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1274178,
+      "sha256": "2b973cf17237cec6f6729ea939f15bc9b8f056eab12598be79b0bd5201187679",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Mount Kalaga National Park/Mount_Kalaga_National_Park_04.jpg",
+      "preview": "previews/2b973cf17237cec6f672-480.webp",
+      "variants": {
+        "480": "previews/2b973cf17237cec6f672-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Mount%20Kalaga%20National%20Park/Mount_Kalaga_National_Park_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Mount Kalaga National Park/Mount_Kalaga_National_Park_05.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Mount Kalaga National Park",
+      "title": "Mount Kalaga National Park 05",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 861566,
+      "sha256": "531c700304fbea3fb25e78d90d3a8c50d1ac7f157b76888be891e78c53bde78a",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Mount Kalaga National Park/Mount_Kalaga_National_Park_05.jpg",
+      "preview": "previews/531c700304fbea3fb25e-480.webp",
+      "variants": {
+        "480": "previews/531c700304fbea3fb25e-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Mount%20Kalaga%20National%20Park/Mount_Kalaga_National_Park_05.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Mount Kalaga National Park/Mount_Kalaga_National_Park_06.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Mount Kalaga National Park",
+      "title": "Mount Kalaga National Park 06",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1291623,
+      "sha256": "290b5eb17a45ab4c8c318fb173e6c400bf0e80a74b529591da554d214fddd32a",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Mount Kalaga National Park/Mount_Kalaga_National_Park_06.jpg",
+      "preview": "previews/290b5eb17a45ab4c8c31-480.webp",
+      "variants": {
+        "480": "previews/290b5eb17a45ab4c8c31-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Mount%20Kalaga%20National%20Park/Mount_Kalaga_National_Park_06.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Port Gellhorn/Port_Gellhorn_01.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Port Gellhorn",
+      "title": "Port Gellhorn 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 829686,
+      "sha256": "7775f041a852069d43e357d112d1715f471adc4c4346337e79aa33a7940a8425",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Port Gellhorn/Port_Gellhorn_01.jpg",
+      "preview": "previews/7775f041a852069d43e3-480.webp",
+      "variants": {
+        "480": "previews/7775f041a852069d43e3-480.webp",
+        "960": "previews/7775f041a852069d43e3-960.webp",
+        "1600": "previews/7775f041a852069d43e3-1600.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Port%20Gellhorn/Port_Gellhorn_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Port Gellhorn/Port_Gellhorn_02.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Port Gellhorn",
+      "title": "Port Gellhorn 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 572219,
+      "sha256": "a4d4d56a5fa127fcf6afdc8fedd2f6ef190799ca9275e5c5b0fcb0e127238cee",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Port Gellhorn/Port_Gellhorn_02.jpg",
+      "preview": "previews/a4d4d56a5fa127fcf6af-480.webp",
+      "variants": {
+        "480": "previews/a4d4d56a5fa127fcf6af-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Port%20Gellhorn/Port_Gellhorn_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Port Gellhorn/Port_Gellhorn_03.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Port Gellhorn",
+      "title": "Port Gellhorn 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 357766,
+      "sha256": "d089452a5a3e0de069daf8191351be45d5407c64fd894dd9570f2cc5fb607a75",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Port Gellhorn/Port_Gellhorn_03.jpg",
+      "preview": "previews/d089452a5a3e0de069da-480.webp",
+      "variants": {
+        "480": "previews/d089452a5a3e0de069da-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Port%20Gellhorn/Port_Gellhorn_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Port Gellhorn/Port_Gellhorn_04.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Port Gellhorn",
+      "title": "Port Gellhorn 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1082200,
+      "sha256": "47f3dbb0631c6072665b67f9d035e3bd4693b320a76dd6fe801102d1ef2e0050",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Port Gellhorn/Port_Gellhorn_04.jpg",
+      "preview": "previews/47f3dbb0631c6072665b-480.webp",
+      "variants": {
+        "480": "previews/47f3dbb0631c6072665b-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Port%20Gellhorn/Port_Gellhorn_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Port Gellhorn/Port_Gellhorn_05.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Port Gellhorn",
+      "title": "Port Gellhorn 05",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 650414,
+      "sha256": "eb417596cf53c6a13b89fc3e0845a08b25d6997530a0774b43beebf287208561",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Port Gellhorn/Port_Gellhorn_05.jpg",
+      "preview": "previews/eb417596cf53c6a13b89-480.webp",
+      "variants": {
+        "480": "previews/eb417596cf53c6a13b89-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Port%20Gellhorn/Port_Gellhorn_05.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Port Gellhorn/Port_Gellhorn_06.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Port Gellhorn",
+      "title": "Port Gellhorn 06",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 883694,
+      "sha256": "094c23fcef7629ed2949e33fd29462a225762da4ffa0af08fcbfe2565d36b94f",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Port Gellhorn/Port_Gellhorn_06.jpg",
+      "preview": "previews/094c23fcef7629ed2949-480.webp",
+      "variants": {
+        "480": "previews/094c23fcef7629ed2949-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Port%20Gellhorn/Port_Gellhorn_06.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Port Gellhorn/Port_Gellhorn_07.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Port Gellhorn",
+      "title": "Port Gellhorn 07",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 794674,
+      "sha256": "382d1dc39fe29afe58844e424c453cd61ca6c90c0c3416ddf870b3b282fc4632",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Port Gellhorn/Port_Gellhorn_07.jpg",
+      "preview": "previews/382d1dc39fe29afe5884-480.webp",
+      "variants": {
+        "480": "previews/382d1dc39fe29afe5884-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Port%20Gellhorn/Port_Gellhorn_07.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_01.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 492097,
+      "sha256": "6cf14b23ae2c205799067464904f8c9dc99f87935632ef6924b87f59af7a6225",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_01.jpg",
+      "preview": "previews/6cf14b23ae2c20579906-480.webp",
+      "variants": {
+        "480": "previews/6cf14b23ae2c20579906-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_02.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 528149,
+      "sha256": "3f12452834bb07a0a13dabdf019881f372151d4740cdcf0937ac5fe03554d8eb",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_02.jpg",
+      "preview": "previews/3f12452834bb07a0a13d-480.webp",
+      "variants": {
+        "480": "previews/3f12452834bb07a0a13d-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_03.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1247197,
+      "sha256": "d6a56aadc2823cb97a33db087de1700f6a0fd5528b140107ec20823f23aac918",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_03.jpg",
+      "preview": "previews/d6a56aadc2823cb97a33-480.webp",
+      "variants": {
+        "480": "previews/d6a56aadc2823cb97a33-480.webp",
+        "960": "previews/d6a56aadc2823cb97a33-960.webp",
+        "1600": "previews/d6a56aadc2823cb97a33-1600.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_04.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 737058,
+      "sha256": "2d3dd75b275af520eaff8c479184c6a02f45edaf5fda94a082b587901dcc3e18",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_04.jpg",
+      "preview": "previews/2d3dd75b275af520eaff-480.webp",
+      "variants": {
+        "480": "previews/2d3dd75b275af520eaff-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_05.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 05",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 561227,
+      "sha256": "8fd0b3af06d6a2b9242f4775f0e979d55f43e16d0f450d7faedfdec877d15f46",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_05.jpg",
+      "preview": "previews/8fd0b3af06d6a2b9242f-480.webp",
+      "variants": {
+        "480": "previews/8fd0b3af06d6a2b9242f-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_05.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_06.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 06",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 649067,
+      "sha256": "0e4e13aced093e699f7998afb560e8056e8808963a05eaeea706d0cf949479b0",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_06.jpg",
+      "preview": "previews/0e4e13aced093e699f79-480.webp",
+      "variants": {
+        "480": "previews/0e4e13aced093e699f79-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_06.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_07.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 07",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 528847,
+      "sha256": "c1def452d9259e1414d5b7abd36a1e30276bde93d14bf96ea2bf111715b09c63",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_07.jpg",
+      "preview": "previews/c1def452d9259e1414d5-480.webp",
+      "variants": {
+        "480": "previews/c1def452d9259e1414d5-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_07.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_08.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 08",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 753970,
+      "sha256": "41c707910e15c7d2ffc50c5977bacce83c5f04f795c895cc039c16cb5c7cb7b8",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_08.jpg",
+      "preview": "previews/41c707910e15c7d2ffc5-480.webp",
+      "variants": {
+        "480": "previews/41c707910e15c7d2ffc5-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_08.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_09.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 09",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 938571,
+      "sha256": "37d826f8ed719cfa3f8cb7a8d773b5d8b81503f70f96bf490863c1c928b892ed",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_09.jpg",
+      "preview": "previews/37d826f8ed719cfa3f8c-480.webp",
+      "variants": {
+        "480": "previews/37d826f8ed719cfa3f8c-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_09.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_10.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 10",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 878309,
+      "sha256": "56d7af39cba3bb4a1425c056b36fdc9fe816fe835dabd5c48e93b56a146ec800",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_10.jpg",
+      "preview": "previews/56d7af39cba3bb4a1425-480.webp",
+      "variants": {
+        "480": "previews/56d7af39cba3bb4a1425-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_10.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_11.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 11",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 894386,
+      "sha256": "6401a9b2a5068cef29cc9ed5edc8e7a179feff4f909de4dae41ce06553983cc6",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_11.jpg",
+      "preview": "previews/6401a9b2a5068cef29cc-480.webp",
+      "variants": {
+        "480": "previews/6401a9b2a5068cef29cc-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_11.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_12.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 12",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 946930,
+      "sha256": "44fe4072aaddb74f4f4a11daa2ca9314cbc8c08a9ae3818d63a48a5420cc09bc",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_12.jpg",
+      "preview": "previews/44fe4072aaddb74f4f4a-480.webp",
+      "variants": {
+        "480": "previews/44fe4072aaddb74f4f4a-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_12.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_13.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 13",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1238397,
+      "sha256": "66a1454f82a2b226d256c732f64c57b642f2c0a9eec78bb6cea241c8fe9e9804",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_13.jpg",
+      "preview": "previews/66a1454f82a2b226d256-480.webp",
+      "variants": {
+        "480": "previews/66a1454f82a2b226d256-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_13.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_14.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 14",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1163433,
+      "sha256": "06b696c8ceeba6ed58dc84408e88e53bbe99c74cb2d743f5c61ed6912f543a47",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_14.jpg",
+      "preview": "previews/06b696c8ceeba6ed58dc-480.webp",
+      "variants": {
+        "480": "previews/06b696c8ceeba6ed58dc-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_14.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_15.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 15",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 929699,
+      "sha256": "bcdd989596461c2c0178326055ed75c9cad231ac67895fced8c31237dd51b259",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_15.jpg",
+      "preview": "previews/bcdd989596461c2c0178-480.webp",
+      "variants": {
+        "480": "previews/bcdd989596461c2c0178-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_15.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_16.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 16",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1183780,
+      "sha256": "628662f777e019419ad3babd76ffca61fb75ec0af6b7a2986c63e9afdeec9681",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_16.jpg",
+      "preview": "previews/628662f777e019419ad3-480.webp",
+      "variants": {
+        "480": "previews/628662f777e019419ad3-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_16.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_17.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 17",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1551594,
+      "sha256": "9c7a0e7617604bee25c9b4b74aac47da294036dd16b7d22605f7b10530e8f14a",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_17.jpg",
+      "preview": "previews/9c7a0e7617604bee25c9-480.webp",
+      "variants": {
+        "480": "previews/9c7a0e7617604bee25c9-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_17.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_18.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 18",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1088197,
+      "sha256": "ed907787a516c5dccaf1eb955a7b9abcef4d4ea22642e7ddb28a3a423e976e1c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_18.jpg",
+      "preview": "previews/ed907787a516c5dccaf1-480.webp",
+      "variants": {
+        "480": "previews/ed907787a516c5dccaf1-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_18.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_19.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 19",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1317886,
+      "sha256": "783a147d8c375e06750d62ed9c6269b8ada605c825a2010d2739169a37340f19",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_19.jpg",
+      "preview": "previews/783a147d8c375e06750d-480.webp",
+      "variants": {
+        "480": "previews/783a147d8c375e06750d-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_19.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_20.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 20",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 973283,
+      "sha256": "790add60538755eed514f6cf04d5c2b26b0a7c405e66f26d398088ca8a0073ad",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_20.jpg",
+      "preview": "previews/790add60538755eed514-480.webp",
+      "variants": {
+        "480": "previews/790add60538755eed514-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_20.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_21.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 21",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 924993,
+      "sha256": "a88d3869053259d9afd10af68ec19ba27e04448f3669827a0b765cb0265640d5",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_21.jpg",
+      "preview": "previews/a88d3869053259d9afd1-480.webp",
+      "variants": {
+        "480": "previews/a88d3869053259d9afd1-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_21.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_22.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 22",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1626690,
+      "sha256": "3d28d73e35ad59f8b0dfebdf5fd2c12292fc927fd8712fa2db81dafc4bd2f564",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_22.jpg",
+      "preview": "previews/3d28d73e35ad59f8b0df-480.webp",
+      "variants": {
+        "480": "previews/3d28d73e35ad59f8b0df-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_22.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_23.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 23",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1528697,
+      "sha256": "097fbef0097c940b8e7f30bd900846eaed17ee2b4100cf0aa71633bbf471885f",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_23.jpg",
+      "preview": "previews/097fbef0097c940b8e7f-480.webp",
+      "variants": {
+        "480": "previews/097fbef0097c940b8e7f-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_23.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_24.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 24",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1489197,
+      "sha256": "b696be116625f1b7419da9343eff44cf13a7b3c1d8b275f921e1a10a0d3c40fd",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_24.jpg",
+      "preview": "previews/b696be116625f1b7419d-480.webp",
+      "variants": {
+        "480": "previews/b696be116625f1b7419d-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_24.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_25.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 25",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1431425,
+      "sha256": "250fae48a61d45708f758fb3c8215f0fae773fcebfc528530b8384d03081c9a8",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_25.jpg",
+      "preview": "previews/250fae48a61d45708f75-480.webp",
+      "variants": {
+        "480": "previews/250fae48a61d45708f75-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_25.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_26.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 26",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 3096941,
+      "sha256": "10da27be706375cdba48d2348ca11ad0bc86c5ac98e3dd098083c6a29dbbeed9",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_26.jpg",
+      "preview": "previews/10da27be706375cdba48-480.webp",
+      "variants": {
+        "480": "previews/10da27be706375cdba48-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_26.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Screenshots.zip",
+      "original_entry": "Places/Vice City/Vice_City_27.jpg",
+      "collection": "Screenshot",
+      "category": "Luoghi",
+      "subject": "Vice City",
+      "title": "Vice City 27",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1132950,
+      "sha256": "f0725fd61298ccfe7de30328ecf1651f7455eaf122a0b2f66031b819dd45d0e1",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/screenshots/Places/Vice City/Vice_City_27.jpg",
+      "preview": "previews/f0725fd61298ccfe7de3-480.webp",
+      "variants": {
+        "480": "previews/f0725fd61298ccfe7de3-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_27.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Panoramica",
+      "title": "ULTIMATE EDITION 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1772009,
+      "sha256": "062a25c235ba700c2a8d4242c62ac2dcb62fe4d7d2a7d8a4b6448fa199ab1d4f",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_01.jpg",
+      "preview": "previews/062a25c235ba700c2a8d-480.webp",
+      "variants": {
+        "480": "previews/062a25c235ba700c2a8d-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_02.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Panoramica",
+      "title": "ULTIMATE EDITION 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1939364,
+      "sha256": "a564524a80f5fd770d3ff5436123a2fb865092f726e722131894838710dc1b19",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_02.jpg",
+      "preview": "previews/a564524a80f5fd770d3f-480.webp",
+      "variants": {
+        "480": "previews/a564524a80f5fd770d3f-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_ELECTRIC_FANG_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Electric Fang",
+      "title": "ULTIMATE EDITION ELECTRIC FANG 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1914049,
+      "sha256": "e8b418e73972905830aab76ca0c02b14c881797c7c8d2d5c91332e63cc1b438c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_ELECTRIC_FANG_01.jpg",
+      "preview": "previews/e8b418e73972905830aa-480.webp",
+      "variants": {
+        "480": "previews/e8b418e73972905830aa-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_ELECTRIC_FANG_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_ELECTRIC_FANG_02.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Electric Fang",
+      "title": "ULTIMATE EDITION ELECTRIC FANG 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1697792,
+      "sha256": "7fe2c55a601079ece8e384b9ca315297043266fd86058c05691f31fada56d288",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_ELECTRIC_FANG_02.jpg",
+      "preview": "previews/7fe2c55a601079ece8e3-480.webp",
+      "variants": {
+        "480": "previews/7fe2c55a601079ece8e3-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_ELECTRIC_FANG_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_ELECTRIC_FANG_03.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Electric Fang",
+      "title": "ULTIMATE EDITION ELECTRIC FANG 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1784038,
+      "sha256": "24bc9d3ba8bb5b9c2adcb554da281c72221e91d216e3f05f68b5a7a2ee96c767",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_ELECTRIC_FANG_03.jpg",
+      "preview": "previews/24bc9d3ba8bb5b9c2adc-480.webp",
+      "variants": {
+        "480": "previews/24bc9d3ba8bb5b9c2adc-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_ELECTRIC_FANG_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_ELECTRIC_FANG_04.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Electric Fang",
+      "title": "ULTIMATE EDITION ELECTRIC FANG 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1612709,
+      "sha256": "e107852bc4afa61f7ab4509e4a9048e3cc8160a9ece699ba44f0111c31765a9b",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_ELECTRIC_FANG_04.jpg",
+      "preview": "previews/e107852bc4afa61f7ab4-480.webp",
+      "variants": {
+        "480": "previews/e107852bc4afa61f7ab4-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_ELECTRIC_FANG_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_GOODTIME_GEAR_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Goodtime Gear",
+      "title": "ULTIMATE EDITION GOODTIME GEAR 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1655134,
+      "sha256": "c4e8856ce3677bb99cc130ab795a8033a57f70b3d4cfceae40b0c2ac99ffd8ad",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_GOODTIME_GEAR_01.jpg",
+      "preview": "previews/c4e8856ce3677bb99cc1-480.webp",
+      "variants": {
+        "480": "previews/c4e8856ce3677bb99cc1-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_GOODTIME_GEAR_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_GROTTI_CHEETAH_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Grotti Cheetah",
+      "title": "ULTIMATE EDITION GROTTI CHEETAH 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1864182,
+      "sha256": "1a4f55bea72fb2c1e7c3247ace46c10a49b73dc4b21f179c3c0d898d34d41469",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_GROTTI_CHEETAH_01.jpg",
+      "preview": "previews/1a4f55bea72fb2c1e7c3-480.webp",
+      "variants": {
+        "480": "previews/1a4f55bea72fb2c1e7c3-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_GROTTI_CHEETAH_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_GROTTI_CHEETAH_02.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Grotti Cheetah",
+      "title": "ULTIMATE EDITION GROTTI CHEETAH 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1894166,
+      "sha256": "a8556e6eb6a368824d9818ca6c4562297fd042cf748efadf3cb7031270922af6",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_GROTTI_CHEETAH_02.jpg",
+      "preview": "previews/a8556e6eb6a368824d98-480.webp",
+      "variants": {
+        "480": "previews/a8556e6eb6a368824d98-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_GROTTI_CHEETAH_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_GROTTI_CHEETAH_03.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Grotti Cheetah",
+      "title": "ULTIMATE EDITION GROTTI CHEETAH 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1677963,
+      "sha256": "893d784bfd3a9d4066a1e9d211339f9bbcb1e158430163f1d75b02b40ecaa576",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_GROTTI_CHEETAH_03.jpg",
+      "preview": "previews/893d784bfd3a9d4066a1-480.webp",
+      "variants": {
+        "480": "previews/893d784bfd3a9d4066a1-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_GROTTI_CHEETAH_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_GROTTI_CHEETAH_04.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Grotti Cheetah",
+      "title": "ULTIMATE EDITION GROTTI CHEETAH 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1334522,
+      "sha256": "78bcacd47fbe318d7c72419143879dc331545629fe049f60cda646e20e8ab8ad",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_GROTTI_CHEETAH_04.jpg",
+      "preview": "previews/78bcacd47fbe318d7c72-480.webp",
+      "variants": {
+        "480": "previews/78bcacd47fbe318d7c72-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_GROTTI_CHEETAH_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_HAWK_AND_LITTLE_MORGAN_REVOLVERS_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Hawk And Little Morgan Revolvers",
+      "title": "ULTIMATE EDITION HAWK AND LITTLE MORGAN REVOLVERS 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 927577,
+      "sha256": "30aa1dba4354d27a6987d2e0880a66486cdbf6811d12bd6d42d4769516083e1f",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_HAWK_AND_LITTLE_MORGAN_REVOLVERS_01.jpg",
+      "preview": "previews/30aa1dba4354d27a6987-480.webp",
+      "variants": {
+        "480": "previews/30aa1dba4354d27a6987-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_HAWK_AND_LITTLE_MORGAN_REVOLVERS_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_HAWK_AND_LITTLE_MORGAN_REVOLVERS_02.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Hawk And Little Morgan Revolvers",
+      "title": "ULTIMATE EDITION HAWK AND LITTLE MORGAN REVOLVERS 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1072183,
+      "sha256": "7527e2e576849c80d2e18168e2ac178e55d75ce82f77f1a157e647de53ec9b3d",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_HAWK_AND_LITTLE_MORGAN_REVOLVERS_02.jpg",
+      "preview": "previews/7527e2e576849c80d2e1-480.webp",
+      "variants": {
+        "480": "previews/7527e2e576849c80d2e1-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_HAWK_AND_LITTLE_MORGAN_REVOLVERS_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_ONE_EYED_WILLIE_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "One Eyed Willie",
+      "title": "ULTIMATE EDITION ONE EYED WILLIE 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1950783,
+      "sha256": "2edd9131a9bd38f67db94c54a70be6c86899671f0edd6e30217ada53cf5363e6",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_ONE_EYED_WILLIE_01.jpg",
+      "preview": "previews/2edd9131a9bd38f67db9-480.webp",
+      "variants": {
+        "480": "previews/2edd9131a9bd38f67db9-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_ONE_EYED_WILLIE_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_ONE_EYED_WILLIE_02.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "One Eyed Willie",
+      "title": "ULTIMATE EDITION ONE EYED WILLIE 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1136547,
+      "sha256": "4843b6efc6eb4effa0663ec35d31929b4946fe3ae7c00d1aabdd9ca482a74e8c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_ONE_EYED_WILLIE_02.jpg",
+      "preview": "previews/4843b6efc6eb4effa066-480.webp",
+      "variants": {
+        "480": "previews/4843b6efc6eb4effa066-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_ONE_EYED_WILLIE_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_ONE_EYED_WILLIE_03.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "One Eyed Willie",
+      "title": "ULTIMATE EDITION ONE EYED WILLIE 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1502714,
+      "sha256": "3233cd8716e2df252e15cbc7e983973a3dfc7a930ef680991e4e7926e5b4c51b",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_ONE_EYED_WILLIE_03.jpg",
+      "preview": "previews/3233cd8716e2df252e15-480.webp",
+      "variants": {
+        "480": "previews/3233cd8716e2df252e15-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_ONE_EYED_WILLIE_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_PTT_STORE_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Ptt Store",
+      "title": "ULTIMATE EDITION PTT STORE 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1853857,
+      "sha256": "e050516a7d93fdf64bce623e5215c96e820204be717397fcc28c4893466e8e83",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_PTT_STORE_01.jpg",
+      "preview": "previews/e050516a7d93fdf64bce-480.webp",
+      "variants": {
+        "480": "previews/e050516a7d93fdf64bce-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_PTT_STORE_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_RIDEOUT_CUSTOMS_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Rideout Customs",
+      "title": "ULTIMATE EDITION RIDEOUT CUSTOMS 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1851292,
+      "sha256": "a599fb6a498fc15a4ac13926bbdefd19bb2d20bc45c442d623d3a130d176ca44",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_RIDEOUT_CUSTOMS_01.jpg",
+      "preview": "previews/a599fb6a498fc15a4ac1-480.webp",
+      "variants": {
+        "480": "previews/a599fb6a498fc15a4ac1-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_RIDEOUT_CUSTOMS_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_RIDEOUT_CUSTOMS_02.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Rideout Customs",
+      "title": "ULTIMATE EDITION RIDEOUT CUSTOMS 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1931947,
+      "sha256": "6f4ef2b56aa80864b3780a45e04f1c429dd61a5f8f705443c008555708d01adc",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_RIDEOUT_CUSTOMS_02.jpg",
+      "preview": "previews/6f4ef2b56aa80864b378-480.webp",
+      "variants": {
+        "480": "previews/6f4ef2b56aa80864b378-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_RIDEOUT_CUSTOMS_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_RIDEOUT_CUSTOMS_03.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Rideout Customs",
+      "title": "ULTIMATE EDITION RIDEOUT CUSTOMS 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1595390,
+      "sha256": "18200072e552b3544d82dbf12227670a6383d2971a451b6a744866388e35926b",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_RIDEOUT_CUSTOMS_03.jpg",
+      "preview": "previews/18200072e552b3544d82-480.webp",
+      "variants": {
+        "480": "previews/18200072e552b3544d82-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_RIDEOUT_CUSTOMS_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Safehouse Vehicles",
+      "title": "ULTIMATE EDITION SAFEHOUSE VEHICLES 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1924231,
+      "sha256": "4999851a6bbfebc0ace0281480c1f81ae600e2c17e5539de5f5f61043484b8d6",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_01.jpg",
+      "preview": "previews/4999851a6bbfebc0ace0-480.webp",
+      "variants": {
+        "480": "previews/4999851a6bbfebc0ace0-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_02.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Safehouse Vehicles",
+      "title": "ULTIMATE EDITION SAFEHOUSE VEHICLES 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1946683,
+      "sha256": "b51017c4fd8cb6045f91472aea10d73ae776dfcf3b0368db2369ea5b4fd16701",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_02.jpg",
+      "preview": "previews/b51017c4fd8cb6045f91-480.webp",
+      "variants": {
+        "480": "previews/b51017c4fd8cb6045f91-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_03.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Safehouse Vehicles",
+      "title": "ULTIMATE EDITION SAFEHOUSE VEHICLES 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1521899,
+      "sha256": "757f16540da983d22da4093b7a7207c8678a47a1e582a767fc5ab568be7471e5",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_03.jpg",
+      "preview": "previews/757f16540da983d22da4-480.webp",
+      "variants": {
+        "480": "previews/757f16540da983d22da4-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_SARAS_SALON_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Saras Salon",
+      "title": "ULTIMATE EDITION SARAS SALON 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1487309,
+      "sha256": "beecccd2ccdedc1f46029847e73a73084225c49f803446c1b680c986c330325b",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_SARAS_SALON_01.jpg",
+      "preview": "previews/beecccd2ccdedc1f4602-480.webp",
+      "variants": {
+        "480": "previews/beecccd2ccdedc1f4602-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_SARAS_SALON_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_SARAS_SALON_02.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Saras Salon",
+      "title": "ULTIMATE EDITION SARAS SALON 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1196629,
+      "sha256": "90760c8b65a84b4c6b7ac2bbbfaca159814407b81f44bd1fbcd12ae4c6ab4da3",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_SARAS_SALON_02.jpg",
+      "preview": "previews/90760c8b65a84b4c6b7a-480.webp",
+      "variants": {
+        "480": "previews/90760c8b65a84b4c6b7a-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_SARAS_SALON_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_SARAS_SALON_03.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Saras Salon",
+      "title": "ULTIMATE EDITION SARAS SALON 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1140444,
+      "sha256": "ec97360173aca9fdbcdc7d8c28a58014b4b0337c311189d4447366208a250e53",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_SARAS_SALON_03.jpg",
+      "preview": "previews/ec97360173aca9fdbcdc-480.webp",
+      "variants": {
+        "480": "previews/ec97360173aca9fdbcdc-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_SARAS_SALON_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_SQUALO_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Squalo",
+      "title": "ULTIMATE EDITION SQUALO 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1949273,
+      "sha256": "26eb04acf6d23a1f1067555ca350b4f3935095cca48e520feb8da19d609fe51e",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_SQUALO_01.jpg",
+      "preview": "previews/26eb04acf6d23a1f1067-480.webp",
+      "variants": {
+        "480": "previews/26eb04acf6d23a1f1067-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_SQUALO_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_SQUALO_02.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Squalo",
+      "title": "ULTIMATE EDITION SQUALO 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1271117,
+      "sha256": "4722ade301b012976fd028b8769a5387f9e453cf04196e51213eb95ee51f7337",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_SQUALO_02.jpg",
+      "preview": "previews/4722ade301b012976fd0-480.webp",
+      "variants": {
+        "480": "previews/4722ade301b012976fd0-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_SQUALO_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_SQUALO_03.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Squalo",
+      "title": "ULTIMATE EDITION SQUALO 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1503134,
+      "sha256": "c9c6bcefcb9be8966cc283047672ff3a3fcc82adf9a77c0aee99f2eae468fb64",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_SQUALO_03.jpg",
+      "preview": "previews/c9c6bcefcb9be8966cc2-480.webp",
+      "variants": {
+        "480": "previews/c9c6bcefcb9be8966cc2-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_SQUALO_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_SQUALO_04.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Squalo",
+      "title": "ULTIMATE EDITION SQUALO 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1905155,
+      "sha256": "73676401a975630a34c32536307e0f61e8ae77d6b716f0ab7e0005fb613f9619",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_SQUALO_04.jpg",
+      "preview": "previews/73676401a975630a34c3-480.webp",
+      "variants": {
+        "480": "previews/73676401a975630a34c3-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_SQUALO_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_STOCK_305_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Stock 305",
+      "title": "ULTIMATE EDITION STOCK 305 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1896409,
+      "sha256": "1bf310c07a74be74553040b3ce853dea56f89459ecd12159320416934794d84b",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_STOCK_305_01.jpg",
+      "preview": "previews/1bf310c07a74be745530-480.webp",
+      "variants": {
+        "480": "previews/1bf310c07a74be745530-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_STOCK_305_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_STOCK_305_02.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Stock 305",
+      "title": "ULTIMATE EDITION STOCK 305 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1769591,
+      "sha256": "6b034a143a5069ed2055b8435902f6e31975f569963e2f2f205d8fb7f9c109a5",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_STOCK_305_02.jpg",
+      "preview": "previews/6b034a143a5069ed2055-480.webp",
+      "variants": {
+        "480": "previews/6b034a143a5069ed2055-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_STOCK_305_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_STOCK_305_03.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Stock 305",
+      "title": "ULTIMATE EDITION STOCK 305 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1889830,
+      "sha256": "172c05a2429e444f5e54384fdf1bb22831f2d830dc358cc7f359dc6b54ac49e1",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_STOCK_305_03.jpg",
+      "preview": "previews/172c05a2429e444f5e54-480.webp",
+      "variants": {
+        "480": "previews/172c05a2429e444f5e54-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_STOCK_305_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_STOCK_305_04.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Stock 305",
+      "title": "ULTIMATE EDITION STOCK 305 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1869608,
+      "sha256": "104bfee4e606a2b42530e47d52b425a5ffb5d45b3a44e8a95f99905c21e03189",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_STOCK_305_04.jpg",
+      "preview": "previews/104bfee4e606a2b42530-480.webp",
+      "variants": {
+        "480": "previews/104bfee4e606a2b42530-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_STOCK_305_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_VAPID_BUGGY_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Vapid Buggy",
+      "title": "ULTIMATE EDITION VAPID BUGGY 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 2040495,
+      "sha256": "922b73fa87411ed0e0c4bafc8043c6edf2f9bbe3c32ccc4b1143462296373d32",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_VAPID_BUGGY_01.jpg",
+      "preview": "previews/922b73fa87411ed0e0c4-480.webp",
+      "variants": {
+        "480": "previews/922b73fa87411ed0e0c4-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_VAPID_BUGGY_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_VAPID_BUGGY_02.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Vapid Buggy",
+      "title": "ULTIMATE EDITION VAPID BUGGY 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1799910,
+      "sha256": "a48c13d7fd8a7968b8ca75388231dc75d275eb4f91665c562bf5833f26b49d99",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_VAPID_BUGGY_02.jpg",
+      "preview": "previews/a48c13d7fd8a7968b8ca-480.webp",
+      "variants": {
+        "480": "previews/a48c13d7fd8a7968b8ca-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_VAPID_BUGGY_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_VAPID_BUGGY_03.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Vapid Buggy",
+      "title": "ULTIMATE EDITION VAPID BUGGY 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1726647,
+      "sha256": "8f116529c2ca0d1176654e299cbb0321e01dff2f4c1f98ad734eed89305f5adb",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_VAPID_BUGGY_03.jpg",
+      "preview": "previews/8f116529c2ca0d117665-480.webp",
+      "variants": {
+        "480": "previews/8f116529c2ca0d117665-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_VAPID_BUGGY_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_VAPID_BUGGY_04.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Vapid Buggy",
+      "title": "ULTIMATE EDITION VAPID BUGGY 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1846162,
+      "sha256": "54fa563cb0c6d952b6eda0a317a6f690b653ec5836264c4420ade0a245bc4758",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_VAPID_BUGGY_04.jpg",
+      "preview": "previews/54fa563cb0c6d952b6ed-480.webp",
+      "variants": {
+        "480": "previews/54fa563cb0c6d952b6ed-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_VAPID_BUGGY_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_VAPID_GANADO_RETRO_BUILD_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Vapid Ganado Retro Build",
+      "title": "ULTIMATE EDITION VAPID GANADO RETRO BUILD 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1844104,
+      "sha256": "00af6e58787bb545029fa5c69c287e59a60e67789f26aaba68acb79ec837db78",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_VAPID_GANADO_RETRO_BUILD_01.jpg",
+      "preview": "previews/00af6e58787bb545029f-480.webp",
+      "variants": {
+        "480": "previews/00af6e58787bb545029f-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_VAPID_GANADO_RETRO_BUILD_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_VICE_CITY_STYLE_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Vice City Style",
+      "title": "ULTIMATE EDITION VICE CITY STYLE 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1892605,
+      "sha256": "c255874fee509eae0baa6f546861e483ec0b32efbfe8d013ec36888013d923c9",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_VICE_CITY_STYLE_01.jpg",
+      "preview": "previews/c255874fee509eae0baa-480.webp",
+      "variants": {
+        "480": "previews/c255874fee509eae0baa-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_VICE_CITY_STYLE_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_VICE_CITY_STYLE_02.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Vice City Style",
+      "title": "ULTIMATE EDITION VICE CITY STYLE 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1272439,
+      "sha256": "079fae77a5f2ad90a6a6756a7490b769aaab631bc384fb4c8dd6daed5b1c68d1",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_VICE_CITY_STYLE_02.jpg",
+      "preview": "previews/079fae77a5f2ad90a6a6-480.webp",
+      "variants": {
+        "480": "previews/079fae77a5f2ad90a6a6-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_VICE_CITY_STYLE_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_VICE_CITY_STYLE_03.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Vice City Style",
+      "title": "ULTIMATE EDITION VICE CITY STYLE 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1693074,
+      "sha256": "b6c5e09df38080d87c314f382c86799f0929d6ea61b026304ad631c5a3b62d04",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_VICE_CITY_STYLE_03.jpg",
+      "preview": "previews/b6c5e09df38080d87c31-480.webp",
+      "variants": {
+        "480": "previews/b6c5e09df38080d87c31-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_VICE_CITY_STYLE_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_VICE_CITY_STYLE_04.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Vice City Style",
+      "title": "ULTIMATE EDITION VICE CITY STYLE 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1719631,
+      "sha256": "5ac0352c439184b3da9338a0f8488f875abccd63dd696dacff4b3e80f94b3443",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_VICE_CITY_STYLE_04.jpg",
+      "preview": "previews/5ac0352c439184b3da93-480.webp",
+      "variants": {
+        "480": "previews/5ac0352c439184b3da93-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_VICE_CITY_STYLE_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_VICE_CITY_STYLE_05.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Vice City Style",
+      "title": "ULTIMATE EDITION VICE CITY STYLE 05",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1262915,
+      "sha256": "03d42f0b85cc37ce5da2936805f1882add36336f5a8a273fa69409886da509c8",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_VICE_CITY_STYLE_05.jpg",
+      "preview": "previews/03d42f0b85cc37ce5da2-480.webp",
+      "variants": {
+        "480": "previews/03d42f0b85cc37ce5da2-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_VICE_CITY_STYLE_05.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_WEAPON_VARIANTS_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Weapon Variants",
+      "title": "ULTIMATE EDITION WEAPON VARIANTS 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1601673,
+      "sha256": "e46d7ed748d2f445bf288b37ab44d7aed94bbc540abc50e9cb720db645f1cb8e",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_WEAPON_VARIANTS_01.jpg",
+      "preview": "previews/e46d7ed748d2f445bf28-480.webp",
+      "variants": {
+        "480": "previews/e46d7ed748d2f445bf28-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_WEAPON_VARIANTS_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_01.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Wyman Car Collection",
+      "title": "ULTIMATE EDITION WYMAN CAR COLLECTION 01",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1972072,
+      "sha256": "ddf2d341d489c7bedbe780333e25518f72411ea0b46b59a62a0ac37ecd3f1d8e",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_01.jpg",
+      "preview": "previews/ddf2d341d489c7bedbe7-480.webp",
+      "variants": {
+        "480": "previews/ddf2d341d489c7bedbe7-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_01.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_02.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Wyman Car Collection",
+      "title": "ULTIMATE EDITION WYMAN CAR COLLECTION 02",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1824996,
+      "sha256": "a4d092758e2da4e95ef9508d904257c648d20f49b3ad9c088414d7375395789c",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_02.jpg",
+      "preview": "previews/a4d092758e2da4e95ef9-480.webp",
+      "variants": {
+        "480": "previews/a4d092758e2da4e95ef9-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_02.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_03.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Wyman Car Collection",
+      "title": "ULTIMATE EDITION WYMAN CAR COLLECTION 03",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1651511,
+      "sha256": "dc4fc4dd9d041d8ce426f918afe871144fab464f65167f50be04ba855b75ecd8",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_03.jpg",
+      "preview": "previews/dc4fc4dd9d041d8ce426-480.webp",
+      "variants": {
+        "480": "previews/dc4fc4dd9d041d8ce426-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_03.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_04.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Wyman Car Collection",
+      "title": "ULTIMATE EDITION WYMAN CAR COLLECTION 04",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1862468,
+      "sha256": "e25367246ca5d2957173e209543e5de51f8283cbdbf20c014af0631e50731f8a",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_04.jpg",
+      "preview": "previews/e25367246ca5d2957173-480.webp",
+      "variants": {
+        "480": "previews/e25367246ca5d2957173-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_04.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_05.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Wyman Car Collection",
+      "title": "ULTIMATE EDITION WYMAN CAR COLLECTION 05",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1105608,
+      "sha256": "26c92c849d6a4d2090d9b9d4b466e627552202ef5c8e2a632572e4fa2fae38d5",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_05.jpg",
+      "preview": "previews/26c92c849d6a4d2090d9-480.webp",
+      "variants": {
+        "480": "previews/26c92c849d6a4d2090d9-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_05.jpg"
+    },
+    {
+      "original_archive": "GTAVI_Ultimate_Edition_Benefits.zip",
+      "original_entry": "ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_06.jpg",
+      "collection": "Ultimate Edition",
+      "category": "Ultimate Edition",
+      "subject": "Wyman Car Collection",
+      "title": "ULTIMATE EDITION WYMAN CAR COLLECTION 06",
+      "width": 3840,
+      "height": 2160,
+      "orientation": "orizzontale",
+      "bytes": 1623497,
+      "sha256": "ed2935572d9f00711e82799a61a071bb3e4e5c05014068dc0640972f53bb4560",
+      "credit": "Rockstar Games",
+      "intended_uses": [
+        "articoli",
+        "X"
+      ],
+      "file": "originals/ultimate-edition/ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_06.jpg",
+      "preview": "previews/ed2935572d9f00711e82-480.webp",
+      "variants": {
+        "480": "previews/ed2935572d9f00711e82-480.webp"
+      },
+      "reference_url": "https://www.rockstargames.com/VI/media",
+      "public_url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/ultimate-edition/ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_06.jpg"
+    }
+  ]
+}

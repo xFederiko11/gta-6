@@ -1,0 +1,35 @@
+name: Import owner-supplied Rockstar library once
+on:
+  push:
+    branches: [codex/import-rockstar-library-20261124]
+    paths: [imports/rockstar-trigger.json]
+permissions:
+  contents: write
+concurrency:
+  group: rockstar-library-import-20261124
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: main
+          path: portal
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow==11.3.0
+      - run: python imports/import_rockstar_library.py
+      - name: Commit verified images only
+        run: |
+          git -C portal config user.name "github-actions[bot]"
+          git -C portal config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C portal add site/assets/rockstar/gta-vi
+          if git -C portal diff --cached --quiet; then exit 0; fi
+          git -C portal commit -m "media: add all 189 verified Rockstar GTA VI originals and lightweight previews"
+          git -C portal push origin HEAD:main
