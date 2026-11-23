@@ -44,8 +44,8 @@
     },
     "registrare-auto-personale": {
       "when": "Capitolo 2, dopo Girl’s Trip",
-      "where": "Watkins Auto Parts, Port Gellhorn",
-      "goal": "Registra gratuitamente la prima auto senza tracker."
+      "where": "Watkins Auto Parts · Port Gellhorn",
+      "goal": "Registra gratis la prima auto da Moses, poi richiamala tramite Scooter Bros. I garage arrivano dopo Daily Driver."
     },
     "sportive-randy-posizioni": {
       "when": "Capitolo 3, lista di Randy sbloccata",
