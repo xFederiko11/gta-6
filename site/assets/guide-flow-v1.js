@@ -49,6 +49,7 @@
   const back = controls.querySelector('[data-gf-back]');
   const next = controls.querySelector('[data-gf-next]');
   const showAll = controls.querySelector('[data-gf-all]');
+  const mosesShowAll = tutorial.querySelector('[data-mo-show-all]');
   const restart = done.querySelector('[data-gf-restart]');
   const statusText = status.querySelector('[data-gf-status]');
   const instructions = status.querySelector('[data-gf-instruction]');
@@ -59,8 +60,11 @@
   const alreadyComplete = hash === '#tutorial-completato';
   let current = alreadyComplete ? total - 1
     : (requested && Number(requested[1]) <= total ? Number(requested[1]) - 1 : 0);
-  let all = !!hash && hash !== '#procedura' && hash !== '#inizio'
-    && !requested && !alreadyComplete;
+  // Moses is an illustrated article by default, with one-step mode optional.
+  // Deep links into a specific vehicle still focus on that vehicle.
+  let all = (!hash && tutorial.hasAttribute('data-mo-default-all'))
+    || (!!hash && hash !== '#procedura' && hash !== '#inizio'
+        && !requested && !alreadyComplete);
   let complete = alreadyComplete;
 
   function moveViewport(step, focus) {
@@ -94,6 +98,12 @@
     next.hidden = all || complete;
     next.textContent = current === total - 1 ? '✓ HO FINITO IL TUTORIAL' : 'FATTO → PASSO ' + (current + 2);
     showAll.textContent = all ? '← Torna a un passo alla volta' : 'Preferisci leggere tutto? Mostra tutti i passi';
+    if (mosesShowAll) {
+      mosesShowAll.textContent = all
+        ? '← Torna a un passaggio alla volta'
+        : '📖 Mostra l’articolo completo (' + total + ' passaggi)';
+      mosesShowAll.setAttribute('aria-pressed', String(all));
+    }
     done.hidden = !complete || all;
     if (shouldScroll) {
       if (complete && !all) {
@@ -124,10 +134,24 @@
       render(true, false);
     }
   });
+  if (mosesShowAll) mosesShowAll.addEventListener('click', () => {
+    all = !all;
+    complete = false;
+    if (!all) {
+      history.replaceState(null, '', '#passaggio-' + (current + 1));
+    } else if (tutorial.hasAttribute('data-mo-default-all')) {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+    render(true, false);
+  });
   showAll.addEventListener('click', () => {
     all = !all;
     complete = false;
-    if (!all) history.replaceState(null, '', '#passaggio-' + (current + 1));
+    if (!all) {
+      history.replaceState(null, '', '#passaggio-' + (current + 1));
+    } else if (tutorial.hasAttribute('data-mo-default-all')) {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
     render(true, false);
   });
   restart.addEventListener('click', () => {
