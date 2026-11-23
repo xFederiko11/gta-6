@@ -396,3 +396,23 @@ body:has(.v-guide-intro) .v-spoiler-inner{padding-block:5px}
  .car-microsteps{margin:0 9px 9px;padding:10px 10px 6px}
  .car-microstep{font-size:.86rem!important;line-height:1.46!important;gap:8px}
 }
+
+
+/* Chapter 1 money guide: action-first, with the risk visible before spoilers. */
+.cash-critical-warning{max-width:780px;margin:9px auto 13px}
+.cash-critical-warning a{color:var(--r-cyan);text-underline-offset:3px}
+.cash-microsteps{margin:0 14px 10px;padding:10px 12px 7px;border:1px solid var(--r-line);
+  background:var(--r-soft);color:var(--r-text);border-radius:9px}
+.cash-actions-caption{display:block;margin:0 0 8px;font-size:.7rem;font-weight:850;
+  letter-spacing:.045em;color:var(--r-cyan)}
+.cash-microstep{display:grid;grid-template-columns:26px minmax(0,1fr);gap:9px;align-items:start;
+  margin:0 0 9px!important;padding:0 0 8px;border-bottom:1px solid var(--r-line);
+  color:var(--r-text)!important;font-size:.89rem!important;line-height:1.5!important}
+.cash-microstep:last-child{border-bottom:0;margin-bottom:0!important}
+.cash-microstep span{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;
+  border:1px solid var(--r-line);font-size:.75rem;font-weight:900;color:var(--r-cyan)}
+@media(max-width:760px){
+  .cash-critical-warning{margin:8px 0 11px}
+  .cash-microsteps{margin:0 9px 9px;padding:9px 10px 6px}
+  .cash-microstep{font-size:.86rem!important;line-height:1.48!important;gap:8px}
+}
