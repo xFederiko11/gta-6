@@ -162,6 +162,17 @@ def render(base):
       '<p class="v-guide-urgent mo-trophy-note" role="note"><strong>🏆 Platino e 100%:</strong> ciascuna consegna conta come una delle 100 attività facoltative del completamento. Non occorre svolgere proprio questa serie perché le attività valide sono più di 100. ',
       '<a href="'+e(COMPLETION)+'" target="_blank" rel="noopener noreferrer">Checklist PowerPyx ↗</a>. ',
       'Evita danni ai veicoli: il bonus dipende dalle condizioni di consegna.</p>',
+      '<nav class="mo-jump" aria-label="Scegli il veicolo richiesto">',
+      '<h2>Quale veicolo cerchi?</h2>',
+      '<p>Seleziona il modello per trovare immediatamente posizione, azioni e video corrispondente.</p>',
+      '<div class="mo-jump-grid">',
+      *(
+        '<a class="mo-jump-link" href="#passaggio-'+str(i)+'">'
+        '<span>'+str(i).zfill(2)+'</span><strong>'+e(name)+'</strong>'
+        '<small>'+e(reward)+'</small></a>'
+        for i,(name,reward,where,action,check) in enumerate(TASKS[:6],1)
+      ),
+      '</div></nav>',
       '<section id="procedura" class="v-tutorial" data-mo-default-all aria-labelledby="titolo-procedura">',
       '<header class="v-tutorial-head"><span class="v-tutorial-start-here">▶ INIZIA QUI</span>',
       '<h2 id="titolo-procedura">LE 6 AUTO · GUIDA COMPLETA CON GAMEPLAY</h2>',
