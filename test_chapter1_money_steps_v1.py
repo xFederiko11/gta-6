@@ -61,6 +61,9 @@ class ChapterOneMoneyStepsTests(unittest.TestCase):
         self.assertEqual(page.count('class="cash-microstep"'),12)
         self.assertEqual(page.count('data-photo-source-guide="'+GUIDE_ID+'"'),4)
         self.assertIn('class="v-guide-urgent cash-critical-warning"',page)
+        warning=page.split('class="v-guide-urgent cash-critical-warning"',1)[1].split('</p>',1)[0]
+        self.assertIn('powerpyx.com/gta-6-tourist-trap-take-up-mattias-offer-walkthrough/',warning)
+        self.assertNotIn('href="#avviso-capitolo-1"',warning)
         self.assertIn("Family Savings",page)
         self.assertIn("Tourist Trap",page)
         self.assertIn('data-step-external-evidence="map"',page)
