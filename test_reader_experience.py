@@ -268,16 +268,32 @@ def browser_qa():
                         assert page.locator('.v-step:visible').count()==7,'Entire visual article must be shown'
                         assert page.locator('.mo-video-screen:visible').count()==6
                         assert page.locator('html').evaluate('(el)=>el.classList.contains("guide-flow-all")')
+                        assert not page.locator('.gf-progress-track').is_visible(), 'Full article is not 100% complete'
+                        assert page.locator('.gf-progress-track').get_attribute('aria-valuenow') is None
                         assert page.locator('[data-mo-show-all]').is_visible()
                         assert page.locator('[data-mo-show-all]').get_attribute('aria-pressed')=='true'
-                        if width==390:
-                            page.screenshot(path=str(out/'moses-full-article-390.png'))
+                        if width in (390,1440):
+                            # Full-page proof, not a misleading 900px viewport crop.
+                            png=page.screenshot(path=str(out/f'moses-full-article-{width}.png'),
+                                                full_page=True, animations='disabled')
+                            real_width=int.from_bytes(png[16:20],'big')
+                            real_height=int.from_bytes(png[20:24],'big')
+                            assert real_width==width and real_height>1500, (width,real_width,real_height)
+                            print('MOSES_FULL_PAGE_QA',width,'height',real_height,flush=True)
+                            if width==390:
+                                page.locator('#passaggio-1').screenshot(
+                                    path=str(out/'moses-step1-with-video-390.png'))
+                                page.locator('#passaggio-7').screenshot(
+                                    path=str(out/'moses-gift-closed-390.png'))
                         page.locator('[data-mo-show-all]').click()
                         assert page.locator('.v-step:visible').count()==1
+                        assert page.locator('.gf-progress-track').is_visible()
+                        assert page.locator('.gf-progress-track').get_attribute('aria-valuenow')=='1'
                         assert page.locator('[data-mo-show-all]').get_attribute('aria-pressed')=='false'
                         assert not page.locator('.v-guide-more').is_visible()
                         page.locator('[data-mo-show-all]').click()
                         assert page.locator('.v-step:visible').count()==7
+                        assert not page.locator('.gf-progress-track').is_visible()
                         assert page.locator('.v-guide-more').is_visible()
                         assert page.locator('[data-mo-show-all]').get_attribute('aria-pressed')=='true'
                         assert page.evaluate('location.hash===""')
@@ -285,6 +301,15 @@ def browser_qa():
                         assert page.locator('.v-step:visible').count()==7
                         assert page.locator('.mo-video-screen iframe').count()==6
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                    if path=='salvare-auto/':
+                        refs=page.locator('.v-external-step-photo')
+                        assert refs.count()>=1
+                        for i in range(refs.count()):
+                            ref=refs.nth(i)
+                            assert 'LINK ESTERNO' in ref.inner_text()
+                            assert 'permesso di riutilizzo non è documentato' in ref.inner_text()
+                            assert ref.locator('img').count()==0
+                            assert ref.locator('a').get_attribute('target')=='_blank'
                     if page.locator('details.v-guide-more').count() and path!='guide-e-tutorial/veicoli-per-moses/':
                         # The beginner experience is a WIZARD, not an article full
                         # of unrelated boxes. Only one numbered step visible.

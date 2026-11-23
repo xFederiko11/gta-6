@@ -31,7 +31,10 @@ class StepPhotoSourceTests(unittest.TestCase):
                 expected=data['guides'].get(g['id'],{}).get(str(index))
                 self.assertEqual(bool(fragment),bool(expected),(g['id'],index))
                 if expected:
-                    self.assertIn('FOTO DEL PASSAGGIO · SITO ORIGINALE',fragment)
+                    self.assertIn('IMMAGINE SULLA FONTE · LINK ESTERNO',fragment)
+                    self.assertIn('Guarda la schermata sul sito originale',fragment)
+                    self.assertIn('il permesso di riutilizzo non è documentato',fragment)
+                    self.assertNotIn('FOTO DEL PASSAGGIO · SITO ORIGINALE',fragment)
                     self.assertIn('target="_blank" rel="noopener noreferrer"',fragment)
                     self.assertIn(expected['source'],fragment)
                     self.assertNotIn('<img',fragment)
