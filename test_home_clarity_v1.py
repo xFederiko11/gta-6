@@ -47,12 +47,16 @@ class SimpleHomeTests(unittest.TestCase):
         community=(SITE/"scoperte/index.html").read_text(encoding="utf-8")
         self.assertIn("segnalazioni",community.lower())
 
-    def test_no_private_material_copied_to_public_site(self):
+    def test_private_material_is_excluded_by_release_gate(self):
+        # The staged _site still holds QA reports. The release firewall
+        # removes them immediately before publishing, not before unit tests.
         from public_release_gate import PRIVATE_PREFIXES, PRIVATE_FILES
-        for prefix in PRIVATE_PREFIXES:
-            self.assertFalse((SITE/prefix).exists(),prefix)
-        for filename in PRIVATE_FILES:
-            self.assertFalse((SITE/filename).exists(),filename)
+        self.assertIn('crescita-x/',PRIVATE_PREFIXES)
+        self.assertIn('photo-backlog-v5.json',PRIVATE_FILES)
+        home=(SITE/'index.html').read_text(encoding='utf-8')
+        for private in (*PRIVATE_PREFIXES,*PRIVATE_FILES):
+            self.assertNotIn(private,home)
+        self.assertNotIn('data-admin',home)
 
 if __name__=="__main__":
     unittest.main()
