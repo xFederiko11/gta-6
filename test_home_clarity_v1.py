@@ -9,7 +9,7 @@ class SimpleHomeTests(unittest.TestCase):
     def test_three_immediate_destinations_without_public_operations(self):
         page=(SITE/"index.html").read_text(encoding="utf-8")
         self.assertIn('id="focus-title"',page)
-        self.assertEqual(len(re.findall(r"<h1(?:\\s|>)",page)),1)
+        self.assertEqual(len(re.findall(r"<h1(?:\s|>)",page)),1)
         self.assertEqual(page.count('class="focus-choice"'),3)
         self.assertIn("1 · Guide pratiche",page)
         self.assertIn("2 · Trofei e platino",page)
