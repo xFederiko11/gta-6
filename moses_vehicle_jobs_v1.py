@@ -100,6 +100,8 @@ def validate():
             raise ValueError("Incomplete practical objective")
     if "2727" not in TASKS[4][3] or "Daily Driver" in TASKS[0][3]:
         raise ValueError("Unverified guide summary")
+    if len(MICROSTEPS)!=len(TASKS) or any(not 2<=len(actions)<=5 or any(len(action)<22 for action in actions) for actions in MICROSTEPS):
+        raise ValueError('Missing clear single-action instructions')
     if len(IGN_TIMELINE)!=6 or len(VISUAL_CUES)!=6 or any(
        IGN_TIMELINE[k][0]>=IGN_TIMELINE[k+1][0] for k in range(5)):
         raise ValueError("Missing verified video chapters")
