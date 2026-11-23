@@ -34,19 +34,19 @@ class VisualSiteTests(unittest.TestCase):
 
     def test_home_is_real_new_layout(self):
         text,tags=parse(ROOT/'index.html')
-        self.assertIn('v-hero',text)
-        self.assertIn('giri a vuoto',text)
+        self.assertIn('class="focus-hero"',text)
+        self.assertIn('Cosa vuoi fare in GTA VI?',text)
         self.assertNotIn('Tutto GTA 6.<br>',text)
         self.assertNotIn('128.941',text)
         self.assertNotIn('50 guide',text)
-        self.assertIn('/soldi-facili/',text)
-        self.assertIn('/auto-speciali/',text)
-        self.assertIn('/salvare-auto/',text)
-        # Promotional art may be used once for site identity, never as card evidence.
-        self.assertGreaterEqual(sum(t=='img' and 'data-visual-image' in a for t,a in tags.tags),0)
-        for part in text.split('class="v-guide-card v-guide-card-plain"')[1:]:
-            self.assertNotIn('data-visual-image=',part.split('</article>',1)[0])
-        self.assertIn('v-promo-no-media',text)
+        self.assertIn('/guide-e-tutorial/',text)
+        self.assertIn('/trofei/',text)
+        self.assertIn('/scoperte/',text)
+        # Home is intentionally an editorial directory, not a wall of images
+        # or fake screenshot evidence.
+        self.assertFalse(any(t=='img' and 'data-visual-image' in a for t,a in tags.tags))
+        self.assertEqual(text.count('class="focus-choice"'),3)
+        self.assertNotIn('v-promo-no-media',text)
 
     def test_sitemap_pages_exist_keep_canonicals_and_one_h1(self):
         root=ET.parse(ROOT/'sitemap.xml').getroot()
@@ -126,9 +126,10 @@ class VisualSiteTests(unittest.TestCase):
             for path in ('soldi-facili/','auto-speciali/','salvare-auto/'):
                 self.assertIn(BASE+path,text)
         html=(ROOT/'index.html').read_text()
-        self.assertLess(html.index('class="v-categories"'),html.index('class="v-hero"'))
-        self.assertIn('class="v-follow-home"',html)
-        self.assertIn('Segui @xFederiko11',html)
+        self.assertLess(html.index('class="focus-choice-grid"'),html.index('class="focus-content"'))
+        self.assertIn('class="focus-x"',html)
+        self.assertNotIn('class="v-follow-home"',html)
+        self.assertIn('@xFederiko11',html)
         self.assertNotIn('followers: 0',html)
 
     def test_discovery_page_has_no_filters_and_contains_social_sources(self):
@@ -145,9 +146,11 @@ class VisualSiteTests(unittest.TestCase):
 
     def test_home_and_articles_have_social_discussion_and_x_content(self):
         home=(ROOT/'index.html').read_text(encoding='utf-8')
-        self.assertIn('data-x-timeline-load',home)
-        self.assertIn('Post recenti e conversazioni GTA VI',home)
-        self.assertIn('Mostra i post X',home)
+        # No Twitter feed, load buttons or unverifiable social stats above the fold.
+        self.assertNotIn('data-x-timeline-load',home)
+        self.assertNotIn('Post recenti e conversazioni GTA VI',home)
+        self.assertIn('https://x.com/xFederiko11',home)
+        self.assertIn('class="focus-x"',home)
         for pagepath in ('salvare-auto/','soldi-facili/','guide-e-tutorial/soldi-facili-capitolo-1/'):
             text=(ROOT/pagepath/'index.html').read_text(encoding='utf-8')
             self.assertIn('x.com/intent/tweet?',text)
