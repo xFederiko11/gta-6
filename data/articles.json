@@ -1,0 +1,89 @@
+{
+  "articles": [
+    {
+      "id": "gta-vi-leonida-sei-luoghi",
+      "path": "articoli/gta-vi-leonida-sei-luoghi/",
+      "title": "GTA VI oltre Vice City: Leonida in sei immagini ufficiali",
+      "description": "Da Vice City alle Leonida Keys, fino a Grassrivers e Mount Kalaga: un viaggio fotografico in GTA VI con sei screenshot ufficiali Rockstar.",
+      "published": "2026-11-24",
+      "hero": "Vice_City_03.jpg",
+      "intro": [
+        "Un campo da basket tra i palazzi, una strada che attraversa il mare, un airboat nascosto nella vegetazione. Basta mettere vicini questi tre scatti per capire quanto cambino i paesaggi di GTA VI. Vice City è il punto di partenza del nostro viaggio fotografico, che prosegue attraverso altri cinque luoghi della raccolta ufficiale Rockstar.",
+        "Abbiamo scelto sei immagini, una per ogni destinazione, per osservare ambienti e dettagli senza anticipare gli sviluppi della storia. I nomi seguono le raccolte del sito ufficiale; le osservazioni riguardano ciò che è visibile negli scatti."
+      ],
+      "sections": [
+        {
+          "id": "vice-city",
+          "title": "Vice City: la città tra i palazzi",
+          "image": "Vice_City_03.jpg",
+          "alt": "Veduta di Vice City con campi da basket, palme, edifici residenziali e grattacieli sullo sfondo, screenshot ufficiale Rockstar Games.",
+          "caption": "Vice City 03: campi sportivi e palazzi nella stessa veduta urbana. © Rockstar Games.",
+          "paragraphs": [
+            "La prima immagine lascia spazio alla vita di quartiere. In basso si distinguono i campi da basket; più avanti, palme e strade separano edifici di altezze diverse. I grattacieli rimangono sullo sfondo. È una composizione interessante perché offre più punti da osservare, dal singolo isolato al profilo della città.",
+            "Per questo abbiamo scelto lo scatto come apertura: racconta Vice City attraverso gli spazi che stanno fra i suoi edifici, oltre alla sagoma dei palazzi."
+          ]
+        },
+        {
+          "id": "leonida-keys",
+          "title": "Leonida Keys: una strada sopra il mare",
+          "image": "Leonida_Keys_01.jpg",
+          "alt": "Veduta aerea delle Leonida Keys con isole, un lungo ponte, imbarcazioni e un idrovolante in primo piano, screenshot Rockstar Games.",
+          "caption": "Leonida Keys 01: il ponte collega le isole mentre un idrovolante attraversa l'inquadratura. © Rockstar Games.",
+          "paragraphs": [
+            "Qui lo sguardo segue il ponte, che attraversa l'acqua e collega le isole fino all'orizzonte. L'idrovolante occupa il primo piano, mentre piccole imbarcazioni lasciano scie sul mare. Il blu domina quasi tutta l'immagine, interrotto dalla vegetazione e dal nastro della strada.",
+            "Accanto alla veduta di Vice City, questa fotografia cambia subito il ritmo della galleria: gli edifici si allontanano e il paesaggio si apre."
+          ]
+        },
+        {
+          "id": "grassrivers",
+          "title": "Grassrivers: dentro la vegetazione",
+          "image": "Grassrivers_03.jpg",
+          "alt": "Airboat visto dall'alto in un canale scuro circondato dalla vegetazione di Grassrivers, screenshot ufficiale Rockstar Games.",
+          "caption": "Grassrivers 03: un airboat tra l'acqua scura e la vegetazione. © Rockstar Games.",
+          "paragraphs": [
+            "La vista dall'alto stringe l'attenzione su un airboat e sulla superficie scura che lo circonda. Le chiome degli alberi occupano i bordi della scena; la grande ventola rende riconoscibile il mezzo anche a questa distanza.",
+            "È lo scatto più raccolto della selezione. Dopo l'orizzonte aperto delle Keys, i contorni del paesaggio tornano vicini e la vegetazione nasconde buona parte di ciò che c'è intorno."
+          ]
+        },
+        {
+          "id": "port-gellhorn",
+          "title": "Port Gellhorn: il richiamo dello Starlet Motel",
+          "image": "Port_Gellhorn_01.jpg",
+          "alt": "Starlet Motel a Port Gellhorn al crepuscolo, con insegna illuminata, palme e parcheggio, screenshot ufficiale Rockstar Games.",
+          "caption": "Port Gellhorn 01: l'insegna dello Starlet Motel emerge nella luce della sera. © Rockstar Games.",
+          "paragraphs": [
+            "L'insegna dello Starlet Motel è il riferimento più immediato. Intorno si vedono palme, un parcheggio e costruzioni basse, sotto un cielo che sta perdendo luce. Il giallo delle scritte e le luci vicino alle camere guidano lo sguardo attraverso la scena.",
+            "Abbiamo scelto questa immagine per la sua atmosfera serale: un cambio di luce netto rispetto alle tappe precedenti, con un luogo preciso da riconoscere già dalla didascalia."
+          ]
+        },
+        {
+          "id": "ambrosia",
+          "title": "Ambrosia: la strada occupa la scena",
+          "image": "Ambrosia_01.jpg",
+          "alt": "Un gruppo di motociclisti percorre una strada di Ambrosia fra insegne e attività commerciali nella luce bassa, screenshot Rockstar Games.",
+          "caption": "Ambrosia 01: motociclisti e insegne lungo una strada illuminata dal sole basso. © Rockstar Games.",
+          "paragraphs": [
+            "Le motociclette sono disposte lungo la strada, fra insegne commerciali, cavi e facciate basse. La luce arriva di lato e rende evidente la profondità della carreggiata. La città qui si osserva quasi all'altezza di chi la attraversa.",
+            "Nel percorso fotografico, Ambrosia riporta persone e mezzi in primo piano. Gli elementi sul bordo della strada contribuiscono all'identità dello scatto quanto i motociclisti al centro."
+          ]
+        },
+        {
+          "id": "mount-kalaga",
+          "title": "Mount Kalaga: l'ultima tappa fra gli alberi",
+          "image": "Mount_Kalaga_National_Park_03.jpg",
+          "alt": "Due persone tra gli alberi e l'erba alta del Mount Kalaga National Park, screenshot ufficiale Rockstar Games.",
+          "caption": "Mount Kalaga National Park 03: alberi ed erba alta chiudono il viaggio fotografico. © Rockstar Games.",
+          "paragraphs": [
+            "L'ultima immagine è attraversata dai tronchi degli alberi. Due figure si distinguono fra l'erba alta, mentre la luce filtra nella vegetazione. Dopo ponti, palazzi e insegne, il verde prende quasi tutto lo spazio.",
+            "Chiudiamo qui la selezione proprio per questa differenza visiva. Guardate in sequenza, le sei fotografie passano dalla densità urbana agli spazi aperti e tornano a un ambiente raccolto, dando a ogni tappa un carattere riconoscibile."
+          ]
+        }
+      ],
+      "closing": "Quale di questi luoghi ti ha colpito di più? Le sei immagini si possono aprire anche nel formato originale 4K. Per continuare a esplorare, trovi sul sito le mappe delle guide e i percorsi dei collezionabili.",
+      "sources": [
+        {"title": "Rockstar Games — GTA VI, screenshot ufficiali", "url": "https://www.rockstargames.com/VI/media/screenshots"},
+        {"title": "Rockstar Games — Media e raccolte scaricabili", "url": "https://www.rockstargames.com/VI/media"}
+      ]
+    }
+  ]
+}

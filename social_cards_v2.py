@@ -284,12 +284,19 @@ def publish():
     path=ROOT/"assets/social-cards"
     path.mkdir(parents=True,exist_ok=True)
     entries=[];digest=set()
+    from editorial_articles import load as load_editorial, LIBRARY
+    _,editorial,editorial_images=load_editorial()
+    selected={item['path']:editorial_images[item['hero']] for item in editorial}
     for page in sorted(ROOT.rglob("index.html")):
         parsed=_parse_page(page)
         if parsed is None:continue
         html,relative,title=parsed
         key=cover_key(relative)
         art=artwork_for_page(relative,artworks)
+        if relative in selected:
+            row=selected[relative]
+            with Image.open(LIBRARY/row['file']) as original:
+                art={'name':row['title'],'image':original.convert('RGB')}
         photo=render_card(title,relative,art["image"] if art else None)
         dest=path/(key+".jpg")
         photo.save(dest,"JPEG",quality=83,optimize=True,progressive=True,subsampling=0)
@@ -301,7 +308,7 @@ def publish():
             raise ValueError("Two canonical pages rendered same social image")
         digest.add(binary_hash)
         link=BASE+"assets/social-cards/"+key+".jpg"
-        attr=escape("Artwork promozionale Rockstar Games; copertina editoriale GTA VI Italia, non screenshot di gameplay." if art else
+        attr=escape("Immagine promozionale ufficiale Rockstar Games; copertina editoriale GTA VI Italia." if art else
                     "Copertina grafica originale GTA VI Italia; non screenshot di gameplay.",quote=True)
         # Always replace generic previews AND source-image previews so X link
         # shares have one dedicated, reliably sized card for each URL.

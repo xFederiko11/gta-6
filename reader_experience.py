@@ -238,6 +238,8 @@ def main():
     guide_info=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
     visual_info=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
     discussable={'scoperte/','soldi-facili/','auto-speciali/','salvare-auto/','trofei/','hdr-oled/','trucchi/'}
+    from editorial_articles import load as load_editorial
+    discussable.update(article['path'] for article in load_editorial()[1])
     for guide in guide_info+visual_info:
         path=guide.get('canonical_path') or 'guide-e-tutorial/'+guide['id']+'/'
         if not re.fullmatch(r'(?:[a-z0-9-]+/)+',path):

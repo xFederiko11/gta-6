@@ -12,6 +12,7 @@ import xml.etree.ElementTree as ET
 
 import build_site as legacy
 import site_info
+import editorial_articles
 from visual_guide_content import enrich
 from operational_brief_v1 import validate as validate_operational_briefs, render as render_operational_brief
 from moses_vehicle_jobs_v1 import render as render_moses_jobs, validate as validate_moses_jobs, PATH as MOSES_JOBS_PATH
@@ -85,7 +86,7 @@ def header(path):
     primary=[('Home',''),('Guide','guide-e-tutorial/'),('Trofei','trofei/'),('Scoperte','scoperte/')]
     secondary=[('Soldi facili','soldi-facili/'),('Veicoli','auto-speciali/'),
                ('Salvare auto','salvare-auto/'),('Collezionabili','collezionabili/percorsi/'),
-               ('Mappe','mappe-guide/'),('HDR OLED','hdr-oled/'),('Fonti e metodo','fonti/')]
+               ('Mappe','mappe-guide/'),('HDR OLED','hdr-oled/'),('Articoli','articoli/'),('Fonti e metodo','fonti/')]
     def link(label,target):
         current=' aria-current="page"' if path==target else ''
         return f'<a href="{url(target)}"{current}>{e(label)}</a>'
@@ -129,6 +130,10 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
     page=page.replace('<body>',f'<body data-design-version="{DESIGN_VERSION}">',1)
     page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/visual-v2.css")}?v={ASSET_VERSION}"><meta name="color-scheme" content="light"></head>',1)
     page=page.replace('</body>',f'<script src="{url("assets/visual-v2.js")}?v={ASSET_VERSION}" defer></script></body>',1)
+    if path == '' or path.startswith(('articoli/','media/rockstar/')):
+        css='editorial-articles.css'
+        version=hashlib.sha256(Path('site/assets',css).read_bytes()).hexdigest()[:12]
+        page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
     if path == '':
         css='site-focus-v1.css'
         version=hashlib.sha256(Path('site/assets',css).read_bytes()).hexdigest()[:12]
@@ -451,7 +456,7 @@ def home(guides):
       '<a href="https://x.com/xFederiko11" target="_blank" rel="noopener noreferrer">𝕏 @xFederiko11 ↗</a>. '
       'Nessun link a servizi interni o pannelli amministrativi.</p>'
     )
-    return body
+    return body+editorial_articles.home_feature(url)
 
 
 def directory(guides,kind='all'):
@@ -951,6 +956,9 @@ def main():
         'rights_gate':'explicit consent + human review + local WebP + SHA-256'
     },ensure_ascii=False,indent=2)+'\n')
     ET.register_namespace('','http://www.sitemaps.org/schemas/sitemap/0.9')
+    editorial_paths=editorial_articles.build(legacy.write,layout,url,legacy.crumbs)
+    # The media library is browsable but intentionally excluded from the index.
+    new_paths.extend(p for p in editorial_paths if p != editorial_articles.GALLERY_PATH)
     tree=ET.parse(OUT/'sitemap.xml'); root=tree.getroot(); ns='{http://www.sitemaps.org/schemas/sitemap/0.9}'
     existing={loc.text for loc in root.iter(ns+'loc')}
     for path in new_paths:

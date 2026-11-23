@@ -1,0 +1,34 @@
+{
+  "status": "draft",
+  "prepared_on": "2026-11-24",
+  "channel": "https://x.com/xFederiko11",
+  "text": "🌴 GTA VI oltre Vice City.\n\nDalle Leonida Keys a Grassrivers: sei luoghi raccontati con gli screenshot ufficiali Rockstar.\n\nQuale ti ha colpito di più?\nhttps://xfederiko11.github.io/gta-6/articoli/gta-vi-leonida-sei-luoghi/\n\n📷 Rockstar Games\n#GTAVI #GTA6",
+  "article_url": "https://xfederiko11.github.io/gta-6/articoli/gta-vi-leonida-sei-luoghi/",
+  "requires_article_deployment": true,
+  "images": [
+    {
+      "file": "site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice City/Vice_City_03.jpg",
+      "url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Vice%20City/Vice_City_03.jpg",
+      "alt": "Veduta di Vice City con campi da basket, palme, edifici residenziali e grattacieli sullo sfondo, screenshot ufficiale Rockstar Games.",
+      "credit": "Rockstar Games"
+    },
+    {
+      "file": "site/assets/rockstar/gta-vi/originals/screenshots/Places/Leonida Keys/Leonida_Keys_01.jpg",
+      "url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Leonida%20Keys/Leonida_Keys_01.jpg",
+      "alt": "Veduta aerea delle Leonida Keys con isole, un lungo ponte, imbarcazioni e un idrovolante in primo piano, screenshot Rockstar Games.",
+      "credit": "Rockstar Games"
+    },
+    {
+      "file": "site/assets/rockstar/gta-vi/originals/screenshots/Places/Grassrivers/Grassrivers_03.jpg",
+      "url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Grassrivers/Grassrivers_03.jpg",
+      "alt": "Airboat visto dall'alto in un canale scuro circondato dalla vegetazione di Grassrivers, screenshot ufficiale Rockstar Games.",
+      "credit": "Rockstar Games"
+    },
+    {
+      "file": "site/assets/rockstar/gta-vi/originals/screenshots/Places/Mount Kalaga National Park/Mount_Kalaga_National_Park_03.jpg",
+      "url": "https://raw.githubusercontent.com/xFederiko11/gta-6/main/site/assets/rockstar/gta-vi/originals/screenshots/Places/Mount%20Kalaga%20National%20Park/Mount_Kalaga_National_Park_03.jpg",
+      "alt": "Due persone tra gli alberi e l'erba alta del Mount Kalaga National Park, screenshot ufficiale Rockstar Games.",
+      "credit": "Rockstar Games"
+    }
+  ]
+}
