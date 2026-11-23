@@ -193,7 +193,7 @@ jobs:
                       assert 'visual-v2.css?v=' in text and 'visual-v2.js?v=' in text
                       assert '<link rel="canonical" href="'+base+path+'"' in text
                       assert 'data-theme="auto"' in text
-                      assert 'reader-action-first-v7-20261122' in text
+                      assert 'reader-moses-authentic-visual-v8-20261123' in text
                       assert 'reader-theme.css?v=' in text and 'data-theme-choice="light"' in text and 'data-theme-choice="dark"' in text
                       assert "var t='dark'" in text
                       assert 'class="v-x-link"' in text and 'https://x.com/xFederiko11' in text
@@ -407,11 +407,22 @@ jobs:
           moses=fetch('guide-e-tutorial/veicoli-per-moses/')
           assert 'operational-guide-v1.css?v=' in moses
           assert moses.count('class="v-step"')==7
-          assert moses.count('mo-photo-link')==7
+          assert moses.count('mo-photo-link')==6
+          assert moses.count('data-mo-real-gameplay=')==6
+          assert moses.count('class="mo-video-screen"')==6
+          assert moses.count('<iframe ')==6
+          assert 'https://www.youtube-nocookie.com/embed/UyxxY0A_kow?start=101' in moses
+          assert 'data-mo-default-all' in moses
+          assert 'data-mo-show-all' in moses
+          assert 'moses-visual-v1.css?v=' in moses
+          assert 'data-mo-gift-ref="source-only"' in moses
           assert '2727' in moses
           assert '6.310 GTA' in moses
           assert moses.index('Capitolo 2, dopo Daily Driver') < moses.index('id="passaggio-1"')
-          assert 'Foto consultabili sul sito originale' in moses
+          assert moses.count('Fonte video: IGN su YouTube')==6
+          assert 'Guarda anche le foto sulla guida PowerPyx' in moses
+          assert 'Non è disponibile qui un’immagine riutilizzabile' in moses
+          assert 'data-mo-chapter-seconds="520"' in moses
           garage=fetch('salvare-auto/')
           assert 'guide-e-tutorial/veicoli-per-moses/' in garage
           assert 'class="v-operation-brief"' in garage
