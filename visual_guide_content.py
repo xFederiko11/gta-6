@@ -10,7 +10,7 @@ SAFE_TITLES = {
     'meditazione-capitolo-1': '18 meditazioni GTA VI: checklist e platino',
     'viaggio-rapido-taxi': 'Viaggiare più in fretta con il taxi',
     'poligoni-concentrazione': 'Poligoni: allenamento e medaglie Oro',
-    'registrare-auto-personale': 'Come salvare un’auto e ritrovarla',
+    'registrare-auto-personale': 'Come salvare e richiamare la prima auto in GTA VI',
     'sportive-randy-posizioni': 'Sportive ricercate: dove cercarle',
     'prima-persona-glitch-ps5': 'Glitch prima persona GTA VI: come attivarlo',
 }
@@ -36,7 +36,7 @@ STEP_MEDIA = {
 HEADINGS = {
     'soldi-facili-capitolo-1': ['Il retro del negozio','Il motel da esplorare','La casa sull’acqua','L’oggetto di valore nel magazzino'],
     'soldi-2500-three-sheets-liquor': ['Parti dall’incarico giusto','Raggiungi il retro','Individua il riferimento','Controlla il nascondiglio','Completa l’esplorazione'],
-    'registrare-auto-personale': ['Raggiungi l’officina','Controlla la registrazione','Verifica lo spazio disponibile','Richiama il mezzo dal telefono'],
+    'registrare-auto-personale': ['Raggiungi Moses a Port Gellhorn','Scansiona le auto con WAiNK','Apri la Montagne XL con lo Slim Jim','Scegli un’auto senza tracker, se necessario','Rivernicia l’auto da Moses','Registra gratis la prima auto','Richiama il mezzo con Scooter Bros'],
     'sportive-randy-posizioni': ['Apri la lista delle richieste','Restringi la zona di ricerca','Identifica il veicolo','Decidi se consegnarlo o conservarlo'],
     'prima-persona-glitch-ps5': ['Proteggi prima i tuoi progressi','Imposta Camera sul touchpad','Entra nell’auto','Apri il telefono','Chiudi e premi il touchpad','Conferma l’effetto e torna alla visuale normale'],
     'scansionare-veicoli': ['Apri WAiNK','Inquadra il veicolo','Completa la scansione'],
@@ -72,13 +72,14 @@ SUMMARIES = {
     'meditazione-capitolo-1': 'La prima meditazione è mancabile nel Capitolo 1. Hai 10 luoghi e 18 sessioni: 15 bastano per il 100%; per il trofeo punta a tutti, anche se la necessità della sessione iniziale resta da verificare.',
     'prima-persona-glitch-ps5': 'Premi Cerchio per riporre il telefono mentre tocchi rapidamente il touchpad impostato su Camera. PC Gamer ha provato il metodo, ma i trofei restano da verificare.',
     'sportive-randy-posizioni': 'Parti dalle richieste del gioco, cerca nelle zone documentate e controlla l’auto prima della consegna. Non promettiamo spawn fissi o veicoli unici.',
-    'registrare-auto-personale': 'Parcheggiare non è registrare. Porta il mezzo in officina, controlla lo spazio disponibile e verifica che sia richiamabile.',
+    'registrare-auto-personale': 'Dopo Girl’s Trip, porta un’auto senza tracker da Moses a Port Gellhorn: la prima registrazione è gratuita. Scooter Bros si sblocca al termine della missione.',
 }
 
 
 # SEO snippets are separate from human-readable guide summaries. Reuse only
 # verified guide facts; do not turn an uncertain trophy status into a promise.
 SEO_DESCRIPTIONS = {
+    'registrare-auto-personale': 'GTA VI PS5: come trovare Moses, usare WAiNK e Slim Jim, registrare gratis la prima auto e richiamarla tramite Scooter Bros.',
     'scansionare-veicoli': 'GTA 6 PS5: come usare WAiNK per scansionare i veicoli e completare il catalogo verso il 100%. Passaggi pratici e controlli nel gioco.',
     'studiare-animali': 'GTA VI PS5: studia le specie con il binocolo per il completamento al 100%. Scopri i comandi, il controllo dei progressi e le fonti della guida.',
     '70-sfide-100-percento': 'GTA VI 100% su PS5: completa 70 sfide su 80 scegliendo quelle più rapide. Checklist e consigli per ridurre il tempo necessario al platino.',
