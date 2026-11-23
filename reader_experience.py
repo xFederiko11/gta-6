@@ -211,7 +211,7 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
 
 
 def build_base():
-    """Track actual source changes and reconcile two reviewed guide details."""
+    """Track actual source changes; retain all fact-reviewed car guide steps."""
     import build_visual_site as builder
     original_sources = builder.ORIGINAL_SOURCES
     builder.ORIGINAL_SOURCES = lambda path: original_sources(path) + (
@@ -223,9 +223,6 @@ def build_base():
         for g in guides:
             if g['id'] == 'viaggio-rapido-taxi':
                 g['benefit'] = 'Puoi saltare il tragitto pagando 100 GTA$ in aggiunta alla tariffa della corsa, secondo PowerPyx.'
-            if g['id'] == 'registrare-auto-personale':
-                g['location'] = 'Inizia dall’officina dove la storia ha sbloccato Register. La registrazione presso gli altri Pay ’N’ Spray richiede sblocchi successivi.'
-                g['steps'][0] = 'Porta l’auto all’officina dove hai sbloccato Register. Non presumere che la funzione sia già disponibile in qualsiasi Pay ’N’ Spray.'
         return guides
     builder.enrich = reviewed
     builder.main()
