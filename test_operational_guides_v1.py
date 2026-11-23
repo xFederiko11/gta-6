@@ -4,7 +4,7 @@ from pathlib import Path
 import unittest
 
 from operational_brief_v1 import validate as validate_briefs
-from moses_vehicle_jobs_v1 import validate as validate_moses, TASKS, PATH, SOURCE, GIFT
+from moses_vehicle_jobs_v1 import validate as validate_moses, TASKS, PATH, SOURCE, GIFT, IGN_VIDEO_ID, IGN_TIMELINE
 
 ROOT=Path("_site")
 
@@ -39,8 +39,26 @@ class OperationalGuidesV1Tests(unittest.TestCase):
         page=(ROOT/PATH/"index.html").read_text(encoding="utf-8")
         self.assertIn("rel=\"canonical\"",page)
         self.assertEqual(page.count('class="v-step"'),7)
-        self.assertEqual(page.count("mo-photo-link"),7)
-        self.assertEqual(page.count("Foto consultabili sul sito originale"),7)
+        self.assertIn('data-mo-default-all',page)
+        self.assertIn('data-mo-show-all',page)
+        self.assertIn('moses-visual-v1.css?v=',page)
+        self.assertEqual(page.count('data-mo-real-gameplay='),6)
+        self.assertEqual(page.count('data-mo-gift-ref="source-only"'),1)
+        self.assertEqual(page.count('class="mo-video-screen"'),6)
+        self.assertEqual(page.count("<iframe "),6)
+        self.assertEqual(page.count('player ufficiale incorporato'),6)
+        self.assertEqual(page.count("mo-photo-link"),6)
+        self.assertIn('https://www.youtube-nocookie.com/embed/'+IGN_VIDEO_ID,page)
+        for i,(seconds,label) in enumerate(IGN_TIMELINE,1):
+            chapter=page.split('id="passaggio-'+str(i)+'"',1)[1].split('</li>',1)[0]
+            self.assertIn('data-mo-chapter-seconds="'+str(seconds)+'"',chapter)
+            self.assertIn('start='+str(seconds),chapter)
+            self.assertIn('minuto '+label,chapter)
+            self.assertIn('Guarda anche le foto sulla guida PowerPyx',chapter)
+            self.assertLess(chapter.index('<iframe '),chapter.index('Fonte video: IGN'))
+        gift=page.split('id="passaggio-7"',1)[1].split('</li>',1)[0]
+        self.assertNotIn('<iframe',gift)
+        self.assertIn('Non è disponibile qui un’immagine riutilizzabile',gift)
         self.assertEqual(page.count(SOURCE),7) # six photos + one source list
         self.assertEqual(page.count(GIFT),2)
         self.assertIn("Daily Driver",page)
@@ -56,7 +74,6 @@ class OperationalGuidesV1Tests(unittest.TestCase):
         self.assertIn("1.850 GTA$",page)
         self.assertIn("6.310 GTA$",page)
         self.assertIn("Moses’ Sultan",page)
-        self.assertIn("Apri su YouTube",page) if False else None
         self.assertIn("guide-e-tutorial/veicoli-per-moses/",(ROOT/"sitemap.xml").read_text(encoding="utf-8"))
         garage=(ROOT/"salvare-auto/index.html").read_text(encoding="utf-8")
         self.assertIn(PATH,garage)
