@@ -628,7 +628,12 @@ def guide(g,guides):
                 body+=photo_ref
         evidence=render_step_evidence(g,n,STEP_EVIDENCE,VISUAL_EVIDENCE)
         if evidence:
-            step_evidence.append((n+1,heading,evidence))
+            if g['id']=='registrare-auto-personale':
+                # Video/map chapter references belong beside their exact action.
+                # They remain verified external links, never screenshots or fake pins.
+                body+=evidence
+            else:
+                step_evidence.append((n+1,heading,evidence))
         checks=g.get('checks',[])
         if n<len(checks):
             body+=f'<p class="v-check"><strong>✓ Controllo:</strong> {e(checks[n])}</p>'
