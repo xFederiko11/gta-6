@@ -228,7 +228,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','guide-e-tutorial/']
+                paths=['','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -301,6 +301,16 @@ def browser_qa():
                         assert page.locator('.v-step:visible').count()==7
                         assert page.locator('.mo-video-screen iframe').count()==6
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                    if path=='guide-e-tutorial/soldi-facili-capitolo-1/':
+                        assert page.locator('.cash-microsteps').count()==4
+                        assert page.locator('.cash-microstep').count()==12
+                        assert page.locator('.cash-critical-warning').is_visible()
+                        assert 'Recalibration' in page.locator('.cash-critical-warning').inner_text()
+                        assert 'Family Savings' in page.locator('.cash-critical-warning').inner_text()
+                        assert page.locator('.v-external-step-photo').count()==4
+                        assert page.locator('[data-step-external-evidence="map"]').count()==1
+                        assert page.locator('[data-visual-location-image="liquor-store"]').count()==0
+                        assert page.locator('#passaggio-1').count()==1
                     if path=='salvare-auto/':
                         assert page.locator('.car-microsteps').count()==7
                         assert page.locator('.car-microstep').count()==21
@@ -332,6 +342,19 @@ def browser_qa():
                         assert page.locator('#passaggio-1').is_visible()
                         assert page.locator('.gf-next').is_visible()
                         assert not page.locator('.gf-back').is_visible()
+                        if path=='guide-e-tutorial/soldi-facili-capitolo-1/' and width in (390,1440):
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==4
+                            png=page.screenshot(
+                                path=str(out/f'chapter1-money-full-article-{width}.png'),
+                                full_page=True,animations='disabled')
+                            png_w=int.from_bytes(png[16:20],'big')
+                            png_h=int.from_bytes(png[20:24],'big')
+                            assert png_w==width and png_h>1500,(png_w,png_h)
+                            assert not page.locator('.gf-progress-track').is_visible()
+                            print('CHAPTER1_MONEY_FULL_PAGE_QA',width,png_h,flush=True)
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==1
                         if path=='salvare-auto/' and width in (390,1440):
                             # Capture and assert the entire edited tutorial, not a cropped viewport.
                             page.locator('[data-gf-all]').click()

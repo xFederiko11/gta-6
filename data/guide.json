@@ -23,20 +23,26 @@
     },
     {
       "id": "soldi-facili-capitolo-1",
-      "title": "GTA 6: come fare soldi subito nel Capitolo 1 (4 luoghi)",
+      "title": "GTA VI: 4 luoghi per trovare soldi nel Capitolo 1 (e come non perderli)",
       "tag": "Soldi",
-      "summary": "Quattro luoghi segnalati da Insider Gaming per trovare denaro e oggetti di valore già all'inizio. Guida con spoiler sulle posizioni.",
+      "summary": "Quattro luoghi documentati da Insider Gaming: controlla l'accesso, recupera il bottino e verifica cosa hai ottenuto. Attenzione: il denaro ordinario non sopravvive alla fine del Capitolo 1.",
       "steps": [
-        "SPOILER LUOGHI: a Three Sheets Liquor, durante l'incarico di Shirley, esplora il retro del negozio; ci sono guardie e denaro da recuperare.",
-        "SPOILER LUOGHI: raggiungi il Manatee Motel a sud-ovest di Hamlet, sopra Shoeless Keys. Attenzione alla tigre e ai membri della gang che arrivano dopo il bottino.",
-        "SPOILER LUOGHI: raggiungi in barca la casa su palafitte più a nord, a nord-est di Corsair Key. Usa la concentrazione (L3 + R3 secondo la fonte) per individuare una tavola mobile con altro denaro.",
-        "SPOILER LUOGHI: cerca il magazzino a South Vice-Dale, a nord-est di Hamlet. Nell'ufficio laterale Insider Gaming segnala una carta da baseball valutata 6.000 GTA$."
+        "SPOILER LUOGHI: controlla il retro di Three Sheets Liquor e verifica quali oggetti hai raccolto.",
+        "SPOILER LUOGHI: al Manatee Motel valuta i rischi prima di cercare il bottino segnalato.",
+        "SPOILER LUOGHI: nella casa su palafitte vicino a Corsair Key cerca il nascondiglio indicato dalla fonte.",
+        "SPOILER LUOGHI: nel magazzino South Vice-Dale cerca la carta da baseball: 6.000 GTA$ è un valore stimato, non denaro accreditato."
       ],
-      "benefit": "Denaro, armi e oggetti da raccogliere senza aspettare le grandi rapine. I 6.000 GTA$ sono il valore attribuito dalla fonte a una carta, non un guadagno totale garantito.",
-      "caution": "ATTENZIONE: elenco di luoghi, non invito a completare tutto il farming subito. Diverse fonti del 19–20 novembre segnalano la perdita di gran parte del denaro al termine del Capitolo 1. Consulta le precauzioni spoiler prima di ripulire i luoghi: può essere più efficiente conservare le attività redditizie per il Capitolo 2. Nessuna certificazione Trophy Safe; salva manualmente.",
+      "benefit": "Luoghi e oggetti individuati dalla guida Insider Gaming, non guadagni ripetibili o garantiti. Prima di lasciare il Capitolo 1 conviene valutare se spenderli o metterne fino a 5.000 GTA$ in Family Savings, secondo le fonti: la quota depositata non è prelevabile normalmente.",
+      "caution": "Prima di Tourist Trap (dopo Recalibration) fai un salvataggio manuale separato. PowerPyx e GTABase confermano che il denaro ordinario, compreso il saldo Checking Account e il denaro nascosto da Jason, non passa al Capitolo 2; Family Savings è separato. Non presentare le cifre come farm infinito e non garantire trofei.",
       "source_url": "https://insider-gaming.com/gta-6-early-game-locations-make-money/",
       "image": "https://www.rockstargames.com/VI/_next/static/media/Leonida_Keys_02.0~ptk-53gl0lq.jpg?akim=1&imdensity=1&imwidth=3840",
-      "related_trophy": null
+      "related_trophy": null,
+      "checks": [
+        "Hai esaminato il retro e controllato ciò che compare nell'inventario; la cifra dipende dagli oggetti raccolti.",
+        "Il bottino o gli oggetti recuperati sono verificabili nell'inventario: l'incontro con la gang non dà un pagamento fisso.",
+        "Hai trovato e controllato il nascondiglio; l'accesso in barca è necessario per questa tratta, non per gli altri tre luoghi.",
+        "Hai controllato la stanza e l'eventuale carta: 6.000 GTA$ è una stima pubblicata della carta, non denaro accreditato immediatamente."
+      ]
     },
     {
       "id": "scansionare-veicoli",

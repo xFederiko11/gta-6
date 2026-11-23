@@ -1,14 +1,14 @@
 {
   "schema": "gta6-visual-contribution-requests-v1",
-  "checked": "2026-11-20",
+  "checked": "2026-11-24",
   "note": "Editorial requests, not proof that these screenshots exist or that the described rewards are verified. Community images require manual review and explicit permission.",
   "guides": {
     "soldi-facili-capitolo-1": [
-      "Mappa dei quattro luoghi indicati nella guida",
-      "Ingresso o accesso riconoscibile di uno dei luoghi",
-      "Interazione utile prima di recuperare il bottino",
-      "Posizione del bottino all'interno",
-      "Schermata finale del bottino o dell'inventario"
+      "Three Sheets Liquor: ingresso o retro riconoscibile",
+      "Manatee Motel: schermata del luogo e accesso",
+      "Casa su palafitte a Corsair Key: struttura vista dalla barca",
+      "Magazzino South Vice-Dale: ingresso e ufficio laterale",
+      "Inventario: oggetto effettivamente raccolto (senza prezzi inventati)"
     ],
     "soldi-2500-three-sheets-liquor": [
       "Posizione del negozio sulla mappa in gioco",
