@@ -72,7 +72,7 @@ class OperationalGuidesV1Tests(unittest.TestCase):
         self.assertIn('mo-story-warning',page)
         self.assertIn(COMPLETION,page)
         self.assertEqual(len(MICROSTEPS),7)
-        self.assertEqual(sum(len(action) for action in MICROSTEPS),26)
+        self.assertEqual(sum(len(action) for action in MICROSTEPS),27)
         for n in range(1,7):
             self.assertIn('href="#passaggio-'+str(n)+'"',page)
         self.assertLess(page.index('class="mo-jump"'),page.index('id="procedura"'))
