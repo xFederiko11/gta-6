@@ -376,3 +376,23 @@ body:has(.v-guide-intro) .v-spoiler-inner{padding-block:5px}
  .v-photo-attribution .v-photo-caption{font-size:.72rem}
  .v-photo-attribution .v-photo-origin{font-size:.67rem}
 }
+
+
+/* First personal vehicle: one actionable instruction at a time. */
+.car-story-warning{max-width:780px;margin:10px auto 13px}
+.car-story-warning a{color:var(--r-cyan);text-underline-offset:3px}
+.car-microsteps{margin:0 14px 9px;padding:11px 13px 7px;border:1px solid var(--r-line);
+ border-radius:9px;background:var(--r-soft);color:var(--r-text)}
+.car-actions-caption{display:block;margin-bottom:8px;font-size:.7rem;font-weight:850;
+ letter-spacing:.045em;color:var(--r-cyan)}
+.car-microstep{display:grid;grid-template-columns:25px minmax(0,1fr);gap:9px;align-items:start;
+ margin:0 0 9px!important;padding:0 0 8px;border-bottom:1px solid var(--r-line);
+ color:var(--r-text)!important;font-size:.89rem!important;line-height:1.51!important}
+.car-microstep:last-child{border:0;margin-bottom:0!important}
+.car-microstep span{display:grid;place-items:center;width:25px;height:25px;border-radius:7px;
+ border:1px solid var(--r-line);color:var(--r-cyan);font-size:.75rem;font-weight:900}
+@media(max-width:760px){
+ .car-story-warning{margin:8px 0 11px}
+ .car-microsteps{margin:0 9px 9px;padding:10px 10px 6px}
+ .car-microstep{font-size:.86rem!important;line-height:1.46!important;gap:8px}
+}
