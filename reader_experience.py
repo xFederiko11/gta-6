@@ -168,8 +168,8 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
         # in the header rather than adding a redundant warning banner.
         page = page.replace('<details class="v-menu">',
                             '<div class="focus-theme">'+CONTROLS+'</div><details class="v-menu">',1)
-    else:
-        raise ValueError("Reader theme control has no safe placement")
+    # Some support pages are generated without the visual header and use
+    # the existing default dark theme; do not fail unrelated page builds.
     if discussion_path is not None:
         from community_social_v1 import widget, xpost_for
         if '</main>' not in page:
