@@ -577,7 +577,25 @@ def browser_qa():
                         assert iframe.get_attribute('src').startswith(
                             'https://www.youtube-nocookie.com/embed/R0GdEkPZSvM?start=675')
                     if path=='' and width in (390,1440):
-                        assert page.locator('.ci-hero-image').is_visible()
+                        page.wait_for_function("document.querySelector('[data-hero-slideshow]').dataset.heroIndex !== undefined")
+                        assert page.locator('.ci-hero-image[data-hero-active="true"]').is_visible()
+                        original=page.locator('[data-hero-slideshow]').get_attribute('data-hero-name')
+                        page.get_by_role('button',name='Foto successiva',exact=True).click()
+                        page.wait_for_function("name => document.querySelector('[data-hero-slideshow]').dataset.heroName !== name",arg=original)
+                        page.get_by_role('button',name='Foto precedente',exact=True).click()
+                        page.wait_for_function("name => document.querySelector('[data-hero-slideshow]').dataset.heroName === name",arg=original)
+                        page.locator('[data-hero-toggle]').click()
+                        assert page.locator('[data-hero-toggle]').get_attribute('aria-pressed')=='true'
+                        assert page.locator('[data-hero-slideshow]').get_attribute('data-hero-playing')=='false'
+                        page.locator('[data-hero-toggle]').click()
+                        assert page.locator('[data-hero-slideshow]').get_attribute('data-hero-playing')=='true'
+                        if width==1440:
+                            page.wait_for_function("name => document.querySelector('[data-hero-slideshow]').dataset.heroName !== name",arg=original,timeout=14000)
+                            page.emulate_media(reduced_motion='reduce')
+                            page.wait_for_function("document.querySelector('[data-hero-toggle]').getAttribute('aria-pressed') === 'true'")
+                            assert page.locator('[data-hero-toggle]').get_attribute('aria-pressed')=='true'
+                            assert page.locator('[data-hero-slideshow]').get_attribute('data-hero-playing')=='false'
+                            page.emulate_media(reduced_motion='no-preference')
                         assert page.locator('.focus-choice').count()==3
                         for photo in page.locator('.ci-choice-image').all():
                             assert photo.bounding_box()['height'] < 350
