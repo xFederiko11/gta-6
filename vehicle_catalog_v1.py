@@ -72,69 +72,70 @@ def validate(doc):
 def index_body(doc,base):
     validate(doc)
     rows=doc["items"]
-    totals={label:sum(car["status"]==label for car in rows) for label in STATUSES}
-    items=[]
+    verified=sum(x["status"]==VERIFIED for x in rows)
+    cards=[]
     for car in rows:
         slug=car["slug"]
         target=base+PATH+slug+"/"
-        items.append(
-            '<article class="vc-card" data-vc-card data-vc-slug="'+e(slug)+'" '
-            'data-vc-owner="'+e(car["kind"])+'" data-vc-status="'+e(car["status"])+'" '
-            'data-vc-terms="'+e((car["name"]+" "+car["area"]+" "+car["kind"]+" "+car["category"]).casefold())+'">'
-            '<div class="vc-card-top"><span class="vc-tag">'+e(car["kind"])+' · '+e(car["category"])+'</span>'
-            '<small class="vc-confidence">'+e(car["status"])+'</small></div>'
-            '<h2><a href="'+e(target)+'">'+e(car["name"])+'</a></h2>'
-            '<p><strong>Zona:</strong> '+e(car["area"])+'</p>'
-            '<p class="vc-hint">'+e(car["where"])+'</p>'
-            '<div class="vc-card-end"><a class="vc-read" href="'+e(target)+'">'
-            'Dove e come trovarla →</a><button type="button" data-vc-found="'+e(slug)+'" '
-            'aria-pressed="false" aria-label="Segna '+e(car["name"])+' come trovata">'
-            '□ Da trovare</button></div></article>'
+        terms=e(" ".join(str(car[k]) for k in ("name","area","kind","category")).casefold())
+        cards.append(
+            f'<article class="vc-card" data-vc-card data-vc-slug="{e(slug)}" '
+            f'data-vc-owner="{e(car["kind"])}" data-vc-status="{e(car["status"])}" '
+            f'data-vc-terms="{terms}">'
+            f'<div class="vc-card-top"><span class="vc-tag">{e(car["kind"])} · '
+            f'{e(car["category"])}</span><small class="vc-confidence">'
+            f'{e(car["status"])}</small></div>'
+            f'<h2><a href="{e(target)}">{e(car["name"])}</a></h2>'
+            f'<p><strong>Zona:</strong> {e(car["area"])}</p>'
+            f'<p class="vc-hint">{e(car["where"])}</p>'
+            f'<div class="vc-card-end"><a class="vc-read" href="{e(target)}">'
+            f'Dove e come trovarla →</a><button type="button" data-vc-found="{e(slug)}" '
+            f'aria-pressed="false" aria-label="Segna {e(car["name"])} come trovata">'
+            f'□ Da trovare</button></div></article>'
         )
-    return (
-        '<section class="vc-hero"><span class="vc-eyebrow">GTA VI · ENCICLOPEDIA VEICOLI</span>'
-        '<h1>Trova un veicolo in GTA VI</h1>'
-        '<p>Cerca il modello, leggi il punto di ricerca e segui i passaggi per ottenerlo. '
-        'Ogni auto ha una scheda separata con fonte, prerequisiti e risultato da verificare. '
-        'Le posizioni riportate sono <strong>zone documentate, non spawn garantiti</strong>.</p>'
-        '<div class="vc-summary"><strong>'+str(len(rows))+' schede</strong>'
-        '<span>'+str(totals[VERIFIED])+' verificate · '
-        +str(totals["In verifica"]+totals["Community"])+' da approfondire</span></div>'
-        '</section><section class="vc-index" data-vc-finder aria-label="Catalogo veicoli">'
-        '<div class="vc-toolbar">'
-        '<label for="vc-search">Cerca modello o zona<input id="vc-search" type="search" '
-        'data-vc-search placeholder="Es. Futo, Hellion, Vice Beach" autocomplete="off"></label>'
-        '<label for="vc-owner">Tipo<select id="vc-owner" data-vc-owner>'
-        '<option value="Tutti">Tutti</option><option value="Moses">Moses</option>'
-        '<option value="Randy">Randy</option></select></label>'
-        '<label for="vc-confidence">Verifica<select id="vc-confidence" data-vc-status>'
-        '<option value="Tutte">Tutte</option><option value="Verificata">Verificata</option>'
-        '<option value="In verifica">In verifica</option>'
-        '<option value="Community">Community</option></select></label>'
-        '<label class="vc-todo" for="vc-todo"><input id="vc-todo" data-vc-todo type="checkbox">'
-        'Nascondi già trovate</label></div>'
-        '<p class="vc-count" role="status" data-vc-count aria-live="polite">'
-        +str(len(rows))+' veicoli nella raccolta</p><div class="vc-grid">'
-        +''.join(items)+'</div><p class="vc-empty" data-vc-empty hidden>'
-        'Nessuna scheda con questi filtri.</p></section>'
-        '<section class="vc-method"><h2>Come funzionano i dati</h2>'
-        '<p><strong>Verificata</strong>: modello documentato e istruzioni basate su walkthrough '
-        'o mappe di riferimento; non assicura che lo spawn sia sempre disponibile. '
-        '<strong>In verifica</strong>: modello indicato nella lista ma senza posizione '
-        'specifica confermata. <strong>Community</strong>: fonti discordanti, non '
-        'utilizzare come requisito del trofeo senza controllare nel gioco.</p>'
-        '<p><strong>Conservare un veicolo:</strong> prenderlo o consegnarlo non equivale '
-        'a registrarlo come personale. Consulta la '
-        '<a href="'+e(base+'salvare-auto/')+'">guida sulla registrazione</a> '
-        'e <a href="'+e(base+'guide-e-tutorial/scansionare-veicoli/')+'">'
-        'controlla i tracker con WAiNK</a> prima di partire.</p>'
-        '<p class="vc-lead">Segnalazione X da verificare: '
-        '<a href="'+e(doc["origin_lead"]["url"])+'" target="_blank" rel="noopener noreferrer">'
-        'post di @murciaconlimon ↗</a>. Il suo contenuto non è ancora leggibile da '
-        'fonti verificabili: non attribuiamo a quel post auto di altre raccolte.</p>'
-        '<p class="vc-privacy">La checklist “Trovata” resta soltanto in questo browser; '
+    return "".join([
+        '<section class="vc-hero"><span class="vc-eyebrow">GTA VI · ENCICLOPEDIA VEICOLI</span>',
+        '<h1>Trova un veicolo in GTA VI</h1>',
+        '<p>Cerca il modello, leggi il punto di ricerca e segui i passaggi per ottenerlo. ',
+        'Ogni auto ha una scheda separata con fonte, prerequisiti e risultato da verificare. ',
+        'Le posizioni riportate sono <strong>zone documentate, non spawn garantiti</strong>.</p>',
+        f'<div class="vc-summary"><strong>{len(rows)} schede</strong>'
+        f'<span>{verified} verificate · {len(rows)-verified} da approfondire</span></div>',
+        '</section><section class="vc-index" data-vc-finder aria-label="Catalogo veicoli">',
+        '<div class="vc-toolbar">',
+        '<label for="vc-search">Cerca modello o zona<input id="vc-search" type="search" ',
+        'data-vc-search placeholder="Es. Futo, Hellion, Vice Beach" autocomplete="off"></label>',
+        '<label for="vc-owner">Tipo<select id="vc-owner" data-vc-owner>',
+        '<option value="Tutti">Tutti</option><option value="Moses">Moses</option>',
+        '<option value="Randy">Randy</option></select></label>',
+        '<label for="vc-confidence">Verifica<select id="vc-confidence" data-vc-status>',
+        '<option value="Tutte">Tutte</option><option value="Verificata">Verificata</option>',
+        '<option value="In verifica">In verifica</option>',
+        '<option value="Community">Community</option></select></label>',
+        '<label class="vc-todo" for="vc-todo"><input id="vc-todo" data-vc-todo type="checkbox">',
+        'Nascondi già trovate</label></div>',
+        f'<p class="vc-count" role="status" data-vc-count aria-live="polite">'
+        f'{len(rows)} veicoli nella raccolta</p><div class="vc-grid">',
+        "".join(cards),
+        '</div><p class="vc-empty" data-vc-empty hidden>Nessuna scheda con questi filtri.</p>',
+        '</section><section class="vc-method"><h2>Come funzionano i dati</h2>',
+        '<p><strong>Verificata</strong>: modello documentato e istruzioni basate su walkthrough ',
+        'o mappe di riferimento; non assicura che lo spawn sia sempre disponibile. ',
+        '<strong>In verifica</strong>: modello indicato nella lista ma senza posizione ',
+        'specifica confermata. <strong>Community</strong>: fonti discordanti, non ',
+        'utilizzare come requisito del trofeo senza controllare nel gioco.</p>',
+        '<p><strong>Conservare un veicolo:</strong> prenderlo o consegnarlo non equivale ',
+        f'a registrarlo come personale. Consulta la <a href="{e(base+"salvare-auto/")}">'
+        'guida sulla registrazione</a> ',
+        f'e <a href="{e(base+"guide-e-tutorial/scansionare-veicoli/")}">'
+        'controlla i tracker con WAiNK</a> prima di partire.</p>',
+        '<p class="vc-lead">Segnalazione X da verificare: ',
+        f'<a href="{e(doc["origin_lead"]["url"])}" target="_blank" rel="noopener noreferrer">'
+        'post di @murciaconlimon ↗</a>. Il suo contenuto non è ancora leggibile da ',
+        'fonti verificabili: non attribuiamo a quel post auto di altre raccolte.</p>',
+        '<p class="vc-privacy">La checklist “Trovata” resta soltanto in questo browser; ',
         'non viene inviata a X, GitHub o a un server.</p></section>'
-    )
+    ])
 
 def social_text(car,base):
     if car["status"]!=VERIFIED:return None
