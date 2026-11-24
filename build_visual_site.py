@@ -27,6 +27,8 @@ from step_image_sources_v1 import load as load_step_photo_sources, validate as v
 from first_car_steps_v1 import validate as validate_first_car, render as render_first_car
 from chapter1_money_steps_v1 import validate as validate_money, render as render_money
 from rockstar_gallery_v1 import render as render_rockstar_gallery, validate as validate_rockstar_gallery, PATH as ROCKSTAR_GALLERY_PATH
+from vehicle_catalog_v1 import (load as load_vehicle_catalog, validate as validate_vehicles,
+    index_body as render_vehicle_index, pages as vehicle_pages, PATH as VEHICLE_PATH)
 from platinum_atlas_v2 import render as render_trophy_atlas, validate as validate_trophy_atlas
 from advanced_platinum_v3 import (render_100 as render_advanced_100, render_hard as render_advanced_hard,
                                   validate as validate_advanced, COLLECTIBLE_PATH, HARD_PATH)
@@ -84,7 +86,7 @@ def brand():
 def header(path):
     # Three editorial destinations: guide ≠ community report ≠ other tools.
     primary=[('Home',''),('Guide','guide-e-tutorial/'),('Trofei','trofei/'),('Scoperte','scoperte/')]
-    secondary=[('Soldi facili','soldi-facili/'),('Veicoli','auto-speciali/'),
+    secondary=[('Soldi facili','soldi-facili/'),('Cerca un veicolo','veicoli/'),
                ('Salvare auto','salvare-auto/'),('Collezionabili','collezionabili/percorsi/'),
                ('Mappe','mappe-guide/'),('HDR OLED','hdr-oled/'),('Immagini ufficiali','immagini-ufficiali/'),('Fonti e metodo','fonti/')]
     def link(label,target):
@@ -144,6 +146,14 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
         version=hashlib.sha256(Path('site/assets',css).read_bytes()+Path('site/assets',js).read_bytes()).hexdigest()[:12]
         page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
         page=page.replace('</body>',f'<script src="{url("assets/"+js)}?v={version}" defer></script></body>',1)
+    if path==VEHICLE_PATH or path.startswith(VEHICLE_PATH):
+        css,js='vehicle-finder-v1.css','vehicle-finder-v1.js'
+        version=hashlib.sha256(
+            Path('site/assets',css).read_bytes()+Path('site/assets',js).read_bytes()).hexdigest()[:12]
+        page=page.replace('</head>',
+            f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
+        page=page.replace('</body>',
+            f'<script src="{url("assets/"+js)}?v={version}" defer></script></body>',1)
     if path==ROCKSTAR_GALLERY_PATH:
         css,js='rockstar-gallery-v1.css','rockstar-gallery-v1.js'
         version=hashlib.sha256(
@@ -446,7 +456,8 @@ def home(guides):
       '<span>Veicoli da recuperare, posizioni e gameplay originale.</span><small>Apri la guida completa →</small></a></li>'
       '<li><a href="'+url(cash['canonical_path'])+'"><strong>Soldi facili nel Capitolo 1</strong>'
       '<span>Luoghi verificati e avvisi prima del cambio capitolo.</span><small>Apri i passaggi →</small></a></li>'
-      '</ol></section>'
+      '</ol><p class="focus-catalog-link"><a href="'+url('veicoli/')+'">'
+      '🚘 Cerca un veicolo per modello, zona o richiesta →</a></p></section>'
       '<section class="focus-news" aria-labelledby="focus-news-title">'
       '<h2 id="focus-news-title">Novità: distinguiamo le fonti</h2>'
       '<p>Le comunicazioni Rockstar sono ufficiali. Le scoperte dei giocatori '
@@ -472,6 +483,11 @@ def directory(guides,kind='all'):
     title,desc,path=config[kind]
     selected=guides if kind=='all' else [g for g in guides if g['category']==kind or (kind=='auto' and g['category']=='garage')]
     body=legacy.crumbs([(title,path)])+f'<section class="v-directory-head"><span class="eyebrow">GTA 6 · GUIDE OPERATIVE</span><h1>{e(title)}</h1><p>{e(desc)}</p></section>'
+    if kind=='auto':
+        body+=('<aside class="v-cash-safety"><strong>🚘 Cerchi un modello preciso?</strong>'
+               '<p>Apri il <a href="'+url('veicoli/')+'">catalogo veicoli GTA VI</a>: '
+               'posizioni documentate, passaggi per ottenerli, fonti e modelli in verifica.</p>'
+               '</aside>')
     if kind=='soldi':
         body+=('<aside class="v-cash-safety" role="note"><strong>⚠️ Non farmare alla cieca nel Capitolo 1.</strong>'
                '<p>Prima di accumulare denaro, controlla un rischio importante per la progressione. '
@@ -810,11 +826,12 @@ def main():
     validate_advanced(ADVANCED,trophies)
     validate_provenance(PHOTO_REVIEW,MEDIA,guides)
     rockstar_manifest=validate_rockstar_gallery()
+    vehicle_catalog=validate_vehicles(load_vehicle_catalog())
     validate_routes(COLLECTIBLE_ROUTES)
     validate_collectible_photos(COLLECTIBLE_PHOTOS,COLLECTIBLE_ROUTES)
     validate_approved(APPROVED_PHOTOS,guides,VISUAL_REQUESTS)
     PHOTO_COVERAGE=audit_photo_coverage(guides,VISUAL_REQUESTS,APPROVED_PHOTOS,PHOTO_REVIEW)
-    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','moses_vehicle_jobs_v1.py','operational_brief_v1.py','data/guide_operational_briefs_v1.json','site/assets/operational-guide-v1.css','site/assets/site-focus-v1.css','collectible_routes_v4.py','data/collectible_routes_v4.json','data/collectible_photo_evidence_v1.json','collectible_photo_evidence_v1.py','site/assets/collectible-photo-v1.css','site/assets/collectible-beginner-v1.css','site/assets/collectible-beginner-v1.js','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/step_image_sources_v1.json','step_image_sources_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/map_external_permalinks_v1.json','interactive_article_maps_v1.py','site/assets/interactive-map-v1.css','site/assets/interactive-map-v1.js','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js','rockstar_gallery_v1.py','site/assets/rockstar/gta-vi/manifest.json','site/assets/rockstar-gallery-v1.css','site/assets/rockstar-gallery-v1.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
+    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','moses_vehicle_jobs_v1.py','operational_brief_v1.py','data/guide_operational_briefs_v1.json','site/assets/operational-guide-v1.css','site/assets/site-focus-v1.css','collectible_routes_v4.py','data/collectible_routes_v4.json','data/collectible_photo_evidence_v1.json','collectible_photo_evidence_v1.py','site/assets/collectible-photo-v1.css','site/assets/collectible-beginner-v1.css','site/assets/collectible-beginner-v1.js','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/step_image_sources_v1.json','step_image_sources_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/map_external_permalinks_v1.json','interactive_article_maps_v1.py','site/assets/interactive-map-v1.css','site/assets/interactive-map-v1.js','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js','rockstar_gallery_v1.py','site/assets/rockstar/gta-vi/manifest.json','site/assets/rockstar-gallery-v1.css','site/assets/rockstar-gallery-v1.js','vehicle_catalog_v1.py','data/vehicle_catalog_v1.json','site/assets/vehicle-finder-v1.css','site/assets/vehicle-finder-v1.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
     from community_discovery_v2 import render as community_render
@@ -926,6 +943,33 @@ def main():
         gallery_title,gallery_description,ROCKSTAR_GALLERY_PATH,
         render_rockstar_gallery(rockstar_manifest),'guide',structured=gallery_schema))
     new_paths.append(ROCKSTAR_GALLERY_PATH)
+    # Each car gets its own canonical article; unverified leads are explicitly
+    # noindex until their location is corroborated. No fabricated GPS markers.
+    vehicle_title='Veicoli GTA VI: cerca auto, moto, posizioni e come ottenerli'
+    vehicle_desc=('Trova le auto di GTA VI per nome e zona: missioni Moses, lista Randy, '
+                  'luoghi verificati, prerequisiti e guide per conservarle.')
+    vehicle_schema={'@context':'https://schema.org','@type':'CollectionPage',
+                    'name':vehicle_title,'description':vehicle_desc,
+                    'url':url(VEHICLE_PATH),'inLanguage':'it-IT',
+                    'numberOfItems':len(vehicle_catalog['items'])}
+    legacy.write(VEHICLE_PATH+'index.html',layout(
+        vehicle_title,vehicle_desc,VEHICLE_PATH,
+        render_vehicle_index(vehicle_catalog,BASE+'/'),'guide',
+        structured=vehicle_schema))
+    new_paths.append(VEHICLE_PATH)
+    for car,vehicle_path,content in vehicle_pages(vehicle_catalog,BASE+'/'):
+        vehicle_title=car['name']+': dove trovarla in GTA VI e come ottenerla'
+        vehicle_desc=(car['name']+' GTA VI: '+car['area']+'. '
+                     'Dove cercarla, come sbloccarla e come verificare il risultato.')
+        status='index,follow' if car['status']=='Verificata' else 'noindex,follow'
+        vehicle_schema=({'@context':'https://schema.org','@type':'Article',
+                        'headline':vehicle_title,'description':vehicle_desc,
+                        'url':url(vehicle_path),'inLanguage':'it-IT'}
+                        if status=='index,follow' else None)
+        legacy.write(vehicle_path+'index.html',layout(
+            vehicle_title,vehicle_desc,vehicle_path,content,'guide',
+            robots=status,structured=vehicle_schema))
+        if status=='index,follow':new_paths.append(vehicle_path)
     for kind in ('all','soldi','auto'):
         title,desc,path,body=directory(guides,kind)
         legacy.write(path+'index.html',layout(title+' | GTA 6 Italia',desc,path,body,'guide',structured={'@context':'https://schema.org','@type':'CollectionPage','name':title,'url':url(path),'inLanguage':'it-IT'}))

@@ -228,7 +228,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','guide-e-tutorial/']
+                paths=['','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','veicoli/','veicoli/declasse-yosemite-1500/','veicoli/pegassi-toros/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -241,6 +241,67 @@ def browser_qa():
                         page.reload(wait_until='load')
                         assert page.locator('html').get_attribute('data-theme')==theme,'persistence'
                         check_layout(page,out,width,path,theme)
+                    if path=='veicoli/':
+                        cards=page.locator('[data-vc-card]')
+                        assert cards.count()==25
+                        assert page.locator('[data-vc-card]:visible').count()==12
+                        assert page.locator('[data-vc-more]').is_visible()
+                        page.locator('[data-vc-search]').fill('Futo')
+                        assert page.locator('[data-vc-card]:visible').count()==1
+                        assert page.locator('[data-vc-card]:visible h2').inner_text()=='Karin Futo'
+                        page.locator('[data-vc-search]').fill('')
+                        page.locator('[data-vc-filter-owner]').select_option('Moses')
+                        assert page.locator('[data-vc-card]:visible').count()==8
+                        page.locator('[data-vc-filter-status]').select_option('Verificata')
+                        assert page.locator('[data-vc-card]:visible').count()==8
+                        mark=page.locator('[data-vc-found="canis-crawler"]')
+                        mark.click()
+                        assert mark.get_attribute('aria-pressed')=='true'
+                        page.reload(wait_until='load')
+                        assert page.locator('[data-vc-found="canis-crawler"]').get_attribute('aria-pressed')=='true'
+                        page.locator('[data-vc-filter-owner]').select_option('Moses')
+                        page.locator('[data-vc-filter-status]').select_option('Verificata')
+                        page.locator('[data-vc-todo]').check()
+                        assert page.locator('[data-vc-card]:visible').count()==7
+                        page.locator('[data-vc-todo]').uncheck()
+                        page.locator('[data-vc-filter-owner]').select_option('Tutti')
+                        page.locator('[data-vc-filter-status]').select_option('Tutte')
+                        assert page.locator('[data-vc-card]:visible').count()==12
+                        assert page.locator('[data-vc-more]').is_visible()
+                        page.locator('[data-vc-more]').click()
+                        assert page.locator('[data-vc-card]:visible').count()==24
+                        page.locator('[data-vc-more]').click()
+                        assert page.locator('[data-vc-card]:visible').count()==25
+                        assert not page.locator('[data-vc-more]').is_visible()
+                        if width in (390,1440):
+                            page.evaluate('window.scrollTo(0,0)')
+                            shot=page.screenshot(path=str(out/f'vehicles-directory-{width}.png'),
+                                                 full_page=True,animations='disabled')
+                            assert int.from_bytes(shot[16:20],'big')==width
+                            print('VEHICLE_INDEX_FULL_PAGE_QA',width,
+                                  int.from_bytes(shot[20:24],'big'),flush=True)
+                    if path=='veicoli/declasse-yosemite-1500/':
+                        assert page.locator('[data-vc-detail="declasse-yosemite-1500"]').count()==1
+                        assert page.locator('.vc-instructions li').count()==4
+                        assert 'Bastion Street' in page.locator('.vc-facts').inner_text()
+                        assert '1.850 GTA$' in page.locator('.vc-facts').inner_text()
+                        assert page.locator('.vc-social a[href*="intent/tweet"]').count()==1
+                        assert page.locator('.vc-video a').count()==1
+                        assert page.locator('[data-vc-load-video]').count()==1
+                        assert page.locator('.vc-video-slot iframe').count()==0
+                        if width in (390,1440):
+                            shot=page.screenshot(path=str(out/f'vehicle-yosemite-article-{width}.png'),
+                                                 full_page=True,animations='disabled')
+                            assert int.from_bytes(shot[16:20],'big')==width
+                            print('VEHICLE_ARTICLE_FULL_PAGE_QA',width,flush=True)
+                        page.locator('[data-vc-load-video]').click()
+                        assert page.locator('.vc-video-slot iframe').count()==1
+                        assert 'start=101' in page.locator('.vc-video-slot iframe').get_attribute('src')
+                    if path=='veicoli/pegassi-toros/':
+                        assert page.locator('[data-vc-detail="pegassi-toros"]').count()==1
+                        assert page.locator('meta[name="robots"]').get_attribute('content')=='noindex,follow'
+                        assert page.locator('.vc-social-pending').count()==1
+                        assert page.locator('.vc-social').count()==0
                     if path=='immagini-ufficiali/':
                         # 189 source-attributed posters are separate from any walkthrough.
                         cards=page.locator('[data-rg-card]')
