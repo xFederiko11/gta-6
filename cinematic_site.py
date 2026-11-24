@@ -16,7 +16,30 @@ DEST = Path('site/assets/cinematic')
 ARTICLE = 'articoli/gta-vi-leonida-sei-luoghi/'
 BASE = 'https://xfederiko11.github.io/gta-6/'
 ROWS = {Path(row['file']).name: row for row in json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))['assets']}
-HERO = 'Jason_and_Lucia_03.jpg'
+HERO = 'Port_Gellhorn_06.jpg'
+# Curated environmental shots, deliberately avoiding the familiar protagonist portraits.
+HERO_SLIDES = [
+    ('Vice_City_08.jpg','Vice City · Il molo dopo il tramonto','65% 50%'),
+    ('Vice_City_10.jpg','Vice City · La città sull’acqua','60% 50%'),
+    ('Vice_City_11.jpg','Vice City · L’ultima luce del giorno','58% 45%'),
+    ('Vice_City_15.jpg','Vice City · La marina','60% 50%'),
+    ('Vice_City_17.jpg','Vice City · Strade e cielo della sera','60% 45%'),
+    ('Vice_City_22.jpg','Vice City · Luci al distributore','55% 55%'),
+    ('Vice_City_26.jpg','Vice City · Uno sguardo dall’alto','52% 50%'),
+    ('Leonida_Keys_04.jpg','Leonida Keys · Sotto la superficie','55% 50%'),
+    ('Leonida_Keys_05.jpg','Leonida Keys · Una giornata sull’acqua','62% 50%'),
+    ('Leonida_Keys_06.jpg','Leonida Keys · Incontri fra le isole','65% 50%'),
+    ('Leonida_Keys_07.jpg','Leonida Keys · Luce fra i fondali','58% 50%'),
+    ('Grassrivers_04.jpg','Grassrivers · Acqua e strade sterrate','55% 50%'),
+    ('Grassrivers_05.jpg','Grassrivers · Ai margini della città','60% 50%'),
+    ('Grassrivers_08.jpg','Grassrivers · Un’altra vita, di notte','60% 55%'),
+    ('Port_Gellhorn_04.jpg','Port Gellhorn · Insegne nella notte','65% 50%'),
+    ('Port_Gellhorn_06.jpg','Port Gellhorn · Il cielo si accende','62% 45%'),
+    ('Ambrosia_04.jpg','Ambrosia · L’orizzonte industriale','60% 45%'),
+    ('Mount_Kalaga_National_Park_04.jpg','Mount Kalaga · La strada nella valle','60% 50%'),
+    ('Mount_Kalaga_National_Park_05.jpg','Mount Kalaga · La vita nel bosco','65% 50%'),
+    ('Mount_Kalaga_National_Park_06.jpg','Mount Kalaga · Il fiume, da vicino','53% 55%'),
+]
 GUIDES = {
     'registrare-auto-personale': 'Jason_and_Lucia_11.jpg',
     'veicoli-per-moses': 'Vice_City_24.jpg',
@@ -42,7 +65,7 @@ COVERS = {
 }
 SELECTED = {HERO, 'Jason_and_Lucia_01.jpg','Jason_and_Lucia_16.jpg','Vice_City_06.jpg',
             'Vice_City_03.jpg', *GUIDES.values(), *CATEGORY_IMAGES.values(),
-            *COVERS.values(), *(p[2] for p in PLACES)}
+            *COVERS.values(), *(p[2] for p in PLACES), *(p[0] for p in HERO_SLIDES)}
 
 
 def media_name(name, width):
@@ -83,13 +106,26 @@ def card_image(guide, url):
     return '<div class="ci-card-photo">'+image(name,url)+'<span>Immagine illustrativa · Rockstar Games</span></div>'
 
 
+def slideshow_data(url):
+    slides=[]
+    for name,label,position in HERO_SLIDES:
+        row=ROWS[name]
+        slides.append({'name':name, 'label':label, 'position':position,
+                       'src':url('assets/cinematic/'+media_name(name,1600)),
+                       'srcset':', '.join(url('assets/cinematic/'+media_name(name,w))+' '+str(w)+'w' for w in (960,1600)),
+                       'alt':label+' — immagine ufficiale Rockstar Games'})
+    return json.dumps(slides,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
+
+
 def home(guides, url):
     count=len(json.loads(Path('data/trofei.json').read_text(encoding='utf-8'))['trophies'])
     by={g['id']:g for g in guides}
     first=by['registrare-auto-personale']['canonical_path']
     cash=by['soldi-facili-capitolo-1']['canonical_path']
-    out = ('<div class="cinema-home" data-cinematic-home><section class="focus-hero" aria-labelledby="focus-title">'+
-           image(HERO,url,eager=True,css='ci-hero-image',sizes='(max-width: 700px) 1300px, 100vw')+
+    out = ('<div class="cinema-home" data-cinematic-home><section class="focus-hero" aria-labelledby="focus-title" '
+           'data-hero-slideshow aria-roledescription="carosello fotografico">'+
+           image(HERO,url,eager=True,css='ci-hero-image',sizes='(max-width: 700px) 1300px, 100vw').replace('data-promotional-media=', 'data-hero-active="true" data-promotional-media=')+
+           '<script type="application/json" id="hero-slides">'+slideshow_data(url)+'</script>'+
            '<div class="ci-hero-shade"></div><div class="ci-hero-inner ci-shell">'
            '<span class="ci-eyebrow ci-hero-eyebrow">GTA VI ITALIA <span>PS5 · PS5 PRO</span></span>'
            '<div class="ci-hero-copy"><p class="ci-overline">OGNI STRADA, UNA POSSIBILITÀ.</p>'
@@ -98,8 +134,14 @@ def home(guides, url):
            'Trova la tua strada in GTA VI, una guida alla volta.</p>'
            '<div class="ci-actions"><a class="ci-button" href="#scegli">Trova la tua prossima guida</a>'
            '<a class="ci-button ci-button-ghost" href="#esplora">Esplora Leonida</a></div></div>'
-           '<div class="ci-hero-bottom"><span>IL TUO PUNTO DI PARTENZA A LEONIDA</span>'
-           '<small>Immagine promozionale © Rockstar Games</small></div></div></section>'
+           '<div class="ci-hero-bottom"><div class="ci-slideshow-caption"><span data-hero-caption>Port Gellhorn · Il cielo si accende</span>'
+           '<small>Immagine ufficiale © Rockstar Games</small></div>'
+           '<div class="ci-slide-controls" data-hero-controls hidden aria-label="Comandi della presentazione">'
+           '<button type="button" data-hero-prev aria-label="Foto precedente">Indietro</button>'
+           '<span class="ci-slide-count" data-hero-count aria-live="off">1 / 20</span>'
+           '<button type="button" data-hero-next aria-label="Foto successiva">Avanti</button>'
+           '<button type="button" data-hero-toggle aria-label="Metti in pausa la presentazione" aria-pressed="false">Pausa</button>'
+           '</div></div></div></section>'
            '<div class="ci-ticker"><div class="ci-shell"><span>Guide in italiano</span><i></i>'
            f'<span>{count} trofei da scoprire</span><i></i><span>Immagini ufficiali Rockstar</span>'
            '<a href="'+url('immagini-ufficiali/')+'">Sfoglia la raccolta</a></div></div>'
@@ -165,7 +207,10 @@ def enhance(page, path):
     css=f'<meta name="cinematic-version" content="{VERSION}"><link rel="stylesheet" href="{BASE}assets/cinematic-v3.css?v={digest}">'
     page=page.replace('</head>',css+'</head>',1)
     if path == '':
-        page=page.replace('</body>',f'<script src="{BASE}assets/cinematic-v3.js?v={digest}" defer></script></body>',1)
+        slide_version=hashlib.sha256(Path('site/assets/hero-slideshow.js').read_bytes()+Path('site/assets/hero-slideshow.css').read_bytes()).hexdigest()[:12]
+        page=page.replace('</head>',f'<link rel="stylesheet" href="{BASE}assets/hero-slideshow.css?v={slide_version}"></head>',1)
+        page=page.replace('</body>',f'<script src="{BASE}assets/cinematic-v3.js?v={digest}" defer></script>'
+                          f'<script src="{BASE}assets/hero-slideshow.js?v={slide_version}" defer></script></body>',1)
     elif path in COVERS:
         cover=('<figure class="ci-section-cover">'+image(COVERS[path],lambda p:BASE+p,sizes='100vw')+
                '<figcaption>Immagine promozionale ufficiale © Rockstar Games</figcaption></figure>')

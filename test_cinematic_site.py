@@ -53,5 +53,21 @@ class CinematicTests(unittest.TestCase):
             self.assertIn('class="ci-section-cover"',page,path)
             self.assertIn('Immagine promozionale ufficiale',page,path)
 
+    def test_slideshow_has_twenty_real_responsive_originals(self):
+        import json,re
+        page=Path('_site/index.html').read_text(encoding='utf-8')
+        raw=re.search(r'<script type="application/json" id="hero-slides">(.*?)</script>',page).group(1)
+        slides=json.loads(raw)
+        self.assertEqual(len(slides),20)
+        self.assertEqual(len({s['name'] for s in slides}),20)
+        self.assertNotIn('Jason_and_Lucia_03.jpg',{s['name'] for s in slides})
+        for slide in slides:
+            rel=unquote(urlsplit(slide['src']).path.removeprefix('/gta-6/'))
+            self.assertTrue((Path('_site')/rel).is_file())
+            self.assertIn('Rockstar Games',slide['alt'])
+        self.assertIn('data-hero-toggle',page)
+        self.assertIn('data-hero-prev',page)
+        self.assertIn('data-hero-next',page)
+
 
 if __name__=='__main__':unittest.main()
