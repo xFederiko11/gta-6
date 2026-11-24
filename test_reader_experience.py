@@ -228,7 +228,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','guide-e-tutorial/']
+                paths=['','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -276,6 +276,26 @@ def browser_qa():
                         assert page.locator('.v-operation-brief dt').count()==3
                         assert page.locator('.v-operation-brief dd').count()==3
                         assert page.locator('.v-operation-brief').bounding_box()['y']<page.locator('#procedura').bounding_box()['y']
+                    if path=='guide-e-tutorial/scansionare-veicoli/':
+                        assert page.locator('#procedura .v-step').count()==5
+                        assert page.locator('#procedura .v-check').count()==5
+                        assert page.locator('.waink-tracker-warning').is_visible()
+                        assert page.locator('.v-external-step-photo').count()==1
+                        assert 'No Tracker' in page.locator('.waink-tracker-warning').inner_text()
+                        assert 'Advanced' in page.locator('.waink-tracker-warning').inner_text()
+                        if width in (390,1440):
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==5
+                            snap=page.screenshot(
+                                path=str(out/f'waink-full-article-{width}.png'),
+                                full_page=True,animations='disabled')
+                            sw=int.from_bytes(snap[16:20],'big')
+                            sh=int.from_bytes(snap[20:24],'big')
+                            assert sw==width and sh>1250,(sw,sh)
+                            assert not page.locator('.gf-progress-track').is_visible()
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==1
+                            print('WAINK_FULL_PAGE_QA',width,sh,flush=True)
                     if path=='guide-e-tutorial/veicoli-per-moses/':
                         assert page.locator('#procedura .v-step').count()==7
                         assert page.locator('.mo-visual').count()==7
