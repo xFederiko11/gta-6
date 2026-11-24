@@ -20,7 +20,12 @@ class GalleryTests(unittest.TestCase):
         page=render(manifest)
         self.assertEqual(page.count('class="rg-card"'),len(manifest["assets"]))
         self.assertEqual(page.count('Fonte: Rockstar Games'),len(manifest["assets"]))
-        self.assertIn("non prova di gameplay",page)
+        first=page.split('class="rg-card"',25)[1:25]
+        self.assertTrue(any('data-rg-group="Luoghi"' in part for part in first))
+        self.assertTrue(any('data-rg-group="Personaggi"' in part for part in first))
+        self.assertFalse(any('data-rg-group="Ultimate Edition"' in part for part in first))
+        self.assertIn("non identificano necessariamente",page)
+        self.assertIn("Immagine promozionale",page)
         self.assertIn("non conferiscono una licenza",page)
         self.assertIn('data-rg-filter',page)
         self.assertIn('data-rg-search',page)
