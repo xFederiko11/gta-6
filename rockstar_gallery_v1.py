@@ -5,7 +5,7 @@ manifest identifies files; it does NOT confer copyright or gameplay verification
 The web page uses small previews only. Full originals are never deployed to Pages.
 """
 from __future__ import annotations
-from collections import Counter
+from collections import Counter, defaultdict, deque
 from html import escape
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -55,9 +55,35 @@ def validate(manifest=None):
             raise ValueError("Missing attribution or verified original digest")
     return m
 
+
+def gallery_order(rows):
+    """Avoid a first screen of 24 nearly identical portraits/landscapes.
+
+    Cycle distinct subjects, then interleave relevant places and characters.
+    Edition rewards remain later in the catalog; all assets remain searchable.
+    """
+    by_group=defaultdict(lambda:defaultdict(deque))
+    for item in rows:
+        by_group[family(item)][item["subject"]].append(item)
+    def cycle(group):
+        subjects=by_group[group]
+        out=[]
+        while any(subjects.values()):
+            for name in sorted(subjects):
+                if subjects[name]:
+                    out.append(subjects[name].popleft())
+        return out
+    places,people,edition=(cycle("Luoghi"),cycle("Personaggi"),cycle("Ultimate Edition"))
+    curated=[]
+    while places or people:
+        for bucket in (places,places,people):
+            if bucket:
+                curated.append(bucket.pop(0))
+    return curated+edition
+
 def render(manifest=None):
     m=validate(manifest)
-    rows=m["assets"]
+    rows=gallery_order(m["assets"])
     parts=[]
     groups=Counter(family(x) for x in rows)
     for i,x in enumerate(rows):
@@ -72,7 +98,7 @@ def render(manifest=None):
             '<img src="/gta-6/'+escape(preview,quote=True)+'" loading="lazy" decoding="async"'
             ' width="480" height="'+str(ratio)+'" alt="'+escape(alt,quote=True)+'">'
             '<figcaption><strong>'+escape(label)+'</strong>'
-            '<small>'+escape(group)+' · Immagine ufficiale promozionale, non prova di gameplay</small>'
+            '<small>'+escape(group)+' · Immagine promozionale</small>'
             '<a href="'+REFERENCE+'" target="_blank" rel="noopener noreferrer"'
             ' aria-label="Fonte Rockstar Games per '+escape(x["title"],quote=True)+'">'
             'Fonte: Rockstar Games ↗</a></figcaption></figure>')
