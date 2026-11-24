@@ -80,7 +80,7 @@ def index_body(doc,base):
         items.append(
             '<article class="vc-card" data-vc-card data-vc-slug="'+e(slug)+'" '
             'data-vc-owner="'+e(car["kind"])+'" data-vc-status="'+e(car["status"])+'" '
-            'data-vc-search="'+e((car["name"]+" "+car["area"]+" "+car["kind"]+" "+car["category"]).casefold())+'">'
+            'data-vc-terms="'+e((car["name"]+" "+car["area"]+" "+car["kind"]+" "+car["category"]).casefold())+'">'
             '<div class="vc-card-top"><span class="vc-tag">'+e(car["kind"])+' · '+e(car["category"])+'</span>'
             '<small class="vc-confidence">'+e(car["status"])+'</small></div>'
             '<h2><a href="'+e(target)+'">'+e(car["name"])+'</a></h2>'
