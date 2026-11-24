@@ -228,7 +228,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','guide-e-tutorial/']
+                paths=['','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','veicoli/','veicoli/declasse-yosemite-1500/','veicoli/pegassi-toros/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -241,6 +241,513 @@ def browser_qa():
                         page.reload(wait_until='load')
                         assert page.locator('html').get_attribute('data-theme')==theme,'persistence'
                         check_layout(page,out,width,path,theme)
+                    if path=='veicoli/':
+                        cards=page.locator('[data-vc-card]')
+                        assert cards.count()==25
+                        assert page.locator('[data-vc-card]:visible').count()==25
+                        page.locator('[data-vc-search]').fill('Futo')
+                        assert page.locator('[data-vc-card]:visible').count()==1
+                        assert page.locator('[data-vc-card]:visible h2').inner_text()=='Karin Futo'
+                        page.locator('[data-vc-search]').fill('')
+                        page.locator('[data-vc-owner]').select_option('Moses')
+                        assert page.locator('[data-vc-card]:visible').count()==8
+                        page.locator('[data-vc-status]').select_option('Verificata')
+                        assert page.locator('[data-vc-card]:visible').count()==8
+                        mark=page.locator('[data-vc-found="canis-crawler"]')
+                        mark.click()
+                        assert mark.get_attribute('aria-pressed')=='true'
+                        page.reload(wait_until='load')
+                        assert page.locator('[data-vc-found="canis-crawler"]').get_attribute('aria-pressed')=='true'
+                        page.locator('[data-vc-owner]').select_option('Moses')
+                        page.locator('[data-vc-status]').select_option('Verificata')
+                        page.locator('[data-vc-todo]').check()
+                        assert page.locator('[data-vc-card]:visible').count()==7
+                        page.locator('[data-vc-todo]').uncheck()
+                        page.locator('[data-vc-owner]').select_option('Tutti')
+                        page.locator('[data-vc-status]').select_option('Tutte')
+                        assert page.locator('[data-vc-card]:visible').count()==25
+                        if width in (390,1440):
+                            page.evaluate('window.scrollTo(0,0)')
+                            shot=page.screenshot(path=str(out/f'vehicles-directory-{width}.png'),
+                                                 full_page=True,animations='disabled')
+                            assert int.from_bytes(shot[16:20],'big')==width
+                            print('VEHICLE_INDEX_FULL_PAGE_QA',width,
+                                  int.from_bytes(shot[20:24],'big'),flush=True)
+                    if path=='veicoli/declasse-yosemite-1500/':
+                        assert page.locator('[data-vc-detail="declasse-yosemite-1500"]').count()==1
+                        assert page.locator('.vc-instructions li').count()==4
+                        assert 'Bastion Street' in page.locator('.vc-facts').inner_text()
+                        assert '1.850 GTA
+                        # 189 source-attributed posters are separate from any walkthrough.
+                        cards=page.locator('[data-rg-card]')
+                        assert cards.count()==189
+                        assert page.locator('[data-rg-card]:visible').count()==24
+                        assert 'Rockstar Games' in page.locator('.rg-rights').inner_text()
+                        assert not page.locator('.rg-card img').first.get_attribute('src').startswith(
+                            '/gta-6/assets/rockstar/gta-vi/originals/')
+                        page.locator('[data-rg-search]').fill('Port Gellhorn')
+                        assert page.locator('[data-rg-card]:visible').count()==7
+                        assert '7 immagini trovate' in page.locator('[data-rg-counter]').inner_text()
+                        page.locator('[data-rg-filter]').select_option('Luoghi')
+                        assert page.locator('[data-rg-card]:visible').count()==7
+                        page.locator('[data-rg-search]').fill('impossibile-189')
+                        assert page.locator('[data-rg-empty]').is_visible()
+                        page.locator('[data-rg-search]').fill('')
+                        page.locator('[data-rg-filter]').select_option('Personaggi')
+                        assert page.locator('[data-rg-card]:visible').count()==24
+                        page.locator('[data-rg-more]').click()
+                        assert page.locator('[data-rg-card]:visible').count()==48
+                        page.locator('[data-rg-filter]').select_option('Tutte')
+                        assert page.locator('[data-rg-card]:visible').count()==24
+                        if width in (390,1440):
+                            # Place sticky navigation at the top in full-page QA output.
+                            page.evaluate('window.scrollTo(0,0)')
+                            img=page.screenshot(
+                                path=str(out/f'rockstar-gallery-{width}.png'),
+                                full_page=True,animations='disabled')
+                            assert int.from_bytes(img[16:20],'big')==width
+                            print('ROCKSTAR_GALLERY_QA',width,flush=True)
+                    if page.locator('#procedura.v-tutorial').count():
+                        assert page.locator('.v-operation-brief').is_visible()
+                        assert page.locator('.v-operation-brief dt').count()==3
+                        assert page.locator('.v-operation-brief dd').count()==3
+                        assert page.locator('.v-operation-brief').bounding_box()['y']<page.locator('#procedura').bounding_box()['y']
+                    if path=='guide-e-tutorial/scansionare-veicoli/':
+                        assert page.locator('#procedura .v-step').count()==5
+                        assert page.locator('#procedura .v-check').count()==5
+                        assert page.locator('.waink-tracker-warning').is_visible()
+                        assert page.locator('.v-external-step-photo').count()==1
+                        assert 'No Tracker' in page.locator('.waink-tracker-warning').inner_text()
+                        assert 'Advanced' in page.locator('.waink-tracker-warning').inner_text()
+                        if width in (390,1440):
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==5
+                            snap=page.screenshot(
+                                path=str(out/f'waink-full-article-{width}.png'),
+                                full_page=True,animations='disabled')
+                            sw=int.from_bytes(snap[16:20],'big')
+                            sh=int.from_bytes(snap[20:24],'big')
+                            assert sw==width and sh>1250,(sw,sh)
+                            assert not page.locator('.gf-progress-track').is_visible()
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==1
+                            print('WAINK_FULL_PAGE_QA',width,sh,flush=True)
+                    if path=='guide-e-tutorial/veicoli-per-moses/':
+                        assert page.locator('#procedura .v-step').count()==7
+                        assert page.locator('.mo-visual').count()==7
+                        assert page.locator('.mo-video-screen iframe').count()==6
+                        assert page.locator('.mo-video-screen iframe').first.get_attribute('src').startswith(
+                            'https://www.youtube-nocookie.com/embed/UyxxY0A_kow?start=101')
+                        assert page.locator('.mo-photo-link').count()==6
+                        assert page.locator('.mo-photo-link img').count()==0
+                        assert page.locator('.mo-jump-link').count()==6
+                        assert page.locator('.mo-microsteps').count()==7
+                        assert page.locator('.mo-gift-reveal').count()==1
+                        assert not page.locator('.mo-gift-reveal').evaluate('(el)=>el.open')
+                        page.locator('.mo-gift-reveal summary').click()
+                        assert page.locator('.mo-gift-reveal').evaluate('(el)=>el.open')
+                        page.locator('.mo-gift-reveal summary').click()
+                        assert page.locator('.v-operation-brief').is_visible()
+                        assert page.locator('.v-guide-urgent').is_visible()
+                        assert '2727' in page.locator('#passaggio-5').inner_text()
+                        assert page.locator('.v-guide-more').count()==1
+                        assert page.locator('.v-step:visible').count()==7,'Entire visual article must be shown'
+                        assert page.locator('.mo-video-screen:visible').count()==6
+                        assert page.locator('html').evaluate('(el)=>el.classList.contains("guide-flow-all")')
+                        assert not page.locator('.gf-progress-track').is_visible(), 'Full article is not 100% complete'
+                        assert page.locator('.gf-progress-track').get_attribute('aria-valuenow') is None
+                        assert page.locator('[data-mo-show-all]').is_visible()
+                        assert page.locator('[data-mo-show-all]').get_attribute('aria-pressed')=='true'
+                        if width in (390,1440):
+                            # Full-page proof, not a misleading 900px viewport crop.
+                            png=page.screenshot(path=str(out/f'moses-full-article-{width}.png'),
+                                                full_page=True, animations='disabled')
+                            real_width=int.from_bytes(png[16:20],'big')
+                            real_height=int.from_bytes(png[20:24],'big')
+                            assert real_width==width and real_height>1500, (width,real_width,real_height)
+                            print('MOSES_FULL_PAGE_QA',width,'height',real_height,flush=True)
+                            if width==390:
+                                page.locator('#passaggio-1').screenshot(
+                                    path=str(out/'moses-step1-with-video-390.png'))
+                                page.locator('#passaggio-7').screenshot(
+                                    path=str(out/'moses-gift-closed-390.png'))
+                        page.locator('[data-mo-show-all]').click()
+                        assert page.locator('.v-step:visible').count()==1
+                        assert page.locator('.gf-progress-track').is_visible()
+                        assert page.locator('.gf-progress-track').get_attribute('aria-valuenow')=='1'
+                        assert page.locator('[data-mo-show-all]').get_attribute('aria-pressed')=='false'
+                        assert not page.locator('.v-guide-more').is_visible()
+                        page.locator('[data-mo-show-all]').click()
+                        assert page.locator('.v-step:visible').count()==7
+                        assert not page.locator('.gf-progress-track').is_visible()
+                        assert page.locator('.v-guide-more').is_visible()
+                        assert page.locator('[data-mo-show-all]').get_attribute('aria-pressed')=='true'
+                        assert page.evaluate('location.hash===""')
+                        page.reload(wait_until='load')
+                        assert page.locator('.v-step:visible').count()==7
+                        assert page.locator('.mo-video-screen iframe').count()==6
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                    if path=='guide-e-tutorial/soldi-facili-capitolo-1/':
+                        assert page.locator('.cash-microsteps').count()==4
+                        assert page.locator('.cash-microstep').count()==12
+                        assert page.locator('.cash-critical-warning').is_visible()
+                        assert 'Recalibration' in page.locator('.cash-critical-warning').inner_text()
+                        assert 'Family Savings' in page.locator('.cash-critical-warning').inner_text()
+                        assert page.locator('.v-external-step-photo').count()==4
+                        assert page.locator('[data-step-external-evidence="map"]').count()==1
+                        assert page.locator('[data-visual-location-image="liquor-store"]').count()==0
+                        assert page.locator('#passaggio-1').count()==1
+                    if path=='salvare-auto/':
+                        assert page.locator('.car-microsteps').count()==7
+                        assert page.locator('.car-microstep').count()==21
+                        assert page.locator('.car-story-warning').is_visible()
+                        assert 'Scooter Bros si sblocca' in page.locator('.car-story-warning').inner_text()
+                        assert 'Daily Driver' in page.locator('.car-story-warning').inner_text()
+                        assert page.locator('[data-step-external-evidence="map"]').count()==1
+                        assert page.locator('[data-step-external-evidence="video"]').count()==2
+                        assert page.locator('[data-visual-proof-image="scooter-phone"]').count()==0
+                        assert page.locator('.v-step').count()==7
+                        refs=page.locator('.v-external-step-photo')
+                        assert refs.count()==7
+                        for i in range(refs.count()):
+                            ref=refs.nth(i)
+                            assert 'LINK ESTERNO' in ref.inner_text()
+                            assert 'permesso di riutilizzo non è documentato' in ref.inner_text()
+                            assert ref.locator('img').count()==0
+                            assert ref.locator('a').get_attribute('target')=='_blank'
+                    if page.locator('details.v-guide-more').count() and path!='guide-e-tutorial/veicoli-per-moses/':
+                        # The beginner experience is a WIZARD, not an article full
+                        # of unrelated boxes. Only one numbered step visible.
+                        steps=page.locator('#procedura .v-step')
+                        count=steps.count()
+                        assert count>=3
+                        assert page.locator('.v-tutorial-start-here').is_visible()
+                        assert page.locator('.gf-progress').is_visible()
+                        assert page.locator('[data-gf-status]').inner_text()=='PASSO 1 DI '+str(count)
+                        assert page.locator('.v-step:visible').count()==1
+                        assert page.locator('#passaggio-1').is_visible()
+                        assert page.locator('.gf-next').is_visible()
+                        assert not page.locator('.gf-back').is_visible()
+                        if path=='guide-e-tutorial/soldi-facili-capitolo-1/' and width in (390,1440):
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==4
+                            png=page.screenshot(
+                                path=str(out/f'chapter1-money-full-article-{width}.png'),
+                                full_page=True,animations='disabled')
+                            png_w=int.from_bytes(png[16:20],'big')
+                            png_h=int.from_bytes(png[20:24],'big')
+                            assert png_w==width and png_h>1500,(png_w,png_h)
+                            assert not page.locator('.gf-progress-track').is_visible()
+                            print('CHAPTER1_MONEY_FULL_PAGE_QA',width,png_h,flush=True)
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==1
+                        if path=='salvare-auto/' and width in (390,1440):
+                            # Capture and assert the entire edited tutorial, not a cropped viewport.
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==7
+                            shot=page.screenshot(path=str(out/f'first-car-full-article-{width}.png'),
+                                                 full_page=True,animations='disabled')
+                            png_w=int.from_bytes(shot[16:20],'big')
+                            png_h=int.from_bytes(shot[20:24],'big')
+                            assert png_w==width and png_h>1700,(width,png_w,png_h)
+                            assert not page.locator('.gf-progress-track').is_visible()
+                            print('FIRST_CAR_FULL_PAGE_QA',width,png_h,flush=True)
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==1
+                        assert not page.locator('.v-guide-more').is_visible(),'Extras must be hidden during task mode'
+                        assert page.locator('.v-tutorial-finish').is_hidden()
+                        if width==390:
+                            first=page.locator('#passaggio-1').bounding_box()
+                            assert first and first['y']<900,(path,'first numbered step below mobile viewport',first)
+                            page.screenshot(path=str(out/('tutorial-first-'+path.strip('/').replace('/','-')+'.png')))
+                            print('GUIDED_MOBILE_FIRST_STEP',path,round(first['y']),flush=True)
+                            page.locator('[data-gf-next]').click()
+                            assert page.locator('.v-step:visible').count()==1
+                            assert page.locator('#passaggio-1').is_hidden()
+                            assert page.locator('#passaggio-2').is_visible()
+                            assert page.locator('[data-gf-status]').inner_text()=='PASSO 2 DI '+str(count)
+                            assert page.locator('.gf-back').is_visible()
+                            page.locator('[data-gf-back]').click()
+                            assert page.locator('#passaggio-1').is_visible()
+                            assert page.locator('.gf-back').is_hidden()
+                            # Read all remains an explicit accessible alternative.
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==count
+                            assert page.locator('.v-guide-more').is_visible()
+                            page.locator('[data-gf-all]').click()
+                            assert page.locator('.v-step:visible').count()==1
+                            assert page.locator('#passaggio-1').is_visible()
+                            # End-to-end beginner flow, including extra materials
+                            # which appear only when the procedure is completed.
+                            for n in range(count):
+                                assert page.locator('.v-step:visible').count()==1
+                                assert page.locator('#passaggio-'+str(n+1)).is_visible()
+                                page.locator('[data-gf-next]').click()
+                            assert page.locator('.gf-done').is_visible()
+                            assert page.locator('.gf-next').is_hidden()
+                            assert page.locator('.v-guide-more').is_visible()
+                            page.screenshot(path=str(out/('tutorial-finished-'+path.strip('/').replace('/','-')+'.png')))
+                            print('GUIDED_MOBILE_COMPLETE',path,count,flush=True)
+                        assert page.evaluate('''() => {
+                            const first=document.querySelector('#passaggio-1');
+                            const extras=document.querySelector('details.v-guide-more');
+                            return first && extras && !!(first.compareDocumentPosition(extras) & Node.DOCUMENT_POSITION_FOLLOWING);
+                        }''')
+                        if width!=390:
+                            # Reach completion for all widths, then inspect extras.
+                            for n in range(count):
+                                page.locator('[data-gf-next]').click()
+                            assert page.locator('.gf-done').is_visible()
+                        page.locator('details.v-guide-more > summary').click()
+                        assert page.locator('details.v-guide-more').evaluate('(el) => el.open')
+                    if path.endswith('soldi-2500-three-sheets-liquor/'):
+                        assert page.locator('#mappa').is_visible()
+                        assert page.locator('#consigli').is_visible()
+                        assert page.locator('[data-spoiler-choice]').count()==0
+                        assert page.locator('.v-spoiler-warning').count()>0
+                        if page.locator('#mappa a.v-image-link').count():
+                            page.locator('#mappa a.v-image-link').first.click()
+                            assert page.locator('dialog[open]').count()==1
+                            page.wait_for_function('document.querySelector("dialog img").naturalWidth>0')
+                            page.locator('[data-image-zoom]').click()
+                            assert page.locator('[data-image-viewport]').get_attribute('data-zoom')=='true'
+                            page.keyboard.press('Escape');assert page.locator('dialog[open]').count()==0
+                        if width==390:
+                            page.locator('#mappa').scroll_into_view_if_needed();page.screenshot(path=str(out/'mobile-map-dark.png'))
+                            page.locator('#consigli').scroll_into_view_if_needed();page.screenshot(path=str(out/'mobile-tips-dark.png'))
+                    if path=='guide-e-tutorial/meditazione-capitolo-1/' and width==390:
+                        checklist=page.locator('[data-meditation-tracker]')
+                        assert checklist.count()==1
+                        assert page.locator('input[data-meditation-check]').count()==18
+                        assert page.locator('[data-meditation-summary]').inner_text()=='0 / 18'
+                        page.locator('#mt-jasons-house-one').check()
+                        page.locator('#mt-smooth-sand-jason').check()
+                        assert page.locator('[data-meditation-summary]').inner_text()=='2 / 18'
+                        assert page.locator('[data-meditation-100]').inner_text()=='2 / 15'
+                        assert page.locator('[data-meditation-house]').inner_text()=='Completata'
+                        page.reload(wait_until='load')
+                        assert page.locator('[data-meditation-summary]').inner_text()=='2 / 18'
+                        assert page.locator('#mt-jasons-house-one').is_checked()
+                        assert page.locator('#mt-smooth-sand-jason').is_checked()
+                        page.locator('#meditazioni-checklist').scroll_into_view_if_needed()
+                        page.screenshot(path=str(out/'mobile-meditations-checklist-dark.png'))
+                        page.once('dialog',lambda dialog:dialog.accept())
+                        page.locator('[data-meditation-reset]').click()
+                        assert page.locator('[data-meditation-summary]').inner_text()=='0 / 18'
+                        assert not page.locator('#mt-jasons-house-one').is_checked()
+                    if path=='guide-e-tutorial/glitch-prima-persona-ps5/' and width==390:
+                        assert page.locator('.v-glitch-status').is_visible()
+                        assert page.locator('iframe[data-original-video-player]').count()==0
+                        assert page.locator('.v-video-reference').count()==1
+                        assert page.locator('.v-step').count()==6
+                    if path=='salvare-auto/' and width==390:
+                        # Third-party YouTube is never loaded merely by visiting.
+                        assert page.locator('iframe[data-original-video-player]').count()==0
+                        assert page.locator('[data-load-youtube]').count()==1
+                        page.locator('details.v-video-reference > summary').click()
+                        assert page.locator('iframe[data-original-video-player]').count()==0
+                        page.locator('[data-load-youtube]').click()
+                        iframe=page.locator('iframe[data-original-video-player]')
+                        assert iframe.count()==1
+                        assert iframe.get_attribute('src').startswith(
+                            'https://www.youtube-nocookie.com/embed/R0GdEkPZSvM?start=675')
+                    if path=='' and width in (390,1440):
+                        page.screenshot(path=str(out/f'home-dark-{width}.png'))
+                        page.locator('[data-theme-choice="light"]').click();page.screenshot(path=str(out/f'home-light-{width}.png'))
+                        page.locator('[data-theme-choice="dark"]').click()
+                    if path in ('trofei/trofeo-14-una-lunga-strada/',
+                                'trofei/trofeo-17-cecchino/') and width in (390,1440):
+                        assert page.locator('[data-trophy-beginner]').count()==1
+                        assert page.locator('[data-trophy-beginner]').is_visible()
+                        assert page.locator('.tg-goal').is_visible()
+                        assert page.locator('.tg-finish [data-trophy-done]').is_visible()
+                        assert page.locator('.trophy-art-wrap').is_hidden()
+                        assert page.locator('.tg-extra:not([open])').count()==2
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                        button=page.locator('.tg-finish [data-trophy-done]')
+                        button.click()
+                        assert button.get_attribute('aria-pressed')=='true'
+                        page.reload(wait_until='load')
+                        assert button.get_attribute('aria-pressed')=='true'
+                        button.click()
+                        assert button.get_attribute('aria-pressed')=='false'
+                        if width==390:
+                            page.locator('.tg-goal').scroll_into_view_if_needed()
+                            page.screenshot(path=str(out/('mobile-trophy-'+path.split('/')[1]+'.png')))
+                        if path.endswith('trofeo-17-cecchino/'):
+                            group=page.locator('details.tg-deep')
+                            assert group.count()==1
+                            assert not group.evaluate('(el)=>el.open')
+                            group.locator(':scope > summary').click()
+                            assert page.locator('input[data-medal-id]').count()==42
+                            first=page.locator('input[data-medal-id]').first
+                            first.check()
+                            assert page.locator('[data-medal-count]').inner_text()=='1 / 42'
+                            page.reload(wait_until='load')
+                            page.locator('details.tg-deep > summary').click()
+                            assert page.locator('input[data-medal-id]').first.is_checked()
+                            page.once('dialog',lambda dialog:dialog.accept())
+                            page.locator('[data-medal-reset]').click()
+                            assert page.locator('[data-medal-count]').inner_text()=='0 / 42'
+                    if path=='screenshot-ps5/':
+                        cards=page.locator('.v-photo-hub-card')
+                        assert cards.count()==11
+                        assert page.locator('[data-visual-request-photo]').count()==55
+                        assert page.locator('details.v-photo-hub-details[open]').count()==0
+                        if width in (320,390):
+                            first=page.locator('details.v-photo-hub-details').first
+                            first.locator('summary').click()
+                            assert first.get_attribute('open') is not None
+                            assert first.locator('li.v-photo-hub-task').count()==5
+                            assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1')
+                            page.screenshot(path=str(out/f'photo-hub-mobile-{width}.png'))
+                            first.locator('summary').click()
+                            assert first.get_attribute('open') is None
+                    if path=='collezionabili/percorsi/' and width in (390,1440):
+                        assert page.locator('[data-cr-step]').count()==123
+                        assert page.locator('[data-cr-filter]').count()==10
+                        assert page.locator('[data-cr-wizard]').is_visible()
+                        assert page.locator('[data-cr-step]:visible').count()==1
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-102'
+                        assert 'PRIORITÀ' in page.locator('[data-cr-wizard-help]').inner_text()
+                        assert page.locator('.cr-wizard-item .cr-instruction-where').is_visible()
+                        assert page.locator('.cr-wizard-item .cr-instruction-do').is_visible()
+                        assert page.locator('.cr-wizard-item [data-cr-photo-state="source-only"]').count()==1
+                        assert page.locator('.cr-wizard-item [data-cr-photo-state="approved"]').count()==0
+                        assert page.locator('.cr-wizard-item .cr-photo-evidence > a').is_visible()
+                        assert page.locator('.cr-wizard-item .cr-photo-evidence > a').get_attribute('href').startswith('https://www.powerpyx.com/')
+                        assert not page.locator('.cr-hero').is_visible()
+                        if width==390:
+                            pos=page.locator('.cr-wizard-item .cr-instruction-where').bounding_box()
+                            assert pos and pos['y']<850,(path,'first real action too far down',pos)
+                            photo=page.locator('.cr-wizard-item .cr-photo-evidence').bounding_box()
+                            done=page.locator('[data-cr-wizard-found]').bounding_box()
+                            assert photo and done and photo['y']<done['y'],'source link should be before done action'
+                        # Skip does not claim an object collected; back returns.
+                        page.locator('[data-cr-wizard-skip]').click()
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        assert page.locator('[data-cr-progress]').inner_text().startswith('0 / 123')
+                        page.locator('[data-cr-wizard-back]').click()
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-102'
+                        page.locator('[data-cr-wizard-found]').click()
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        assert page.locator('[data-cr-progress]').inner_text().startswith('1 / 123')
+                        page.reload(wait_until='load')
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        assert '1 / 123' in page.locator('[data-cr-progress]').inner_text()
+                        page.locator('[data-cr-wizard-toggle]').click()
+                        assert page.locator('[data-cr-step]:visible').count()==123
+                        assert page.locator('[data-cr-query]').is_visible()
+                        page.locator('[data-cr-query]').fill('Victor Maravilla')
+                        assert page.locator('[data-cr-step]:visible').count()==1
+                        page.locator('[data-cr-query]').fill('')
+                        assert page.locator('[data-cr-step]:visible').count()==123
+                        page.locator('[data-cr-wizard-toggle]').click()
+                        assert page.locator('[data-cr-step]:visible').count()==1
+                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                        if width==390:
+                            page.screenshot(path=str(out/'mobile-collectibles-one-checkpoint-390.png'))
+                    if path=='collezionabili/percorsi/' and width==390:
+                        map_details=page.locator('details.cr-map-extra')
+                        assert map_details.count()==1
+                        assert not map_details.evaluate('(el)=>el.open')
+                        viewer=page.locator('[data-vi-map]')
+                        assert viewer.count()==1
+                        assert viewer.locator('iframe').count()==0,'external map must not autoload'
+                        map_details.locator(':scope > summary').click()
+                        assert map_details.evaluate('(el)=>el.open')
+                        viewer.locator('[data-vim-provider="city"]').click()
+                        assert viewer.locator('iframe').count()==0
+                        viewer.locator('[data-vim-load]').click()
+                        frame=viewer.locator('iframe.vim-iframe')
+                        assert frame.count()==1
+                        assert frame.get_attribute('src')=='https://gta6.city/embed/map'
+                        viewer.locator('[data-vim-provider="vice"]').click()
+                        assert frame.get_attribute('src')=='https://vice-map.com/embed/map'
+                        page.locator('.cr-wizard-item details.cr-step-extra > summary').click()
+                        page.locator('.cr-wizard-item [data-vim-map-search]').first.click()
+                        assert frame.get_attribute('src').startswith('https://vice-map.com/embed/map?marker=')
+                        assert 'non è un pin esatto' in viewer.inner_text()
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                        viewer.scroll_into_view_if_needed()
+                        page.screenshot(path=str(out/'mobile-interactive-map-390.png'))
+                    if path=='screenshot-ps5/invia/' and width in (390,1440):
+                        assert page.locator('template[data-pi-role-options]').evaluate(
+                            "(el)=>el.content.querySelectorAll('[data-photo-guide]').length")==55
+                        assert page.locator('[data-pi-role] option').count()==5
+                        assert page.locator('[data-pi-submit]').is_disabled()
+                        page.locator('[data-pi-credit]').fill('@samplephoto')
+                        for flag in ('owner','rights','public'):
+                            page.locator('[data-pi-'+flag+']').check()
+                        assert page.locator('[data-pi-submit]').is_enabled()
+                        assert page.locator('[data-pi-fallback]').is_hidden()
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                    if path=='screenshot-ps5/priorita/' and width in (390,1440):
+                        tasks=page.locator('[data-pc-task]')
+                        assert tasks.count()==55
+                        assert page.locator('[data-pc-guide]').count()==11
+                        page.locator('[data-pc-filter]').select_option('alta')
+                        shown=page.locator('[data-pc-task]:visible').count()
+                        assert 12<=shown<55
+                        page.locator('[data-pc-filter]').select_option('all')
+                        assert page.locator('[data-pc-task]:visible').count()==55
+                        link=page.locator('[data-pc-task] a.pc-send').first
+                        target=link.get_attribute('href')
+                        assert '?guida=' in target and '&passo=' in target
+                        assert '/screenshot-ps5/invia/' in target
+                        # QA hosts canonical absolute links on localhost; compare the
+                        # actual user-selected query without fetching external Pages.
+                        page.goto(origin+'screenshot-ps5/invia/?'+target.split('?',1)[1],wait_until='load')
+                        assert page.locator('[data-pi-guide]').input_value() in target
+                        assert ('passo='+page.locator('[data-pi-role]').input_value()) in target
+                        assert not page.locator('[data-pi-owner]').is_checked()
+                        assert not page.locator('[data-pi-rights]').is_checked()
+                        assert page.locator('[data-pi-submit]').is_disabled()
+                    if path=='guide-e-tutorial/':
+                        page.locator('[data-guide-search]').fill('taxi')
+                        assert page.locator('[data-guide-searchable]:visible').count()==1
+                    report.append(dict(width=width,path=path,themes=['dark','light'],persistence=True,no_overflow=True))
+                assert not errors,errors
+                context.close()
+            for nojs,blocked in ((True,False),(False,True)):
+                for width in (390,1440):
+                    context=browser.new_context(java_script_enabled=not nojs,
+                                                viewport={'width':width,'height':900},
+                                                color_scheme='light')
+                    bind(context)
+                    if blocked:context.add_init_script("Object.defineProperty(window,'localStorage',{get(){throw new Error('disabled')}})")
+                    page=context.new_page();page.goto(origin,wait_until='load')
+                    expected='dark'
+                    self_theme=page.locator('html').get_attribute('data-theme')
+                    assert self_theme==('auto' if nojs else expected),(width,nojs,self_theme)
+                    expected_bg='rgb(16, 19, 29)'
+                    assert page.evaluate('getComputedStyle(document.body).backgroundColor')==expected_bg
+                    if blocked:
+                        page.locator('[data-theme-choice="dark"]').click()
+                        assert page.locator('html').get_attribute('data-theme')=='dark'
+                    context.close()
+            browser.close()
+    finally:
+        server.shutdown();(out/'report.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
+    print('READER_BROWSER_QA_OK',len(report),'page/width combinations; responsive themes; no-JS; blocked storage; visible spoilers+zoom')
+
+if __name__=='__main__':
+    if '--browser' in sys.argv:browser_qa()
+    else:unittest.main()
+ in page.locator('.vc-facts').inner_text()
+                        assert page.locator('.vc-social a[href*="intent/tweet"]').count()==1
+                        assert page.locator('.vc-video a').count()==1
+                        if width in (390,1440):
+                            shot=page.screenshot(path=str(out/f'vehicle-yosemite-article-{width}.png'),
+                                                 full_page=True,animations='disabled')
+                            assert int.from_bytes(shot[16:20],'big')==width
+                            print('VEHICLE_ARTICLE_FULL_PAGE_QA',width,flush=True)
+                    if path=='veicoli/pegassi-toros/':
+                        assert page.locator('[data-vc-detail="pegassi-toros"]').count()==1
+                        assert page.locator('meta[name="robots"]').get_attribute('content')=='noindex,follow'
+                        assert page.locator('.vc-social-pending').count()==1
+                        assert page.locator('.vc-social').count()==0
                     if path=='immagini-ufficiali/':
                         # 189 source-attributed posters are separate from any walkthrough.
                         cards=page.locator('[data-rg-card]')
