@@ -552,7 +552,13 @@ def main():
     if not all(validate_guide_source(g.get("source_url")) for g in guides):
         raise ValueError("Unapproved or malformed guide source URL")
     OUT.mkdir(parents=True,exist_ok=True)
-    shutil.copytree(SITE/"assets",OUT/"assets",dirs_exist_ok=True)
+    # The owner-supplied Rockstar archive is retained in the Git repository.
+    # GitHub Pages serves 480px previews only, never 200MB of raw originals.
+    # Do not accidentally copy the full library into each deployment artifact.
+    library_root=(SITE/"assets"/"rockstar"/"gta-vi").resolve()
+    def skip_rockstar_originals(directory,names):
+        return {"originals"} if Path(directory).resolve()==library_root and "originals" in names else set()
+    shutil.copytree(SITE/"assets",OUT/"assets",dirs_exist_ok=True,ignore=skip_rockstar_originals)
     render_social_preview(OUT/"assets"/"social-preview.png")
     write(".nojekyll","")
     home_title="GTA 6 Italia: guide, tutorial e trofei PS5 | Grand Theft Auto VI"
