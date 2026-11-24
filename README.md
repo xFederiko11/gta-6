@@ -2,6 +2,14 @@
 
 Portale pubblico e gratuito dedicato a **GTA VI su PS5 e PS5 Pro**. I contenuti sono in italiano.
 
+## Restyling fotografico — 24 novembre 2026
+
+La homepage apre con Jason e Lucia e propone guide illustrate, l'articolo su Leonida, tre percorsi pratici e sei ambientazioni esplorabili anche da tastiera. La selezione usa 18 immagini ufficiali già presenti nell'archivio Rockstar: 15 fotografie compaiono in homepage, mentre 11 sezioni principali ricevono una copertina contestuale e le schede delle guide diventano illustrate. Le immagini promozionali sono sempre distinte dalle prove di una procedura.
+
+`cinematic_site.py` genera copie WebP da 960 e 1600 pixel durante la build, con varianti piccole già presenti nel catalogo. La prima immagine ha priorità di caricamento; le altre sono differite. Gli originali 4K restano nel repository e non appesantiscono il sito pubblicato. Tema chiaro/scuro, URL, checklist e controlli delle guide vengono conservati. L'esplorazione mostra tutti i luoghi anche senza JavaScript e rispetta le preferenze di movimento ridotto.
+
+Sorgenti del restyling: `cinematic_site.py`, `site/assets/cinematic-v3.css` e `site/assets/cinematic-v3.js`. Verifiche aggiuntive in `test_cinematic_site.py` controllano immagini reali, peso dei file, destinazioni dei collegamenti e copertine delle sezioni.
+
 **Indirizzo previsto:** https://xfederiko11.github.io/gta-6/
 
 ## Struttura
@@ -15,6 +23,18 @@ Portale pubblico e gratuito dedicato a **GTA VI su PS5 e PS5 Pro**. I contenuti 
 - **HDR OLED** — `/gta-6/hdr-oled/`: cerca marca, codice TV o diagonale; 21 famiglie e 92 codici per PS5 e PS5 Pro, pagine SEO per serie.
 - **Medaglie Oro** — `/gta-6/trofei/medaglie-oro/`.
 - **SEO** — sitemap, robots, canonical, Open Graph, metadati e JSON-LD.
+- **Articoli illustrati** — `/gta-6/articoli/`: approfondimenti originali con fotografie ufficiali attribuite; contenuti in `data/articles.json`.
+- **Raccolta Rockstar** — `/gta-6/immagini-ufficiali/`: 189 originali 3840×2160, ricerca per soggetto e collegamenti ai file; la raccolta è `noindex,follow`.
+
+### Immagini fornite dal proprietario — 24 novembre 2026
+
+`site/assets/rockstar/gta-vi/` conserva i 138 screenshot e le 51 immagini Ultimate Edition dei due archivi forniti. Gli originali non sono modificati; `manifest.json` registra archivio, dimensioni, SHA-256, fonte Rockstar e URL pubblico per ogni immagine. Le anteprime WebP sono copie ottimizzate; le sei immagini scelte per l'articolo hanno anche varianti da 960 e 1600 pixel. I file ZIP e i percorsi personali del computer non vengono pubblicati.
+
+`editorial_articles.py` genera l'articolo **GTA VI oltre Vice City: Leonida in sei immagini ufficiali**, l'indice e la raccolta. La pagina articolo usa sei fotografie diverse, testi alternativi, didascalie, originali 4K, fonti e dati strutturati Article; la copertina social usa la fotografia di Vice City scelta per quel contenuto. Gli screenshot promozionali non aumentano la copertura fotografica delle guide operative.
+
+Il post abbinato è soltanto una **bozza** in `editorial/x/gta-vi-leonida-sei-luoghi.json` e `.txt`, con quattro allegati distinti e testi alternativi. Non è inserito nella coda del bot: prima dell'invio va verificata la pubblicazione dell'URL articolo. Il caricamento delle immagini e la preparazione della bozza non inviano post su X.
+
+Verifica specifica: `python -m unittest -q test_editorial_articles.py` dopo la normale build del lettore.
 
 I contenuti sono separati dai template in `data/trofei.json`, `data/guide.json` e `data/hdr_oled.json`.
 L’indice OLED e le 21 pagine di famiglia sono generate da `hdr_catalog.py`, con fonti del produttore. Le impostazioni HDR specifiche di GTA VI non sono inventate: usare soltanto i controlli effettivamente disponibili nel gioco e nel firmware TV.

@@ -111,9 +111,16 @@ class SocialCardTests(unittest.TestCase):
         self.assertEqual(obj["schema"],"gta6-social-cards-v2")
         self.assertGreaterEqual(obj["pages"],65)
         self.assertEqual(obj["unique_images"],obj["pages"])
-        # Article thumbnails must be topical text cards, not random promotional scenes.
-        self.assertTrue(all(row['artwork'] is None for row in obj['entries'] if row['path']))
-        self.assertLessEqual(obj['artwork_backed_cards'],1)
+        # Only explicit editorial selections may illustrate a specific article.
+        from editorial_articles import load
+        _, articles, images = load()
+        selected={article['path']:images[article['hero']]['title'] for article in articles}
+        for row in obj['entries']:
+            if row['path'] in selected:
+                self.assertEqual(row['artwork'],selected[row['path']])
+            elif row['path']:
+                self.assertIsNone(row['artwork'])
+        self.assertLessEqual(obj['artwork_backed_cards'],1+len(selected))
         urls=set()
         for record in obj["entries"]:
             name=c.cover_key(record["path"])

@@ -12,6 +12,8 @@ import xml.etree.ElementTree as ET
 
 import build_site as legacy
 import site_info
+import editorial_articles
+import cinematic_site
 from visual_guide_content import enrich
 from operational_brief_v1 import validate as validate_operational_briefs, render as render_operational_brief
 from moses_vehicle_jobs_v1 import render as render_moses_jobs, validate as validate_moses_jobs, PATH as MOSES_JOBS_PATH
@@ -88,7 +90,7 @@ def header(path):
     primary=[('Home',''),('Guide','guide-e-tutorial/'),('Trofei','trofei/'),('Scoperte','scoperte/')]
     secondary=[('Soldi facili','soldi-facili/'),('Cerca un veicolo','veicoli/'),
                ('Salvare auto','salvare-auto/'),('Collezionabili','collezionabili/percorsi/'),
-               ('Mappe','mappe-guide/'),('HDR OLED','hdr-oled/'),('Immagini ufficiali','immagini-ufficiali/'),('Fonti e metodo','fonti/')]
+               ('Mappe','mappe-guide/'),('HDR OLED','hdr-oled/'),('Articoli','articoli/'),('Immagini ufficiali','immagini-ufficiali/'),('Fonti e metodo','fonti/')]
     def link(label,target):
         current=' aria-current="page"' if path==target else ''
         return f'<a href="{url(target)}"{current}>{e(label)}</a>'
@@ -132,6 +134,10 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
     page=page.replace('<body>',f'<body data-design-version="{DESIGN_VERSION}">',1)
     page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/visual-v2.css")}?v={ASSET_VERSION}"><meta name="color-scheme" content="light"></head>',1)
     page=page.replace('</body>',f'<script src="{url("assets/visual-v2.js")}?v={ASSET_VERSION}" defer></script></body>',1)
+    if path == '' or path.startswith(('articoli/','media/rockstar/')):
+        css='editorial-articles.css'
+        version=hashlib.sha256(Path('site/assets',css).read_bytes()).hexdigest()[:12]
+        page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
     if path == '':
         css='site-focus-v1.css'
         version=hashlib.sha256(Path('site/assets',css).read_bytes()).hexdigest()[:12]
@@ -401,11 +407,12 @@ def reading_time(g):
 
 
 def card(g):
-    """Plain indexed card: no illustrative screenshot confused for game instructions."""
+    """Illustrated discovery card; promotional photography is labelled separately."""
     return (
         f'<article class="v-guide-card v-guide-card-plain" data-category="{e(g["category"])}" '
         f'data-guide-searchable="{e(g["safe_title"]+" "+g["tag"]+" "+g["summary"])}">'
         f'<a href="{url(g["canonical_path"])}">'
+        +cinematic_site.card_image(g,url)+
         '<div class="v-card-copy">'
         f'<span class="v-tag">{e(g["tag"])} · GUIDA PRATICA</span>'
         f'<h3>{e(g["safe_title"])}</h3><p>{e(g["summary"])}</p>'
@@ -426,52 +433,8 @@ def categories():
 
 
 def home(guides):
-    """Only the three reader destinations: guide, trophies, community.
-    All old URLs remain available; no unrelated photos or editorial dashboard.
-    """
-    by={g['id']:g for g in guides}
-    first=by['registrare-auto-personale']
-    cash=by['soldi-facili-capitolo-1']
-    body=(
-      '<section class="focus-hero" aria-labelledby="focus-title">'
-      '<span class="focus-eyebrow">GTA VI ITALIA · PS5 / PS5 PRO</span>'
-      '<h1 id="focus-title">Cosa vuoi fare in GTA VI?</h1>'
-      '<p>Scegli un obiettivo: ti diciamo dove andare, cosa fare e come verificare il risultato. '
-      'Le notizie e le curiosità restano separate dai tutorial.</p>'
-      '<nav class="focus-choice-grid" aria-label="Scegli cosa cercare">'
-      '<a class="focus-choice" href="'+url('guide-e-tutorial/')+'"><strong>1 · Guide pratiche</strong>'
-      '<span>Missioni, soldi, auto e procedure passo dopo passo.</span><small>Apri le guide →</small></a>'
-      '<a class="focus-choice" href="'+url('trofei/')+'"><strong>2 · Trofei e platino</strong>'
-      '<span>Requisiti, avvisi mancabili e checklist di completamento.</span><small>Apri i trofei →</small></a>'
-      '<a class="focus-choice" href="'+url('scoperte/')+'"><strong>3 · Scoperte community</strong>'
-      '<span>Segnalazioni e ipotesi con etichette di affidabilità, non istruzioni confermate.</span>'
-      '<small>Vedi le scoperte →</small></a></nav></section>'
-      '<section class="focus-content" aria-labelledby="focus-guide-title">'
-      '<h2 id="focus-guide-title">Inizia da una procedura</h2>'
-      '<p>Tre guide utili; ogni tutorial contiene i passi e le fonti appropriate.</p>'
-      '<ol class="focus-quick">'
-      '<li><a href="'+url(first['canonical_path'])+'"><strong>Salvare la prima auto</strong>'
-      '<span>Quando puoi farlo, dove registrarla e come ritrovarla.</span><small>Apri il tutorial →</small></a></li>'
-      '<li><a href="'+url(MOSES_JOBS_PATH)+'"><strong>Le 6 auto per Moses</strong>'
-      '<span>Veicoli da recuperare, posizioni e gameplay originale.</span><small>Apri la guida completa →</small></a></li>'
-      '<li><a href="'+url(cash['canonical_path'])+'"><strong>Soldi facili nel Capitolo 1</strong>'
-      '<span>Luoghi verificati e avvisi prima del cambio capitolo.</span><small>Apri i passaggi →</small></a></li>'
-      '</ol><p class="focus-catalog-link"><a href="'+url('veicoli/')+'">'
-      '🚘 Cerca un veicolo per modello, zona o richiesta →</a></p></section>'
-      '<section class="focus-news" aria-labelledby="focus-news-title">'
-      '<h2 id="focus-news-title">Novità: distinguiamo le fonti</h2>'
-      '<p>Le comunicazioni Rockstar sono ufficiali. Le scoperte dei giocatori '
-      'restano etichettate fino alla verifica; non diventano tutorial per errore.</p>'
-      '<div class="focus-source-links">'
-      '<a href="https://www.rockstargames.com/newswire" target="_blank" rel="noopener noreferrer">'
-      'News ufficiali Rockstar ↗</a>'
-      '<a href="'+url('scoperte/')+'">Scoperte e verifiche community →</a></div>'
-      '</section>'
-      '<p class="focus-x">Nuove guide pubblicate anche su '
-      '<a href="https://x.com/xFederiko11" target="_blank" rel="noopener noreferrer">𝕏 @xFederiko11 ↗</a>. '
-      'Nessun link a servizi interni o pannelli amministrativi.</p>'
-    )
-    return body
+    """A photographic route into the existing guides, trophies and discoveries."""
+    return cinematic_site.home(guides,url)
 
 
 def directory(guides,kind='all'):
@@ -797,6 +760,7 @@ def validate(guides):
 
 def main():
     global GUIDE_MAP_PATHS, MAP_RENDER_PATHS
+    cinematic_site.prepare()
     records=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
     records+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
     guides=enrich(records)
@@ -1027,6 +991,9 @@ def main():
         'rights_gate':'explicit consent + human review + local WebP + SHA-256'
     },ensure_ascii=False,indent=2)+'\n')
     ET.register_namespace('','http://www.sitemaps.org/schemas/sitemap/0.9')
+    editorial_paths=editorial_articles.build(legacy.write,layout,url,legacy.crumbs)
+    # The media library is browsable but intentionally excluded from the index.
+    new_paths.extend(p for p in editorial_paths if p != editorial_articles.GALLERY_PATH)
     tree=ET.parse(OUT/'sitemap.xml'); root=tree.getroot(); ns='{http://www.sitemaps.org/schemas/sitemap/0.9}'
     existing={loc.text for loc in root.iter(ns+'loc')}
     for path in new_paths:

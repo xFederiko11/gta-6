@@ -207,7 +207,10 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
             f'<script src="{BASE}assets/collectible-beginner-v1.js?v={version}" defer></script></body>',1)
     page = page.replace('</body>', DIALOG+f'<script src="{BASE}assets/reader-theme.js?v={version}" defer></script>'
                         +f'<script src="{BASE}assets/community-social-v1.js?v={version}" defer></script></body>', 1)
-    return enhance(page, umami_website_id)
+    from cinematic_site import enhance as cinematic_enhance
+    canonical=re.search(r'<link rel="canonical" href="([^"]+)"',page)
+    path=urlsplit(html.unescape(canonical.group(1))).path.removeprefix('/gta-6/') if canonical else None
+    return enhance(cinematic_enhance(page,path), umami_website_id)
 
 
 def build_base():
@@ -238,6 +241,8 @@ def main():
     guide_info=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
     visual_info=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
     discussable={'scoperte/','soldi-facili/','auto-speciali/','salvare-auto/','trofei/','hdr-oled/','trucchi/'}
+    from editorial_articles import load as load_editorial
+    discussable.update(article['path'] for article in load_editorial()[1])
     for guide in guide_info+visual_info:
         path=guide.get('canonical_path') or 'guide-e-tutorial/'+guide['id']+'/'
         if not re.fullmatch(r'(?:[a-z0-9-]+/)+',path):

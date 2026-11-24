@@ -577,6 +577,15 @@ def browser_qa():
                         assert iframe.get_attribute('src').startswith(
                             'https://www.youtube-nocookie.com/embed/R0GdEkPZSvM?start=675')
                     if path=='' and width in (390,1440):
+                        assert page.locator('.ci-hero-image').is_visible()
+                        assert page.locator('.focus-choice').count()==3
+                        for photo in page.locator('.ci-choice-image').all():
+                            assert photo.bounding_box()['height'] < 350
+                        page.get_by_role('tab',name='Leonida Keys',exact=True).click()
+                        assert page.locator('#place-leonida-keys').is_visible()
+                        assert page.locator('#place-vice-city').is_hidden()
+                        page.get_by_role('tab',name='Vice City',exact=True).click()
+                        page.locator('#inizio').scroll_into_view_if_needed()
                         page.screenshot(path=str(out/f'home-dark-{width}.png'))
                         page.locator('[data-theme-choice="light"]').click();page.screenshot(path=str(out/f'home-light-{width}.png'))
                         page.locator('[data-theme-choice="dark"]').click()

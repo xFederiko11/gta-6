@@ -4,3 +4,8 @@ __pycache__/
 .DS_Store
 .env
 .venv/
+.venv312/
+.visual-media/
+.runtime/
+site/assets/cinematic/
+site/assets/visual/
