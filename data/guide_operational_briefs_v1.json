@@ -13,9 +13,9 @@
       "goal": "Raggiungi il nascondiglio e controlla il denaro presente."
     },
     "scansionare-veicoli": {
-      "when": "App WAiNK disponibile",
-      "where": "Vicino al veicolo da scansionare",
-      "goal": "Registra il tipo di tracker e verifica il progresso in gioco."
+      "when": "WAiNK sbloccata (dalla storia); Key Cloner nel Capitolo 3",
+      "where": "Davanti a qualsiasi veicolo nuovo, anche barche e velivoli",
+      "goal": "Scansiona con ↑ + R1, controlla il tracker prima di rubare un mezzo e registra 200 modelli base per il 100%."
     },
     "studiare-animali": {
       "when": "Binocolo disponibile",
