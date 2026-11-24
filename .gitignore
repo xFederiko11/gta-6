@@ -7,3 +7,5 @@ __pycache__/
 .venv312/
 .visual-media/
 .runtime/
+site/assets/cinematic/
+site/assets/visual/

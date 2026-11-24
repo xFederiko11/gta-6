@@ -207,7 +207,10 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
             f'<script src="{BASE}assets/collectible-beginner-v1.js?v={version}" defer></script></body>',1)
     page = page.replace('</body>', DIALOG+f'<script src="{BASE}assets/reader-theme.js?v={version}" defer></script>'
                         +f'<script src="{BASE}assets/community-social-v1.js?v={version}" defer></script></body>', 1)
-    return enhance(page, umami_website_id)
+    from cinematic_site import enhance as cinematic_enhance
+    canonical=re.search(r'<link rel="canonical" href="([^"]+)"',page)
+    path=urlsplit(html.unescape(canonical.group(1))).path.removeprefix('/gta-6/') if canonical else None
+    return enhance(cinematic_enhance(page,path), umami_website_id)
 
 
 def build_base():

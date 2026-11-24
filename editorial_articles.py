@@ -9,7 +9,7 @@ import re
 
 LIBRARY = Path('site/assets/rockstar/gta-vi')
 LIBRARY_PATH = 'assets/rockstar/gta-vi/'
-GALLERY_PATH = 'media/rockstar/'
+GALLERY_PATH = 'immagini-ufficiali/'
 INDEX_PATH = 'articoli/'
 
 
@@ -41,7 +41,7 @@ def figure(section, row, url, *, eager=False):
     src = asset_url(url, row['variants']['960'])
     srcset = ', '.join(asset_url(url, row['variants'][str(w)])+' '+str(w)+'w'
                        for w in (480, 960, 1600))
-    original = asset_url(url, row['file'])
+    original = row['public_url']
     return ('<figure class="ed-photo"><a href="'+original+'" target="_blank" rel="noopener">'
             '<img src="'+src+'" srcset="'+srcset+'" sizes="(max-width: 800px) 100vw, 900px" '
             'width="1600" height="900" alt="'+escape(section['alt'], quote=True)+'" '
@@ -66,7 +66,7 @@ def home_feature(url):
 
 def build(write, layout, url, crumbs):
     library, articles, images = load()
-    paths = [INDEX_PATH, GALLERY_PATH]
+    paths = [INDEX_PATH]
     for article in articles:
         path = article['path']
         intro = ''.join('<p>'+escape(p)+'</p>' for p in article['intro'])
@@ -105,31 +105,4 @@ def build(write, layout, url, crumbs):
     index_schema={'@context':'https://schema.org','@type':'CollectionPage','name':title,
                   'url':url(INDEX_PATH),'inLanguage':'it-IT'}
     write(INDEX_PATH+'index.html', layout(title, 'Articoli illustrati su GTA VI, con immagini ufficiali Rockstar Games e fonti.', INDEX_PATH, body, 'articles', structured=index_schema))
-    cards = []
-    for row in library['assets']:
-        original = asset_url(url, row['file'])
-        label = escape(row['title'])
-        search = escape((row['title']+' '+row['subject']+' '+row['category']).casefold(), quote=True)
-        cards.append('<article class="ed-library-card" data-library-card data-category="'+escape(row['category'], quote=True)+
-                     '" data-search="'+search+'"><a href="'+original+'" target="_blank" rel="noopener">'
-                     '<img src="'+asset_url(url, row['preview'])+'" width="480" height="270" loading="lazy" '
-                     'alt="'+label+' — Rockstar Games"></a><div><small>'+escape(row['category'])+'</small>'
-                     '<h2>'+label+'</h2><p>3840 × 2160 · JPG · Rockstar Games</p>'
-                     '<a href="'+original+'" target="_blank" rel="noopener">Apri originale 4K ↗</a></div></article>')
-    body = (crumbs([('Immagini Rockstar', GALLERY_PATH)])+'<section class="ed-intro"><h1>Immagini ufficiali GTA VI</h1>'
-            '<p>189 originali in 4K per articoli e post: 77 immagini di personaggi, 61 di luoghi e 51 della Ultimate Edition. '
-            'Credito: © Rockstar Games.</p><p><a href="https://www.rockstargames.com/VI/media" '
-            'target="_blank" rel="noopener noreferrer">Fonte Rockstar ↗</a> · '
-            '<a href="'+url(LIBRARY_PATH+'manifest.json')+'">Indice e link dei file</a></p></section>'
-            '<div class="ed-filters" id="library-filters" hidden><label>Cerca un soggetto'
-            '<input type="search" id="library-search" placeholder="Jason, Vice City, Grotti…"></label>'
-            '<label>Raccolta<select id="library-category"><option value="">Tutte</option><option>Personaggi</option>'
-            '<option>Luoghi</option><option>Ultimate Edition</option></select></label></div>'
-            '<p id="library-count" role="status" aria-live="polite">189 immagini</p>'
-            '<div class="ed-library-grid">'+''.join(cards)+'</div>')
-    page = layout('Immagini GTA VI in 4K — archivio Rockstar | GTA 6 Italia',
-                  '189 immagini Rockstar Games in 4K, catalogate per personaggi, luoghi e Ultimate Edition.',
-                  GALLERY_PATH, body, 'articles', robots='noindex,follow')
-    page = page.replace('</body>', '<script src="'+url('assets/rockstar-library.js')+'" defer></script></body>', 1)
-    write(GALLERY_PATH+'index.html', page)
     return paths

@@ -42,8 +42,7 @@ class VisualSiteTests(unittest.TestCase):
         self.assertIn('/guide-e-tutorial/',text)
         self.assertIn('/trofei/',text)
         self.assertIn('/scoperte/',text)
-        # Home is intentionally an editorial directory, not a wall of images
-        # or fake screenshot evidence.
+        # Promotional discovery images remain separate from tutorial evidence.
         self.assertFalse(any(t=='img' and 'data-visual-image' in a for t,a in tags.tags))
         self.assertEqual(text.count('class="focus-choice"'),3)
         self.assertNotIn('v-promo-no-media',text)
@@ -126,7 +125,7 @@ class VisualSiteTests(unittest.TestCase):
             for path in ('soldi-facili/','auto-speciali/','salvare-auto/'):
                 self.assertIn(BASE+path,text)
         html=(ROOT/'index.html').read_text()
-        self.assertLess(html.index('class="focus-choice-grid"'),html.index('class="focus-content"'))
+        self.assertLess(html.index('class="focus-choice-grid"'),html.index('id="focus-guide-title"'))
         self.assertIn('class="focus-x"',html)
         self.assertNotIn('class="v-follow-home"',html)
         self.assertIn('@xFederiko11',html)

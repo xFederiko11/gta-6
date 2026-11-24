@@ -1,0 +1,40 @@
+/* Official promotional media index, intentionally separate from tutorials. */
+.rg-hero,.rg-library{max-width:1180px;margin:16px auto;padding:0 16px;color:var(--r-text,var(--text))}
+.rg-hero{border-bottom:1px solid var(--r-line,var(--border));padding-bottom:16px}
+.rg-kicker{color:var(--r-cyan,#87ded9);font-size:.73rem;letter-spacing:.075em;font-weight:850}
+.rg-hero h1{max-width:23ch;font-size:clamp(1.45rem,3vw,2.1rem);line-height:1.15;margin:9px 0}
+.rg-hero>p{font-size:.95rem;line-height:1.55;max-width:76ch;margin:8px 0}
+.rg-hero .rg-rights{font-size:.79rem;line-height:1.5;color:var(--r-muted,var(--muted));margin-top:13px}
+.rg-hero .rg-rights a{color:var(--r-cyan,#87ded9)}
+.rg-controls{display:grid;grid-template-columns:minmax(0,2fr) minmax(180px,1fr);gap:12px;margin:12px 0}
+.rg-controls label{display:flex;flex-direction:column;gap:7px;font-size:.79rem;font-weight:750;color:var(--r-text,var(--text))}
+.rg-controls :is(input,select){width:100%;min-height:44px;padding:9px 12px;border-radius:9px;
+  border:1px solid var(--r-line,var(--border));background:var(--r-surface,var(--surface));color:var(--r-text,var(--text));font:inherit}
+.rg-controls :is(input,select):focus-visible{outline:2px solid var(--r-cyan,#87ded9);outline-offset:2px}
+.rg-counter{font-size:.79rem;color:var(--r-muted,var(--muted));margin:10px 0 12px;min-height:1.2em}
+.rg-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.rg-card{min-width:0;margin:0;border:1px solid var(--r-line,var(--border));background:var(--r-surface,var(--surface));
+  color:var(--r-text,var(--text));border-radius:11px;overflow:hidden}
+.rg-card[hidden]{display:none!important}
+.rg-card>img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#0e0c15}
+.rg-card figcaption{display:flex;flex-direction:column;align-items:flex-start;gap:5px;padding:10px 11px 12px}
+.rg-card strong{font-size:.85rem;line-height:1.35;overflow-wrap:anywhere}
+.rg-card small{font-size:.69rem;line-height:1.36;color:var(--r-muted,var(--muted))}
+.rg-card a{font-size:.74rem;line-height:1.3;min-height:32px;display:inline-flex;align-items:center;color:var(--r-cyan,#87ded9);font-weight:700;text-underline-offset:3px}
+.rg-card a:focus-visible{outline:2px solid var(--r-cyan,#87ded9);outline-offset:3px}
+.rg-empty{color:var(--r-muted,var(--muted));padding:16px;border:1px solid var(--r-line);border-radius:9px}
+.rg-more-wrap{text-align:center;padding:16px}
+.rg-more-wrap button{min-height:44px;min-width:180px;background:var(--r-surface,var(--surface));color:var(--r-text,var(--text));
+  border:1px solid var(--r-line,var(--border));border-radius:9px;font-weight:800;cursor:pointer}
+.rg-more-wrap button:hover,.rg-more-wrap button:focus-visible{border-color:var(--r-cyan,#87ded9)}
+@media(max-width:950px){.rg-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:690px){
+  .rg-hero,.rg-library{padding:0 10px}
+  .rg-hero{padding-bottom:11px}
+  .rg-controls{grid-template-columns:1fr;gap:9px}
+  .rg-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .rg-card figcaption{padding:9px 8px 10px}
+  .rg-card strong{font-size:.85rem;line-height:1.35}
+  .rg-card small{font-size:.74rem;line-height:1.45}
+}
+@media(max-width:340px){.rg-grid{grid-template-columns:1fr}}

@@ -287,6 +287,8 @@ def publish():
     from editorial_articles import load as load_editorial, LIBRARY
     _,editorial,editorial_images=load_editorial()
     selected={item['path']:editorial_images[item['hero']] for item in editorial}
+    from cinematic_site import HERO
+    selected['']=editorial_images[HERO]
     for page in sorted(ROOT.rglob("index.html")):
         parsed=_parse_page(page)
         if parsed is None:continue

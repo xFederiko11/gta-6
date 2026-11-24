@@ -13,6 +13,7 @@ import xml.etree.ElementTree as ET
 import build_site as legacy
 import site_info
 import editorial_articles
+import cinematic_site
 from visual_guide_content import enrich
 from operational_brief_v1 import validate as validate_operational_briefs, render as render_operational_brief
 from moses_vehicle_jobs_v1 import render as render_moses_jobs, validate as validate_moses_jobs, PATH as MOSES_JOBS_PATH
@@ -27,6 +28,9 @@ from guide_step_references_v1 import render as render_step_evidence, validate as
 from step_image_sources_v1 import load as load_step_photo_sources, validate as validate_step_photo_sources, render as render_step_photo_source
 from first_car_steps_v1 import validate as validate_first_car, render as render_first_car
 from chapter1_money_steps_v1 import validate as validate_money, render as render_money
+from rockstar_gallery_v1 import render as render_rockstar_gallery, validate as validate_rockstar_gallery, PATH as ROCKSTAR_GALLERY_PATH
+from vehicle_catalog_v1 import (load as load_vehicle_catalog, validate as validate_vehicles,
+    index_body as render_vehicle_index, pages as vehicle_pages, PATH as VEHICLE_PATH)
 from platinum_atlas_v2 import render as render_trophy_atlas, validate as validate_trophy_atlas
 from advanced_platinum_v3 import (render_100 as render_advanced_100, render_hard as render_advanced_hard,
                                   validate as validate_advanced, COLLECTIBLE_PATH, HARD_PATH)
@@ -84,9 +88,9 @@ def brand():
 def header(path):
     # Three editorial destinations: guide ≠ community report ≠ other tools.
     primary=[('Home',''),('Guide','guide-e-tutorial/'),('Trofei','trofei/'),('Scoperte','scoperte/')]
-    secondary=[('Soldi facili','soldi-facili/'),('Veicoli','auto-speciali/'),
+    secondary=[('Soldi facili','soldi-facili/'),('Cerca un veicolo','veicoli/'),
                ('Salvare auto','salvare-auto/'),('Collezionabili','collezionabili/percorsi/'),
-               ('Mappe','mappe-guide/'),('HDR OLED','hdr-oled/'),('Articoli','articoli/'),('Fonti e metodo','fonti/')]
+               ('Mappe','mappe-guide/'),('HDR OLED','hdr-oled/'),('Articoli','articoli/'),('Immagini ufficiali','immagini-ufficiali/'),('Fonti e metodo','fonti/')]
     def link(label,target):
         current=' aria-current="page"' if path==target else ''
         return f'<a href="{url(target)}"{current}>{e(label)}</a>'
@@ -105,7 +109,7 @@ def header(path):
               'di missioni, luoghi e ricompense.</p></div></div>') if path else ''))
 
 def footer():
-    links=[('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Invia foto','screenshot-ps5/invia/'),('Mappe e luoghi','mappe-guide/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
+    links=[('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Invia foto','screenshot-ps5/invia/'),('Mappe e luoghi','mappe-guide/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Immagini Rockstar','immagini-ufficiali/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
     return ('<footer class="v-footer"><div class="wrap"><div class="v-footer-grid"><div>'+brand()+
             '<p>Guide indipendenti per PS5 e PS5 Pro. Sintesi originali, schermate attribuite e avvisi spoiler. Non affiliato a Rockstar Games.</p></div><nav class="v-footer-links" aria-label="Link utili">'+
             ''.join(f'<a href="{url(p)}">{e(t)}</a>' for t,p in links)+
@@ -148,6 +152,22 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
         version=hashlib.sha256(Path('site/assets',css).read_bytes()+Path('site/assets',js).read_bytes()).hexdigest()[:12]
         page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
         page=page.replace('</body>',f'<script src="{url("assets/"+js)}?v={version}" defer></script></body>',1)
+    if path==VEHICLE_PATH or path.startswith(VEHICLE_PATH):
+        css,js='vehicle-finder-v1.css','vehicle-finder-v1.js'
+        version=hashlib.sha256(
+            Path('site/assets',css).read_bytes()+Path('site/assets',js).read_bytes()).hexdigest()[:12]
+        page=page.replace('</head>',
+            f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
+        page=page.replace('</body>',
+            f'<script src="{url("assets/"+js)}?v={version}" defer></script></body>',1)
+    if path==ROCKSTAR_GALLERY_PATH:
+        css,js='rockstar-gallery-v1.css','rockstar-gallery-v1.js'
+        version=hashlib.sha256(
+            Path('site/assets',css).read_bytes()+Path('site/assets',js).read_bytes()).hexdigest()[:12]
+        page=page.replace('</head>',
+            f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
+        page=page.replace('</body>',
+            f'<script src="{url("assets/"+js)}?v={version}" defer></script></body>',1)
     if path == PHOTO_COVERAGE_PATH:
         css,js='photo-coverage-v5.css','photo-coverage-v5.js'
         version=hashlib.sha256(Path('site/assets',css).read_bytes()+Path('site/assets',js).read_bytes()).hexdigest()[:12]
@@ -387,11 +407,12 @@ def reading_time(g):
 
 
 def card(g):
-    """Plain indexed card: no illustrative screenshot confused for game instructions."""
+    """Illustrated discovery card; promotional photography is labelled separately."""
     return (
         f'<article class="v-guide-card v-guide-card-plain" data-category="{e(g["category"])}" '
         f'data-guide-searchable="{e(g["safe_title"]+" "+g["tag"]+" "+g["summary"])}">'
         f'<a href="{url(g["canonical_path"])}">'
+        +cinematic_site.card_image(g,url)+
         '<div class="v-card-copy">'
         f'<span class="v-tag">{e(g["tag"])} · GUIDA PRATICA</span>'
         f'<h3>{e(g["safe_title"])}</h3><p>{e(g["summary"])}</p>'
@@ -412,51 +433,8 @@ def categories():
 
 
 def home(guides):
-    """Only the three reader destinations: guide, trophies, community.
-    All old URLs remain available; no unrelated photos or editorial dashboard.
-    """
-    by={g['id']:g for g in guides}
-    first=by['registrare-auto-personale']
-    cash=by['soldi-facili-capitolo-1']
-    body=(
-      '<section class="focus-hero" aria-labelledby="focus-title">'
-      '<span class="focus-eyebrow">GTA VI ITALIA · PS5 / PS5 PRO</span>'
-      '<h1 id="focus-title">Cosa vuoi fare in GTA VI?</h1>'
-      '<p>Scegli un obiettivo: ti diciamo dove andare, cosa fare e come verificare il risultato. '
-      'Le notizie e le curiosità restano separate dai tutorial.</p>'
-      '<nav class="focus-choice-grid" aria-label="Scegli cosa cercare">'
-      '<a class="focus-choice" href="'+url('guide-e-tutorial/')+'"><strong>1 · Guide pratiche</strong>'
-      '<span>Missioni, soldi, auto e procedure passo dopo passo.</span><small>Apri le guide →</small></a>'
-      '<a class="focus-choice" href="'+url('trofei/')+'"><strong>2 · Trofei e platino</strong>'
-      '<span>Requisiti, avvisi mancabili e checklist di completamento.</span><small>Apri i trofei →</small></a>'
-      '<a class="focus-choice" href="'+url('scoperte/')+'"><strong>3 · Scoperte community</strong>'
-      '<span>Segnalazioni e ipotesi con etichette di affidabilità, non istruzioni confermate.</span>'
-      '<small>Vedi le scoperte →</small></a></nav></section>'
-      '<section class="focus-content" aria-labelledby="focus-guide-title">'
-      '<h2 id="focus-guide-title">Inizia da una procedura</h2>'
-      '<p>Tre guide utili; ogni tutorial contiene i passi e le fonti appropriate.</p>'
-      '<ol class="focus-quick">'
-      '<li><a href="'+url(first['canonical_path'])+'"><strong>Salvare la prima auto</strong>'
-      '<span>Quando puoi farlo, dove registrarla e come ritrovarla.</span><small>Apri il tutorial →</small></a></li>'
-      '<li><a href="'+url(MOSES_JOBS_PATH)+'"><strong>Le 6 auto per Moses</strong>'
-      '<span>Veicoli da recuperare, posizioni e gameplay originale.</span><small>Apri la guida completa →</small></a></li>'
-      '<li><a href="'+url(cash['canonical_path'])+'"><strong>Soldi facili nel Capitolo 1</strong>'
-      '<span>Luoghi verificati e avvisi prima del cambio capitolo.</span><small>Apri i passaggi →</small></a></li>'
-      '</ol></section>'
-      '<section class="focus-news" aria-labelledby="focus-news-title">'
-      '<h2 id="focus-news-title">Novità: distinguiamo le fonti</h2>'
-      '<p>Le comunicazioni Rockstar sono ufficiali. Le scoperte dei giocatori '
-      'restano etichettate fino alla verifica; non diventano tutorial per errore.</p>'
-      '<div class="focus-source-links">'
-      '<a href="https://www.rockstargames.com/newswire" target="_blank" rel="noopener noreferrer">'
-      'News ufficiali Rockstar ↗</a>'
-      '<a href="'+url('scoperte/')+'">Scoperte e verifiche community →</a></div>'
-      '</section>'
-      '<p class="focus-x">Nuove guide pubblicate anche su '
-      '<a href="https://x.com/xFederiko11" target="_blank" rel="noopener noreferrer">𝕏 @xFederiko11 ↗</a>. '
-      'Nessun link a servizi interni o pannelli amministrativi.</p>'
-    )
-    return body+editorial_articles.home_feature(url)
+    """A photographic route into the existing guides, trophies and discoveries."""
+    return cinematic_site.home(guides,url)
 
 
 def directory(guides,kind='all'):
@@ -468,6 +446,11 @@ def directory(guides,kind='all'):
     title,desc,path=config[kind]
     selected=guides if kind=='all' else [g for g in guides if g['category']==kind or (kind=='auto' and g['category']=='garage')]
     body=legacy.crumbs([(title,path)])+f'<section class="v-directory-head"><span class="eyebrow">GTA 6 · GUIDE OPERATIVE</span><h1>{e(title)}</h1><p>{e(desc)}</p></section>'
+    if kind=='auto':
+        body+=('<aside class="v-cash-safety"><strong>🚘 Cerchi un modello preciso?</strong>'
+               '<p>Apri il <a href="'+url('veicoli/')+'">catalogo veicoli GTA VI</a>: '
+               'posizioni documentate, passaggi per ottenerli, fonti e modelli in verifica.</p>'
+               '</aside>')
     if kind=='soldi':
         body+=('<aside class="v-cash-safety" role="note"><strong>⚠️ Non farmare alla cieca nel Capitolo 1.</strong>'
                '<p>Prima di accumulare denaro, controlla un rischio importante per la progressione. '
@@ -553,6 +536,15 @@ def guide(g,guides):
                'si sbloccano dopo Daily Driver. '
                '<a href="https://www.gtabase.com/gta-6/articles/how-to-unlock-garages-in-gta-6" '
                'target="_blank" rel="noopener noreferrer">Fonte sblocchi garage ↗</a></p>')
+    if g['id']=='scansionare-veicoli':
+        body+=('<p class="v-guide-urgent waink-tracker-warning" role="note">'
+               '<strong>🚘 Prima di rubare:</strong> '
+               '<strong>No Tracker</strong> significa che non c\'è localizzatore; '
+               '<strong>Standard</strong> può segnalare alla polizia il luogo del furto; '
+               '<strong>Advanced</strong> può comunicare la posizione quando rallenti. '
+               'Per alcuni veicoli avanzati serve il Key Cloner, sbloccabile nel Capitolo 3. '
+               '<a href="https://www.powerpyx.com/gta-6-moses-take-a-vehicle-to-moses-walkthrough/" '
+               'target="_blank" rel="noopener noreferrer">Verifica PowerPyx ↗</a></p>')
     # Critical trophy/save warnings must remain visible BEFORE the first step.
     if g['id']=='soldi-facili-capitolo-1':
         body+=('<p class="v-guide-urgent cash-critical-warning" role="note">'
@@ -768,6 +760,7 @@ def validate(guides):
 
 def main():
     global GUIDE_MAP_PATHS, MAP_RENDER_PATHS
+    cinematic_site.prepare()
     records=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
     records+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
     guides=enrich(records)
@@ -796,11 +789,13 @@ def main():
     MAP_RENDER_PATHS=set(TROPHY_MAP_PATHS)|GUIDE_MAP_PATHS|{MAP_HUB_PATH,COLLECTIBLE_ROUTE_PATH}
     validate_advanced(ADVANCED,trophies)
     validate_provenance(PHOTO_REVIEW,MEDIA,guides)
+    rockstar_manifest=validate_rockstar_gallery()
+    vehicle_catalog=validate_vehicles(load_vehicle_catalog())
     validate_routes(COLLECTIBLE_ROUTES)
     validate_collectible_photos(COLLECTIBLE_PHOTOS,COLLECTIBLE_ROUTES)
     validate_approved(APPROVED_PHOTOS,guides,VISUAL_REQUESTS)
     PHOTO_COVERAGE=audit_photo_coverage(guides,VISUAL_REQUESTS,APPROVED_PHOTOS,PHOTO_REVIEW)
-    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','moses_vehicle_jobs_v1.py','operational_brief_v1.py','data/guide_operational_briefs_v1.json','site/assets/operational-guide-v1.css','site/assets/site-focus-v1.css','collectible_routes_v4.py','data/collectible_routes_v4.json','data/collectible_photo_evidence_v1.json','collectible_photo_evidence_v1.py','site/assets/collectible-photo-v1.css','site/assets/collectible-beginner-v1.css','site/assets/collectible-beginner-v1.js','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/step_image_sources_v1.json','step_image_sources_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/map_external_permalinks_v1.json','interactive_article_maps_v1.py','site/assets/interactive-map-v1.css','site/assets/interactive-map-v1.js','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
+    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','moses_vehicle_jobs_v1.py','operational_brief_v1.py','data/guide_operational_briefs_v1.json','site/assets/operational-guide-v1.css','site/assets/site-focus-v1.css','collectible_routes_v4.py','data/collectible_routes_v4.json','data/collectible_photo_evidence_v1.json','collectible_photo_evidence_v1.py','site/assets/collectible-photo-v1.css','site/assets/collectible-beginner-v1.css','site/assets/collectible-beginner-v1.js','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/step_image_sources_v1.json','step_image_sources_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/map_external_permalinks_v1.json','interactive_article_maps_v1.py','site/assets/interactive-map-v1.css','site/assets/interactive-map-v1.js','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js','rockstar_gallery_v1.py','site/assets/rockstar/gta-vi/manifest.json','site/assets/rockstar-gallery-v1.css','site/assets/rockstar-gallery-v1.js','vehicle_catalog_v1.py','data/vehicle_catalog_v1.json','site/assets/vehicle-finder-v1.css','site/assets/vehicle-finder-v1.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
     from community_discovery_v2 import render as community_render
@@ -899,6 +894,46 @@ def main():
         'guide',structured=coverage_schema))
     legacy.write('photo-backlog-v5.json',export_photo_coverage(PHOTO_COVERAGE))
     new_paths=[ROADMAP_PATH,MAP_HUB_PATH,COLLECTIBLE_PATH,HARD_PATH,COLLECTIBLE_ROUTE_PATH,PHOTO_INTAKE_PATH,PHOTO_COVERAGE_PATH]
+    # Curated promotional photo index: never inserted into step-by-step guides.
+    gallery_title='Immagini ufficiali GTA VI Rockstar: ambientazioni, personaggi e Ultimate Edition'
+    gallery_description=('Galleria delle immagini ufficiali GTA VI da Rockstar Games: '
+                         'personaggi, luoghi di Leonida e Ultimate Edition. '
+                         'Anteprime leggere, crediti e fonti originali, senza spoiler di tutorial.')
+    gallery_schema={'@context':'https://schema.org','@type':'CollectionPage',
+                    'name':gallery_title,'description':gallery_description,
+                    'url':url(ROCKSTAR_GALLERY_PATH),'inLanguage':'it-IT',
+                    'numberOfItems':rockstar_manifest['asset_count']}
+    legacy.write(ROCKSTAR_GALLERY_PATH+'index.html',layout(
+        gallery_title,gallery_description,ROCKSTAR_GALLERY_PATH,
+        render_rockstar_gallery(rockstar_manifest),'guide',structured=gallery_schema))
+    new_paths.append(ROCKSTAR_GALLERY_PATH)
+    # Each car gets its own canonical article; unverified leads are explicitly
+    # noindex until their location is corroborated. No fabricated GPS markers.
+    vehicle_title='Veicoli GTA VI: cerca auto, moto, posizioni e come ottenerli'
+    vehicle_desc=('Trova le auto di GTA VI per nome e zona: missioni Moses, lista Randy, '
+                  'luoghi verificati, prerequisiti e guide per conservarle.')
+    vehicle_schema={'@context':'https://schema.org','@type':'CollectionPage',
+                    'name':vehicle_title,'description':vehicle_desc,
+                    'url':url(VEHICLE_PATH),'inLanguage':'it-IT',
+                    'numberOfItems':len(vehicle_catalog['items'])}
+    legacy.write(VEHICLE_PATH+'index.html',layout(
+        vehicle_title,vehicle_desc,VEHICLE_PATH,
+        render_vehicle_index(vehicle_catalog,BASE+'/'),'guide',
+        structured=vehicle_schema))
+    new_paths.append(VEHICLE_PATH)
+    for car,vehicle_path,content in vehicle_pages(vehicle_catalog,BASE+'/'):
+        vehicle_title=car['name']+': dove trovarla in GTA VI e come ottenerla'
+        vehicle_desc=(car['name']+' GTA VI: '+car['area']+'. '
+                     'Dove cercarla, come sbloccarla e come verificare il risultato.')
+        status='index,follow' if car['status']=='Verificata' else 'noindex,follow'
+        vehicle_schema=({'@context':'https://schema.org','@type':'Article',
+                        'headline':vehicle_title,'description':vehicle_desc,
+                        'url':url(vehicle_path),'inLanguage':'it-IT'}
+                        if status=='index,follow' else None)
+        legacy.write(vehicle_path+'index.html',layout(
+            vehicle_title,vehicle_desc,vehicle_path,content,'guide',
+            robots=status,structured=vehicle_schema))
+        if status=='index,follow':new_paths.append(vehicle_path)
     for kind in ('all','soldi','auto'):
         title,desc,path,body=directory(guides,kind)
         legacy.write(path+'index.html',layout(title+' | GTA 6 Italia',desc,path,body,'guide',structured={'@context':'https://schema.org','@type':'CollectionPage','name':title,'url':url(path),'inLanguage':'it-IT'}))

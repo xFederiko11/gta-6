@@ -2,6 +2,14 @@
 
 Portale pubblico e gratuito dedicato a **GTA VI su PS5 e PS5 Pro**. I contenuti sono in italiano.
 
+## Restyling fotografico — 24 novembre 2026
+
+La homepage apre con Jason e Lucia e propone guide illustrate, l'articolo su Leonida, tre percorsi pratici e sei ambientazioni esplorabili anche da tastiera. La selezione usa 18 immagini ufficiali già presenti nell'archivio Rockstar: 15 fotografie compaiono in homepage, mentre 11 sezioni principali ricevono una copertina contestuale e le schede delle guide diventano illustrate. Le immagini promozionali sono sempre distinte dalle prove di una procedura.
+
+`cinematic_site.py` genera copie WebP da 960 e 1600 pixel durante la build, con varianti piccole già presenti nel catalogo. La prima immagine ha priorità di caricamento; le altre sono differite. Gli originali 4K restano nel repository e non appesantiscono il sito pubblicato. Tema chiaro/scuro, URL, checklist e controlli delle guide vengono conservati. L'esplorazione mostra tutti i luoghi anche senza JavaScript e rispetta le preferenze di movimento ridotto.
+
+Sorgenti del restyling: `cinematic_site.py`, `site/assets/cinematic-v3.css` e `site/assets/cinematic-v3.js`. Verifiche aggiuntive in `test_cinematic_site.py` controllano immagini reali, peso dei file, destinazioni dei collegamenti e copertine delle sezioni.
+
 **Indirizzo previsto:** https://xfederiko11.github.io/gta-6/
 
 ## Struttura
@@ -16,7 +24,7 @@ Portale pubblico e gratuito dedicato a **GTA VI su PS5 e PS5 Pro**. I contenuti 
 - **Medaglie Oro** — `/gta-6/trofei/medaglie-oro/`.
 - **SEO** — sitemap, robots, canonical, Open Graph, metadati e JSON-LD.
 - **Articoli illustrati** — `/gta-6/articoli/`: approfondimenti originali con fotografie ufficiali attribuite; contenuti in `data/articles.json`.
-- **Raccolta Rockstar** — `/gta-6/media/rockstar/`: 189 originali 3840×2160, ricerca per soggetto e collegamenti ai file; la raccolta è `noindex,follow`.
+- **Raccolta Rockstar** — `/gta-6/immagini-ufficiali/`: 189 originali 3840×2160, ricerca per soggetto e collegamenti ai file; la raccolta è `noindex,follow`.
 
 ### Immagini fornite dal proprietario — 24 novembre 2026
 
