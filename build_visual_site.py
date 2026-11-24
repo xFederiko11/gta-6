@@ -152,9 +152,8 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
             Path('site/assets',css).read_bytes()+Path('site/assets',js).read_bytes()).hexdigest()[:12]
         page=page.replace('</head>',
             f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
-        if path==VEHICLE_PATH:
-            page=page.replace('</body>',
-                f'<script src="{url("assets/"+js)}?v={version}" defer></script></body>',1)
+        page=page.replace('</body>',
+            f'<script src="{url("assets/"+js)}?v={version}" defer></script></body>',1)
     if path==ROCKSTAR_GALLERY_PATH:
         css,js='rockstar-gallery-v1.css','rockstar-gallery-v1.js'
         version=hashlib.sha256(
