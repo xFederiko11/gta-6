@@ -68,7 +68,7 @@ def render(manifest=None):
         label=(x["title"] if group=="Ultimate Edition" else x["subject"]+" · "+x["title"].split(" ")[-1])
         parts.append(
             '<figure class="rg-card" data-rg-card data-rg-group="'+escape(group,quote=True)+'"'
-            ' data-rg-search="'+escape((x["title"]+" "+x["subject"]+" "+group).casefold(),quote=True)+'">'
+            ' data-rg-keywords="'+escape((x["title"]+" "+x["subject"]+" "+group).casefold(),quote=True)+'">'
             '<img src="/gta-6/'+escape(preview,quote=True)+'" loading="lazy" decoding="async"'
             ' width="480" height="'+str(ratio)+'" alt="'+escape(alt,quote=True)+'">'
             '<figcaption><strong>'+escape(label)+'</strong>'
