@@ -4,7 +4,7 @@ from copy import deepcopy
 SAFE_TITLES = {
     'soldi-facili-capitolo-1': 'Soldi GTA VI: 4 luoghi del Capitolo 1',
     'soldi-2500-three-sheets-liquor': 'Denaro nascosto nel negozio: il percorso',
-    'scansionare-veicoli': 'Scansionare i veicoli con WAiNK',
+    'scansionare-veicoli': 'WAiNK: scanner veicoli, tracker e 100%',
     'studiare-animali': 'Studiare gli animali senza cacciarli',
     '70-sfide-100-percento': 'Le sfide da scegliere per il 100%',
     'meditazione-capitolo-1': '18 meditazioni GTA VI: checklist e platino',
@@ -40,7 +40,7 @@ HEADINGS = {
     'registrare-auto-personale': ['Raggiungi Moses a Port Gellhorn','Scansiona le auto con WAiNK','Apri la Montagne XL con lo Slim Jim','Scegli un’auto senza tracker, se necessario','Rivernicia l’auto da Moses','Registra gratis la prima auto','Richiama il mezzo con Scooter Bros'],
     'sportive-randy-posizioni': ['Apri la lista delle richieste','Restringi la zona di ricerca','Identifica il veicolo','Decidi se consegnarlo o conservarlo'],
     'prima-persona-glitch-ps5': ['Proteggi prima i tuoi progressi','Imposta Camera sul touchpad','Entra nell’auto','Apri il telefono','Chiudi e premi il touchpad','Conferma l’effetto e torna alla visuale normale'],
-    'scansionare-veicoli': ['Apri WAiNK','Inquadra il veicolo','Completa la scansione'],
+    'scansionare-veicoli': ['Apri WAiNK','Inquadra il mezzo','Scansiona con R1','Leggi il tipo di tracker','Controlla il catalogo'],
     'studiare-animali': ['Seleziona il binocolo','Avvicina l’inquadratura','Studia la specie'],
     '70-sfide-100-percento': ['Apri le sfide','Controlla ciò che manca','Scegli le prove più rapide'],
     'meditazione-capitolo-1': ['Prima del Capitolo 2','Segui Lucia sul balcone','Completa il minigioco','Sblocca entrambi i personaggi','Completa gli otto luoghi doppi','Raggiungi la meditazione finale'],
@@ -50,7 +50,7 @@ HEADINGS = {
 REQUIREMENTS = {
     'soldi-facili-capitolo-1': 'Accesso alle zone del Capitolo 1. Per il luogo sull’acqua serve una barca. Prevedi possibili scontri.',
     'soldi-2500-three-sheets-liquor': 'L’incarico iniziale che porta al negozio. Conserva un salvataggio manuale prima di esporti ai rischi.',
-    'scansionare-veicoli': 'App WAiNK disponibile. Comandi riferiti a PS5; controlla i prompt della tua configurazione.',
+    'scansionare-veicoli': 'App WAiNK disponibile; ↑ della croce direzionale e R1 sul DualSense. Il Key Cloner per alcune auto arriva nel Capitolo 3.',
     'studiare-animali': 'Binocolo disponibile nella ruota degli oggetti.',
     '70-sfide-100-percento': 'Menu Progressi e sezione Sfide accessibili.',
     'meditazione-capitolo-1': 'Parti dal Capitolo 1, a casa di Jason. Dal Capitolo 2 puoi proseguire con entrambi i personaggi dopo Coffee Break.',
@@ -82,7 +82,7 @@ SUMMARIES = {
 SEO_DESCRIPTIONS = {
     'soldi-facili-capitolo-1': 'GTA VI PS5: dove trovare denaro e oggetti in 4 luoghi del Capitolo 1, rischi e precauzioni per non perdere i soldi.',
     'registrare-auto-personale': 'GTA VI PS5: come trovare Moses, usare WAiNK e Slim Jim, registrare gratis la prima auto e richiamarla tramite Scooter Bros.',
-    'scansionare-veicoli': 'GTA 6 PS5: come usare WAiNK per scansionare i veicoli e completare il catalogo verso il 100%. Passaggi pratici e controlli nel gioco.',
+    'scansionare-veicoli': 'GTA VI PS5: scanner WAiNK, tracker No Tracker, Standard e Advanced, comandi DualSense e 200 modelli base da registrare per il 100%.',
     'studiare-animali': 'GTA VI PS5: studia le specie con il binocolo per il completamento al 100%. Scopri i comandi, il controllo dei progressi e le fonti della guida.',
     '70-sfide-100-percento': 'GTA VI 100% su PS5: completa 70 sfide su 80 scegliendo quelle più rapide. Checklist e consigli per ridurre il tempo necessario al platino.',
     'meditazione-capitolo-1': 'GTA VI PS5: checklist delle 18 meditazioni in 10 luoghi, la prima occasione mancabile nel Capitolo 1 e gli avvisi per il platino.',
