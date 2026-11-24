@@ -58,8 +58,10 @@ def validate(doc):
         href_safe(car["additional_source"])
         if car.get("video_url"):
             v=urlsplit(car["video_url"])
+            seconds=v.query.removeprefix("v=UyxxY0A_kow&t=").removesuffix("s")
             if (v.scheme!="https" or v.hostname!="www.youtube.com"
-                    or not v.path=="/watch" or not v.query.startswith("v=UyxxY0A_kow&t=")):
+                    or v.path!="/watch" or not v.query.startswith("v=UyxxY0A_kow&t=")
+                    or not seconds.isdigit() or not 10<=int(seconds)<=900):
                 raise ValueError("Unverified video embed or unsupported source")
         if car.get("reward") and (car["kind"]!="Moses" or car["status"]!=VERIFIED):
             raise ValueError("Payment cannot be claimed on unverified records")
@@ -118,6 +120,8 @@ def index_body(doc,base):
         f'{len(rows)} veicoli nella raccolta</p><div class="vc-grid">',
         "".join(cards),
         '</div><p class="vc-empty" data-vc-empty hidden>Nessuna scheda con questi filtri.</p>',
+        '<div class="vc-more"><button type="button" data-vc-more hidden>'
+        'Mostra altri veicoli</button></div>',
         '</section><section class="vc-method"><h2>Come funzionano i dati</h2>',
         '<p><strong>Verificata</strong>: modello documentato e istruzioni basate su walkthrough ',
         'o mappe di riferimento; non assicura che lo spawn sia sempre disponibile. ',
@@ -173,10 +177,16 @@ def article_body(car,base,all_cars):
              if car.get("spoiler") else
              "La zona di ricerca può cambiare con il progresso di storia e i controlli delle missioni.")
     video=(
-        f'<p class="vc-video"><a href="{e(car["video_url"])}" target="_blank" '
-        f'rel="noopener noreferrer">▶ Guarda il modello nel video IGN dal '
-        f'{e(car["video_stamp"])} ↗</a> · Link al player del canale originale, '
-        'nessuno screenshot copiato.</p>'
+        '<div class="vc-video">'
+        '<button type="button" data-vc-load-video '
+        'data-vc-start-seconds="'+e(car["video_url"].split("&t=")[-1].removesuffix("s"))+'" '
+        'aria-label="Carica video IGN del veicolo '+e(title)+'">'
+        '▶ Guarda il modello nel gameplay dal '+e(car["video_stamp"])+'</button>'
+        '<div class="vc-video-slot" data-vc-video-slot></div>'
+        '<p><a href="'+e(car["video_url"])+'" target="_blank" '
+        'rel="noopener noreferrer">Fonte video IGN su YouTube ↗</a> · '
+        'Player ufficiale incorporato su richiesta, nessuno screenshot copiato.</p>'
+        '</div>'
         if car.get("video_url") else ""
     )
     draft=social_text(car,base)
