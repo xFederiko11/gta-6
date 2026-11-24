@@ -77,3 +77,15 @@
  .vc-instructions li{grid-template-columns:33px minmax(0,1fr);gap:9px}
  .vc-instructions li span{width:31px;height:31px}
 }
+
+.vc-more{display:flex;justify-content:center;margin:16px 0 5px}
+.vc-more button,.vc-video>button{min-height:44px;min-width:155px;border-radius:8px;
+  border:1px solid var(--r-line,#40475e);padding:10px 14px;cursor:pointer;
+  color:var(--r-text,#fff);background:var(--r-soft,#252a3a);font-weight:850;font-size:.82rem}
+.vc-more button[hidden],.vc-video>button[hidden]{display:none!important}
+.vc-more button:focus-visible,.vc-video>button:focus-visible{outline:2px solid var(--r-cyan,#87ded9);outline-offset:3px}
+.vc-video{margin-top:12px;padding:12px;background:var(--r-soft,#252a3a);border-radius:9px}
+.vc-video>button{display:block;width:100%;text-align:center;color:var(--r-cyan,#87ded9)}
+.vc-video-slot{margin-top:10px}
+.vc-video-slot iframe{display:block;width:100%;aspect-ratio:16/9;height:auto;min-height:150px;
+  border:0;border-radius:8px;background:#0c0b13}
