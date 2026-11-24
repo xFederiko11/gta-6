@@ -249,22 +249,22 @@ def browser_qa():
                         assert page.locator('[data-vc-card]:visible').count()==1
                         assert page.locator('[data-vc-card]:visible h2').inner_text()=='Karin Futo'
                         page.locator('[data-vc-search]').fill('')
-                        page.locator('[data-vc-owner]').select_option('Moses')
+                        page.locator('[data-vc-filter-owner]').select_option('Moses')
                         assert page.locator('[data-vc-card]:visible').count()==8
-                        page.locator('[data-vc-status]').select_option('Verificata')
+                        page.locator('[data-vc-filter-status]').select_option('Verificata')
                         assert page.locator('[data-vc-card]:visible').count()==8
                         mark=page.locator('[data-vc-found="canis-crawler"]')
                         mark.click()
                         assert mark.get_attribute('aria-pressed')=='true'
                         page.reload(wait_until='load')
                         assert page.locator('[data-vc-found="canis-crawler"]').get_attribute('aria-pressed')=='true'
-                        page.locator('[data-vc-owner]').select_option('Moses')
-                        page.locator('[data-vc-status]').select_option('Verificata')
+                        page.locator('[data-vc-filter-owner]').select_option('Moses')
+                        page.locator('[data-vc-filter-status]').select_option('Verificata')
                         page.locator('[data-vc-todo]').check()
                         assert page.locator('[data-vc-card]:visible').count()==7
                         page.locator('[data-vc-todo]').uncheck()
-                        page.locator('[data-vc-owner]').select_option('Tutti')
-                        page.locator('[data-vc-status]').select_option('Tutte')
+                        page.locator('[data-vc-filter-owner]').select_option('Tutti')
+                        page.locator('[data-vc-filter-status]').select_option('Tutte')
                         assert page.locator('[data-vc-card]:visible').count()==25
                         if width in (390,1440):
                             page.evaluate('window.scrollTo(0,0)')
