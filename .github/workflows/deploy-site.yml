@@ -204,7 +204,9 @@ jobs:
                           assert 'vehicle-finder-v1.js?v=' in text
                       if path=='veicoli/declasse-yosemite-1500/':
                           assert 'Bastion Street' in text
-                          assert '1.850 GTA
+                          assert '1.850 GTA$' in text
+                          assert 'data-vc-detail="declasse-yosemite-1500"' in text
+                      if path == 'trofei/roadmap-platino/':
                           assert 'data-platinum-roadmap' in text
                           assert 'data-trophy-atlas' in text
                           assert text.count('data-atlas-card ') == 55
