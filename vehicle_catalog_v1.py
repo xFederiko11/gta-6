@@ -147,76 +147,92 @@ def social_text(car,base):
     return text
 
 def article_body(car,base,all_cars):
-    validate({"schema":"botx-vehicle-catalog-v1","items":all_cars,"origin_lead":{"status":""}})
-    canonical=base+PATH+car["slug"]+"/"
-    intro=('Nel punto indicato cerca il modello, verifica tracker e requisiti con WAiNK. '
-           'Una consegna a Moses o Randy non implica che il veicolo diventi di tua proprietà.')
-    lines=[]
-    for i,step in enumerate(car["steps"],1):
-        lines.append('<li><span aria-hidden="true">'+str(i).zfill(2)+'</span><p>'+e(step)+'</p></li>')
-    source_host="PowerPyx" if "powerpyx.com" in car["source_url"] else "GTABase"
-    source2="GTABase" if "gtabase.com" in car["additional_source"] else "PowerPyx"
-    related=[x for x in all_cars if x["slug"]!=car["slug"] and x["kind"]==car["kind"]][:4]
-    check_label="Stato: "+car["status"]
-    text=social_text(car,base)
-    share=('<section class="vc-social" aria-labelledby="vc-social-title"><h2 id="vc-social-title">'
-           'Post originale per X (bozza)</h2><p>Da pubblicare soltanto con una '
-           'foto pertinente utilizzabile e dopo controllo editoriale. '
-           'Nessun invio automatico da questa pagina.</p>'
-           '<blockquote>'+e(text).replace("\n","<span class=\"vc-line-break\"></span>")+'</blockquote>'
-           '<a href="https://x.com/intent/tweet?text='+quote(text,safe="")+'" target="_blank" '
-           'rel="noopener noreferrer">Apri la bozza su X ↗</a></section>') if text else (
-           '<p class="vc-social-pending">Post X non disponibile: dati da verificare '
-           'prima della promozione.</p>')
-    video=('<p class="vc-video"><a href="'+e(car["video_url"])+'" target="_blank" '
-           'rel="noopener noreferrer">▶ Guarda il modello nel video IGN dal '
-           +e(car["video_stamp"])+' ↗</a> · Link al player del canale originale, '
-           'nessuno screenshot copiato.</p>') if car.get("video_url") else ''
-    caution=(
-        'Regalo finale di Moses: contiene uno spoiler.'
-        if car.get("spoiler") else
-        'La zona di ricerca può cambiare con il progresso di storia e i controlli delle missioni.'
+    validate({"schema":"botx-vehicle-catalog-v1","items":all_cars,
+              "origin_lead":{"status":""}})
+    title=car["name"]
+    slug=car["slug"]
+    intro=("Nel punto indicato cerca il modello, verifica tracker e requisiti con WAiNK. "
+           "Una consegna a Moses o Randy non implica che il veicolo diventi di tua proprietà.")
+    steps="".join(
+        f'<li><span aria-hidden="true">{n:02d}</span><p>{e(step)}</p></li>'
+        for n,step in enumerate(car["steps"],1)
     )
-    return (
-        '<nav class="vc-crumb" aria-label="Percorso"><a href="'+e(base+PATH)+'">'
-        'Tutti i veicoli</a><span aria-hidden="true"> › </span>'
-        +e(car["name"])+'</nav>'
-        '<article class="vc-article" data-vc-detail="'+e(car["slug"])+'">'
-        '<section class="vc-article-hero"><span class="vc-eyebrow">'
-        +e(car["kind"]+" · "+car["category"])+'</span>'
-        '<h1>'+e(car["name"])+': dove trovarla in GTA VI</h1>'
-        '<p>'+e(intro)+'</p>'
-        '<span class="vc-confidence">'+e(check_label)+'</span></section>'
-        '<section class="vc-facts" aria-label="Risposta immediata"><h2>Dove, quando, cosa ottenere</h2>'
-        '<dl><div><dt>Zona</dt><dd>'+e(car["area"])+'</dd></div>'
-        '<div><dt>Dove cercare</dt><dd>'+e(car["where"])+'</dd></div>'
-        '<div><dt>Quando</dt><dd>'+e(car["unlock"])+'</dd></div>'
-        +('<div><dt>Pagamento base</dt><dd>'+e(car["reward"])+' (bonus condizioni variabile)</dd></div>' if car.get("reward") else '')
-        '</dl><p class="vc-safety"><strong>Attenzione:</strong> '+e(caution)+'</p></section>'
-        '<section class="vc-instructions" id="procedura"><h2>Come ottenerla: '
-        +str(len(car["steps"]))+' passaggi</h2><ol>'+''.join(lines)+'</ol>'
-        '<p class="vc-check"><strong>✓ Controllo finale:</strong> '
-        +e(car["check"])+'</p></section>'
-        '<section class="vc-context"><h2>Come riconoscerla e conservarla</h2>'
-        '<p><strong>Indizio visivo:</strong> '+e(car["visual"])+'</p>'
-        '<p>'+e(car.get("tracker") or "Scansiona con WAiNK prima di tentare il furto.")+'</p>'
-        '<p>'+e(car["note"])+'</p>'
-        '<p>Vuoi tenerla invece di consegnarla? Verifica prima '
-        '<a href="'+e(base+'salvare-auto/')+'">come registrare un’auto personale</a>. '
-        'Controlla tracker, garage e limiti nel gioco: non tutte le auto '
-        'si possono registrare nello stesso momento della storia.</p>'
-        '</section><section class="vc-source"><h2>Fonti e posizione sulla mappa</h2>'
-        '<p>I punti geografici sono quelli descritti dagli autori delle guide; '
-        'non abbiamo inventato coordinate o screenshot di gioco.</p>'
-        '<a href="'+e(car["source_url"])+'" target="_blank" rel="noopener noreferrer">'
-        'Fonte della procedura: '+source_host+' ↗</a>'
-        '<a href="'+e(car["additional_source"])+'" target="_blank" rel="noopener noreferrer">'
-        'Verifica o mappa: '+source2+' ↗</a>'
-        +video+'</section>'+share+
-        '<nav class="vc-related" aria-label="Altri veicoli da cercare"><h2>Altre schede</h2>'
-        +''.join('<a href="'+e(base+PATH+x["slug"]+"/")+'">'+e(x["name"])+' →</a>' for x in related)
-        +'</nav></article>'
+    original="PowerPyx" if "powerpyx.com" in car["source_url"] else "GTABase"
+    second="GTABase" if "gtabase.com" in car["additional_source"] else "PowerPyx"
+    related=[x for x in all_cars if x["slug"]!=slug and x["kind"]==car["kind"]][:4]
+    related_html="".join(
+        f'<a href="{e(base+PATH+x["slug"]+"/")}">{e(x["name"])} →</a>'
+        for x in related
     )
+    reward=(
+        f'<div><dt>Pagamento base</dt><dd>{e(car["reward"])} '
+        '(bonus condizioni variabile)</dd></div>'
+        if car.get("reward") else ""
+    )
+    warning=("Regalo finale di Moses: contiene uno spoiler."
+             if car.get("spoiler") else
+             "La zona di ricerca può cambiare con il progresso di storia e i controlli delle missioni.")
+    video=(
+        f'<p class="vc-video"><a href="{e(car["video_url"])}" target="_blank" '
+        f'rel="noopener noreferrer">▶ Guarda il modello nel video IGN dal '
+        f'{e(car["video_stamp"])} ↗</a> · Link al player del canale originale, '
+        'nessuno screenshot copiato.</p>'
+        if car.get("video_url") else ""
+    )
+    draft=social_text(car,base)
+    share=(
+        '<section class="vc-social" aria-labelledby="vc-social-title">'
+        '<h2 id="vc-social-title">Post originale per X (bozza)</h2>'
+        '<p>Da pubblicare soltanto con una foto pertinente utilizzabile '
+        'e dopo controllo editoriale. Nessun invio automatico da questa pagina.</p>'
+        f'<blockquote>{e(draft).replace(chr(10),"<span class=vc-line-break></span>")}</blockquote>'
+        f'<a href="https://x.com/intent/tweet?text={quote(draft,safe="")}" target="_blank" '
+        'rel="noopener noreferrer">Apri la bozza su X ↗</a></section>'
+        if draft else (
+        '<p class="vc-social-pending">Post X non disponibile: dati da verificare '
+        'prima della promozione.</p>')
+    )
+    parts=[
+        f'<nav class="vc-crumb" aria-label="Percorso"><a href="{e(base+PATH)}">'
+        f'Tutti i veicoli</a><span aria-hidden="true"> › </span>{e(title)}</nav>',
+        f'<article class="vc-article" data-vc-detail="{e(slug)}">',
+        f'<section class="vc-article-hero"><span class="vc-eyebrow">'
+        f'{e(car["kind"])} · {e(car["category"])}</span>',
+        f'<h1>{e(title)}: dove trovarla in GTA VI</h1>',
+        f'<p>{e(intro)}</p><span class="vc-confidence">Stato: '
+        f'{e(car["status"])}</span></section>',
+        '<section class="vc-facts" aria-label="Risposta immediata">',
+        '<h2>Dove, quando, cosa ottenere</h2><dl>',
+        f'<div><dt>Zona</dt><dd>{e(car["area"])}</dd></div>',
+        f'<div><dt>Dove cercare</dt><dd>{e(car["where"])}</dd></div>',
+        f'<div><dt>Quando</dt><dd>{e(car["unlock"])}</dd></div>',
+        reward,
+        '</dl><p class="vc-safety"><strong>Attenzione:</strong> ',
+        e(warning),'</p></section>',
+        '<section class="vc-instructions" id="procedura">',
+        f'<h2>Come ottenerla: {len(car["steps"])} passaggi</h2><ol>',
+        steps,'</ol><p class="vc-check"><strong>✓ Controllo finale:</strong> ',
+        e(car["check"]),'</p></section>',
+        '<section class="vc-context"><h2>Come riconoscerla e conservarla</h2>',
+        '<p><strong>Indizio visivo:</strong> ',e(car["visual"]),'</p>',
+        '<p>',e(car.get("tracker") or "Scansiona con WAiNK prima di tentare il furto."),'</p>',
+        '<p>',e(car["note"]),'</p>',
+        '<p>Vuoi tenerla invece di consegnarla? Verifica prima ',
+        f'<a href="{e(base+"salvare-auto/")}">come registrare un’auto personale</a>. ',
+        'Controlla tracker, garage e limiti nel gioco: non tutte le auto ',
+        'si possono registrare nello stesso momento della storia.</p></section>',
+        '<section class="vc-source"><h2>Fonti e posizione sulla mappa</h2>',
+        '<p>I punti geografici sono quelli descritti dagli autori delle guide; ',
+        'non abbiamo inventato coordinate o screenshot di gioco.</p>',
+        f'<a href="{e(car["source_url"])}" target="_blank" rel="noopener noreferrer">'
+        f'Fonte della procedura: {original} ↗</a>',
+        f'<a href="{e(car["additional_source"])}" target="_blank" rel="noopener noreferrer">'
+        f'Verifica o mappa: {second} ↗</a>',
+        video,'</section>',share,
+        '<nav class="vc-related" aria-label="Altri veicoli da cercare">',
+        '<h2>Altre schede</h2>',related_html,'</nav></article>'
+    ]
+    return "".join(parts)
 
 def pages(doc,base):
     validate(doc)
