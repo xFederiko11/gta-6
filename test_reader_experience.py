@@ -228,7 +228,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','guide-e-tutorial/']
+                paths=['','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -241,6 +241,34 @@ def browser_qa():
                         page.reload(wait_until='load')
                         assert page.locator('html').get_attribute('data-theme')==theme,'persistence'
                         check_layout(page,out,width,path,theme)
+                    if path=='immagini-ufficiali/':
+                        # 189 source-attributed posters are separate from any walkthrough.
+                        cards=page.locator('[data-rg-card]')
+                        assert cards.count()==189
+                        assert page.locator('[data-rg-card]:visible').count()==24
+                        assert 'Rockstar Games' in page.locator('.rg-rights').inner_text()
+                        assert not page.locator('.rg-card img').first.get_attribute('src').startswith(
+                            '/gta-6/assets/rockstar/gta-vi/originals/')
+                        page.locator('[data-rg-search]').fill('Port Gellhorn')
+                        assert page.locator('[data-rg-card]:visible').count()==7
+                        assert '7 immagini trovate' in page.locator('[data-rg-counter]').inner_text()
+                        page.locator('[data-rg-filter]').select_option('Luoghi')
+                        assert page.locator('[data-rg-card]:visible').count()==7
+                        page.locator('[data-rg-search]').fill('impossibile-189')
+                        assert page.locator('[data-rg-empty]').is_visible()
+                        page.locator('[data-rg-search]').fill('')
+                        page.locator('[data-rg-filter]').select_option('Personaggi')
+                        assert page.locator('[data-rg-card]:visible').count()==24
+                        page.locator('[data-rg-more]').click()
+                        assert page.locator('[data-rg-card]:visible').count()==48
+                        page.locator('[data-rg-filter]').select_option('Tutte')
+                        assert page.locator('[data-rg-card]:visible').count()==24
+                        if width in (390,1440):
+                            img=page.screenshot(
+                                path=str(out/f'rockstar-gallery-{width}.png'),
+                                full_page=True,animations='disabled')
+                            assert int.from_bytes(img[16:20],'big')==width
+                            print('ROCKSTAR_GALLERY_QA',width,flush=True)
                     if page.locator('#procedura.v-tutorial').count():
                         assert page.locator('.v-operation-brief').is_visible()
                         assert page.locator('.v-operation-brief dt').count()==3
