@@ -71,6 +71,9 @@ class VehicleCatalogTests(unittest.TestCase):
                 self.assertIn(BASE+"salvare-auto/",html)
                 self.assertNotIn("<img ",html)
                 self.assertNotIn("<iframe",html)
+                if car.get("video_url"):
+                    self.assertIn('data-vc-load-video',html)
+                    self.assertIn('https://www.youtube.com/watch?',html.replace('&amp;','&'))
                 self.assertNotIn("data-gameplay-image",html)
                 self.assertNotIn("data-pin-lat",html)
                 if car["status"]==VERIFIED:
@@ -116,6 +119,10 @@ class VehicleCatalogTests(unittest.TestCase):
         js=(ROOT/"assets/vehicle-finder-v1.js").read_text(encoding="utf-8")
         self.assertIn("localStorage",js)
         self.assertIn("botx-vehicle-finder-found-v1",js)
+        self.assertIn("const STEP=12",js)
+        self.assertIn("youtube-nocookie.com",js)
+        self.assertIn("data-vc-load-video",js)
+        self.assertIn("data-vc-more",js)
         self.assertNotIn("fetch(",js)
         self.assertNotIn("XMLHttpRequest",js)
 
