@@ -50,7 +50,7 @@ jobs:
         run: python community_social_sync_v1.py
       - name: Validate preserved content and existing SEO contracts
         run: |
-          python -m py_compile x_growth_dashboard_v1.py test_x_growth_dashboard_v1.py interactive_article_maps_v1.py test_interactive_article_maps_v1.py test_curated_map_permalinks_v1.py photo_coverage_v5.py test_photo_coverage_v5.py social_cards_v2.py test_social_cards_v2.py collectible_routes_v4.py collectible_photo_evidence_v1.py test_collectible_photo_evidence_v1.py photo_intake_v4.py test_photo_routes_v4.py advanced_platinum_v3.py photo_provenance_v3.py test_advanced_platinum_v3.py platinum_atlas_v2.py guide_location_atlas_v2.py test_group12_atlas_v2.py platinum_roadmap_v1.py guide_step_references_v1.py test_group3_roadmap_step_refs_v1.py photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py operational_brief_v1.py moses_vehicle_jobs_v1.py first_car_steps_v1.py test_first_car_steps_v1.py chapter1_money_steps_v1.py test_chapter1_money_steps_v1.py test_waink_verified_v1.py rockstar_gallery_v1.py test_rockstar_gallery_v1.py test_operational_guides_v1.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py test_home_clarity_v1.py
+          python -m py_compile x_growth_dashboard_v1.py test_x_growth_dashboard_v1.py interactive_article_maps_v1.py test_interactive_article_maps_v1.py test_curated_map_permalinks_v1.py photo_coverage_v5.py test_photo_coverage_v5.py social_cards_v2.py test_social_cards_v2.py collectible_routes_v4.py collectible_photo_evidence_v1.py test_collectible_photo_evidence_v1.py photo_intake_v4.py test_photo_routes_v4.py advanced_platinum_v3.py photo_provenance_v3.py test_advanced_platinum_v3.py platinum_atlas_v2.py guide_location_atlas_v2.py test_group12_atlas_v2.py platinum_roadmap_v1.py guide_step_references_v1.py test_group3_roadmap_step_refs_v1.py photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py operational_brief_v1.py moses_vehicle_jobs_v1.py first_car_steps_v1.py test_first_car_steps_v1.py chapter1_money_steps_v1.py test_chapter1_money_steps_v1.py test_waink_verified_v1.py vehicle_catalog_v1.py test_vehicle_catalog_v1.py rockstar_gallery_v1.py test_rockstar_gallery_v1.py test_operational_guides_v1.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py test_home_clarity_v1.py
           python -m unittest -q test_x_growth_dashboard_v1.py test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_meditation_tracker_v1.py test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py
           node --check site/assets/interactive-map-v1.js
           node --check site/assets/photo-coverage-v5.js
@@ -62,6 +62,7 @@ jobs:
           node --check site/assets/visual-v2.js
           node --check site/assets/reader-theme.js
           node --check site/assets/guide-flow-v1.js
+          node --check site/assets/vehicle-finder-v1.js
           node --check site/assets/collectible-beginner-v1.js
           node --check site/assets/community-social-v1.js
           python -m py_compile community_social_sync_v1.py test_x_permalink_site_v1.py test_beginner_platinum_v1.py
@@ -95,7 +96,7 @@ jobs:
       - name: Audit actual local media and five-image guide target
         run: python media_quality_v1.py
       - name: Validate actual production pages, media and canonical continuity
-        run: python -m unittest -q test_x_growth_dashboard_v1.py test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_beginner_platinum_v1.py test_operational_guides_v1.py test_first_car_steps_v1.py test_chapter1_money_steps_v1.py test_waink_verified_v1.py test_rockstar_gallery_v1.py test_step_image_sources_v1.py test_collectible_photo_evidence_v1.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py test_home_clarity_v1.py
+        run: python -m unittest -q test_x_growth_dashboard_v1.py test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_beginner_platinum_v1.py test_operational_guides_v1.py test_first_car_steps_v1.py test_chapter1_money_steps_v1.py test_waink_verified_v1.py test_vehicle_catalog_v1.py test_rockstar_gallery_v1.py test_step_image_sources_v1.py test_collectible_photo_evidence_v1.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py test_home_clarity_v1.py
       - name: Audit static Google discovery links (no network or tracking)
         run: |
           python -m unittest -q test_internal_link_graph_v1.py
@@ -179,7 +180,7 @@ jobs:
           python - <<'PY'
           import urllib.request, time, json
           base='https://xfederiko11.github.io/gta-6/'
-          for path in ('','immagini-ufficiali/','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/trofeo-15-stunt-da-capogiro/','trofei/roadmap-platino/','mappe-guide/','trofei/100-percento/','trofei/trofei-difficili/','collezionabili/percorsi/','screenshot-ps5/invia/'):
+          for path in ('','immagini-ufficiali/','veicoli/','veicoli/declasse-yosemite-1500/','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/trofeo-15-stunt-da-capogiro/','trofei/roadmap-platino/','mappe-guide/','trofei/100-percento/','trofei/trofei-difficili/','collezionabili/percorsi/','screenshot-ps5/invia/'):
               for attempt in range(6):
                   try:
                       request=urllib.request.Request(base+path+'?reader=adaptive-v2-20261120',headers={'Cache-Control':'no-cache'})
@@ -198,6 +199,294 @@ jobs:
                       assert "var t='dark'" in text
                       assert 'class="v-x-link"' in text and 'https://x.com/xFederiko11' in text
                       assert 'data-spoiler-choice' not in text
+                      if path=='veicoli/':
+                          assert text.count('class="vc-card"')==25
+                          assert 'vehicle-finder-v1.js?v=' in text
+                      if path=='veicoli/declasse-yosemite-1500/':
+                          assert 'Bastion Street' in text
+                          assert '1.850 GTA
+                          assert 'data-platinum-roadmap' in text
+                          assert 'data-trophy-atlas' in text
+                          assert text.count('data-atlas-card ') == 55
+                          assert text.count('data-atlas-spoiler') == 28
+                          assert '/gta-6/assets/platinum-roadmap.js?v=' in text
+                          assert '/gta-6/assets/platinum-roadmap.css?v=' in text
+                          assert '/gta-6/assets/platinum-atlas-v2.js?v=' in text
+                          assert '/gta-6/assets/platinum-atlas-v2.css?v=' in text
+                      if path in ('mappe-guide/','collezionabili/percorsi/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/trofeo-15-stunt-da-capogiro/'):
+                          assert text.count('data-vi-map ')==1
+                          assert 'interactive-map-v1.css?v=' in text and 'interactive-map-v1.js?v=' in text
+                          assert 'data-vim-load' in text and 'data-vim-provider="vice"' in text
+                          assert '<iframe src=' not in text
+                      if path == 'mappe-guide/':
+                          assert text.count('data-vim-curated-link') == 7
+                          assert 'https://gtamap.io/?m=permit-keys' in text
+                          assert text.count('data-location-guide=') == 11
+                          assert '/gta-6/screenshot-ps5/' in text
+                      if path == 'trofei/100-percento/':
+                          assert 'data-advanced-platinum-100' in text
+                          assert text.count('data-ap-metric="') == 35
+                          assert text.count('data-ap-card="') == 18
+                          assert 'advanced-platinum-v3.js?v=' in text
+                          assert 'advanced-platinum-v3.css?v=' in text
+                      if path == 'trofei/trofei-difficili/':
+                          assert text.count('data-hard-trophy="') == 7
+                          assert 'data-hard-status="incerto"' in text
+                          assert 'advanced-platinum-v3.css?v=' in text
+                      if path == 'collezionabili/percorsi/':
+                          assert text.count('data-cr-curated-link') == 10
+                          assert 'https://gtamap.io/?m=jasons-safehouse' in text
+                          assert 'https://gtamap.io/gta-6-map/starlet-motel/' in text
+                          assert text.count('data-cr-step=') == 123
+                          assert text.count('data-cr-region=') == 7
+                          assert 'data-cr-done' in text and 'Vicki' in text and 'Victor Maravilla' in text
+                          assert 'collectible-routes-v4.js?v=' in text
+                      if path == 'screenshot-ps5/invia/':
+                          assert text.count('data-photo-guide=') == 55
+                          assert 'data-pi-rights' in text
+                          assert 'data-pi-submit disabled' in text
+                          assert 'photo-intake-v4.js?v=' in text
+                          assert 'Non è un upload dal sito' in text
+                      if path in ('salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/'):
+                          assert 'id="consigli"' in text and 'Fonti dei consigli' in text
+                      print('PUBLIC_ADAPTIVE_READER_DEPLOY_OK',base+path)
+                      break
+                  except Exception:
+                      if attempt==5: raise
+                      time.sleep(10)
+          # The roadmap must also ship its own interactive assets and sitemap entry.
+          for path, marker in (
+              ('assets/platinum-roadmap.js','gta6-italia:platinum-roadmap:v1'),
+              ('assets/platinum-roadmap.css','.p-roadmap'),
+              ('assets/platinum-atlas-v2.js','gta6-italia:trophies:v1'),
+              ('assets/platinum-atlas-v2.css','.p-atlas'),
+              ('assets/advanced-platinum-v3.js','gta6-italia:100-completion:v3'),
+              ('assets/advanced-platinum-v3.css','.ap-main'),
+              ('assets/collectible-routes-v4.js','gta6-italia:collectible-routes:v4'),
+              ('assets/collectible-routes-v4.css','.cr-root'),
+              ('assets/photo-intake-v4.js','x.com/intent/tweet'),
+              ('assets/photo-intake-v4.css','.pi-page'),
+              ('assets/reader-theme.js',"const chooseDefault = () => 'dark'"),
+              ('assets/reader-theme.css','--r-bg:#10131d'),
+              ('assets/interactive-map-v1.js','game-map-load-intent'),
+              ('assets/interactive-map-v1.css','.vim-root'),
+              ('sitemap.xml','trofei/roadmap-platino/'),
+              ('sitemap.xml','mappe-guide/'),
+              ('sitemap.xml','trofei/100-percento/'),
+              ('sitemap.xml','trofei/trofei-difficili/'),
+              ('sitemap.xml','collezionabili/percorsi/'),
+              ('sitemap.xml','screenshot-ps5/invia/'),
+          ):
+              request=urllib.request.Request(base+path+'?group3-live=20261121',headers={'Cache-Control':'no-cache'})
+              with urllib.request.urlopen(request,timeout=20) as response:
+                  body=response.read(1500000).decode('utf-8')
+                  assert response.status==200
+              assert marker in body, (path, marker)
+              print('PUBLIC_GROUP3_ASSET_OK',base+path)
+          # Validate 404 responses for operational content, not just hidden menus.
+          from urllib.error import HTTPError
+          for private in ('crescita-x/','screenshot-ps5/verifica/',
+                          'screenshot-ps5/priorita/','growth-evidence-v1.json',
+                          'photo-backlog-v5.json','photo-requests.json',
+                          'photo-provenance-review.json','photo-intake-audit.json',
+                          'map-rollout-v1.json','design-version.json',
+                          'media-quality.json','social-cards-audit.json'):
+              for attempt in range(6):
+                  request=urllib.request.Request(base+private+'?release-gate=20261121-'+str(attempt),
+                                                 headers={'Cache-Control':'no-cache'})
+                  try:
+                      with urllib.request.urlopen(request,timeout=20) as response:
+                          status=response.status
+                  except HTTPError as error:
+                      if error.code == 404:
+                          print('PUBLIC_PRIVATE_PATH_404_OK',private)
+                          break
+                      if error.code in (429,500,502,503,504) and attempt < 5:
+                          print('PUBLIC_PRIVATE_PATH_RETRY',private,'HTTP',error.code,'attempt',attempt+1)
+                          time.sleep(5*(attempt+1))
+                          continue
+                      raise
+                  if attempt==5:
+                      raise AssertionError('Internal artifact is public: '+private+' HTTP '+str(status))
+                  time.sleep(5)
+          home=urllib.request.urlopen(base+'?public-nav=1',timeout=20).read(1000000).decode('utf-8')
+          assert 'crescita-x/' not in home
+          assert 'screenshot-ps5/verifica/' not in home
+          assert 'screenshot-ps5/priorita/' not in home
+          # Verify the public file byte-for-byte. It is a single-purpose
+          # Google-owned proof, not part of our reader HTML templates.
+          expected = b'google-site-verification: google232edbd3526a5a1d.html'
+          for attempt in range(6):
+              try:
+                  request=urllib.request.Request(base+'google232edbd3526a5a1d.html',headers={'Cache-Control':'no-cache'})
+                  with urllib.request.urlopen(request,timeout=20) as response:
+                      raw=response.read(2048)
+                      assert response.status==200
+                  assert raw==expected
+                  print('PUBLIC_GSC_VERIFICATION_FILE_OK',base+'google232edbd3526a5a1d.html')
+                  break
+              except Exception:
+                  if attempt==5: raise
+                  time.sleep(10)
+          # Google also supports the supplied meta tag on the URL-prefix home.
+          for attempt in range(6):
+              try:
+                  request=urllib.request.Request(base+'?gsc-proof=20261120',headers={'Cache-Control':'no-cache'})
+                  with urllib.request.urlopen(request,timeout=20) as response:
+                      homepage=response.read(1500000).decode('utf-8')
+                      assert response.status==200
+                  assert '<meta name="google-site-verification" content="U1WNfaHHGPHzojaeFvn_GGhVrWb5TYeDyUPgpmCX6Nw">' in homepage
+                  print('PUBLIC_GSC_META_TAG_OK',base)
+                  break
+              except Exception:
+                  if attempt==5: raise
+                  time.sleep(10)
+          # Verify Umami is actually shipped to each published page exactly
+          # once, with safe first-party domain and no personal identifiers.
+          for path in ('','trofei/','guide-e-tutorial/','hdr-oled/','privacy/'):
+              for attempt in range(6):
+                  try:
+                      request=urllib.request.Request(base+path+'?analytics=gta6-20261120',headers={'Cache-Control':'no-cache'})
+                      with urllib.request.urlopen(request,timeout=20) as response:
+                          markup=response.read(1500000).decode('utf-8')
+                          assert response.status == 200
+                      assert markup.count('id="growth-analytics-v1"') == 1
+                      assert 'src="https://cloud.umami.is/script.js"' in markup
+                      assert 'data-website-id="ec3592c0-e9f7-4e13-8c29-f9c7d59aa8fd"' in markup
+                      assert 'data-domains="xfederiko11.github.io"' in markup
+                      assert 'data-do-not-track="true"' in markup
+                      if path == 'privacy/':
+                          assert 'Umami Cloud è attivo' in markup
+                      print('PUBLIC_GTA6_UMAMI_TAG_OK',base+path)
+                      break
+                  except Exception:
+                      if attempt == 5: raise
+                      time.sleep(10)
+          PY
+
+      - name: Verify beginner-friendly tutorials and real screenshots in production
+        run: |
+          python - <<'PY'
+          import urllib.request, time
+          base='https://xfederiko11.github.io/gta-6/'
+          def fetch(path):
+              for attempt in range(6):
+                  try:
+                      req=urllib.request.Request(base+path+'?tutorial-qa=reader-first',
+                                                 headers={'Cache-Control':'no-cache'})
+                      with urllib.request.urlopen(req,timeout=20) as response:
+                          assert response.status==200
+                          return response.read(1800000).decode('utf-8')
+                  except Exception:
+                      if attempt==5: raise
+                      time.sleep(10)
+          homepage=fetch('')
+          assert 'id="focus-title"' in homepage
+          assert homepage.count('class="focus-choice"')==3
+          assert 'site-focus-v1.css?v=' in homepage
+          assert 'class="social-home-rail"' not in homepage
+          assert 'class="v-photo-hub-invite"' not in homepage
+          assert 'https://www.rockstargames.com/newswire' in homepage
+          print('PUBLIC_SIMPLE_HOMEPAGE_OK',base)
+          for path in (
+              'salvare-auto/',
+              'guide-e-tutorial/soldi-facili-capitolo-1/',
+              'guide-e-tutorial/viaggio-rapido-taxi/',
+              'guide-e-tutorial/glitch-prima-persona-ps5/',
+          ):
+              page=fetch(path)
+              assert 'class="v-intro v-guide-intro"' in page
+              assert 'class="v-tutorial-start-here"' in page
+              assert 'guide-flow-v1.css?v=' in page
+              assert 'guide-flow-v1.js?v=' in page
+              assert 'id="procedura"' in page
+              assert 'class="v-steps"' in page
+              assert 'class="v-guide-prep"' in page
+              assert 'class="v-guide-more"' in page
+              assert page.index('id="passaggio-1"') < page.index('class="v-guide-more"')
+              assert page.index('id="procedura"') < page.index('id="passaggio-1"')
+              if path in ('salvare-auto/', 'guide-e-tutorial/glitch-prima-persona-ps5/'):
+                  assert '✓ Controllo:' in page
+              assert 'class="reader-photo-invite"' in page
+              assert 'class="v-step-photo-gap"' not in page
+              assert 'data-visual-screenshot-count' not in page
+              assert 'data-visual-request-photo' not in page
+              assert 'screenshot-ps5/verifica/' not in page
+              assert 'screenshot-ps5/priorita/' not in page
+              if path=='salvare-auto/':
+                  steps=page.split('<ol class="v-steps">',1)[1].split('</ol>',1)[0]
+                  # Former inline Push Square screenshot has no documented reuse license.
+                  # Check exact external references and verified actions instead.
+                  assert 'data-visual-kind="screenshot"' not in steps
+                  assert page.count('class="car-microsteps"')==7
+                  assert page.count('class="car-microstep"')==21
+                  assert page.count('data-photo-source-guide="registrare-auto-personale"')==7
+                  assert 'Scooter Bros si sblocca' in page
+                  assert 'Comandi PS5:' in page
+              print('PUBLIC_BEGINNER_TUTORIAL_OK',base+path)
+          moses=fetch('guide-e-tutorial/veicoli-per-moses/')
+          assert 'operational-guide-v1.css?v=' in moses
+          assert moses.count('class="v-step"')==7
+          assert moses.count('mo-photo-link')==6
+          assert moses.count('data-mo-real-gameplay=')==6
+          assert moses.count('class="mo-video-screen"')==6
+          assert moses.count('<iframe ')==6
+          assert 'https://www.youtube-nocookie.com/embed/UyxxY0A_kow?start=101' in moses
+          assert 'data-mo-default-all' in moses
+          assert 'data-mo-show-all' in moses
+          assert 'moses-visual-v1.css?v=' in moses
+          assert 'data-mo-gift-ref="source-only"' in moses
+          assert '2727' in moses
+          assert '6.310 GTA' in moses
+          assert moses.index('Capitolo 2, dopo Daily Driver') < moses.index('id="passaggio-1"')
+          assert moses.count('Fonte video: IGN su YouTube')==6
+          assert 'Guarda anche le foto sulla guida PowerPyx' in moses
+          assert 'Non è disponibile qui un’immagine riutilizzabile' in moses
+          assert 'data-mo-chapter-seconds="520"' in moses
+          garage=fetch('salvare-auto/')
+          assert 'guide-e-tutorial/veicoli-per-moses/' in garage
+          assert 'class="v-operation-brief"' in garage
+          print('PUBLIC_ACTION_FIRST_MOSES_OK',base+'guide-e-tutorial/veicoli-per-moses/')
+          js=fetch('assets/guide-flow-v1.js')
+          css=fetch('assets/guide-flow-v1.css')
+          assert 'HO FINITO IL TUTORIAL' in js
+          assert 'PASSO PRIMA' in js
+          assert '.gf-next' in css
+          print('PUBLIC_ONE_STEP_WIZARD_ASSETS_OK')
+          for trophy_path in ('trofei/trofeo-14-una-lunga-strada/',
+                              'trofei/trofeo-17-cecchino/'):
+              trophy=fetch(trophy_path)
+              assert 'data-trophy-beginner' in trophy
+              assert 'trophy-simple-v1.css?v=' in trophy
+              assert trophy.count('data-trophy-done=')>=1
+              print('PUBLIC_BEGINNER_TROPHY_OK',base+trophy_path)
+          collectibles=fetch('collezionabili/percorsi/')
+          assert 'data-cr-wizard hidden' in collectibles
+          assert collectibles.count('data-cr-step=')==123
+          assert 'collectible-beginner-v1.js?v=' in collectibles
+          assert 'collectible-beginner-v1.css?v=' in collectibles
+          assert 'collectible-photo-v1.css?v=' in collectibles
+          assert collectibles.count('data-cr-photo-state="source-only"')==11
+          assert collectibles.count('class="cr-instruction-where"')==123
+          assert collectibles.count('class="cr-instruction-do"')==123
+          assert 'Fonte: powerpyx.com' in collectibles
+          assert collectibles.index('data-cr-wizard hidden') < collectibles.index('class="cr-map-extra"')
+          cbjs=fetch('assets/collectible-beginner-v1.js')
+          assert 'slot.appendChild(step)' in cbjs
+          assert 'found.addEventListener("click"' in cbjs
+          assert 'FINE DEL PERCORSO DOCUMENTATO' in cbjs
+          print('PUBLIC_BEGINNER_COLLECTIBLE_OK',base+'collezionabili/percorsi/')
+          hub=fetch('screenshot-ps5/')
+          assert 'data-photo-guide=' in hub
+          assert 'screenshot-ps5/verifica/' not in hub
+          assert 'screenshot-ps5/priorita/' not in hub
+          intake=fetch('screenshot-ps5/invia/')
+          assert 'data-pi-rights' in intake
+          assert 'screenshot-ps5/verifica/' not in intake
+          print('PUBLIC_CONTRIBUTION_PAGES_OK',base+'screenshot-ps5/')
+          PY
+ in text
+                          assert 'data-vc-detail="declasse-yosemite-1500"' in text
                       if path == 'trofei/roadmap-platino/':
                           assert 'data-platinum-roadmap' in text
                           assert 'data-trophy-atlas' in text
