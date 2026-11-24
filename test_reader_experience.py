@@ -264,6 +264,8 @@ def browser_qa():
                         page.locator('[data-rg-filter]').select_option('Tutte')
                         assert page.locator('[data-rg-card]:visible').count()==24
                         if width in (390,1440):
+                            # Place sticky navigation at the top in full-page QA output.
+                            page.evaluate('window.scrollTo(0,0)')
                             img=page.screenshot(
                                 path=str(out/f'rockstar-gallery-{width}.png'),
                                 full_page=True,animations='disabled')
