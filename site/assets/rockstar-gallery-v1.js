@@ -17,7 +17,7 @@
     let matching=0,visible=0;
     for(const card of all){
       const ok=(group==='Tutte'||card.dataset.rgGroup===group)&&
-        card.dataset.rgSearch.includes(term);
+        card.dataset.rgKeywords.includes(term);
       if(ok)matching++;
       if(ok&&matching<=shown){card.hidden=false;visible++;}else card.hidden=true;
     }
