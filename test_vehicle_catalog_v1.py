@@ -29,7 +29,6 @@ class VehicleCatalogTests(unittest.TestCase):
         self.assertIn("Granforma Zorrusso",names)
         self.assertIn("Moses’ Sultan",names)
         self.assertIn("Invetero Coquette D10",names)
-        self.assertIn("non è ancora",doc["origin_lead"]["status"].replace("non leggibile","non è ancora"),"Source lead must never be represented as exact car list") if False else None
         self.assertIn("Nessuna associazione",doc["origin_lead"]["status"])
 
     def test_evidence_gate_fail_closed(self):
@@ -55,7 +54,7 @@ class VehicleCatalogTests(unittest.TestCase):
         self.assertEqual(text.count('class="vc-card"'),25)
         self.assertIn("data-vc-finder",text)
         self.assertIn("data-vc-todo",text)
-        self.assertIn("senza",text.lower())
+        self.assertIn("non spawn garantiti",text.lower())
         self.assertNotIn("data-pin-lat",text)
         for car in doc["items"]:
             with self.subTest(car=car["slug"]):
