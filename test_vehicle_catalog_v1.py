@@ -24,7 +24,11 @@ class VehicleCatalogTests(unittest.TestCase):
         self.assertEqual(sum(x["status"]=="In verifica" for x in doc["items"]),7)
         self.assertEqual(sum(x["status"]=="Community" for x in doc["items"]),1)
         names={x["name"] for x in doc["items"]}
-        self.assertTrue({x[0] for x in TASKS}.issubset(names))
+        self.assertTrue({x[0] for x in TASKS[:6]}.issubset(names))
+        # Moses guide appends a spoiler description to the Sultan gift;
+        # the SEO catalog must keep the actual car name as its own title.
+        self.assertTrue(TASKS[6][0].startswith("Moses’ Sultan"))
+        self.assertIn("Moses’ Sultan",names)
         self.assertIn("Canis Crawler",names)
         self.assertIn("Granforma Zorrusso",names)
         self.assertIn("Moses’ Sultan",names)
