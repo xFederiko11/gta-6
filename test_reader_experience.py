@@ -244,7 +244,8 @@ def browser_qa():
                     if path=='veicoli/':
                         cards=page.locator('[data-vc-card]')
                         assert cards.count()==25
-                        assert page.locator('[data-vc-card]:visible').count()==25
+                        assert page.locator('[data-vc-card]:visible').count()==12
+                        assert page.locator('[data-vc-more]').is_visible()
                         page.locator('[data-vc-search]').fill('Futo')
                         assert page.locator('[data-vc-card]:visible').count()==1
                         assert page.locator('[data-vc-card]:visible h2').inner_text()=='Karin Futo'
@@ -265,7 +266,13 @@ def browser_qa():
                         page.locator('[data-vc-todo]').uncheck()
                         page.locator('[data-vc-filter-owner]').select_option('Tutti')
                         page.locator('[data-vc-filter-status]').select_option('Tutte')
+                        assert page.locator('[data-vc-card]:visible').count()==12
+                        assert page.locator('[data-vc-more]').is_visible()
+                        page.locator('[data-vc-more]').click()
+                        assert page.locator('[data-vc-card]:visible').count()==24
+                        page.locator('[data-vc-more]').click()
                         assert page.locator('[data-vc-card]:visible').count()==25
+                        assert not page.locator('[data-vc-more]').is_visible()
                         if width in (390,1440):
                             page.evaluate('window.scrollTo(0,0)')
                             shot=page.screenshot(path=str(out/f'vehicles-directory-{width}.png'),
@@ -280,11 +287,16 @@ def browser_qa():
                         assert '1.850 GTA$' in page.locator('.vc-facts').inner_text()
                         assert page.locator('.vc-social a[href*="intent/tweet"]').count()==1
                         assert page.locator('.vc-video a').count()==1
+                        assert page.locator('[data-vc-load-video]').count()==1
+                        assert page.locator('.vc-video-slot iframe').count()==0
                         if width in (390,1440):
                             shot=page.screenshot(path=str(out/f'vehicle-yosemite-article-{width}.png'),
                                                  full_page=True,animations='disabled')
                             assert int.from_bytes(shot[16:20],'big')==width
                             print('VEHICLE_ARTICLE_FULL_PAGE_QA',width,flush=True)
+                        page.locator('[data-vc-load-video]').click()
+                        assert page.locator('.vc-video-slot iframe').count()==1
+                        assert 'start=101' in page.locator('.vc-video-slot iframe').get_attribute('src')
                     if path=='veicoli/pegassi-toros/':
                         assert page.locator('[data-vc-detail="pegassi-toros"]').count()==1
                         assert page.locator('meta[name="robots"]').get_attribute('content')=='noindex,follow'
