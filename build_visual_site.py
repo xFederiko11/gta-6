@@ -557,6 +557,15 @@ def guide(g,guides):
                'si sbloccano dopo Daily Driver. '
                '<a href="https://www.gtabase.com/gta-6/articles/how-to-unlock-garages-in-gta-6" '
                'target="_blank" rel="noopener noreferrer">Fonte sblocchi garage ↗</a></p>')
+    if g['id']=='scansionare-veicoli':
+        body+=('<p class="v-guide-urgent waink-tracker-warning" role="note">'
+               '<strong>🚘 Prima di rubare:</strong> '
+               '<strong>No Tracker</strong> significa che non c\'è localizzatore; '
+               '<strong>Standard</strong> può segnalare alla polizia il luogo del furto; '
+               '<strong>Advanced</strong> può comunicare la posizione quando rallenti. '
+               'Per alcuni veicoli avanzati serve il Key Cloner, sbloccabile nel Capitolo 3. '
+               '<a href="https://www.powerpyx.com/gta-6-moses-take-a-vehicle-to-moses-walkthrough/" '
+               'target="_blank" rel="noopener noreferrer">Verifica PowerPyx ↗</a></p>')
     # Critical trophy/save warnings must remain visible BEFORE the first step.
     if g['id']=='soldi-facili-capitolo-1':
         body+=('<p class="v-guide-urgent cash-critical-warning" role="note">'
