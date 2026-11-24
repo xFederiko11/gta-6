@@ -46,19 +46,34 @@
     },
     {
       "id": "scansionare-veicoli",
-      "title": "Come scansionare i veicoli con WAiNK su PS5",
+      "title": "GTA VI: WAiNK su PS5 — scanner auto, tracker e 200 veicoli",
       "tag": "Collezionabili",
-      "summary": "Registra i veicoli nel catalogo WAiNK e avanza verso il 100%.",
+      "summary": "Scansiona auto, moto, barche e aerei con WAiNK. Controlla i tracker prima di rubare un mezzo e registra 200 modelli base per il 100%.",
       "steps": [
-        "Tieni premuto ↑ sulla croce direzionale per aprire WAiNK.",
-        "Inquadra il veicolo da registrare.",
-        "Tieni premuto R1 per completare la scansione."
+        "Tieni premuto ↑ sulla croce direzionale del DualSense per aprire direttamente WAiNK.",
+        "Inquadra un veicolo visibile; puoi scansionarlo anche senza salirci.",
+        "Tieni premuto R1 finché WAiNK mostra la scheda del mezzo.",
+        "Leggi il tracker: No Tracker, Standard o Advanced. Verifica anche allarme, eventuale Key Cloner necessario e costo di registrazione indicato dal gioco.",
+        "Apri Progressi → Veicoli e controlla il numero di modelli base scansionati; cambia zona e scansiona anche barche e aerei."
       ],
-      "benefit": "PowerPyx indica 200 veicoli da registrare per il completamento al 100%.",
-      "caution": "I comandi sono riferiti alla guida consultata: verifica eventuali differenze di patch.",
+      "benefit": "Per il completamento al 100% servono 200 dei 277 modelli base (contano anche barche e velivoli), non tutti i 280 veicoli speciali Standout. Separatamente, la checklist richiede 100 WAiNK Locations: sono punti d'interesse, non automobili. Per il trofeo A Long Road conta il progresso del 100%.",
+      "caution": "Nelle missioni iniziali Moses accetta auto senza tracker; quelle con tracker Standard segnalano alla polizia il luogo del furto e quelle con tracker Advanced possono segnalare la posizione quando rallenti. Il Key Cloner per alcune auto avanzate si sblocca nella missione Clonin' Keys, Makin' GS del Capitolo 3. Controlla sempre la scheda WAiNK e i requisiti della missione, che possono variare; la scansione da sola non rende l'auto di tua proprietà.",
       "source_url": "https://www.powerpyx.com/gta-6-how-to-study-animals-scan-vehicles/",
       "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_02.0c5.7qx17u9kl.jpg?akim=1&imdensity=1&imwidth=3840",
-      "related_trophy": 35
+      "related_trophy": 35,
+      "checks": [
+        "WAiNK è aperta e l'inquadratura mostra il mondo attraverso lo scanner.",
+        "Il veicolo da controllare è riconoscibile sullo schermo.",
+        "La scheda dell'auto compare, con nome e dettagli visibili.",
+        "Il tracker è identificato prima di rubare il veicolo: non confondere l'assenza di tracker con la mancanza di allarme.",
+        "Il contatore dei modelli scansionati aumenta quando registri un modello base nuovo."
+      ],
+      "extra_sources": [
+        "https://www.powerpyx.com/gta-6-100-completion-checklist-guide/",
+        "https://www.powerpyx.com/gta-6-moses-take-a-vehicle-to-moses-walkthrough/",
+        "https://www.powerpyx.com/gta-6-how-to-get-key-cloner/",
+        "https://www.gtabase.com/articles/gta-6/gta-6-car-stealing-guide-how-to-steal-sell-keep-vehicles"
+      ]
     },
     {
       "id": "studiare-animali",
