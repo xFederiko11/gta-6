@@ -4,8 +4,8 @@
  if(!root)return;
  const cards=[...root.querySelectorAll('[data-vc-card]')];
  const search=root.querySelector('[data-vc-search]');
- const owner=root.querySelector('[data-vc-owner]');
- const status=root.querySelector('[data-vc-status]');
+ const owner=root.querySelector('[data-vc-filter-owner]');
+ const status=root.querySelector('[data-vc-filter-status]');
  const todo=root.querySelector('[data-vc-todo]');
  const count=root.querySelector('[data-vc-count]');
  const empty=root.querySelector('[data-vc-empty]');
