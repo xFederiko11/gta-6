@@ -304,6 +304,11 @@ jobs:
                           assert 'step-video-opt-in-v1.js?v=' in text
                           assert 'step-video-opt-in-v1.css?v=' in text
                           assert '<iframe' not in text
+                      if path == 'guide-e-tutorial/soldi-facili-capitolo-1/':
+                          assert text.count('data-step-video-id="1GtrjKhSwzM"') == 1
+                          assert text.count('data-step-video-seconds="285"') == 1
+                          assert 'data-step-external-evidence="map"' in text
+                          assert '<iframe' not in text
                       if path == 'guide-e-tutorial/soldi-2500-three-sheets-liquor/':
                           assert text.count('data-step-video-id="1GtrjKhSwzM"') == 2
                           assert text.count('data-step-video-seconds="285"') == 1

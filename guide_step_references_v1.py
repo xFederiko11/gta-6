@@ -5,8 +5,9 @@ from urllib.parse import urlsplit
 import re
 
 
-def _link(g, idx, data, refs):
-    item=data.get("guides", {}).get(g["id"], {}).get(str(idx))
+def _link(g, idx, data, refs, item=None):
+    if item is None:
+        item=data.get("guides", {}).get(g["id"], {}).get(str(idx))
     if item is None:
         return ""
     if item.get("kind") not in {"map", "video"}:
@@ -48,6 +49,7 @@ def _link(g, idx, data, refs):
             ("registrare-auto-personale", 4, "registrare-auto-personale", 675),
             ("soldi-2500-three-sheets-liquor", 0, "soldi-2500-three-sheets-liquor", 285),
             ("soldi-2500-three-sheets-liquor", 2, "soldi-2500-three-sheets-liquor", 455),
+            ("soldi-facili-capitolo-1", 0, "soldi-facili-capitolo-1", 285),
         }:
             creator=escape(record["creator"])
             stamp_label=f"{stamp//60}:{stamp%60:02d}"
@@ -81,9 +83,21 @@ def validate(guides, data, refs):
         for number in steps:
             if not re.fullmatch(r"0|[1-9][0-9]*",number) or int(number)>=len(ids[guid]["steps"]):
                 raise ValueError("Invalid guide step number")
-            _link(ids[guid], int(number), data, refs)
+            render(ids[guid], int(number), data, refs)
     return True
 
 
 def render(g, idx, data, refs):
-    return _link(g, idx, data, refs)
+    item=data.get("guides", {}).get(g["id"], {}).get(str(idx))
+    primary=_link(g, idx, data, refs)
+    if not item or "also_video" not in item:
+        return primary
+    extra=item["also_video"]
+    # A second reference is deliberately limited to the documented first
+    # location. Keep the independently sourced map, and never imply that
+    # the clip proves the other three locations or any reward.
+    if (g["id"]!="soldi-facili-capitolo-1" or idx!=0 or item["kind"]!="map"
+        or not isinstance(extra,dict) or set(extra)!={"kind","ref","at","note"}
+        or extra["kind"]!="video" or extra["ref"]!=g["id"] or extra["at"]!=285):
+        raise ValueError("Invalid supplemental video evidence")
+    return primary+_link(g, idx, data, refs, item=extra)

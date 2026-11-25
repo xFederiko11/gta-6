@@ -192,7 +192,8 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
         # Only these explicitly reviewed articles can load a third-party
         # player inside numbered actions.
         reviewed_video_paths = ('salvare-auto/',
-                                'guide-e-tutorial/soldi-2500-three-sheets-liquor/')
+                                'guide-e-tutorial/soldi-2500-three-sheets-liquor/',
+                                'guide-e-tutorial/soldi-facili-capitolo-1/')
         if not any('<link rel="canonical" href="'+BASE+path+'"' in page
                    for path in reviewed_video_paths):
             raise ValueError('Unexpected video player outside reviewed guides')

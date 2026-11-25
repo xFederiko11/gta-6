@@ -168,14 +168,14 @@ La priorità è che nessuno perda una componente eventualmente necessaria al pla
 - Se non esiste una foto approvata e selezionata, resta la copertina grafica originale (o la selezione promozionale esplicita gia' prevista per gli articoli editoriali). Nessun fotogramma o fotografia nuova viene aggiunta in questa modifica. Nessuna licenza e' presunta.
 
 
-## Controllo dei filmati e richieste di permesso (25 novembre 2026)
+## Controllo dei filmati e riferimenti visivi (25 novembre 2026)
 
 Il workflow esistente usa l'endpoint ufficiale YouTube oEmbed per i quattro ID curati, senza download di filmati o miniature. Il riepilogo di Actions distingue metadati coerenti, creator da ricontrollare, risposta limitata e verifica non conclusiva. Non certifica playback, timestamp, disponibilita' geografica, licenza o correttezza del gameplay. Nessun errore del provider deve cancellare una guida o bloccare il deploy. Il sito dichiara esplicitamente il limite.
 
-Per le nuove fotografie: candidati da richiedere al creator originale, non da scaricare autonomamente:
+Per la selezione di riferimenti visivi: filmati originali, da incorporare al minuto documentato senza scaricare autonomamente i fotogrammi:
 - TGG: canale ufficiale https://www.youtube.com/@TGG_ ; prima auto, video R0GdEkPZSvM, 4:26 e 11:15; Three Sheets Liquor, video 1GtrjKhSwzM, 4:45 e 7:35. I riferimenti temporali provengono dal registro, non da riproduzione indipendente.
 - IGN: sei consegne di Moses, video UyxxY0A_kow, capitoli 01:41, 03:11, 04:53, 05:46, 07:08, 08:40.
 - oneboyler: dimostrazione prima persona, video CJi2DWXxsoQ, fotogramma da selezionare dopo visione effettiva.
 - Diritto sottostante del gioco: https://support.rockstargames.com/articles/7bNaeoMFTV0iUDGhStTXvz/policy-on-posting-copyrighted-rockstar-games-material . La tolleranza per uso fan occasionale e non commerciale non e' una licenza generale per una pubblicazione digitale sistematica. Il registro deve contenere anche una base valida per l'uso dei contenuti Rockstar.
 
-Nessun contatto e' stato effettuato, nessun consenso e' stato ricevuto e nessuna immagine viene promossa come approvata da questa procedura. Inviare eventuali richieste solo con autorizzazione appropriata, senza costi o risposte X automatiche.
+Decisione del titolare del progetto, 25 novembre 2026: non inviare email di richiesta a Rockstar, Take-Two o ai creator. Nessun contatto esterno o risposta X automatica per ottenere immagini. Privilegiare embed ufficiali, link ai minuti pertinenti e immagini con base di riuso gia' documentata, senza presumere licenze dalla visibilita' pubblica o dalla sola citazione della fonte. Nessun costo aggiuntivo. Nessun consenso ricevuto; il registro approvato resta invariato.

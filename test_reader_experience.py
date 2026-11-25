@@ -483,6 +483,19 @@ def browser_qa():
                         assert page.locator('[data-step-external-evidence="map"]').count()==1
                         assert page.locator('[data-visual-location-image="liquor-store"]').count()==0
                         assert page.locator('#passaggio-1').count()==1
+                        clips=page.locator('#procedura .v-step-video')
+                        assert clips.count()==1
+                        assert clips.first.get_attribute('data-step-video-seconds')=='285'
+                        assert page.locator('.v-step-video-slot iframe').count()==0
+                        play=page.locator('#passaggio-1 [data-step-video-open]')
+                        assert play.is_visible()
+                        play.click()
+                        frame=page.locator('#passaggio-1 .v-step-video-slot iframe')
+                        assert frame.count()==1
+                        assert frame.get_attribute('src')=='https://www.youtube-nocookie.com/embed/1GtrjKhSwzM?start=285&rel=0'
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                        play.click()
+                        assert frame.count()==0
                     if path=='salvare-auto/':
                         assert page.locator('.car-microsteps').count()==7
                         assert page.locator('.car-microstep').count()==21

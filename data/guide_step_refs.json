@@ -7,7 +7,13 @@
       "0": {
         "kind": "map",
         "ref": "soldi-facili-capitolo-1",
-        "note": "La mappa individua la categoria dei negozi di liquori, non tutti e quattro i luoghi della guida."
+        "note": "La mappa individua la categoria dei negozi di liquori, non tutti e quattro i luoghi della guida.",
+        "also_video": {
+          "kind": "video",
+          "ref": "soldi-facili-capitolo-1",
+          "at": 285,
+          "note": "Al minuto 4:45 il riferimento TGG riguarda soltanto Three Sheets Liquor. Non dimostra gli altri tre luoghi né garantisce il bottino."
+        }
       }
     },
     "soldi-2500-three-sheets-liquor": {
