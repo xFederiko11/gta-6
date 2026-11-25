@@ -1,6 +1,6 @@
 {
   "schema": "gta-vi-hdr-tv-picture-v1",
-  "method": "Le impostazioni HDR LG C4 provengono da un test strumentale della modalità gioco su OLED65C4PUA; numeri SDR riportati solo come riferimento distinto e NON validati per HDR. Non equivalgono a una calibrazione personalizzata di ogni pannello.",
+  "method": "Le tabelle separano prove RTINGS in modalità HDR Game dai menu soltanto documentati. I numeri sono le impostazioni dell'esemplare di prova (spesso USA), non misure del pannello dell'utente né preset GTA VI verificati su tutti i tagli. Le varianti WOLED/QD-OLED e i firmware possono modificare il comportamento.",
   "profiles": {
     "lg-oled-c4": {
       "reference_code": "OLED55C44LA",
@@ -82,6 +82,576 @@
         "RTINGS ha misurato il modello C4 da 65 pollici per la prova HDR Game; i valori elencati come Test HDR descrivono quel setup, non un preset GTA VI misurato né una calibrazione individuale.",
         "Per C4 da 42 e 48 pollici LG non dichiara il Brightness Booster presente nei tagli grandi: non trasferire le prestazioni di picco della prova da 65 pollici.",
         "Caldo 50, profondità colore 50 e nitidezza 0 sono riferimenti SDR di RTINGS, non valori strumentali certificati in HDR Game: verificarli a occhio nel profilo HDR e non interpretarli come obbligatori."
+      ]
+    },
+    "lg-oled-c3": {
+      "reference_code": "OLED55C34LA",
+      "tested_hardware": "LG C3 · prova RTINGS HDR Game (esemplare USA)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/lg/c3-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Game Optimizer (User Settings)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Luminosità pixel OLED",
+          "value": "100",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Dynamic Tone Mapping",
+          "value": "HGiG",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Expression Enhancer",
+          "value": "Spento (Off)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Luminosità di picco",
+          "value": "Alto (High)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Contrasto",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        },
+        {
+          "name": "Temperatura colore",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        },
+        {
+          "name": "Nitidezza",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        }
+      ],
+      "notes": [
+        "RTINGS documenta questi cinque controlli specificamente nella prova HDR Game; il contrasto e le altre voci non indicate non vengono dedotte dal preset Cinema."
+      ]
+    },
+    "lg-oled-b4": {
+      "reference_code": "OLED48B46LA",
+      "tested_hardware": "LG B4 · prova RTINGS HDR Game (esemplare USA)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/lg/b4-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Game Optimizer",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Luminosità pixel OLED",
+          "value": "100",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Contrasto",
+          "value": "100",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Dynamic Tone Mapping",
+          "value": "HGiG",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Luminosità di picco",
+          "value": "Alto (High)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Temperatura colore",
+          "value": "Caldo 50 (Warm 50)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Nitidezza",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        }
+      ],
+      "notes": [
+        "Il profilo è quello della prova HDR Game su LG B4; valori non validati da noi in GTA VI né su ogni diagonale."
+      ]
+    },
+    "lg-oled-g4": {
+      "reference_code": "OLED55G45LW",
+      "tested_hardware": "LG G4 · prova RTINGS HDR Game (esemplare 65″ USA)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/lg/g4-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Game Optimizer",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Luminosità pixel OLED",
+          "value": "100",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Contrasto",
+          "value": "100",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Contrasto dinamico automatico",
+          "value": "Spento (Off)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Dynamic Tone Mapping",
+          "value": "HGiG",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Expression Enhancer",
+          "value": "Spento (Off)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Luminosità di picco",
+          "value": "Alto (High)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Temperatura colore",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        },
+        {
+          "name": "Nitidezza",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        }
+      ],
+      "notes": [
+        "RTINGS ha provato un G4 da 65″ e precisa che il G4 da 97″ è differente e non dispone della stessa struttura MLA; non copiare luminosità di picco tra diagonali."
+      ]
+    },
+    "lg-oled-c2": {
+      "reference_code": "OLED55C21LA",
+      "tested_hardware": "LG C2 · prova RTINGS HDR Game (metodologia precedente)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/lg/c2-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Game Optimizer",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Luminosità pixel OLED",
+          "value": "Massimo (Max)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Contrasto",
+          "value": "Massimo (Max)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Luminosità di picco",
+          "value": "Alto (High)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Temperatura colore",
+          "value": "Caldo 50 (Warm 50)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Nitidezza",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        }
+      ],
+      "notes": [
+        "Test RTINGS con metodologia precedente e impostazioni 'Max': il menu e le scale possono variare con firmware e regione. Non dedurre il parametro HGiG da questa prova."
+      ]
+    },
+    "lg-oled-c5": {
+      "reference_code": "OLED55C54LA",
+      "tested_hardware": "LG C5 · prova RTINGS HDR Game (firmware aggiornato)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/lg/c5-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Game Optimizer",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Dynamic Tone Mapping usato nel test",
+          "value": "Spento (Off)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "HGiG per calibrazione PS5",
+          "value": "Disponibile da verificare nel menu",
+          "status": "Menu TV",
+          "source": "LG: istruzioni HGiG in Game Optimizer"
+        },
+        {
+          "name": "Luminosità pixel OLED",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        },
+        {
+          "name": "Contrasto",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        },
+        {
+          "name": "Temperatura colore",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        },
+        {
+          "name": "Nitidezza",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        }
+      ],
+      "notes": [
+        "RTINGS misura l'HDR Game con Dynamic Tone Mapping disattivato, non certifica in questa prova 100/100 o HGiG. Confronta HGiG secondo guida LG prima di calibrare PS5; la luminosità del C5 è cambiata con firmware 33.22.65."
+      ]
+    },
+    "lg-oled-g5": {
+      "reference_code": "OLED55G54LW",
+      "tested_hardware": "LG G5 · prova RTINGS HDR Game (firmware variabile)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/lg/g5-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Game Optimizer",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Dynamic Tone Mapping",
+          "value": "HGiG",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Luminosità pixel OLED",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        },
+        {
+          "name": "Contrasto",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        },
+        {
+          "name": "Temperatura colore",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        },
+        {
+          "name": "Nitidezza",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        }
+      ],
+      "notes": [
+        "RTINGS riporta HGiG come modalità di riferimento per la prova HDR Game del G5, ma il testo pubblico non specifica gli altri controlli numerici in quella prova; firmware 33.20.67 cambia il comportamento del tone mapping."
+      ]
+    },
+    "samsung-s90d": {
+      "reference_code": "QE55S90DAEXZT",
+      "tested_hardware": "Samsung S90D QD-OLED · test RTINGS (codice USA)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/samsung/s90d-s90dd-oled-qd-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Game Mode",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Game HDR",
+          "value": "Basic",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Luminosità",
+          "value": "50 (Max)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Contrasto",
+          "value": "50 (Max)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Contrast Enhancer",
+          "value": "Spento (Off)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "HDR Tone Mapping",
+          "value": "Statico (Static)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Tonalità colore",
+          "value": "Caldo 2 (Warm2)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Spazio colore",
+          "value": "Auto",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Luminosità di picco",
+          "value": "Alto (High)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        }
+      ],
+      "notes": [
+        "RTINGS ha testato la variante statunitense QD-OLED: il Samsung S90D può avere pannelli WOLED o QD-OLED secondo taglio/regione. Non estendere la misura a varianti con pannello diverso; controlla firmware e codice completo."
+      ]
+    },
+    "samsung-s95d": {
+      "reference_code": "QE55S95DATXZT",
+      "tested_hardware": "Samsung S95D · prova HDR Game RTINGS (codice USA)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/samsung/s95d-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Game Mode",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Game HDR",
+          "value": "Basic",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "HDR Tone Mapping",
+          "value": "Statico (Static)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Luminosità",
+          "value": "50 (Max)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Contrasto",
+          "value": "50 (Max)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Gamma HDR",
+          "value": "ST.2084: 0",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Tonalità colore",
+          "value": "Caldo 2 (Warm2)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Spazio colore",
+          "value": "Auto",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Luminosità di picco",
+          "value": "Alto (High)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        }
+      ],
+      "notes": [
+        "Il profilo S95D è misurato nella modalità Game del test RTINGS; il TV può sovraesporre leggermente le scene in HDR. Non applicarlo a S90D o S95F."
+      ]
+    },
+    "samsung-s90f": {
+      "reference_code": "QE55S90FAEXZT",
+      "tested_hardware": "Samsung S90F · prova RTINGS HDR Game (pannello QD-OLED USA)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/samsung/s90f-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Game Mode",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Game HDR",
+          "value": "Basic",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "HDR Tone Mapping",
+          "value": "Statico (Static)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Luminosità",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        },
+        {
+          "name": "Contrasto",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        },
+        {
+          "name": "Tonalità colore",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        },
+        {
+          "name": "Luminosità di picco",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        }
+      ],
+      "notes": [
+        "RTINGS indica HGiG temporaneamente rimosso con firmware 1125.9 e ripristinato con 1133: verificare il firmware. Il S90F può avere pannello diverso secondo taglio/regione; non copiare picchi in nit da versioni QD-OLED a WOLED."
+      ]
+    },
+    "samsung-s95f": {
+      "reference_code": "QE55S95FATXZT",
+      "tested_hardware": "Samsung S95F · prova RTINGS HDR Game (codice USA)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/samsung/s95f-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Game Mode",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Game HDR",
+          "value": "Basic",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "HDR Tone Mapping",
+          "value": "Statico (Static)",
+          "status": "Test HDR",
+          "source": "RTINGS · modalità HDR Gioco"
+        },
+        {
+          "name": "Luminosità",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        },
+        {
+          "name": "Contrasto",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        },
+        {
+          "name": "Tonalità colore",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        },
+        {
+          "name": "Luminosità di picco",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Valore numerico HDR non disponibile nella fonte consultata"
+        }
+      ],
+      "notes": [
+        "Secondo RTINGS, HGiG è stato ripristinato con firmware 1203 dopo la rimozione con 1125.9. Controlla la versione installata prima della regolazione."
       ]
     }
   }
