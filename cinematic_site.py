@@ -132,7 +132,7 @@ def home(guides, url):
            '<h1 id="focus-title" class="ci-hero-title">LEONIDA.<br><em>A MODO TUO.</em></h1>'
            '<p class="ci-hero-description">La prossima auto. Il prossimo obiettivo. La prossima scoperta.<br>'
            'Trova la tua strada in GTA VI, una guida alla volta.</p>'
-           '<div class="ci-actions"><a class="ci-button" href="#scegli">Trova la tua prossima guida</a>'
+           '<div class="ci-actions"><a class="ci-button" href="'+url(first)+'">Come salvare un’auto in GTA 6</a>'
            '<a class="ci-button ci-button-ghost" href="#esplora">Esplora Leonida</a></div></div>'
            '<div class="ci-hero-bottom"><div class="ci-slideshow-caption"><span data-hero-caption>Port Gellhorn · Il cielo si accende</span>'
            '<small>Immagine ufficiale © Rockstar Games</small></div>'
@@ -168,7 +168,7 @@ def home(guides, url):
           '<h2 id="focus-guide-title">Il prossimo passo è qui.</h2></div><a class="ci-text-link" href="'+url('guide-e-tutorial/')+'">Tutte le guide</a></div>'
           '<ol class="focus-quick">')
     for label,title,desc,path,name in [
-        ('AUTO & GARAGE','La prima auto. Tienila.','Registrazione, garage e cosa controllare prima di partire.',first,'Jason_and_Lucia_11.jpg'),
+        ('AUTO & GARAGE','Come salvare le auto in GTA VI','Registrazione, garage e controllo del salvataggio: apri la guida passo passo.',first,'Jason_and_Lucia_11.jpg'),
         ('VEICOLI','Le 6 auto per Moses','Modelli da trovare, riferimenti ai luoghi e fonti gameplay.', 'guide-e-tutorial/veicoli-per-moses/','Vice_City_24.jpg'),
         ('SOLDI','Parti con il piede giusto.','Il Capitolo 1: percorsi e precauzioni prima di accumulare denaro.',cash,'Jason_and_Lucia_15.jpg')]:
         out+=('<li><a href="'+url(path)+'"><div class="ci-guide-image">'+image(name,url)+'</div>'
