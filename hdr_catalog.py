@@ -6,6 +6,8 @@ from html import escape as _esc
 import json
 from pathlib import Path
 from hdr_tv_picture_v1 import (validate as validate_tv_picture,
+                               validate_photos,
+                               photo_info,
                                render_reference as render_tv_reference,
                                render_settings as render_tv_settings)
 
@@ -79,6 +81,7 @@ def render(write, layout, schema_article, url, crumbs):
     catalog = json.loads(Path("data/hdr_oled.json").read_text(encoding="utf-8"))
     families = catalog["families"]
     validate_tv_picture(families)
+    validate_photos(families)
     game_hdr = catalog["game_hdr"]
     reports = game_hdr["reports"]
     defaults = game_hdr["default"]
@@ -134,7 +137,11 @@ def render(write, layout, schema_article, url, crumbs):
             f'<h3><a href="{url(path)}">{e(family["series"])} ↗</a></h3>'
             f'<p>{e(family["summary"])}</p></div><span class="hdr-family-count">{len(family["models"])} tagli</span></div>'
             f'<div class="hdr-models">{_badge_models(family)}</div>'
-            f'<a class="hdr-family-link" href="{url(path)}">Apri configurazione e istruzioni →</a>'
+            f'<div class="hdr-family-actions"><a class="hdr-family-link" href="{url(path)}">'
+            'Apri configurazione e istruzioni →</a>'
+            f'<a class="hdr-family-photo" href="{e(photo_info(family)["photo_page_url"])}" '
+            f'target="_blank" rel="noopener noreferrer">'
+            f'📷 Fotografie originali {e(family["brand"])} ↗</a></div>'
             "</article>"
         )
     script = r"""<script>

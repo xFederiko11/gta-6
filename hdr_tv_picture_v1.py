@@ -24,6 +24,49 @@ def _profiles():
     return document["profiles"]
 
 
+
+@lru_cache(maxsize=1)
+def _photos():
+    doc = json.loads(Path("data/hdr_tv_photo_sources_v1.json").read_text(encoding="utf-8"))
+    if doc["schema"] != "gta-6-hdr-photos-v1":
+        raise ValueError("Unexpected HDR photo source schema")
+    return doc["families"]
+
+
+def photo_info(family):
+    """Editorial links to authentic product galleries, not copied photos."""
+    return _photos()[family["slug"]]
+
+
+def validate_photos(families):
+    photo_map = _photos()
+    if set(photo_map) != {f["slug"] for f in families}:
+        raise ValueError("Every HDR family must have exactly one manufacturer photo gallery")
+    hosts = {"LG": ("www.lg.com",), "Samsung": ("www.samsung.com",),
+             "Sony": ("www.sony.it", "www.sony.de"),
+             "Philips": ("www.philips.de", "www.philips.it"),
+             "Panasonic": ("www.panasonic.com",)}
+    from urllib.parse import urlparse
+    for family in families:
+        entry = photo_map[family["slug"]]
+        if entry["reference_code"] not in {m["code"] for m in family["models"]}:
+            raise ValueError("Photo does not match a model code: " + family["slug"])
+        url = entry["photo_page_url"]
+        parsed = urlparse(url)
+        if parsed.scheme != "https" or parsed.hostname not in hosts[family["brand"]]:
+            raise ValueError("Untrusted photo gallery source: " + family["slug"])
+        if entry["rights"] != "link-only" or entry["photo_scope"] not in (
+                "esatto", "variante-regionale", "famiglia"):
+            raise ValueError("Photo license or scope not annotated: " + family["slug"])
+        if entry["photo_scope"] == "esatto":
+            code = entry["reference_code"].lower().replace("/", "_")
+            if code not in url.lower().replace("/", "_"):
+                raise ValueError("Exact model photo link must show the code: " + family["slug"])
+        if entry["photo_scope"] == "variante-regionale" and not entry.get("pictured_region_code"):
+            raise ValueError("Missing regional photo variant disclosure")
+    return True
+
+
 def validate(families):
     allowed = {family["slug"] for family in families}
     for slug, profile in _profiles().items():
@@ -35,7 +78,7 @@ def validate(families):
         if not profile["sources"] or not all(s.startswith("https://") for s in profile["sources"]):
             raise ValueError("Missing HTTPS source for " + slug)
         for row in profile["rows"]:
-            if row["status"] not in {"Test HDR", "Verifica HDMI", "Solo riferimento SDR"}:
+            if row["status"] not in {"Test HDR", "Verifica HDMI", "Solo riferimento SDR", "Menu TV", "Da verificare"}:
                 raise ValueError("Unsupported television setting evidence label")
             if not row["name"] or not row["value"] or not row["source"]:
                 raise ValueError("Setting without a value or evidence")
@@ -44,16 +87,20 @@ def validate(families):
 
 def render_reference(family, url):
     """Original TV illustration, visibly associated with the family and model."""
-    profile = _profiles().get(family["slug"], {})
-    code = profile.get("reference_code") or family["models"][0]["code"]
+    reference = photo_info(family)
+    code = reference["reference_code"]
     sample = next(m for m in family["models"] if m["code"] == code)
-    matching = next((s for s in family["sources"]
-                     if code.casefold() in s.casefold()
-                     and not s.lower().split("?")[0].endswith(".pdf")), None)
-    manufacturer = matching or next((s for s in family["sources"]
-                                     if s.startswith("https://")
-                                     and not s.lower().split("?")[0].endswith(".pdf")),
-                                    family["sources"][0])
+    manufacturer = reference["photo_page_url"]
+    photo_scope = reference["photo_scope"]
+    if photo_scope == "variante-regionale":
+        photo_note = ("Le foto mostrano la variante regionale " +
+                      reference["pictured_region_code"] +
+                      ": non è lo stesso codice commerciale indicato qui.")
+    elif photo_scope == "famiglia":
+        photo_note = ("Le foto ufficiali mostrano la famiglia " +
+                      family["series"] + ", non necessariamente il taglio selezionato.")
+    else:
+        photo_note = "Foto ufficiali del codice modello indicato."
     return (
         '<figure class="hdr-tv-reference" data-hdr-tv-reference="' + _e(family["slug"]) + '">'
         '<div class="hdr-tv-reference-visual">'
@@ -68,12 +115,15 @@ def render_reference(family, url):
         '<strong>' + _e(family["series"]) + '</strong>'
         '<span>Codice illustrato nella scheda: <b>' + _e(code) + '</b> · '
         + _e(sample["size"]) + '″</span>'
-        '<small>Illustrazione grafica originale, non foto del modello né screenshot di GTA VI. '
-        'Usa il codice sulla targhetta della tua TV per identificare la variante.</small>'
+        '<small>Illustrazione originale (non è la foto della TV né uno screenshot '
+        'di GTA VI). Per vedere il televisore reale usa la galleria del produttore.</small>'
+        '<span class="hdr-tv-reference-photo-context">' + _e(photo_note) + '</span>'
         '<a class="hdr-tv-reference-source" href="' + _e(manufacturer) + '" '
-        'target="_blank" rel="noopener noreferrer">'
-        + ('Apri le fotografie ufficiali della TV ↗' if family["slug"] == "lg-oled-c4"
-           else 'Apri la scheda o fonte del produttore ↗') + '</a>'
+        'target="_blank" rel="noopener noreferrer" '
+        'data-hdr-photo-gallery="' + _e(family["slug"]) + '">'
+        '📷 Apri le foto reali sul sito ' + _e(family["brand"]) + ' ↗</a>'
+        '<small>Immagini ospitate e pubblicate dal produttore; nessuna fotografia '
+        'di terzi viene copiata sul nostro sito.</small>'
         '</figcaption></figure>'
     )
 
@@ -132,18 +182,23 @@ def render_settings(family):
         + "".join(bits) + '</tbody></table></div>'
     )
     if profile:
+        verified = sum(row["status"] == "Test HDR" for row in rows)
+        unknown = sum(row["status"] == "Da verificare" for row in rows)
         table += (
-            '<p class="hdr-tv-confirmed">✔ Le prime sette righe descrivono il setup HDR '
-            'di laboratorio RTINGS su <strong>' + _e(profile["tested_hardware"]) +
-            '</strong>; non sono misure di GTA VI né una calibrazione personalizzata. '
-            'La voce HDMI viene verificata separatamente.</p>'
+            '<p class="hdr-tv-confirmed">✔ <strong>' + str(verified) +
+            ' impostazioni HDR Game documentate</strong> sulla TV di prova <strong>' +
+            _e(profile["tested_hardware"]) + '</strong>. '
+            'Sono parametri usati nel test RTINGS, non una calibrazione GTA VI '
+            'certificata per il tuo esemplare o taglio di schermo. '
+            + (str(unknown) + ' ulteriori parametri restano non verificati.' if unknown else
+               'Le altre voci hanno la propria etichetta di affidabilità.') + '</p>'
             + '<ul class="hdr-tv-notes">' + "".join('<li>' + _e(n) + '</li>'
                                                     for n in profile["notes"]) + '</ul>'
             + '<p class="source">Fonti specifiche per valori TV: '
             + ' · '.join('<a href="' + _e(s) + '" target="_blank" rel="noopener noreferrer">'
-                       + _e(("RTINGS: test HDR" if i == 0 else
-                              "RTINGS: menu TV" if i == 1 else "LG: supporto HGiG"))
-                       + '</a>' for i, s in enumerate(profile["sources"])) + '.</p>'
+                       + _e('RTINGS · prova della serie' if "rtings.com" in s else
+                            'LG · supporto HGiG' if "lg.com" in s else 'Fonte tecnica')
+                       + '</a>' for s in profile["sources"]) + '.</p>'
         )
     else:
         table += (
