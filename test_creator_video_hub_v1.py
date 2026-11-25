@@ -82,7 +82,7 @@ class CreatorVideoHubTests(unittest.TestCase):
         self.assertIn('creator-video-hub-v1.css?v=',html)
         self.assertIn('creator-video-hub-v1.js?v=',html)
         self.assertIn('"CollectionPage"',html)
-        self.assertIn('"numberOfItems": 4',html)
+        self.assertIn('"numberOfItems":4',html)
         self.assertEqual(html.count('class="cv-card"'),4)
         self.assertNotIn('<iframe',html)
         self.assertNotIn('data-x-timeline-load',html)
