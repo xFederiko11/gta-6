@@ -40,7 +40,11 @@ class HDRTVPictureTests(unittest.TestCase):
                 self.assertIn(family["year"].__str__(), markup)
                 self.assertIn('target="_blank" rel="noopener noreferrer"', markup)
                 self.assertIn("non foto", markup)
-                self.assertIn("fotografie ufficiali", markup)
+                if family["slug"] == "lg-oled-c4":
+                    self.assertIn("fotografie ufficiali", markup)
+                    self.assertIn("oled55c44la/", markup)
+                else:
+                    self.assertIn("scheda o fonte del produttore", markup)
 
     def test_numeric_values_c4_only_with_hdr_evidence_separate_from_sdr(self):
         c4 = render_settings(self.get("lg-oled-c4"))
