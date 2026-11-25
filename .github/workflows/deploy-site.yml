@@ -112,16 +112,31 @@ jobs:
           echo '```json' >> "$GITHUB_STEP_SUMMARY"
           cat .runtime/seo-link-graph-v1.json >> "$GITHUB_STEP_SUMMARY"
           echo '```' >> "$GITHUB_STEP_SUMMARY"
+      - name: Select one free daily production browser QA slot
+        id: daily_reader_qa
+        if: github.event_name == 'schedule'
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          # The existing four-hour schedule already runs at 04:45 UTC.
+          # Use that one slot for full viewport QA; never add paid runners
+          # or turn every site rebuild into a browser install.
+          current_hour="$(date -u +%H)"
+          if [ "$SCHEDULE" = '45 */4 * * *' ] && [ "$current_hour" = '04' ]; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+          fi
       - name: Check responsive theme, visible spoiler notices and zoom in a real browser
-        # Full visual suite runs on PRs. Production uses its passing PR artifact,
-        # fast static regressions and a fresh HTTP verification after deployment.
-        if: github.event_name == 'pull_request'
+        # PRs always run visual QA; one existing daily scheduled build repeats
+        # it in production using standard public-repo hosted runners.
+        if: github.event_name == 'pull_request' || steps.daily_reader_qa.outputs.enabled == 'true'
         run: |
           python -m pip install playwright
           python -m playwright install --with-deps chromium
           python test_reader_experience.py --browser
       - name: Keep reader screenshots and test report
-        if: always() && github.event_name != 'schedule'
+        if: always() && (github.event_name == 'pull_request' || steps.daily_reader_qa.outputs.enabled == 'true')
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: reader-qa-${{ github.run_id }}
