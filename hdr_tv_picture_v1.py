@@ -47,9 +47,13 @@ def render_reference(family, url):
     profile = _profiles().get(family["slug"], {})
     code = profile.get("reference_code") or family["models"][0]["code"]
     sample = next(m for m in family["models"] if m["code"] == code)
-    manufacturer = next((s for s in family["sources"]
-                         if s.startswith("https://") and not s.lower().split("?")[0].endswith(".pdf")),
-                        family["sources"][0])
+    matching = next((s for s in family["sources"]
+                     if code.casefold() in s.casefold()
+                     and not s.lower().split("?")[0].endswith(".pdf")), None)
+    manufacturer = matching or next((s for s in family["sources"]
+                                     if s.startswith("https://")
+                                     and not s.lower().split("?")[0].endswith(".pdf")),
+                                    family["sources"][0])
     return (
         '<figure class="hdr-tv-reference" data-hdr-tv-reference="' + _e(family["slug"]) + '">'
         '<div class="hdr-tv-reference-visual">'
