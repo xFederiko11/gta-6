@@ -23,7 +23,7 @@ class HDRTVPictureTests(unittest.TestCase):
         self.assertEqual(len(self.data["families"]), 21)
         self.assertEqual(sum(len(f["models"]) for f in self.data["families"]), 92)
         self.assertEqual(set(self.profiles["profiles"]), {"lg-oled-c4"})
-        self.assertEqual(self.profiles["profiles"]["lg-oled-c4"]["reference_code"], "OLED65C44LA")
+        self.assertEqual(self.profiles["profiles"]["lg-oled-c4"]["reference_code"], "OLED55C44LA")
 
     def test_each_model_has_identifiable_local_illustration_and_manufacturer_link(self):
         original = Path("site/assets/hdr-tv-reference-v1.svg").read_text(encoding="utf-8")
