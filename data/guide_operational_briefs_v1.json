@@ -8,7 +8,7 @@
       "goal": "Verifica denaro e oggetti nei quattro luoghi; salva i progressi e non perdere il bottino passando al Capitolo 2."
     },
     "soldi-2500-three-sheets-liquor": {
-      "when": "Incarico iniziale di Shirley",
+      "when": "Dopo aver consegnato il rum a Shirley · icona gialla",
       "where": "Three Sheets Liquor, retro del negozio",
       "goal": "Raggiungi il nascondiglio e controlla il denaro presente."
     },

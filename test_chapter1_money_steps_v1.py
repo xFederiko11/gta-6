@@ -34,6 +34,9 @@ class ChapterOneMoneyStepsTests(unittest.TestCase):
         self.assertIn("Recalibration",g["caution"])
         self.assertIn("Tourist Trap",g["caution"])
         self.assertIn("Family Savings",g["benefit"])
+        self.assertIn("icona gialla",ACTIONS[0][0])
+        self.assertIn("pappagallo",ACTIONS[0][1])
+        self.assertIn("generatore",ACTIONS[0][2])
         self.assertIn("6.000 GTA$",g["steps"][-1])
         self.assertIn("stima",g["checks"][-1])
         for bad in (-1,4,400):

@@ -7,9 +7,9 @@ from html import escape
 
 GUIDE_ID="soldi-facili-capitolo-1"
 ACTIONS=(
-    ("Durante l'incarico di Shirley raggiungi Three Sheets Liquor, a Key Lento.",
-     "Controlla il retro del negozio solo dopo aver valutato guardie e accessi.",
-     "Ispeziona nascondigli e oggetti; verifica nell'inventario cosa hai raccolto."),
+    ("Consegna il rum a Shirley, poi torna a Three Sheets Liquor quando appare l’icona gialla.",
+     "Metti in sicurezza il retro e interagisci con il pappagallo per ottenere l’indizio.",
+     "Controlla la grata dietro il generatore; verifica il bottino raccolto."),
     ("Raggiungi il Manatee Motel a sud-ovest di Hamlet, sopra Shoeless Keys.",
      "Prima di entrare considera gli incontri segnalati con una tigre e membri della gang.",
      "Esplora la zona segnalata e controlla il bottino effettivamente ottenuto."),

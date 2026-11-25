@@ -9,17 +9,24 @@
       "tag": "Soldi",
       "summary": "La guida Insider Gaming descrive una scorta nascosta da 1.200 GTA$ e altro bottino presso il negozio.",
       "steps": [
-        "SPOILER: segui l'incarico iniziale di Shirley che porta Jason al Three Sheets Liquor.",
-        "Raggiungi il retro dell'edificio e valuta come superare i nemici presenti.",
-        "Cerca il pappagallo e il generatore sul lato sinistro del fabbricato.",
-        "Dietro il generatore, controlla la grata/condotto che secondo Insider Gaming contiene 1.200 GTA$.",
-        "Esplora anche il retro del negozio e la cassaforte per recuperare gli altri oggetti segnalati."
+        "SPOILER: completa il favore iniziale di Shirley: compra il Salt Squid Rum al Three Sheets Liquor e consegnaglielo.",
+        "Torna a Three Sheets Liquor quando sulla mappa compare l’icona gialla dell’indagine Strange Noises. Non c’è un’attesa esatta garantita.",
+        "Raggiungi il retro del negozio e, dopo aver messo in sicurezza l’area, interagisci con il pappagallo per ottenere l’indizio sul nascondiglio.",
+        "Cerca il generatore sul lato sinistro dell’edificio, vicino al pappagallo. Controlla la grata dietro il generatore: la fonte segnala 1.200 GTA$.",
+        "Esplora il retro del negozio e la cassaforte per verificare gli altri oggetti e il contante disponibili."
       ],
       "benefit": "Insider Gaming stima un bottino complessivo vicino a 2.500 GTA$ nel luogo.",
       "caution": "SPOILER leggero sul Capitolo 1. Il denaro ordinario accumulato nelle prime missioni potrebbe andare perso alla transizione al Capitolo 2: non considerare questo bottino risparmio definitivo. Verifica il riquadro dedicato prima di avanzare. Il valore di 2.500 GTA$ è una stima della fonte, non un guadagno fisso o ripetibile; stato trofei non verificato.",
       "source_url": "https://insider-gaming.com/how-to-complete-strange-noises-in-gta-6-shirley-house-liquor-store-location-guide/",
       "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_02.0c5.7qx17u9kl.jpg?akim=1&imdensity=1&imwidth=3840",
-      "related_trophy": null
+      "related_trophy": null,
+      "checks": [
+        "Hai consegnato il rum a Shirley.",
+        "È comparso il segnale giallo al negozio.",
+        "Hai ottenuto l’indizio dal pappagallo.",
+        "Hai controllato il contante raccolto: la cifra è quella segnalata dalla fonte.",
+        "Hai verificato il bottino effettivo; circa 2.500 GTA$ è una stima complessiva."
+      ]
     },
     {
       "id": "soldi-facili-capitolo-1",
@@ -27,7 +34,7 @@
       "tag": "Soldi",
       "summary": "Quattro luoghi documentati da Insider Gaming: controlla l'accesso, recupera il bottino e verifica cosa hai ottenuto. Attenzione: il denaro ordinario non sopravvive alla fine del Capitolo 1.",
       "steps": [
-        "SPOILER LUOGHI: controlla il retro di Three Sheets Liquor e verifica quali oggetti hai raccolto.",
+        "SPOILER LUOGHI: completa il favore di Shirley e torna a Three Sheets Liquor quando compare l’icona gialla dell’indagine.",
         "SPOILER LUOGHI: al Manatee Motel valuta i rischi prima di cercare il bottino segnalato.",
         "SPOILER LUOGHI: nella casa su palafitte vicino a Corsair Key cerca il nascondiglio indicato dalla fonte.",
         "SPOILER LUOGHI: nel magazzino South Vice-Dale cerca la carta da baseball: 6.000 GTA$ è un valore stimato, non denaro accreditato."
