@@ -484,3 +484,19 @@ details{margin:23px 0;border:1px solid #627088;border-radius:14px;padding:16px;b
   .hdr-tv-settings-table td:nth-child(2){grid-column:1;grid-row:auto;text-align:left;padding-left:0;max-width:none}
   .hdr-tv-settings-table td:nth-child(3){grid-column:1;grid-row:auto}
 }
+
+
+/* HDR manufacturer galleries: real photos live at the rights holder, not copied here. */
+.hdr-family-actions{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin-top:12px}
+.hdr-family-actions .hdr-family-link{margin:0}
+.hdr-family-photo{display:inline-flex;align-items:center;min-height:39px;font-size:.78rem;font-weight:750;text-decoration:none;border:1px solid var(--r-line,#695578);background:var(--r-soft,#272036);color:var(--r-pink,#ff9bcc);padding:6px 11px;border-radius:10px}
+.hdr-family-photo:hover{border-color:var(--r-pink,#ff9bcc)}
+.hdr-tv-reference-photo-context{font-size:.75rem;line-height:1.45;color:var(--r-muted,#c4aecf)}
+.hdr-tv-reference-source{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:10px;background:#245f65;border:1px solid #88d9cc;color:#f2fffc!important;text-decoration:none;font-weight:850;padding:9px 13px}
+.hdr-tv-reference-source:hover{background:#317b82;color:white!important}
+.hdr-tv-photo-rights{font-size:.77rem;line-height:1.5;color:var(--r-muted,#bdaec7);margin:12px 0 20px}
+@media(max-width:620px){
+  .hdr-family-actions{flex-direction:column;align-items:stretch;gap:12px}
+  .hdr-family-actions .hdr-family-photo{justify-content:center;text-align:center}
+  .hdr-tv-reference-source{width:100%;text-align:center}
+}
