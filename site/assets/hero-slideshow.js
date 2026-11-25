@@ -54,7 +54,8 @@ if (typeof document !== 'undefined') (() => {
   let inView = true;
   let timer;
   let prefetched = null;
-  const interval = 8000;
+  // User-facing slide dwell: 3 seconds after each image is decoded.
+  const interval = 3000;
 
   function canPlay() {
     return !paused && ((!hovered && !focused) || rotationRequested) && !document.hidden && inView;
