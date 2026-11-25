@@ -7,7 +7,7 @@
   "total_locations": 10,
   "total_meditations": 18,
   "target_100": 15,
-  "not_confirmed": "Le segnalazioni più recenti di PowerPyx e Maka91Productions indicano che la sessione iniziale non è necessaria per Positive Mental Attitude; una precedente versione di PowerPyx la lasciava incerta. Non abbiamo ripetuto personalmente la prova. Il contatore del sito non certifica i trofei.",
+  "not_confirmed": "PowerPyx (versione più recente indicizzata) e Maka91Productions indicano che la prima occasione può essere sostituita da una lezione successiva; la precedente versione della guida lasciava il requisito incerto. Non abbiamo ripetuto la prova. Il contatore del sito non certifica i trofei.",
   "spots": [
     {
       "id": "jasons-house",
@@ -18,7 +18,7 @@
         "one"
       ],
       "phase": "chapter1",
-      "warning": "Prima occasione del Capitolo 1: falla se disponibile. Se l'hai saltata, le fonti recenti indicano che puoi ancora ottenere il trofeo.",
+      "warning": "Prima occasione del Capitolo 1: falla se disponibile. Se hai saltato la sessione a casa, dopo Coffee Break cerca l'attività alternativa Learn to Meditate Together segnalata da PowerPyx; completa la lezione per sbloccare gli altri luoghi.",
       "video_second": 22
     },
     {

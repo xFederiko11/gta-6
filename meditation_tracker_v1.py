@@ -89,7 +89,7 @@ def render(data=None):
         for mode in spot["modes"]:
             identity=key+":"+mode
             label=("Jason" if mode=="jason" else "Lucia" if mode=="lucia" else
-                   "Sessione iniziale (unica)" if mode=="one" else "Sessione finale (unica)")
+                   "Lezione iniziale o alternativa" if mode=="one" else "Sessione finale (unica)")
             eid="mt-"+key+"-"+mode
             parts.append('<label class="v-meditation-option" for="'+eid+'">'
                          '<input type="checkbox" id="'+eid+'" data-meditation-check="'+h(identity)+'" '

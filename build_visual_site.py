@@ -588,8 +588,8 @@ def guide(g,guides):
                'un salvataggio di prova separato.</p>')
     if g['id']=='meditazione-capitolo-1':
         body+=('<p class="v-guide-urgent" role="note"><strong>🏆 Prima meditazione:</strong> '
-               'se l’hai saltata, le fonti più recenti la indicano facoltativa per il trofeo. '
-               'Controlla le altre località prima di ricominciare una partita.</p>')
+               'se l’hai saltata, PowerPyx segnala la lezione alternativa Learn to Meditate Together '
+               'dopo lo sblocco di entrambi i personaggi. Non ricominciare soltanto per questo.</p>')
     body+=('<section id="procedura" class="v-tutorial" aria-labelledby="titolo-procedura">'
            '<header class="v-tutorial-head">'
            '<span class="v-tutorial-start-here">'+str(count)+' PASSAGGI</span>'
