@@ -122,7 +122,13 @@ jobs:
           # Use that one slot for full viewport QA; never add paid runners
           # or turn every site rebuild into a browser install.
           current_hour="$(date -u +%H)"
-          if [ "$SCHEDULE" = '45 */4 * * *' ] && [ "$current_hour" = '04' ]; then
+          # GitHub's cron runner may start well after the planned 04:45 UTC
+          # time. Accept delays until 07:59, before the next 08:45 UTC slot.
+          case "$current_hour" in
+            04|05|06|07) daily_window=true ;;
+            *) daily_window=false ;;
+          esac
+          if [ "$SCHEDULE" = '45 */4 * * *' ] && [ "$daily_window" = 'true' ]; then
             echo 'enabled=true' >> "$GITHUB_OUTPUT"
           else
             echo 'enabled=false' >> "$GITHUB_OUTPUT"
