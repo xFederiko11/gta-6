@@ -201,7 +201,7 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
             f'<link rel="stylesheet" href="{BASE}assets/step-video-opt-in-v1.css?v={version}"></head>',1)
         page = page.replace('</body>',
             f'<script src="{BASE}assets/step-video-opt-in-v1.js?v={version}" defer></script></body>',1)
-    if 'data-mo-default-all' in page:
+    if 'data-mo-real-gameplay="' in page:
         # Only the optional Moses chain embeds third-party gameplay. This
         # cannot become a global gallery on unrelated trophy or other pages.
         page = page.replace('</head>',

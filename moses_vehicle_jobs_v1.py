@@ -204,7 +204,7 @@ def render(base):
       ' non pin GPS verificati. I pagamenti indicati sono i valori base documentati;',
       ' il bonus condizioni varia.</p>',
       '<p>Prima devi sbloccare la prima registrazione con Moses, poi completare Daily Driver.</p>',
-      '<p><a href="'+e(base+'salvare-auto/')+'">Prima auto personale: guida separata →</a></p>',
+      '<p><a href="'+e(base.rstrip('/')+'/salvare-auto/')+'">Prima auto personale: guida separata →</a></p>',
       '<ul><li><a href="'+e(DAILY)+'" target="_blank" rel="noopener noreferrer">Daily Driver — PowerPyx ↗</a></li>',
       '<li><a href="'+e(SOURCE)+'" target="_blank" rel="noopener noreferrer">Sei auto da rubare — PowerPyx ↗</a></li>',
       '<li><a href="'+e(GIFT)+'" target="_blank" rel="noopener noreferrer">Regalo finale — PowerPyx ↗</a></li></ul>',

@@ -518,7 +518,8 @@ jobs:
               assert 'class="v-intro v-guide-intro"' in page
               assert 'class="v-tutorial-start-here"' in page
               assert 'guide-flow-v1.css?v=' in page
-              assert 'guide-flow-v1.js?v=' in page
+              assert 'guide-flow-v1.js?v=' not in page
+              assert 'data-article-cover="shared-social"' in page
               assert 'id="procedura"' in page
               assert 'class="v-steps"' in page
               assert 'class="v-guide-prep"' in page
@@ -552,8 +553,9 @@ jobs:
           assert moses.count('class="mo-video-screen"')==6
           assert moses.count('<iframe ')==6
           assert 'https://www.youtube-nocookie.com/embed/UyxxY0A_kow?start=101' in moses
-          assert 'data-mo-default-all' in moses
-          assert 'data-mo-show-all' in moses
+          assert 'data-mo-default-all' not in moses
+          assert 'data-mo-show-all' not in moses
+          assert 'data-article-cover="shared-social"' in moses
           assert 'moses-visual-v1.css?v=' in moses
           assert 'data-mo-gift-ref="source-only"' in moses
           assert '2727' in moses
@@ -569,10 +571,10 @@ jobs:
           print('PUBLIC_ACTION_FIRST_MOSES_OK',base+'guide-e-tutorial/veicoli-per-moses/')
           js=fetch('assets/guide-flow-v1.js')
           css=fetch('assets/guide-flow-v1.css')
-          assert 'HO FINITO IL TUTORIAL' in js
-          assert 'PASSO PRIMA' in js
-          assert '.gf-next' in css
-          print('PUBLIC_ONE_STEP_WIZARD_ASSETS_OK')
+          assert 'data-gf-next' not in js
+          assert 'step.hidden' not in js
+          assert 'guide-flow-on' not in css
+          print('PUBLIC_LINEAR_ARTICLE_ASSETS_OK')
           for trophy_path in ('trofei/trofeo-14-una-lunga-strada/',
                               'trofei/trofeo-17-cecchino/'):
               trophy=fetch(trophy_path)
