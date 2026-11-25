@@ -140,6 +140,14 @@ class SocialCardTests(unittest.TestCase):
         page2=c.render_card("GTA VI - MAPPE","collezionabili/percorsi/")
         self.assertEqual(page1.tobytes(),page2.tobytes())
 
+    def test_cover_scope_and_topic_are_explicit(self):
+        self.assertTrue(c.is_article('<script type="application/ld+json">{"@type":"Article"}</script>',"news/demo/"))
+        self.assertFalse(c.is_article('{"@type":"CollectionPage"}',"guide-e-tutorial/"))
+        self.assertFalse(c.is_article('{"@type":"WebSite"}',""))
+        self.assertEqual(c.subject_for_path("guide-e-tutorial/scansionare-veicoli/"),"scanner")
+        self.assertEqual(c.subject_for_path("guide-e-tutorial/soldi-facili-capitolo-1/"),"cash")
+        self.assertEqual(c.subject_for_path("hdr-oled/lg-oled-c4/"),"display")
+
     def test_published_pages_have_distinct_public_og_and_real_jpegs(self):
         audit=c.ROOT/"social-cards-audit.json"
         if not audit.exists():
@@ -175,6 +183,20 @@ class SocialCardTests(unittest.TestCase):
             self.assertEqual(source.count('<meta property="og:image" content="'),1)
             self.assertEqual(source.count('<meta name="twitter:image" content="'),1)
             self.assertIn('content="'+record["image"]+'"',source)
+            self.assertEqual(record["article_cover"],c.is_article(source,record["path"]))
+            if record["article_cover"]:
+                self.assertEqual(source.count('data-article-cover="shared-social"'),1)
+                self.assertNotIn('class="ci-section-cover"',source)
+                cover=source.split('data-article-cover="shared-social"',1)[1].split('</figure>',1)[0]
+                self.assertIn('src="'+record["image"]+'"',cover)
+                self.assertIn('loading="eager"',cover)
+                self.assertIn('article-cover-v1.css?v=',source)
+                self.assertLess(source.index('</h1>'),source.index('data-article-cover="shared-social"'))
+                self.assertIn('<figcaption>',cover)
+            else:
+                self.assertNotIn('data-article-cover=',source)
+        self.assertEqual(obj['article_covers'],sum(row['article_cover'] for row in obj['entries']))
+        self.assertGreaterEqual(obj['article_covers'],67) # 55 trophies + 12 tutorial articles
         self.assertTrue((c.ROOT/"trofei/roadmap-platino/index.html").exists())
         self.assertTrue((c.ROOT/"collezionabili/percorsi/index.html").exists())
 

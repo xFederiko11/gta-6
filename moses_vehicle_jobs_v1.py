@@ -173,12 +173,11 @@ def render(base):
         for i,(name,reward,where,action,check) in enumerate(TASKS[:6],1)
       ),
       '</div></nav>',
-      '<section id="procedura" class="v-tutorial" data-mo-default-all aria-labelledby="titolo-procedura">',
+      '<section id="procedura" class="v-tutorial" aria-labelledby="titolo-procedura">',
       '<header class="v-tutorial-head"><span class="v-tutorial-start-here">▶ INIZIA QUI</span>',
       '<h2 id="titolo-procedura">LE 6 AUTO · GUIDA COMPLETA CON GAMEPLAY</h2>',
       '<p>Moses comunica i veicoli nell’ordine indicato. Consegna il precedente per sbloccare il successivo.</p>',
-      '</header><div class="mo-viewbar"><button type="button" '
-      'data-mo-show-all>📖 Mostra l’articolo completo (7 passaggi)</button></div>'
+      '</header>'
       '<ol class="v-steps">'
     ]
     for i,(name,reward,where,action,check) in enumerate(TASKS,1):
@@ -205,7 +204,7 @@ def render(base):
       ' non pin GPS verificati. I pagamenti indicati sono i valori base documentati;',
       ' il bonus condizioni varia.</p>',
       '<p>Prima devi sbloccare la prima registrazione con Moses, poi completare Daily Driver.</p>',
-      '<p><a href="'+e(base+'salvare-auto/')+'">Prima auto personale: guida separata →</a></p>',
+      '<p><a href="'+e(base.rstrip('/')+'/salvare-auto/')+'">Prima auto personale: guida separata →</a></p>',
       '<ul><li><a href="'+e(DAILY)+'" target="_blank" rel="noopener noreferrer">Daily Driver — PowerPyx ↗</a></li>',
       '<li><a href="'+e(SOURCE)+'" target="_blank" rel="noopener noreferrer">Sei auto da rubare — PowerPyx ↗</a></li>',
       '<li><a href="'+e(GIFT)+'" target="_blank" rel="noopener noreferrer">Regalo finale — PowerPyx ↗</a></li></ul>',

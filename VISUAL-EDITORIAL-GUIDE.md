@@ -184,3 +184,12 @@ Decisione del titolare del progetto, 25 novembre 2026: non inviare email di rich
 ## WAiNK — criterio visivo mobile del 25 novembre 2026
 
 Il video dedicato precede i prerequisiti: niente doppio blocco introduttivo. Cinque schemi originali spiegano i comandi e il risultato senza simulare l'interfaccia del gioco; non contano come screenshot autentici. Collegamento alle schermate reali del sito fonte e al video originale. Test browser sul primo viewport a 390px, caricamento del file immagine, apertura e chiusura del player e articolo intero. Nessun contatto esterno.
+
+
+## Articoli lineari e copertina condivisa
+
+Dal 25 novembre 2026 i tutorial numerati sono interamente leggibili nella stessa pagina, senza pulsanti avanti/indietro, modalità di lettura o blocchi dei passaggi. Restano opzionali spoiler, approfondimenti e attivazione dei video. Tutti gli articoli effettivi hanno sotto H1 la stessa copertina JPEG 1200x630 usata da og:image, twitter:image e dal bot, con fonte dove applicabile. I diagrammi originali di copertina sono tematici e non screenshot; si privilegiano foto autentiche già approvate e pertinenti. Homepage, directory e strumenti di servizio non ricevono copertine ridondanti. Non modificare URL canonici o contratti delle social-card.
+
+I percorsi dei collezionabili seguono lo stesso principio: tutti i 123 checkpoint visibili per impostazione predefinita; ricerca, filtri e spunte locali facoltative, link rapidi ai mancabili e alle copie legate ai capitoli. La copertina resta visibile. Nessun conteggio PSN simulato; nessuna posizione o mappa aggiunta senza fonte.
+
+Revisione visiva delle catture QA #45635784695: la guida WAiNK è lineare; su alcune altre pagine la vecchia foto decorativa cinematografica precedeva H1 e duplicava la copertina. La fase social-card rimuove soltanto quel banner decorativo dagli articoli e usa il titolo H1 nella copertina; non rimuove media operativi o le foto dalle pagine indice. URL e metadati SEO restano stabili.

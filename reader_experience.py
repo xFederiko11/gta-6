@@ -181,13 +181,11 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
                     '<div class="v-guide-social-content">'+social+'</div></details>')
         page=page.replace('</main>',social+'</main>',1)
     if 'id="procedura" class="v-tutorial"' in page:
-        # Only the 11 actual guided procedures get the reader controls.
-        # No-JS always sees the complete traditional numbered list.
+        # All numbered instructions are a continuous article, with no
+        # reader navigation script or hidden steps.
         page = page.replace('</head>',
             f'<link rel="stylesheet" href="{BASE}assets/guide-flow-v1.css?v={version}">'
             f'<link rel="stylesheet" href="{BASE}assets/operational-guide-v1.css?v={version}"></head>',1)
-        page = page.replace('</body>',
-            f'<script src="{BASE}assets/guide-flow-v1.js?v={version}" defer></script></body>',1)
     if 'data-step-video-id="' in page:
         # Only these explicitly reviewed articles can load a third-party
         # player inside numbered actions.
@@ -203,7 +201,7 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
             f'<link rel="stylesheet" href="{BASE}assets/step-video-opt-in-v1.css?v={version}"></head>',1)
         page = page.replace('</body>',
             f'<script src="{BASE}assets/step-video-opt-in-v1.js?v={version}" defer></script></body>',1)
-    if 'data-mo-default-all' in page:
+    if 'data-mo-real-gameplay="' in page:
         # Only the optional Moses chain embeds third-party gameplay. This
         # cannot become a global gallery on unrelated trophy or other pages.
         page = page.replace('</head>',
@@ -213,13 +211,12 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
         page = page.replace('</head>',
             f'<link rel="stylesheet" href="{BASE}assets/trophy-simple-v1.css?v={version}"></head>',1)
     if 'data-collectible-routes' in page:
-        # One documented collectible per screen, while preserving the full
-        # original 123-point checklist for users without JavaScript.
+        # Continuous collectible checklist: all 123 points are shown by
+        # default, and the existing search and local checkboxes remain.
         page = page.replace('</head>',
             f'<link rel="stylesheet" href="{BASE}assets/collectible-beginner-v1.css?v={version}">'
             f'<link rel="stylesheet" href="{BASE}assets/collectible-photo-v1.css?v={version}"></head>',1)
-        page = page.replace('</body>',
-            f'<script src="{BASE}assets/collectible-beginner-v1.js?v={version}" defer></script></body>',1)
+
     page = page.replace('</body>', DIALOG+f'<script src="{BASE}assets/reader-theme.js?v={version}" defer></script>'
                         +f'<script src="{BASE}assets/community-social-v1.js?v={version}" defer></script></body>', 1)
     from cinematic_site import enhance as cinematic_enhance

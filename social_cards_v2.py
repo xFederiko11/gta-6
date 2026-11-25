@@ -218,6 +218,80 @@ def fetch_direct_official_artworks(enabled=False, opener=urlopen):
     return entries, ("direct_ok" if entries else "direct_sources_unavailable") + "_errors_"+str(errors)
 
 
+def subject_for_path(relative):
+    """Original, topical editorial pictograms, never simulated game UI."""
+    if "scansionare-veicoli" in relative: return "scanner"
+    if any(v in relative for v in ("veicoli/","salvare-auto","sportive-randy","veicoli-per-moses","viaggio-rapido-taxi","auto-speciali")): return "car"
+    if "soldi" in relative: return "cash"
+    if "studiare-animali" in relative: return "animal"
+    if "meditazione" in relative: return "meditation"
+    if "hdr" in relative: return "display"
+    if "100-percento" in relative or "sfide" in relative: return "checklist"
+    if "collezionabili" in relative or "mappe" in relative: return "map"
+    if relative.startswith("trofei/"): return "trophy"
+    if "prima-persona" in relative or "poligoni" in relative: return "target"
+    if "trucchi" in relative or relative.startswith("guide-e-tutorial/"): return "controller"
+    return "editorial"
+
+
+def draw_subject(draw,kind,accent):
+    """Subject-specific cover artwork in the right-hand field of the card."""
+    ink=(234,240,252)
+    # Deliberately diagrammatic, with no borrowed screenshots or game marks.
+    draw.rounded_rectangle((814,124,1158,488),radius=28,fill=(21,29,45),outline=(97,109,146),width=3)
+    if kind in ("car","scanner"):
+        draw.polygon([(849,349),(849,312),(879,285),(916,218),(1039,218),
+                      (1091,282),(1123,310),(1123,349)],fill=(48,65,89))
+        draw.line([(849,349),(849,312),(879,285),(916,218),(1039,218),
+                   (1091,282),(1123,310),(1123,349),(849,349)],fill=ink,width=8,joint="curve")
+        draw.line((887,282,1082,282),fill=accent,width=8)
+        for x in (880,1062): draw.ellipse((x,326,x+49,375),fill=(21,29,45),outline=accent,width=8)
+        if kind=="scanner":
+            for x,y,dx,dy in ((842,183,1,1),(1130,183,-1,1),(842,407,1,-1),(1130,407,-1,-1)):
+                draw.line([(x,y+42*dy),(x,y),(x+42*dx,y)],fill=accent,width=8)
+    elif kind=="cash":
+        for x,y in ((850,236),(863,256),(876,276)):
+            draw.rounded_rectangle((x,y,x+242,y+118),radius=12,fill=(37,65,60),outline=accent,width=5)
+        draw.ellipse((950,296,1035,380),outline=ink,width=5)
+        draw.text((977,304),"$",font=_font(50),fill=ink)
+    elif kind=="trophy":
+        draw.line([(918,205),(918,295),(945,335),(986,349),(1027,335),(1054,295),(1054,205),(918,205)],fill=accent,width=10,joint="curve")
+        draw.arc((872,215,965,317),0,180,fill=ink,width=8)
+        draw.arc((1006,215,1099,317),0,180,fill=ink,width=8)
+        draw.line((986,349,986,400),fill=accent,width=12)
+        draw.rounded_rectangle((936,398,1036,423),radius=7,fill=ink)
+    elif kind=="display":
+        draw.rounded_rectangle((850,207,1122,362),radius=14,fill=(10,14,24),outline=accent,width=9)
+        for x,color in ((874,(87,148,218)),(930,(195,114,200)),(986,(240,171,110)),(1042,(103,218,193))):
+            draw.rectangle((x,232,x+55,337),fill=color)
+        draw.line((986,363,986,394),fill=ink,width=8);draw.line((922,394,1050,394),fill=ink,width=8)
+    elif kind=="animal":
+        for x,y in ((892,227),(951,196),(1011,196),(1070,227)):
+            draw.ellipse((x,y,x+49,y+70),fill=accent)
+        draw.ellipse((928,287,1044,396),fill=ink)
+    elif kind=="meditation":
+        draw.ellipse((948,209,1023,284),outline=accent,width=9)
+        draw.line([(986,289),(928,338),(873,354),(986,405),(1099,354),(1044,338),(986,289)],fill=ink,width=9,joint="curve")
+        draw.arc((874,174,1098,398),210,330,fill=accent,width=4)
+    elif kind=="checklist":
+        for y in (225,297,369):
+            draw.rounded_rectangle((866,y,908,y+42),radius=7,outline=accent,width=5)
+            draw.line([(875,y+20),(884,y+30),(901,y+10)],fill=ink,width=6)
+            draw.line((932,y+20,1105,y+20),fill=ink,width=6)
+    elif kind=="map":
+        draw.line([(858,234),(939,208),(1023,238),(1111,208),(1111,390),(1023,420),(939,390),(858,420),(858,234)],fill=ink,width=6,joint="curve")
+        draw.line((939,208,939,390),fill=accent,width=5);draw.line((1023,238,1023,420),fill=accent,width=5)
+        draw.ellipse((967,268,1043,344),outline=accent,width=9);draw.line((1005,344,1005,367),fill=accent,width=8)
+    elif kind=="target":
+        for rad in (112,70,28): draw.ellipse((986-rad,306-rad,986+rad,306+rad),outline=accent,width=7)
+        draw.line((842,306,1130,306),fill=ink,width=4);draw.line((986,166,986,446),fill=ink,width=4)
+    else:
+        draw.rounded_rectangle((852,248,1120,363),radius=47,outline=accent,width=9)
+        draw.line((908,270,908,339),fill=ink,width=15);draw.line((873,305,943,305),fill=ink,width=15)
+        for x,y in ((1052,273),(1082,303),(1052,333),(1022,303)):
+            draw.ellipse((x-10,y-10,x+10,y+10),fill=accent)
+
+
 def render_card(title,relative, art=None):
     key=cover_key(relative)
     accent=PALETTES[int(key[:3],16)%len(PALETTES)]
@@ -258,6 +332,8 @@ def render_card(title,relative, art=None):
         draw.text((78,213+idx*(fontsize+10)),line,font=font,fill=(247,247,252))
     draw.line((78,521,735,521),fill=(90,99,126),width=2)
     draw.text((80,537),"XFEDERIKO11.GITHUB.IO/GTA-6",font=_font(18),fill=(190,202,221))
+    if art is None:
+        draw_subject(draw,subject_for_path(relative),accent)
     draw.text((1040,557),key[-6:].upper(),font=_font(23),fill=accent)
     return base
 
@@ -359,6 +435,47 @@ def render_screenshot_card(title,relative,row,photo):
     return card
 
 
+def is_article(html,relative):
+    """Cover actual articles, not landing pages, indexes or admin utilities."""
+    if not relative:
+        return False
+    if 'id="procedura" class="v-tutorial"' in html:
+        return True
+    if re.search(r'"@type"\s*:\s*"(?:Article|NewsArticle|BlogPosting|HowTo|TechArticle)"',html):
+        return True
+    return (relative in {"hdr-oled/","trucchi/","trofei/roadmap-platino/",
+                         "trofei/100-percento/","trofei/trofei-difficili/",
+                         "collezionabili/percorsi/"} or
+            bool(re.fullmatch(r"(?:veicoli|hdr-oled|articoli|news|guide-e-tutorial)/[^/]+/",relative)))
+
+
+def insert_article_cover(html,relative,link,alt,credit,source_url=None):
+    """Use exactly the same bytes and URL as OG and Twitter, after the H1."""
+    if not is_article(html,relative):
+        return html,False
+    if 'data-article-cover=' in html:
+        raise ValueError("Duplicate article cover: "+relative)
+    # The earlier cinematic banner is decorative and was inserted before H1.
+    # Remove only that known figure on article pages, not source/step images.
+    html=re.sub(r'<figure class="ci-section-cover">.*?</figure>',"",html,flags=re.S)
+    if len(re.findall(r"</h1\s*>",html,re.I))!=1:
+        raise ValueError("Article must have exactly one H1: "+relative)
+    caption=escape(credit)
+    if source_url:
+        if not source_url.startswith("https://"):
+            raise ValueError("Unsafe cover source")
+        caption+=' · <a href="'+escape(source_url,quote=True)+'" target="_blank" rel="noopener noreferrer">Fonte ↗</a>'
+    figure=('<figure class="article-cover" data-article-cover="shared-social">'
+            '<img src="'+escape(link,quote=True)+'" alt="'+alt+'" width="1200" height="630" '
+            'loading="eager" decoding="async" fetchpriority="high">'
+            '<figcaption>'+caption+'</figcaption></figure>')
+    html=re.sub(r"</h1\s*>",lambda m:m.group(0)+figure,html,count=1,flags=re.I)
+    style=(Path("site/assets/article-cover-v1.css")).read_bytes()
+    version=hashlib.sha256(style).hexdigest()[:12]
+    html=html.replace("</head>",'<link rel="stylesheet" href="'+BASE+'assets/article-cover-v1.css?v='+version+'"></head>',1)
+    return html,True
+
+
 def publish():
     if not ROOT.is_dir():
         raise RuntimeError("No generated Pages site to process")
@@ -380,6 +497,13 @@ def publish():
         parsed=_parse_page(page)
         if parsed is None:continue
         html,relative,title=parsed
+        # Use the actual reader-facing headline, without SEO suffixes, on
+        # article artwork. Keep document title, metadata and canonical unchanged.
+        headline=title
+        if is_article(html,relative):
+            h1=re.search(r'<h1\b[^>]*>(.*?)</h1\s*>',html,re.I|re.S)
+            if h1:
+                headline=" ".join(unescape(re.sub(r'<[^>]+>'," ",h1.group(1))).split()) or title
         key=cover_key(relative)
         art=artwork_for_page(relative,artworks)
         if relative in selected:
@@ -390,9 +514,9 @@ def publish():
         if preview:
             row,screenshot=preview
             art=None
-            photo=render_screenshot_card(title,relative,row,screenshot)
+            photo=render_screenshot_card(headline,relative,row,screenshot)
         else:
-            photo=render_card(title,relative,art["image"] if art else None)
+            photo=render_card(headline,relative,art["image"] if art else None)
         dest=path/(key+".jpg")
         photo.save(dest,"JPEG",quality=83,optimize=True,progressive=True,subsampling=0)
         data=dest.read_bytes()
@@ -403,9 +527,16 @@ def publish():
             raise ValueError("Two canonical pages rendered same social image")
         digest.add(binary_hash)
         link=BASE+"assets/social-cards/"+key+".jpg"
-        attr=escape(("Screenshot di gameplay autorizzato: "+preview[0]["alt"]+" · Fonte: "+preview[0]["credit"]) if preview else
+        alt_text=(("Screenshot di gameplay autorizzato: "+preview[0]["alt"]+" · Fonte: "+preview[0]["credit"]) if preview else
                     ("Immagine promozionale ufficiale Rockstar Games; copertina editoriale GTA VI Italia." if art else
-                    "Copertina grafica originale GTA VI Italia; non screenshot di gameplay."),quote=True)
+                    "Copertina illustrata originale GTA VI Italia: "+headline+". Non screenshot di gameplay."))
+        attr=escape(alt_text,quote=True)
+        credit=("Screenshot autorizzato · "+preview[0]["credit"] if preview else
+                ("Immagine promozionale · Rockstar Games" if art else "Copertina illustrata · GTA VI Italia"))
+        source_url=(("https://www.youtube.com/watch?v="+preview[0]["source_video_id"]+
+                     "&t="+str(preview[0]["source_second"])+"s") if preview and
+                     preview[0].get("capture_kind")=="creator_supplied_video_frame" else
+                    (preview[0].get("source_post") if preview else OFFICIAL_PAGE if art else None))
         # Always replace generic previews AND source-image previews so X link
         # shares have one dedicated, reliably sized card for each URL.
         for tag,kind in ((r'<meta property="og:image" content="[^"]*">','og'),
@@ -421,10 +552,12 @@ def publish():
              f'<meta property="og:image:alt" content="{attr}">'
              f'<meta name="twitter:image:alt" content="{attr}">')
         html=html.replace('</head>',new+'</head>',1)
+        html,has_cover=insert_article_cover(html,relative,link,attr,credit,source_url)
         page.write_text(html,encoding="utf-8")
         entries.append({"path":relative,"image":link,"sha256":binary_hash,"artwork":art["name"] if art else None,
                         "approved_screenshot":preview[0]["id"] if preview else None,
-                        "screenshot_credit":preview[0]["credit"] if preview else None})
+                        "screenshot_credit":preview[0]["credit"] if preview else None,
+                        "article_cover":has_cover,"cover_subject":subject_for_path(relative) if not art and not preview else None})
     if len(entries)<65:
         raise RuntimeError("Too few canonical pages to validate social cards")
     if len({x["image"] for x in entries})!=len(entries):
@@ -435,6 +568,7 @@ def publish():
             "official_zip_status":source_status,"official_direct_status":direct_status,"artworks_loaded":len(artworks),
             "artwork_backed_cards":sum(bool(x["artwork"]) for x in entries),
             "approved_screenshot_backed_cards":sum(bool(x["approved_screenshot"]) for x in entries),
+            "article_covers":sum(bool(x["article_cover"]) for x in entries),
             "description":"Artwork is illustrative, not trophy/mission evidence. Commercial licensing not asserted.",
             "entries":entries}
     (ROOT/"social-cards-audit.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")

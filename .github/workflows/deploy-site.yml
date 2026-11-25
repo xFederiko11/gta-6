@@ -230,6 +230,16 @@ jobs:
                       assert 'assets/social-cards/' in text
                       assert text.count('<meta property="og:image" content="')==1
                       assert text.count('<meta name="twitter:image" content="')==1
+                      if 'data-article-cover="shared-social"' in text:
+                          import re
+                          cover=text.split('data-article-cover="shared-social"',1)[1].split('</figure>',1)[0]
+                          image=re.search(r'<img src="([^"]+)"',cover).group(1)
+                          assert '<meta property="og:image" content="'+image+'">' in text
+                          assert '<meta name="twitter:image" content="'+image+'">' in text
+                      if 'id="procedura" class="v-tutorial"' in text:
+                          assert 'data-article-cover="shared-social"' in text
+                          assert 'guide-flow-v1.js?v=' not in text
+                          assert 'data-mo-show-all' not in text
                       assert 'visual-v2.css?v=' in text and 'visual-v2.js?v=' in text
                       assert '<link rel="canonical" href="'+base+path+'"' in text
                       assert 'data-theme="auto"' in text
@@ -508,7 +518,8 @@ jobs:
               assert 'class="v-intro v-guide-intro"' in page
               assert 'class="v-tutorial-start-here"' in page
               assert 'guide-flow-v1.css?v=' in page
-              assert 'guide-flow-v1.js?v=' in page
+              assert 'guide-flow-v1.js?v=' not in page
+              assert 'data-article-cover="shared-social"' in page
               assert 'id="procedura"' in page
               assert 'class="v-steps"' in page
               assert 'class="v-guide-prep"' in page
@@ -542,8 +553,9 @@ jobs:
           assert moses.count('class="mo-video-screen"')==6
           assert moses.count('<iframe ')==6
           assert 'https://www.youtube-nocookie.com/embed/UyxxY0A_kow?start=101' in moses
-          assert 'data-mo-default-all' in moses
-          assert 'data-mo-show-all' in moses
+          assert 'data-mo-default-all' not in moses
+          assert 'data-mo-show-all' not in moses
+          assert 'data-article-cover="shared-social"' in moses
           assert 'moses-visual-v1.css?v=' in moses
           assert 'data-mo-gift-ref="source-only"' in moses
           assert '2727' in moses
@@ -559,10 +571,10 @@ jobs:
           print('PUBLIC_ACTION_FIRST_MOSES_OK',base+'guide-e-tutorial/veicoli-per-moses/')
           js=fetch('assets/guide-flow-v1.js')
           css=fetch('assets/guide-flow-v1.css')
-          assert 'HO FINITO IL TUTORIAL' in js
-          assert 'PASSO PRIMA' in js
-          assert '.gf-next' in css
-          print('PUBLIC_ONE_STEP_WIZARD_ASSETS_OK')
+          assert 'data-gf-next' not in js
+          assert 'step.hidden' not in js
+          assert 'guide-flow-on' not in css
+          print('PUBLIC_LINEAR_ARTICLE_ASSETS_OK')
           for trophy_path in ('trofei/trofeo-14-una-lunga-strada/',
                               'trofei/trofeo-17-cecchino/'):
               trophy=fetch(trophy_path)
@@ -571,21 +583,22 @@ jobs:
               assert trophy.count('data-trophy-done=')>=1
               print('PUBLIC_BEGINNER_TROPHY_OK',base+trophy_path)
           collectibles=fetch('collezionabili/percorsi/')
-          assert 'data-cr-wizard hidden' in collectibles
+          assert 'data-cr-wizard' not in collectibles
           assert collectibles.count('data-cr-step=')==123
-          assert 'collectible-beginner-v1.js?v=' in collectibles
+          assert 'collectible-beginner-v1.js?v=' not in collectibles
+          assert 'data-article-cover="shared-social"' in collectibles
+          assert 'class="cr-priority-links"' in collectibles
           assert 'collectible-beginner-v1.css?v=' in collectibles
           assert 'collectible-photo-v1.css?v=' in collectibles
           assert collectibles.count('data-cr-photo-state="source-only"')==11
           assert collectibles.count('class="cr-instruction-where"')==123
           assert collectibles.count('class="cr-instruction-do"')==123
           assert 'Fonte: powerpyx.com' in collectibles
-          assert collectibles.index('data-cr-wizard hidden') < collectibles.index('class="cr-map-extra"')
+          assert collectibles.index('class="cr-priority-links"') < collectibles.index('class="cr-map-extra"')
           cbjs=fetch('assets/collectible-beginner-v1.js')
-          assert 'slot.appendChild(step)' in cbjs
-          assert 'found.addEventListener("click"' in cbjs
-          assert 'FINE DEL PERCORSO DOCUMENTATO' in cbjs
-          print('PUBLIC_BEGINNER_COLLECTIBLE_OK',base+'collezionabili/percorsi/')
+          assert 'slot.appendChild(step)' not in cbjs
+          assert 'found.addEventListener("click"' not in cbjs
+          print('PUBLIC_LINEAR_COLLECTIBLE_OK',base+'collezionabili/percorsi/')
           hub=fetch('screenshot-ps5/')
           assert 'data-photo-guide=' in hub
           assert 'screenshot-ps5/verifica/' not in hub

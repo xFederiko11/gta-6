@@ -93,26 +93,23 @@ class ReaderTests(unittest.TestCase):
             if 'data-design-version=' in text:
                 self.assertEqual(text.count('data-theme-choice="dark"'),1)
                 self.assertEqual(text.count('data-theme-choice="light"'),1)
-    def test_11_guides_use_single_step_wizard_without_hiding_content_from_no_js(self):
+    def test_11_guides_are_complete_linear_articles_without_navigation(self):
         guides=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
         guides+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
         self.assertEqual(len(guides),11)
         css=Path('site/assets/guide-flow-v1.css').read_text(encoding='utf-8')
         js=Path('site/assets/guide-flow-v1.js').read_text(encoding='utf-8')
-        self.assertIn('[data-gf-next]',js)
-        self.assertIn('[data-gf-back]',js)
-        self.assertIn('HO FINITO IL TUTORIAL',js)
-        self.assertIn('scrollIntoView',js)
-        self.assertIn('aria-current',js)
-        self.assertIn('gf-done',css)
-        self.assertNotIn('fetch(',js)
-        self.assertNotIn('localStorage',js)
+        self.assertNotIn('[data-gf-next]',js)
+        self.assertNotIn('step.hidden',js)
+        self.assertNotIn('guide-flow-on',css)
         for guide in guides:
             path=guide.get('canonical_path') or 'guide-e-tutorial/'+guide['id']+'/'
             html=(ROOT/path/'index.html').read_text(encoding='utf-8')
             with self.subTest(guide=guide['id']):
                 self.assertIn('guide-flow-v1.css?v=',html)
-                self.assertIn('guide-flow-v1.js?v=',html)
+                self.assertNotIn('guide-flow-v1.js?v=',html)
+                self.assertNotIn('data-gf-next',html)
+                self.assertNotIn('data-gf-back',html)
                 self.assertIn('id="procedura" class="v-tutorial"',html)
                 self.assertEqual(html.count('class="v-step"'),len(guide['steps']))
                 self.assertNotIn('hidden class="v-step"',html)
@@ -393,7 +390,16 @@ def browser_qa():
                                 full_page=True,animations='disabled')
                             assert int.from_bytes(img[16:20],'big')==width
                             print('ROCKSTAR_GALLERY_QA',width,flush=True)
+                    if page.locator('[data-article-cover]').count():
+                        cover=page.locator('[data-article-cover] img')
+                        assert cover.count()==1 and cover.is_visible()
+                        assert page.locator('.ci-section-cover').count()==0
+                        assert cover.evaluate('(i)=>i.complete && i.naturalWidth===1200 && i.naturalHeight===630')
+                        assert cover.get_attribute('src')==page.locator('meta[property="og:image"]').get_attribute('content')
+                        assert cover.get_attribute('src')==page.locator('meta[name="twitter:image"]').get_attribute('content')
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
                     if page.locator('#procedura.v-tutorial').count():
+                        assert page.locator('[data-article-cover]').count()==1
                         assert page.locator('.v-operation-brief').is_visible()
                         assert page.locator('.v-operation-brief dt').count()==3
                         assert page.locator('.v-operation-brief dd').count()==3
@@ -417,11 +423,11 @@ def browser_qa():
                         assert play.is_visible()
                         assert intro.locator('iframe').count()==0
                         if width==390:
-                            assert play.bounding_box()['y']<420,play.bounding_box()
+                            assert play.bounding_box()['y']<650,play.bounding_box()
                             first=page.locator('#passaggio-1').bounding_box()
                             diagram=page.locator('#passaggio-1 .waink-instruction-art img').bounding_box()
-                            assert first and first['y']<760,(first,diagram)
-                            assert diagram and diagram['y']<900,diagram
+                            assert first and first['y']<1080,(first,diagram)
+                            assert diagram and diagram['y']<1250,diagram
                             print('WAINK_INITIAL_VIEWPORT',first['y'],diagram['y'],flush=True)
                             page.screenshot(path=str(out/'waink-mobile-first-screen.png'))
                             page.locator('[data-theme-choice="light"]').click()
@@ -437,7 +443,6 @@ def browser_qa():
                         play.click()
                         assert intro.locator('iframe').count()==0
                         if width in (390,1440):
-                            page.locator('[data-gf-all]').click()
                             assert page.locator('.v-step:visible').count()==5
                             page.wait_for_function("""() => {
                               const images = [...document.querySelectorAll('.waink-instruction-art img')];
@@ -452,9 +457,7 @@ def browser_qa():
                             sw=int.from_bytes(snap[16:20],'big')
                             sh=int.from_bytes(snap[20:24],'big')
                             assert sw==width and sh>1250,(sw,sh)
-                            assert not page.locator('.gf-progress-track').is_visible()
-                            page.locator('[data-gf-all]').click()
-                            assert page.locator('.v-step:visible').count()==1
+                            assert page.locator('.gf-progress-track').count()==0
                             print('WAINK_FULL_PAGE_QA',width,sh,flush=True)
                     if path=='guide-e-tutorial/veicoli-per-moses/':
                         assert page.locator('#procedura .v-step').count()==7
@@ -477,11 +480,9 @@ def browser_qa():
                         assert page.locator('.v-guide-more').count()==1
                         assert page.locator('.v-step:visible').count()==7,'Entire visual article must be shown'
                         assert page.locator('.mo-video-screen:visible').count()==6
-                        assert page.locator('html').evaluate('(el)=>el.classList.contains("guide-flow-all")')
-                        assert not page.locator('.gf-progress-track').is_visible(), 'Full article is not 100% complete'
-                        assert page.locator('.gf-progress-track').get_attribute('aria-valuenow') is None
-                        assert page.locator('[data-mo-show-all]').is_visible()
-                        assert page.locator('[data-mo-show-all]').get_attribute('aria-pressed')=='true'
+                        assert page.locator('[data-mo-show-all]').count()==0
+                        assert page.locator('.gf-progress-track').count()==0
+                        assert page.locator('.v-guide-more').is_visible()
                         if width in (390,1440):
                             # Full-page proof, not a misleading 900px viewport crop.
                             png=page.screenshot(path=str(out/f'moses-full-article-{width}.png'),
@@ -495,18 +496,6 @@ def browser_qa():
                                     path=str(out/'moses-step1-with-video-390.png'))
                                 page.locator('#passaggio-7').screenshot(
                                     path=str(out/'moses-gift-closed-390.png'))
-                        page.locator('[data-mo-show-all]').click()
-                        assert page.locator('.v-step:visible').count()==1
-                        assert page.locator('.gf-progress-track').is_visible()
-                        assert page.locator('.gf-progress-track').get_attribute('aria-valuenow')=='1'
-                        assert page.locator('[data-mo-show-all]').get_attribute('aria-pressed')=='false'
-                        assert not page.locator('.v-guide-more').is_visible()
-                        page.locator('[data-mo-show-all]').click()
-                        assert page.locator('.v-step:visible').count()==7
-                        assert not page.locator('.gf-progress-track').is_visible()
-                        assert page.locator('.v-guide-more').is_visible()
-                        assert page.locator('[data-mo-show-all]').get_attribute('aria-pressed')=='true'
-                        assert page.evaluate('location.hash===""')
                         page.reload(wait_until='load')
                         assert page.locator('.v-step:visible').count()==7
                         assert page.locator('.mo-video-screen iframe').count()==6
@@ -558,9 +547,7 @@ def browser_qa():
                         assert clips.nth(1).get_attribute('data-step-video-seconds')=='675'
                         assert page.locator('.v-step-video-slot iframe').count()==0
                         assert page.locator('[data-step-video-open]').first.get_attribute('hidden') is None
-                        # The reader is initially on step 1. Nothing is fetched
-                        # from YouTube before the reader opens step 2 and clicks.
-                        page.locator('[data-gf-next]').click()
+                        # All steps are visible; videos still load only on click.
                         assert page.locator('#passaggio-2').is_visible()
                         play=page.locator('#passaggio-2 [data-step-video-open]')
                         assert play.is_visible()
@@ -575,7 +562,6 @@ def browser_qa():
                         play.click()
                         assert frame.count()==0
                         assert play.get_attribute('aria-expanded')=='false'
-                        page.locator('[data-gf-back]').click()
                         assert page.locator('#passaggio-1').is_visible()
                     if path=='guide-e-tutorial/soldi-2500-three-sheets-liquor/':
                         clips=page.locator('#procedura .v-step-video')
@@ -592,8 +578,6 @@ def browser_qa():
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
                         play.click()
                         assert frame.count()==0
-                        page.locator('[data-gf-next]').click()
-                        page.locator('[data-gf-next]').click()
                         play=page.locator('#passaggio-3 [data-step-video-open]')
                         assert play.is_visible()
                         play.click()
@@ -603,16 +587,12 @@ def browser_qa():
                             page.locator('#passaggio-3').screenshot(path=str(out/'three-sheets-opt-in-video-390.png'))
                         play.click()
                         assert frame.count()==0
-                        page.locator('[data-gf-back]').click()
-                        page.locator('[data-gf-back]').click()
                     if path in ('guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/glitch-prima-persona-ps5/'):
                         n,ident,second=(4,'R0GdEkPZSvM','266') if path.endswith('scansionare-veicoli/') else (6,'CJi2DWXxsoQ','0')
                         clips=page.locator('#procedura .v-step-video')
                         assert clips.count()==1
                         assert clips.first.get_attribute('data-step-video-seconds')==second
                         assert page.locator('.v-step-video-slot iframe').count()==0
-                        for _ in range(n-1):
-                            page.locator('[data-gf-next]').click()
                         play=page.locator(f'#passaggio-{n} [data-step-video-open]')
                         assert play.is_visible()
                         play.click()
@@ -622,91 +602,26 @@ def browser_qa():
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
                         play.click()
                         assert frame.count()==0
-                        for _ in range(n-1):
-                            page.locator('[data-gf-back]').click()
-                    if page.locator('details.v-guide-more').count() and path!='guide-e-tutorial/veicoli-per-moses/':
-                        # The beginner experience is a WIZARD, not an article full
-                        # of unrelated boxes. Only one numbered step visible.
+                    if page.locator('#procedura.v-tutorial').count():
                         steps=page.locator('#procedura .v-step')
                         count=steps.count()
                         assert count>=3
-                        assert page.locator('.v-tutorial-start-here').is_visible()
-                        assert page.locator('.gf-progress').is_visible()
-                        assert page.locator('[data-gf-status]').inner_text()=='PASSO 1 DI '+str(count)
-                        assert page.locator('.v-step:visible').count()==1
-                        assert page.locator('#passaggio-1').is_visible()
-                        assert page.locator('.gf-next').is_visible()
-                        assert not page.locator('.gf-back').is_visible()
-                        if path=='guide-e-tutorial/soldi-facili-capitolo-1/' and width in (390,1440):
-                            page.locator('[data-gf-all]').click()
-                            assert page.locator('.v-step:visible').count()==4
-                            png=page.screenshot(
-                                path=str(out/f'chapter1-money-full-article-{width}.png'),
-                                full_page=True,animations='disabled')
-                            png_w=int.from_bytes(png[16:20],'big')
-                            png_h=int.from_bytes(png[20:24],'big')
-                            assert png_w==width and png_h>1500,(png_w,png_h)
-                            assert not page.locator('.gf-progress-track').is_visible()
-                            print('CHAPTER1_MONEY_FULL_PAGE_QA',width,png_h,flush=True)
-                            page.locator('[data-gf-all]').click()
-                            assert page.locator('.v-step:visible').count()==1
-                        if path=='salvare-auto/' and width in (390,1440):
-                            # Capture and assert the entire edited tutorial, not a cropped viewport.
-                            page.locator('[data-gf-all]').click()
-                            assert page.locator('.v-step:visible').count()==7
-                            shot=page.screenshot(path=str(out/f'first-car-full-article-{width}.png'),
-                                                 full_page=True,animations='disabled')
-                            png_w=int.from_bytes(shot[16:20],'big')
-                            png_h=int.from_bytes(shot[20:24],'big')
-                            assert png_w==width and png_h>1700,(width,png_w,png_h)
-                            assert not page.locator('.gf-progress-track').is_visible()
-                            print('FIRST_CAR_FULL_PAGE_QA',width,png_h,flush=True)
-                            page.locator('[data-gf-all]').click()
-                            assert page.locator('.v-step:visible').count()==1
-                        assert not page.locator('.v-guide-more').is_visible(),'Extras must be hidden during task mode'
-                        assert page.locator('.v-tutorial-finish').is_hidden()
+                        assert page.locator('#procedura .v-step:visible').count()==count
+                        assert page.locator('[data-gf-next],[data-gf-back],[data-gf-all],[data-mo-show-all]').count()==0
+                        assert page.locator('.v-tutorial-finish').is_visible()
+                        assert page.locator('.v-guide-more').is_visible()
+                        assert not page.locator('details.v-guide-more').evaluate('(el)=>el.open')
+                        if width in (390,1440) and path in ('salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/'):
+                            page.evaluate('window.scrollTo(0,0)')
+                            shot=page.screenshot(path=str(out/('linear-'+path.strip('/').replace('/','-')+'-'+str(width)+'.png')),full_page=True,animations='disabled')
+                            assert int.from_bytes(shot[16:20],'big')==width
+                            assert int.from_bytes(shot[20:24],'big')>1500
+                        # Native anchor links scroll, never hide preceding/following steps.
                         if width==390:
-                            first=page.locator('#passaggio-1').bounding_box()
-                            assert first and first['y']<900,(path,'first numbered step below mobile viewport',first)
-                            page.screenshot(path=str(out/('tutorial-first-'+path.strip('/').replace('/','-')+'.png')))
-                            print('GUIDED_MOBILE_FIRST_STEP',path,round(first['y']),flush=True)
-                            page.locator('[data-gf-next]').click()
-                            assert page.locator('.v-step:visible').count()==1
-                            assert page.locator('#passaggio-1').is_hidden()
-                            assert page.locator('#passaggio-2').is_visible()
-                            assert page.locator('[data-gf-status]').inner_text()=='PASSO 2 DI '+str(count)
-                            assert page.locator('.gf-back').is_visible()
-                            page.locator('[data-gf-back]').click()
-                            assert page.locator('#passaggio-1').is_visible()
-                            assert page.locator('.gf-back').is_hidden()
-                            # Read all remains an explicit accessible alternative.
-                            page.locator('[data-gf-all]').click()
-                            assert page.locator('.v-step:visible').count()==count
-                            assert page.locator('.v-guide-more').is_visible()
-                            page.locator('[data-gf-all]').click()
-                            assert page.locator('.v-step:visible').count()==1
-                            assert page.locator('#passaggio-1').is_visible()
-                            # End-to-end beginner flow, including extra materials
-                            # which appear only when the procedure is completed.
-                            for n in range(count):
-                                assert page.locator('.v-step:visible').count()==1
-                                assert page.locator('#passaggio-'+str(n+1)).is_visible()
-                                page.locator('[data-gf-next]').click()
-                            assert page.locator('.gf-done').is_visible()
-                            assert page.locator('.gf-next').is_hidden()
-                            assert page.locator('.v-guide-more').is_visible()
-                            page.screenshot(path=str(out/('tutorial-finished-'+path.strip('/').replace('/','-')+'.png')))
-                            print('GUIDED_MOBILE_COMPLETE',path,count,flush=True)
-                        assert page.evaluate('''() => {
-                            const first=document.querySelector('#passaggio-1');
-                            const extras=document.querySelector('details.v-guide-more');
-                            return first && extras && !!(first.compareDocumentPosition(extras) & Node.DOCUMENT_POSITION_FOLLOWING);
-                        }''')
-                        if width!=390:
-                            # Reach completion for all widths, then inspect extras.
-                            for n in range(count):
-                                page.locator('[data-gf-next]').click()
-                            assert page.locator('.gf-done').is_visible()
+                            page.evaluate("location.hash='#passaggio-2'")
+                            assert page.locator('#procedura .v-step:visible').count()==count
+                            page.evaluate("history.replaceState(null,'',location.pathname);window.scrollTo(0,0)")
+                            print('LINEAR_ARTICLE_QA',path,count,flush=True)
                         page.locator('details.v-guide-more > summary').click()
                         assert page.locator('details.v-guide-more').evaluate('(el) => el.open')
                     if path.endswith('soldi-2500-three-sheets-liquor/'):
@@ -842,48 +757,34 @@ def browser_qa():
                     if path=='collezionabili/percorsi/' and width in (390,1440):
                         assert page.locator('[data-cr-step]').count()==123
                         assert page.locator('[data-cr-filter]').count()==10
-                        assert page.locator('[data-cr-wizard]').is_visible()
-                        assert page.locator('[data-cr-step]:visible').count()==1
-                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-102'
-                        assert 'PRIORITÀ' in page.locator('[data-cr-wizard-help]').inner_text()
-                        assert page.locator('.cr-wizard-item .cr-instruction-where').is_visible()
-                        assert page.locator('.cr-wizard-item .cr-instruction-do').is_visible()
-                        assert page.locator('.cr-wizard-item [data-cr-photo-state="source-only"]').count()==1
-                        assert page.locator('.cr-wizard-item [data-cr-photo-state="approved"]').count()==0
-                        assert page.locator('.cr-wizard-item .cr-photo-evidence > a').is_visible()
-                        assert page.locator('.cr-wizard-item .cr-photo-evidence > a').get_attribute('href').startswith('https://www.powerpyx.com/')
-                        assert not page.locator('.cr-hero').is_visible()
-                        if width==390:
-                            pos=page.locator('.cr-wizard-item .cr-instruction-where').bounding_box()
-                            assert pos and pos['y']<850,(path,'first real action too far down',pos)
-                            photo=page.locator('.cr-wizard-item .cr-photo-evidence').bounding_box()
-                            done=page.locator('[data-cr-wizard-found]').bounding_box()
-                            assert photo and done and photo['y']<done['y'],'source link should be before done action'
-                        # Skip does not claim an object collected; back returns.
-                        page.locator('[data-cr-wizard-skip]').click()
-                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        assert page.locator('[data-cr-wizard]').count()==0
+                        assert page.locator('[data-cr-step]:visible').count()==123
+                        assert page.locator('.cr-hero').is_visible()
+                        assert page.locator('.cr-priority-links a').count()==5
+                        first=page.locator('#cr-pt-102')
+                        assert first.locator('.cr-instruction-where').is_visible()
+                        assert first.locator('.cr-instruction-do').is_visible()
+                        assert first.locator('[data-cr-photo-state="source-only"]').count()==1
+                        assert first.locator('[data-cr-photo-state="approved"]').count()==0
+                        assert first.locator('.cr-photo-evidence > a').is_visible()
+                        assert first.locator('.cr-photo-evidence > a').get_attribute('href').startswith('https://www.powerpyx.com/')
                         assert page.locator('[data-cr-progress]').inner_text().startswith('0 / 123')
-                        page.locator('[data-cr-wizard-back]').click()
-                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-102'
-                        page.locator('[data-cr-wizard-found]').click()
-                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        first.locator('[data-cr-done]').check()
                         assert page.locator('[data-cr-progress]').inner_text().startswith('1 / 123')
                         page.reload(wait_until='load')
-                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        assert first.locator('[data-cr-done]').is_checked()
                         assert '1 / 123' in page.locator('[data-cr-progress]').inner_text()
-                        page.locator('[data-cr-wizard-toggle]').click()
                         assert page.locator('[data-cr-step]:visible').count()==123
                         assert page.locator('[data-cr-query]').is_visible()
                         page.locator('[data-cr-query]').fill('Victor Maravilla')
                         assert page.locator('[data-cr-step]:visible').count()==1
                         page.locator('[data-cr-query]').fill('')
                         assert page.locator('[data-cr-step]:visible').count()==123
-                        page.locator('[data-cr-wizard-toggle]').click()
-                        assert page.locator('[data-cr-step]:visible').count()==1
-                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
                         if width==390:
-                            page.screenshot(path=str(out/'mobile-collectibles-one-checkpoint-390.png'))
+                            page.evaluate("window.scrollTo(0,0)")
+                            page.screenshot(path=str(out/'mobile-collectibles-linear-390.png'))
+                        print('LINEAR_COLLECTIBLES_QA',width,123,flush=True)
                     if path=='collezionabili/percorsi/' and width==390:
                         map_details=page.locator('details.cr-map-extra')
                         assert map_details.count()==1
@@ -901,8 +802,8 @@ def browser_qa():
                         assert frame.get_attribute('src')=='https://gta6.city/embed/map'
                         viewer.locator('[data-vim-provider="vice"]').click()
                         assert frame.get_attribute('src')=='https://vice-map.com/embed/map'
-                        page.locator('.cr-wizard-item details.cr-step-extra > summary').click()
-                        page.locator('.cr-wizard-item [data-vim-map-search]').first.click()
+                        page.locator('#cr-pt-102 details.cr-step-extra > summary').click()
+                        page.locator('#cr-pt-102 [data-vim-map-search]').click()
                         assert frame.get_attribute('src').startswith('https://vice-map.com/embed/map?marker=')
                         assert 'non è un pin esatto' in viewer.inner_text()
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')

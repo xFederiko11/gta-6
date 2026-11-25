@@ -71,8 +71,11 @@ class CollectiblePhotoProofTests(unittest.TestCase):
         self.assertEqual(page.count('class="cr-instruction-do"'),123)
         self.assertIn("collectible-photo-v1.css?v=",page)
         self.assertIn("Apri le immagini e la posizione sulla fonte originale",page)
-        self.assertIn("TROVATO → PROSSIMO",page)
-        self.assertIn("Salta questo",page)
+        self.assertNotIn("TROVATO → PROSSIMO",page)
+        self.assertNotIn("Salta questo",page)
+        self.assertNotIn('data-cr-wizard',page)
+        self.assertEqual(page.count('data-cr-done='),123)
+        self.assertIn('data-article-cover="shared-social"',page)
         self.assertNotIn("photo-backlog-v5.json",page)
         for ident in REQ:
             with self.subTest(id=ident):
