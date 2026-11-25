@@ -78,7 +78,7 @@ def validate(families):
         if not profile["sources"] or not all(s.startswith("https://") for s in profile["sources"]):
             raise ValueError("Missing HTTPS source for " + slug)
         for row in profile["rows"]:
-            if row["status"] not in {"Test HDR", "Verifica HDMI", "Solo riferimento SDR"}:
+            if row["status"] not in {"Test HDR", "Verifica HDMI", "Solo riferimento SDR", "Menu TV", "Da verificare"}:
                 raise ValueError("Unsupported television setting evidence label")
             if not row["name"] or not row["value"] or not row["source"]:
                 raise ValueError("Setting without a value or evidence")
@@ -182,18 +182,23 @@ def render_settings(family):
         + "".join(bits) + '</tbody></table></div>'
     )
     if profile:
+        verified = sum(row["status"] == "Test HDR" for row in rows)
+        unknown = sum(row["status"] == "Da verificare" for row in rows)
         table += (
-            '<p class="hdr-tv-confirmed">✔ Le prime sette righe descrivono il setup HDR '
-            'di laboratorio RTINGS su <strong>' + _e(profile["tested_hardware"]) +
-            '</strong>; non sono misure di GTA VI né una calibrazione personalizzata. '
-            'La voce HDMI viene verificata separatamente.</p>'
+            '<p class="hdr-tv-confirmed">✔ <strong>' + str(verified) +
+            ' impostazioni HDR Game documentate</strong> sulla TV di prova <strong>' +
+            _e(profile["tested_hardware"]) + '</strong>. '
+            'Sono parametri usati nel test RTINGS, non una calibrazione GTA VI '
+            'certificata per il tuo esemplare o taglio di schermo. '
+            + (str(unknown) + ' ulteriori parametri restano non verificati.' if unknown else
+               'Le altre voci hanno la propria etichetta di affidabilità.') + '</p>'
             + '<ul class="hdr-tv-notes">' + "".join('<li>' + _e(n) + '</li>'
                                                     for n in profile["notes"]) + '</ul>'
             + '<p class="source">Fonti specifiche per valori TV: '
             + ' · '.join('<a href="' + _e(s) + '" target="_blank" rel="noopener noreferrer">'
-                       + _e(("RTINGS: test HDR" if i == 0 else
-                              "RTINGS: menu TV" if i == 1 else "LG: supporto HGiG"))
-                       + '</a>' for i, s in enumerate(profile["sources"])) + '.</p>'
+                       + _e('RTINGS · prova della serie' if "rtings.com" in s else
+                            'LG · supporto HGiG' if "lg.com" in s else 'Fonte tecnica')
+                       + '</a>' for s in profile["sources"]) + '.</p>'
         )
     else:
         table += (
