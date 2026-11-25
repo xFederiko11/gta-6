@@ -756,48 +756,34 @@ def browser_qa():
                     if path=='collezionabili/percorsi/' and width in (390,1440):
                         assert page.locator('[data-cr-step]').count()==123
                         assert page.locator('[data-cr-filter]').count()==10
-                        assert page.locator('[data-cr-wizard]').is_visible()
-                        assert page.locator('[data-cr-step]:visible').count()==1
-                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-102'
-                        assert 'PRIORITÀ' in page.locator('[data-cr-wizard-help]').inner_text()
-                        assert page.locator('.cr-wizard-item .cr-instruction-where').is_visible()
-                        assert page.locator('.cr-wizard-item .cr-instruction-do').is_visible()
-                        assert page.locator('.cr-wizard-item [data-cr-photo-state="source-only"]').count()==1
-                        assert page.locator('.cr-wizard-item [data-cr-photo-state="approved"]').count()==0
-                        assert page.locator('.cr-wizard-item .cr-photo-evidence > a').is_visible()
-                        assert page.locator('.cr-wizard-item .cr-photo-evidence > a').get_attribute('href').startswith('https://www.powerpyx.com/')
-                        assert not page.locator('.cr-hero').is_visible()
-                        if width==390:
-                            pos=page.locator('.cr-wizard-item .cr-instruction-where').bounding_box()
-                            assert pos and pos['y']<850,(path,'first real action too far down',pos)
-                            photo=page.locator('.cr-wizard-item .cr-photo-evidence').bounding_box()
-                            done=page.locator('[data-cr-wizard-found]').bounding_box()
-                            assert photo and done and photo['y']<done['y'],'source link should be before done action'
-                        # Skip does not claim an object collected; back returns.
-                        page.locator('[data-cr-wizard-skip]').click()
-                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        assert page.locator('[data-cr-wizard]').count()==0
+                        assert page.locator('[data-cr-step]:visible').count()==123
+                        assert page.locator('.cr-hero').is_visible()
+                        assert page.locator('.cr-priority-links a').count()==5
+                        first=page.locator('#cr-pt-102')
+                        assert first.locator('.cr-instruction-where').is_visible()
+                        assert first.locator('.cr-instruction-do').is_visible()
+                        assert first.locator('[data-cr-photo-state="source-only"]').count()==1
+                        assert first.locator('[data-cr-photo-state="approved"]').count()==0
+                        assert first.locator('.cr-photo-evidence > a').is_visible()
+                        assert first.locator('.cr-photo-evidence > a').get_attribute('href').startswith('https://www.powerpyx.com/')
                         assert page.locator('[data-cr-progress]').inner_text().startswith('0 / 123')
-                        page.locator('[data-cr-wizard-back]').click()
-                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-102'
-                        page.locator('[data-cr-wizard-found]').click()
-                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        first.locator('[data-cr-done]').check()
                         assert page.locator('[data-cr-progress]').inner_text().startswith('1 / 123')
                         page.reload(wait_until='load')
-                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
+                        assert first.locator('[data-cr-done]').is_checked()
                         assert '1 / 123' in page.locator('[data-cr-progress]').inner_text()
-                        page.locator('[data-cr-wizard-toggle]').click()
                         assert page.locator('[data-cr-step]:visible').count()==123
                         assert page.locator('[data-cr-query]').is_visible()
                         page.locator('[data-cr-query]').fill('Victor Maravilla')
                         assert page.locator('[data-cr-step]:visible').count()==1
                         page.locator('[data-cr-query]').fill('')
                         assert page.locator('[data-cr-step]:visible').count()==123
-                        page.locator('[data-cr-wizard-toggle]').click()
-                        assert page.locator('[data-cr-step]:visible').count()==1
-                        assert page.locator('.cr-wizard-item [data-cr-step]').get_attribute('id')=='cr-pt-103'
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
                         if width==390:
-                            page.screenshot(path=str(out/'mobile-collectibles-one-checkpoint-390.png'))
+                            page.evaluate("window.scrollTo(0,0)")
+                            page.screenshot(path=str(out/'mobile-collectibles-linear-390.png'))
+                        print('LINEAR_COLLECTIBLES_QA',width,123,flush=True)
                     if path=='collezionabili/percorsi/' and width==390:
                         map_details=page.locator('details.cr-map-extra')
                         assert map_details.count()==1
@@ -815,8 +801,8 @@ def browser_qa():
                         assert frame.get_attribute('src')=='https://gta6.city/embed/map'
                         viewer.locator('[data-vim-provider="vice"]').click()
                         assert frame.get_attribute('src')=='https://vice-map.com/embed/map'
-                        page.locator('.cr-wizard-item details.cr-step-extra > summary').click()
-                        page.locator('.cr-wizard-item [data-vim-map-search]').first.click()
+                        page.locator('#cr-pt-102 details.cr-step-extra > summary').click()
+                        page.locator('#cr-pt-102 [data-vim-map-search]').click()
                         assert frame.get_attribute('src').startswith('https://vice-map.com/embed/map?marker=')
                         assert 'non è un pin esatto' in viewer.inner_text()
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')

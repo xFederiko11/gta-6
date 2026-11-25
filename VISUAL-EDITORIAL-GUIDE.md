@@ -189,3 +189,5 @@ Il video dedicato precede i prerequisiti: niente doppio blocco introduttivo. Cin
 ## Articoli lineari e copertina condivisa
 
 Dal 25 novembre 2026 i tutorial numerati sono interamente leggibili nella stessa pagina, senza pulsanti avanti/indietro, modalità di lettura o blocchi dei passaggi. Restano opzionali spoiler, approfondimenti e attivazione dei video. Tutti gli articoli effettivi hanno sotto H1 la stessa copertina JPEG 1200x630 usata da og:image, twitter:image e dal bot, con fonte dove applicabile. I diagrammi originali di copertina sono tematici e non screenshot; si privilegiano foto autentiche già approvate e pertinenti. Homepage, directory e strumenti di servizio non ricevono copertine ridondanti. Non modificare URL canonici o contratti delle social-card.
+
+I percorsi dei collezionabili seguono lo stesso principio: tutti i 123 checkpoint visibili per impostazione predefinita; ricerca, filtri e spunte locali facoltative, link rapidi ai mancabili e alle copie legate ai capitoli. La copertina resta visibile. Nessun conteggio PSN simulato; nessuna posizione o mappa aggiunta senza fonte.

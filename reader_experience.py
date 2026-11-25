@@ -211,13 +211,12 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
         page = page.replace('</head>',
             f'<link rel="stylesheet" href="{BASE}assets/trophy-simple-v1.css?v={version}"></head>',1)
     if 'data-collectible-routes' in page:
-        # One documented collectible per screen, while preserving the full
-        # original 123-point checklist for users without JavaScript.
+        # Continuous collectible checklist: all 123 points are shown by
+        # default, and the existing search and local checkboxes remain.
         page = page.replace('</head>',
             f'<link rel="stylesheet" href="{BASE}assets/collectible-beginner-v1.css?v={version}">'
             f'<link rel="stylesheet" href="{BASE}assets/collectible-photo-v1.css?v={version}"></head>',1)
-        page = page.replace('</body>',
-            f'<script src="{BASE}assets/collectible-beginner-v1.js?v={version}" defer></script></body>',1)
+
     page = page.replace('</body>', DIALOG+f'<script src="{BASE}assets/reader-theme.js?v={version}" defer></script>'
                         +f'<script src="{BASE}assets/community-social-v1.js?v={version}" defer></script></body>', 1)
     from cinematic_site import enhance as cinematic_enhance

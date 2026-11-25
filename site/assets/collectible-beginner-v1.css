@@ -1,67 +1,17 @@
-/* One actual collectible at a time: priority based on documented chapter locks. */
-.cr-wizard[hidden],.cr-wizard [hidden]{display:none!important}
-.cr-wizard{max-width:730px;margin:0 auto 12px;background:var(--r-surface);border:2px solid var(--r-cyan);border-radius:12px;padding:15px 16px;color:var(--r-text)}
-.cr-wizard-start{display:block;font-size:.79rem;letter-spacing:.055em;font-weight:900;color:var(--r-pink);line-height:1.5}
-.cr-wizard h2{font-size:clamp(1.25rem,3.5vw,1.7rem);line-height:1.2;margin:8px 0 13px;color:var(--r-text)}
-.cr-wizard-warning{border-left:3px solid var(--r-warn);border-radius:6px;padding:9px 11px;background:var(--r-soft);color:var(--r-text)!important;font-size:.8rem;line-height:1.5;margin:0 0 14px}
-.cr-wizard-progress{padding:10px 0 12px;border-bottom:1px solid var(--r-line);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px}
-.cr-wizard-progress>strong{font-size:.95rem;font-weight:900;color:var(--r-text)}
-.cr-wizard-progress>small{font-size:.76rem;line-height:1.55;color:var(--r-muted);max-width:390px}
-.cr-wizard-item{padding:0;margin:0;list-style:none}
-.cr-wizard-item>.cr-step{margin:12px 0!important;padding:13px 12px;background:var(--r-soft);border:1px solid var(--r-line);border-radius:10px}
-.cr-wizard-item>.cr-step .cr-step-head>span{font-size:.84rem}
-.cr-wizard-item>.cr-step .cr-step-head strong{font-size:clamp(1.04rem,2.2vw,1.3rem);line-height:1.32;color:var(--r-text)}
-.cr-wizard-item>.cr-step>p{font-size:.96rem;line-height:1.62;color:var(--r-text);margin:10px 0}
-.cr-wizard-item>.cr-step>p strong{color:var(--r-cyan)}
-.cr-wizard-item .cr-check{font-size:.72rem}
-.cr-wizard-item .cr-missable-warning,.cr-wizard-item .cr-limited-copy{color:var(--r-text);font-size:.82rem;line-height:1.5;margin:10px 0}
-.cr-wizard-item>.cr-step>a{font-size:.76rem;line-height:1.6}
-.cr-wizard-actions{display:grid;gap:8px;margin:12px 0}
-.cr-wizard-actions button,.cr-wizard-toggle,.cr-wizard-done button{font-family:inherit;border-radius:10px;font-weight:850;cursor:pointer}
-.cr-wizard-found{border:2px solid #ff72aa;background:#ff72aa;color:#10131d;min-height:65px;padding:12px 13px;font-size:clamp(1.02rem,2.2vw,1.24rem)}
-.cr-wizard-found:hover,.cr-wizard-found:focus-visible{background:#ff92c0;border-color:#ff92c0}
-.cr-wizard-secondary{display:flex;gap:9px}
-.cr-wizard-secondary button{flex:1;min-height:49px;padding:10px;font-size:.85rem;border:1px solid var(--r-line);background:var(--r-soft);color:var(--r-text)}
-.cr-wizard-secondary button:disabled{opacity:.48;cursor:not-allowed}
-.cr-wizard-toggle{border:0;background:transparent;color:var(--r-muted);text-decoration:underline;text-underline-offset:3px;font-size:.76rem;padding:9px 4px;text-align:left;font-weight:650!important;line-height:1.5}
-.cr-wizard-local{font-size:.72rem;line-height:1.45;color:var(--r-muted)!important;margin:0}
-.cr-wizard-done{border:1px solid var(--r-cyan);padding:15px;margin:14px 0;border-radius:9px}
-.cr-wizard-done>strong{font-size:1.06rem;color:var(--r-text)}
-.cr-wizard-done p{font-size:.87rem;color:var(--r-text);line-height:1.55}
-.cr-wizard-done button{border:1px solid var(--r-cyan);color:var(--r-text);background:var(--r-soft);padding:10px;font-size:.84rem}
-.cr-root[data-cr-guided="true"] :is(.cr-hero,.cr-alert,.cr-status,.cr-controls,.cr-region,.cr-remaining,.cr-footer-note){display:none!important}
-.cr-root[data-cr-guided="true"]{padding-top:6px}
-.cr-root[data-cr-guided="false"] .cr-wizard-item,
-.cr-root[data-cr-guided="false"] .cr-wizard-actions,
-.cr-root[data-cr-guided="false"] .cr-wizard-warning{display:none!important}
-.cr-root[data-cr-guided="false"] .cr-wizard{max-width:1160px;padding:12px 15px}
-.cr-root[data-cr-guided="false"] .cr-wizard h2{font-size:1rem;margin:5px 0}
-.cr-root[data-cr-guided="false"] .cr-wizard-progress{padding:2px 0}
-.cr-root[data-cr-guided="false"] .cr-wizard-local{display:none}
+/* Continuous collectible routes, optional map and evidence. */
 .cr-map-extra{max-width:1160px;margin:20px auto 28px;border:1px solid var(--r-line);border-radius:12px;padding:0;background:var(--r-surface)}
 .cr-map-extra>summary{cursor:pointer;color:var(--r-text);font-weight:750;font-size:.88rem;line-height:1.5;padding:14px 17px}
 .cr-map-extra[open]>summary{border-bottom:1px solid var(--r-line)}
 .cr-map-extra>section{padding:12px}
-body:has(.cr-root[data-cr-guided="true"]) :is(.v-nav,.v-menu,.v-x-link,.breadcrumbs,.page-meta,.v-spoiler-inner>p){display:none!important}
-body:has(.cr-root[data-cr-guided="true"]) .v-header-inner{min-height:47px;padding-block:6px}
-body:has(.cr-root[data-cr-guided="true"]) .v-spoilerbar{border:0;background:transparent}
-body:has(.cr-root[data-cr-guided="true"]) .v-spoiler-inner{min-height:0;padding-block:4px}
-button:focus-visible,.cr-wizard-toggle:focus-visible{outline:3px solid var(--r-cyan);outline-offset:3px}
-@media(max-width:760px){
- .cr-wizard{padding:12px 11px}
- .cr-wizard h2{font-size:1.19rem}
- .cr-wizard-progress{display:grid}
- .cr-wizard-item>.cr-step{padding:10px}
- .cr-wizard-item>.cr-step .cr-step-head{flex-wrap:wrap}
- .cr-wizard-item>.cr-step .cr-check{margin-left:0}
- .cr-wizard-item>.cr-step>p{font-size:.93rem}
- .cr-wizard-secondary button{font-size:.78rem}
-}
-
-/* A single primary "TROVATO" action: no competing checkboxes/buttons. */
-.cr-root[data-cr-guided="true"] .cr-wizard-item .cr-check{display:none!important}
 .cr-step-extra{margin:12px 0 0;padding:9px 10px;border:1px solid var(--r-line);border-radius:8px;background:var(--r-surface)}
 .cr-step-extra>summary{cursor:pointer;color:var(--r-muted);font-size:.77rem;font-weight:750;line-height:1.5}
 .cr-step-extra[open]>summary{margin-bottom:8px}
 .cr-step-extra :is(a,button){display:inline-block;font-size:.76rem;line-height:1.6;margin:5px 8px 4px 0;color:var(--r-cyan);vertical-align:middle}
 .cr-step-extra .cr-direct-map{font-size:.76rem}
+
+.cr-priority-links{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0;padding:12px;border:1px solid var(--r-line);border-radius:12px;background:var(--r-surface)}
+.cr-priority-links strong{flex-basis:100%;font-size:.84rem}
+.cr-priority-links a{display:inline-block;padding:7px 10px;border:1px solid var(--r-line);border-radius:8px;font-size:.77rem;font-weight:750;color:var(--r-text);text-decoration:underline}
+.cr-priority-links a:focus-visible{outline:3px solid var(--r-cyan);outline-offset:2px}
+body:has(.cr-root) .v-header{position:relative;top:auto}
+.cr-root .cr-step{scroll-margin-top:12px}
