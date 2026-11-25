@@ -33,6 +33,9 @@ class VisualSiteTests(unittest.TestCase):
         index=(ROOT/PATH/'index.html').read_text(encoding='utf-8')
         home=(ROOT/'index.html').read_text(encoding='utf-8')
         self.assertIn(BASE+PATH,home)
+        self.assertIn('id="osservazioni-ufficiali"',index)
+        from patch_observations_v1 import load as load_observations
+        self.assertEqual(index.count('data-patch-observation='),len(load_observations()['observations']))
         for row in records:
             path=PATH+row['date']+'/'
             self.assertIn(BASE+path,index)
