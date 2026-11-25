@@ -48,6 +48,43 @@ class SocialCardTests(unittest.TestCase):
             self.assertIsNone(c.artwork_for_page(page,images),page)
         self.assertIsNone(c.artwork_for_page('',[]))
 
+    def test_only_approved_actual_gameplay_photo_becomes_social_preview(self):
+        with TemporaryDirectory() as folder:
+            root=Path(folder)
+            path=root/"assets/approved/demo-photo.webp"
+            path.parent.mkdir(parents=True)
+            # Synthetic fixture exists only in a temporary test directory.
+            from random import Random
+            rng=Random(71)
+            image=Image.frombytes("RGB",(640,360),rng.randbytes(640*360*3))
+            image.save(path,"WEBP",quality=80)
+            row={"id":"demo-photo","file":"assets/approved/demo-photo.webp",
+                 "rights":"explicit_nonexclusive_site_and_social","published":True,
+                 "author_confirmed":True,"human_reviewed":True,"approved_by":"xFederiko11",
+                 "gameplay_only":True,"no_real_people":True,"social_preview":True,
+                 "credit":"Test fixture","alt":"Test fixture only",
+                 "source_sha256":hashlib.sha256(path.read_bytes()).hexdigest()}
+            registry={"schema":"gta6-approved-screenshots-v4","photos":[row]}
+            html='<img src="'+c.BASE+row["file"]+'" data-approved-community-photo="demo-photo">'
+            self.assertIsNone(c.approved_preview("<p>No screenshot</p>",registry,root))
+            row["social_preview"]=False
+            self.assertIsNone(c.approved_preview(html,registry,root))
+            row["social_preview"]=True
+            for flag in ("gameplay_only","no_real_people","human_reviewed","author_confirmed","published"):
+                row[flag]=False
+                with self.assertRaises(ValueError):
+                    c.approved_preview(html,registry,root)
+                row[flag]=True
+            self.assertRaises(ValueError,c.approved_preview,html.replace(c.BASE,"https://example.org/"),registry,root)
+            selected,photo=c.approved_preview(html,registry,root)
+            card=c.render_screenshot_card("Test screenshot","salvare-auto/",selected,photo)
+            self.assertEqual(card.size,(1200,630))
+            # Full image retained at its original aspect ratio.
+            self.assertEqual(photo.size,(640,360))
+            path.write_bytes(b"changed")
+            with self.assertRaises(ValueError):
+                c.approved_preview(html,registry,root)
+
     def test_zip_parses_only_landscape_images_and_deduplicates(self):
         with TemporaryDirectory() as temp:
             image=Image.new("RGB",(1400,800),(42,65,81))
@@ -121,6 +158,8 @@ class SocialCardTests(unittest.TestCase):
             elif row['path']:
                 self.assertIsNone(row['artwork'])
         self.assertLessEqual(obj['artwork_backed_cards'],1+len(selected))
+        self.assertEqual(obj['approved_screenshot_backed_cards'],
+                         sum(bool(row['approved_screenshot']) for row in obj['entries']))
         urls=set()
         for record in obj["entries"]:
             name=c.cover_key(record["path"])

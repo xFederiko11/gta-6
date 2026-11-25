@@ -158,3 +158,11 @@ La priorità è che nessuno perda una componente eventualmente necessaria al pla
 - Metodo documentato: `Settings > Controller > Touch Pad Button > Camera (2/2)`; entra al volante; telefono con ↑; riponilo con ○ e premi ripetutamente il touchpad mentre il telefono scompare. Se la camera rimane in prima persona, l'effetto è riuscito. Per tornare, ricarica un salvataggio; cambio abito o personaggio è una segnalazione community, non garantita.
 - La guida include il video originale YouTube caricato soltanto dopo il clic (o link diretto), **non** un download, fotogramma copiato o immagine di gameplay prodotta artificialmente. Il target immagini aumenta da **10 a 11 guide**; non inventare cinque screenshot per raggiungerlo.
 - Il nostro bot **non** deve fare auto-reply su Reddit/X o dichiarare un exploit «trophy safe» perché è stato citato in un thread. Citare la fonte e la data nei futuri post.
+
+
+## Fotogrammi dei creator e anteprime social (25 novembre 2026)
+
+- Accettare solo gameplay: escludere webcam, volti reali, inserti live action e dati personali. Il revisore conferma esplicitamente `gameplay_only` e `no_real_people`. Non e' riconoscimento automatico dei volti.
+- Per un fotogramma di un video, ottenere un file fornito dal creator e un permesso documentato per sito e social, conservando le prove richieste dal registro e il video ID con secondo esatto. Non scaricare o ritagliare video pubblici automaticamente. Verificare anche i diritti del gioco e le condizioni delle piattaforme.
+- Selezionare al massimo una foto approvata per guida mediante `social_preview: true`; il resto resta nei passaggi. Il generatore delle anteprime controlla che l'immagine compaia davvero nella pagina e che i byte WebP pubblicati corrispondano al SHA-256 approvato. Compone una card 1200x630 con immagine intera, credito leggibile e titolo, senza ritagliare menu o mappa. Mantiene l'URL JPG stabile per Buffer e Open Graph.
+- Se non esiste una foto approvata e selezionata, resta la copertina grafica originale (o la selezione promozionale esplicita gia' prevista per gli articoli editoriali). Nessun fotogramma o fotografia nuova viene aggiunta in questa modifica. Nessuna licenza e' presunta.

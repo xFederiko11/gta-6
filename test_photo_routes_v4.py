@@ -141,6 +141,36 @@ class ConsentPhotoTests(unittest.TestCase):
                          "human_reviewed":False,"approved_by":"bot","approved_on":"2026-11-21"}]
         with self.assertRaises(ValueError):validate_approved(fake,guides,requests)
 
+    def test_creator_frame_requires_visual_review_and_exact_original_source(self):
+        _,registry,guides,requests,_,_=data()
+        from photo_intake_v4 import render_approved_for_step
+        fake=deepcopy(registry)
+        row={"id":"creator-test","guide_id":guides[0]["id"],"role":1,
+             "step_number":1,"platform":"PS5","rights":"explicit_nonexclusive_site_and_social",
+             "author_confirmed":True,"human_reviewed":True,"approved_by":"xFederiko11",
+             "published":True,"gameplay_only":True,"no_real_people":True,
+             "social_preview":True,"capture_kind":"creator_supplied_video_frame",
+             "creator_supplied_file":True,"source_video_id":"R0GdEkPZSvM",
+             "source_second":266,"file":"assets/approved/creator-test.webp",
+             "source_post":"https://x.com/example/status/123456789",
+             "consent_evidence":"https://x.com/example/status/123456789",
+             "credit":"Test creator","alt":"Test image only","caption":"Test image only",
+             "approved_on":"2026-11-25","source_sha256":"a"*64}
+        fake["photos"]=[row]
+        for key in ("gameplay_only","no_real_people","creator_supplied_file"):
+            row[key]=False
+            with self.assertRaises(ValueError):validate_approved(fake,guides,requests)
+            row[key]=True
+        row["source_second"]=-1
+        with self.assertRaises(ValueError):validate_approved(fake,guides,requests)
+        row["source_second"]=266
+        # Even a plausible record cannot pass without the actual approved file.
+        with self.assertRaises(ValueError):validate_approved(fake,guides,requests)
+        markup=render_approved_for_step(guides[0],fake,0)
+        self.assertIn("FOTOGRAMMA AUTORIZZATO",markup)
+        self.assertIn("watch?v=R0GdEkPZSvM&amp;t=266s",markup)
+        self.assertIn("4:26",markup)
+
     def test_scripts_do_not_read_psn_or_claim_to_upload(self):
         for asset in ("site/assets/photo-intake-v4.js","site/assets/collectible-routes-v4.js"):
             text=Path(asset).read_text(encoding="utf-8")
