@@ -72,6 +72,16 @@ class GroupThreeTests(unittest.TestCase):
                 self.assertIn("non screenshot",markup)
                 self.assertNotIn("<img",markup)
                 self.assertIn('rel="noopener noreferrer"',markup)
+        chapter=step_render(by["soldi-facili-capitolo-1"],0,data,refs)
+        self.assertIn('data-step-external-evidence="map"',chapter)
+        self.assertIn('data-step-video-seconds="285"',chapter)
+        self.assertIn('soltanto Three Sheets Liquor',chapter)
+        for n in (1,2,3):
+            self.assertNotIn('data-step-video-id',step_render(by["soldi-facili-capitolo-1"],n,data,refs))
+        invalid=deepcopy(data)
+        invalid["guides"]["soldi-facili-capitolo-1"]["0"]["also_video"]["at"]=455
+        with self.assertRaises(ValueError):
+            validate(guides,invalid,refs)
         altered=deepcopy(data)
         altered["guides"]["registrare-auto-personale"]["4"]["at"]=688
         with self.assertRaises(ValueError):
