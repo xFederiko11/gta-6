@@ -1,0 +1,75 @@
+{
+  "schema": "gta6-official-patches-v1",
+  "records": [
+    {
+      "date": "2026-11-23",
+      "reviewed": "2026-11-25",
+      "published": "2026-11-25",
+      "platforms": [
+        "PS5 / PS5 Pro",
+        "Xbox Series X|S"
+      ],
+      "official_source": "https://support.rockstargames.com/articles/sN5pEdFYZdlvijKXd6xpJ/grand-theft-auto-vi-launch-updates-ps5-xbox-series-x-or-s",
+      "fixes": [
+        {
+          "title": "Stabilità",
+          "detail": "Risolti diversi problemi che provocavano chiusure improvvise del gioco."
+        },
+        {
+          "title": "Meteo",
+          "detail": "Corretto il blocco prolungato delle condizioni meteorologiche."
+        },
+        {
+          "title": "Salvataggio automatico",
+          "detail": "Corretto un problema che impediva il corretto autosalvataggio."
+        },
+        {
+          "title": "Telefonate e missioni",
+          "detail": "Risolti problemi di attivazione delle chiamate, comprese quelle necessarie per proseguire la storia o sbloccare missioni."
+        },
+        {
+          "title": "Livello di ricercato",
+          "detail": "Risolto un problema che impediva di perdere il livello di ricercato."
+        },
+        {
+          "title": "Palestra",
+          "detail": "Ripristinata la possibilità di usare il bilanciere per lo stacco da terra nei casi interessati dal bug."
+        },
+        {
+          "title": "Borse da rivendere",
+          "detail": "Corretto il mancato passaggio delle borse da parte del partner per la vendita ai ricettatori."
+        }
+      ],
+      "version_reports": [
+        {
+          "platform": "PS5",
+          "version": "01.002.002"
+        },
+        {
+          "platform": "Xbox Series X|S",
+          "version": "1.0.2.2"
+        }
+      ],
+      "version_sources": [
+        {
+          "name": "RockstarINTEL",
+          "url": "https://rockstarintel.com/new-gta-vi-update-01-002-002-patch-notes-released/"
+        },
+        {
+          "name": "GTABase",
+          "url": "https://www.gtabase.com/gta-6/articles/gta-6-update-01-002-002-patch-notes"
+        }
+      ],
+      "related": [
+        {
+          "label": "Guida ai trofei",
+          "path": "trofei/"
+        },
+        {
+          "label": "Tutte le guide",
+          "path": "guide-e-tutorial/"
+        }
+      ]
+    }
+  ]
+}
