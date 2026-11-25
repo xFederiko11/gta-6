@@ -3,7 +3,7 @@
   "method": "Le impostazioni HDR LG C4 provengono da un test strumentale della modalità gioco su OLED65C4PUA; numeri SDR riportati solo come riferimento distinto e NON validati per HDR. Non equivalgono a una calibrazione personalizzata di ogni pannello.",
   "profiles": {
     "lg-oled-c4": {
-      "reference_code": "OLED65C44LA",
+      "reference_code": "OLED55C44LA",
       "tested_hardware": "LG OLED65C4PUA 65″ (test RTINGS, codice commerciale USA)",
       "sources": [
         "https://www.rtings.com/tv/reviews/lg/c4-oled",
