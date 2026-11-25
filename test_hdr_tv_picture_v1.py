@@ -71,7 +71,7 @@ class HDRTVPictureTests(unittest.TestCase):
                 self.assertIn("Nessuna misura numerica HDR affidabile", html)
                 self.assertNotIn("Test HDR", html)
                 self.assertNotIn("Solo riferimento SDR", html)
-                self.assertEqual(html.count('<tr>'), 7)
+                self.assertEqual(html.count('<tr><th scope="row">'), 7)
 
     def test_json_profiles_cannot_silently_reference_unknown_panel(self):
         altered = list(self.data["families"])
