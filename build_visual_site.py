@@ -989,7 +989,7 @@ def main():
     # Independent optional chain: never merge it with the first-car tutorial.
     moses_title='GTA 6: 6 auto per Moses, posizioni e ricompense PS5'
     moses_desc=('Dopo Daily Driver trova i 6 veicoli richiesti da Moses: '
-                'luoghi, azioni rapide, pagamenti e come ritirare Moses’ Sultan.')
+                'luoghi, azioni rapide, pagamenti e come ritirare il regalo finale.')
     legacy.write(MOSES_JOBS_PATH+'index.html',layout(
         moses_title,moses_desc,MOSES_JOBS_PATH,render_moses_jobs(BASE),
         'guide',structured={'@context':'https://schema.org','@type':'WebPage',
