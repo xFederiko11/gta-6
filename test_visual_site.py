@@ -536,13 +536,17 @@ class VisualSiteTests(unittest.TestCase):
             proof=set(re.findall(r'data-visual-proof-image="([^"]+)"',procedure))
             context=set(re.findall(r'data-visual-location-image="([^"]+)"',procedure))
             self.assertTrue(proof.issubset(approved),path)
-            self.assertEqual(context,approved_context,path)
+            self.assertTrue(context.issubset(approved_context),path)
+            self.assertFalse(actual,path)  # legacy publisher screenshots remain source links only
             self.assertTrue(context.isdisjoint(proof),path)
             for media_id in actual:
                 self.assertIn('data-visual-image="'+media_id+'"',procedure)
             self.assertEqual(procedure.count('class="v-caption v-photo-attribution"'),len(actual))
             self.assertEqual(procedure.count('class="v-photo-origin"'),len(actual))
             self.assertEqual(procedure.count('Fonte foto:'),len(actual))
+            if guide['id']=='soldi-2500-three-sheets-liquor':
+                self.assertEqual(procedure.count('class="v-external-step-photo"'),2)
+                self.assertNotIn('class="v-more-photo-sources"',procedure)
             self.assertNotIn('data-media-missing=',procedure)
             self.assertNotIn('data-step-photo-status=',procedure)
             self.assertNotIn('class="r-gallery"',text)

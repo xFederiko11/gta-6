@@ -574,6 +574,10 @@ def browser_qa():
                         assert play.get_attribute('aria-expanded')=='false'
                         assert page.locator('#passaggio-1').is_visible()
                     if path=='guide-e-tutorial/soldi-2500-three-sheets-liquor/':
+                        refs=page.locator('#procedura .v-external-step-photo')
+                        assert refs.count()==2 and refs.nth(0).is_visible() and refs.nth(1).is_visible()
+                        assert refs.locator('img').count()==0
+                        assert page.locator('#procedura [data-visual-location-image]').count()==0
                         clips=page.locator('#procedura .v-step-video')
                         assert clips.count()==2
                         assert clips.first.get_attribute('data-step-video-seconds')=='285'
