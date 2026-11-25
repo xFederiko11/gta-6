@@ -100,6 +100,7 @@ jobs:
         run: |
           node --check site/assets/cinematic-v3.js
           node --check site/assets/hero-slideshow.js
+          node --check site/assets/creator-video-hub-v1.js
           node test_hero_slideshow.js
           python -m unittest -q test_editorial_articles.py test_cinematic_site.py
       - name: Verify source-rated TV picture values and original reference artwork
@@ -107,7 +108,7 @@ jobs:
           python -m py_compile hdr_tv_picture_v1.py test_hdr_tv_picture_v1.py
           python -m unittest -q test_hdr_tv_picture_v1.py
       - name: Validate actual production pages, media and canonical continuity
-        run: python -m unittest -q test_x_growth_dashboard_v1.py test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_beginner_platinum_v1.py test_operational_guides_v1.py test_first_car_steps_v1.py test_chapter1_money_steps_v1.py test_waink_verified_v1.py test_vehicle_catalog_v1.py test_rockstar_gallery_v1.py test_step_image_sources_v1.py test_collectible_photo_evidence_v1.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py test_home_clarity_v1.py
+        run: python -m unittest -q test_x_growth_dashboard_v1.py test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_beginner_platinum_v1.py test_operational_guides_v1.py test_first_car_steps_v1.py test_chapter1_money_steps_v1.py test_waink_verified_v1.py test_vehicle_catalog_v1.py test_rockstar_gallery_v1.py test_step_image_sources_v1.py test_collectible_photo_evidence_v1.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py test_home_clarity_v1.py test_creator_video_hub_v1.py
       - name: Audit static Google discovery links (no network or tracking)
         run: |
           python -m unittest -q test_internal_link_graph_v1.py
@@ -212,7 +213,7 @@ jobs:
           python - <<'PY'
           import urllib.request, time, json
           base='https://xfederiko11.github.io/gta-6/'
-          for path in ('','immagini-ufficiali/','veicoli/','veicoli/declasse-yosemite-1500/','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/trofeo-15-stunt-da-capogiro/','trofei/roadmap-platino/','mappe-guide/','trofei/100-percento/','trofei/trofei-difficili/','collezionabili/percorsi/','screenshot-ps5/invia/'):
+          for path in ('','immagini-ufficiali/','video-tutorial/','veicoli/','veicoli/declasse-yosemite-1500/','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/trofeo-15-stunt-da-capogiro/','trofei/roadmap-platino/','mappe-guide/','trofei/100-percento/','trofei/trofei-difficili/','collezionabili/percorsi/','screenshot-ps5/invia/'):
               for attempt in range(6):
                   try:
                       request=urllib.request.Request(base+path+'?reader=adaptive-v2-20261120',headers={'Cache-Control':'no-cache'})
@@ -231,6 +232,14 @@ jobs:
                       assert "var t='dark'" in text
                       assert 'class="v-x-link"' in text and 'https://x.com/xFederiko11' in text
                       assert 'data-spoiler-choice' not in text
+                      if path=='video-tutorial/':
+                          assert text.count('class="cv-card"') == 4
+                          assert text.count('data-cv-video-id=') == 4
+                          assert 'creator-video-hub-v1.js?v=' in text
+                          assert 'creator-video-hub-v1.css?v=' in text
+                          assert 'youtube-nocookie.com/embed/' not in text
+                          assert '<iframe' not in text
+                          print('PUBLIC_CREATOR_HUB_OK',base+path)
                       if path=='veicoli/':
                           assert text.count('class="vc-card"')==25
                           assert 'vehicle-finder-v1.js?v=' in text
@@ -312,6 +321,7 @@ jobs:
               ('assets/reader-theme.css','--r-bg:#10131d'),
               ('assets/interactive-map-v1.js','game-map-load-intent'),
               ('assets/interactive-map-v1.css','.vim-root'),
+              ('sitemap.xml','video-tutorial/'),
               ('sitemap.xml','trofei/roadmap-platino/'),
               ('sitemap.xml','mappe-guide/'),
               ('sitemap.xml','trofei/100-percento/'),
