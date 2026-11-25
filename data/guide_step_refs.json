@@ -1,6 +1,6 @@
 {
   "schema": "gta6-per-step-external-evidence-v1",
-  "reviewed": "2026-11-21",
+  "reviewed": "2026-11-25",
   "policy": "Only link a documented specific map or source-attributed video moment, never pass external clips off as screenshots or independently verified trophy evidence.",
   "guides": {
     "soldi-facili-capitolo-1": {
@@ -11,6 +11,12 @@
       }
     },
     "soldi-2500-three-sheets-liquor": {
+      "0": {
+        "kind": "video",
+        "ref": "soldi-2500-three-sheets-liquor",
+        "at": 285,
+        "note": "Al minuto 4:45 la cronologia della fonte indica il negozio: riconoscine il luogo, non considerarlo una prova dell'avvio dell'incarico."
+      },
       "2": {
         "kind": "video",
         "ref": "soldi-2500-three-sheets-liquor",

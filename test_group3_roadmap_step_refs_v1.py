@@ -47,6 +47,12 @@ class GroupThreeTests(unittest.TestCase):
         by={g["id"]:g for g in guides}
         self.assertIn("7:35",step_render(by["soldi-2500-three-sheets-liquor"],2,data,refs))
         self.assertIn("t=455s",step_render(by["soldi-2500-three-sheets-liquor"],2,data,refs))
+        for n,stamp in ((0,285),(2,455)):
+            money=step_render(by["soldi-2500-three-sheets-liquor"],n,data,refs)
+            self.assertIn('data-step-video-id="1GtrjKhSwzM"',money)
+            self.assertIn('data-step-video-seconds="'+str(stamp)+'"',money)
+            self.assertNotIn("<iframe",money)
+        self.assertEqual(step_render(by["soldi-2500-three-sheets-liquor"],1,data,refs),"")
         self.assertIn("gtabase.com/gta-6/map/",step_render(by["registrare-auto-personale"],0,data,refs))
         self.assertEqual(step_render(by["registrare-auto-personale"],3,data,refs),"")
         first=step_render(by["registrare-auto-personale"],1,data,refs)
@@ -86,6 +92,14 @@ class GroupThreeTests(unittest.TestCase):
         media=(ROOT/glitch["canonical_path"]/"index.html").read_text(encoding="utf-8")
         self.assertIn("data-step-external-evidence=\"video\"",media)
         self.assertIn("Trophy Status Uncertain",media)
+        money=next(g for g in guides if g["id"]=="soldi-2500-three-sheets-liquor")
+        article=(ROOT/money["canonical_path"]/"index.html").read_text(encoding="utf-8")
+        for n,stamp in ((1,285),(3,455)):
+            step=article.split('id="passaggio-'+str(n)+'"',1)[1].split('id="passaggio-'+str(n+1)+'"',1)[0]
+            self.assertIn('data-step-video-seconds="'+str(stamp)+'"',step)
+        self.assertEqual(article.count('data-step-video-id="1GtrjKhSwzM"'),2)
+        self.assertNotIn("<iframe",article)
+        self.assertIn("step-video-opt-in-v1.js?v=",article)
         listing=(ROOT/"sitemap.xml").read_text(encoding="utf-8")
         self.assertIn(ROADMAP_PATH,listing)
 

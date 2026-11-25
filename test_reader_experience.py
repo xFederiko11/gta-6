@@ -526,6 +526,34 @@ def browser_qa():
                         assert play.get_attribute('aria-expanded')=='false'
                         page.locator('[data-gf-back]').click()
                         assert page.locator('#passaggio-1').is_visible()
+                    if path=='guide-e-tutorial/soldi-2500-three-sheets-liquor/':
+                        clips=page.locator('#procedura .v-step-video')
+                        assert clips.count()==2
+                        assert clips.first.get_attribute('data-step-video-seconds')=='285'
+                        assert clips.nth(1).get_attribute('data-step-video-seconds')=='455'
+                        assert page.locator('.v-step-video-slot iframe').count()==0
+                        play=page.locator('#passaggio-1 [data-step-video-open]')
+                        assert play.is_visible()
+                        play.click()
+                        frame=page.locator('#passaggio-1 .v-step-video-slot iframe')
+                        assert frame.count()==1
+                        assert frame.get_attribute('src')=='https://www.youtube-nocookie.com/embed/1GtrjKhSwzM?start=285&rel=0'
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                        play.click()
+                        assert frame.count()==0
+                        page.locator('[data-gf-next]').click()
+                        page.locator('[data-gf-next]').click()
+                        play=page.locator('#passaggio-3 [data-step-video-open]')
+                        assert play.is_visible()
+                        play.click()
+                        frame=page.locator('#passaggio-3 .v-step-video-slot iframe')
+                        assert frame.get_attribute('src')=='https://www.youtube-nocookie.com/embed/1GtrjKhSwzM?start=455&rel=0'
+                        if width==390:
+                            page.locator('#passaggio-3').screenshot(path=str(out/'three-sheets-opt-in-video-390.png'))
+                        play.click()
+                        assert frame.count()==0
+                        page.locator('[data-gf-back]').click()
+                        page.locator('[data-gf-back]').click()
                     if page.locator('details.v-guide-more').count() and path!='guide-e-tutorial/veicoli-per-moses/':
                         # The beginner experience is a WIZARD, not an article full
                         # of unrelated boxes. Only one numbered step visible.

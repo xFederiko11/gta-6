@@ -219,7 +219,7 @@ jobs:
           python - <<'PY'
           import urllib.request, time, json
           base='https://xfederiko11.github.io/gta-6/'
-          for path in ('','immagini-ufficiali/','video-tutorial/','veicoli/','veicoli/declasse-yosemite-1500/','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/trofeo-15-stunt-da-capogiro/','trofei/roadmap-platino/','mappe-guide/','trofei/100-percento/','trofei/trofei-difficili/','collezionabili/percorsi/','screenshot-ps5/invia/'):
+          for path in ('','immagini-ufficiali/','video-tutorial/','veicoli/','veicoli/declasse-yosemite-1500/','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/trofeo-15-stunt-da-capogiro/','trofei/roadmap-platino/','mappe-guide/','trofei/100-percento/','trofei/trofei-difficili/','collezionabili/percorsi/','screenshot-ps5/invia/'):
               for attempt in range(6):
                   try:
                       request=urllib.request.Request(base+path+'?reader=adaptive-v2-20261120',headers={'Cache-Control':'no-cache'})
@@ -303,6 +303,12 @@ jobs:
                           assert text.count('data-step-video-seconds="675"') == 1
                           assert 'step-video-opt-in-v1.js?v=' in text
                           assert 'step-video-opt-in-v1.css?v=' in text
+                          assert '<iframe' not in text
+                      if path == 'guide-e-tutorial/soldi-2500-three-sheets-liquor/':
+                          assert text.count('data-step-video-id="1GtrjKhSwzM"') == 2
+                          assert text.count('data-step-video-seconds="285"') == 1
+                          assert text.count('data-step-video-seconds="455"') == 1
+                          assert 'step-video-opt-in-v1.js?v=' in text
                           assert '<iframe' not in text
                       if path in ('salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/'):
                           assert 'id="consigli"' in text and 'Fonti dei consigli' in text
