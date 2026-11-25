@@ -47,6 +47,22 @@ class CinematicTests(unittest.TestCase):
             self.assertIn('aria-controls="place-'+slug+'"',page)
         self.assertIn('prefers-reduced-motion',Path('site/assets/cinematic-v3.css').read_text())
 
+    def test_first_screen_links_to_indexable_car_save_guide(self):
+        """GSC car-saving queries should reach the precise article in one click."""
+        import xml.etree.ElementTree as ET
+        root=Path('_site')
+        page=(root/'index.html').read_text(encoding='utf-8')
+        target='https://xfederiko11.github.io/gta-6/guide-e-tutorial/registrare-auto-personale/'
+        self.assertIn('href="'+target+'">Come salvare un’auto in GTA 6</a>',page)
+        self.assertIn('Come salvare le auto in GTA VI',page)
+        self.assertEqual(page.count('class="focus-choice"'),3)
+        self.assertTrue((root/'guide-e-tutorial/registrare-auto-personale/index.html').exists())
+        body=(root/'guide-e-tutorial/registrare-auto-personale/index.html').read_text(encoding='utf-8')
+        self.assertIn('<link rel="canonical" href="'+target+'"',body)
+        self.assertNotIn('name="robots" content="noindex',body)
+        sitemap=ET.parse(root/'sitemap.xml')
+        self.assertIn(target,[x.text for x in sitemap.iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')])
+
     def test_landing_pages_have_contextual_covers(self):
         for path in c.COVERS:
             page=(Path('_site')/path/'index.html').read_text(encoding='utf-8')
