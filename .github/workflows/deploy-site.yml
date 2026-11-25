@@ -608,6 +608,31 @@ jobs:
           assert 'RydeMe' in taxi
           assert 'data-article-cover="shared-social"' in taxi
           print('PUBLIC_TAXI_REVIEW_OK',base+'guide-e-tutorial/viaggio-rapido-taxi/')
+          for slug,count,phrases in (
+              ('70-sfide-100-percento',4,('50 sfide','70 su 80')),
+              ('poligoni-concentrazione',5,('42 medaglie Oro','Waiver Pass','5 GTA$','10 GTA$')),
+              ('sportive-randy-posizioni',5,('Dale Mamba','Advanced Tracker')),
+          ):
+              path='guide-e-tutorial/'+slug+'/'
+              article=fetch(path)
+              assert article.count('class="v-step"')==count, path
+              assert article.count('class="v-check"')==count, path
+              assert 'data-article-cover="shared-social"' in article, path
+              for phrase in phrases:
+                  assert phrase in article, (path,phrase)
+              print('PUBLIC_FINAL_GUIDE_REVIEW_OK',base+path)
+          for slug,area in (
+              ('pegassi-vitello','Waning Sands'),('pegassi-infernus','Crosstown'),
+              ('pegassi-tempesta','Vespucci Island'),('buckingham-windsor-drop','Bayside'),
+              ('pegassi-toros','Southside'),
+          ):
+              path='veicoli/'+slug+'/'
+              article=fetch(path)
+              assert 'data-vc-detail="'+slug+'"' in article, path
+              assert area in article, path
+              assert 'randys-wish-list-car-locations-walkthrough' in article, path
+              assert 'name="robots" content="index,follow"' in article, path
+              print('PUBLIC_RANDY_VEHICLE_OK',base+path)
           js=fetch('assets/guide-flow-v1.js')
           css=fetch('assets/guide-flow-v1.css')
           assert 'data-gf-next' not in js

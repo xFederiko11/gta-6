@@ -38,7 +38,7 @@
       "goal": "Salta il tragitto: 100 GTA$ in aggiunta alla tariffa della corsa."
     },
     "poligoni-concentrazione": {
-      "when": "Poligoni accessibili",
+      "when": "Poligono accessibile; pass da 5 GTA$ presso l’addetto",
       "where": "Griffin Shooting Range o Rodgers Ranch",
       "goal": "42 medaglie Oro per The Shootist e il 100%; Concentrazione separata."
     },

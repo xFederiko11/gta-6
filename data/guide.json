@@ -188,6 +188,7 @@
       "summary": "Aumenta la Concentrazione allenandoti; per il trofeo The Shootist e il 100% servono tutte le 42 medaglie Oro.",
       "steps": [
         "Raggiungi Griffin Shooting Range oppure Rodgers Ranch: controlla il nome del poligono sulla mappa.",
+        "Parla con l’addetto del negozio al poligono e acquista il pass Waiver Pass per 5 GTA$: sblocca le prove sulla mappa.",
         "Scegli una prova disponibile. Usa l’arma richiesta oppure noleggiala per 10 GTA$, secondo la guida PowerPyx.",
         "Per allenare la Concentrazione completa una prova o esci da essa e controlla il progresso della barra viola.",
         "Per il trofeo e il 100%, ripeti le prove fino a ottenere l’Oro in ciascuna di quelle richieste, in entrambi i poligoni."
@@ -199,9 +200,10 @@
       "related_trophy": 17,
       "checks": [
         "Sei arrivato a uno dei due impianti documentati.",
+        "Le prove del poligono compaiono sulla mappa.",
         "La prova si avvia con l’arma prevista.",
         "Verifica se la Concentrazione è aumentata: l’allenamento non sostituisce le medaglie.",
-        "Controlla le 42 medaglie Oro: 18 a Griffin e 24 a Rodgers, secondo PowerPyx."
+        "In Progressi → Attività → Poligoni di tiro verifica 42 medaglie Oro: 18 a Griffin e 24 a Rodgers, secondo PowerPyx."
       ],
       "extra_sources": [
         "https://www.powerpyx.com/gta-6-100-completion-checklist-guide/"

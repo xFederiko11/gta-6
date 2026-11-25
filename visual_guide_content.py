@@ -45,7 +45,7 @@ HEADINGS = {
     '70-sfide-100-percento': ['Apri le sfide','Controlla ciò che manca','Completa prima le altre attività','Raggiungi le due soglie'],
     'meditazione-capitolo-1': ['Prima del Capitolo 2','Segui Lucia sul balcone','Completa il minigioco','Sblocca entrambi i personaggi','Completa gli otto luoghi doppi','Raggiungi la meditazione finale'],
     'viaggio-rapido-taxi': ['Chiama il taxi','Scegli la destinazione','Sali come passeggero','Salta il tragitto'],
-    'poligoni-concentrazione': ['Raggiungi un poligono','Avvia la prova','Allena la Concentrazione','Completa le medaglie Oro'],
+    'poligoni-concentrazione': ['Raggiungi un poligono','Acquista il pass','Avvia la prova','Allena la Concentrazione','Completa le medaglie Oro'],
 }
 REQUIREMENTS = {
     'soldi-facili-capitolo-1': 'Accesso alle zone del Capitolo 1. Per il luogo sull’acqua serve una barca. Prevedi possibili scontri.',
@@ -55,7 +55,7 @@ REQUIREMENTS = {
     '70-sfide-100-percento': 'Menu Progressi e sezione Sfide accessibili.',
     'meditazione-capitolo-1': 'Prima occasione a casa di Jason nel Capitolo 1. Dal Capitolo 2, dopo Coffee Break, usa entrambi i personaggi per gli altri luoghi.',
     'viaggio-rapido-taxi': 'Gone Fishing completata, servizio nei Contatti, denaro contante e strada accessibile.',
-    'poligoni-concentrazione': 'Accesso a un poligono di tiro. Le medaglie vanno controllate separatamente dall’allenamento.',
+    'poligoni-concentrazione': 'Accesso a un poligono e pass da 5 GTA$. Le medaglie vanno controllate separatamente dall’allenamento.',
 }
 LOCATIONS = {
     'soldi-facili-capitolo-1': 'Quattro luoghi distinti del Capitolo 1. Le fonti descrivono le zone, senza coordinate GPS esatte verificate.',
