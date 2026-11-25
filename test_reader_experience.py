@@ -405,6 +405,21 @@ def browser_qa():
                         assert page.locator('.v-external-step-photo').count()==1
                         assert 'No Tracker' in page.locator('.waink-tracker-warning').inner_text()
                         assert 'Advanced' in page.locator('.waink-tracker-warning').inner_text()
+                        assert page.locator('.v-guide-prep').count()==0
+                        assert page.locator('.waink-instruction-art img').count()==5
+                        assert page.locator('#passaggio-1 .waink-instruction-art img').is_visible()
+                        assert page.locator('#passaggio-1 .waink-instruction-art img').evaluate('(img)=>img.complete && img.naturalWidth>0')
+                        intro=page.locator('.waink-main-player')
+                        play=intro.locator('[data-step-video-open]')
+                        assert play.is_visible()
+                        assert intro.locator('iframe').count()==0
+                        if width==390:
+                            assert play.bounding_box()['y']<420,play.bounding_box()
+                            page.screenshot(path=str(out/'waink-mobile-first-screen.png'))
+                        play.click()
+                        assert intro.locator('iframe').get_attribute('src')=='https://www.youtube-nocookie.com/embed/0RBe_fz67gs?start=0&rel=0'
+                        play.click()
+                        assert intro.locator('iframe').count()==0
                         if width in (390,1440):
                             page.locator('[data-gf-all]').click()
                             assert page.locator('.v-step:visible').count()==5

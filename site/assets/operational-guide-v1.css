@@ -75,3 +75,16 @@ body:has(#procedura.v-tutorial) .v-step .mo-photo-link{
 .mo-photo-link small{color:var(--r-muted);font-size:.68rem}
 .v-guide-next-moses{padding:12px;background:var(--r-soft);border:1px solid var(--r-line);border-radius:8px;line-height:1.52;font-size:.86rem}
 .v-guide-next-moses a{display:block;font-weight:800;color:var(--r-cyan);margin-top:5px}
+
+/* WAiNK: visible dedicated video immediately after H1; no duplicate prep. */
+.waink-video-intro{margin:0 auto 8px;max-width:690px}
+.waink-main-player.v-step-video{margin:0 0 4px;border:1px solid var(--r-line);border-radius:12px}
+.waink-main-player .v-step-video-open{min-height:68px;background:linear-gradient(115deg,#252e44,#463250);color:#fff}
+.waink-main-player .v-step-video-open small{color:#dbe3f3}
+.waink-start{display:block;padding:6px 0;font-size:.83rem;font-weight:800;color:var(--r-cyan);text-align:center}
+body:has(.waink-video-intro) .v-operation-brief{margin:4px auto 6px}
+body:has(.waink-video-intro) .waink-tracker-warning{padding:7px 9px;margin:5px 0;font-size:.77rem;line-height:1.35}
+body:has(.waink-video-intro) .v-tutorial .waink-instruction-art{margin:0 10px 9px}
+.waink-instruction-art img{display:block;width:100%;height:auto;aspect-ratio:640/220;object-fit:contain;border-radius:10px;background:#131a29}
+.waink-instruction-art figcaption{margin:4px 1px 0;font-size:.68rem;color:var(--r-muted);line-height:1.4}
+.waink-instruction-art a{color:var(--r-cyan)}

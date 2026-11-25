@@ -13,9 +13,9 @@
       "goal": "Raggiungi il nascondiglio e controlla il denaro presente."
     },
     "scansionare-veicoli": {
-      "when": "WAiNK sbloccata (dalla storia); Key Cloner nel Capitolo 3",
-      "where": "Davanti a qualsiasi veicolo nuovo, anche barche e velivoli",
-      "goal": "Scansiona con ↑ + R1, controlla il tracker prima di rubare un mezzo e registra 200 modelli base per il 100%."
+      "when": "WAiNK sbloccata; Key Cloner dal Capitolo 3",
+      "where": "Davanti al veicolo da scansionare",
+      "goal": "Tieni premuto ↑, inquadra, tieni R1. Obiettivo: 200 modelli base."
     },
     "studiare-animali": {
       "when": "Binocolo disponibile",

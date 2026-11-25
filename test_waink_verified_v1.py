@@ -48,6 +48,17 @@ class WainkVerifiedGuide(unittest.TestCase):
         self.assertIn('data-photo-source-guide="scansionare-veicoli"',html)
         self.assertNotIn("immagine ricreata",html.lower())
         self.assertEqual(html.count('data-step-video-id="R0GdEkPZSvM"'),1)
+        self.assertEqual(html.count('data-step-video-id="0RBe_fz67gs"'),1)
+        self.assertLess(html.index('class="waink-video-intro"'),html.index('class="v-operation-brief"'))
+        self.assertNotIn('class="v-guide-prep"',html)
+        self.assertEqual(html.count('data-waink-diagram='),5)
+        for n in range(1,6):
+            section=html.split('id="passaggio-'+str(n)+'"',1)[1].split('</li>',1)[0]
+            self.assertIn('data-waink-diagram="'+str(n)+'"',section)
+            self.assertIn('assets/waink-guide/step-'+str(n)+'.svg',section)
+            self.assertIn('non screenshot',section)
+            self.assertTrue((ROOT/'assets/waink-guide'/('step-'+str(n)+'.svg')).is_file())
+        self.assertIn("Schermate reali WAiNK",html)
         step=html.split('id="passaggio-4"',1)[1].split('id="passaggio-5"',1)[0]
         self.assertIn('data-step-video-seconds="266"',step)
         self.assertIn("non una prova dei comandi DualSense",step)
