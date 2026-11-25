@@ -893,6 +893,210 @@
       "notes": [
         "RTINGS ha eseguito la prova HDR Game sul modello Z95A da 65″ statunitense: i 2000 rappresentano la soglia del controllo Clipping, NON i nit di picco misurati né il valore Max Brightness di GTA VI."
       ]
+    },
+    "lg-oled-c6": {
+      "reference_code": "OLED55C65LA",
+      "tested_hardware": "LG C6 2026 · RTINGS Game Optimizer (esemplare USA)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/lg/c6-oled-2026"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Game Optimizer",
+          "status": "Test HDR",
+          "source": "RTINGS · prova HDR Game"
+        },
+        {
+          "name": "Dynamic Tone Mapping del test",
+          "value": "Spento (Off)",
+          "status": "Test HDR",
+          "source": "RTINGS · prova HDR Game"
+        },
+        {
+          "name": "Expression Enhancer del test",
+          "value": "Spento (Off)",
+          "status": "Test HDR",
+          "source": "RTINGS · prova HDR Game"
+        },
+        {
+          "name": "Luminosità",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        },
+        {
+          "name": "Contrasto",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        },
+        {
+          "name": "Temperatura colore",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        },
+        {
+          "name": "Nitidezza",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        }
+      ],
+      "notes": [
+        "RTINGS misura la modalità HDR Game della C6 con Dynamic Tone Mapping ed Expression Enhancer disattivati. Il produttore documenta HGiG, da valutare come alternativa per la calibrazione PS5. I tagli C6E/C6 Pro non sono lo stesso pannello dei modelli C6 di questa lista."
+      ]
+    },
+    "lg-oled-g6": {
+      "reference_code": "OLED55G64LW",
+      "tested_hardware": "LG G6 2026 · RTINGS HDR Game (firmware 43.11.81)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/lg/g6-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Game Optimizer",
+          "status": "Test HDR",
+          "source": "RTINGS · prova HDR Game"
+        },
+        {
+          "name": "Dynamic Tone Mapping del test",
+          "value": "Spento (Off)",
+          "status": "Test HDR",
+          "source": "RTINGS · prova HDR Game"
+        },
+        {
+          "name": "Expression Enhancer del test",
+          "value": "Spento (Off)",
+          "status": "Test HDR",
+          "source": "RTINGS · prova HDR Game"
+        },
+        {
+          "name": "Luminosità",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        },
+        {
+          "name": "Contrasto",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        },
+        {
+          "name": "Temperatura colore",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        },
+        {
+          "name": "Nitidezza",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        }
+      ],
+      "notes": [
+        "RTINGS ha ri-eseguito i test su firmware 43.11.81, riscontrando differenze con FILMMAKER + Game Optimizer, ma maggiore latenza rispetto al Game Optimizer puro. Non usare i valori di luminosità dell'esemplare 55/65″ come riferimento certo per il taglio 97″."
+      ]
+    },
+    "samsung-s90h": {
+      "reference_code": "QE55S90HAEXZT",
+      "tested_hardware": "Samsung S90H 2026 · prova HDR Game RTINGS (versione USA)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/samsung/s90h-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Game Mode",
+          "status": "Test HDR",
+          "source": "RTINGS · prova HDR Game"
+        },
+        {
+          "name": "HDR Tone Mapping",
+          "value": "Statico (Static)",
+          "status": "Test HDR",
+          "source": "RTINGS · prova HDR Game"
+        },
+        {
+          "name": "Luminosità",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        },
+        {
+          "name": "Contrasto",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        },
+        {
+          "name": "Temperatura colore",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        },
+        {
+          "name": "Nitidezza",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        }
+      ],
+      "notes": [
+        "RTINGS rileva che la mappatura Static restituisce una resa più fedele di Active. La famiglia S90H può avere pannelli differenti secondo taglio e regione: non estrapolare la luminosità di picco o il comportamento colore dall'esemplare USA."
+      ]
+    },
+    "samsung-s95h": {
+      "reference_code": "QE55S95HFTXZT",
+      "tested_hardware": "Samsung S95H 2026 · prova HDR Game RTINGS (versione USA)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/samsung/s95h-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Game Mode",
+          "status": "Test HDR",
+          "source": "RTINGS · prova HDR Game"
+        },
+        {
+          "name": "HDR Tone Mapping",
+          "value": "Statico (Static)",
+          "status": "Test HDR",
+          "source": "RTINGS · prova HDR Game"
+        },
+        {
+          "name": "Luminosità",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        },
+        {
+          "name": "Contrasto",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        },
+        {
+          "name": "Temperatura colore",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        },
+        {
+          "name": "Nitidezza",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Parametro non specificato nella prova HDR Game"
+        }
+      ],
+      "notes": [
+        "RTINGS ha misurato il profilo Game con Tone Mapping Static: Active risulta più luminoso ma meno accurato. Il taglio 48″ e le varianti regionali possono differire dal modello USA in prova; nessun numero di luminosità è trasferito."
+      ]
     }
   }
 }
