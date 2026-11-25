@@ -66,8 +66,13 @@ class CinematicTests(unittest.TestCase):
     def test_landing_pages_have_contextual_covers(self):
         for path in c.COVERS:
             page=(Path('_site')/path/'index.html').read_text(encoding='utf-8')
-            self.assertIn('class="ci-section-cover"',page,path)
-            self.assertIn('Immagine promozionale ufficiale',page,path)
+            from social_cards_v2 import is_article
+            if is_article(page,path):
+                self.assertNotIn('class="ci-section-cover"',page,path)
+                self.assertEqual(page.count('data-article-cover="shared-social"'),1,path)
+            else:
+                self.assertIn('class="ci-section-cover"',page,path)
+                self.assertIn('Immagine promozionale ufficiale',page,path)
 
     def test_slideshow_has_twenty_real_responsive_originals(self):
         import json,re

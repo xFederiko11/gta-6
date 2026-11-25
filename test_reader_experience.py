@@ -393,6 +393,7 @@ def browser_qa():
                     if page.locator('[data-article-cover]').count():
                         cover=page.locator('[data-article-cover] img')
                         assert cover.count()==1 and cover.is_visible()
+                        assert page.locator('.ci-section-cover').count()==0
                         assert cover.evaluate('(i)=>i.complete && i.naturalWidth===1200 && i.naturalHeight===630')
                         assert cover.get_attribute('src')==page.locator('meta[property="og:image"]').get_attribute('content')
                         assert cover.get_attribute('src')==page.locator('meta[name="twitter:image"]').get_attribute('content')

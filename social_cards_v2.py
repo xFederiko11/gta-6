@@ -455,6 +455,9 @@ def insert_article_cover(html,relative,link,alt,credit,source_url=None):
         return html,False
     if 'data-article-cover=' in html:
         raise ValueError("Duplicate article cover: "+relative)
+    # The earlier cinematic banner is decorative and was inserted before H1.
+    # Remove only that known figure on article pages, not source/step images.
+    html=re.sub(r'<figure class="ci-section-cover">.*?</figure>',"",html,flags=re.S)
     if len(re.findall(r"</h1\s*>",html,re.I))!=1:
         raise ValueError("Article must have exactly one H1: "+relative)
     caption=escape(credit)
@@ -494,6 +497,13 @@ def publish():
         parsed=_parse_page(page)
         if parsed is None:continue
         html,relative,title=parsed
+        # Use the actual reader-facing headline, without SEO suffixes, on
+        # article artwork. Keep document title, metadata and canonical unchanged.
+        headline=title
+        if is_article(html,relative):
+            h1=re.search(r'<h1\b[^>]*>(.*?)</h1\s*>',html,re.I|re.S)
+            if h1:
+                headline=" ".join(unescape(re.sub(r'<[^>]+>'," ",h1.group(1))).split()) or title
         key=cover_key(relative)
         art=artwork_for_page(relative,artworks)
         if relative in selected:
@@ -504,9 +514,9 @@ def publish():
         if preview:
             row,screenshot=preview
             art=None
-            photo=render_screenshot_card(title,relative,row,screenshot)
+            photo=render_screenshot_card(headline,relative,row,screenshot)
         else:
-            photo=render_card(title,relative,art["image"] if art else None)
+            photo=render_card(headline,relative,art["image"] if art else None)
         dest=path/(key+".jpg")
         photo.save(dest,"JPEG",quality=83,optimize=True,progressive=True,subsampling=0)
         data=dest.read_bytes()
@@ -519,7 +529,7 @@ def publish():
         link=BASE+"assets/social-cards/"+key+".jpg"
         alt_text=(("Screenshot di gameplay autorizzato: "+preview[0]["alt"]+" · Fonte: "+preview[0]["credit"]) if preview else
                     ("Immagine promozionale ufficiale Rockstar Games; copertina editoriale GTA VI Italia." if art else
-                    "Copertina illustrata originale GTA VI Italia: "+title+". Non screenshot di gameplay."))
+                    "Copertina illustrata originale GTA VI Italia: "+headline+". Non screenshot di gameplay."))
         attr=escape(alt_text,quote=True)
         credit=("Screenshot autorizzato · "+preview[0]["credit"] if preview else
                 ("Immagine promozionale · Rockstar Games" if art else "Copertina illustrata · GTA VI Italia"))

@@ -186,6 +186,7 @@ class SocialCardTests(unittest.TestCase):
             self.assertEqual(record["article_cover"],c.is_article(source,record["path"]))
             if record["article_cover"]:
                 self.assertEqual(source.count('data-article-cover="shared-social"'),1)
+                self.assertNotIn('class="ci-section-cover"',source)
                 cover=source.split('data-article-cover="shared-social"',1)[1].split('</figure>',1)[0]
                 self.assertIn('src="'+record["image"]+'"',cover)
                 self.assertIn('loading="eager"',cover)
