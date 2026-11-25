@@ -522,12 +522,24 @@ class VisualSiteTests(unittest.TestCase):
             self.assertNotIn('class="r-gallery"',text)
             self.assertNotIn('class="v-guide-aside"',text)
             self.assertLess(text.index('FINE DEI PASSAGGI'),text.index('class="v-guide-more"'))
+            diagrams=[]
             for t,a in step_tags.tags:
                 if t=='img':
+                    if a.get('data-visual-kind')=='editorial-diagram':
+                        self.assertEqual(guide['id'],'scansionare-veicoli')
+                        n=a.get('data-waink-illustration')
+                        self.assertIn(n,('1','2','3','4','5'))
+                        self.assertEqual(a['src'],BASE+'assets/waink-guide/step-'+n+'.svg')
+                        self.assertTrue(a.get('alt'))
+                        self.assertNotIn('data-visual-image',a)
+                        self.assertTrue((ROOT/'assets/waink-guide'/('step-'+n+'.svg')).is_file())
+                        diagrams.append(n)
+                        continue
                     self.assertEqual(a['data-visual-kind'],'screenshot')
                     self.assertIn('alt',a)
                     self.assertIn('/gta-6/assets/visual/',a['src'])
                     self.assertTrue((ROOT/a['src'].split('/gta-6/',1)[1]).is_file())
+            self.assertEqual(diagrams,['1','2','3','4','5'] if guide['id']=='scansionare-veicoli' else [])
         self.assertEqual(len(review['rejected_assignments']),9)
         self.assertTrue(any(r['key']=='scooter-phone' and 'permission' in r['reason'] for r in review['rejected_assignments']))
 

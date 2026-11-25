@@ -39,7 +39,7 @@ def step(index):
     # Explicitly label the illustrations as diagrams, not gameplay photos.
     # The external page has genuine UI reference screenshots; no copied bytes.
     out=('<figure class="waink-instruction-art" data-waink-diagram="'+str(n)+'">'
-         '<img src="'+image+'" alt="'+escape(ALTS[index],quote=True)+'" width="640" height="220" '
+         '<img data-visual-kind="editorial-diagram" data-waink-illustration="'+str(n)+'" src="'+image+'" alt="'+escape(ALTS[index],quote=True)+'" width="640" height="220" '
          'decoding="async"'+('' if index==0 else ' loading="lazy"')+'>'
          '<figcaption>Schema originale GTA VI Italia · non screenshot · '
          '<a href="'+SOURCE+'" target="_blank" rel="noopener noreferrer">Fonte comandi ↗</a>')
