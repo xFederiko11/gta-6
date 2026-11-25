@@ -593,7 +593,9 @@ def guide(g,guides):
                'Prima di accumularlo, crea un salvataggio manuale separato e leggi '
                'le precauzioni sotto il tutorial.</p>')
     if g['id']=='prima-persona-glitch-ps5':
-        body+=('<p class="v-guide-urgent" role="note"><strong>🏆 Trofei non verificati.</strong> '
+        body+=('<p class="v-guide-urgent" data-glitch-patch-status="community" role="note">'
+               '<strong>🟡 Community:</strong> segnalato funzionante anche dopo la patch del 23 novembre; non testato da noi. '
+               '<strong>🏆 Trofei non verificati.</strong> '
                'Non usare il salvataggio principale del platino: crea prima '
                'un salvataggio di prova separato.</p>')
     if g['id']=='meditazione-capitolo-1':

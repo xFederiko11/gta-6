@@ -379,6 +379,11 @@ class VisualSiteTests(unittest.TestCase):
         self.assertEqual(sum(t=='h1' for t,_ in tags.tags),1)
         self.assertIn('v-glitch-status',text)
         self.assertIn('Community · segnalato funzionante dopo la patch del 23 novembre',text)
+        self.assertLess(text.index('data-glitch-patch-status="community"'),text.index('id="procedura"'))
+        warning=text.split('data-glitch-patch-status="community"',1)[1].split('</p>',1)[0]
+        self.assertIn('dopo la patch del 23 novembre',warning)
+        self.assertIn('Trofei non verificati.',warning)
+        self.assertIn('non testato da noi',warning)
         self.assertIn('Trophy Status Uncertain',text)
         self.assertIn('01.002.002',text)
         self.assertIn('Non abbiamo provato personalmente questa versione',text)
