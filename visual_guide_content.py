@@ -38,14 +38,14 @@ HEADINGS = {
     'soldi-facili-capitolo-1': ['Three Sheets Liquor · Key Lento','Manatee Motel · vicino a Hamlet','Casa su palafitte · Corsair Key','Magazzino · South Vice-Dale'],
     'soldi-2500-three-sheets-liquor': ['Completa il favore di Shirley','Torna con il segnale giallo','Ottieni l’indizio dal pappagallo','Controlla il nascondiglio','Completa l’esplorazione'],
     'registrare-auto-personale': ['Raggiungi Moses a Port Gellhorn','Scansiona le auto con WAiNK','Apri la Montagne XL con lo Slim Jim','Scegli un’auto senza tracker, se necessario','Rivernicia l’auto da Moses','Registra gratis la prima auto','Richiama il mezzo con Scooter Bros'],
-    'sportive-randy-posizioni': ['Apri la lista delle richieste','Restringi la zona di ricerca','Identifica il veicolo','Decidi se consegnarlo o conservarlo'],
+    'sportive-randy-posizioni': ['Apri la lista delle richieste','Scegli un modello','Cerca e identifica il veicolo','Consegna da Randy','Sblocca la registrazione Advanced Tracker'],
     'prima-persona-glitch-ps5': ['Proteggi prima i tuoi progressi','Imposta Camera sul touchpad','Entra nell’auto','Apri il telefono','Chiudi e premi il touchpad','Conferma l’effetto e torna alla visuale normale'],
     'scansionare-veicoli': ['Apri WAiNK','Inquadra il mezzo','Scansiona con R1','Leggi il tipo di tracker','Controlla il catalogo'],
     'studiare-animali': ['Seleziona il binocolo','Avvicina l’inquadratura','Studia la specie','Controlla il contatore'],
-    '70-sfide-100-percento': ['Apri le sfide','Controlla ciò che manca','Scegli le prove più rapide'],
+    '70-sfide-100-percento': ['Apri le sfide','Controlla ciò che manca','Completa prima le altre attività','Raggiungi le due soglie'],
     'meditazione-capitolo-1': ['Prima del Capitolo 2','Segui Lucia sul balcone','Completa il minigioco','Sblocca entrambi i personaggi','Completa gli otto luoghi doppi','Raggiungi la meditazione finale'],
     'viaggio-rapido-taxi': ['Chiama il taxi','Scegli la destinazione','Sali come passeggero','Salta il tragitto'],
-    'poligoni-concentrazione': ['Raggiungi un poligono','Avvia la prova','Distingui allenamento e medaglie'],
+    'poligoni-concentrazione': ['Raggiungi un poligono','Avvia la prova','Allena la Concentrazione','Completa le medaglie Oro'],
 }
 REQUIREMENTS = {
     'soldi-facili-capitolo-1': 'Accesso alle zone del Capitolo 1. Per il luogo sull’acqua serve una barca. Prevedi possibili scontri.',
@@ -65,14 +65,14 @@ LOCATIONS = {
     '70-sfide-100-percento': 'Menu Progressi → Sfide, poi l’attività scelta sulla mappa.',
     'meditazione-capitolo-1': 'Primo luogo: balcone della casa di Jason a Key Lento. Gli altri nove luoghi sono elencati nella checklist, con riferimenti geografici verificati.',
     'viaggio-rapido-taxi': 'Telefono → Contatti → Tutti i contatti → Paradise Taxi.',
-    'poligoni-concentrazione': 'Uno dei poligoni disponibili sulla mappa. La fonte completa è in fondo.',
+    'poligoni-concentrazione': 'Griffin Shooting Range oppure Rodgers Ranch. La fonte completa è in fondo.',
 }
 SUMMARIES = {
     'soldi-facili-capitolo-1': 'Quattro luoghi segnalati da Insider Gaming, con azioni e controlli per ciascuno. Non perdere i soldi passando al Capitolo 2: leggi prima l’avviso.',
     'soldi-2500-three-sheets-liquor': 'Un percorso breve: incarico, retro del negozio e nascondiglio. Passi numerati e fonti consultabili senza immagini fuori contesto.',
     'meditazione-capitolo-1': '18 sessioni in 10 luoghi: 15 bastano per il 100%. Le fonti recenti indicano la prima sessione facoltativa per il trofeo. Video con i minuti e checklist per ogni luogo.',
     'prima-persona-glitch-ps5': 'Chiudi il telefono e premi rapidamente il touchpad impostato su Camera. Community: segnalato funzionante anche dopo la patch del 23 novembre; trofei non verificati.',
-    'sportive-randy-posizioni': 'Parti dalle richieste del gioco, cerca nelle zone documentate e controlla l’auto prima della consegna. Non promettiamo spawn fissi o veicoli unici.',
+    'sportive-randy-posizioni': 'Sedici modelli richiesti da Randy: distingui indizi attivati, ricerca libera e registrazione Advanced Tracker dopo Dale Mamba. Nessuno spawn garantito.',
     'registrare-auto-personale': 'Dopo Girl’s Trip, porta un’auto senza tracker da Moses a Port Gellhorn: la prima registrazione è gratuita. Scooter Bros si sblocca al termine della missione.',
 }
 
