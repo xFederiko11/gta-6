@@ -5,6 +5,9 @@ from collections import Counter
 from html import escape as _esc
 import json
 from pathlib import Path
+from hdr_tv_picture_v1 import (validate as validate_tv_picture,
+                               render_reference as render_tv_reference,
+                               render_settings as render_tv_settings)
 
 
 def e(value):
@@ -75,6 +78,7 @@ def render(write, layout, schema_article, url, crumbs):
     """
     catalog = json.loads(Path("data/hdr_oled.json").read_text(encoding="utf-8"))
     families = catalog["families"]
+    validate_tv_picture(families)
     game_hdr = catalog["game_hdr"]
     reports = game_hdr["reports"]
     defaults = game_hdr["default"]
@@ -102,7 +106,8 @@ def render(write, layout, schema_article, url, crumbs):
         + '<div class="info">🧪 <strong>Come leggere i numeri:</strong> i valori di GTA VI '
         + 'pubblicati dalla community sono prove individuali, non misure certificate. '
         + 'Per le altre TV mostriamo i valori iniziali del gioco, da calibrare, senza '
-        + 'spacciarli per preset ottimizzati.</div>')
+        + 'spacciarli per preset ottimizzati. In ogni scheda trovi anche l’immagine '
+        + 'del TV di riferimento e la tabella separata delle impostazioni del televisore.</div>')
 
     steps = "<ol class=\"hdr-steps\">" + "".join(
         "<li>" + e(step) + "</li>" for step in catalog["ps5_steps"]) + "</ol>"
@@ -246,7 +251,7 @@ def render(write, layout, schema_article, url, crumbs):
             "Per questo modello non abbiamo ancora una misura HDR GTA VI verificata. "
             "Usa la calibrazione a logo e verifica nero, alte luci e Paper White.")
         game_panel = (
-            '<h2 id="valori-hdr">1. GTA VI: impostazioni da inserire nel gioco</h2>'
+            '<h2 id="valori-hdr">2. GTA VI: impostazioni da inserire nel gioco</h2>'
             '<p>Su PS5/PS5 Pro: premi Options → Impostazioni → Schermo (Display) → '
             'Calibrazione HDR (HDR Calibration). Premi R1 per cambiare il test, '
             'Triangolo per nascondere le voci.</p>'
@@ -268,12 +273,15 @@ def render(write, layout, schema_article, url, crumbs):
             f'<h1>GTA 6 HDR su {e(family["series"])}: '
             '<span class="highlight">impostazioni OLED</span></h1>'
             f'<p class="lead">{e(family["summary"])}</p>'
-            + _tv_art()
+            + render_tv_reference(family, url)
             + f'<div class="statline"><span>📺 <b>{len(family["models"])}</b> modelli</span>'
             f'<span>{e(family["group"])}</span><span>🎮 PS5 + PS5 Pro</span></div>'
-            '<div class="guide-hero-actions"><a class="button" href="#valori-hdr">🎮 Valori GTA VI</a>'
-            '<a class="button secondary" href="#modelli-tv">📺 Codici compatibili</a></div></section>'
+            '<div class="guide-hero-actions"><a class="button" href="#tv-settings">📺 Impostazioni TV</a>'
+            '<a class="button secondary" href="#valori-hdr">🎮 Valori GTA VI</a>'
+            '<a class="button secondary" href="#modelli-tv">🔎 Codici compatibili</a></div></section>'
             '<div class="article-grid"><article class="prose">'
+            + '<h2 id="tv-settings">1. Impostazioni immagine sulla TV</h2>'
+            + render_tv_settings(family)
             + game_panel
             + '<h2 id="modelli-tv">Modelli e diagonali compatibili con questa procedura</h2>'
             '<div class="hdr-table-scroll"><table class="hdr-table"><thead><tr>'
@@ -281,10 +289,10 @@ def render(write, layout, schema_article, url, crumbs):
             '</tr></thead><tbody>'+model_rows+'</tbody></table></div>'
             '<p class="micro">Una procedura comune non implica luminosità massima identica '
             'per tutte le dimensioni dello schermo.</p>'
-            '<h2>2. Configura il televisore</h2>'+tv_steps
-            + '<h2>3. Configura PS5 / PS5 Pro</h2>'+steps
+            '<h2>3. Configura il televisore</h2>'+tv_steps
+            + '<h2>4. Configura PS5 / PS5 Pro</h2>'+steps
             + f'<div class="info warn">⚠️ <strong>Attenzione:</strong> {e(family["caution"])}</div>'
-            '<h2>4. Verifica la resa in GTA VI</h2>'
+            '<h2>5. Verifica la resa in GTA VI</h2>'
             '<p>Confronta un cielo luminoso, riflessi sulle carrozzerie e una scena '
             'notturna. Se il gioco propone regolazioni HDR proprie, controlla '
             'soprattutto luci bruciate e ombre troppo chiuse. Non attribuire al gioco '
