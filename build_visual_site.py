@@ -587,8 +587,9 @@ def guide(g,guides):
                'Non usare il salvataggio principale del platino: crea prima '
                'un salvataggio di prova separato.</p>')
     if g['id']=='meditazione-capitolo-1':
-        body+=('<p class="v-guide-urgent" role="note"><strong>🏆 Prima meditazione mancabile:</strong> '
-               'completala durante il Capitolo 1, prima di proseguire nella storia.</p>')
+        body+=('<p class="v-guide-urgent" role="note"><strong>🏆 Prima meditazione:</strong> '
+               'se l’hai saltata, le fonti più recenti la indicano facoltativa per il trofeo. '
+               'Controlla le altre località prima di ricominciare una partita.</p>')
     body+=('<section id="procedura" class="v-tutorial" aria-labelledby="titolo-procedura">'
            '<header class="v-tutorial-head">'
            '<span class="v-tutorial-start-here">'+str(count)+' PASSAGGI</span>'
@@ -664,7 +665,7 @@ def guide(g,guides):
         evidence=render_step_evidence(g,n,STEP_EVIDENCE,VISUAL_EVIDENCE)
         if evidence:
             if g['id'] in {'registrare-auto-personale','soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor',
-                           'scansionare-veicoli','prima-persona-glitch-ps5'}:
+                           'scansionare-veicoli','prima-persona-glitch-ps5','meditazione-capitolo-1'}:
                 # Map/video reference belongs beside its corresponding action.
                 # They remain verified external links, never screenshots or fake pins.
                 body+=evidence

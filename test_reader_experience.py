@@ -642,6 +642,10 @@ def browser_qa():
                     if path=='guide-e-tutorial/meditazione-capitolo-1/' and width==390:
                         checklist=page.locator('[data-meditation-tracker]')
                         assert checklist.count()==1
+                        assert checklist.locator('[data-meditation-video-link]').count()==10
+                        assert checklist.locator('#meditazione-luogo-ascent-mountain [data-meditation-video-link]').get_attribute('href')=='https://www.youtube.com/watch?v=WZ9EM_i_W38&t=377s'
+                        assert page.locator('#passaggio-2 [data-step-video-open]').is_visible()
+                        assert page.locator('#passaggio-6 [data-step-video-open]').is_visible()
                         assert page.locator('input[data-meditation-check]').count()==18
                         assert page.locator('[data-meditation-summary]').inner_text()=='0 / 18'
                         page.locator('#mt-jasons-house-one').check()

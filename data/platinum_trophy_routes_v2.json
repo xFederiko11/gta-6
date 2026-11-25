@@ -30,9 +30,9 @@
     {
       "number": 3,
       "group": "storia",
-      "action": "Prima di terminare il Capitolo 1, completa la meditazione a casa di Jason, poi continua la storia.",
+      "action": "Se disponibile, completa la meditazione a casa di Jason durante il Capitolo 1.",
       "check": "Conferma la meditazione nel contatore prima del cambio capitolo.",
-      "warning": "La sessione iniziale potrebbe essere mancabile per un trofeo successivo."
+      "warning": "Prima occasione facoltativa per il trofeo secondo le fonti recenti; non ricominciare soltanto per averla saltata."
     },
     {
       "number": 4,
@@ -185,9 +185,9 @@
     {
       "number": 28,
       "group": "inizio",
-      "action": "Completa la meditazione del Capitolo 1 e successivamente tutte le località di Leonida.",
+      "action": "Completa i luoghi di meditazione di Leonida, inclusa Ascent Mountain.",
       "check": "Verifica le 18 sessioni/10 località con la checklist e il trofeo.",
-      "warning": "La necessità della prima sessione per il trofeo non è confermata: per prudenza non saltarla.",
+      "warning": "La prima sessione a casa è indicata come facoltativa dalle fonti recenti; verifica comunque il trofeo nel gioco.",
       "guide": "guide-e-tutorial/meditazione-capitolo-1/"
     },
     {

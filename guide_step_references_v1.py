@@ -52,6 +52,8 @@ def _link(g, idx, data, refs, item=None):
             ("soldi-facili-capitolo-1", 0, "soldi-facili-capitolo-1", 285),
             ("scansionare-veicoli", 3, "registrare-auto-personale", 266),
             ("prima-persona-glitch-ps5", 5, "prima-persona-glitch-ps5", 0),
+            ("meditazione-capitolo-1", 1, "meditazione-capitolo-1", 22),
+            ("meditazione-capitolo-1", 5, "meditazione-capitolo-1", 377),
         }:
             creator=escape(record["creator"])
             stamp_label=f"{stamp//60}:{stamp%60:02d}"
