@@ -27,7 +27,8 @@ class HDRTVPictureTests(unittest.TestCase):
         self.assertEqual(len(self.data["families"]),21)
         self.assertEqual(sum(len(f["models"]) for f in self.data["families"]),92)
         self.assertEqual(len(self.photos["families"]),21)
-        self.assertEqual(len(self.profiles["profiles"]),11)
+        self.assertEqual(len(self.profiles["profiles"]),19)
+        self.assertEqual(set(self.data["families"][i]["slug"] for i in range(len(self.data["families"]))) - set(self.profiles["profiles"]), {"philips-oled811", "philips-oled850"})
         self.assertEqual(self.profiles["profiles"]["lg-oled-c4"]["reference_code"],
                          "OLED55C44LA")
 
