@@ -14,8 +14,8 @@
     },
     "scansionare-veicoli": {
       "when": "WAiNK sbloccata; Key Cloner dal Capitolo 3",
-      "where": "Davanti al veicolo da scansionare",
-      "goal": "Tieni premuto ↑, inquadra, tieni R1. Obiettivo: 200 modelli base."
+      "where": "Davanti al veicolo",
+      "goal": "↑ e R1 tenuti premuti; 200 modelli base."
     },
     "studiare-animali": {
       "when": "Binocolo disponibile",
