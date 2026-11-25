@@ -653,6 +653,246 @@
       "notes": [
         "Secondo RTINGS, HGiG è stato ripristinato con firmware 1203 dopo la rimozione con 1125.9. Controlla la versione installata prima della regolazione."
       ]
+    },
+    "sony-bravia-8": {
+      "reference_code": "K-55XR80",
+      "tested_hardware": "Sony BRAVIA 8 · prova RTINGS HDR Game",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/sony/bravia-8-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Gioco (Game)",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Luminosità",
+          "value": "Massimo (Maximum)",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Contrasto",
+          "value": "90",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Temperatura colore",
+          "value": "Esperto 2 (Expert 2)",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Luminosità di picco",
+          "value": "Alta (High)",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "HDR Tone Mapping",
+          "value": "Spento (Off)",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Nitidezza",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Manca un valore nella prova HDR Game consultata"
+        }
+      ],
+      "notes": [
+        "Le impostazioni provengono dalla prova RTINGS della BRAVIA 8 in HDR Game, e non dal profilo Professional. Su PS5 controlla anche la regolazione automatica HDR Sony e il firmware."
+      ]
+    },
+    "sony-bravia-8-ii": {
+      "reference_code": "K-55XR8M2",
+      "tested_hardware": "Sony BRAVIA 8 II · prova RTINGS HDR Game (codice USA K-55XR80M2)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/sony/bravia-8-ii-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Gioco (Game)",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "HDR Tone Mapping",
+          "value": "Gradazione preferita (Gradation Preferred)",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Luminosità",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Manca un valore nella prova HDR Game consultata"
+        },
+        {
+          "name": "Contrasto",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Manca un valore nella prova HDR Game consultata"
+        },
+        {
+          "name": "Temperatura colore",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Manca un valore nella prova HDR Game consultata"
+        },
+        {
+          "name": "Nitidezza",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Manca un valore nella prova HDR Game consultata"
+        }
+      ],
+      "notes": [
+        "RTINGS ha misurato HDR Game della BRAVIA 8 II con Gradation Preferred; Brightness Preferred risulta più luminoso ma meno fedele. Il testo di prova non indica i valori numerici dei restanti menu HDR."
+      ]
+    },
+    "sony-a80l": {
+      "reference_code": "XR-55A80L",
+      "tested_hardware": "Sony A80L · prova RTINGS HDR Game (metodologia precedente)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/sony/a80l-a80cl-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Gioco (Game)",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Luminosità",
+          "value": "Massimo (Max)",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "HDR Tone Mapping",
+          "value": "Gradazione preferita (Gradation Preferred)",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Luminosità di picco",
+          "value": "Alta (High)",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Contrasto",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Manca un valore nella prova HDR Game consultata"
+        },
+        {
+          "name": "Temperatura colore",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Manca un valore nella prova HDR Game consultata"
+        },
+        {
+          "name": "Nitidezza",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Manca un valore nella prova HDR Game consultata"
+        }
+      ],
+      "notes": [
+        "Il test RTINGS della A80L utilizza una metodologia precedente: nelle impostazioni HDR Game citate non vengono forniti Contrasto 90 o Expert 2, presenti in un'altra modalità di immagine. Non importarli di nascosto."
+      ]
+    },
+    "panasonic-z95a": {
+      "reference_code": "TV-55Z95AEG",
+      "tested_hardware": "Panasonic Z95A · prova RTINGS HDR Game su TV-65Z95AP (codice USA)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/panasonic/z95a-oled"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "True Game",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Sensore ambientale",
+          "value": "Spento (Off)",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Livello luminanza",
+          "value": "100",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Contrasto",
+          "value": "100",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Luminosità di picco",
+          "value": "Alta (High)",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Gamma",
+          "value": "2.2",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Tipo EOTF",
+          "value": "Auto",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "HDR Tone Map",
+          "value": "Clipping",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Soglia clipping",
+          "value": "2000",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Temperatura colore",
+          "value": "Caldo 2 (Warm 2)",
+          "status": "Test HDR",
+          "source": "RTINGS · HDR Game"
+        },
+        {
+          "name": "Luminosità",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Manca un valore nella prova HDR Game consultata"
+        },
+        {
+          "name": "Nitidezza",
+          "value": "Non verificato",
+          "status": "Da verificare",
+          "source": "Manca un valore nella prova HDR Game consultata"
+        }
+      ],
+      "notes": [
+        "RTINGS ha eseguito la prova HDR Game sul modello Z95A da 65″ statunitense: i 2000 rappresentano la soglia del controllo Clipping, NON i nit di picco misurati né il valore Max Brightness di GTA VI."
+      ]
     }
   }
 }
