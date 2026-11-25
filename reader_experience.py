@@ -193,7 +193,8 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
                                 'guide-e-tutorial/soldi-2500-three-sheets-liquor/',
                                 'guide-e-tutorial/soldi-facili-capitolo-1/',
                                 'guide-e-tutorial/scansionare-veicoli/',
-                                'guide-e-tutorial/glitch-prima-persona-ps5/')
+                                'guide-e-tutorial/glitch-prima-persona-ps5/',
+                                'guide-e-tutorial/meditazione-capitolo-1/')
         if not any('<link rel="canonical" href="'+BASE+path+'"' in page
                    for path in reviewed_video_paths):
             raise ValueError('Unexpected video player outside reviewed guides')

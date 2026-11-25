@@ -25,6 +25,7 @@ AUTHORS = {
     "soldi-facili-capitolo-1": {"tgg"},
     "prima-persona-glitch-ps5": {"oneboyler"},
     "waink-tutorial": {WAINK_CREATOR.casefold()},
+    "meditazione-capitolo-1": {"maka91productions"},
 }
 
 
@@ -87,7 +88,9 @@ def probe(item, opener=None):
 
 
 def main():
-    items = [*records(load()), {"key": "waink-tutorial", "video_id": WAINK_VIDEO_ID}]
+    data=load()
+    items = [*records(data), {"key": "waink-tutorial", "video_id": WAINK_VIDEO_ID},
+             {"key":"meditazione-capitolo-1","video_id":data["guides"]["meditazione-capitolo-1"]["youtube_id"]}]
     rows = [{"key": item["key"], "video_id": item["video_id"],
              "status": probe(item), "playback_verified": False,
              "reuse_rights_verified": False} for item in items]

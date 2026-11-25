@@ -111,7 +111,7 @@
       progress.value = done;
       unlock.textContent = beforeFinal === 17
         ? 'Le 17 sessioni precedenti risultano segnate nella checklist: verifica che il simbolo finale di Ascent Mountain sia disponibile nel gioco.'
-        : 'Per sbloccare Ascent Mountain, completa tutte le altre 17 meditazioni nel gioco. Il conteggio del sito è soltanto un promemoria.';
+        : 'Per Ascent Mountain, verifica le meditazioni precedenti nel gioco, inclusa la lezione iniziale o alternativa. Le spunte sono soltanto un promemoria.';
       if (persist) {
         try {
           localStorage.setItem(KEY, JSON.stringify(completed));

@@ -64,6 +64,20 @@
         "at": 266,
         "note": "La cronologia TGG associa il minuto 4:26 alla spiegazione dei tracker da Moses. È un riferimento sui tracker, non una prova dei comandi DualSense."
       }
+    },
+    "meditazione-capitolo-1": {
+      "1": {
+        "kind": "video",
+        "ref": "meditazione-capitolo-1",
+        "at": 22,
+        "note": "Al minuto 0:22 il creator indica la sessione a casa di Jason. La prima occasione non risulta necessaria al trofeo nelle segnalazioni più recenti."
+      },
+      "5": {
+        "kind": "video",
+        "ref": "meditazione-capitolo-1",
+        "at": 377,
+        "note": "Il capitolo 6:17 del filmato è dedicato ad Ascent Mountain. Non dimostra che il nostro team abbia ottenuto il trofeo."
+      }
     }
   }
 }

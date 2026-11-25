@@ -322,6 +322,14 @@ jobs:
                           assert text.index('class="waink-video-intro"') < text.index('class="v-operation-brief"')
                           assert 'class="v-guide-prep"' not in text
                           assert '<iframe' not in text
+                      if path == 'guide-e-tutorial/meditazione-capitolo-1/':
+                          assert text.count('data-step-video-id="WZ9EM_i_W38"') == 2
+                          assert text.count('data-step-video-seconds="22"') == 1
+                          assert text.count('data-step-video-seconds="377"') == 1
+                          assert text.count('data-meditation-video-link') == 10
+                          assert 'Learn to Meditate Together' in text
+                          assert 'step-video-opt-in-v1.js?v=' in text
+                          assert '<iframe' not in text
                       if path == 'guide-e-tutorial/glitch-prima-persona-ps5/':
                           assert text.count('data-step-video-id="CJi2DWXxsoQ"') == 1
                           assert text.count('data-step-video-seconds="0"') == 1

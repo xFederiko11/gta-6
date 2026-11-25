@@ -20,7 +20,11 @@ def validated(data):
         raise ValueError("Must have precisely ten distinct meditation locations")
     if data.get("total_locations") != 10 or data.get("total_meditations") != 18 or data.get("target_100") != 15:
         raise ValueError("Meditation count must be 10 places / 18 sessions / 15 required for 100%")
-    seen, sessions = set(), []
+    video=data.get("video",{})
+    if (video.get("id")!="WZ9EM_i_W38" or video.get("creator")!="Maka91Productions"
+            or video.get("url")!="https://www.youtube.com/watch?v=WZ9EM_i_W38"):
+        raise ValueError("Unreviewed meditation video")
+    seen, sessions, timestamps = set(), [], set()
     for index, spot in enumerate(spots):
         if not isinstance(spot, dict):
             raise ValueError("Invalid location")
@@ -29,6 +33,10 @@ def validated(data):
         if not isinstance(key,str) or not re.fullmatch(r"[a-z0-9-]{3,48}", key) or key in seen:
             raise ValueError("Duplicate or invalid location")
         seen.add(key)
+        second=spot.get("video_second")
+        if type(second) is not int or not 0<=second<=600 or second in timestamps:
+            raise ValueError("Invalid location video timestamp")
+        timestamps.add(second)
         expected = ["one"] if index == 0 else ["final"] if index == 9 else ["jason", "lucia"]
         if modes != expected:
             raise ValueError("Unexpected character/session counts for "+key)
@@ -61,7 +69,7 @@ def render(data=None):
         '<div class="v-meditation-stats" aria-live="polite">',
         '<div><strong data-meditation-summary>0 / 18</strong><small>sessioni segnate</small></div>',
         '<div><strong data-meditation-100>0 / 15</strong><small>obiettivo 100%</small></div>',
-        '<div><strong data-meditation-house>Da fare</strong><small>balcone del Capitolo 1</small></div>',
+        '<div><strong data-meditation-house>Da fare</strong><small>lezione iniziale o alternativa</small></div>',
         '</div>',
         '<progress max="18" value="0" data-meditation-progress aria-label="Meditazioni confermate nella checklist"></progress>',
         '<p class="v-meditation-save-note" data-meditation-save-status>La tua selezione viene conservata solo in questo browser, se lo consenti. Non sincronizza la PS5.</p>',
@@ -70,7 +78,7 @@ def render(data=None):
     for number,spot in enumerate(data["spots"],1):
         name,region,loc = (h(spot[k],quote=True) for k in ("name","region","landmark"))
         key=spot["id"]
-        status=' <span class="v-meditation-missable">MANCABILE · CAPITOLO 1</span>' if number==1 else (
+        status=' <span class="v-meditation-missable">PRIMA OCCASIONE · CAPITOLO 1</span>' if number==1 else (
             ' <span class="v-meditation-final">ULTIMA MEDITAZIONE</span>' if number==10 else '')
         parts.append(
             '<li class="v-meditation-spot" id="meditazione-luogo-'+key+'">'
@@ -81,12 +89,18 @@ def render(data=None):
         for mode in spot["modes"]:
             identity=key+":"+mode
             label=("Jason" if mode=="jason" else "Lucia" if mode=="lucia" else
-                   "Sessione iniziale (unica)" if mode=="one" else "Sessione finale (unica)")
+                   "Lezione iniziale o alternativa" if mode=="one" else "Sessione finale (unica)")
             eid="mt-"+key+"-"+mode
             parts.append('<label class="v-meditation-option" for="'+eid+'">'
                          '<input type="checkbox" id="'+eid+'" data-meditation-check="'+h(identity)+'" '
                          'autocomplete="off"><span>'+h(label)+'</span></label>')
         parts.append('</div>')
+        second=spot["video_second"]
+        stamp=f"{second//60}:{second%60:02d}"
+        parts.append('<p class="v-meditation-video"><a data-meditation-video-link href="'+
+                     h(data["video"]["url"]+"&t="+str(second)+"s",quote=True)+
+                     '" target="_blank" rel="noopener noreferrer">▶ Guarda il luogo · '+stamp+
+                     ' · '+h(data["video"]["creator"])+' ↗</a></p>')
         if number in (1,10):
             parts.append('<p class="v-meditation-note">'+h(spot.get("warning",""))+'</p>')
         parts.append('</li>')
@@ -101,7 +115,8 @@ def render(data=None):
         '</div>',
         '<p class="v-meditation-source">Riferimenti: '
         '<a href="'+h(data["trophy_source"],quote=True)+'" target="_blank" rel="noopener noreferrer">PowerPyx – Trophy Guide</a>. '
-        'Posizioni e quantità delle sessioni sono basate sulle fonti, non su una run completata dal nostro team.</p>',
+        'Posizioni e quantità delle sessioni sono basate sulle fonti, non su una run completata dal nostro team. '
+        'I minuti dei video provengono dai capitoli dichiarati dal creator; riproduzione e singoli fotogrammi non verificati indipendentemente.</p>',
         '</section>'
     ])
     return "".join(parts)

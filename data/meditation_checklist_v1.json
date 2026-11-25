@@ -1,13 +1,13 @@
 {
   "schema": "gta6-meditation-tracker-v1",
-  "checked_date": "2026-11-20",
+  "checked_date": "2026-11-25",
   "source": "https://www.powerpyx.com/gta-6-all-meditation-spot-locations/",
   "corroboration": "https://www.pushsquare.com/guides/gta-6-meditation-locations",
   "trophy_source": "https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/",
   "total_locations": 10,
   "total_meditations": 18,
   "target_100": 15,
-  "not_confirmed": "Il requisito della meditazione nel Capitolo 1 per Positive Mental Attitude non è ancora confermato. Il contatore del sito non certifica automaticamente l’ottenimento dei trofei.",
+  "not_confirmed": "PowerPyx (versione più recente indicizzata) e Maka91Productions indicano che la prima occasione può essere sostituita da una lezione successiva; la precedente versione della guida lasciava il requisito incerto. Non abbiamo ripetuto la prova. Il contatore del sito non certifica i trofei.",
   "spots": [
     {
       "id": "jasons-house",
@@ -18,7 +18,8 @@
         "one"
       ],
       "phase": "chapter1",
-      "warning": "Mancabile nel Capitolo 1: possibile conseguenza sul trofeo ancora non risolta."
+      "warning": "Prima occasione del Capitolo 1: falla se disponibile. Se hai saltato la sessione a casa, dopo Coffee Break cerca l'attività alternativa Learn to Meditate Together segnalata da PowerPyx; completa la lezione per sbloccare gli altri luoghi.",
+      "video_second": 22
     },
     {
       "id": "smooth-sand",
@@ -28,7 +29,8 @@
       "modes": [
         "jason",
         "lucia"
-      ]
+      ],
+      "video_second": 166
     },
     {
       "id": "swamp",
@@ -38,7 +40,8 @@
       "modes": [
         "jason",
         "lucia"
-      ]
+      ],
+      "video_second": 74
     },
     {
       "id": "worn-stone",
@@ -48,7 +51,8 @@
       "modes": [
         "jason",
         "lucia"
-      ]
+      ],
+      "video_second": 135
     },
     {
       "id": "red-rocks",
@@ -58,7 +62,8 @@
       "modes": [
         "jason",
         "lucia"
-      ]
+      ],
+      "video_second": 210
     },
     {
       "id": "water-wheel",
@@ -68,7 +73,8 @@
       "modes": [
         "jason",
         "lucia"
-      ]
+      ],
+      "video_second": 240
     },
     {
       "id": "jutting-cliff",
@@ -78,7 +84,8 @@
       "modes": [
         "jason",
         "lucia"
-      ]
+      ],
+      "video_second": 280
     },
     {
       "id": "waterfall",
@@ -88,7 +95,8 @@
       "modes": [
         "jason",
         "lucia"
-      ]
+      ],
+      "video_second": 315
     },
     {
       "id": "seaside",
@@ -98,7 +106,8 @@
       "modes": [
         "jason",
         "lucia"
-      ]
+      ],
+      "video_second": 345
     },
     {
       "id": "ascent-mountain",
@@ -109,7 +118,13 @@
         "final"
       ],
       "phase": "final",
-      "warning": "Compare soltanto alla fine. Per il metodo della sessione conclusiva segui il prompt in gioco; il conteggio finale è di una meditazione."
+      "warning": "Compare soltanto alla fine. Per il metodo della sessione conclusiva segui il prompt in gioco; il conteggio finale è di una meditazione.",
+      "video_second": 377
     }
-  ]
+  ],
+  "video": {
+    "id": "WZ9EM_i_W38",
+    "creator": "Maka91Productions",
+    "url": "https://www.youtube.com/watch?v=WZ9EM_i_W38"
+  }
 }
