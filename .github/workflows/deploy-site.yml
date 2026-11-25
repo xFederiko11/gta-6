@@ -62,6 +62,7 @@ jobs:
           node --check site/assets/visual-v2.js
           node --check site/assets/reader-theme.js
           node --check site/assets/guide-flow-v1.js
+          node --check site/assets/step-video-opt-in-v1.js
           node --check site/assets/vehicle-finder-v1.js
           node --check site/assets/collectible-beginner-v1.js
           node --check site/assets/community-social-v1.js
@@ -280,6 +281,14 @@ jobs:
                           assert 'data-pi-submit disabled' in text
                           assert 'photo-intake-v4.js?v=' in text
                           assert 'Non è un upload dal sito' in text
+                      if path == 'salvare-auto/':
+                          assert text.count('data-step-video-id="R0GdEkPZSvM"') == 2
+                          assert text.count('data-step-video-open hidden') == 2
+                          assert text.count('data-step-video-seconds="266"') == 1
+                          assert text.count('data-step-video-seconds="675"') == 1
+                          assert 'step-video-opt-in-v1.js?v=' in text
+                          assert 'step-video-opt-in-v1.css?v=' in text
+                          assert '<iframe' not in text
                       if path in ('salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/'):
                           assert 'id="consigli"' in text and 'Fonti dei consigli' in text
                       print('PUBLIC_ADAPTIVE_READER_DEPLOY_OK',base+path)
