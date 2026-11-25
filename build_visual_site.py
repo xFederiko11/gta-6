@@ -224,6 +224,9 @@ def media_src(key,width=960):
     A third-party URL can expire, rate-limit, or reject mobile browsers.
     Instead, readers get an attributed, actionable source link.
     """
+    # A correct context or a cached derivative is not a reuse permission.
+    if MEDIA[key].get('kind') != 'promotional':
+        return None
     local=LOCAL_MEDIA.get(key,{})
     candidate=local.get(str(width))
     if candidate and candidate.startswith('assets/visual/') and Path('site',candidate).is_file():

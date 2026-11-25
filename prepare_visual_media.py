@@ -1,6 +1,7 @@
-"""Prepare only explicitly curated image URLs. No crawling or article duplication.
-Produces 480/960px WebP assets for stable, fast public pages. On failure the
-renderer keeps the attributed original URL; it never substitutes synthetic art.
+"""Prepare the existing official promotional assets, not publisher screenshots.
+Legacy editorial screenshot URLs are source references only: an attribution
+or a correct step match does not establish redistribution permission.
+Community photos still use the separate existing approved-screenshots ledger.
 """
 from concurrent.futures import ThreadPoolExecutor
 from io import BytesIO
@@ -11,7 +12,7 @@ from urllib.parse import urlsplit
 from urllib.request import Request,urlopen
 from PIL import Image,ImageOps
 
-HOSTS={'www.rockstargames.com','insider-gaming.com','images.pushsquare.com','www.powerpyx.com'}
+HOSTS={'www.rockstargames.com'}
 LIMIT=6_000_000
 Image.MAX_IMAGE_PIXELS=25_000_000
 DEST=Path('site/assets/visual')
@@ -23,8 +24,16 @@ def allowed(url):
 
 def prepare(pair):
     key,entry=pair
-    if not re.fullmatch(r'[a-z0-9-]+',key) or not allowed(entry['url']):
-        raise ValueError('Unsafe image manifest')
+    if not re.fullmatch(r'[a-z0-9-]+',key):
+        raise ValueError('Unsafe image manifest key')
+    if entry.get('kind') == 'screenshot':
+        # Purge only our generated derivatives, not the reference or rights ledger.
+        for width in (480,960):
+            (DEST/f'{key}-{width}.webp').unlink(missing_ok=True)
+        print('MEDIA_SOURCE_LINK_ONLY',key)
+        return key,None
+    if entry.get('kind') != 'promotional' or not allowed(entry['url']):
+        raise ValueError('Unsafe promotional image manifest')
     try:
         request=Request(entry['url'],headers={'User-Agent':'GTA6Italia/visual-guide-image-build'})
         with urlopen(request,timeout=18) as response:

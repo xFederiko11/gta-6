@@ -8,6 +8,7 @@ commit histories. Keep genuine walkthrough screenshots at their numbered steps.
 from __future__ import annotations
 
 import argparse
+import json
 from html import escape
 from pathlib import Path
 import re
@@ -122,6 +123,13 @@ def apply(root: Path = ROOT) -> dict:
 
 
 def verify(root: Path = ROOT) -> None:
+    # These ten legacy references have no documented redistribution permission.
+    # Fail before upload even if a stale build cache copied an unused derivative.
+    manifest=json.loads(Path("data/visual_media.json").read_text(encoding="utf-8"))["images"]
+    screenshot_keys={key for key,row in manifest.items() if row["kind"]=="screenshot"}
+    forbidden={f"assets/visual/{key}-{width}.webp" for key in screenshot_keys for width in (480,960)}
+    if any((root / path).is_file() for path in forbidden):
+        raise ValueError("Uncleared editorial screenshot derivative in public artifact")
     if not (root / "index.html").is_file():
         raise ValueError("Missing public homepage")
     for private in PRIVATE_FILES:
@@ -136,6 +144,8 @@ def verify(root: Path = ROOT) -> None:
         rel = page.relative_to(root).as_posix()
         raw = page.read_text(encoding="utf-8")
         if page.suffix.lower() in {".html", ".xml"}:
+            if any(path in raw for path in forbidden):
+                raise ValueError("Uncleared editorial screenshot reference in " + rel)
             for private in PRIVATE_REFERENCES:
                 if private in raw:
                     raise ValueError("Reader-facing reference to internal material in " + rel + ": " + private)
