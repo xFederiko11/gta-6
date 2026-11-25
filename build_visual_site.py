@@ -27,6 +27,7 @@ from platinum_roadmap_v1 import render as render_platinum_roadmap, ROADMAP_PATH
 from guide_step_references_v1 import render as render_step_evidence, validate as validate_step_evidence
 from step_image_sources_v1 import load as load_step_photo_sources, validate as validate_step_photo_sources, render as render_step_photo_source
 from first_car_steps_v1 import validate as validate_first_car, render as render_first_car
+from creator_video_hub_v1 import load as load_creator_videos, records as reviewed_creator_videos, render as render_creator_videos, PATH as CREATOR_VIDEO_PATH
 from chapter1_money_steps_v1 import validate as validate_money, render as render_money
 from rockstar_gallery_v1 import render as render_rockstar_gallery, validate as validate_rockstar_gallery, PATH as ROCKSTAR_GALLERY_PATH
 from vehicle_catalog_v1 import (load as load_vehicle_catalog, validate as validate_vehicles,
@@ -90,7 +91,7 @@ def header(path):
     primary=[('Home',''),('Guide','guide-e-tutorial/'),('Trofei','trofei/'),('Scoperte','scoperte/')]
     secondary=[('Soldi facili','soldi-facili/'),('Cerca un veicolo','veicoli/'),
                ('Salvare auto','salvare-auto/'),('Collezionabili','collezionabili/percorsi/'),
-               ('Mappe','mappe-guide/'),('HDR OLED','hdr-oled/'),('Articoli','articoli/'),('Immagini ufficiali','immagini-ufficiali/'),('Fonti e metodo','fonti/')]
+               ('Mappe','mappe-guide/'),('HDR OLED','hdr-oled/'),('Video tutorial','video-tutorial/'),('Articoli','articoli/'),('Immagini ufficiali','immagini-ufficiali/'),('Fonti e metodo','fonti/')]
     def link(label,target):
         current=' aria-current="page"' if path==target else ''
         return f'<a href="{url(target)}"{current}>{e(label)}</a>'
@@ -109,7 +110,7 @@ def header(path):
               'di missioni, luoghi e ricompense.</p></div></div>') if path else ''))
 
 def footer():
-    links=[('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Invia foto','screenshot-ps5/invia/'),('Mappe e luoghi','mappe-guide/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Immagini Rockstar','immagini-ufficiali/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
+    links=[('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Invia foto','screenshot-ps5/invia/'),('Mappe e luoghi','mappe-guide/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Immagini Rockstar','immagini-ufficiali/'),('Video dei creator','video-tutorial/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
     return ('<footer class="v-footer"><div class="wrap"><div class="v-footer-grid"><div>'+brand()+
             '<p>Guide indipendenti per PS5 e PS5 Pro. Sintesi originali, schermate attribuite e avvisi spoiler. Non affiliato a Rockstar Games.</p></div><nav class="v-footer-links" aria-label="Link utili">'+
             ''.join(f'<a href="{url(p)}">{e(t)}</a>' for t,p in links)+
@@ -134,6 +135,14 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
     page=page.replace('<body>',f'<body data-design-version="{DESIGN_VERSION}">',1)
     page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/visual-v2.css")}?v={ASSET_VERSION}"><meta name="color-scheme" content="light"></head>',1)
     page=page.replace('</body>',f'<script src="{url("assets/visual-v2.js")}?v={ASSET_VERSION}" defer></script></body>',1)
+    if path in ('', CREATOR_VIDEO_PATH):
+        css='creator-video-hub-v1.css'
+        version=hashlib.sha256(Path('site/assets',css).read_bytes()).hexdigest()[:12]
+        page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
+    if path == CREATOR_VIDEO_PATH:
+        js='creator-video-hub-v1.js'
+        version=hashlib.sha256(Path('site/assets',js).read_bytes()).hexdigest()[:12]
+        page=page.replace('</body>',f'<script src="{url("assets/"+js)}?v={version}" defer></script></body>',1)
     if path == '' or path.startswith(('articoli/','media/rockstar/')):
         css='editorial-articles.css'
         version=hashlib.sha256(Path('site/assets',css).read_bytes()).hexdigest()[:12]
@@ -434,7 +443,13 @@ def categories():
 
 def home(guides):
     """A photographic route into the existing guides, trophies and discoveries."""
-    return cinematic_site.home(guides,url)
+    return cinematic_site.home(guides,url)+(
+        '<section class="cv-home-link" aria-labelledby="cv-home-title">'
+        '<h2 id="cv-home-title">🎬 Video dei creator, istruzioni italiane</h2>'
+        '<p>Quattro video originali selezionati per auto, soldi e tecniche GTA VI. '
+        'Scegli il minuto utile e apri la guida passo per passo: non serve cercare nel filmato.</p>'
+        '<a href="'+url(CREATOR_VIDEO_PATH)+'">Scopri i video tutorial selezionati →</a>'
+        '</section>')
 
 
 def directory(guides,kind='all'):
@@ -446,6 +461,9 @@ def directory(guides,kind='all'):
     title,desc,path=config[kind]
     selected=guides if kind=='all' else [g for g in guides if g['category']==kind or (kind=='auto' and g['category']=='garage')]
     body=legacy.crumbs([(title,path)])+f'<section class="v-directory-head"><span class="eyebrow">GTA 6 · GUIDE OPERATIVE</span><h1>{e(title)}</h1><p>{e(desc)}</p></section>'
+    if kind=='all':
+        body+=('<p class="v-guide-video-crosslink">🎬 Preferisci vedere il passaggio? '
+               '<a href="'+url(CREATOR_VIDEO_PATH)+'">Vai ai video tutorial dei creator →</a></p>')
     if kind=='auto':
         body+=('<aside class="v-cash-safety"><strong>🚘 Cerchi un modello preciso?</strong>'
                '<p>Apri il <a href="'+url('veicoli/')+'">catalogo veicoli GTA VI</a>: '
@@ -950,6 +968,20 @@ def main():
                             'name':moses_title,'url':url(MOSES_JOBS_PATH),
                             'description':moses_desc,'inLanguage':'it-IT'}))
     new_paths.append(MOSES_JOBS_PATH)
+    # Curated original-video portal: one distinct YouTube source per item,
+    # with Italian article and exact sourced chapters. No copied footage.
+    creator_items=reviewed_creator_videos(load_creator_videos())
+    creator_title='Video tutorial GTA VI: creator e guide italiane PS5'
+    creator_desc=('Video tutorial GTA VI selezionati: TGG e IGN per auto e soldi, '
+                  'altri riferimenti della community con minuti precisi e guide italiane.')
+    creator_schema={'@context':'https://schema.org','@type':'CollectionPage',
+                    'name':creator_title,'description':creator_desc,
+                    'url':url(CREATOR_VIDEO_PATH),'inLanguage':'it-IT',
+                    'numberOfItems':len(creator_items)}
+    legacy.write(CREATOR_VIDEO_PATH+'index.html',layout(
+        creator_title,creator_desc,CREATOR_VIDEO_PATH,
+        render_creator_videos(creator_items),'guide',structured=creator_schema))
+    new_paths.append(CREATOR_VIDEO_PATH)
     photo_hub,photo_audit=render_photo_hub(
         guides,VISUAL_REQUESTS,MEDIA,
         json.loads(Path('data/guide_extras.json').read_text(encoding='utf-8'))['guides'],media_src,
