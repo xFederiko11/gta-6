@@ -53,18 +53,18 @@ def build(write, layout, url, crumbs):
     records = load()
     paths = [PATH]
     index = (crumbs([('Patch GTA VI', PATH)]) +
-             '<section class="v-intro"><h1>Patch e aggiornamenti GTA VI</h1>'
+             '<div class="ed-article"><section class="ed-intro"><h1>Patch e aggiornamenti GTA VI</h1>'
              '<p>Archivio cronologico delle correzioni confermate da Rockstar Games. '
              'Le versioni riportate da fonti indipendenti sono distinte dalle note ufficiali. '
              'Un aggiornamento non prova che ogni glitch o problema sia stato risolto.</p></section>'
-             '<section class="v-section"><h2>Ultimi aggiornamenti verificati</h2><ul>')
+             '<section class="ed-section"><h2>Ultimi aggiornamenti verificati</h2><ul>')
     for row in records:
         path = PATH+row['date']+'/'
         title = 'Patch GTA VI del '+display_date(row['date'])
         desc = f"{len(row['fixes'])} correzioni ufficiali di GTA VI del {display_date(row['date'])}: riepilogo in italiano, piattaforme e fonte Rockstar."
         index += ('<li><a href="'+url(path)+'">'+e(title)+'</a> · '+str(len(row['fixes']))+' correzioni · Ufficiale</li>')
         body = (crumbs([('Patch GTA VI', PATH), (display_date(row['date']), path)]) +
-                '<article class="ed-article"><header class="v-intro"><span class="ed-kicker">AGGIORNAMENTO · UFFICIALE</span>'
+                '<article class="ed-article"><header class="ed-intro" data-patch-intro><span class="ed-kicker">AGGIORNAMENTO · UFFICIALE</span>'
                 '<h1>'+e(title)+'</h1><p>Data delle note Rockstar: <time datetime="'+row['date']+'">'+display_date(row['date'])+
                 '</time> · Fonte consultata il '+display_date(row['reviewed'])+'</p><p>'+
                 e('Piattaforme: '+', '.join(row['platforms']))+
@@ -89,7 +89,7 @@ def build(write, layout, url, crumbs):
                   'citation':[row['official_source']]+[s['url'] for s in row['version_sources']]}
         write(path+'index.html', layout(title, desc, path, body, 'patch', structured=schema))
         paths.append(path)
-    index += '</ul></section>'
+    index += '</ul></section></div>'
     title = 'Patch GTA VI: tutte le correzioni ufficiali | GTA 6 Italia'
     write(PATH+'index.html', layout(title, 'Archivio delle patch GTA VI per console, con date e fonti ufficiali Rockstar Games.', PATH, index, 'patch',
                                    structured={'@context':'https://schema.org','@type':'CollectionPage','name':title,'url':url(PATH),'inLanguage':'it-IT'}))

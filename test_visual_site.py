@@ -40,6 +40,8 @@ class VisualSiteTests(unittest.TestCase):
             self.assertEqual(text.count('data-patch-fix'),len(row['fixes']))
             self.assertIn(row['official_source'],text)
             self.assertIn('id="correzioni-ufficiali"',text)
+            self.assertIn('class="ed-intro" data-patch-intro',text)
+            self.assertIn('editorial-articles.css?v=',text)
             self.assertIn('data-article-cover="shared-social"',text)
             cover=next(a['src'] for t,a in tags.tags if t=='img' and a.get('width')=='1200' and a.get('height')=='630')
             self.assertIn(cover,[a.get('content') for t,a in tags.tags if t=='meta' and a.get('property')=='og:image'])

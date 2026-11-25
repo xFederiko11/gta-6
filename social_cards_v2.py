@@ -226,6 +226,7 @@ def subject_for_path(relative):
     if "studiare-animali" in relative: return "animal"
     if "meditazione" in relative: return "meditation"
     if "hdr" in relative: return "display"
+    if relative.startswith("patch/"): return "checklist"
     if "100-percento" in relative or "sfide" in relative: return "checklist"
     if "collezionabili" in relative or "mappe" in relative: return "map"
     if relative.startswith("trofei/"): return "trophy"
@@ -320,6 +321,7 @@ def render_card(title,relative, art=None):
     draw.text((78,75),"GTA VI  /  ITALIA",font=_font(33),fill=accent)
     suffix=("TROFEI / PLATINO" if relative.startswith("trofei/") else
             "GUIDE PS5" if relative.startswith("guide-e-tutorial/") else
+            "PATCH PS5 / XBOX" if relative.startswith("patch/") else
             "MAPPE & COLLEZIONABILI" if "collezionabili" in relative else
             "PS5 / PS5 PRO")
     draw.text((80,150),suffix,font=_font(20),fill=(190,202,221))
