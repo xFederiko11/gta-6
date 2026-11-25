@@ -26,6 +26,28 @@ def parse(path):
     text=path.read_text(encoding='utf-8'); tags=Tags(); tags.feed(text); return text,tags
 
 class VisualSiteTests(unittest.TestCase):
+
+    def test_official_patch_archive(self):
+        from patch_archive_v1 import load, PATH
+        records=load()
+        index=(ROOT/PATH/'index.html').read_text(encoding='utf-8')
+        home=(ROOT/'index.html').read_text(encoding='utf-8')
+        self.assertIn(BASE+PATH,home)
+        for row in records:
+            path=PATH+row['date']+'/'
+            self.assertIn(BASE+path,index)
+            text,tags=parse(ROOT/path/'index.html')
+            self.assertEqual(text.count('data-patch-fix'),len(row['fixes']))
+            self.assertIn(row['official_source'],text)
+            self.assertIn('id="correzioni-ufficiali"',text)
+            self.assertIn('data-article-cover="shared-social"',text)
+            cover=next(a['src'] for t,a in tags.tags if t=='img' and a.get('width')=='1200' and a.get('height')=='630')
+            self.assertIn(cover,[a.get('content') for t,a in tags.tags if t=='meta' and a.get('property')=='og:image'])
+            self.assertIn(cover,[a.get('content') for t,a in tags.tags if t=='meta' and a.get('name')=='twitter:image'])
+            if row['version_reports']:
+                self.assertIn('id="versioni-segnalate"',text)
+                self.assertIn('fonti indipendenti',text)
+
     def test_design_release_marker(self):
         release=json.loads((ROOT/'design-version.json').read_text())
         self.assertEqual(release['version'],'visual-v2-20261120')
