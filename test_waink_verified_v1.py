@@ -57,6 +57,8 @@ class WainkVerifiedGuide(unittest.TestCase):
             self.assertIn('data-waink-diagram="'+str(n)+'"',section)
             self.assertIn('assets/waink-guide/step-'+str(n)+'.svg',section)
             self.assertIn('non screenshot',section)
+            self.assertIn('loading="eager"',section)
+            self.assertNotIn('loading="lazy"',section.split('data-waink-diagram=',1)[1].split('</figure>',1)[0])
             self.assertTrue((ROOT/'assets/waink-guide'/('step-'+str(n)+'.svg')).is_file())
         self.assertIn("Schermate reali WAiNK",html)
         step=html.split('id="passaggio-4"',1)[1].split('id="passaggio-5"',1)[0]

@@ -88,3 +88,18 @@ body:has(.waink-video-intro) .v-tutorial .waink-instruction-art{margin:0 10px 9p
 .waink-instruction-art img{display:block;width:100%;height:auto;aspect-ratio:640/220;object-fit:contain;border-radius:10px;background:#131a29}
 .waink-instruction-art figcaption{margin:4px 1px 0;font-size:.68rem;color:var(--r-muted);line-height:1.4}
 .waink-instruction-art a{color:var(--r-cyan)}
+
+/* WAiNK: all five small local SVGs load immediately. Keep navigation out of
+   the way of the numbered instructions; no sticky brand over the content. */
+body:has(.waink-video-intro) .v-header{position:relative;top:auto}
+body:has(.waink-video-intro) .waink-main-player .v-step-video-note{padding:7px 10px;font-size:.7rem!important;line-height:1.4!important}
+body:has(.waink-video-intro) .waink-start{display:inline;padding:0;font-size:inherit;font-weight:800;text-align:left}
+body:has(.waink-video-intro) #procedura .v-step{scroll-margin-top:0}
+@media(max-width:760px){
+ body:has(.waink-video-intro) .v-operation-brief h2{margin-bottom:2px!important}
+ body:has(.waink-video-intro) .v-operation-brief dl>div{padding:2px 0}
+ body:has(.waink-video-intro) #procedura.v-tutorial .v-tutorial-head{padding:5px 9px}
+ body:has(.waink-video-intro) #procedura.v-tutorial .v-tutorial-head h2{font-size:1rem!important;margin:1px 0}
+ body:has(.waink-video-intro) #procedura.v-tutorial .gf-progress{padding:5px 9px!important}
+ body:has(.waink-video-intro) #procedura.v-tutorial .v-step-head p{line-height:1.45}
+}

@@ -24,10 +24,11 @@ def intro():
         '<span><strong>Video tutorial · come usare WAiNK</strong>'
         '<small>'+CREATOR+' · player originale YouTube</small></span></button>'
         '<div class="v-step-video-slot" data-step-video-slot aria-live="polite"></div>'
-        '<p class="v-step-video-note">Guida esterna dedicata allo scanner. '
-        '<a href="https://www.youtube.com/watch?v='+VIDEO_ID+'" target="_blank" rel="noopener noreferrer">Apri il video originale ↗</a>'
-        ' · <a href="'+SCREEN_SOURCE+'" target="_blank" rel="noopener noreferrer">Schermate reali WAiNK ↗</a></p>'
-        '</div><a class="waink-start" href="#procedura">Vai ai 5 passaggi illustrati ↓</a></section>'
+        '<p class="v-step-video-note">'
+        '<a href="https://www.youtube.com/watch?v='+VIDEO_ID+'" target="_blank" rel="noopener noreferrer">Video originale ↗</a>'
+        ' · <a href="'+SCREEN_SOURCE+'" target="_blank" rel="noopener noreferrer">Schermate reali WAiNK ↗</a>'
+        ' · <a class="waink-start" href="#procedura">5 passaggi ↓</a></p>'
+        '</div></section>'
     )
 
 
@@ -40,7 +41,7 @@ def step(index):
     # The external page has genuine UI reference screenshots; no copied bytes.
     out=('<figure class="waink-instruction-art" data-waink-diagram="'+str(n)+'">'
          '<img data-visual-kind="editorial-diagram" data-waink-illustration="'+str(n)+'" src="'+image+'" alt="'+escape(ALTS[index],quote=True)+'" width="640" height="220" '
-         'decoding="async"'+('' if index==0 else ' loading="lazy"')+'>'
+         'decoding="async" loading="eager">'
          '<figcaption>Schema originale GTA VI Italia · non screenshot · '
          '<a href="'+SOURCE+'" target="_blank" rel="noopener noreferrer">Fonte comandi ↗</a>')
     if index in (0,2):

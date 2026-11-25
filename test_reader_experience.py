@@ -409,13 +409,29 @@ def browser_qa():
                         assert page.locator('.waink-instruction-art img').count()==5
                         assert page.locator('#passaggio-1 .waink-instruction-art img').is_visible()
                         assert page.locator('#passaggio-1 .waink-instruction-art img').evaluate('(img)=>img.complete && img.naturalWidth>0')
+                        assert page.locator('.v-header').evaluate('(el)=>getComputedStyle(el).position')=='relative'
+                        page.evaluate('window.scrollTo(0,0)')
+                        page.wait_for_function('window.scrollY === 0')
                         intro=page.locator('.waink-main-player')
                         play=intro.locator('[data-step-video-open]')
                         assert play.is_visible()
                         assert intro.locator('iframe').count()==0
                         if width==390:
                             assert play.bounding_box()['y']<420,play.bounding_box()
+                            first=page.locator('#passaggio-1').bounding_box()
+                            diagram=page.locator('#passaggio-1 .waink-instruction-art img').bounding_box()
+                            assert first and first['y']<760,(first,diagram)
+                            assert diagram and diagram['y']<900,diagram
+                            print('WAINK_INITIAL_VIEWPORT',first['y'],diagram['y'],flush=True)
                             page.screenshot(path=str(out/'waink-mobile-first-screen.png'))
+                            page.locator('[data-theme-choice="light"]').click()
+                            page.evaluate('window.scrollTo(0,0)')
+                            page.wait_for_function('window.scrollY === 0')
+                            assert page.locator('html').get_attribute('data-theme')=='light'
+                            assert play.is_visible()
+                            assert page.locator('#passaggio-1 .waink-instruction-art img').is_visible()
+                            page.screenshot(path=str(out/'waink-mobile-first-screen-light.png'))
+                            page.locator('[data-theme-choice="dark"]').click()
                         play.click()
                         assert intro.locator('iframe').get_attribute('src')=='https://www.youtube-nocookie.com/embed/0RBe_fz67gs?start=0&rel=0'
                         play.click()
@@ -423,6 +439,13 @@ def browser_qa():
                         if width in (390,1440):
                             page.locator('[data-gf-all]').click()
                             assert page.locator('.v-step:visible').count()==5
+                            page.wait_for_function("""() => {
+                              const images = [...document.querySelectorAll('.waink-instruction-art img')];
+                              return images.length === 5 && images.every(i => i.complete && i.naturalWidth > 0);
+                            }""")
+                            page.evaluate('window.scrollTo(0,0)')
+                            page.wait_for_function('window.scrollY === 0')
+                            print('WAINK_ALL_IMAGES_LOADED',width,5,flush=True)
                             snap=page.screenshot(
                                 path=str(out/f'waink-full-article-{width}.png'),
                                 full_page=True,animations='disabled')
