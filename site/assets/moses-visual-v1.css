@@ -25,10 +25,9 @@ html:not(.guide-flow-on) .mo-viewbar {display:none!important}
 .mo-video-head>span {color:var(--r-muted);font-size:.81rem}
 .mo-visual {display:block;margin:3px 13px 8px;padding:12px;
   border-radius:11px;border:1px solid var(--r-line);background:var(--r-soft)}
-.mo-video-screen {position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;
-  background:#0e1017;border-radius:9px}
-.mo-video-screen iframe {position:absolute;inset:0;width:100%;height:100%;
-  border:0;display:block;max-width:100%}
+.mo-video-screen {width:100%}
+.mo-video-screen .v-step-video {margin:0}
+.mo-video-screen .v-step-video-slot:empty {display:none}
 .mo-visual figcaption {display:grid;gap:5px;line-height:1.45;padding:10px 1px 0;color:var(--r-text)}
 .mo-visual figcaption strong {font-size:.91rem;font-weight:850}
 .mo-visual figcaption>span {font-size:.82rem;color:var(--r-text)}

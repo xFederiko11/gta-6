@@ -124,20 +124,20 @@ def render_source_visual(i, name):
         'data-mo-chapter-seconds="'+str(seconds)+'">'
         '<div class="mo-video-head"><strong>🎬 Guarda il veicolo e il luogo nel gameplay</strong>'
         '<span>'+e(VISUAL_CUES[i-1])+'</span></div>'
-        '<div class="mo-video-screen"><iframe '
-        'src="https://www.youtube-nocookie.com/embed/'+e(IGN_VIDEO_ID)+
-        '?start='+str(seconds)+'&amp;rel=0" loading="lazy" '
-        'title="IGN: GTA VI, tutti i veicoli di Moses — '+e(name)+'" '
-        'referrerpolicy="strict-origin-when-cross-origin" '
-        'allow="autoplay; encrypted-media; picture-in-picture; fullscreen" '
-        'allowfullscreen></iframe></div>'
+        '<div class="mo-video-screen"><div class="v-step-video" data-step-video-id="'+e(IGN_VIDEO_ID)+'" '
+        'data-step-video-seconds="'+str(seconds)+'">'
+        '<button type="button" class="v-step-video-open" data-step-video-open hidden '
+        'aria-label="Guarda '+e(name)+' nel video IGN dal minuto '+e(stamp)+'">'
+        '<span class="v-step-video-play" aria-hidden="true">▶</span>'
+        '<span><strong>Guarda il passaggio nel video</strong>'
+        '<small>IGN · minuto '+e(stamp)+' · si carica solo dopo il clic</small></span></button>'
+        '<div class="v-step-video-slot" data-step-video-slot aria-live="polite"></div>'
+        '</div></div>'
         '<figcaption>'
-        '<strong>▶ Gameplay dal minuto '+e(stamp)+'</strong>'
-        '<span>Il video è impostato su questo minuto. Se parte dall’inizio, vai a '
-        +e(stamp)+' per vedere questa consegna.</span>'
+        '<span>Se il player non parte dal punto indicato, apri il video originale al minuto '+e(stamp)+'.</span>'
         '<small class="mo-photo-link"><a href="'+e(IGN_VIDEO)+'&amp;t='+str(seconds)+'s" '
         'target="_blank" rel="noopener noreferrer">'
-        'Fonte video: IGN su YouTube, player ufficiale incorporato ↗</a> · '
+        'Fonte video: IGN su YouTube · minuto '+e(stamp)+' ↗</a> · '
         '<a href="'+e(SOURCE)+'" target="_blank" rel="noopener noreferrer">'
         'Guarda anche le foto sulla guida PowerPyx ↗</a></small>'
         '<small>Non abbiamo copiato, ritagliato o ricaricato fotografie '
@@ -156,7 +156,7 @@ def render(base):
       '<h2>Prima di iniziare</h2><dl>',
       '<div><dt>Quando</dt><dd>Capitolo 2, dopo Daily Driver</dd></div>',
       '<div><dt>Dove</dt><dd>Consegne all’officina Moses, Port Gellhorn</dd></div>',
-      '<div><dt>Premio</dt><dd>Denaro per auto + bonus condizioni; alla fine Moses’ Sultan</dd></div>',
+      '<div><dt>Premio</dt><dd>Denaro per veicolo + bonus condizioni; veicolo speciale finale</dd></div>',
       '</dl></section>',
       '<p class="mo-story-warning" role="note"><strong>⚠️ SPOILER:</strong> mostriamo luoghi e azioni delle sei consegne. Il regalo finale resta nascosto finché non lo apri.</p>',
       '<p class="v-guide-urgent mo-trophy-note" role="note"><strong>🏆 Platino e 100%:</strong> ciascuna consegna conta come una delle 100 attività facoltative del completamento. Non occorre svolgere proprio questa serie perché le attività valide sono più di 100. ',

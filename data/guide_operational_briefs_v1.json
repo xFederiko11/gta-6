@@ -20,7 +20,7 @@
     "studiare-animali": {
       "when": "Binocolo disponibile",
       "where": "Vicino all'animale da osservare",
-      "goal": "Studia la specie e controlla il contatore."
+      "goal": "Studia 100 specie su 255; verifica in Progressi → Animali."
     },
     "70-sfide-100-percento": {
       "when": "Menu Progressi accessibile",
@@ -33,9 +33,9 @@
       "goal": "15 sessioni per il 100%; visita i luoghi per il trofeo. Prima occasione facoltativa secondo le fonti più recenti."
     },
     "viaggio-rapido-taxi": {
-      "when": "Dopo la prima missione",
-      "where": "Telefono → Contatti → Paradise Taxi",
-      "goal": "Seleziona una destinazione e salta il tragitto, pagando il costo indicato."
+      "when": "Dopo Gone Fishing (Capitolo 1)",
+      "where": "Telefono → Contatti → Tutti i contatti → Paradise Taxi",
+      "goal": "Salta il tragitto: 100 GTA$ in aggiunta alla tariffa della corsa."
     },
     "poligoni-concentrazione": {
       "when": "Poligoni accessibili",

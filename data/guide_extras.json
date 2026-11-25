@@ -5,30 +5,83 @@
       "spoiler": true,
       "checked": "20 novembre 2026",
       "gallery_title": "Mappa del primo percorso",
-      "gallery": [{"key":"shirley-house","label":"1. Punto di partenza: la casa"},{"key":"liquor-store","label":"2. Posizione del negozio"}],
+      "gallery": [
+        {
+          "key": "shirley-house",
+          "label": "1. Punto di partenza: la casa"
+        },
+        {
+          "key": "liquor-store",
+          "label": "2. Posizione del negozio"
+        }
+      ],
       "tips": [
-        {"kind":"tip","title":"Metti al sicuro il bottino, senza bloccarlo","text":"Quando BuckMe è disponibile, usa ATM Finder per trovare un bancomat e depositare il contante nel Checking Account. Il denaro depositato non è completamente immune alle perdite dopo una morte, ma la fonte indica una perdita minore rispetto al contante.","source":"https://www.powerpyx.com/gta-6-buck-me-set-up-bank-account-walkthrough/"},
-        {"kind":"avoid","title":"Family Savings non è un normale deposito","text":"Il denaro trasferito in Family Savings non si può ritirare. Non spostare lì i soldi destinati a un acquisto imminente: il Checking Account è un conto diverso.","source":"https://www.powerpyx.com/gta-6-buck-me-set-up-bank-account-walkthrough/"}
+        {
+          "kind": "tip",
+          "title": "Metti al sicuro il bottino, senza bloccarlo",
+          "text": "Quando BuckMe è disponibile, usa ATM Finder per trovare un bancomat e depositare il contante nel Checking Account. Il denaro depositato non è completamente immune alle perdite dopo una morte, ma la fonte indica una perdita minore rispetto al contante.",
+          "source": "https://www.powerpyx.com/gta-6-buck-me-set-up-bank-account-walkthrough/"
+        },
+        {
+          "kind": "avoid",
+          "title": "Family Savings non è un normale deposito",
+          "text": "Il denaro trasferito in Family Savings non si può ritirare. Non spostare lì i soldi destinati a un acquisto imminente: il Checking Account è un conto diverso.",
+          "source": "https://www.powerpyx.com/gta-6-buck-me-set-up-bank-account-walkthrough/"
+        }
       ]
     },
     "guide-e-tutorial/soldi-2500-three-sheets-liquor/": {
       "spoiler": true,
       "checked": "20 novembre 2026",
       "gallery_title": "Dove andare sulla mappa",
-      "gallery": [{"key":"shirley-house","label":"1. Punto di partenza: la casa"},{"key":"liquor-store","label":"2. Posizione del negozio"}],
+      "gallery": [
+        {
+          "key": "shirley-house",
+          "label": "1. Punto di partenza: la casa"
+        },
+        {
+          "key": "liquor-store",
+          "label": "2. Posizione del negozio"
+        }
+      ],
       "tips": [
-        {"kind":"tip","title":"Prima completa la commissione","text":"Consegna il rum a Shirley, poi torna a esplorare. Insider Gaming indica che l’indagine si attiva in seguito con un’icona gialla al negozio: prendi come riferimento il segnale sulla mappa, non un timer.","source":"https://insider-gaming.com/how-to-complete-strange-noises-in-gta-6-shirley-house-liquor-store-location-guide/"},
-        {"kind":"curiosity","title":"Il pappagallo è un indizio, non solo una gag","text":"Interagire con il pappagallo rivela il nascondiglio vicino al generatore. Ascolta il dialogo prima di lasciare il cortile: è parte della scoperta del bottino.","source":"https://insider-gaming.com/how-to-complete-strange-noises-in-gta-6-shirley-house-liquor-store-location-guide/"}
+        {
+          "kind": "tip",
+          "title": "Prima completa la commissione",
+          "text": "Consegna il rum a Shirley, poi torna a esplorare. Insider Gaming indica che l’indagine si attiva in seguito con un’icona gialla al negozio: prendi come riferimento il segnale sulla mappa, non un timer.",
+          "source": "https://insider-gaming.com/how-to-complete-strange-noises-in-gta-6-shirley-house-liquor-store-location-guide/"
+        },
+        {
+          "kind": "curiosity",
+          "title": "Il pappagallo è un indizio, non solo una gag",
+          "text": "Interagire con il pappagallo rivela il nascondiglio vicino al generatore. Ascolta il dialogo prima di lasciare il cortile: è parte della scoperta del bottino.",
+          "source": "https://insider-gaming.com/how-to-complete-strange-noises-in-gta-6-shirley-house-liquor-store-location-guide/"
+        }
       ]
     },
     "salvare-auto/": {
       "spoiler": false,
       "checked": "20 novembre 2026",
       "gallery_title": "Riferimento visivo: il richiamo",
-      "gallery": [{"key":"scooter-phone","label":"Il telefono da cui richiamare il veicolo"}],
+      "gallery": [
+        {
+          "key": "scooter-phone",
+          "label": "Il telefono da cui richiamare il veicolo"
+        }
+      ],
       "tips": [
-        {"kind":"tip","title":"Controlla il tracker prima di fare strada","text":"La scansione con WAiNK permette di controllare se il mezzo ha un tracker. PowerPyx descrive la prima registrazione solo per veicoli senza tracker: verificare prima evita un viaggio inutile.","source":"https://www.powerpyx.com/gta-6-how-to-get-new-personal-car/"},
-        {"kind":"avoid","title":"Uno spazio occupato non si libera da solo","text":"Quando tutti gli slot sono pieni, la guida indica di vendere un veicolo o ottenere altro spazio con un garage. Non sostituire alla cieca l’auto che vuoi conservare.","source":"https://www.powerpyx.com/gta-6-how-to-get-new-personal-car/"}
+        {
+          "kind": "tip",
+          "title": "Controlla il tracker prima di fare strada",
+          "text": "La scansione con WAiNK permette di controllare se il mezzo ha un tracker. PowerPyx descrive la prima registrazione solo per veicoli senza tracker: verificare prima evita un viaggio inutile.",
+          "source": "https://www.powerpyx.com/gta-6-how-to-get-new-personal-car/"
+        },
+        {
+          "kind": "avoid",
+          "title": "Uno spazio occupato non si libera da solo",
+          "text": "Quando tutti gli slot sono pieni, la guida indica di vendere un veicolo o ottenere altro spazio con un garage. Non sostituire alla cieca l’auto che vuoi conservare.",
+          "source": "https://www.powerpyx.com/gta-6-how-to-get-new-personal-car/"
+        }
       ]
     },
     "guide-e-tutorial/scansionare-veicoli/": {
@@ -36,16 +89,37 @@
       "checked": "20 novembre 2026",
       "gallery": [],
       "tips": [
-        {"kind":"tip","title":"La scansione serve anche prima della registrazione","text":"WAiNK non è utile soltanto per il catalogo: consente di controllare la presenza di un tracker. Leggi questo dato prima di portare un’auto a registrare.","source":"https://www.powerpyx.com/gta-6-how-to-get-new-personal-car/"}
+        {
+          "kind": "tip",
+          "title": "La scansione serve anche prima della registrazione",
+          "text": "WAiNK non è utile soltanto per il catalogo: consente di controllare la presenza di un tracker. Leggi questo dato prima di portare un’auto a registrare.",
+          "source": "https://www.powerpyx.com/gta-6-how-to-get-new-personal-car/"
+        }
       ]
     },
     "guide-e-tutorial/viaggio-rapido-taxi/": {
       "spoiler": false,
-      "checked": "20 novembre 2026",
+      "checked": "25 novembre 2026",
       "gallery": [],
       "tips": [
-        {"kind":"avoid","title":"I 100 GTA$ sono un supplemento","text":"Secondo PowerPyx, saltare il tragitto costa 100 GTA$ in più rispetto alla corsa, non 100 GTA$ complessivi. Controlla entrambe le cifre prima di confermare.","source":"https://www.powerpyx.com/gta-6-how-to-fast-travel/"},
-        {"kind":"tip","title":"Imposta prima il punto di arrivo","text":"Segna la destinazione sulla mappa prima di salire: la guida indica che il taxi accetta un segnaposto anche in un’area non ancora esplorata. Non serve scoprire tutta la zona a piedi.","source":"https://www.powerpyx.com/gta-6-how-to-fast-travel/"}
+        {
+          "kind": "avoid",
+          "title": "I 100 GTA$ sono un supplemento",
+          "text": "Secondo PowerPyx, saltare il tragitto costa 100 GTA$ in più rispetto alla corsa, non 100 GTA$ complessivi. Controlla entrambe le cifre prima di confermare.",
+          "source": "https://www.powerpyx.com/gta-6-how-to-fast-travel/"
+        },
+        {
+          "kind": "tip",
+          "title": "Imposta prima il punto di arrivo",
+          "text": "Segna la destinazione sulla mappa prima di salire: la guida indica che il taxi accetta un segnaposto anche in un’area non ancora esplorata. Non serve scoprire tutta la zona a piedi.",
+          "source": "https://www.powerpyx.com/gta-6-how-to-fast-travel/"
+        },
+        {
+          "kind": "tip",
+          "title": "Alternativa dal Capitolo 2",
+          "text": "Quando hai l’app RydeMe, prenota la corsa dall’app dopo lo sblocco del conto. Anche qui saltare il viaggio costa 100 GTA$ oltre alla tariffa; se non trovi un conducente, chiama Paradise Taxi.",
+          "source": "https://www.powerpyx.com/gta-6-how-to-fast-travel/"
+        }
       ]
     }
   }

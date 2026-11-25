@@ -41,10 +41,10 @@ HEADINGS = {
     'sportive-randy-posizioni': ['Apri la lista delle richieste','Restringi la zona di ricerca','Identifica il veicolo','Decidi se consegnarlo o conservarlo'],
     'prima-persona-glitch-ps5': ['Proteggi prima i tuoi progressi','Imposta Camera sul touchpad','Entra nell’auto','Apri il telefono','Chiudi e premi il touchpad','Conferma l’effetto e torna alla visuale normale'],
     'scansionare-veicoli': ['Apri WAiNK','Inquadra il mezzo','Scansiona con R1','Leggi il tipo di tracker','Controlla il catalogo'],
-    'studiare-animali': ['Seleziona il binocolo','Avvicina l’inquadratura','Studia la specie'],
+    'studiare-animali': ['Seleziona il binocolo','Avvicina l’inquadratura','Studia la specie','Controlla il contatore'],
     '70-sfide-100-percento': ['Apri le sfide','Controlla ciò che manca','Scegli le prove più rapide'],
     'meditazione-capitolo-1': ['Prima del Capitolo 2','Segui Lucia sul balcone','Completa il minigioco','Sblocca entrambi i personaggi','Completa gli otto luoghi doppi','Raggiungi la meditazione finale'],
-    'viaggio-rapido-taxi': ['Chiama il taxi','Scegli la destinazione','Salta il tragitto'],
+    'viaggio-rapido-taxi': ['Chiama il taxi','Scegli la destinazione','Sali come passeggero','Salta il tragitto'],
     'poligoni-concentrazione': ['Raggiungi un poligono','Avvia la prova','Distingui allenamento e medaglie'],
 }
 REQUIREMENTS = {
@@ -54,7 +54,7 @@ REQUIREMENTS = {
     'studiare-animali': 'Binocolo disponibile nella ruota degli oggetti.',
     '70-sfide-100-percento': 'Menu Progressi e sezione Sfide accessibili.',
     'meditazione-capitolo-1': 'Prima occasione a casa di Jason nel Capitolo 1. Dal Capitolo 2, dopo Coffee Break, usa entrambi i personaggi per gli altri luoghi.',
-    'viaggio-rapido-taxi': 'Prima missione completata e servizio taxi disponibile nei Contatti.',
+    'viaggio-rapido-taxi': 'Gone Fishing completata, servizio nei Contatti, denaro contante e strada accessibile.',
     'poligoni-concentrazione': 'Accesso a un poligono di tiro. Le medaglie vanno controllate separatamente dall’allenamento.',
 }
 LOCATIONS = {
@@ -64,7 +64,7 @@ LOCATIONS = {
     'studiare-animali': 'Vicino a un animale visibile attraverso il binocolo.',
     '70-sfide-100-percento': 'Menu Progressi → Sfide, poi l’attività scelta sulla mappa.',
     'meditazione-capitolo-1': 'Primo luogo: balcone della casa di Jason a Key Lento. Gli altri nove luoghi sono elencati nella checklist, con riferimenti geografici verificati.',
-    'viaggio-rapido-taxi': 'Telefono → Contatti → Paradise Taxi.',
+    'viaggio-rapido-taxi': 'Telefono → Contatti → Tutti i contatti → Paradise Taxi.',
     'poligoni-concentrazione': 'Uno dei poligoni disponibili sulla mappa. La fonte completa è in fondo.',
 }
 SUMMARIES = {
