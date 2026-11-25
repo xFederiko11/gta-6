@@ -331,7 +331,7 @@ class PortalTests(unittest.TestCase):
         self.assertIn("Brightness Booster",c4)
         self.assertIn("OLED55C43LA",c4)
         self.assertIn('data-hdr-tv-reference="lg-oled-c4"',c4)
-        self.assertIn("OLED65C44LA",c4)
+        self.assertIn("OLED55C44LA",c4)
         self.assertIn("Luminosità pixel OLED",c4)
         self.assertIn("<strong>100</strong>",c4)
         self.assertIn("Alto (High)",c4)
