@@ -39,8 +39,8 @@ class OperationalGuidesV1Tests(unittest.TestCase):
         page=(ROOT/PATH/"index.html").read_text(encoding="utf-8")
         self.assertIn("rel=\"canonical\"",page)
         self.assertEqual(page.count('class="v-step"'),7)
-        self.assertIn('data-mo-default-all',page)
-        self.assertIn('data-mo-show-all',page)
+        self.assertNotIn('data-mo-default-all',page)
+        self.assertNotIn('data-mo-show-all',page)
         self.assertIn('moses-visual-v1.css?v=',page)
         self.assertEqual(page.count('data-mo-real-gameplay='),6)
         self.assertEqual(page.count('data-mo-gift-ref="source-only"'),1)
@@ -78,7 +78,7 @@ class OperationalGuidesV1Tests(unittest.TestCase):
         self.assertLess(page.index('class="mo-jump"'),page.index('id="procedura"'))
         self.assertLess(page.index('class="mo-microsteps"'),page.index('class="mo-video-screen"'))
         self.assertIn("operational-guide-v1.css?v=",page)
-        self.assertIn("guide-flow-v1.js?v=",page)
+        self.assertNotIn("guide-flow-v1.js?v=",page)
         self.assertLess(page.index("Capitolo 2, dopo Daily Driver"),page.index('id="passaggio-1"'))
         self.assertEqual(page.split('<ol class="v-steps">',1)[1].split('</ol>',1)[0].count('<img'),0,
                          "do not pose stock or unlicensed photos as walkthrough proof inside steps")
@@ -103,7 +103,7 @@ class OperationalGuidesV1Tests(unittest.TestCase):
         self.assertNotIn("ghp_",page)
         js=Path("site/assets/guide-flow-v1.js").read_text(encoding="utf-8")
         self.assertNotIn("fetch(",js)
-        self.assertIn("[data-gf-next]",js)
+        self.assertNotIn("[data-gf-next]",js)
 
 if __name__=="__main__":
     unittest.main()

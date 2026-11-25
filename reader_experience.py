@@ -181,13 +181,11 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
                     '<div class="v-guide-social-content">'+social+'</div></details>')
         page=page.replace('</main>',social+'</main>',1)
     if 'id="procedura" class="v-tutorial"' in page:
-        # Only the 11 actual guided procedures get the reader controls.
-        # No-JS always sees the complete traditional numbered list.
+        # All numbered instructions are a continuous article, with no
+        # reader navigation script or hidden steps.
         page = page.replace('</head>',
             f'<link rel="stylesheet" href="{BASE}assets/guide-flow-v1.css?v={version}">'
             f'<link rel="stylesheet" href="{BASE}assets/operational-guide-v1.css?v={version}"></head>',1)
-        page = page.replace('</body>',
-            f'<script src="{BASE}assets/guide-flow-v1.js?v={version}" defer></script></body>',1)
     if 'data-step-video-id="' in page:
         # Only these explicitly reviewed articles can load a third-party
         # player inside numbered actions.

@@ -591,9 +591,9 @@ def guide(g,guides):
                'completala durante il Capitolo 1, prima di proseguire nella storia.</p>')
     body+=('<section id="procedura" class="v-tutorial" aria-labelledby="titolo-procedura">'
            '<header class="v-tutorial-head">'
-           '<span class="v-tutorial-start-here">▶ INIZIA QUI</span>'
-           '<h2 id="titolo-procedura">TUTORIAL · ISTRUZIONI DA SEGUIRE</h2>'
-           '<p>Questa è la procedura da eseguire. Segui i passaggi in ordine.</p>'
+           '<span class="v-tutorial-start-here">'+str(count)+' PASSAGGI</span>'
+           '<h2 id="titolo-procedura">Come fare, passo per passo</h2>'
+           '<p>Segui le istruzioni nell’ordine indicato.</p>'
            '</header>')
     if g['spoiler']:
         body+=('<p class="v-spoiler-warning" role="note">'

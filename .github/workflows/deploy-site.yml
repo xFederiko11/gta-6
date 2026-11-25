@@ -230,6 +230,16 @@ jobs:
                       assert 'assets/social-cards/' in text
                       assert text.count('<meta property="og:image" content="')==1
                       assert text.count('<meta name="twitter:image" content="')==1
+                      if 'data-article-cover="shared-social"' in text:
+                          import re
+                          cover=text.split('data-article-cover="shared-social"',1)[1].split('</figure>',1)[0]
+                          image=re.search(r'<img src="([^"]+)"',cover).group(1)
+                          assert '<meta property="og:image" content="'+image+'">' in text
+                          assert '<meta name="twitter:image" content="'+image+'">' in text
+                      if 'id="procedura" class="v-tutorial"' in text:
+                          assert 'data-article-cover="shared-social"' in text
+                          assert 'guide-flow-v1.js?v=' not in text
+                          assert 'data-mo-show-all' not in text
                       assert 'visual-v2.css?v=' in text and 'visual-v2.js?v=' in text
                       assert '<link rel="canonical" href="'+base+path+'"' in text
                       assert 'data-theme="auto"' in text

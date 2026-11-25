@@ -1,0 +1,12 @@
+
+/* The visible cover is the very same 1200x630 JPEG used by X and Open Graph. */
+.article-cover{box-sizing:border-box;display:block;width:100%;max-width:760px;margin:12px auto 18px;padding:0;min-width:0}
+.article-cover img{display:block;width:100%;height:auto;aspect-ratio:1200/630;object-fit:contain;border-radius:12px;border:1px solid var(--r-line,#d5d3df);background:#10131d}
+.article-cover figcaption{font-size:.7rem;line-height:1.35;color:var(--r-muted,#656575);margin:5px 2px 0}
+.article-cover a{color:inherit;text-decoration:underline}
+.v-guide-intro .article-cover{max-width:690px;margin:8px auto 9px}
+@media(max-width:760px){
+ .article-cover{margin:8px auto 12px}
+ .article-cover img{border-radius:9px}
+ .v-guide-intro .article-cover{margin:7px auto 8px}
+}

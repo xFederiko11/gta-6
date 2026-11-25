@@ -184,3 +184,8 @@ Decisione del titolare del progetto, 25 novembre 2026: non inviare email di rich
 ## WAiNK — criterio visivo mobile del 25 novembre 2026
 
 Il video dedicato precede i prerequisiti: niente doppio blocco introduttivo. Cinque schemi originali spiegano i comandi e il risultato senza simulare l'interfaccia del gioco; non contano come screenshot autentici. Collegamento alle schermate reali del sito fonte e al video originale. Test browser sul primo viewport a 390px, caricamento del file immagine, apertura e chiusura del player e articolo intero. Nessun contatto esterno.
+
+
+## Articoli lineari e copertina condivisa
+
+Dal 25 novembre 2026 i tutorial numerati sono interamente leggibili nella stessa pagina, senza pulsanti avanti/indietro, modalità di lettura o blocchi dei passaggi. Restano opzionali spoiler, approfondimenti e attivazione dei video. Tutti gli articoli effettivi hanno sotto H1 la stessa copertina JPEG 1200x630 usata da og:image, twitter:image e dal bot, con fonte dove applicabile. I diagrammi originali di copertina sono tematici e non screenshot; si privilegiano foto autentiche già approvate e pertinenti. Homepage, directory e strumenti di servizio non ricevono copertine ridondanti. Non modificare URL canonici o contratti delle social-card.
