@@ -49,26 +49,29 @@
       "title": "GTA 6: dove cercare le sportive richieste da Randy",
       "safe_title": "Sportive ricercate: dove iniziare la ricerca",
       "tag": "Auto speciali",
-      "summary": "Zone da controllare e strumenti per riconoscere le auto richieste. Non e' una lista di spawn rari garantiti.",
-      "requirements": "Lista di Randy sbloccata dalla storia nel Capitolo 3. I nomi di missione e le zone sono protetti dal controllo spoiler.",
-      "location": "Vice Beach e Ocean Beach, nella parte orientale di Vice City: controlla il traffico e i parcheggi davanti agli hotel.",
+      "summary": "Lista di 16 veicoli, ricerca su richiesta o nel mondo libero e sblocco Advanced Tracker: informazioni PowerPyx aggiornate il 25 novembre.",
+      "requirements": "Capitolo 3, dopo Clonin’ Keys, Makin’ Gs. La missione consegna la Zorrusso e sblocca il Key Cloner. Spoiler su missioni e zone.",
+      "location": "Mappa → Rapine → Randy’s Wish List; cerca anche a Ocean Beach, Southside e Bayside. Le segnalazioni non sono garanzie di spawn.",
       "steps": [
-        "Dopo la missione Clonin' Keys, Makin' GS, apri Mappa > Robberies > Randy's Wish List per vedere le richieste disponibili.",
-        "Controlla prima le posizioni che Randy ha segnato. In alternativa cerca sportive a Vice Beach e Ocean Beach, soprattutto davanti agli hotel.",
-        "Usa WAiNK tenendo premuta la freccia su. La scansione o l'ingresso nel mezzo puo' mostrare l'avviso che il veicolo e' richiesto.",
-        "Per la consegna, raggiungi il simbolo verde RK nella zona ovest di Vice City e limita i danni. Consegnare l'auto al compratore non equivale a conservarla nel tuo garage."
+        "Completa Clonin’ Keys, Makin’ Gs e apri la lista di Randy nella sezione Rapine della mappa.",
+        "Scegli una richiesta. I luoghi che Randy comunica si attivano con il relativo indizio; puoi anche trovare i modelli durante la normale esplorazione.",
+        "Per iniziare, controlla la concessionaria di Bayside vicino a Dynamix Fitness oppure i saloni esagonali a Southside. Verifica la richiesta con WAiNK (tieni premuto ↑, poi R1).",
+        "Se vuoi consegnare l’auto, segui il marcatore verde RK a Vice City; PowerPyx segnala un’officina vicina per riparare i danni prima della consegna.",
+        "Se vuoi invece registrare auto con Advanced Tracker, continua la catena di Randy e completa Dale Mamba quando compare. Non serve necessariamente completare tutte le 16 consegne."
       ],
       "checks": [
-        "La lista e' disponibile nella mappa.",
-        "Stai cercando nelle zone documentate, non su un punto inventato.",
-        "Il gioco segnala che il veicolo e' richiesto.",
-        "Scegli consapevolmente tra consegna e conservazione del mezzo."
+        "La lista è disponibile dopo la missione del Capitolo 3.",
+        "Stai distinguendo le posizioni attivate da Randy dalle auto incontrate nel mondo libero.",
+        "WAiNK o il gioco conferma che il modello è richiesto; nessuno spawn è dato per garantito.",
+        "Hai ricevuto la conferma della consegna; la ricompensa dipende anche dalle condizioni.",
+        "Verifica che la missione Dale Mamba sia conclusa e che il menu consenta la registrazione dei mezzi Advanced Tracker."
       ],
-      "benefit": "Una ricerca piu' mirata, senza confondere le auto richieste con veicoli unici o garantiti.",
-      "caution": "I punti segnalati possono cambiare con l'avanzamento della lista. Non indichiamo coordinate o modelli rari non documentati.",
-      "source_url": "https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/",
+      "benefit": "Secondo la guida del 25 novembre, Dale Mamba può sbloccarsi dopo circa 5–7 auto consegnate. È un’indicazione della fonte, non un numero garantito. Consegna e registrazione personale sono due azioni distinte.",
+      "caution": "Non sono stati verificati personalmente gli spawn o il momento esatto di sblocco. Controlla le richieste e il menu in gioco; non promettiamo posizioni fisse.",
+      "source_url": "https://www.powerpyx.com/gta-6-randys-wish-list-car-locations-walkthrough/",
       "extra_sources": [
-        "https://www.powerpyx.com/gta-6-money-guide-how-to-get-money-fast/"
+        "https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/",
+        "https://www.powerpyx.com/gta-6-how-to-register-advanced-tracker-cars/"
       ],
       "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_03.0nqz~lrqdmlze.jpg?akim=1&imdensity=1&imwidth=1280",
       "spoiler": true,

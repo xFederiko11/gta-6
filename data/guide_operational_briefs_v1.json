@@ -25,7 +25,7 @@
     "70-sfide-100-percento": {
       "when": "Menu Progressi accessibile",
       "where": "Progressi → Sfide",
-      "goal": "Scegli le prove e raggiungi 70 sfide completate."
+      "goal": "50 sfide per One Last Thing; 70 su 80 per il 100%."
     },
     "meditazione-capitolo-1": {
       "when": "Prima attività durante il Capitolo 1",
@@ -39,8 +39,8 @@
     },
     "poligoni-concentrazione": {
       "when": "Poligoni accessibili",
-      "where": "Un poligono di tiro disponibile",
-      "goal": "Allenati e verifica le medaglie richieste separatamente."
+      "where": "Griffin Shooting Range o Rodgers Ranch",
+      "goal": "42 medaglie Oro per The Shootist e il 100%; Concentrazione separata."
     },
     "registrare-auto-personale": {
       "when": "Capitolo 2, dopo Girl’s Trip",
@@ -48,9 +48,9 @@
       "goal": "Registra gratis la prima auto da Moses, poi richiamala tramite Scooter Bros. I garage arrivano dopo Daily Driver."
     },
     "sportive-randy-posizioni": {
-      "when": "Capitolo 3, lista di Randy sbloccata",
-      "where": "Vice Beach e Ocean Beach",
-      "goal": "Individua il modello richiesto, poi scegli se consegnarlo."
+      "when": "Capitolo 3, dopo Clonin’ Keys, Makin’ Gs",
+      "where": "Mappa → Rapine → Randy’s Wish List",
+      "goal": "Consegna i modelli richiesti; completa Dale Mamba per la registrazione Advanced Tracker."
     },
     "prima-persona-glitch-ps5": {
       "when": "Free roam, con un salvataggio di prova",

@@ -143,6 +143,23 @@ class VisualSiteTests(unittest.TestCase):
             self.assertNotIn('data-spoiler-choice=',text)
             self.assertIn('id="procedura"',text)
 
+    def test_final_three_guides_have_current_operational_thresholds(self):
+        for path, count, required in (
+            ('70-sfide-100-percento',4,('50 sfide per One Last Thing','70 su 80','otto categorie')),
+            ('poligoni-concentrazione',4,('42 medaglie Oro','Griffin Shooting Range','Rodgers Ranch','10 GTA$')),
+            ('sportive-randy-posizioni',5,('Dale Mamba','Advanced Tracker','Southside','Bayside','16 consegne')),
+        ):
+            text,_=parse(ROOT/('guide-e-tutorial/'+path+'/index.html'))
+            self.assertEqual(text.count('class="v-step"'),count,path)
+            self.assertEqual(text.count('class="v-check"'),count,path)
+            for phrase in required:
+                self.assertIn(phrase,text,path)
+        text,_=parse(ROOT/'guide-e-tutorial/sportive-randy-posizioni/index.html')
+        self.assertIn('https://www.powerpyx.com/gta-6-how-to-register-advanced-tracker-cars/',text)
+        self.assertIn('https://www.powerpyx.com/gta-6-randys-wish-list-car-locations-walkthrough/',text)
+        self.assertIn('Attenzione spoiler',text)
+        self.assertNotIn('data-pin-lat',text)
+
     def test_header_x_link_and_primary_shortcuts_on_every_page(self):
         for target in (ROOT/'index.html',ROOT/'salvare-auto/index.html',ROOT/'trofei/index.html'):
             text,tags=parse(target)

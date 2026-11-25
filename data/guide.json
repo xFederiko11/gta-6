@@ -113,17 +113,27 @@
       "id": "70-sfide-100-percento",
       "title": "100% GTA VI: completa 70 sfide e risparmia tempo",
       "tag": "Platino",
-      "summary": "Evita alcune sfide più difficili nella checklist per il 100%.",
+      "summary": "Completa 50 sfide per il trofeo e 70 su 80 per il 100%: puoi lasciare indietro le dieci più difficili.",
       "steps": [
-        "Apri il menu Progressi e vai alla sezione Sfide.",
-        "Controlla quali sfide hai già completato.",
-        "Scegli le sfide che riesci a completare più rapidamente."
+        "Apri Progressi → Sfide. Le prove sono divise in otto categorie, da dieci sfide ciascuna.",
+        "Scorri le sfide e cerca la spunta di completamento in basso a destra per distinguere quelle già concluse.",
+        "Completa prima le altre attività del platino: molte sfide avanzano durante il gioco. Poi torna alle sfide ancora aperte.",
+        "Raggiungi 50 sfide per il trofeo One Last Thing, quindi completa altre prove fino a 70 su 80 per la checklist del 100%."
       ],
-      "benefit": "La guida indica che ne bastano 70 su 80: puoi tralasciarne 10.",
-      "caution": "Non confondere le sfide della checklist con tutti i requisiti dei singoli trofei.",
+      "benefit": "Per il trofeo specifico bastano 50 sfide; per il completamento al 100% ne servono 70. Le sfide sono disponibili dall’inizio; la checklist globale si sblocca dopo la storia.",
+      "caution": "Non è necessario completare tutte le 80 sfide. Le altre attività e i trofei hanno requisiti separati.",
       "source_url": "https://www.powerpyx.com/gta-6-all-challenges-guide/",
       "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_03.0nqz~lrqdmlze.jpg?akim=1&imdensity=1&imwidth=3840",
-      "related_trophy": 14
+      "related_trophy": 14,
+      "checks": [
+        "Vedi le otto categorie nel menu Sfide.",
+        "Hai identificato le prove ancora da completare.",
+        "Hai verificato i progressi senza ripetere sfide già concluse.",
+        "Il menu conferma 70 sfide completate; puoi tralasciarne 10."
+      ],
+      "extra_sources": [
+        "https://www.powerpyx.com/gta-6-100-completion-checklist-guide/"
+      ]
     },
     {
       "id": "meditazione-capitolo-1",
@@ -175,17 +185,27 @@
       "id": "poligoni-concentrazione",
       "title": "Poligoni di tiro: Concentrazione e medaglie Oro",
       "tag": "Platino",
-      "summary": "Allenati nei poligoni e pianifica le medaglie Oro per il platino.",
+      "summary": "Aumenta la Concentrazione allenandoti; per il trofeo The Shootist e il 100% servono tutte le 42 medaglie Oro.",
       "steps": [
-        "Raggiungi uno dei poligoni di tiro disponibili.",
-        "Avvia una sfida e portala a termine o interrompila.",
-        "Ripeti per allenare la Concentrazione; per il relativo trofeo punta all'Oro in tutte le prove."
+        "Raggiungi Griffin Shooting Range oppure Rodgers Ranch: controlla il nome del poligono sulla mappa.",
+        "Scegli una prova disponibile. Usa l’arma richiesta oppure noleggiala per 10 GTA$, secondo la guida PowerPyx.",
+        "Per allenare la Concentrazione completa una prova o esci da essa e controlla il progresso della barra viola.",
+        "Per il trofeo e il 100%, ripeti le prove fino a ottenere l’Oro in ciascuna di quelle richieste, in entrambi i poligoni."
       ],
-      "benefit": "La guida elenca 42 medaglie Oro nei poligoni.",
-      "caution": "Non è un exploit trophy-safe certificato: verifica che i contatori avanzino correttamente.",
+      "benefit": "PowerPyx descrive un aumento permanente della Concentrazione dopo le prove, anche se interrotte. La raccolta delle 42 medaglie Oro resta un requisito distinto.",
+      "caution": "Non abbiamo verificato personalmente il metodo. Non confondere i percorsi, le singole prove e i livelli di medaglia; il riferimento operativo per il 100% è il totale di 42 Ori.",
       "source_url": "https://www.powerpyx.com/gta-6-all-shooting-range-gold-medal-challenges/",
       "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_04.06evqutgh7624.jpg?akim=1&imdensity=1&imwidth=3840",
-      "related_trophy": 17
+      "related_trophy": 17,
+      "checks": [
+        "Sei arrivato a uno dei due impianti documentati.",
+        "La prova si avvia con l’arma prevista.",
+        "Verifica se la Concentrazione è aumentata: l’allenamento non sostituisce le medaglie.",
+        "Controlla le 42 medaglie Oro: 18 a Griffin e 24 a Rodgers, secondo PowerPyx."
+      ],
+      "extra_sources": [
+        "https://www.powerpyx.com/gta-6-100-completion-checklist-guide/"
+      ]
     }
   ]
 }
