@@ -49,6 +49,17 @@ class GroupThreeTests(unittest.TestCase):
         self.assertIn("t=455s",step_render(by["soldi-2500-three-sheets-liquor"],2,data,refs))
         self.assertIn("gtabase.com/gta-6/map/",step_render(by["registrare-auto-personale"],0,data,refs))
         self.assertEqual(step_render(by["registrare-auto-personale"],3,data,refs),"")
+        first=step_render(by["registrare-auto-personale"],1,data,refs)
+        fifth=step_render(by["registrare-auto-personale"],4,data,refs)
+        self.assertIn('data-step-video-id="R0GdEkPZSvM"',first)
+        self.assertIn('data-step-video-seconds="266"',first)
+        self.assertIn('data-step-video-seconds="675"',fifth)
+        self.assertIn('data-step-video-open hidden',first)
+        self.assertIn('rel="noopener noreferrer"',first)
+        self.assertIn('video del passaggio',first)
+        self.assertNotIn('<iframe',first)
+        self.assertNotIn('data-step-video-open',step_render(by["prima-persona-glitch-ps5"],4,data,refs))
+
         for guide_id,steps in data["guides"].items():
             for n in steps:
                 markup=step_render(by[guide_id],int(n),data,refs)

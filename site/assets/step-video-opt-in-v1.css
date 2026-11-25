@@ -1,0 +1,47 @@
+/* The video supplements the numbered action without being mistaken for an
+   original still or an image that verifies a specific on-screen control. */
+.v-step-video{
+  margin:11px 0 2px;padding:0;
+  border:1px solid var(--r-line);border-radius:12px;
+  background:var(--r-surface);overflow:hidden;
+}
+.v-step-video-open{
+  display:flex;align-items:center;gap:12px;width:100%;
+  min-height:66px;padding:13px 14px;text-align:left;
+  border:0;background:var(--r-soft);color:var(--r-text);
+  font:inherit;cursor:pointer;
+}
+.v-step-video-open[hidden]{display:none!important}
+.v-step-video-play{
+  display:grid;place-items:center;flex:none;
+  width:42px;height:42px;border-radius:50%;
+  background:var(--r-cyan);color:#07121b;font-weight:900;
+}
+.v-step-video-open strong{display:block;font-size:.94rem;line-height:1.38}
+.v-step-video-open small{
+  display:block;margin-top:5px;color:var(--r-muted);
+  font-size:.74rem;line-height:1.45;overflow-wrap:anywhere;
+}
+.v-step-video-open:hover,.v-step-video-open:focus-visible{
+  outline:3px solid var(--r-cyan);outline-offset:-3px;
+}
+.v-step-video-slot iframe{
+  display:block;width:100%;max-width:100%;aspect-ratio:16/9;
+  border:0;background:#0e1017;
+}
+.v-step-video-note{
+  margin:0!important;padding:9px 12px 11px;
+  border-top:1px solid var(--r-line);
+  color:var(--r-muted)!important;font-size:.74rem!important;
+  line-height:1.47!important;
+}
+@media(max-width:600px){
+  .v-step-video{margin:8px 0 2px}
+  .v-step-video-open{padding:10px 11px;min-height:58px;gap:9px}
+  .v-step-video-play{width:35px;height:35px}
+  .v-step-video-open strong{font-size:.84rem}
+  .v-step-video-open small,.v-step-video-note{font-size:.7rem!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .v-step-video-open{scroll-behavior:auto}
+}

@@ -80,5 +80,19 @@ class FirstCarPilotTests(unittest.TestCase):
         self.assertIn("data-step-external-evidence=\"map\"",page)
         self.assertIn("data-step-external-evidence=\"video\"",page)
 
+
+        self.assertEqual(page.count('data-step-video-id="R0GdEkPZSvM"'),2)
+        self.assertEqual(page.count('data-step-video-seconds="266"'),1)
+        self.assertEqual(page.count('data-step-video-seconds="675"'),1)
+        self.assertEqual(page.count('data-step-video-open hidden'),2)
+        self.assertEqual(page.count('data-step-video-slot'),2)
+        self.assertEqual(page.count('<iframe'),0,
+                         "third-party player must not load before reader clicks")
+        self.assertEqual(page.count('step-video-opt-in-v1.js?v='),1)
+        self.assertEqual(page.count('step-video-opt-in-v1.css?v='),1)
+        self.assertIn('https://www.youtube.com/watch?v=R0GdEkPZSvM&amp;t=266s',page)
+        self.assertIn('https://www.youtube.com/watch?v=R0GdEkPZSvM&amp;t=675s',page)
+        self.assertIn('si carica solo dopo il clic',page)
+
 if __name__=="__main__":
     unittest.main()
