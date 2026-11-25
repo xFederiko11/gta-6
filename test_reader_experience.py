@@ -228,7 +228,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','hdr-oled/lg-oled-c4/','hdr-oled/samsung-s90f/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','veicoli/','veicoli/declasse-yosemite-1500/','veicoli/pegassi-toros/','guide-e-tutorial/']
+                paths=['','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','hdr-oled/lg-oled-c4/','hdr-oled/samsung-s90f/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','video-tutorial/','veicoli/','veicoli/declasse-yosemite-1500/','veicoli/pegassi-toros/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -275,6 +275,33 @@ def browser_qa():
                         assert page.get_by_text('Non verificato', exact=True).count()>=4
                         assert page.locator('[data-hdr-photo-gallery="samsung-s90f"]').count()==1
                         assert page.get_by_text('variante regionale',exact=False).count()>=1
+                    if path=='video-tutorial/':
+                        cards=page.locator('[data-cv-video-id]')
+                        assert cards.count()==4
+                        assert page.locator('.cv-card:visible').count()==4
+                        assert page.locator('.cv-embed-slot iframe').count()==0
+                        assert page.locator('[data-cv-load]').first.is_visible()
+                        assert page.locator('h1').count()==1
+                        # No external YouTube frame until a real user click.
+                        page.locator('[data-cv-seek="675"]').click()
+                        frame=page.locator('.cv-embed-slot iframe')
+                        assert frame.count()==1
+                        assert 'youtube-nocookie.com/embed/R0GdEkPZSvM?start=675' in frame.get_attribute('src')
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                        page.locator('[data-cv-filter="soldi"]').click()
+                        assert page.locator('.cv-card:visible').count()==1
+                        assert page.locator('.cv-embed-slot iframe').count()==0
+                        assert page.locator('[data-cv-filter="soldi"]').get_attribute('aria-pressed')=='true'
+                        page.locator('[data-cv-filter="all"]').click()
+                        assert page.locator('.cv-card:visible').count()==4
+                        assert page.locator('.cv-embed-slot iframe').count()==0
+                        if width in (390,1440):
+                            shot=page.screenshot(
+                                path=str(out/f'creator-video-hub-{width}.png'),
+                                full_page=True,animations='disabled')
+                            assert int.from_bytes(shot[16:20],'big')==width
+                            print('CREATOR_VIDEO_HUB_FULL_PAGE_QA',width,
+                                  int.from_bytes(shot[20:24],'big'),flush=True)
                     if path=='veicoli/':
                         cards=page.locator('[data-vc-card]')
                         assert cards.count()==25
