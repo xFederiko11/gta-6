@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import re
 from urllib.parse import urlsplit
+from patch_observations_v1 import load as load_observations
 
 PATH = 'patch/'
 DATA = Path('data/patches_v1.json')
@@ -49,8 +50,37 @@ def source_link(url, label):
     return '<a href="'+e(url, quote=True)+'" target="_blank" rel="noopener noreferrer">'+e(label)+' ↗</a>'
 
 
+def render_observations(snapshot, records, url):
+    known = {row["date"]:row for row in records}
+    body = ('<section class="ed-section" id="osservazioni-ufficiali">'
+            '<h2>Osservazioni automatiche delle note ufficiali</h2>'
+            '<p>Il monitor registra le date e il numero delle voci effettivamente lette su Rockstar Support. '
+            'Non verifica automaticamente il contenuto del riepilogo italiano, i numeri di versione o il funzionamento nel gioco.</p>')
+    if snapshot["exported_at"]:
+        stamp=snapshot["exported_at"]
+        body += '<p>Ultima esportazione dello storico: <time datetime="'+e(stamp,quote=True)+'">'+e(stamp.replace("T"," ").replace("Z"," UTC"))+'</time>. Non indica una nuova lettura di Rockstar.</p>'
+    if not snapshot["observations"]:
+        return body+'<p>Nessuna osservazione automatica verificata. I riepiloghi redazionali sopra restano disponibili.</p></section>'
+    body += '<ul>'
+    for row in snapshot["observations"]:
+        day=row["date"]; stamp=row["last_observed_at"]
+        body += ('<li data-patch-observation="'+e(day,quote=True)+'"><strong>'+display_date(day)+'</strong> · '
+                 +str(row["entry_count"])+' voci rilevate · PS5 / Xbox Series X|S.'
+                 '<p>Ultima osservazione: <time datetime="'+e(stamp,quote=True)+'">'+e(stamp.replace("T"," ").replace("Z"," UTC"))+'</time>'
+                 ' · Revisione: <code>'+e(row["content_sha256"][:12])+'</code>.</p>')
+        if day in known:
+            body += '<p><a href="'+url(PATH+day+'/')+'">Riepilogo italiano già pubblicato</a>. La rilettura non conferma automaticamente la corrispondenza del testo redazionale.</p>'
+            if row["entry_count"] != len(known[day]["fixes"]):
+                body += '<p><strong>Numero di voci diverso: riepilogo da ricontrollare.</strong></p>'
+        else:
+            body += '<p>Riepilogo italiano non ancora pubblicato.</p>'
+        body += '<p>'+source_link(row["source"],"Leggi le note Rockstar")+'</p></li>'
+    return body+'</ul></section>'
+
+
 def build(write, layout, url, crumbs):
     records = load()
+    observations = load_observations()
     paths = [PATH]
     index = (crumbs([('Patch GTA VI', PATH)]) +
              '<div class="ed-article"><section class="ed-intro"><h1>Patch e aggiornamenti GTA VI</h1>'
@@ -89,7 +119,7 @@ def build(write, layout, url, crumbs):
                   'citation':[row['official_source']]+[s['url'] for s in row['version_sources']]}
         write(path+'index.html', layout(title, desc, path, body, 'patch', structured=schema))
         paths.append(path)
-    index += '</ul></section></div>'
+    index += '</ul></section>'+render_observations(observations,records,url)+'</div>'
     title = 'Patch GTA VI: tutte le correzioni ufficiali | GTA 6 Italia'
     write(PATH+'index.html', layout(title, 'Archivio delle patch GTA VI per console, con date e fonti ufficiali Rockstar Games.', PATH, index, 'patch',
                                    structured={'@context':'https://schema.org','@type':'CollectionPage','name':title,'url':url(PATH),'inLanguage':'it-IT'}))
