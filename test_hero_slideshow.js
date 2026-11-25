@@ -1,5 +1,15 @@
 const assert = require('node:assert/strict');
 const { createHeroDeck } = require('./site/assets/hero-slideshow.js');
+const fs = require('node:fs');
+
+// New editorial UX requirement: three-second rotation, centered photo on desktop.
+const script = fs.readFileSync('./site/assets/hero-slideshow.js', 'utf8');
+const style = fs.readFileSync('./site/assets/hero-slideshow.css', 'utf8');
+assert.match(script, /const interval = 3000;/, 'Hero photos must rotate after three seconds');
+assert.match(style, /@media\(min-width:1001px\)\s*\{[\s\S]*?object-position:center center;/,
+             'Desktop photo must be centered regardless of source focal point');
+assert.match(style, /transform:none;/, 'Desktop hero must not be displaced');
+
 
 // Check user-visible behavior over complete and consecutive shuffled passes.
 for (let run = 0; run < 50; run++) {
