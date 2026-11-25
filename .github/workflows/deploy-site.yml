@@ -364,12 +364,12 @@ jobs:
               summary=os.getenv('GITHUB_STEP_SUMMARY')
               if summary:
                   with open(summary,'a',encoding='utf-8') as report:
-                      report.write('\\n### Pages negative-path check: CDN DEGRADED\\n')
+                      report.write('\n### Pages negative-path check: CDN DEGRADED\n')
                       report.write('Local artifact exclusion was checked by public_release_gate.py. '
                                    'The following paths were NOT remotely verified as 404; '
-                                   'do not describe them as confirmed private.\\n')
+                                   'do not describe them as confirmed private.\n')
                       for private,status in unverified_private:
-                          report.write('- '+private+' — '+str(status)+' (inconclusive)\\n')
+                          report.write('- '+private+' — '+str(status)+' (inconclusive)\n')
           home=urllib.request.urlopen(base+'?public-nav=1',timeout=20).read(1000000).decode('utf-8')
           assert 'crescita-x/' not in home
           assert 'screenshot-ps5/verifica/' not in home
