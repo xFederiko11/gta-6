@@ -567,6 +567,25 @@ def browser_qa():
                         assert frame.count()==0
                         page.locator('[data-gf-back]').click()
                         page.locator('[data-gf-back]').click()
+                    if path in ('guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/glitch-prima-persona-ps5/'):
+                        n,ident,second=(4,'R0GdEkPZSvM','266') if path.endswith('scansionare-veicoli/') else (6,'CJi2DWXxsoQ','0')
+                        clips=page.locator('#procedura .v-step-video')
+                        assert clips.count()==1
+                        assert clips.first.get_attribute('data-step-video-seconds')==second
+                        assert page.locator('.v-step-video-slot iframe').count()==0
+                        for _ in range(n-1):
+                            page.locator('[data-gf-next]').click()
+                        play=page.locator(f'#passaggio-{n} [data-step-video-open]')
+                        assert play.is_visible()
+                        play.click()
+                        frame=page.locator(f'#passaggio-{n} .v-step-video-slot iframe')
+                        assert frame.count()==1
+                        assert frame.get_attribute('src')=='https://www.youtube-nocookie.com/embed/'+ident+'?start='+second+'&rel=0'
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                        play.click()
+                        assert frame.count()==0
+                        for _ in range(n-1):
+                            page.locator('[data-gf-back]').click()
                     if page.locator('details.v-guide-more').count() and path!='guide-e-tutorial/veicoli-per-moses/':
                         # The beginner experience is a WIZARD, not an article full
                         # of unrelated boxes. Only one numbered step visible.

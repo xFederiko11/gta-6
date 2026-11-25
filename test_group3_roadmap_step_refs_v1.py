@@ -65,6 +65,16 @@ class GroupThreeTests(unittest.TestCase):
         self.assertIn('video del passaggio',first)
         self.assertNotIn('<iframe',first)
         self.assertNotIn('data-step-video-open',step_render(by["prima-persona-glitch-ps5"],4,data,refs))
+        glitch=step_render(by["prima-persona-glitch-ps5"],5,data,refs)
+        self.assertIn('data-step-video-id="CJi2DWXxsoQ"',glitch)
+        self.assertIn('data-step-video-seconds="0"',glitch)
+        self.assertIn("non i singoli input",glitch)
+        self.assertIn("Guarda il riferimento video",glitch)
+        scanner=step_render(by["scansionare-veicoli"],3,data,refs)
+        self.assertIn('data-step-video-id="R0GdEkPZSvM"',scanner)
+        self.assertIn('data-step-video-seconds="266"',scanner)
+        self.assertIn("non una prova dei comandi DualSense",scanner)
+        self.assertEqual(step_render(by["scansionare-veicoli"],2,data,refs),"")
 
         for guide_id,steps in data["guides"].items():
             for n in steps:
@@ -102,6 +112,10 @@ class GroupThreeTests(unittest.TestCase):
         media=(ROOT/glitch["canonical_path"]/"index.html").read_text(encoding="utf-8")
         self.assertIn("data-step-external-evidence=\"video\"",media)
         self.assertIn("Trophy Status Uncertain",media)
+        self.assertEqual(media.count('data-step-video-id="CJi2DWXxsoQ"'),1)
+        self.assertIn('data-step-video-seconds="0"',media.split('id="passaggio-6"',1)[1].split('</li>',1)[0])
+        self.assertNotIn('<iframe',media)
+        self.assertIn("step-video-opt-in-v1.js?v=",media)
         money=next(g for g in guides if g["id"]=="soldi-2500-three-sheets-liquor")
         article=(ROOT/money["canonical_path"]/"index.html").read_text(encoding="utf-8")
         for n,stamp in ((1,285),(3,455)):
