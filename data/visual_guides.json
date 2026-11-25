@@ -80,7 +80,7 @@
       "title": "GTA 6 PS5: glitch prima persona, procedura DualSense e ripristino",
       "safe_title": "Glitch prima persona: guida PS5 aggiornata",
       "tag": "Glitch",
-      "summary": "Attiva temporaneamente la visuale in prima persona su PS5 tramite telefono e touchpad. Le segnalazioni del 19–20 novembre sono positive, ma patch e sicurezza dei trofei non sono accertate.",
+      "summary": "Visuale in prima persona tramite telefono e touchpad su PS5. Segnalazioni della community dopo la patch del 23 novembre; trofei e compatibilità non certificati.",
       "requirements": "GTA VI su PS5 o PS5 Pro, un veicolo guidabile, accesso alle impostazioni del controller e un salvataggio manuale separato. Non servono mod, account aggiuntivi o online.",
       "location": "Free roam in single-player, al posto di guida di un'automobile qualsiasi. Non è noto un luogo o una missione specifica obbligatoria.",
       "steps": [
@@ -99,14 +99,17 @@
         "Il telefono scompare mentre la telecamera rimane vicina al volto: se torni subito in terza persona, ritenta.",
         "Se riesci a muoverti a piedi in prima persona hai attivato il glitch. Se no, interrompi senza cambiare la progressione e riprova in un'area sicura."
       ],
-      "benefit": "Cambio temporaneo di visuale per esplorazione e riprese, non genera soldi, XP o veicoli. 🟡 Probabilmente funzionante nelle versioni di lancio PS5, con prova indipendente da PC Gamer; nessuna patch esatta documentata.",
+      "benefit": "Cambio temporaneo di visuale, non genera soldi, XP o veicoli. Community: utenti PS5 e PS5 Pro riferiscono che il metodo funziona anche dopo l'aggiornamento del 23 novembre (01.002.002). Nessuna prova diretta del nostro team o certificazione dei trofei.",
       "caution": "⚠️ Trophy Status Uncertain: nessuna fonte ha dimostrato che il glitch conservi la piena ottenibilità dei trofei. Non consigliato come metodo principale per una run platino. Possibili bug grafici, camera bloccata e necessità di ricaricare. Solo single-player; nessuna garanzia su patch future.",
       "source_url": "https://www.videogameschronicle.com/guide/gta-6-first-person-mode-glitch-grand-theft-auto/",
       "extra_sources": [
         "https://www.pcgamer.com/games/grand-theft-auto/gta-6-is-playable-in-first-person-heres-how-to-activate-it/",
         "https://www.dexerto.com/gta/gta-6-glitch-lets-players-access-first-person-mode-3430025/",
         "https://www.reddit.com/r/gtaglitches/comments/1y0ude9/gta_6_enter_first_person_view/",
-        "https://www.reddit.com/r/GTA6/comments/1y15kfv/"
+        "https://www.reddit.com/r/GTA6/comments/1y15kfv/",
+        "https://www.gamesradar.com/games/grand-theft-auto/gta-6-update-gives-players-losing-progress-to-crashes-a-lifeline-and-it-looks-like-the-first-person-and-60fps-glitches-are-safe-for-now/",
+        "https://www.gamepro.de/artikel/gta-6-update-01002002%2C3463626.html",
+        "https://www.reddit.com/r/GTA6/comments/1y3kl8l/can_anyone_confirm_if_the_first_person_camera/"
       ],
       "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_02.0c5.7qx17u9kl.jpg?akim=1&imdensity=1&imwidth=1280",
       "spoiler": false,
