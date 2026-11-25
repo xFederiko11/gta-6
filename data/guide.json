@@ -86,17 +86,28 @@
       "id": "studiare-animali",
       "title": "Come studiare gli animali senza cacciarli",
       "tag": "Collezionabili",
-      "summary": "Studia le specie animali per il completamento del gioco.",
+      "summary": "Per la quota animali del 100% basta registrare 100 specie su 255, senza doverle cacciare.",
       "steps": [
-        "Apri la ruota delle armi e seleziona il binocolo.",
-        "Usa ↑ per avvicinare l'inquadratura.",
-        "Tieni premuto R1 mentre inquadri l'animale."
+        "Tieni premuto L1 per aprire la ruota delle armi e seleziona il binocolo.",
+        "Inquadra un animale e premi ↑ sulla croce direzionale per ingrandire la visuale.",
+        "Mantieni l’animale nell’inquadratura e tieni premuto R1 per studiarlo.",
+        "Apri il menu Progressi → Animali e controlla le specie registrate."
       ],
-      "benefit": "Per la checklist del 100% è sufficiente studiare 100 specie; non è necessario cacciarle.",
-      "caution": "Controlla il progresso in gioco dopo la registrazione.",
+      "benefit": "Secondo PowerPyx, le diverse razze di cani e gatti contano separatamente. Cerca animali anche in città, paludi e campagne; uccelli e pesci contribuiscono alla quota. Le prove di caccia di Bret sono un requisito distinto.",
+      "caution": "Non confondere lo studio di 100 specie con le separate missioni di caccia. I nomi dei menu italiani possono variare.",
       "source_url": "https://www.powerpyx.com/gta-6-how-to-study-animals-scan-vehicles/",
       "image": "https://www.rockstargames.com/VI/_next/static/media/Leonida_Keys_02.0~ptk-53gl0lq.jpg?akim=1&imdensity=1&imwidth=3840",
-      "related_trophy": 14
+      "related_trophy": 14,
+      "checks": [
+        "Hai selezionato il binocolo.",
+        "L’animale è ben visibile nell’inquadratura.",
+        "La specie viene registrata se non era già stata studiata.",
+        "Il contatore delle specie studiate conferma il progresso verso 100 su 255."
+      ],
+      "extra_sources": [
+        "https://www.powerpyx.com/gta-6-100-completion-checklist-guide/",
+        "https://gta.tech4gamers.com/gta-6/guides/study-animals-binoculars/"
+      ]
     },
     {
       "id": "70-sfide-100-percento",
@@ -137,17 +148,28 @@
       "id": "viaggio-rapido-taxi",
       "title": "Viaggio rapido in GTA VI: usa Paradise Taxi",
       "tag": "Movimento",
-      "summary": "Usa il taxi per ridurre i tragitti tra attività e missioni.",
+      "summary": "Salta il tragitto con Paradise Taxi pagando 100 GTA$ oltre al prezzo della corsa.",
       "steps": [
-        "Dopo la prima missione, apri i Contatti e chiama Paradise Taxi.",
-        "Imposta la destinazione e sali a bordo.",
-        "Tieni premuto L2 e premi △ per saltare il tragitto, come indicato nella guida."
+        "Dopo Gone Fishing, raggiungi una strada accessibile. Premi ↑ per aprire il telefono e scegli Contatti → Tutti i contatti → Paradise Taxi.",
+        "Apri la mappa e imposta il segnaposto nel luogo in cui vuoi arrivare.",
+        "Cerca l’icona dell’auto bianca sulla minimappa (premi ↓ se è nascosta) e sali sul taxi quando arriva.",
+        "Durante la corsa tieni premuto L2 per interagire con il conducente e usa △ sul comando Salta tragitto. Conferma il supplemento di 100 GTA$."
       ],
-      "benefit": "La guida consultata indica un costo di 100 GTA$ per il servizio.",
-      "caution": "Prezzo, disponibilità e comandi potrebbero variare con gli aggiornamenti.",
+      "benefit": "Puoi saltare il tragitto pagando 100 GTA$ in aggiunta alla tariffa della corsa, secondo PowerPyx.",
+      "caution": "Il taxi deve poterti raggiungere e accetta denaro contante. Controlla tariffa, supplemento e destinazione prima di confermare; non è un teletrasporto libero sulla mappa.",
       "source_url": "https://www.powerpyx.com/gta-6-how-to-fast-travel/",
       "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_01.135x56yoeu.6t.jpg?akim=1&imdensity=1&imwidth=3840",
-      "related_trophy": null
+      "related_trophy": null,
+      "checks": [
+        "Il servizio conferma l’arrivo di un taxi.",
+        "Hai selezionato una destinazione raggiungibile su strada.",
+        "Sei a bordo come passeggero e la corsa è iniziata.",
+        "Controlla l’arrivo alla destinazione e il costo effettivo: il supplemento si aggiunge alla tariffa della corsa."
+      ],
+      "extra_sources": [
+        "https://www.gtabase.com/gta-6/articles/how-to-fast-travel-in-gta-6",
+        "https://www.gamesradar.com/games/grand-theft-auto/gta-6-how-to-fast-travel/"
+      ]
     },
     {
       "id": "poligoni-concentrazione",

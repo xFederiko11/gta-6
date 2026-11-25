@@ -45,19 +45,23 @@ class OperationalGuidesV1Tests(unittest.TestCase):
         self.assertEqual(page.count('data-mo-real-gameplay='),6)
         self.assertEqual(page.count('data-mo-gift-ref="source-only"'),1)
         self.assertEqual(page.count('class="mo-video-screen"'),6)
-        self.assertEqual(page.count("<iframe "),6)
-        self.assertEqual(page.count('player ufficiale incorporato'),6)
+        self.assertNotIn("<iframe",page)
+        self.assertEqual(page.count('data-step-video-id="'+IGN_VIDEO_ID+'"'),6)
+        self.assertEqual(page.count('data-step-video-open hidden'),6)
         self.assertEqual(page.count("mo-photo-link"),6)
-        self.assertIn('https://www.youtube-nocookie.com/embed/'+IGN_VIDEO_ID,page)
+        self.assertIn('step-video-opt-in-v1.js?v=',page)
+        self.assertIn('step-video-opt-in-v1.css?v=',page)
         for i,(seconds,label) in enumerate(IGN_TIMELINE,1):
             chapter=page.split('id="passaggio-'+str(i)+'"',1)[1].split('id="passaggio-'+str(i+1)+'"',1)[0]
             self.assertIn('data-mo-chapter-seconds="'+str(seconds)+'"',chapter)
-            self.assertIn('start='+str(seconds),chapter)
+            self.assertIn('data-step-video-seconds="'+str(seconds)+'"',chapter)
+            self.assertIn('t='+str(seconds)+'s',chapter)
             self.assertIn('minuto '+label,chapter)
             self.assertIn('Guarda anche le foto sulla guida PowerPyx',chapter)
-            self.assertLess(chapter.index('<iframe '),chapter.index('Fonte video: IGN'))
+            self.assertLess(chapter.index('data-step-video-open'),chapter.index('Fonte video: IGN'))
         gift=page.split('id="passaggio-7"',1)[1].split('class="v-tutorial-finish"',1)[0]
         self.assertNotIn('<iframe',gift)
+        self.assertNotIn('Moses’ Sultan',page.split('<details class="mo-gift-reveal">',1)[0])
         self.assertIn('Non è disponibile qui un’immagine riutilizzabile',gift)
         self.assertEqual(page.count(SOURCE),7) # six photos + one source list
         self.assertEqual(page.count(GIFT),2)

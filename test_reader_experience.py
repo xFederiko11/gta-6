@@ -126,7 +126,7 @@ class ReaderTests(unittest.TestCase):
         self.assertEqual(release['default_theme'],'unified-dark-mobile-desktop')
         self.assertEqual(release['reader_version'],VERSION)
         self.assertEqual(release['guides_with_extras'],5)
-        self.assertEqual(release['tip_count'],9)
+        self.assertEqual(release['tip_count'],10)  # new sourced RydeMe alternative
         page=(ROOT/'salvare-auto/index.html').read_text()
         self.assertEqual(transform(page,version='anything'),page)
     def test_sourced_tips_and_images_visible_with_warning(self):
@@ -163,6 +163,16 @@ class ReaderTests(unittest.TestCase):
         taxi=(ROOT/'guide-e-tutorial/viaggio-rapido-taxi/index.html').read_text()
         self.assertIn('in aggiunta alla tariffa della corsa',taxi)
         self.assertNotIn('un costo di 100 GTA$ per il servizio',taxi)
+        self.assertIn('Gone Fishing (Capitolo 1)',taxi)
+        self.assertIn('100 GTA$ in aggiunta alla tariffa della corsa.',taxi.split('id="procedura"',1)[0])
+        self.assertEqual(taxi.count('class="v-step"'),4)
+        self.assertEqual(taxi.count('class="v-check"'),4)
+        self.assertIn('RydeMe',taxi)
+        animals=(ROOT/'guide-e-tutorial/studiare-animali/index.html').read_text()
+        self.assertIn('100 specie su 255',animals)
+        self.assertEqual(animals.count('class="v-step"'),4)
+        self.assertEqual(animals.count('class="v-check"'),4)
+        self.assertIn('Progressi → Animali',animals)
         garage=(ROOT/'salvare-auto/index.html').read_text()
         self.assertIn('sblocchi successivi',garage)
         self.assertNotIn("Porta l&#x27;auto che vuoi conservare dentro un Pay",garage)
@@ -225,7 +235,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','patch/','patch/2026-11-23/','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','hdr-oled/lg-oled-c4/','hdr-oled/samsung-s90f/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','video-tutorial/','veicoli/','veicoli/declasse-yosemite-1500/','veicoli/pegassi-toros/','guide-e-tutorial/']
+                paths=['','patch/','patch/2026-11-23/','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/studiare-animali/','guide-e-tutorial/viaggio-rapido-taxi/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','hdr-oled/lg-oled-c4/','hdr-oled/samsung-s90f/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','video-tutorial/','veicoli/','veicoli/declasse-yosemite-1500/','veicoli/pegassi-toros/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -472,9 +482,20 @@ def browser_qa():
                     if path=='guide-e-tutorial/veicoli-per-moses/':
                         assert page.locator('#procedura .v-step').count()==7
                         assert page.locator('.mo-visual').count()==7
-                        assert page.locator('.mo-video-screen iframe').count()==6
-                        assert page.locator('.mo-video-screen iframe').first.get_attribute('src').startswith(
-                            'https://www.youtube-nocookie.com/embed/UyxxY0A_kow?start=101')
+                        frames=page.locator('.mo-video-screen iframe')
+                        buttons=page.locator('.mo-video-screen [data-step-video-open]')
+                        assert frames.count()==0
+                        assert buttons.count()==6 and page.locator('.mo-video-screen [data-step-video-open]:visible').count()==6
+                        assert 'Moses’ Sultan' not in page.locator('.v-operation-brief').inner_text()
+                        if width==390:
+                            buttons.nth(0).click()
+                            assert frames.count()==1
+                            assert frames.first.get_attribute('src')=='https://www.youtube-nocookie.com/embed/UyxxY0A_kow?start=101&rel=0'
+                            buttons.nth(1).click()
+                            assert frames.count()==1
+                            assert frames.first.get_attribute('src')=='https://www.youtube-nocookie.com/embed/UyxxY0A_kow?start=191&rel=0'
+                            buttons.nth(1).click()
+                            assert frames.count()==0
                         assert page.locator('.mo-photo-link').count()==6
                         assert page.locator('.mo-photo-link img').count()==0
                         assert page.locator('.mo-jump-link').count()==6
@@ -503,12 +524,12 @@ def browser_qa():
                             print('MOSES_FULL_PAGE_QA',width,'height',real_height,flush=True)
                             if width==390:
                                 page.locator('#passaggio-1').screenshot(
-                                    path=str(out/'moses-step1-with-video-390.png'))
+                                    path=str(out/'moses-step1-opt-in-390.png'))
                                 page.locator('#passaggio-7').screenshot(
                                     path=str(out/'moses-gift-closed-390.png'))
                         page.reload(wait_until='load')
                         assert page.locator('.v-step:visible').count()==7
-                        assert page.locator('.mo-video-screen iframe').count()==6
+                        assert page.locator('.mo-video-screen iframe').count()==0
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
                     if path=='guide-e-tutorial/soldi-facili-capitolo-1/':
                         assert page.locator('.cash-microsteps').count()==4
@@ -625,7 +646,7 @@ def browser_qa():
                         assert page.locator('.v-tutorial-finish').is_visible()
                         assert page.locator('.v-guide-more').is_visible()
                         assert not page.locator('details.v-guide-more').evaluate('(el)=>el.open')
-                        if width in (390,1440) and path in ('salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/glitch-prima-persona-ps5/'):
+                        if width in (390,1440) and path in ('salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/glitch-prima-persona-ps5/','guide-e-tutorial/studiare-animali/','guide-e-tutorial/viaggio-rapido-taxi/'):
                             page.evaluate('window.scrollTo(0,0)')
                             shot=page.screenshot(path=str(out/('linear-'+path.strip('/').replace('/','-')+'-'+str(width)+'.png')),full_page=True,animations='disabled')
                             assert int.from_bytes(shot[16:20],'big')==width
