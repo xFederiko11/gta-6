@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600" role="img" aria-labelledby="title desc">
+<title id="title">Televisore OLED illustrato, riferimento visivo</title>
+<desc id="desc">Illustrazione vettoriale originale di un televisore OLED con paesaggio colorato. Non è una fotografia del prodotto né una schermata del videogioco.</desc>
+<defs>
+ <linearGradient id="room" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#201a39"/><stop offset=".62" stop-color="#35244b"/><stop offset="1" stop-color="#181a35"/></linearGradient>
+ <linearGradient id="sky" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#231f5e"/><stop offset=".35" stop-color="#845eac"/><stop offset=".65" stop-color="#e38aac"/><stop offset="1" stop-color="#ffbb9a"/></linearGradient>
+ <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#4a7da4"/><stop offset="1" stop-color="#172f5b"/></linearGradient>
+ <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#dc6fa4" stop-opacity="0"/><stop offset=".5" stop-color="#fab39a" stop-opacity=".33"/><stop offset="1" stop-color="#dc6fa4" stop-opacity="0"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-40%" width="160%" height="200%"><feGaussianBlur stdDeviation="20"/></filter>
+ <clipPath id="panel"><rect x="89" y="79" width="822" height="407" rx="6"/></clipPath>
+</defs>
+<rect width="1000" height="600" rx="30" fill="url(#room)"/>
+<ellipse cx="500" cy="548" rx="400" ry="26" fill="#0c1027" opacity=".67" filter="url(#shadow)"/>
+<rect x="76" y="66" width="848" height="434" rx="12" fill="#0d1123" stroke="#b8a4c8" stroke-width="3"/>
+<g clip-path="url(#panel)">
+ <rect x="89" y="79" width="822" height="407" fill="url(#sky)"/>
+ <circle cx="735" cy="252" r="88" fill="#ffcbb2" opacity=".78"/>
+ <path d="M89 328Q280 309 451 330T911 316V486H89Z" fill="url(#sea)"/>
+ <path d="M89 395Q240 342 440 367T911 356V486H89Z" fill="#315b79" opacity=".58"/>
+ <path d="M89 486V380Q197 340 273 366T434 381T653 380T911 357V486Z" fill="#192e4a" opacity=".66"/>
+ <path d="M89 462Q240 417 388 436T643 427T911 410V486H89Z" fill="#12253f" opacity=".84"/>
+ <rect x="89" y="79" width="822" height="407" fill="url(#glow)"/>
+ <path d="M89 145L327 79H478L89 246Z" fill="#ffffff" opacity=".06"/>
+</g>
+<rect x="89" y="79" width="822" height="407" rx="6" fill="none" stroke="#9c8caa" opacity=".45"/>
+<circle cx="500" cy="493" r="2.6" fill="#ada1bc"/>
+<path d="M486 500H514L532 539H468Z" fill="#b7b5c4"/>
+<path d="M437 542H563Q572 542 574 549H426Q428 542 437 542Z" fill="#767786"/>
+<text x="118" y="115" font-family="Arial, sans-serif" font-size="17" fill="#fbeaf5" opacity=".83" letter-spacing="4">OLED · HDR</text>
+</svg>
