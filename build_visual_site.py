@@ -16,6 +16,7 @@ import editorial_articles
 import cinematic_site
 from visual_guide_content import enrich
 from operational_brief_v1 import validate as validate_operational_briefs, render as render_operational_brief
+from waink_visual_v1 import intro as render_waink_intro, step as render_waink_step
 from moses_vehicle_jobs_v1 import render as render_moses_jobs, validate as validate_moses_jobs, PATH as MOSES_JOBS_PATH
 from community_social_v1 import home_rail
 from meditation_tracker_v1 import render as render_meditation_tracker
@@ -528,6 +529,8 @@ def guide(g,guides):
            '<span class="v-guide-step-count">'+str(count)+' passaggi pratici</span>'
            '</section>')
     body+='<div class="v-guide-layout v-guide-single"><article class="v-guide-main">'
+    if g['id']=='scansionare-veicoli':
+        body+=render_waink_intro()
     body+=render_operational_brief(OPERATIONAL_BRIEFS,g)
     controls={
         'registrare-auto-personale':'↑ croce direzionale · R1 · △ (Triangolo) · levetta destra',
@@ -535,13 +538,15 @@ def guide(g,guides):
         'scansionare-veicoli':'↑ croce direzionale · WAiNK (segui i comandi a schermo)',
         'viaggio-rapido-taxi':'Telefono → Contatti → Paradise Taxi'
     }
-    body+=('<details class="v-guide-prep">'
-           '<summary>Prima di iniziare: requisiti e luogo di partenza</summary>'
-           '<div class="v-guide-prep-content">'
-           '<p><strong>Serve:</strong> '+e(g["requirements"])+'</p>'
-           '<p><strong>Dove:</strong> '+e(g["location"])+'</p>'
-           +('<p class="v-guide-controls"><strong>Comandi PS5:</strong> '+e(controls[g['id']])+'</p>' if g['id'] in controls else '')
-           +'</div></details>')
+    # WAiNK already states the requirements in its compact brief.
+    if g['id']!='scansionare-veicoli':
+        body+=('<details class="v-guide-prep">'
+               '<summary>Prima di iniziare: requisiti e luogo di partenza</summary>'
+               '<div class="v-guide-prep-content">'
+               '<p><strong>Serve:</strong> '+e(g["requirements"])+'</p>'
+               '<p><strong>Dove:</strong> '+e(g["location"])+'</p>'
+               +('<p class="v-guide-controls"><strong>Comandi PS5:</strong> '+e(controls[g['id']])+'</p>' if g['id'] in controls else '')
+               +'</div></details>')
     # Car registration is easy to confuse with owning garages or paying for
     # vehicle delivery. Make those story-gated differences visible up front.
     if g['id']=='registrare-auto-personale':
@@ -557,10 +562,9 @@ def guide(g,guides):
     if g['id']=='scansionare-veicoli':
         body+=('<p class="v-guide-urgent waink-tracker-warning" role="note">'
                '<strong>🚘 Prima di rubare:</strong> '
-               '<strong>No Tracker</strong> significa che non c\'è localizzatore; '
-               '<strong>Standard</strong> può segnalare alla polizia il luogo del furto; '
-               '<strong>Advanced</strong> può comunicare la posizione quando rallenti. '
-               'Per alcuni veicoli avanzati serve il Key Cloner, sbloccabile nel Capitolo 3. '
+               '<strong>No Tracker</strong> = nessun localizzatore. '
+               '<strong>Standard</strong> e <strong>Advanced</strong>: rischio di segnalazione. '
+               'Vedi il confronto illustrato al passo 4. '
                '<a href="https://www.powerpyx.com/gta-6-moses-take-a-vehicle-to-moses-walkthrough/" '
                'target="_blank" rel="noopener noreferrer">Verifica PowerPyx ↗</a></p>')
     # Critical trophy/save warnings must remain visible BEFORE the first step.
@@ -609,6 +613,8 @@ def guide(g,guides):
             f'<span class="v-step-kicker">PASSO {n+1} DI {count}</span>'
             f'<h3>{e(heading)}</h3><p>{e(text)}</p>'
             '</div></div>')
+        if g['id']=='scansionare-veicoli':
+            body+=render_waink_step(n)
         if g['id']=='registrare-auto-personale':
             body+=render_first_car(n)
         if g['id']=='soldi-facili-capitolo-1':
@@ -814,7 +820,7 @@ def main():
     validate_collectible_photos(COLLECTIBLE_PHOTOS,COLLECTIBLE_ROUTES)
     validate_approved(APPROVED_PHOTOS,guides,VISUAL_REQUESTS)
     PHOTO_COVERAGE=audit_photo_coverage(guides,VISUAL_REQUESTS,APPROVED_PHOTOS,PHOTO_REVIEW)
-    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','moses_vehicle_jobs_v1.py','operational_brief_v1.py','data/guide_operational_briefs_v1.json','site/assets/operational-guide-v1.css','site/assets/site-focus-v1.css','collectible_routes_v4.py','data/collectible_routes_v4.json','data/collectible_photo_evidence_v1.json','collectible_photo_evidence_v1.py','site/assets/collectible-photo-v1.css','site/assets/collectible-beginner-v1.css','site/assets/collectible-beginner-v1.js','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/step_image_sources_v1.json','step_image_sources_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/map_external_permalinks_v1.json','interactive_article_maps_v1.py','site/assets/interactive-map-v1.css','site/assets/interactive-map-v1.js','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js','rockstar_gallery_v1.py','site/assets/rockstar/gta-vi/manifest.json','site/assets/rockstar-gallery-v1.css','site/assets/rockstar-gallery-v1.js','vehicle_catalog_v1.py','data/vehicle_catalog_v1.json','site/assets/vehicle-finder-v1.css','site/assets/vehicle-finder-v1.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ())
+    site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','moses_vehicle_jobs_v1.py','operational_brief_v1.py','data/guide_operational_briefs_v1.json','site/assets/operational-guide-v1.css','site/assets/site-focus-v1.css','collectible_routes_v4.py','data/collectible_routes_v4.json','data/collectible_photo_evidence_v1.json','collectible_photo_evidence_v1.py','site/assets/collectible-photo-v1.css','site/assets/collectible-beginner-v1.css','site/assets/collectible-beginner-v1.js','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/step_image_sources_v1.json','step_image_sources_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/map_external_permalinks_v1.json','interactive_article_maps_v1.py','site/assets/interactive-map-v1.css','site/assets/interactive-map-v1.js','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js','rockstar_gallery_v1.py','site/assets/rockstar/gta-vi/manifest.json','site/assets/rockstar-gallery-v1.css','site/assets/rockstar-gallery-v1.js','vehicle_catalog_v1.py','data/vehicle_catalog_v1.json','site/assets/vehicle-finder-v1.css','site/assets/vehicle-finder-v1.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ()) + (('waink_visual_v1.py',)+tuple('site/assets/waink-guide/step-'+str(n)+'.svg' for n in range(1,6)) if path=='guide-e-tutorial/scansionare-veicoli/' else ())
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
     from community_discovery_v2 import render as community_render

@@ -112,7 +112,7 @@ jobs:
       - name: Check curated YouTube metadata without downloading media
         run: |
           python -m unittest -q test_creator_video_health_v1.py
-          if ! timeout 40s python creator_video_health_v1.py; then
+          if ! timeout 45s python creator_video_health_v1.py; then
             echo 'Creator video metadata probe incomplete; playback and rights remain unverified.' >> "$GITHUB_STEP_SUMMARY"
           fi
       - name: Audit static Google discovery links (no network or tracking)
@@ -307,6 +307,10 @@ jobs:
                       if path == 'guide-e-tutorial/scansionare-veicoli/':
                           assert text.count('data-step-video-id="R0GdEkPZSvM"') == 1
                           assert text.count('data-step-video-seconds="266"') == 1
+                          assert text.count('data-step-video-id="0RBe_fz67gs"') == 1
+                          assert text.count('data-waink-diagram=') == 5
+                          assert text.index('class="waink-video-intro"') < text.index('class="v-operation-brief"')
+                          assert 'class="v-guide-prep"' not in text
                           assert '<iframe' not in text
                       if path == 'guide-e-tutorial/glitch-prima-persona-ps5/':
                           assert text.count('data-step-video-id="CJi2DWXxsoQ"') == 1

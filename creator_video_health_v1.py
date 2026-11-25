@@ -1,4 +1,4 @@
-"""Read-only YouTube metadata checks for the four curated links.
+"""Read-only YouTube metadata checks for curated links and WAiNK tutorial.
 
 No downloads, media extraction, thumbnails, API keys, login or publication.
 An oEmbed response is metadata evidence, not proof of actual playback,
@@ -14,6 +14,7 @@ import json
 import re
 import os
 from creator_video_hub_v1 import load, records
+from waink_visual_v1 import VIDEO_ID as WAINK_VIDEO_ID, CREATOR as WAINK_CREATOR
 
 ENDPOINT = "https://www.youtube.com/oembed"
 MAX_BYTES = 64_000
@@ -23,6 +24,7 @@ AUTHORS = {
     "moses-ign": {"ign", "ign guides"},
     "soldi-facili-capitolo-1": {"tgg"},
     "prima-persona-glitch-ps5": {"oneboyler"},
+    "waink-tutorial": {WAINK_CREATOR.casefold()},
 }
 
 
@@ -85,7 +87,7 @@ def probe(item, opener=None):
 
 
 def main():
-    items = records(load())
+    items = [*records(load()), {"key": "waink-tutorial", "video_id": WAINK_VIDEO_ID}]
     rows = [{"key": item["key"], "video_id": item["video_id"],
              "status": probe(item), "playback_verified": False,
              "reuse_rights_verified": False} for item in items]

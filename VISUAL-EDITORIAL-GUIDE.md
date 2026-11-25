@@ -179,3 +179,8 @@ Per la selezione di riferimenti visivi: filmati originali, da incorporare al min
 - Diritto sottostante del gioco: https://support.rockstargames.com/articles/7bNaeoMFTV0iUDGhStTXvz/policy-on-posting-copyrighted-rockstar-games-material . La tolleranza per uso fan occasionale e non commerciale non e' una licenza generale per una pubblicazione digitale sistematica. Il registro deve contenere anche una base valida per l'uso dei contenuti Rockstar.
 
 Decisione del titolare del progetto, 25 novembre 2026: non inviare email di richiesta a Rockstar, Take-Two o ai creator. Nessun contatto esterno o risposta X automatica per ottenere immagini. Privilegiare embed ufficiali, link ai minuti pertinenti e immagini con base di riuso gia' documentata, senza presumere licenze dalla visibilita' pubblica o dalla sola citazione della fonte. Nessun costo aggiuntivo. Nessun consenso ricevuto; il registro approvato resta invariato.
+
+
+## WAiNK — criterio visivo mobile del 25 novembre 2026
+
+Il video dedicato precede i prerequisiti: niente doppio blocco introduttivo. Cinque schemi originali spiegano i comandi e il risultato senza simulare l'interfaccia del gioco; non contano come screenshot autentici. Collegamento alle schermate reali del sito fonte e al video originale. Test browser sul primo viewport a 390px, caricamento del file immagine, apertura e chiusura del player e articolo intero. Nessun contatto esterno.
