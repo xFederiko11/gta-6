@@ -71,7 +71,9 @@ def render_reference(family, url):
         '<small>Illustrazione grafica originale, non foto del modello né screenshot di GTA VI. '
         'Usa il codice sulla targhetta della tua TV per identificare la variante.</small>'
         '<a class="hdr-tv-reference-source" href="' + _e(manufacturer) + '" '
-        'target="_blank" rel="noopener noreferrer">Apri la scheda e le fotografie ufficiali ↗</a>'
+        'target="_blank" rel="noopener noreferrer">'
+        + ('Apri le fotografie ufficiali della TV ↗' if family["slug"] == "lg-oled-c4"
+           else 'Apri la scheda o fonte del produttore ↗') + '</a>'
         '</figcaption></figure>'
     )
 
