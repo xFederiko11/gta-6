@@ -238,8 +238,16 @@ def browser_qa():
                         page.reload(wait_until='load')
                         assert page.locator('html').get_attribute('data-theme')==theme,'persistence'
                         check_layout(page,out,width,path,theme)
-                    if path.startswith('patch/') and width in (390,1440):
-                        page.screenshot(path=str(out/('patch-'+path.strip('/').replace('/','-')+'-'+str(width)+'.png')),full_page=True,animations='disabled')
+                    if path.startswith('patch/'):
+                        intro=page.locator('[data-patch-intro]')
+                        if intro.count():
+                            assert intro.evaluate('(el) => getComputedStyle(el).display')!='grid'
+                            assert intro.locator('h1 + .article-cover').count()==1
+                            heading=intro.locator('h1').bounding_box()
+                            cover=intro.locator('.article-cover').bounding_box()
+                            assert heading and cover and cover['y'] >= heading['y']+heading['height']-1
+                        if width in (390,1440):
+                            page.screenshot(path=str(out/('patch-'+path.strip('/').replace('/','-')+'-'+str(width)+'.png')),full_page=True,animations='disabled')
                     if path=='' and width==1440:
                         # The actual desktop hero must be centered, without the
                         # old 13% horizontal shift, and advance automatically.
@@ -613,7 +621,7 @@ def browser_qa():
                         assert page.locator('.v-tutorial-finish').is_visible()
                         assert page.locator('.v-guide-more').is_visible()
                         assert not page.locator('details.v-guide-more').evaluate('(el)=>el.open')
-                        if width in (390,1440) and path in ('salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/'):
+                        if width in (390,1440) and path in ('salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/glitch-prima-persona-ps5/'):
                             page.evaluate('window.scrollTo(0,0)')
                             shot=page.screenshot(path=str(out/('linear-'+path.strip('/').replace('/','-')+'-'+str(width)+'.png')),full_page=True,animations='disabled')
                             assert int.from_bytes(shot[16:20],'big')==width
@@ -626,6 +634,9 @@ def browser_qa():
                             print('LINEAR_ARTICLE_QA',path,count,flush=True)
                         page.locator('details.v-guide-more > summary').click()
                         assert page.locator('details.v-guide-more').evaluate('(el) => el.open')
+                        if width in (390,1440) and path=='guide-e-tutorial/meditazione-capitolo-1/':
+                            page.evaluate('window.scrollTo(0,0)')
+                            page.screenshot(path=str(out/f'extended-meditation-{width}.png'),full_page=True,animations='disabled')
                     if path.endswith('soldi-2500-three-sheets-liquor/'):
                         assert page.locator('#mappa').is_visible()
                         assert page.locator('#consigli').is_visible()
