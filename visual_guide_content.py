@@ -36,7 +36,7 @@ STEP_MEDIA = {
 
 HEADINGS = {
     'soldi-facili-capitolo-1': ['Three Sheets Liquor · Key Lento','Manatee Motel · vicino a Hamlet','Casa su palafitte · Corsair Key','Magazzino · South Vice-Dale'],
-    'soldi-2500-three-sheets-liquor': ['Parti dall’incarico giusto','Raggiungi il retro','Individua il riferimento','Controlla il nascondiglio','Completa l’esplorazione'],
+    'soldi-2500-three-sheets-liquor': ['Completa il favore di Shirley','Torna con il segnale giallo','Ottieni l’indizio dal pappagallo','Controlla il nascondiglio','Completa l’esplorazione'],
     'registrare-auto-personale': ['Raggiungi Moses a Port Gellhorn','Scansiona le auto con WAiNK','Apri la Montagne XL con lo Slim Jim','Scegli un’auto senza tracker, se necessario','Rivernicia l’auto da Moses','Registra gratis la prima auto','Richiama il mezzo con Scooter Bros'],
     'sportive-randy-posizioni': ['Apri la lista delle richieste','Restringi la zona di ricerca','Identifica il veicolo','Decidi se consegnarlo o conservarlo'],
     'prima-persona-glitch-ps5': ['Proteggi prima i tuoi progressi','Imposta Camera sul touchpad','Entra nell’auto','Apri il telefono','Chiudi e premi il touchpad','Conferma l’effetto e torna alla visuale normale'],
@@ -49,7 +49,7 @@ HEADINGS = {
 }
 REQUIREMENTS = {
     'soldi-facili-capitolo-1': 'Accesso alle zone del Capitolo 1. Per il luogo sull’acqua serve una barca. Prevedi possibili scontri.',
-    'soldi-2500-three-sheets-liquor': 'L’incarico iniziale che porta al negozio. Conserva un salvataggio manuale prima di esporti ai rischi.',
+    'soldi-2500-three-sheets-liquor': 'Completa il favore del rum, poi attendi il segnale giallo dell’indagine. Conserva un salvataggio manuale.',
     'scansionare-veicoli': 'App WAiNK disponibile; ↑ della croce direzionale e R1 sul DualSense. Il Key Cloner per alcune auto arriva nel Capitolo 3.',
     'studiare-animali': 'Binocolo disponibile nella ruota degli oggetti.',
     '70-sfide-100-percento': 'Menu Progressi e sezione Sfide accessibili.',

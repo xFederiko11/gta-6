@@ -70,6 +70,21 @@ class PublicReleaseGateTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "Credential-like"):
                 verify(root)
 
+    def test_rejects_cached_unlicensed_editorial_derivatives_and_references(self):
+        with TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            fixture(root)
+            apply(root)
+            target=root/"assets/visual/liquor-store-960.webp"
+            target.parent.mkdir(parents=True)
+            target.write_bytes(b"fixture")
+            with self.assertRaisesRegex(ValueError,"Uncleared editorial screenshot derivative"):
+                verify(root)
+            target.unlink()
+            (root/"index.html").write_text(page('<img src="/gta-6/assets/visual/liquor-store-960.webp">'),encoding="utf-8")
+            with self.assertRaisesRegex(ValueError,"Uncleared editorial screenshot reference"):
+                verify(root)
+
     def test_rejects_missing_public_home(self):
         with TemporaryDirectory() as tmp:
             with self.assertRaisesRegex(ValueError, "Missing public homepage"):

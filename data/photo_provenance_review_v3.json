@@ -1,7 +1,7 @@
 {
   "schema": "gta6-photo-provenance-review-v3",
-  "reviewed": "2026-11-21",
-  "policy": "Existing locally optimized game screenshots originate from identified third-party editorial source pages. Source attribution and technical availability are NOT proof of redistribution permission or direct owner authorship. No new external images are ingested automatically. Editorial leads are links, not photo evidence.",
+  "reviewed": "2026-11-25",
+  "policy": "Existing locally optimized game screenshots originate from identified third-party editorial source pages. Source attribution and technical availability are NOT proof of redistribution permission or direct owner authorship. No new external images are ingested automatically. Editorial leads are links, not photo evidence. All ten legacy screenshots are now link-only; generated WebP derivatives are excluded from the public site. Context approval does not grant rights.",
   "assets": [
     {
       "key": "liquor-store",
