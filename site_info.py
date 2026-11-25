@@ -39,7 +39,9 @@ def sources_for(path: str) -> tuple[str, ...]:
         extra = ("trophy_experience.py", "site/assets/trophy-experience.js") if path=="guide-e-tutorial/poligoni-concentrazione/" else ()
         return shared + ("data/guide.json", "data/trofei.json", "related_research.py", "data/community_feed.json", "site/assets/guide-interactions.js") + extra
     if path.startswith("hdr-oled/"):
-        return shared + ("hdr_catalog.py", "data/hdr_oled.json", "site/assets/hdr-interactions.js")
+        return shared + ("hdr_catalog.py", "hdr_tv_picture_v1.py", "data/hdr_oled.json",
+                         "data/hdr_tv_picture_v1.json", "data/hdr_tv_photo_sources_v1.json",
+                         "site/assets/hdr-tv-reference-v1.svg", "site/assets/hdr-interactions.js")
     if path.startswith("trucchi/"):
         assets=("site/assets/cheat-interactions.js",) if path!="trucchi/" else ()
         return shared + ("cheats_catalog.py", "data/trucchi.json", "data/fonti_editoriali.json") + assets

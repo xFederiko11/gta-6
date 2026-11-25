@@ -241,6 +241,25 @@ def browser_qa():
                         page.reload(wait_until='load')
                         assert page.locator('html').get_attribute('data-theme')==theme,'persistence'
                         check_layout(page,out,width,path,theme)
+                    if path=='' and width==1440:
+                        # The actual desktop hero must be centered, without the
+                        # old 13% horizontal shift, and advance automatically.
+                        hero=page.locator('[data-hero-slideshow]')
+                        page.wait_for_function(
+                            "() => !!document.querySelector('[data-hero-slideshow]')?.dataset.heroIndex",
+                            timeout=10000)
+                        position=page.locator('.ci-hero-image[data-hero-active="true"]').evaluate(
+                            "(img) => getComputedStyle(img).objectPosition")
+                        self_center=position in ('50% 50%', 'center center')
+                        assert self_center,(position,'desktop photo not centered')
+                        translation=page.locator('.ci-hero-image[data-hero-active="true"]').evaluate(
+                            "(img) => getComputedStyle(img).transform")
+                        assert translation=='none',(translation,'desktop photo shifted')
+                        old_index=hero.get_attribute('data-hero-index')
+                        page.mouse.move(0,0)
+                        page.wait_for_function(
+                            "old => document.querySelector('[data-hero-slideshow]')?.dataset.heroIndex !== old",
+                            arg=old_index,timeout=6000)
                     if path=='hdr-oled/lg-oled-c4/':
                         assert page.locator('[data-hdr-tv-reference="lg-oled-c4"]').count()==1
                         assert page.locator('.hdr-tv-settings-table tbody tr').count()==11
