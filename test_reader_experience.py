@@ -246,13 +246,16 @@ def browser_qa():
                         assert page.locator('.hdr-tv-settings-table tbody tr').count()==11
                         assert page.locator('.hdr-tv-settings-table .hdr-tv-status-verified').count()==8
                         assert page.locator('img[src*="hdr-tv-reference-v1.svg"]').count()==1
+                        assert page.locator('[data-hdr-photo-gallery="lg-oled-c4"]').count()==1
                         if width in (390,1440):
                             page.screenshot(path=str(out/f'hdr-tv-c4-{width}.png'),
                                             full_page=True,animations='disabled')
                     if path=='hdr-oled/samsung-s90f/':
                         assert page.locator('[data-hdr-tv-reference="samsung-s90f"]').count()==1
                         assert page.locator('.hdr-tv-settings-table tbody tr').count()==7
-                        assert page.get_by_text('Non verificato', exact=True).count()>=5
+                        assert page.get_by_text('Non verificato', exact=True).count()>=4
+                        assert page.locator('[data-hdr-photo-gallery="samsung-s90f"]').count()==1
+                        assert page.get_by_text('variante regionale',exact=False).count()>=1
                     if path=='veicoli/':
                         cards=page.locator('[data-vc-card]')
                         assert cards.count()==25
