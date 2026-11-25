@@ -295,7 +295,13 @@ class PortalTests(unittest.TestCase):
             self.assertIn('id="tv-settings"',page)
             self.assertIn('href="#tv-settings"',page)
             self.assertIn('assets/hdr-tv-reference-v1.svg',page)
-            self.assertIn('Non verificato',page) if family["slug"] != "lg-oled-c4" else self.assertIn("Test HDR",page)
+            profiles=json.loads(Path("data/hdr_tv_picture_v1.json").read_text(encoding="utf-8"))["profiles"]
+            if family["slug"] in profiles:
+                self.assertIn("Test HDR",page)
+            else:
+                self.assertIn("Non verificato",page)
+            self.assertIn('data-hdr-photo-gallery="'+family["slug"]+'"',page)
+            self.assertIn("📷 Apri le foto reali",page)
             self.assertIn('id="valori-hdr"',page)
             self.assertIn('id="modelli-tv"',page)
             self.assertIn('data-hdr-copy=',page)
@@ -337,7 +343,7 @@ class PortalTests(unittest.TestCase):
         self.assertIn("Alto (High)",c4)
         self.assertIn("Solo riferimento SDR",c4)
         self.assertIn("www.rtings.com/tv/reviews/lg/c4-oled",c4)
-        self.assertIn("Illustrazione grafica originale, non foto",c4)
+        self.assertIn("Illustrazione originale (non è la foto",c4)
         self.assertIn("Compensazione mappatura toni",c4)
         self.assertNotIn("1000 nit calibrati per GTA 6",index)
 
