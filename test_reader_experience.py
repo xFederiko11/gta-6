@@ -474,6 +474,31 @@ def browser_qa():
                             assert 'permesso di riutilizzo non è documentato' in ref.inner_text()
                             assert ref.locator('img').count()==0
                             assert ref.locator('a').get_attribute('target')=='_blank'
+                        clips=page.locator('#procedura .v-step-video')
+                        assert clips.count()==2
+                        assert clips.first.get_attribute('data-step-video-seconds')=='266'
+                        assert clips.nth(1).get_attribute('data-step-video-seconds')=='675'
+                        assert page.locator('.v-step-video-slot iframe').count()==0
+                        assert page.locator('[data-step-video-open]').first.get_attribute('hidden') is None
+                        # The reader is initially on step 1. Nothing is fetched
+                        # from YouTube before the reader opens step 2 and clicks.
+                        page.locator('[data-gf-next]').click()
+                        assert page.locator('#passaggio-2').is_visible()
+                        play=page.locator('#passaggio-2 [data-step-video-open]')
+                        assert play.is_visible()
+                        play.click()
+                        frame=page.locator('#passaggio-2 .v-step-video-slot iframe')
+                        assert frame.count()==1
+                        assert frame.get_attribute('src')=='https://www.youtube-nocookie.com/embed/R0GdEkPZSvM?start=266&rel=0'
+                        assert play.get_attribute('aria-expanded')=='true'
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                        if width==390:
+                            page.locator('#passaggio-2').screenshot(path=str(out/'first-car-opt-in-video-390.png'))
+                        play.click()
+                        assert frame.count()==0
+                        assert play.get_attribute('aria-expanded')=='false'
+                        page.locator('[data-gf-back]').click()
+                        assert page.locator('#passaggio-1').is_visible()
                     if page.locator('details.v-guide-more').count() and path!='guide-e-tutorial/veicoli-per-moses/':
                         # The beginner experience is a WIZARD, not an article full
                         # of unrelated boxes. Only one numbered step visible.
