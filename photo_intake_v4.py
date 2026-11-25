@@ -35,6 +35,7 @@ def validate_approved(registry,guides,requests):
         raise ValueError("Invalid photo registry")
     seen=set()
     slots=set()
+    preview_guides=set()
     for photo in records:
         name=photo.get("id")
         if not isinstance(name,str) or not re.fullmatch(r"[a-z0-9-]{6,55}",name) or name in seen:
@@ -59,6 +60,27 @@ def validate_approved(registry,guides,requests):
             raise ValueError("Screenshot requires creator rights and explicit grant")
         if photo.get("approved_by")!="xFederiko11" or photo.get("human_reviewed") is not True:
             raise ValueError("Screenshots cannot be auto-approved by a bot")
+        # Explicit visual review, not a claim of automated face detection.
+        if photo.get("gameplay_only") is not True or photo.get("no_real_people") is not True:
+            raise ValueError("Only reviewed gameplay without real people or facecam")
+        if type(photo.get("social_preview")) is not bool:
+            raise ValueError("Explicit social preview selection required")
+        if photo["social_preview"]:
+            if guide in preview_guides:
+                raise ValueError("Choose at most one social preview per guide")
+            preview_guides.add(guide)
+        kind=photo.get("capture_kind","original_ps5_capture")
+        if kind not in ("original_ps5_capture","creator_supplied_video_frame"):
+            raise ValueError("Unsupported screenshot origin")
+        if kind=="creator_supplied_video_frame":
+            # Creator supplies the actual file: public playback alone is not
+            # authorization to extract or publish a third-party frame.
+            if (photo.get("creator_supplied_file") is not True or
+                not isinstance(photo.get("source_video_id"),str) or
+                not re.fullmatch(r"[A-Za-z0-9_-]{11}",photo["source_video_id"]) or
+                type(photo.get("source_second")) is not int or
+                not 0<=photo["source_second"]<=21600):
+                raise ValueError("Creator frame requires supplied file and exact video timestamp")
         if photo.get("published") is not True:
             raise ValueError("Approved screenshot must be explicitly published")
         try:
@@ -108,10 +130,18 @@ def render_approved_for_step(guide,registry,index):
     result=[]
     for photo in entries:
         link=BASE+e(photo["file"])
+        creator_frame=photo.get("capture_kind")=="creator_supplied_video_frame"
+        source=photo["source_post"]
+        stamp=""
+        if creator_frame:
+            seconds=photo["source_second"]
+            source="https://www.youtube.com/watch?v="+photo["source_video_id"]+"&t="+str(seconds)+"s"
+            stamp=" · "+str(seconds//60)+":"+str(seconds%60).zfill(2)
+        origin="FOTOGRAMMA AUTORIZZATO" if creator_frame else "FOTO REALE PS5"
         result.append(
             '<div class="v-proof-media v-community-step-photo" '
             'data-visual-proof-image="community-'+e(photo["id"])+'">'
-            '<p class="v-proof-label">FOTO REALE PS5 · PASSAGGIO '+str(index+1)+'</p>'
+            '<p class="v-proof-label">'+origin+' · PASSAGGIO '+str(index+1)+'</p>'
             '<figure class="v-verified-figure">'
             '<a class="v-image-link" href="'+link+'" target="_blank" rel="noopener noreferrer" '
             'aria-label="Ingrandisci: '+e(photo["alt"])+'">'
@@ -121,8 +151,8 @@ def render_approved_for_step(guide,registry,index):
             '<figcaption class="v-caption v-photo-attribution">'
             '<span class="v-photo-caption">'+e(photo["caption"])+'</span>'
             '<small class="v-photo-origin">'
-            '<a href="'+e(photo["source_post"])+'" target="_blank" rel="noopener noreferrer">'
-            'Fonte foto: '+e(photo["credit"])+' ↗</a></small></figcaption></figure></div>'
+            '<a href="'+e(source)+'" target="_blank" rel="noopener noreferrer">'
+            'Fonte foto: '+e(photo["credit"]+stamp)+' ↗</a></small></figcaption></figure></div>'
         )
     return ''.join(result)
 

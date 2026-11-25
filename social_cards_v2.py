@@ -9,6 +9,7 @@ No automatic claim of a commercial-use license. No original ZIP in Git.
 from __future__ import annotations
 from datetime import datetime, timezone
 from html import unescape, escape
+from html.parser import HTMLParser
 from io import BytesIO
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -273,6 +274,91 @@ def artwork_for_page(relative, artworks):
     return artworks[0]
 
 
+class _ApprovedImages(HTMLParser):
+    """Read only actual step images in the final article, never source links."""
+    def __init__(self):
+        super().__init__()
+        self.images={}
+    def handle_starttag(self,tag,attrs):
+        if tag!="img":
+            return
+        attributes=dict(attrs)
+        key=attributes.get("data-approved-community-photo")
+        if key:
+            if key in self.images:
+                raise ValueError("Duplicate approved photo in canonical page")
+            self.images[key]=attributes.get("src")
+
+
+def approved_preview(html,registry,root=None):
+    """Select the explicitly cleared local photo that is actually on this page.
+
+    The site build independently validates the full registry (owner, consent,
+    step mapping, SHA and media). Recheck the social-specific flags and bytes
+    on the built site, not a source URL, stock image or third-party thumbnail.
+    """
+    root=ROOT if root is None else Path(root)
+    if registry.get("schema")!="gta6-approved-screenshots-v4":
+        raise ValueError("Unexpected approved screenshot registry")
+    parser=_ApprovedImages()
+    parser.feed(html)
+    selected=[]
+    for row in registry["photos"]:
+        if row.get("social_preview") is not True or row["id"] not in parser.images:
+            continue
+        if (row.get("rights")!="explicit_nonexclusive_site_and_social" or
+            row.get("author_confirmed") is not True or row.get("human_reviewed") is not True or
+            row.get("approved_by")!="xFederiko11" or row.get("published") is not True or
+            row.get("gameplay_only") is not True or row.get("no_real_people") is not True):
+            raise ValueError("Social screenshot is not approved for gameplay reuse")
+        file="assets/approved/"+row["id"]+".webp"
+        if (not re.fullmatch(r"[a-z0-9-]{6,55}",row["id"]) or
+            row.get("file")!=file or parser.images[row["id"]]!=BASE+file):
+            raise ValueError("Social preview must be the actual approved local image")
+        path=root/file
+        if not path.resolve().is_relative_to((root/"assets/approved").resolve()):
+            raise ValueError("Unsafe approved photo path")
+        raw=path.read_bytes()
+        if (not 1500<=len(raw)<=4_000_000 or raw[:4]!=b"RIFF" or raw[8:12]!=b"WEBP" or
+            hashlib.sha256(raw).hexdigest()!=row["source_sha256"]):
+            raise ValueError("Published screenshot bytes do not match approval")
+        with Image.open(BytesIO(raw)) as opened:
+            opened.load()
+            if opened.format!="WEBP" or opened.width<480 or opened.height<270:
+                raise ValueError("Approved image too small or not WebP")
+            photo=opened.convert("RGB")
+        selected.append((row,photo))
+    if len(selected)>1:
+        raise ValueError("Multiple selected social previews on a canonical page")
+    return selected[0] if selected else None
+
+
+def render_screenshot_card(title,relative,row,photo):
+    """Show the full real game image without a destructive crop or overlay."""
+    key=cover_key(relative)
+    accent=PALETTES[int(key[:3],16)%len(PALETTES)]
+    card=Image.new("RGB",(WIDTH,HEIGHT),(16,19,29))
+    draw=ImageDraw.Draw(card)
+    draw.text((32,36),"GTA VI / ITALIA",font=_font(30),fill=accent)
+    draw.text((32,91),"GUIDA DI GIOCO",font=_font(19),fill=(190,202,221))
+    cleaned=re.sub(r"\s*[-|•]\s*GTA\s*6\s*Italia.*$","",title,flags=re.I).strip()
+    font=_font(38 if len(cleaned)<55 else 32)
+    for i,line in enumerate(_wrap(cleaned,draw,font,340,6)):
+        draw.text((32,151+i*49),line,font=font,fill=(247,247,252))
+    image=ImageOps.contain(photo,(778,466),method=Image.Resampling.LANCZOS)
+    card.paste(image,(400+(778-image.width)//2,45+(466-image.height)//2))
+    credit="Fonte: "+row["credit"]
+    if row.get("capture_kind")=="creator_supplied_video_frame":
+        seconds=row["source_second"]
+        credit+=" · "+str(seconds//60)+":"+str(seconds%60).zfill(2)
+    for i,line in enumerate(_wrap(credit,draw,_font(19,False),778,2)):
+        draw.text((400,520+i*24),line,font=_font(19,False),fill=(211,220,233))
+    draw.line((32,579,1168,579),fill=(90,99,126),width=2)
+    draw.text((32,594),"XFEDERIKO11.GITHUB.IO/GTA-6",font=_font(17),fill=(190,202,221))
+    draw.text((1064,594),key[-6:].upper(),font=_font(20),fill=accent)
+    return card
+
+
 def publish():
     if not ROOT.is_dir():
         raise RuntimeError("No generated Pages site to process")
@@ -284,6 +370,7 @@ def publish():
     path=ROOT/"assets/social-cards"
     path.mkdir(parents=True,exist_ok=True)
     entries=[];digest=set()
+    registry=json.loads(Path("data/approved_screenshots_v4.json").read_text(encoding="utf-8"))
     from editorial_articles import load as load_editorial, LIBRARY
     _,editorial,editorial_images=load_editorial()
     selected={item['path']:editorial_images[item['hero']] for item in editorial}
@@ -299,7 +386,13 @@ def publish():
             row=selected[relative]
             with Image.open(LIBRARY/row['file']) as original:
                 art={'name':row['title'],'image':original.convert('RGB')}
-        photo=render_card(title,relative,art["image"] if art else None)
+        preview=approved_preview(html,registry)
+        if preview:
+            row,screenshot=preview
+            art=None
+            photo=render_screenshot_card(title,relative,row,screenshot)
+        else:
+            photo=render_card(title,relative,art["image"] if art else None)
         dest=path/(key+".jpg")
         photo.save(dest,"JPEG",quality=83,optimize=True,progressive=True,subsampling=0)
         data=dest.read_bytes()
@@ -310,8 +403,9 @@ def publish():
             raise ValueError("Two canonical pages rendered same social image")
         digest.add(binary_hash)
         link=BASE+"assets/social-cards/"+key+".jpg"
-        attr=escape("Immagine promozionale ufficiale Rockstar Games; copertina editoriale GTA VI Italia." if art else
-                    "Copertina grafica originale GTA VI Italia; non screenshot di gameplay.",quote=True)
+        attr=escape(("Screenshot di gameplay autorizzato: "+preview[0]["alt"]+" · Fonte: "+preview[0]["credit"]) if preview else
+                    ("Immagine promozionale ufficiale Rockstar Games; copertina editoriale GTA VI Italia." if art else
+                    "Copertina grafica originale GTA VI Italia; non screenshot di gameplay."),quote=True)
         # Always replace generic previews AND source-image previews so X link
         # shares have one dedicated, reliably sized card for each URL.
         for tag,kind in ((r'<meta property="og:image" content="[^"]*">','og'),
@@ -328,7 +422,9 @@ def publish():
              f'<meta name="twitter:image:alt" content="{attr}">')
         html=html.replace('</head>',new+'</head>',1)
         page.write_text(html,encoding="utf-8")
-        entries.append({"path":relative,"image":link,"sha256":binary_hash,"artwork":art["name"] if art else None})
+        entries.append({"path":relative,"image":link,"sha256":binary_hash,"artwork":art["name"] if art else None,
+                        "approved_screenshot":preview[0]["id"] if preview else None,
+                        "screenshot_credit":preview[0]["credit"] if preview else None})
     if len(entries)<65:
         raise RuntimeError("Too few canonical pages to validate social cards")
     if len({x["image"] for x in entries})!=len(entries):
@@ -338,6 +434,7 @@ def publish():
             "official_media_page":OFFICIAL_PAGE,"rights_policy":COPYRIGHT_PAGE,
             "official_zip_status":source_status,"official_direct_status":direct_status,"artworks_loaded":len(artworks),
             "artwork_backed_cards":sum(bool(x["artwork"]) for x in entries),
+            "approved_screenshot_backed_cards":sum(bool(x["approved_screenshot"]) for x in entries),
             "description":"Artwork is illustrative, not trophy/mission evidence. Commercial licensing not asserted.",
             "entries":entries}
     (ROOT/"social-cards-audit.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
