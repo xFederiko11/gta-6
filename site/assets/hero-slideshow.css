@@ -27,3 +27,14 @@
 }
 @media(max-width:360px){.cinema-home .focus-hero{height:820px}.ci-slide-controls button{padding-inline:6px;font-size:.875rem}.ci-slide-count{min-width:40px}}
 @media(prefers-reduced-motion:reduce){.cinema-home .focus-hero .ci-hero-image{transition:none}}
+
+/* Desktop photographic framing: never shift the hero or crop from a right-biased focal point.
+   Keep the mobile-specific positioning and dark text gradient unchanged. */
+@media(min-width:1001px){
+  .cinema-home .focus-hero .ci-hero-image{
+    object-fit:cover;
+    object-position:center center;
+    transform:none;
+    mask-image:none;
+  }
+}
