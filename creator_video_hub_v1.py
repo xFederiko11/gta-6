@@ -109,7 +109,9 @@ def render(items):
         'le azioni, i prerequisiti e i controlli. Scegli il video che ti serve.</p>'
         '<p class="cv-ethics">Questa è una selezione editoriale, <strong>non una partnership '
         'o sponsorizzazione pagata</strong>. Nessun video o fotogramma è copiato sul sito. '
-        'L’incorporamento ufficiale YouTube si attiva solo quando premi Guarda.</p>'
+        'L’incorporamento ufficiale YouTube si attiva solo quando premi Guarda. '
+        'La riproduzione e i singoli fotogrammi non sono verificati indipendentemente: '
+        'disponibilità e restrizioni possono variare.</p>'
         '</section>',
         '<nav class="cv-filter" aria-label="Filtra video per obiettivo" data-cv-filters>'
         '<button type="button" data-cv-filter="all" aria-pressed="true">Tutti</button>'

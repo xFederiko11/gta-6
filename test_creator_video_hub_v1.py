@@ -66,6 +66,7 @@ class CreatorVideoHubTests(unittest.TestCase):
         self.assertNotIn('youtube-nocookie.com/embed',html)
         self.assertNotIn('widgets.js',html)
         self.assertIn('non una partnership',html)
+        self.assertIn('non sono verificati indipendentemente',html)
         self.assertIn('non una prova che il nostro team abbia ripetuto',html)
         self.assertIn('Video originale su YouTube',html)
         tags=Tags();tags.feed(html)
