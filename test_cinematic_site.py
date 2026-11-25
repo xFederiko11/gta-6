@@ -52,12 +52,12 @@ class CinematicTests(unittest.TestCase):
         import xml.etree.ElementTree as ET
         root=Path('_site')
         page=(root/'index.html').read_text(encoding='utf-8')
-        target='https://xfederiko11.github.io/gta-6/guide-e-tutorial/registrare-auto-personale/'
+        target='https://xfederiko11.github.io/gta-6/salvare-auto/'
         self.assertIn('href="'+target+'">Come salvare un’auto in GTA 6</a>',page)
         self.assertIn('Come salvare le auto in GTA VI',page)
         self.assertEqual(page.count('class="focus-choice"'),3)
-        self.assertTrue((root/'guide-e-tutorial/registrare-auto-personale/index.html').exists())
-        body=(root/'guide-e-tutorial/registrare-auto-personale/index.html').read_text(encoding='utf-8')
+        self.assertTrue((root/'salvare-auto/index.html').exists())
+        body=(root/'salvare-auto/index.html').read_text(encoding='utf-8')
         self.assertIn('<link rel="canonical" href="'+target+'"',body)
         self.assertNotIn('name="robots" content="noindex',body)
         sitemap=ET.parse(root/'sitemap.xml')
