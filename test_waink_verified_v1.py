@@ -47,6 +47,12 @@ class WainkVerifiedGuide(unittest.TestCase):
         self.assertNotIn('data-visual-location-image=',html)
         self.assertIn('data-photo-source-guide="scansionare-veicoli"',html)
         self.assertNotIn("immagine ricreata",html.lower())
+        self.assertEqual(html.count('data-step-video-id="R0GdEkPZSvM"'),1)
+        step=html.split('id="passaggio-4"',1)[1].split('id="passaggio-5"',1)[0]
+        self.assertIn('data-step-video-seconds="266"',step)
+        self.assertIn("non una prova dei comandi DualSense",step)
+        self.assertNotIn("<iframe",html)
+        self.assertIn("step-video-opt-in-v1.js?v=",html)
 
 if __name__=="__main__":
     unittest.main()

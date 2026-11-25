@@ -50,11 +50,19 @@
       }
     },
     "prima-persona-glitch-ps5": {
-      "4": {
+      "5": {
         "kind": "video",
         "ref": "prima-persona-glitch-ps5",
         "at": 0,
-        "note": "La dimostrazione mostra la visuale, non la sicurezza dei trofei né la validità dopo nuove patch."
+        "note": "Dimostrazione originale indicata dalle fonti: confronta il risultato visivo, non i singoli input. Patch attuale e sicurezza dei trofei non verificate."
+      }
+    },
+    "scansionare-veicoli": {
+      "3": {
+        "kind": "video",
+        "ref": "registrare-auto-personale",
+        "at": 266,
+        "note": "La cronologia TGG associa il minuto 4:26 alla spiegazione dei tracker da Moses. È un riferimento sui tracker, non una prova dei comandi DualSense."
       }
     }
   }

@@ -657,7 +657,8 @@ def guide(g,guides):
                 body+=photo_ref
         evidence=render_step_evidence(g,n,STEP_EVIDENCE,VISUAL_EVIDENCE)
         if evidence:
-            if g['id'] in {'registrare-auto-personale','soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor'}:
+            if g['id'] in {'registrare-auto-personale','soldi-facili-capitolo-1','soldi-2500-three-sheets-liquor',
+                           'scansionare-veicoli','prima-persona-glitch-ps5'}:
                 # Map/video reference belongs beside its corresponding action.
                 # They remain verified external links, never screenshots or fake pins.
                 body+=evidence

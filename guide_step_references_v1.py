@@ -50,16 +50,23 @@ def _link(g, idx, data, refs, item=None):
             ("soldi-2500-three-sheets-liquor", 0, "soldi-2500-three-sheets-liquor", 285),
             ("soldi-2500-three-sheets-liquor", 2, "soldi-2500-three-sheets-liquor", 455),
             ("soldi-facili-capitolo-1", 0, "soldi-facili-capitolo-1", 285),
+            ("scansionare-veicoli", 3, "registrare-auto-personale", 266),
+            ("prima-persona-glitch-ps5", 5, "prima-persona-glitch-ps5", 0),
         }:
             creator=escape(record["creator"])
             stamp_label=f"{stamp//60}:{stamp%60:02d}"
+            # A source demonstration of the result or an explanation of
+            # trackers is not evidence of the precise controller inputs.
+            button_label=("Guarda il riferimento video"
+                          if g["id"] in {"scansionare-veicoli","prima-persona-glitch-ps5"}
+                          else "Guarda il passaggio nel video")
             video_widget=(
                 '<div class="v-step-video" data-step-video-id="'+escape(code,quote=True)+'"'
                 ' data-step-video-seconds="'+str(stamp)+'">'
                 '<button type="button" class="v-step-video-open" data-step-video-open hidden'
                 ' aria-label="Guarda il video del passaggio '+str(idx+1)+' dal minuto '+stamp_label+'">'
                 '<span class="v-step-video-play" aria-hidden="true">▶</span>'
-                '<span><strong>Guarda il passaggio nel video</strong>'
+                '<span><strong>'+button_label+'</strong>'
                 '<small>'+creator+' · minuto '+stamp_label+' · si carica solo dopo il clic</small></span>'
                 '</button>'
                 '<div class="v-step-video-slot" data-step-video-slot aria-live="polite"></div>'
