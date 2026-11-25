@@ -593,7 +593,9 @@ def guide(g,guides):
                'Prima di accumularlo, crea un salvataggio manuale separato e leggi '
                'le precauzioni sotto il tutorial.</p>')
     if g['id']=='prima-persona-glitch-ps5':
-        body+=('<p class="v-guide-urgent" role="note"><strong>🏆 Trofei non verificati.</strong> '
+        body+=('<p class="v-guide-urgent" data-glitch-patch-status="community" role="note">'
+               '<strong>🟡 Community:</strong> segnalato funzionante anche dopo la patch del 23 novembre; non testato da noi. '
+               '<strong>🏆 Trofei non verificati.</strong> '
                'Non usare il salvataggio principale del platino: crea prima '
                'un salvataggio di prova separato.</p>')
     if g['id']=='meditazione-capitolo-1':
@@ -738,10 +740,16 @@ def guide(g,guides):
                'Fonti indipendenti, non test diretti del nostro team.</p>'
                '</details><p class="v-photo-hub-guide-callout"><a href="'+url('screenshot-ps5/')+'">Vedi tutte le richieste fotografiche della community →</a></p></aside>')
     if g['id']=='prima-persona-glitch-ps5':
-        body+=('<aside class="v-glitch-status" role="note"><strong>🟡 Probabilmente funzionante su PS5 · 19–20 novembre 2026</strong>'
-               '<p>PC Gamer riferisce una prova indipendente sul lancio, '
-               'ma la <strong>patch esatta non è documentata</strong> e Rockstar potrebbe correggere il metodo. '
-               'È un cambio di visuale, non un glitch soldi o XP.</p>'
+        body+=('<aside class="v-glitch-status" role="note"><strong>🟡 Community · segnalato funzionante dopo la patch del 23 novembre</strong>'
+               '<p>Verifica fonti: 25 novembre 2026. PC Gamer ha provato il metodo al lancio. '
+               'Il 23 novembre utenti PS5 e PS5 Pro hanno riferito di riuscire ancora ad attivarlo dopo l’aggiornamento. '
+               'GamePro il 24 novembre riprende una testimonianza della community; GamesRadar indica che le note non menzionano il glitch. '
+               'Versione riportata: 01.002.002. Non abbiamo provato personalmente questa versione; '
+               'le segnalazioni non equivalgono a una conferma Rockstar.</p>'
+               '<p><a href="https://www.reddit.com/r/GTA6/comments/1y3kl8l/can_anyone_confirm_if_the_first_person_camera/" target="_blank" rel="noopener noreferrer">Discussione post-patch del 23 novembre ↗</a> · '
+               '<a href="https://www.gamepro.de/artikel/gta-6-update-01002002%2C3463626.html" target="_blank" rel="noopener noreferrer">GamePro del 24 novembre ↗</a> · '
+               '<a href="https://www.gamesradar.com/games/grand-theft-auto/gta-6-update-gives-players-losing-progress-to-crashes-a-lifeline-and-it-looks-like-the-first-person-and-60fps-glitches-are-safe-for-now/" target="_blank" rel="noopener noreferrer">GamesRadar: stato dopo la patch ↗</a> · '
+               '<a href="'+url('patch/2026-11-23/')+'">Riepilogo delle note ufficiali</a>.</p>'
                '<p><strong>⚠️ Trophy Status Uncertain.</strong> Non esistono prove specifiche '
                'di compatibilità con i trofei: se punti al platino, non provarlo sul salvataggio principale. '
                'È una tecnica single-player; fai un salvataggio manuale separato prima di iniziare.</p>'
@@ -778,7 +786,7 @@ def guide(g,guides):
 
 def validate(guides):
     seen=set()
-    allowed={'powerpyx.com','www.powerpyx.com','insider-gaming.com','www.insider-gaming.com','www.pushsquare.com','www.gamesradar.com','www.gtabase.com','gtabase.com','gta.tech4gamers.com','www.videogameschronicle.com','www.pcgamer.com','www.dexerto.com','www.reddit.com'}
+    allowed={'powerpyx.com','www.powerpyx.com','insider-gaming.com','www.insider-gaming.com','www.pushsquare.com','www.gamesradar.com','www.gtabase.com','gtabase.com','gta.tech4gamers.com','www.videogameschronicle.com','www.pcgamer.com','www.dexerto.com','www.reddit.com','www.gamepro.de'}
     for g in guides:
         if g['id'] in seen or not re.fullmatch(r'[a-z0-9-]+',g['id']):
             raise ValueError('Duplicate or invalid guide id')

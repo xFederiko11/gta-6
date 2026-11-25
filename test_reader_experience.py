@@ -682,6 +682,11 @@ def browser_qa():
                         assert not page.locator('#mt-jasons-house-one').is_checked()
                     if path=='guide-e-tutorial/glitch-prima-persona-ps5/' and width==390:
                         assert page.locator('.v-glitch-status').is_visible()
+                        warning=page.locator('[data-glitch-patch-status="community"]')
+                        assert warning.is_visible()
+                        assert 'dopo la patch del 23 novembre' in warning.inner_text()
+                        assert warning.bounding_box()['y'] < page.locator('#procedura').bounding_box()['y']
+                        page.locator('.v-glitch-status').screenshot(path=str(out/'glitch-post-patch-sources-390.png'))
                         assert page.locator('iframe[data-original-video-player]').count()==0
                         assert page.locator('.v-video-reference').count()==1
                         assert page.locator('.v-step').count()==6

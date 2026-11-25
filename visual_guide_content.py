@@ -71,7 +71,7 @@ SUMMARIES = {
     'soldi-facili-capitolo-1': 'Quattro luoghi segnalati da Insider Gaming, con azioni e controlli per ciascuno. Non perdere i soldi passando al Capitolo 2: leggi prima l’avviso.',
     'soldi-2500-three-sheets-liquor': 'Un percorso breve: incarico, retro del negozio e nascondiglio. Passi numerati e fonti consultabili senza immagini fuori contesto.',
     'meditazione-capitolo-1': '18 sessioni in 10 luoghi: 15 bastano per il 100%. Le fonti recenti indicano la prima sessione facoltativa per il trofeo. Video con i minuti e checklist per ogni luogo.',
-    'prima-persona-glitch-ps5': 'Premi Cerchio per riporre il telefono mentre tocchi rapidamente il touchpad impostato su Camera. PC Gamer ha provato il metodo, ma i trofei restano da verificare.',
+    'prima-persona-glitch-ps5': 'Chiudi il telefono e premi rapidamente il touchpad impostato su Camera. Community: segnalato funzionante anche dopo la patch del 23 novembre; trofei non verificati.',
     'sportive-randy-posizioni': 'Parti dalle richieste del gioco, cerca nelle zone documentate e controlla l’auto prima della consegna. Non promettiamo spawn fissi o veicoli unici.',
     'registrare-auto-personale': 'Dopo Girl’s Trip, porta un’auto senza tracker da Moses a Port Gellhorn: la prima registrazione è gratuita. Scooter Bros si sblocca al termine della missione.',
 }
