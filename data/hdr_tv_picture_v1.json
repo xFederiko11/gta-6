@@ -1,0 +1,88 @@
+{
+  "schema": "gta-vi-hdr-tv-picture-v1",
+  "method": "Le impostazioni HDR LG C4 provengono da un test strumentale della modalità gioco su OLED65C4PUA; numeri SDR riportati solo come riferimento distinto e NON validati per HDR. Non equivalgono a una calibrazione personalizzata di ogni pannello.",
+  "profiles": {
+    "lg-oled-c4": {
+      "reference_code": "OLED65C44LA",
+      "tested_hardware": "LG OLED65C4PUA 65″ (test RTINGS, codice commerciale USA)",
+      "sources": [
+        "https://www.rtings.com/tv/reviews/lg/c4-oled",
+        "https://www.rtings.com/tv/reviews/lg/c4-oled/settings",
+        "https://www.lg.com/us/support/help-library/lg-tv-settings-how-can-i-use-the-hgig-function--20154713313692"
+      ],
+      "rows": [
+        {
+          "name": "Modalità immagine HDR",
+          "value": "Game Optimizer",
+          "status": "Test HDR",
+          "source": "RTINGS: HDR Game Mode"
+        },
+        {
+          "name": "Luminosità pixel OLED",
+          "value": "100",
+          "status": "Test HDR",
+          "source": "RTINGS: HDR Game Mode"
+        },
+        {
+          "name": "Contrasto",
+          "value": "100",
+          "status": "Test HDR",
+          "source": "RTINGS: HDR Game Mode"
+        },
+        {
+          "name": "Luminosità di picco (Peak Brightness)",
+          "value": "Alto (High)",
+          "status": "Test HDR",
+          "source": "RTINGS: HDR Game Mode"
+        },
+        {
+          "name": "Dynamic Tone Mapping",
+          "value": "HGiG",
+          "status": "Test HDR",
+          "source": "RTINGS: HDR Game Mode / LG: Game Optimizer"
+        },
+        {
+          "name": "Contrasto dinamico automatico",
+          "value": "Spento (Off)",
+          "status": "Test HDR",
+          "source": "RTINGS: HDR Game Mode"
+        },
+        {
+          "name": "Expression Enhancer",
+          "value": "Spento (Off)",
+          "status": "Test HDR",
+          "source": "RTINGS: HDR Game Mode"
+        },
+        {
+          "name": "HDMI Deep Color — ingresso PS5",
+          "value": "4K",
+          "status": "Verifica HDMI",
+          "source": "RTINGS: Gaming Settings / compatibilità console"
+        },
+        {
+          "name": "Temperatura colore",
+          "value": "Caldo 50 (Warm 50)",
+          "status": "Solo riferimento SDR",
+          "source": "RTINGS: White Balance SDR; NON test HDR gioco"
+        },
+        {
+          "name": "Profondità colore",
+          "value": "50",
+          "status": "Solo riferimento SDR",
+          "source": "RTINGS: Color menu SDR; NON test HDR gioco"
+        },
+        {
+          "name": "Nitidezza",
+          "value": "0",
+          "status": "Solo riferimento SDR",
+          "source": "RTINGS: Clarity menu SDR; NON test HDR gioco"
+        }
+      ],
+      "notes": [
+        "RTINGS ha misurato il modello C4 da 65 pollici per la prova HDR Game; i valori elencati come Test HDR descrivono quel setup, non un preset GTA VI misurato né una calibrazione individuale.",
+        "Per C4 da 42 e 48 pollici LG non dichiara il Brightness Booster presente nei tagli grandi: non trasferire le prestazioni di picco della prova da 65 pollici.",
+        "Caldo 50, profondità colore 50 e nitidezza 0 sono riferimenti SDR di RTINGS, non valori strumentali certificati in HDR Game: verificarli a occhio nel profilo HDR e non interpretarli come obbligatori."
+      ]
+    }
+  }
+}
