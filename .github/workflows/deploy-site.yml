@@ -569,8 +569,16 @@ jobs:
           assert moses.count('mo-photo-link')==6
           assert moses.count('data-mo-real-gameplay=')==6
           assert moses.count('class="mo-video-screen"')==6
-          assert moses.count('<iframe ')==6
-          assert 'https://www.youtube-nocookie.com/embed/UyxxY0A_kow?start=101' in moses
+          # Match the opt-in reader contract already tested in Chromium.
+          assert '<iframe' not in moses, 'Moses must not preload players'
+          assert moses.count('data-step-video-id="UyxxY0A_kow"')==6
+          assert moses.count('data-step-video-open hidden')==6
+          assert 'step-video-opt-in-v1.js?v=' in moses
+          assert 'step-video-opt-in-v1.css?v=' in moses
+          for seconds in (101,191,293,346,428,520):
+              assert moses.count('data-step-video-seconds="'+str(seconds)+'"')==1
+              assert 'https://www.youtube.com/watch?v=UyxxY0A_kow&amp;t='+str(seconds)+'s' in moses or 'https://www.youtube.com/watch?v=UyxxY0A_kow&t='+str(seconds)+'s' in moses
+          assert 'Moses’ Sultan' not in moses.split('<details class="mo-gift-reveal">',1)[0]
           assert 'data-mo-default-all' not in moses
           assert 'data-mo-show-all' not in moses
           assert 'data-article-cover="shared-social"' in moses
@@ -587,6 +595,19 @@ jobs:
           assert 'guide-e-tutorial/veicoli-per-moses/' in garage
           assert 'class="v-operation-brief"' in garage
           print('PUBLIC_ACTION_FIRST_MOSES_OK',base+'guide-e-tutorial/veicoli-per-moses/')
+          animals=fetch('guide-e-tutorial/studiare-animali/')
+          assert animals.count('class="v-step"')==4 and animals.count('class="v-check"')==4
+          assert '100 specie su 255' in animals.split('id="procedura"',1)[0]
+          assert 'Progressi → Animali' in animals
+          assert 'data-article-cover="shared-social"' in animals
+          print('PUBLIC_ANIMALS_REVIEW_OK',base+'guide-e-tutorial/studiare-animali/')
+          taxi=fetch('guide-e-tutorial/viaggio-rapido-taxi/')
+          assert taxi.count('class="v-step"')==4 and taxi.count('class="v-check"')==4
+          assert 'Gone Fishing (Capitolo 1)' in taxi
+          assert '100 GTA$ in aggiunta alla tariffa della corsa.' in taxi.split('id="procedura"',1)[0]
+          assert 'RydeMe' in taxi
+          assert 'data-article-cover="shared-social"' in taxi
+          print('PUBLIC_TAXI_REVIEW_OK',base+'guide-e-tutorial/viaggio-rapido-taxi/')
           js=fetch('assets/guide-flow-v1.js')
           css=fetch('assets/guide-flow-v1.css')
           assert 'data-gf-next' not in js
