@@ -126,7 +126,7 @@ class ReaderTests(unittest.TestCase):
         self.assertEqual(release['default_theme'],'unified-dark-mobile-desktop')
         self.assertEqual(release['reader_version'],VERSION)
         self.assertEqual(release['guides_with_extras'],5)
-        self.assertEqual(release['tip_count'],9)
+        self.assertEqual(release['tip_count'],10)  # new sourced RydeMe alternative
         page=(ROOT/'salvare-auto/index.html').read_text()
         self.assertEqual(transform(page,version='anything'),page)
     def test_sourced_tips_and_images_visible_with_warning(self):
