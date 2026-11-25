@@ -1,0 +1,178 @@
+{
+  "schema": "gta-6-hdr-photos-v1",
+  "notice": "Fotografie reali disponibili nelle gallerie del produttore, NON copiate o hotlinkate. Il sito mostra una illustrazione originale ed apre la fotografia sull'origine; un link non concede licenze di riuso.",
+  "families": {
+    "lg-oled-c6": {
+      "reference_code": "OLED55C65LA",
+      "photo_page_url": "https://www.lg.com/it/tv-soundbar/oled-evo/oled55c65la/",
+      "photo_scope": "esatto",
+      "rights": "link-only",
+      "publisher": "LG",
+      "checked_on": "2026-11-25"
+    },
+    "lg-oled-g6": {
+      "reference_code": "OLED55G64LW",
+      "photo_page_url": "https://www.lg.com/it/tv-soundbar/oled-evo/oled55g64lw/",
+      "photo_scope": "esatto",
+      "rights": "link-only",
+      "publisher": "LG",
+      "checked_on": "2026-11-25"
+    },
+    "lg-oled-c5": {
+      "reference_code": "OLED55C54LA",
+      "photo_page_url": "https://www.lg.com/it/tv-soundbar/oled-evo/oled55c54la/",
+      "photo_scope": "esatto",
+      "rights": "link-only",
+      "publisher": "LG",
+      "checked_on": "2026-11-25"
+    },
+    "lg-oled-g5": {
+      "reference_code": "OLED55G54LW",
+      "photo_page_url": "https://www.lg.com/it/tv-soundbar/oled-evo/oled55g54lw/",
+      "photo_scope": "esatto",
+      "rights": "link-only",
+      "publisher": "LG",
+      "checked_on": "2026-11-25"
+    },
+    "lg-oled-c4": {
+      "reference_code": "OLED55C44LA",
+      "photo_page_url": "https://www.lg.com/it/tv-soundbar/oled-evo/oled55c44la/",
+      "photo_scope": "esatto",
+      "rights": "link-only",
+      "publisher": "LG",
+      "checked_on": "2026-11-25"
+    },
+    "lg-oled-g4": {
+      "reference_code": "OLED55G45LW",
+      "photo_page_url": "https://www.lg.com/it/tv-soundbar/oled-evo/oled55g45lw/",
+      "photo_scope": "esatto",
+      "rights": "link-only",
+      "publisher": "LG",
+      "checked_on": "2026-11-25"
+    },
+    "lg-oled-b4": {
+      "reference_code": "OLED48B46LA",
+      "photo_page_url": "https://www.lg.com/it/tv-soundbar/oled/oled48b46la/",
+      "photo_scope": "esatto",
+      "rights": "link-only",
+      "publisher": "LG",
+      "checked_on": "2026-11-25"
+    },
+    "lg-oled-c3": {
+      "reference_code": "OLED55C34LA",
+      "photo_page_url": "https://www.lg.com/it/tv-soundbar/oled-evo/oled55c34la/",
+      "photo_scope": "esatto",
+      "rights": "link-only",
+      "publisher": "LG",
+      "checked_on": "2026-11-25"
+    },
+    "lg-oled-c2": {
+      "reference_code": "OLED55C21LA",
+      "photo_page_url": "https://www.lg.com/it/tv-soundbar/oled-evo/oled55c21la/",
+      "photo_scope": "esatto",
+      "rights": "link-only",
+      "publisher": "LG",
+      "checked_on": "2026-11-25"
+    },
+    "samsung-s90h": {
+      "reference_code": "QE42S90HAEXZT",
+      "photo_page_url": "https://www.samsung.com/it/tvs/oled-tv/s90h-42-inch-4k-smart-tv-qe42s90haexzt/",
+      "photo_scope": "esatto",
+      "rights": "link-only",
+      "publisher": "Samsung",
+      "checked_on": "2026-11-25"
+    },
+    "samsung-s95h": {
+      "reference_code": "QE48S95HAEXZT",
+      "photo_page_url": "https://www.samsung.com/it/business/tvs/oled-tv/s95h-48-inch-4k-smart-tv-qe48s95haexzt/",
+      "photo_scope": "esatto",
+      "rights": "link-only",
+      "publisher": "Samsung",
+      "checked_on": "2026-11-25"
+    },
+    "samsung-s90f": {
+      "reference_code": "QE55S90FAEXZT",
+      "photo_page_url": "https://www.samsung.com/de/tvs/oled-tv/s90f-55-inch-oled-4k-smart-tv-gq55s90faexzg/",
+      "photo_scope": "variante-regionale",
+      "pictured_region_code": "GQ55S90FAEXZG",
+      "rights": "link-only",
+      "publisher": "Samsung",
+      "checked_on": "2026-11-25"
+    },
+    "samsung-s95f": {
+      "reference_code": "QE55S95FATXZT",
+      "photo_page_url": "https://www.samsung.com/de/tvs/oled-tv/s95f-55-inch-oled-4k-smart-tv-gq55s95fatxzg/",
+      "photo_scope": "variante-regionale",
+      "pictured_region_code": "GQ55S95FATXZG",
+      "rights": "link-only",
+      "publisher": "Samsung",
+      "checked_on": "2026-11-25"
+    },
+    "samsung-s90d": {
+      "reference_code": "QE55S90DAEXZT",
+      "photo_page_url": "https://www.samsung.com/it/business/tvs/oled-tv/s90d-55-inch-oled-4k-tizen-os-smart-tv-qe55s90daexzt/",
+      "photo_scope": "esatto",
+      "rights": "link-only",
+      "publisher": "Samsung",
+      "checked_on": "2026-11-25"
+    },
+    "samsung-s95d": {
+      "reference_code": "QE55S95DATXZT",
+      "photo_page_url": "https://www.samsung.com/de/tvs/oled-tv/s95d-55-inch-oled-4k-tizen-os-smart-tv-gq55s95datxzg/",
+      "photo_scope": "variante-regionale",
+      "pictured_region_code": "GQ55S95DATXZG",
+      "rights": "link-only",
+      "publisher": "Samsung",
+      "checked_on": "2026-11-25"
+    },
+    "sony-bravia-8-ii": {
+      "reference_code": "K-55XR8M2",
+      "photo_page_url": "https://www.sony.it/bravia/products/bravia-8m2",
+      "photo_scope": "famiglia",
+      "rights": "link-only",
+      "publisher": "Sony",
+      "checked_on": "2026-11-25"
+    },
+    "sony-bravia-8": {
+      "reference_code": "K-55XR80",
+      "photo_page_url": "https://www.sony.it/bravia/products/bravia-8",
+      "photo_scope": "famiglia",
+      "rights": "link-only",
+      "publisher": "Sony",
+      "checked_on": "2026-11-25"
+    },
+    "sony-a80l": {
+      "reference_code": "XR-55A80L",
+      "photo_page_url": "https://www.sony.de/bravia/products/a80l-a83l-a84l-series?locale=de_DE&sku=xr55a80laep",
+      "photo_scope": "variante-regionale",
+      "pictured_region_code": "XR55A80LAEP",
+      "rights": "link-only",
+      "publisher": "Sony",
+      "checked_on": "2026-11-25"
+    },
+    "philips-oled811": {
+      "reference_code": "42OLED811/12",
+      "photo_page_url": "https://www.philips.de/c-p/42OLED811_12/oled-4k-oled-ambilight-tv",
+      "photo_scope": "esatto",
+      "rights": "link-only",
+      "publisher": "Philips",
+      "checked_on": "2026-11-25"
+    },
+    "philips-oled850": {
+      "reference_code": "55OLED850/12",
+      "photo_page_url": "https://www.philips.de/c-p/55OLED850_12/oled-4k-ambilight-tv",
+      "photo_scope": "esatto",
+      "rights": "link-only",
+      "publisher": "Philips",
+      "checked_on": "2026-11-25"
+    },
+    "panasonic-z95a": {
+      "reference_code": "TV-55Z95AEG",
+      "photo_page_url": "https://www.panasonic.com/it/consumer/televisori/tv-oled-4k-ultra-hd/tv-55z95aeg.html",
+      "photo_scope": "esatto",
+      "rights": "link-only",
+      "publisher": "Panasonic",
+      "checked_on": "2026-11-25"
+    }
+  }
+}
