@@ -189,10 +189,13 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
         page = page.replace('</body>',
             f'<script src="{BASE}assets/guide-flow-v1.js?v={version}" defer></script></body>',1)
     if 'data-step-video-id="' in page:
-        # Only the reviewed first-car guide is allowed to load a third-party
-        # player inside numbered actions. All other guides retain source links.
-        if '<link rel="canonical" href="'+BASE+'salvare-auto/"' not in page:
-            raise ValueError('Unexpected video player outside reviewed car guide')
+        # Only these explicitly reviewed articles can load a third-party
+        # player inside numbered actions.
+        reviewed_video_paths = ('salvare-auto/',
+                                'guide-e-tutorial/soldi-2500-three-sheets-liquor/')
+        if not any('<link rel="canonical" href="'+BASE+path+'"' in page
+                   for path in reviewed_video_paths):
+            raise ValueError('Unexpected video player outside reviewed guides')
         page = page.replace('</head>',
             f'<link rel="stylesheet" href="{BASE}assets/step-video-opt-in-v1.css?v={version}"></head>',1)
         page = page.replace('</body>',

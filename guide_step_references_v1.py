@@ -40,7 +40,15 @@ def _link(g, idx, data, refs):
         # Editorial evidence remains at the precise sourced moment. This
         # click-to-load embed shows authorized YouTube content rather than
         # copying a third-party gameplay frame into our static site.
-        if g["id"] == "registrare-auto-personale":
+        # Restrict embeds to the precise guide/action pairs independently
+        # supported by the curated timestamp references. Other evidence
+        # remains a link, never a generic player inserted into a step.
+        if (g["id"], idx, key, stamp) in {
+            ("registrare-auto-personale", 1, "registrare-auto-personale", 266),
+            ("registrare-auto-personale", 4, "registrare-auto-personale", 675),
+            ("soldi-2500-three-sheets-liquor", 0, "soldi-2500-three-sheets-liquor", 285),
+            ("soldi-2500-three-sheets-liquor", 2, "soldi-2500-three-sheets-liquor", 455),
+        }:
             creator=escape(record["creator"])
             stamp_label=f"{stamp//60}:{stamp%60:02d}"
             video_widget=(
