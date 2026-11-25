@@ -20,9 +20,16 @@ class VehicleCatalogTests(unittest.TestCase):
         self.assertEqual(len({x["slug"] for x in doc["items"]}),25)
         self.assertEqual(sum(x["kind"]=="Moses" for x in doc["items"]),8)
         self.assertEqual(sum(x["kind"]=="Randy" for x in doc["items"]),17)
-        self.assertEqual(sum(x["status"]==VERIFIED for x in doc["items"]),17)
-        self.assertEqual(sum(x["status"]=="In verifica" for x in doc["items"]),7)
+        self.assertEqual(sum(x["status"]==VERIFIED for x in doc["items"]),19)
+        self.assertEqual(sum(x["status"]=="In verifica" for x in doc["items"]),5)
         self.assertEqual(sum(x["status"]=="Community" for x in doc["items"]),1)
+        expected={"pegassi-vitello":"Waning Sands","pegassi-infernus":"Crosstown","pegassi-tempesta":"Vespucci Island","buckingham-windsor-drop":"Bayside","pegassi-toros":"Southside"}
+        for slug,area in expected.items():
+            car=next(x for x in doc["items"] if x["slug"]==slug)
+            self.assertEqual(car["area"],area)
+            self.assertEqual(car["status"],VERIFIED)
+            self.assertIn("randys-wish-list-car-locations-walkthrough",car["source_url"])
+            self.assertEqual(len(car["steps"]),5)
         names={x["name"] for x in doc["items"]}
         self.assertTrue({x[0] for x in TASKS[:6]}.issubset(names))
         # Moses guide appends a spoiler description to the Sultan gift;
@@ -115,7 +122,7 @@ class VehicleCatalogTests(unittest.TestCase):
                 self.assertIn('name="robots" content="noindex,follow"',html)
                 self.assertNotIn(BASE+relative,sitemap)
                 self.assertNotIn('https://x.com/intent/tweet?text=',html)
-        self.assertEqual((verified,pending),(17,8))
+        self.assertEqual((verified,pending),(19,6))
         js=(ROOT/"assets/vehicle-finder-v1.js").read_text(encoding="utf-8")
         self.assertIn("localStorage",js)
         self.assertIn("botx-vehicle-finder-found-v1",js)

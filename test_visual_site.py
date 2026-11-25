@@ -146,7 +146,7 @@ class VisualSiteTests(unittest.TestCase):
     def test_final_three_guides_have_current_operational_thresholds(self):
         for path, count, required in (
             ('70-sfide-100-percento',4,('50 sfide per One Last Thing','70 su 80','otto categorie')),
-            ('poligoni-concentrazione',4,('42 medaglie Oro','Griffin Shooting Range','Rodgers Ranch','10 GTA$')),
+            ('poligoni-concentrazione',5,('42 medaglie Oro','Griffin Shooting Range','Rodgers Ranch','10 GTA$','5 GTA$','Waiver Pass')),
             ('sportive-randy-posizioni',5,('Dale Mamba','Advanced Tracker','Southside','Bayside','16 consegne')),
         ):
             text,_=parse(ROOT/('guide-e-tutorial/'+path+'/index.html'))

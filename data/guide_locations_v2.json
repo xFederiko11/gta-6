@@ -126,7 +126,7 @@
     "poligoni-concentrazione": [
       {
         "name": "Griffin Shooting Range",
-        "where": "Impianto con sei percorsi e 18 prove",
+        "where": "Sei sfide, 18 medaglie Oro",
         "kind": "source-guide",
         "url": "https://www.powerpyx.com/gta-6-all-shooting-range-gold-medal-challenges/",
         "note": "Il riferimento elenca i percorsi; nessuna coordinata esatta verificata.",
@@ -134,10 +134,10 @@
       },
       {
         "name": "Rodgers Ranch",
-        "where": "Impianto con sei percorsi e 24 prove",
+        "where": "Sei sfide, 24 medaglie Oro",
         "kind": "source-guide",
         "url": "https://www.powerpyx.com/gta-6-all-shooting-range-gold-medal-challenges/",
-        "note": "La fonte distingue le 24 prove dalla prima struttura.",
+        "note": "La fonte distingue le 24 medaglie Oro da quelle della prima struttura.",
         "precision": "described"
       }
     ],
