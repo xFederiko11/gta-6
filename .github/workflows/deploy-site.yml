@@ -168,8 +168,8 @@ jobs:
           PY
       - name: Publish only reader content (editorial artifacts remain in CI)
         run: |
-          python -m py_compile public_release_gate.py test_public_release_gate.py
-          python -m unittest -q test_public_release_gate.py
+          python -m py_compile public_release_gate.py test_public_release_gate.py test_public_private_paths_live_v1.py
+          python -m unittest -q test_public_release_gate.py test_public_private_paths_live_v1.py
           python public_release_gate.py --apply
           python public_release_gate.py
       - name: Upload static site to GitHub Pages
