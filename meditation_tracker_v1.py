@@ -69,7 +69,7 @@ def render(data=None):
         '<div class="v-meditation-stats" aria-live="polite">',
         '<div><strong data-meditation-summary>0 / 18</strong><small>sessioni segnate</small></div>',
         '<div><strong data-meditation-100>0 / 15</strong><small>obiettivo 100%</small></div>',
-        '<div><strong data-meditation-house>Da fare</strong><small>balcone del Capitolo 1</small></div>',
+        '<div><strong data-meditation-house>Da fare</strong><small>lezione iniziale o alternativa</small></div>',
         '</div>',
         '<progress max="18" value="0" data-meditation-progress aria-label="Meditazioni confermate nella checklist"></progress>',
         '<p class="v-meditation-save-note" data-meditation-save-status>La tua selezione viene conservata solo in questo browser, se lo consenti. Non sincronizza la PS5.</p>',

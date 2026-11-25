@@ -381,7 +381,13 @@ def walkthrough_visuals(g):
             raise ValueError('Invalid YouTube timestamp')
         source=vid.get('context_source','')
         u=urlsplit(source)
-        if u.scheme!='https' or u.hostname not in ('trari.com','www.trari.com','www.dexerto.com'):
+        # The meditation timestamps are published by the video's own creator.
+        # Allow only this exact reviewed first-party video URL; other existing
+        # source allowlists remain unchanged.
+        direct_creator_source = (ident=='meditazione-capitolo-1'
+                                 and video_id=='WZ9EM_i_W38'
+                                 and source=='https://www.youtube.com/watch?v=WZ9EM_i_W38')
+        if not direct_creator_source and (u.scheme!='https' or u.hostname not in ('trari.com','www.trari.com','www.dexerto.com')):
             raise ValueError('Unknown external video reference provenance')
         open_url='https://www.youtube.com/watch?v='+video_id+'&t='+str(start)+'s'
         out+=('<details class="v-video-reference"><summary>▶ '+e(vid['title'])+
@@ -396,7 +402,7 @@ def walkthrough_visuals(g):
               '<small>Il player YouTube viene caricato solo dopo il clic.</small></div></div>'
               '<div class="v-video-links"><a href="'+e(open_url)+'" target="_blank" rel="noopener noreferrer">Apri su YouTube dal punto utile ↗</a>')
         chapters=vid.get('chapters',[])
-        if not isinstance(chapters,list) or len(chapters)>5:
+        if not isinstance(chapters,list) or len(chapters)>(10 if direct_creator_source else 5):
             raise ValueError('Invalid chapter reference set')
         out+='<ul>'
         for ch in chapters:
