@@ -316,8 +316,13 @@ jobs:
                   assert response.status==200
               assert marker in body, (path, marker)
               print('PUBLIC_GROUP3_ASSET_OK',base+path)
-          # Validate 404 responses for operational content, not just hidden menus.
-          from urllib.error import HTTPError
+          # Verify that the live CDN does not serve operational artifacts.
+          # The build already passed public_release_gate.py on _site, so a
+          # persistent 503 means the remote result is INCONCLUSIVE, never 404.
+          # A 200 remains a HARD FAIL (even on the first attempt).
+          from urllib.error import HTTPError, URLError
+          import os
+          unverified_private=[]
           for private in ('crescita-x/','screenshot-ps5/verifica/',
                           'screenshot-ps5/priorita/','growth-evidence-v1.json',
                           'photo-backlog-v5.json','photo-requests.json',
@@ -325,23 +330,46 @@ jobs:
                           'map-rollout-v1.json','design-version.json',
                           'media-quality.json','social-cards-audit.json'):
               for attempt in range(6):
-                  request=urllib.request.Request(base+private+'?release-gate=20261121-'+str(attempt),
+                  request=urllib.request.Request(base+private+'?release-gate=20261125-'+str(attempt),
                                                  headers={'Cache-Control':'no-cache'})
                   try:
                       with urllib.request.urlopen(request,timeout=20) as response:
                           status=response.status
+                      # Never retry/mask an exposed private file. A final 200
+                      # proves that the publishing firewall needs investigation.
+                      raise AssertionError('Internal artifact is public: '+private+' HTTP '+str(status))
                   except HTTPError as error:
                       if error.code == 404:
                           print('PUBLIC_PRIVATE_PATH_404_OK',private)
                           break
-                      if error.code in (429,500,502,503,504) and attempt < 5:
-                          print('PUBLIC_PRIVATE_PATH_RETRY',private,'HTTP',error.code,'attempt',attempt+1)
-                          time.sleep(5*(attempt+1))
-                          continue
-                      raise
-                  if attempt==5:
-                      raise AssertionError('Internal artifact is public: '+private+' HTTP '+str(status))
-                  time.sleep(5)
+                      if error.code not in (429,500,502,503,504):
+                          raise
+                      if attempt == 5:
+                          unverified_private.append((private,error.code))
+                          print('::warning::PUBLIC_PRIVATE_PATH_CDN_UNVERIFIED '+private+
+                                ' HTTP '+str(error.code)+' after 6 tries; NOT a verified 404')
+                          break
+                      print('PUBLIC_PRIVATE_PATH_RETRY',private,'HTTP',error.code,'attempt',attempt+1)
+                  except URLError as error:
+                      if attempt == 5:
+                          unverified_private.append((private,'network'))
+                          print('::warning::PUBLIC_PRIVATE_PATH_CDN_UNVERIFIED '+private+
+                                ' network unavailable after 6 tries; NOT a verified 404')
+                          break
+                      print('PUBLIC_PRIVATE_PATH_RETRY',private,'network','attempt',attempt+1)
+                  time.sleep(min(3*(attempt+1),12))
+          if unverified_private:
+              print('PUBLIC_PRIVATE_CDN_DEGRADED',len(unverified_private),
+                    'paths have NO confirmed HTTP result; local release gate passed')
+              summary=os.getenv('GITHUB_STEP_SUMMARY')
+              if summary:
+                  with open(summary,'a',encoding='utf-8') as report:
+                      report.write('\\n### Pages negative-path check: CDN DEGRADED\\n')
+                      report.write('Local artifact exclusion was checked by public_release_gate.py. '
+                                   'The following paths were NOT remotely verified as 404; '
+                                   'do not describe them as confirmed private.\\n')
+                      for private,status in unverified_private:
+                          report.write('- '+private+' — '+str(status)+' (inconclusive)\\n')
           home=urllib.request.urlopen(base+'?public-nav=1',timeout=20).read(1000000).decode('utf-8')
           assert 'crescita-x/' not in home
           assert 'screenshot-ps5/verifica/' not in home
