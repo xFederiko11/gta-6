@@ -18,7 +18,7 @@ STATUSES={VERIFIED,"In verifica","Community"}
 KINDS={"Moses","Randy","Esplorazione"}
 FIELDS={"name","slug","kind","category","area","where","visual","unlock","steps","check",
         "status","source_url","additional_source","spoiler","note"}
-SOURCE_LABELS={"www.powerpyx.com":"PowerPyx","www.gtabase.com":"GTABase","gta6gps.com":"GTA6GPS","www.pushsquare.com":"Push Square","www.gtaboom.com":"GTA BOOM","solucemode.com":"Soluce Mode","gta6-japan.com":"GTA VI Cheats & Guides","getvicekeys.com":"Vice Keys"}
+SOURCE_LABELS={"www.powerpyx.com":"PowerPyx","www.gtabase.com":"GTABase","gta6gps.com":"GTA6GPS","www.pushsquare.com":"Push Square","www.gtaboom.com":"GTA BOOM","solucemode.com":"Soluce Mode","gta6-japan.com":"GTA VI Cheats & Guides","getvicekeys.com":"Vice Keys","gta6.house":"GTA6.house","gtami.com":"GTAMI","www.gtabites.com":"GTA Bites"}
 SOURCE_DOMAINS=set(SOURCE_LABELS)
 
 def e(v):return escape(str(v),quote=True)
@@ -57,6 +57,10 @@ def validate(doc):
             raise ValueError("Unclear player confirmation")
         href_safe(car["source_url"])
         href_safe(car["additional_source"])
+        if car.get("map_url"):
+            href_safe(car["map_url"])
+            if urlsplit(car["map_url"]).hostname!="www.gtabase.com":
+                raise ValueError("Map must use reviewed GTABase location reference")
         if car.get("video_url"):
             v=urlsplit(car["video_url"])
             seconds=v.query.removeprefix("v=UyxxY0A_kow&t=").removesuffix("s")
@@ -221,7 +225,9 @@ def article_body(car,base,all_cars):
         f'<div><dt>Dove cercare</dt><dd>{e(car["where"])}</dd></div>',
         f'<div><dt>Quando</dt><dd>{e(car["unlock"])}</dd></div>',
         reward,
-        '</dl><p class="vc-safety"><strong>Attenzione:</strong> ',
+        '</dl>',
+        (f'<p class="vc-map"><a href="{e(car["map_url"])}" target="_blank" rel="noopener noreferrer">Apri riferimento mappa GTABase ↗</a></p>' if car.get("map_url") else ''),
+        '<p class="vc-safety"><strong>Attenzione:</strong> ',
         e(warning if car["kind"]!="Esplorazione" else "Posizione documentata, non spawn garantito. Controlla disponibilità e requisiti nel gioco."),'</p></section>',
         '<section class="vc-instructions" id="procedura">',
         f'<h2>Come ottenerla: {len(car["steps"])} passaggi</h2><ol>',

@@ -37,6 +37,11 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
+      - name: Freeze legacy Rockstar archive pending specific reuse evidence
+        run: |
+          git diff --exit-code 8eadc74aa5d67ec98d3ea02209689b1713451726 -- site/assets/rockstar/gta-vi/
+          test -z "$(git ls-files --others --exclude-standard -- site/assets/rockstar/gta-vi/)"
+          echo 'LEGACY_ROCKSTAR_ARCHIVE_UNCHANGED (not a rights grant)'
       - name: Python pinned
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
         with:
@@ -94,7 +99,7 @@ jobs:
         run: python reader_experience.py --build
       - name: Generate distinct 1200x630 cards for all canonical article URLs
         env:
-          GTA6_FETCH_ROCKSTAR_ART: ${{ github.event_name != 'pull_request' && 'true' || 'false' }}
+          GTA6_FETCH_ROCKSTAR_ART: 'false'
         run: |
           python social_cards_v2.py
           python -m unittest -q test_social_cards_v2.py
@@ -315,7 +320,7 @@ jobs:
                           assert '<iframe' not in text
                           print('PUBLIC_CREATOR_HUB_OK',base+path)
                       if path=='veicoli/':
-                          assert text.count('class="vc-card"')==28
+                          assert text.count('class="vc-card"')==32
                           assert 'vehicle-finder-v1.js?v=' in text
                       if path=='veicoli/declasse-yosemite-1500/':
                           assert 'Bastion Street' in text
@@ -704,6 +709,14 @@ jobs:
               assert 'diritti di riutilizzo da documentare' in article
               assert 'intent/tweet?text=' not in article
               print('PUBLIC_EXPLORATION_VEHICLE_OK',base+path)
+          for slug,clue in (('invetero-spiderweb-coquette','092319'),('declasse-applesauce-bobcat','360782'),('pfister-vanessas-growler','92665'),('maibatsu-penumbra-ff-verde','Vespucci Island')):
+              path='veicoli/'+slug+'/'
+              article=fetch(path)
+              assert 'data-vc-detail="'+slug+'"' in article and clue in article
+              assert 'class="vc-map"' in article
+              assert 'name="robots" content="index,follow"' in article
+              assert 'intent/tweet?text=' not in article
+              print('PUBLIC_HIDDEN_VEHICLE_OK',base+path)
           pending=fetch('veicoli/invetero-coquette-d10/')
           assert 'name="robots" content="noindex,follow"' in pending
           assert 'vc-social-pending' in pending
