@@ -612,6 +612,75 @@
       "spoiler": false,
       "tracker": "Da verificare nel gioco; non attribuire automaticamente Advanced.",
       "note": "GTABase la riporta tra le 17 posizioni; la lista PowerPyx dei 16 modelli non la elenca: dati discordanti, in revisione."
+    },
+    {
+      "name": "Declasse Akane — livrea anime",
+      "slug": "declasse-akane-anime",
+      "kind": "Esplorazione",
+      "category": "Livrea speciale",
+      "area": "Key Lento",
+      "where": "Garage di una casa su Dolphin Drive, a Gambit Bay; cerca il pesce spada sopra l’ingresso.",
+      "visual": "Coupé con livrea anime turchese e viola, distinta dalla variante con pizza sul tetto.",
+      "unlock": "In modalità storia quando puoi esplorare Key Lento; disponibilità da verificare.",
+      "steps": [
+        "Raggiungi Dolphin Drive a Key Lento e cerca la casa con il pesce sulla facciata.",
+        "Apri la porta del garage usando l’interazione mostrata, se è chiusa.",
+        "Verifica con WAiNK che sia la Declasse Akane e controlla accesso e tracker.",
+        "Se il mezzo è presente e accessibile, portalo fuori dal garage.",
+        "Per conservarlo consulta la guida alla registrazione; evita di sostituire la livrea speciale."
+      ],
+      "check": "WAiNK identifica l’Akane corretta. Per il possesso permanente verifica l’effettiva registrazione.",
+      "status": "Verificata",
+      "source_url": "https://www.gtaboom.com/how-to-get-the-free-anime-car-in-gta-6-6d7f",
+      "additional_source": "https://solucemode.com/en/guides/gta-6-declasse-akane-anime-car-location/",
+      "spoiler": false,
+      "note": "Due guide descrivono il ritrovamento su Key Lento. Non è garantito a ogni visita; prenderla non equivale a registrarla gratuitamente. Verifica i costi nel gioco."
+    },
+    {
+      "name": "Annis Drifter Elegy",
+      "slug": "annis-drifter-elegy",
+      "kind": "Esplorazione",
+      "category": "Standout · Street Racer",
+      "area": "Port Gellhorn",
+      "where": "Garage del Gellhorn International Raceway, nella zona dell’autodromo.",
+      "visual": "Variante da drift della Elegy del 1990, da identificare con lo scanner.",
+      "unlock": "Quando l’area è accessibile in modalità storia; eventuali requisiti vanno controllati.",
+      "steps": [
+        "Apri la scheda GTABase e usa la sua mappa per individuare il Gellhorn International Raceway.",
+        "Raggiungi l’autodromo e cerca il garage indicato dalla mappa.",
+        "Scansiona la vettura con WAiNK e verifica il nome Drifter Elegy.",
+        "Controlla sicurezza e tracker prima di tentare di prenderla.",
+        "Se ti interessa soltanto la raccolta, verifica l’aggiornamento in Progressi e Veicoli."
+      ],
+      "check": "Il modello visualizzato è Drifter Elegy, non una Elegy standard. Controlla la voce della raccolta Street Racer.",
+      "status": "Verificata",
+      "source_url": "https://www.gtabase.com/gta-6/vehicles/drifter-elegy",
+      "additional_source": "https://allthings.how/gta-6-rare-cars-standout-vehicles-locations/",
+      "spoiler": false,
+      "note": "Le fonti concordano su autodromo e garage, non attestano uno spawn incondizionato. Non promettiamo accesso, possesso o prezzo fisso."
+    },
+    {
+      "name": "Vapid Rocket Slamvan",
+      "slug": "vapid-rocket-slamvan",
+      "kind": "Esplorazione",
+      "category": "Standout · Hot Rods",
+      "area": "Watson Bay",
+      "where": "Officina del porticciolo sul lato orientale di Watson Bay, verso Pelican River.",
+      "visual": "Pickup chiaro con compressore in vista; officina con scaffali blu, carrello rosso e insegna Rollock Outboards.",
+      "unlock": "Quando puoi esplorare Watson Bay; controlla nel gioco gli eventuali requisiti.",
+      "steps": [
+        "Raggiungi il porticciolo di Watson Bay sul lato est, seguendo la mappa nella fonte.",
+        "Individua l’officina con l’insegna Rollock Outboards e cerca il pickup.",
+        "Spostati per inquadrare il mezzo senza che il carrello degli attrezzi lo nasconda.",
+        "Scansionalo con WAiNK e verifica la voce Rocket Slamvan.",
+        "Controlla la raccolta Hot Rods; se vuoi tenerlo, verifica prima tracker e registrazione."
+      ],
+      "check": "Rocket Slamvan compare nella raccolta Hot Rods. La scansione non equivale al possesso permanente.",
+      "status": "Verificata",
+      "source_url": "https://getvicekeys.com/guides/gta-6-rocket-slamvan-watson-bay-marina",
+      "additional_source": "https://www.gtabase.com/gta-6/vehicles/rocket-slamvan",
+      "spoiler": false,
+      "note": "La guida Vice Keys descrive un filmato con mappa e riconoscimento del mezzo; GTABase conferma il porticciolo. Non riproduciamo il filmato o le immagini e non garantiamo lo spawn."
     }
   ]
 }

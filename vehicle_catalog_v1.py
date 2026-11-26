@@ -15,10 +15,11 @@ PATH="veicoli/"
 CATALOG=Path("data/vehicle_catalog_v1.json")
 VERIFIED="Verificata"
 STATUSES={VERIFIED,"In verifica","Community"}
-KINDS={"Moses","Randy"}
+KINDS={"Moses","Randy","Esplorazione"}
 FIELDS={"name","slug","kind","category","area","where","visual","unlock","steps","check",
         "status","source_url","additional_source","spoiler","note"}
-SOURCE_DOMAINS={"www.powerpyx.com","www.gtabase.com","gta6gps.com","www.pushsquare.com"}
+SOURCE_LABELS={"www.powerpyx.com":"PowerPyx","www.gtabase.com":"GTABase","gta6gps.com":"GTA6GPS","www.pushsquare.com":"Push Square","www.gtaboom.com":"GTA BOOM","solucemode.com":"Soluce Mode","allthings.how":"All Things How","getvicekeys.com":"Vice Keys"}
+SOURCE_DOMAINS=set(SOURCE_LABELS)
 
 def e(v):return escape(str(v),quote=True)
 def href_safe(value):
@@ -109,7 +110,7 @@ def index_body(doc,base):
         'data-vc-search placeholder="Es. Futo, Hellion, Vice Beach" autocomplete="off"></label>',
         '<label for="vc-owner">Tipo<select id="vc-owner" data-vc-filter-owner>',
         '<option value="Tutti">Tutti</option><option value="Moses">Moses</option>',
-        '<option value="Randy">Randy</option></select></label>',
+        '<option value="Randy">Randy</option><option value="Esplorazione">Esplorazione</option></select></label>',
         '<label for="vc-confidence">Verifica<select id="vc-confidence" data-vc-filter-status>',
         '<option value="Tutte">Tutte</option><option value="Verificata">Verificata</option>',
         '<option value="In verifica">In verifica</option>',
@@ -142,7 +143,7 @@ def index_body(doc,base):
     ])
 
 def social_text(car,base):
-    if car["status"]!=VERIFIED:return None
+    if car["status"]!=VERIFIED or car["kind"]=="Esplorazione":return None
     path=base+PATH+car["slug"]+"/"
     desc=("Vicino a "+car["area"] if car["area"]!="Da verificare" else "Cerca gli indizi nel gioco")
     text="🚘 GTA VI | "+car["name"]+"\n"+desc+".\nPassaggi, requisiti e fonti in italiano:\n"+path+"\n#GTAVI"
@@ -157,12 +158,14 @@ def article_body(car,base,all_cars):
     slug=car["slug"]
     intro=("Nel punto indicato cerca il modello, verifica tracker e requisiti con WAiNK. "
            "Una consegna a Moses o Randy non implica che il veicolo diventi di tua proprietà.")
+    if car["kind"]=="Esplorazione":
+        intro="Cerca questa variante nel mondo libero e confronta il riferimento visivo con la fonte. La posizione è documentata da guide esterne, non verificata da noi direttamente nel gioco."
     steps="".join(
         f'<li><span aria-hidden="true">{n:02d}</span><p>{e(step)}</p></li>'
         for n,step in enumerate(car["steps"],1)
     )
-    original="PowerPyx" if "powerpyx.com" in car["source_url"] else "GTABase"
-    second={"www.gtabase.com":"GTABase","www.powerpyx.com":"PowerPyx","www.pushsquare.com":"Push Square","gta6gps.com":"GTA6GPS"}[urlsplit(car["additional_source"]).hostname]
+    original=SOURCE_LABELS[urlsplit(car["source_url"]).hostname]
+    second=SOURCE_LABELS[urlsplit(car["additional_source"]).hostname]
     related=[x for x in all_cars if x["slug"]!=slug and x["kind"]==car["kind"]][:4]
     related_html="".join(
         f'<a href="{e(base+PATH+x["slug"]+"/")}">{e(x["name"])} →</a>'
@@ -199,8 +202,9 @@ def article_body(car,base,all_cars):
         f'<a href="https://x.com/intent/tweet?text={quote(draft,safe="")}" target="_blank" '
         'rel="noopener noreferrer">Apri la bozza su X ↗</a></section>'
         if draft else (
-        '<p class="vc-social-pending">Post X non disponibile: dati da verificare '
-        'prima della promozione.</p>')
+        '<p class="vc-social-pending">Post X non disponibile: '+(
+            'fotografia pertinente con diritti di riutilizzo da documentare.'
+            if car["kind"]=="Esplorazione" else 'dati da verificare prima della promozione.')+'</p>')
     )
     parts=[
         f'<nav class="vc-crumb" aria-label="Percorso"><a href="{e(base+PATH)}">'
@@ -218,7 +222,7 @@ def article_body(car,base,all_cars):
         f'<div><dt>Quando</dt><dd>{e(car["unlock"])}</dd></div>',
         reward,
         '</dl><p class="vc-safety"><strong>Attenzione:</strong> ',
-        e(warning),'</p></section>',
+        e(warning if car["kind"]!="Esplorazione" else "Posizione documentata, non spawn garantito. Controlla disponibilità e requisiti nel gioco."),'</p></section>',
         '<section class="vc-instructions" id="procedura">',
         f'<h2>Come ottenerla: {len(car["steps"])} passaggi</h2><ol>',
         steps,'</ol><p class="vc-check"><strong>✓ Controllo finale:</strong> ',
