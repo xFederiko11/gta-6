@@ -27,7 +27,17 @@ class BeginnerPlatinumTests(unittest.TestCase):
                 self.assertLess(page.index('data-trophy-done='),page.index('class="source-details"'))
                 self.assertIn('class="tg-extra"',page)
                 self.assertIn('class="tg-extra tg-related"',page)
-                if t.get("tip_it"):
+                if t["number"]==23:
+                    self.assertEqual(page.count('data-kenton-step='),10)
+                    self.assertLess(page.index('data-kenton-tutorial'),page.index('class="tg-verify"'))
+                    self.assertIn("5 set di Kenton su 7",page)
+                    self.assertIn("non concordano",page)
+                    self.assertIn("gta-6-maritime-dispute-stop-by-kentons-shop-walkthrough/",page)
+                    self.assertIn("gta-6-underwater-discoveries-locations-and-kentons-treasures",page)
+                    body=page.split('data-kenton-tutorial',1)[1].split('class="tg-verify"',1)[0]
+                    self.assertNotIn('<img',body)
+                    self.assertNotIn('<iframe',body)
+                elif t.get("tip_it"):
                     self.assertIn(escape(t["tip_it"],quote=True),page)
                     self.assertIn("CONSIGLIO DOCUMENTATO",page)
                 else:
@@ -64,6 +74,10 @@ class BeginnerPlatinumTests(unittest.TestCase):
         self.assertLess(page.index('class="cr-priority-links"'),page.index('data-cr-step="pt-01"'))
         self.assertLess(page.index('data-cr-step="pt-01"'),page.index('class="cr-map-extra"'))
         self.assertIn('NON indica 123 pin esatti',page)
+        self.assertIn("gta-6-all-under-the-bridges-locations/",page)
+        self.assertIn("gta-6-all-no-flusher-tag-utility-markings-locations/",page)
+        self.assertIn("Sottoponti: come registrarli",page)
+        self.assertIn("No Flusher Tags",page)
         self.assertIn('data-cr-filter="all"',page)
         self.assertIn('data-cr-query',page)
         self.assertIn('data-cr-bar',page)

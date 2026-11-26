@@ -3,7 +3,7 @@
   "guides": {
     "guide-e-tutorial/soldi-facili-capitolo-1/": {
       "spoiler": true,
-      "checked": "20 novembre 2026",
+      "checked": "26 novembre 2026",
       "gallery_title": "Mappa del primo percorso",
       "gallery": [
         {
@@ -27,6 +27,12 @@
           "title": "Family Savings non è un normale deposito",
           "text": "Il denaro trasferito in Family Savings non si può ritirare. Non spostare lì i soldi destinati a un acquisto imminente: il Checking Account è un conto diverso.",
           "source": "https://www.powerpyx.com/gta-6-buck-me-set-up-bank-account-walkthrough/"
+        },
+        {
+          "kind": "tip",
+          "title": "Controlla il limite BuckMe prima di accumulare denaro",
+          "text": "GTABase indica questi massimali del Checking Account: 15.000 dopo Buck Me, 100.000 dopo Coffee Break, 500.000 dopo Credit Check e 2 milioni all'inizio del Capitolo 4. Controlla il limite effettivo nell'app: quando è piena, i pagamenti in arrivo restano in sospeso. Non confondere il saldo con Family Savings.",
+          "source": "https://www.gtabase.com/gta-6/articles/how-to-increase-buckme-limit-in-gta-6"
         }
       ]
     },
