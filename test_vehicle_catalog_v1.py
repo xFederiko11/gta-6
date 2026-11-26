@@ -23,7 +23,7 @@ class VehicleCatalogTests(unittest.TestCase):
         self.assertEqual(sum(x["status"]==VERIFIED for x in doc["items"]),24)
         self.assertEqual(sum(x["status"]=="In verifica" for x in doc["items"]),0)
         self.assertEqual(sum(x["status"]=="Community" for x in doc["items"]),1)
-        expected={"pegassi-vitello":"Waning Sands","pegassi-infernus":"Crosstown","pegassi-tempesta":"Vespucci Island","buckingham-windsor-drop":"Bayside","pegassi-toros":"Southside","ocelot-jagular":"Belville","buckingham-jubilee":"Bayside","grotti-itali-rsx":"Bayside","pfister-growler":"Southside","gallivanter-baller-st-d":"Casanova Island"}
+        expected={"pegassi-vitello":"Waning Sands","pegassi-infernus":"Crosstown","pegassi-tempesta":"Vespucci Island","buckingham-windsor-drop":"Bayside","pegassi-toros":"Southside","ocelot-jagular":"Belville","buckingham-jubilee":"Bayside","grotti-itali-rsx":"Bayside","pfister-growler":"Southside","gallivanter-baller-st-d":"Casanova Island","ascot-paragon":"Bayside","bravado-gauntlet-hellfire":"Capri","piccia-furia":"Vespucci Island","benefactor-dubsta":"Bayside","bravado-banshee":"Southside"}
         for slug,area in expected.items():
             car=next(x for x in doc["items"] if x["slug"]==slug)
             self.assertEqual(car["area"],area)
