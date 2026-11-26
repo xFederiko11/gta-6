@@ -7,6 +7,17 @@ from urllib.parse import unquote
 from community_social_v1 import widget,home_rail,verified_x_url,suggested_tweet,relevant_youtube,xpost_for,share_intent,FOLLOW_INTENT
 
 class SocialParticipationTests(unittest.TestCase):
+    def test_verified_publication_time(self):
+        from community_social_v1 import post_time_html
+        from sunset_blog_v1 import sidebar
+        item={"x_url":"https://x.com/xFederiko11/status/2123588882885186002","text":"Test post","source":"Buffer sent Post.externalLink on verified X channel","buffer_status":"sent","completed_utc":"2026-11-26T12:44:40.575000Z"}
+        self.assertIn("26/11/2026 · 13:44",post_time_html(item))
+        self.assertIn("11/07/2026 · 00:30",post_time_html({**item,"completed_utc":"2026-07-10T22:30:00Z"}))
+        for change in ({"source":"ledger"},{"buffer_status":"queued"},{"completed_utc":"2026-11-26T12:44:00"}):
+            self.assertEqual(post_time_html({**item,**change}),"")
+        with patch("sunset_blog_v1.load",return_value={"x_posts":[item]}):
+            self.assertIn("26/11/2026 · 13:44",sidebar())
+
     def test_url_validation(self):
         good="https://twitter.com/xFederiko11/status/2123588882885186002"
         self.assertEqual(verified_x_url(good),"https://x.com/xFederiko11/status/2123588882885186002")

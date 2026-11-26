@@ -12,7 +12,7 @@ from threading import Thread
 from urllib.parse import unquote, urlsplit
 from urllib.request import Request, urlopen
 import argparse, hashlib, json, re, shutil, time
-from community_social_v1 import load, verified_x_url
+from community_social_v1 import load, verified_x_url, post_time_html
 
 ROOT=Path("_site")
 BASE="https://xfederiko11.github.io/gta-6/"
@@ -97,9 +97,10 @@ def sidebar(path="",*,preview=False,guide=False,track=False):
             continue
         url=verified_x_url(item.get("x_url"))
         text=str(item.get("text") or "").strip()
-        if not url or not text:
+        stamp=post_time_html(item)
+        if not url or not text or not stamp:
             continue
-        cards.append('<article class="social-comment-card"><span>𝕏 @xFederiko11</span><p>'+
+        cards.append('<article class="social-comment-card"><span>𝕏 @xFederiko11</span>'+stamp+'<p>'+
                      esc(text[:210])+'</p><a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer"'+tracking(track,"x-post-open")+'>Apri il post ↗</a></article>')
         if len(cards)==3:break
     posts="".join(cards) or '<p class="sb-empty">Se gli estratti non sono disponibili, apri direttamente il profilo X.</p>'
@@ -109,7 +110,7 @@ def sidebar(path="",*,preview=False,guide=False,track=False):
             '<div class="sb-panel"><p class="sb-kicker">NON PERDERTELI</p><p class="sb-heading">Da tenere a portata di mano</p>'
             '<nav class="sb-important" aria-label="Guide importanti">'+important+'</nav></div>'
             '<div class="sb-panel sb-x-panel"><p class="sb-kicker">DALLA REDAZIONE</p><p class="sb-heading">𝕏 Ultimi post</p>'
-            '<p class="sb-x-description">Estratti con permalink verificato tramite Buffer.</p>'
+            '<p class="sb-x-description">Post verificati tramite Buffer · orario italiano.</p>'
             '<div class="sb-x-grid" data-x-live-grid>'+posts+'</div>'
             '<button class="sb-x-button" type="button" data-x-timeline-load'+tracking(track,"x-timeline-open")+'>Carica il feed X</button>'
             '<p class="sb-x-description">Il feed incorporato è facoltativo e può non essere disponibile. Si collega a X soltanto al clic.</p>'

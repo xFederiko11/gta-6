@@ -124,3 +124,5 @@ html:has(body[data-preview])[data-theme=light]{--pink:var(--r-pink);--r-text:var
 .sb-related a:hover,.sb-related a span{color:var(--r-cyan)}
 .sb-quick-jump a:focus-visible,.sb-related a:focus-visible,.sb-sidebar a:focus-visible,.sb-x-button:focus-visible{outline:3px solid var(--r-cyan);outline-offset:2px}
 @media(max-width:760px){.sb-quick-jump{margin:2px 0 8px}.sb-quick-jump a{min-height:40px}.sb-related{padding:12px}}
+
+.sb-post-time{display:block;color:var(--r-muted);font-size:.72rem;font-weight:650;line-height:1.45;margin:3px 0 6px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
