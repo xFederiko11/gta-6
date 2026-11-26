@@ -411,14 +411,14 @@ def approved_preview(html,registry,root=None):
     return selected[0] if selected else None
 
 
-def render_screenshot_card(title,relative,row,photo):
+def render_screenshot_card(title,relative,row,photo,*,label="GUIDA DI GIOCO"):
     """Show the full real game image without a destructive crop or overlay."""
     key=cover_key(relative)
     accent=PALETTES[int(key[:3],16)%len(PALETTES)]
     card=Image.new("RGB",(WIDTH,HEIGHT),(16,19,29))
     draw=ImageDraw.Draw(card)
     draw.text((32,36),"GTA VI / ITALIA",font=_font(30),fill=accent)
-    draw.text((32,91),"GUIDA DI GIOCO",font=_font(19),fill=(190,202,221))
+    draw.text((32,91),label,font=_font(19),fill=(190,202,221))
     cleaned=re.sub(r"\s*[-|•]\s*GTA\s*6\s*Italia.*$","",title,flags=re.I).strip()
     font=_font(38 if len(cleaned)<55 else 32)
     for i,line in enumerate(_wrap(cleaned,draw,font,340,6)):
@@ -478,6 +478,21 @@ def insert_article_cover(html,relative,link,alt,credit,source_url=None):
     return html,True
 
 
+# Explicit editorial matches reviewed against the official Rockstar gallery.
+# Promotional context only: never proof of a menu, a mission or a spawn.
+GUIDE_PHOTOS = {
+    "salvare-auto/": (
+        "ULTIMATE_EDITION_RIDEOUT_CUSTOMS_03.jpg",
+        "Auto gialla in officina Rideout Customs (materiale Ultimate Edition)"),
+    "guide-e-tutorial/scansionare-veicoli/": (
+        "Jason_Duval_01.jpg",
+        "Jason accanto a una motocicletta verde"),
+    "guide-e-tutorial/studiare-animali/": (
+        "Leonida_Keys_02.jpg",
+        "Iguana verde sulla strada delle Leonida Keys"),
+}
+
+
 def publish():
     if not ROOT.is_dir():
         raise RuntimeError("No generated Pages site to process")
@@ -495,6 +510,7 @@ def publish():
     selected={item['path']:editorial_images[item['hero']] for item in editorial}
     from cinematic_site import HERO
     selected['']=editorial_images[HERO]
+    selected.update({route:editorial_images[name] for route,(name,_) in GUIDE_PHOTOS.items()})
     for page in sorted(ROOT.rglob("index.html")):
         parsed=_parse_page(page)
         if parsed is None:continue
@@ -517,8 +533,13 @@ def publish():
             row,screenshot=preview
             art=None
             photo=render_screenshot_card(headline,relative,row,screenshot)
+        elif relative in GUIDE_PHOTOS and art:
+            photo=render_screenshot_card(headline,relative,
+                                         {"credit":"Rockstar Games · promozionale"},art["image"],
+                                         label="IMMAGINE PROMOZIONALE")
         else:
             photo=render_card(headline,relative,art["image"] if art else None)
+        cover_kind=("approved_gameplay" if preview else "official_game_photo" if art else "original_illustration")
         dest=path/(key+".jpg")
         photo.save(dest,"JPEG",quality=83,optimize=True,progressive=True,subsampling=0)
         data=dest.read_bytes()
@@ -529,12 +550,20 @@ def publish():
             raise ValueError("Two canonical pages rendered same social image")
         digest.add(binary_hash)
         link=BASE+"assets/social-cards/"+key+".jpg"
-        alt_text=(("Screenshot di gameplay autorizzato: "+preview[0]["alt"]+" · Fonte: "+preview[0]["credit"]) if preview else
-                    ("Immagine promozionale ufficiale Rockstar Games; copertina editoriale GTA VI Italia." if art else
-                    "Copertina illustrata originale GTA VI Italia: "+headline+". Non screenshot di gameplay."))
+        if preview:
+            alt_text="Screenshot di gameplay autorizzato: "+preview[0]["alt"]+" · Fonte: "+preview[0]["credit"]
+            credit="Screenshot autorizzato · "+preview[0]["credit"]
+        elif art:
+            if relative in GUIDE_PHOTOS:
+                alt_text="Immagine promozionale Rockstar Games: "+GUIDE_PHOTOS[relative][1]+". Non mostra la procedura."
+                credit="Immagine promozionale · Rockstar Games · non mostra la procedura"
+            else:
+                alt_text="Immagine promozionale ufficiale Rockstar Games; copertina editoriale GTA VI Italia."
+                credit="Immagine promozionale · Rockstar Games"
+        else:
+            alt_text="Copertina illustrata originale GTA VI Italia: "+headline+". Non screenshot di gameplay."
+            credit="Copertina illustrata · GTA VI Italia"
         attr=escape(alt_text,quote=True)
-        credit=("Screenshot autorizzato · "+preview[0]["credit"] if preview else
-                ("Immagine promozionale · Rockstar Games" if art else "Copertina illustrata · GTA VI Italia"))
         source_url=(("https://www.youtube.com/watch?v="+preview[0]["source_video_id"]+
                      "&t="+str(preview[0]["source_second"])+"s") if preview and
                      preview[0].get("capture_kind")=="creator_supplied_video_frame" else
@@ -553,13 +582,13 @@ def publish():
              f'<meta property="og:image:type" content="image/jpeg">'
              f'<meta property="og:image:alt" content="{attr}">'
              f'<meta name="twitter:image:alt" content="{attr}">')
-        html=html.replace('</head>',new+'</head>',1)
+        html=html.replace('</head>',new+f'<meta name="gta6:cover-kind" content="{cover_kind}"></head>',1)
         html,has_cover=insert_article_cover(html,relative,link,attr,credit,source_url)
         page.write_text(html,encoding="utf-8")
         entries.append({"path":relative,"image":link,"sha256":binary_hash,"artwork":art["name"] if art else None,
                         "approved_screenshot":preview[0]["id"] if preview else None,
                         "screenshot_credit":preview[0]["credit"] if preview else None,
-                        "article_cover":has_cover,"cover_subject":subject_for_path(relative) if not art and not preview else None})
+                        "article_cover":has_cover,"cover_kind":cover_kind,"cover_subject":subject_for_path(relative) if not art and not preview else None})
     if len(entries)<65:
         raise RuntimeError("Too few canonical pages to validate social cards")
     if len({x["image"] for x in entries})!=len(entries):

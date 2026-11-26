@@ -160,9 +160,11 @@ class SocialCardTests(unittest.TestCase):
         from editorial_articles import load
         _, articles, images = load()
         selected={article['path']:images[article['hero']]['title'] for article in articles}
+        selected.update({route:images[name]['title'] for route,(name,_) in c.GUIDE_PHOTOS.items()})
         for row in obj['entries']:
             if row['path'] in selected:
-                self.assertEqual(row['artwork'],selected[row['path']])
+                if not row['approved_screenshot']:
+                    self.assertEqual(row['artwork'],selected[row['path']])
             elif row['path']:
                 self.assertIsNone(row['artwork'])
         self.assertLessEqual(obj['artwork_backed_cards'],1+len(selected))
@@ -182,6 +184,12 @@ class SocialCardTests(unittest.TestCase):
             source=page.read_text(encoding="utf-8")
             self.assertEqual(source.count('<meta property="og:image" content="'),1)
             self.assertEqual(source.count('<meta name="twitter:image" content="'),1)
+            expected_kind = ('approved_gameplay' if record['approved_screenshot'] else
+                             'official_game_photo' if record['artwork'] else 'original_illustration')
+            self.assertEqual(record['cover_kind'],expected_kind)
+            self.assertIn(f'<meta name="gta6:cover-kind" content="{expected_kind}">',source)
+            if record['path'] in c.GUIDE_PHOTOS and not record['approved_screenshot']:
+                self.assertIn('Non mostra la procedura.',source)
             self.assertIn('content="'+record["image"]+'"',source)
             self.assertEqual(record["article_cover"],c.is_article(source,record["path"]))
             if record["article_cover"]:
