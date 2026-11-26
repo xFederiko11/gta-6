@@ -18,7 +18,7 @@ STATUSES={VERIFIED,"In verifica","Community"}
 KINDS={"Moses","Randy","Esplorazione"}
 FIELDS={"name","slug","kind","category","area","where","visual","unlock","steps","check",
         "status","source_url","additional_source","spoiler","note"}
-SOURCE_LABELS={"www.powerpyx.com":"PowerPyx","www.gtabase.com":"GTABase","gta6gps.com":"GTA6GPS","www.pushsquare.com":"Push Square","www.gtaboom.com":"GTA BOOM","solucemode.com":"Soluce Mode","allthings.how":"All Things How","getvicekeys.com":"Vice Keys"}
+SOURCE_LABELS={"www.powerpyx.com":"PowerPyx","www.gtabase.com":"GTABase","gta6gps.com":"GTA6GPS","www.pushsquare.com":"Push Square","www.gtaboom.com":"GTA BOOM","solucemode.com":"Soluce Mode","gta6-japan.com":"GTA VI Cheats & Guides","getvicekeys.com":"Vice Keys"}
 SOURCE_DOMAINS=set(SOURCE_LABELS)
 
 def e(v):return escape(str(v),quote=True)

@@ -642,22 +642,22 @@
       "kind": "Esplorazione",
       "category": "Standout · Street Racer",
       "area": "Port Gellhorn",
-      "where": "Garage del Gellhorn International Raceway, nella zona dell’autodromo.",
+      "where": "Officina Qwick-Fix nel paddock a nord, dietro la pista di accelerazione del Gellhorn International Raceway.",
       "visual": "Variante da drift della Elegy del 1990, da identificare con lo scanner.",
       "unlock": "Quando l’area è accessibile in modalità storia; eventuali requisiti vanno controllati.",
       "steps": [
         "Apri la scheda GTABase e usa la sua mappa per individuare il Gellhorn International Raceway.",
-        "Raggiungi l’autodromo e cerca il garage indicato dalla mappa.",
-        "Scansiona la vettura con WAiNK e verifica il nome Drifter Elegy.",
+        "Raggiungi il paddock dietro la drag strip e cerca l’ingresso pedonale della Qwick-Fix.",
+        "Entra dalla porta laterale se accessibile, attraversa l’ufficio verso sinistra e verifica il modello nel garage.",
         "Controlla sicurezza e tracker prima di tentare di prenderla.",
         "Se ti interessa soltanto la raccolta, verifica l’aggiornamento in Progressi e Veicoli."
       ],
       "check": "Il modello visualizzato è Drifter Elegy, non una Elegy standard. Controlla la voce della raccolta Street Racer.",
       "status": "Verificata",
       "source_url": "https://www.gtabase.com/gta-6/vehicles/drifter-elegy",
-      "additional_source": "https://allthings.how/gta-6-rare-cars-standout-vehicles-locations/",
+      "additional_source": "https://gta6-japan.com/en/guides/annis-drifter-elegy-gellhorn-raceway/",
       "spoiler": false,
-      "note": "Le fonti concordano su autodromo e garage, non attestano uno spawn incondizionato. Non promettiamo accesso, possesso o prezzo fisso."
+      "note": "GTABase conferma il garage dell’autodromo; GTA VI Cheats & Guides descrive l’accesso attraverso l’ufficio. Non garantiamo disponibilità o prezzo fisso."
     },
     {
       "name": "Vapid Rocket Slamvan",
@@ -678,7 +678,7 @@
       "check": "Rocket Slamvan compare nella raccolta Hot Rods. La scansione non equivale al possesso permanente.",
       "status": "Verificata",
       "source_url": "https://getvicekeys.com/guides/gta-6-rocket-slamvan-watson-bay-marina",
-      "additional_source": "https://www.gtabase.com/gta-6/vehicles/rocket-slamvan",
+      "additional_source": "https://www.gtabase.com/gta-6/map/?feature=standout-vehicle",
       "spoiler": false,
       "note": "La guida Vice Keys descrive un filmato con mappa e riconoscimento del mezzo; GTABase conferma il porticciolo. Non riproduciamo il filmato o le immagini e non garantiamo lo spawn."
     }
