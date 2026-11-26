@@ -78,8 +78,7 @@ TROPHY_ITEMS=json.loads(Path('data/trofei.json').read_text(encoding='utf-8'))['t
 TROPHY_MAP_PATHS={'trofei/'+row['slug']+'/':row for row in TROPHY_ITEMS}
 GUIDE_MAP_PATHS=set()
 MAP_RENDER_PATHS=set(TROPHY_MAP_PATHS)|{MAP_HUB_PATH,COLLECTIBLE_ROUTE_PATH}
-CACHE=Path('.visual-media/manifest.json')
-LOCAL_MEDIA=json.loads(CACHE.read_text(encoding='utf-8')) if CACHE.exists() else {}
+# Legacy manifest is link-only; never trust cached provider derivatives.
 ASSET_VERSION=hashlib.sha256(b''.join(Path(p).read_bytes() for p in ('site/assets/visual-v2.css','site/assets/visual-v2.js'))).hexdigest()[:12]
 DESIGN_VERSION='visual-v2-20261120'
 
@@ -219,18 +218,7 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
 
 
 def media_src(key,width=960):
-    """Never hotlink a provider asset when local optimization failed.
-
-    A third-party URL can expire, rate-limit, or reject mobile browsers.
-    Instead, readers get an attributed, actionable source link.
-    """
-    # A correct context or a cached derivative is not a reuse permission.
-    if MEDIA[key].get('kind') != 'promotional':
-        return None
-    local=LOCAL_MEDIA.get(key,{})
-    candidate=local.get(str(width))
-    if candidate and candidate.startswith('assets/visual/') and Path('site',candidate).is_file():
-        return url(candidate)
+    """Legacy source references are never rendered as locally cached images."""
     return None
 
 
