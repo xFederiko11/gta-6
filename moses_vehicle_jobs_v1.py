@@ -74,7 +74,7 @@ MICROSTEPS=(
   ("Raggiungi Buckskin Swamp, nel sud-est di Kelly County.",
    "Individua il buggy argentato fra i fuoristrada che circolano nella palude.",
    "Parla al conducente per farlo fermare e scendere.",
-   "Sali sul Bandito e allontanati; il veicolo ha un solo posto."),
+   "Se sei accompagnato dall’altro protagonista, congedalo: il Bandito ha un solo posto. Poi prendi il mezzo e allontanati."),
   ("Raggiungi la casa a nord-est di Grayson, evitando gli uomini armati.",
    "Trova il capanno a est dell'abitazione.",
    "Digita 2727 sulla tastiera della porta laterale.",
@@ -145,18 +145,24 @@ def render_source_visual(i, name):
     )
 
 
+def base_reward_total():
+    """Sum only the six documented base payouts, not variable bonuses."""
+    return sum(int(row[1].split()[0].replace(".","")) for row in TASKS[:6])
+
+
 def render(base):
     validate()
+    total=f"{base_reward_total():,}".replace(",",".")
     body=[
       '<section class="v-intro v-guide-intro"><span class="v-tag">GUIDA RAPIDA · PS5 / PS5 PRO</span>',
       '<h1>Le 6 auto da rubare per Moses: luoghi e ricompense</h1>',
-      '<p>Dopo Daily Driver, recupera sei veicoli per Moses. Ogni consegna sblocca la richiesta successiva.</p></section>',
+      '<p>Dopo Daily Driver, recupera sei veicoli per Moses con Lucia o Jason. Ogni consegna sblocca la richiesta successiva.</p></section>',
       '<div class="v-guide-layout v-guide-single"><article class="v-guide-main">',
       '<section class="v-operation-brief" aria-label="Prima di iniziare">',
       '<h2>Prima di iniziare</h2><dl>',
       '<div><dt>Quando</dt><dd>Capitolo 2, dopo Daily Driver</dd></div>',
       '<div><dt>Dove</dt><dd>Consegne all’officina Moses, Port Gellhorn</dd></div>',
-      '<div><dt>Premio</dt><dd>Denaro per veicolo + bonus condizioni; veicolo speciale finale</dd></div>',
+      '<div><dt>Premio</dt><dd><strong>'+total+' GTA$</strong> totali base per le sei consegne, più bonus condizioni variabili; regalo finale separato</dd></div>',
       '</dl></section>',
       '<p class="mo-story-warning" role="note"><strong>⚠️ SPOILER:</strong> mostriamo luoghi e azioni delle sei consegne. Il regalo finale resta nascosto finché non lo apri.</p>',
       '<p class="v-guide-urgent mo-trophy-note" role="note"><strong>🏆 Platino e 100%:</strong> ciascuna consegna conta come una delle 100 attività facoltative del completamento. Non occorre svolgere proprio questa serie perché le attività valide sono più di 100. ',

@@ -4,7 +4,7 @@ from pathlib import Path
 import unittest
 
 from operational_brief_v1 import validate as validate_briefs
-from moses_vehicle_jobs_v1 import validate as validate_moses, TASKS, PATH, SOURCE, GIFT, COMPLETION, MICROSTEPS, IGN_VIDEO_ID, IGN_TIMELINE
+from moses_vehicle_jobs_v1 import validate as validate_moses, TASKS, PATH, SOURCE, GIFT, COMPLETION, MICROSTEPS, IGN_VIDEO_ID, IGN_TIMELINE, base_reward_total
 
 ROOT=Path("_site")
 
@@ -88,6 +88,11 @@ class OperationalGuidesV1Tests(unittest.TestCase):
                          "do not pose stock or unlicensed photos as walkthrough proof inside steps")
         self.assertEqual(len(TASKS),7)
         self.assertIn("6 auto",page)
+        self.assertEqual(base_reward_total(),18610)
+        self.assertIn("18.610 GTA$",page)
+        self.assertIn("con Lucia o Jason",page)
+        self.assertIn("bonus condizioni variabili",page)
+        self.assertIn("regalo finale separato",page)
         self.assertIn("1.850 GTA$",page)
         self.assertIn("6.310 GTA$",page)
         self.assertIn("Moses’ Sultan",page)
