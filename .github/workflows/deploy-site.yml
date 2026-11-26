@@ -315,7 +315,7 @@ jobs:
                           assert '<iframe' not in text
                           print('PUBLIC_CREATOR_HUB_OK',base+path)
                       if path=='veicoli/':
-                          assert text.count('class="vc-card"')==25
+                          assert text.count('class="vc-card"')==28
                           assert 'vehicle-finder-v1.js?v=' in text
                       if path=='veicoli/declasse-yosemite-1500/':
                           assert 'Bastion Street' in text
@@ -696,6 +696,14 @@ jobs:
               assert 'randys-wish-list-car-locations-walkthrough' in article, path
               assert 'name="robots" content="index,follow"' in article, path
               print('PUBLIC_RANDY_VEHICLE_OK',base+path)
+          for slug,area in (('declasse-akane-anime','Key Lento'),('annis-drifter-elegy','Port Gellhorn'),('vapid-rocket-slamvan','Watson Bay')):
+              path='veicoli/'+slug+'/'
+              article=fetch(path)
+              assert 'data-vc-detail="'+slug+'"' in article and area in article
+              assert 'name="robots" content="index,follow"' in article
+              assert 'diritti di riutilizzo da documentare' in article
+              assert 'intent/tweet?text=' not in article
+              print('PUBLIC_EXPLORATION_VEHICLE_OK',base+path)
           pending=fetch('veicoli/invetero-coquette-d10/')
           assert 'name="robots" content="noindex,follow"' in pending
           assert 'vc-social-pending' in pending
