@@ -235,7 +235,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','patch/','patch/2026-11-23/','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/studiare-animali/','guide-e-tutorial/viaggio-rapido-taxi/','guide-e-tutorial/70-sfide-100-percento/','guide-e-tutorial/poligoni-concentrazione/','guide-e-tutorial/sportive-randy-posizioni/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','hdr-oled/lg-oled-c4/','hdr-oled/samsung-s90f/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','articoli/','articoli/gta-vi-ultimate-edition-auto-garage/','video-tutorial/','veicoli/','veicoli/declasse-yosemite-1500/','veicoli/pegassi-toros/','veicoli/pegassi-vitello/','veicoli/pegassi-infernus/','veicoli/pegassi-tempesta/','veicoli/buckingham-windsor-drop/','veicoli/ocelot-jagular/','veicoli/buckingham-jubilee/','veicoli/grotti-itali-rsx/','veicoli/pfister-growler/','veicoli/gallivanter-baller-st-d/','veicoli/ascot-paragon/','veicoli/bravado-gauntlet-hellfire/','veicoli/piccia-furia/','veicoli/benefactor-dubsta/','veicoli/bravado-banshee/','veicoli/declasse-akane-anime/','veicoli/annis-drifter-elegy/','veicoli/vapid-rocket-slamvan/','veicoli/invetero-coquette-d10/','guide-e-tutorial/']
+                paths=['','patch/','patch/2026-11-23/','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/studiare-animali/','guide-e-tutorial/viaggio-rapido-taxi/','guide-e-tutorial/70-sfide-100-percento/','guide-e-tutorial/poligoni-concentrazione/','guide-e-tutorial/sportive-randy-posizioni/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','hdr-oled/lg-oled-c4/','hdr-oled/samsung-s90f/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','articoli/','articoli/gta-vi-ultimate-edition-auto-garage/','video-tutorial/','veicoli/','veicoli/declasse-yosemite-1500/','veicoli/pegassi-toros/','veicoli/pegassi-vitello/','veicoli/pegassi-infernus/','veicoli/pegassi-tempesta/','veicoli/buckingham-windsor-drop/','veicoli/ocelot-jagular/','veicoli/buckingham-jubilee/','veicoli/grotti-itali-rsx/','veicoli/pfister-growler/','veicoli/gallivanter-baller-st-d/','veicoli/ascot-paragon/','veicoli/bravado-gauntlet-hellfire/','veicoli/piccia-furia/','veicoli/benefactor-dubsta/','veicoli/bravado-banshee/','veicoli/declasse-akane-anime/','veicoli/annis-drifter-elegy/','veicoli/vapid-rocket-slamvan/','veicoli/invetero-spiderweb-coquette/','veicoli/declasse-applesauce-bobcat/','veicoli/pfister-vanessas-growler/','veicoli/maibatsu-penumbra-ff-verde/','veicoli/invetero-coquette-d10/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -321,7 +321,7 @@ def browser_qa():
                                   int.from_bytes(shot[20:24],'big'),flush=True)
                     if path=='veicoli/':
                         cards=page.locator('[data-vc-card]')
-                        assert cards.count()==28
+                        assert cards.count()==32
                         assert page.locator('[data-vc-card]:visible').count()==12
                         assert page.locator('[data-vc-more]').is_visible()
                         page.locator('[data-vc-search]').fill('Futo')
@@ -329,7 +329,7 @@ def browser_qa():
                         assert page.locator('[data-vc-card]:visible h2').inner_text()=='Karin Futo'
                         page.locator('[data-vc-search]').fill('')
                         page.locator('[data-vc-filter-owner]').select_option('Esplorazione')
-                        assert page.locator('[data-vc-card]:visible').count()==3
+                        assert page.locator('[data-vc-card]:visible').count()==7
                         page.locator('[data-vc-filter-owner]').select_option('Moses')
                         assert page.locator('[data-vc-card]:visible').count()==8
                         page.locator('[data-vc-filter-status]').select_option('Verificata')
@@ -351,7 +351,7 @@ def browser_qa():
                         page.locator('[data-vc-more]').click()
                         assert page.locator('[data-vc-card]:visible').count()==24
                         page.locator('[data-vc-more]').click()
-                        assert page.locator('[data-vc-card]:visible').count()==28
+                        assert page.locator('[data-vc-card]:visible').count()==32
                         assert not page.locator('[data-vc-more]').is_visible()
                         if width in (390,1440):
                             page.evaluate('window.scrollTo(0,0)')
@@ -395,6 +395,13 @@ def browser_qa():
                         assert page.locator('meta[name="robots"]').get_attribute('content')=='index,follow'
                         if width in (390,1440):
                             page.evaluate('window.scrollTo(0,0)')
+                            page.screenshot(path=str(out/f'vehicle-{path.split("/")[1]}-{width}.png'),full_page=True,animations='disabled')
+                    if path in ('veicoli/invetero-spiderweb-coquette/','veicoli/declasse-applesauce-bobcat/','veicoli/pfister-vanessas-growler/','veicoli/maibatsu-penumbra-ff-verde/'):
+                        assert page.locator('.vc-instructions li').count()==5
+                        assert page.locator('.vc-map a').count()==1
+                        assert page.locator('.vc-social-pending').count()==1
+                        assert page.locator('meta[name="robots"]').get_attribute('content')=='index,follow'
+                        if width in (390,1440):
                             page.screenshot(path=str(out/f'vehicle-{path.split("/")[1]}-{width}.png'),full_page=True,animations='disabled')
                     if path=='veicoli/invetero-coquette-d10/':
                         assert page.locator('[data-vc-detail="invetero-coquette-d10"]').count()==1

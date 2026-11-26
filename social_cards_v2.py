@@ -496,7 +496,9 @@ GUIDE_PHOTOS = {
 def publish():
     if not ROOT.is_dir():
         raise RuntimeError("No generated Pages site to process")
-    enabled=os.environ.get("GTA6_FETCH_ROCKSTAR_ART","false").lower()=="true"
+    # No new remote promotional artwork without specific reuse evidence.
+    # Existing local editorial archive is legacy material, not a reuse grant.
+    enabled=False
     artworks,source_status=fetch_artworks(enabled)
     direct_status='not_needed' if artworks else 'not_enabled'
     if enabled and not artworks:

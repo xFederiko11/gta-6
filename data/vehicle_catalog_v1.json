@@ -681,6 +681,102 @@
       "additional_source": "https://www.gtabase.com/gta-6/map/?feature=standout-vehicle",
       "spoiler": false,
       "note": "La guida Vice Keys descrive un filmato con mappa e riconoscimento del mezzo; GTABase conferma il porticciolo. Non riproduciamo il filmato o le immagini e non garantiamo lo spawn."
+    },
+    {
+      "name": "Invetero Spiderweb Coquette",
+      "slug": "invetero-spiderweb-coquette",
+      "kind": "Esplorazione",
+      "category": "Standout · Retro",
+      "area": "Key Lento",
+      "where": "Casa della festa in Dolphin Drive, nella parte nord-est dell’isola; garage al piano inferiore.",
+      "visual": "Coquette del 1964 con decorazione a ragnatela. Cerca la casa con cassetta postale a forma di foca.",
+      "unlock": "Quando puoi esplorare Key Lento; verifica accesso alla casa e tracker.",
+      "steps": [
+        "Raggiungi le abitazioni a nord-est di Key Lento e individua Dolphin Drive.",
+        "Cerca la casa della festa, riconoscibile dalla cassetta postale a forma di foca.",
+        "All’interno individua la fotografia con la data vicino alla cucina.",
+        "Scendi al garage e inserisci 092319, verificando che coincida con l’indizio.",
+        "Scansiona la vettura con WAiNK prima di prenderla; verifica accesso, tracker e registrazione."
+      ],
+      "check": "Il nome Spiderweb Coquette è riconosciuto dallo scanner. Verifica separatamente la registrazione.",
+      "status": "Verificata",
+      "source_url": "https://www.gtabase.com/gta-6/vehicles/spiderweb-coquette",
+      "additional_source": "https://gta6.house/guides/gta-6-spiderweb-coquette-garage-code",
+      "map_url": "https://www.gtabase.com/gta-6/vehicles/spiderweb-coquette",
+      "spoiler": false,
+      "note": "GTABase descrive il codice nelle foto; GTA6.house identifica la data. Le indicazioni valgono per il puzzle nel gioco, non garantiscono presenza o tracker in ogni versione."
+    },
+    {
+      "name": "Declasse Applesauce Bobcat",
+      "slug": "declasse-applesauce-bobcat",
+      "kind": "Esplorazione",
+      "category": "Standout · Retro",
+      "area": "Manifest Canyon",
+      "where": "Father Scrumpy’s Red Apple Orchard, a ovest del canyon; piccolo garage con serranda bianca.",
+      "visual": "Pickup classico rosso e crema. Non confonderlo con la Red Apple Orchard Rancher parcheggiata nella zona.",
+      "unlock": "Esplorazione libera quando la zona è raggiungibile.",
+      "steps": [
+        "Raggiungi Father Scrumpy’s Red Apple Orchard a ovest di Manifest Canyon.",
+        "Individua il piccolo garage con serranda bianca e tastierino sul lato destro.",
+        "Per trovare l’indizio, raggiungi il soppalco del fienile rosso attraverso il trattore e la tettoia.",
+        "Leggi la rivista: numero 36, luglio 1982. Inserisci 360782 al garage.",
+        "Controlla con WAiNK che sia l’Applesauce Bobcat; prima di conservarlo verifica la registrazione."
+      ],
+      "check": "La serranda si apre e lo scanner identifica Applesauce Bobcat. Non presumere di possedere anche il garage.",
+      "status": "Verificata",
+      "source_url": "https://www.gtabase.com/gta-6/vehicles/applesauce-bobcat",
+      "additional_source": "https://getvicekeys.com/guides/gta-6-manifest-canyon",
+      "map_url": "https://www.gtabase.com/gta-6/vehicles/applesauce-bobcat",
+      "spoiler": false,
+      "note": "Vice Keys distingue la Bobcat dentro il garage dalla Rancher nei dintorni. La scheda GTABase della Rancher associa anch’essa il codice al luogo: non attribuiamo al codice due ricompense."
+    },
+    {
+      "name": "Pfister Vanessa’s Growler",
+      "slug": "pfister-vanessas-growler",
+      "kind": "Esplorazione",
+      "category": "Standout · Girlypop",
+      "area": "La Perle",
+      "where": "Garage vicino ad Auntie’s Place, su Del Rio Boulevard; cerca la serranda grigia con fiocco rosa.",
+      "visual": "Pfister Growler rosa. Il tastierino si trova accanto alla porta del garage.",
+      "unlock": "Capitolo 3, quando è disponibile l’appartamento di Bayside. Conviene completare il puzzle durante questo capitolo.",
+      "steps": [
+        "Nell’appartamento del capitolo 3 apri il laptop protetto da password.",
+        "Usa gli indizi della stanza per scegliere Muffins, Queen e 15, nell’ordine.",
+        "Leggi il messaggio da Unknown nell’app WhatUp e annota il codice 92665.",
+        "Vai al garage presso Auntie’s Place in La Perle e inserisci il codice al tastierino.",
+        "Controlla la notifica del garage e il nome Vanessa’s Growler; verifica a parte lo stato di registrazione."
+      ],
+      "check": "Il garage è accessibile e la Growler rosa è identificata. Controlla nel menu se il veicolo è registrato.",
+      "status": "Verificata",
+      "source_url": "https://www.gtaboom.com/gta-6-vanessas-garage-and-pink-growler-7339/",
+      "additional_source": "https://gtami.com/en/guides/la-perle-garage/",
+      "map_url": "https://www.gtabase.com/gta-6/vehicles/vanessas-growler",
+      "spoiler": false,
+      "note": "Le guide collocano l’ingresso a La Perle; GTABase lo descrive come rimessa Rockridge. Capitolo 3: possibile finestra limitata. Nessun prezzo fisso o registrazione gratuita garantiti."
+    },
+    {
+      "name": "Maibatsu Penumbra FF — livrea verde",
+      "slug": "maibatsu-penumbra-ff-verde",
+      "kind": "Esplorazione",
+      "category": "Livrea speciale",
+      "area": "Vespucci Island",
+      "where": "Villa bianca sul lato nord della strada principale, presso il blocco centrale dell’isola Rialto.",
+      "visual": "Coupé verde con grande alettone e targa rossa HAD YOU, richiamo alla saga Fast & Furious.",
+      "unlock": "Quando è disponibile l’esplorazione libera; verifica l’accesso effettivo alla villa.",
+      "steps": [
+        "Raggiungi Vespucci Island attraverso i ponti delle Rialto Islands.",
+        "Cerca la villa bianca a nord della strada presso l’incrocio centrale.",
+        "Individua la porta stretta a vetri accanto alla serranda del garage.",
+        "Usa l’interazione prevista e verifica livrea, targa e nome con WAiNK.",
+        "Controlla tracker e requisiti; se vuoi conservarla, verifica la registrazione prima di modificare la livrea."
+      ],
+      "check": "La Penumbra FF verde corrisponde agli indizi visivi. Il possesso permanente richiede una verifica distinta.",
+      "status": "Verificata",
+      "source_url": "https://getvicekeys.com/guides/gta-6-paul-walker-car-location",
+      "additional_source": "https://www.gtabites.com/guides/gta-6-paul-walker-fast-furious-car",
+      "map_url": "https://www.gtabase.com/gta-6/map/?feature=standout-vehicle",
+      "spoiler": false,
+      "note": "Due guide indicano la villa centrale. Il riferimento al film è un’interpretazione editoriale, non conferma Rockstar. Il collegamento GTABase apre la categoria generale, non un pin verificato."
     }
   ]
 }

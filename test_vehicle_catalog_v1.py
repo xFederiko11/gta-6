@@ -14,14 +14,14 @@ BASE="https://xfederiko11.github.io/gta-6/"
 ITEMS=load()["items"]
 
 class VehicleCatalogTests(unittest.TestCase):
-    def test_28_unique_source_linked_entries(self):
+    def test_32_unique_source_linked_entries(self):
         doc=validate(load())
-        self.assertEqual(len(doc["items"]),28)
-        self.assertEqual(len({x["slug"] for x in doc["items"]}),28)
+        self.assertEqual(len(doc["items"]),32)
+        self.assertEqual(len({x["slug"] for x in doc["items"]}),32)
         self.assertEqual(sum(x["kind"]=="Moses" for x in doc["items"]),8)
         self.assertEqual(sum(x["kind"]=="Randy" for x in doc["items"]),17)
-        self.assertEqual(sum(x["kind"]=="Esplorazione" for x in doc["items"]),3)
-        self.assertEqual(sum(x["status"]==VERIFIED for x in doc["items"]),27)
+        self.assertEqual(sum(x["kind"]=="Esplorazione" for x in doc["items"]),7)
+        self.assertEqual(sum(x["status"]==VERIFIED for x in doc["items"]),31)
         self.assertEqual(sum(x["status"]=="In verifica" for x in doc["items"]),0)
         self.assertEqual(sum(x["status"]=="Community" for x in doc["items"]),1)
         expected={"pegassi-vitello":"Waning Sands","pegassi-infernus":"Crosstown","pegassi-tempesta":"Vespucci Island","buckingham-windsor-drop":"Bayside","pegassi-toros":"Southside","ocelot-jagular":"Belville","buckingham-jubilee":"Bayside","grotti-itali-rsx":"Bayside","pfister-growler":"Southside","gallivanter-baller-st-d":"Casanova Island","ascot-paragon":"Bayside","bravado-gauntlet-hellfire":"Capri","piccia-furia":"Vespucci Island","benefactor-dubsta":"Bayside","bravado-banshee":"Southside"}
@@ -68,7 +68,7 @@ class VehicleCatalogTests(unittest.TestCase):
     def test_index_and_articles_use_no_fake_gameplay(self):
         doc=load()
         text=index_body(doc,BASE)
-        self.assertEqual(text.count('class="vc-card"'),28)
+        self.assertEqual(text.count('class="vc-card"'),32)
         self.assertIn("data-vc-finder",text)
         self.assertIn("data-vc-todo",text)
         self.assertIn("non spawn garantiti",text.lower())
@@ -108,13 +108,26 @@ class VehicleCatalogTests(unittest.TestCase):
             self.assertNotIn("intent/tweet",html)
             self.assertNotIn("<img ",html)
 
+    def test_new_hidden_cars_map_and_source_distinctions(self):
+        for slug,clue in (("invetero-spiderweb-coquette","092319"),("declasse-applesauce-bobcat","360782"),("pfister-vanessas-growler","92665"),("maibatsu-penumbra-ff-verde","Vespucci Island")):
+            car=next(x for x in ITEMS if x["slug"]==slug)
+            html=article_body(car,BASE,ITEMS)
+            self.assertIn(clue,html)
+            self.assertIn('class="vc-map"',html)
+            self.assertIn(car["map_url"].replace("&","&amp;"),html)
+            self.assertIsNone(social_text(car,BASE))
+        car=next(x for x in ITEMS if x["slug"]=="declasse-applesauce-bobcat")
+        self.assertIn("Rancher",car["note"])
+        bad=load();bad["items"][-1]["map_url"]="https://example.org/evil"
+        with self.assertRaises(ValueError):validate(bad)
+
     def test_generated_pages_sitemap_and_robots(self):
         directory=ROOT/PATH/"index.html"
         if not directory.exists():self.skipTest("Build artifact is created in CI")
         page=directory.read_text(encoding="utf-8")
         self.assertIn('rel="canonical" href="'+BASE+PATH+'"',page)
         self.assertIn('name="robots" content="index,follow"',page)
-        self.assertEqual(page.count('class="vc-card"'),28)
+        self.assertEqual(page.count('class="vc-card"'),32)
         self.assertIn('vehicle-finder-v1.js?v=',page)
         self.assertIn('vehicle-finder-v1.css?v=',page)
         self.assertEqual(page.count('<h1'),1)
@@ -139,7 +152,7 @@ class VehicleCatalogTests(unittest.TestCase):
                 self.assertIn('name="robots" content="noindex,follow"',html)
                 self.assertNotIn(BASE+relative,sitemap)
                 self.assertNotIn('https://x.com/intent/tweet?text=',html)
-        self.assertEqual((verified,pending),(27,1))
+        self.assertEqual((verified,pending),(31,1))
         js=(ROOT/"assets/vehicle-finder-v1.js").read_text(encoding="utf-8")
         self.assertIn("localStorage",js)
         self.assertIn("botx-vehicle-finder-found-v1",js)
