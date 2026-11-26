@@ -155,8 +155,9 @@
     {
       "number": 23,
       "group": "storia",
-      "action": "Completa la serie finale delle missioni assegnate da Kenton.",
-      "check": "Confronta il progresso delle missioni con il trofeo PS5."
+      "action": "Con Jason completa 3 siti di immersione, visita Kenton a Key Lento e dal Capitolo 3 termina Maritime Dispute.",
+      "check": "Verifica il trofeo Bronzo dopo la conclusione della missione.",
+      "warning": "Kenton può essere assente nel Capitolo 2; attendi il nuovo contatto. I set di tesori e le scoperte subacquee sono contatori distinti."
     },
     {
       "number": 24,
