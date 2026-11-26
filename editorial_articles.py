@@ -21,11 +21,18 @@ def load():
     images = {Path(row['file']).name: row for row in library['assets']}
     if len(images) != 189:
         raise ValueError('Ambiguous Rockstar image names')
+    if len({a['path'] for a in articles}) != len(articles):
+        raise ValueError('Duplicate editorial path')
     for article in articles:
         if not re.fullmatch(r'articoli/[a-z0-9-]+/', article['path']):
             raise ValueError('Invalid editorial article path')
         if len({row['image'] for row in article['sections']}) != len(article['sections']):
             raise ValueError('Repeated editorial photograph')
+        if article['hero'] not in {row['image'] for row in article['sections']}:
+            raise ValueError('Cover must be one of the reviewed article photos')
+        for related in article.get('related', []):
+            if not re.fullmatch(r'(?:[a-z0-9-]+/)+', related['path']):
+                raise ValueError('Invalid related article path')
         for name in [article['hero']] + [row['image'] for row in article['sections']]:
             row = images[name]
             if '1600' not in row['variants'] or not (LIBRARY/row['file']).is_file():
@@ -51,17 +58,21 @@ def figure(section, row, url, *, eager=False):
             'Apri originale 4K ↗</a></figcaption></figure>')
 
 
-def home_feature(url):
+def home_feature(url, *, all_articles=False):
     _, articles, images = load()
-    article = articles[0]
-    image = asset_url(url, images[article['hero']]['preview'])
+    def card(article):
+        image = asset_url(url, images[article['hero']]['preview'])
+        alt = next(s['alt'] for s in article['sections'] if s['image']==article['hero'])
+        return ('<a class="ed-home-card" href="'+url(article['path'])+'">'
+                '<img src="'+image+'" width="480" height="270" loading="lazy" alt="'+escape(alt,quote=True)+'">'
+                '<span><small>ARTICOLO ILLUSTRATO · ROCKSTAR GAMES</small><strong>'+escape(article['title'])+
+                '</strong><span>'+escape(article['description'])+'</span></span></a>')
+    heading='Articoli illustrati' if all_articles else 'Dentro Leonida'
+    featured=articles if all_articles else articles[:1]
+    extra='' if all_articles else ''.join('<p><a href="'+url(a['path'])+'">'+escape(a['title'])+' →</a></p>' for a in articles[1:])
     return ('<section class="focus-content ed-home" aria-labelledby="ed-home-title">'
-            '<h2 id="ed-home-title">Dentro Leonida</h2><a class="ed-home-card" href="'+url(article['path'])+'">'
-            '<img src="'+image+'" width="480" height="270" loading="lazy" '
-            'alt="Veduta di Vice City, screenshot ufficiale Rockstar Games">'
-            '<span><small>ARTICOLO ILLUSTRATO · ROCKSTAR GAMES</small><strong>'+escape(article['title'])+
-            '</strong><span>Un viaggio fotografico attraverso sei luoghi di GTA VI.</span></span></a>'
-            '<p><a href="'+url(INDEX_PATH)+'">Tutti gli articoli →</a></p></section>')
+            '<h2 id="ed-home-title">'+heading+'</h2>'+''.join(card(a) for a in featured)+extra+
+            ('' if all_articles else '<p><a href="'+url(INDEX_PATH)+'">Tutti gli articoli →</a></p>')+'</section>')
 
 
 def build(write, layout, url, crumbs):
@@ -72,19 +83,21 @@ def build(write, layout, url, crumbs):
         intro = ''.join('<p>'+escape(p)+'</p>' for p in article['intro'])
         toc = ''.join('<a href="#'+s['id']+'">'+escape(s['title'].split(':')[0])+'</a>'
                       for s in article['sections'])
-        body = (crumbs([('Articoli', INDEX_PATH), ('Leonida in sei immagini', path)])+
+        body = (crumbs([('Articoli', INDEX_PATH), (article['title'], path)])+
                 '<article class="ed-article"><header class="ed-intro"><span class="ed-kicker">'
-                'GTA VI · VIAGGIO FOTOGRAFICO</span><h1>'+escape(article['title'])+'</h1>'
+                'GTA VI · ARTICOLO ILLUSTRATO</span><h1>'+escape(article['title'])+'</h1>'
                 '<p class="ed-byline">GTA 6 Italia · <time datetime="'+article['published']+'">'+
                 article['published']+'</time> · Immagini Rockstar Games</p>'+intro+'</header>'
-                '<nav class="ed-toc" aria-label="Le sei tappe">'+toc+'</nav>')
+                '<nav class="ed-toc" aria-label="Sezioni dell’articolo">'+toc+'</nav>')
         for i, section in enumerate(article['sections']):
             body += ('<section class="ed-section" id="'+section['id']+'"><h2>'+
                      escape(section['title'])+'</h2>'+figure(section, images[section['image']], url, eager=i==0)+
                      ''.join('<p>'+escape(p)+'</p>' for p in section['paragraphs'])+'</section>')
+        related=article.get('related', [{'path':'mappe-guide/','label':'Mappe delle guide'},
+                                      {'path':'collezionabili/percorsi/','label':'Percorsi collezionabili'}])
+        related_html=''.join('<a href="'+url(r['path'])+'">'+escape(r['label'])+' →</a>' for r in related)
         body += ('<p>'+escape(article['closing'])+'</p><nav class="ed-related" aria-label="Continua a esplorare">'
-                 '<a href="'+url('mappe-guide/')+'">Mappe delle guide →</a>'
-                 '<a href="'+url('collezionabili/percorsi/')+'">Percorsi collezionabili →</a>'
+                 +related_html+
                  '<a href="'+url(GALLERY_PATH)+'">Tutte le 189 immagini Rockstar →</a></nav>'
                  '<section class="ed-sources"><h2>Fonti e immagini</h2><p>Screenshot promozionali ufficiali '
                  'Rockstar Games, provenienti dagli archivi forniti al progetto. Credito: © Rockstar Games.</p><ul>'+
@@ -101,7 +114,7 @@ def build(write, layout, url, crumbs):
         paths.append(path)
     title = 'Articoli GTA VI: luoghi e immagini ufficiali | GTA 6 Italia'
     body = (crumbs([('Articoli', INDEX_PATH)])+'<section class="ed-intro"><h1>Articoli GTA VI</h1>'
-            '<p>Approfondimenti originali in italiano, con immagini e fonti attribuite.</p></section>'+home_feature(url))
+            '<p>Approfondimenti originali in italiano, con immagini e fonti attribuite.</p></section>'+home_feature(url,all_articles=True))
     index_schema={'@context':'https://schema.org','@type':'CollectionPage','name':title,
                   'url':url(INDEX_PATH),'inLanguage':'it-IT'}
     write(INDEX_PATH+'index.html', layout(title, 'Articoli illustrati su GTA VI, con immagini ufficiali Rockstar Games e fonti.', INDEX_PATH, body, 'articles', structured=index_schema))

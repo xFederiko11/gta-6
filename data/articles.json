@@ -81,8 +81,93 @@
       ],
       "closing": "Quale di questi luoghi ti ha colpito di più? Le sei immagini si possono aprire anche nel formato originale 4K. Per continuare a esplorare, trovi sul sito le mappe delle guide e i percorsi dei collezionabili.",
       "sources": [
-        {"title": "Rockstar Games — GTA VI, screenshot ufficiali", "url": "https://www.rockstargames.com/VI/media/screenshots"},
-        {"title": "Rockstar Games — Media e raccolte scaricabili", "url": "https://www.rockstargames.com/VI/media"}
+        {
+          "title": "Rockstar Games — GTA VI, screenshot ufficiali",
+          "url": "https://www.rockstargames.com/VI/media/screenshots"
+        },
+        {
+          "title": "Rockstar Games — Media e raccolte scaricabili",
+          "url": "https://www.rockstargames.com/VI/media"
+        }
+      ]
+    },
+    {
+      "id": "gta-vi-ultimate-edition-auto-garage",
+      "path": "articoli/gta-vi-ultimate-edition-auto-garage/",
+      "title": "GTA VI Ultimate Edition: auto e garage in quattro immagini",
+      "description": "Quattro immagini ufficiali Rockstar della Ultimate Edition: carrozzeria Rideout Customs, interni, collezione Wyman e veicoli del rifugio. Cosa mostrano e cosa non dimostrano.",
+      "published": "2026-11-26",
+      "hero": "ULTIMATE_EDITION_RIDEOUT_CUSTOMS_01.jpg",
+      "intro": [
+        "Quattro immagini dell'archivio ufficiale Rockstar dedicate ai veicoli della Ultimate Edition. Osserviamo carrozzeria, interni, collezione e rifugio: i dettagli visivi sono un riferimento per riconoscere il materiale promozionale, non una guida allo sblocco.",
+        "Se stai cercando come registrare un'auto o conservarla dopo averla trovata, trovi le guide operative nei collegamenti in fondo. Le immagini qui non confermano requisiti, prezzi o disponibilità dei singoli contenuti."
+      ],
+      "sections": [
+        {
+          "id": "rideout-carrozzeria",
+          "title": "Rideout Customs: carrozzeria e cerchi",
+          "image": "ULTIMATE_EDITION_RIDEOUT_CUSTOMS_01.jpg",
+          "alt": "Auto giallo-oro con cerchi dorati, immagine promozionale Rideout Customs di Rockstar Games.",
+          "caption": "Rideout Customs 01: vista esterna della carrozzeria e dei cerchi. © Rockstar Games.",
+          "paragraphs": [
+            "La prospettiva bassa mette in evidenza i cerchi dorati, il muso squadrato e la carrozzeria gialla. È una fotografia promozionale della raccolta Rideout Customs, non il menu di un'officina."
+          ]
+        },
+        {
+          "id": "rideout-interni",
+          "title": "Rideout Customs: gli interni",
+          "image": "ULTIMATE_EDITION_RIDEOUT_CUSTOMS_02.jpg",
+          "alt": "Dettaglio dell'abitacolo rosso e del volante, immagine promozionale Rideout Customs di Rockstar Games.",
+          "caption": "Rideout Customs 02: un'inquadratura ravvicinata dell'abitacolo. © Rockstar Games.",
+          "paragraphs": [
+            "Il secondo scatto sposta l'attenzione verso il volante, la plancia e i rivestimenti rossi. Il materiale permette di osservare l'abitacolo, ma non basta per stabilire quali modifiche si possano scegliere durante il gioco."
+          ]
+        },
+        {
+          "id": "wyman-collezione",
+          "title": "Wyman Car Collection: il contesto della raccolta",
+          "image": "ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_01.jpg",
+          "alt": "Persona davanti a diverse auto in un piazzale, immagine promozionale Wyman Car Collection di Rockstar Games.",
+          "caption": "Wyman Car Collection 01: una scena con più auto. © Rockstar Games.",
+          "paragraphs": [
+            "Nel piazzale si vedono diversi veicoli e un personaggio in primo piano. La raccolta è identificata dal nome Wyman nell'archivio Rockstar; non la utilizziamo per attribuire modelli o posizioni di spawn non confermati."
+          ]
+        },
+        {
+          "id": "safehouse-veicoli",
+          "title": "Safehouse Vehicles: l'auto presso il rifugio",
+          "image": "ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_01.jpg",
+          "alt": "Auto gialla accanto a una casa rialzata su palafitte, immagine promozionale Safehouse Vehicles di Rockstar Games.",
+          "caption": "Safehouse Vehicles 01: l'auto all'esterno dell'abitazione. © Rockstar Games.",
+          "paragraphs": [
+            "L'ultima fotografia mostra una vettura gialla vicino a una casa rialzata. L'immagine non dimostra che parcheggiare lì sia sufficiente per salvare qualsiasi veicolo: per la conservazione e il tracker consulta la procedura dedicata."
+          ]
+        }
+      ],
+      "closing": "Le quattro immagini sono utili come riferimenti visivi. Per giocare, usa invece le guide con passaggi e fonti documentate: scansione WAiNK, registrazione e conservazione dell'auto, catalogo dei veicoli.",
+      "related": [
+        {
+          "path": "salvare-auto/",
+          "label": "Come salvare e registrare un'auto"
+        },
+        {
+          "path": "guide-e-tutorial/scansionare-veicoli/",
+          "label": "Scanner WAiNK e tracker"
+        },
+        {
+          "path": "veicoli/",
+          "label": "Catalogo dei veicoli"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Rockstar Games — raccolte multimediali ufficiali",
+          "url": "https://www.rockstargames.com/VI/media"
+        },
+        {
+          "title": "Rockstar Games — GTA VI",
+          "url": "https://www.rockstargames.com/VI"
+        }
       ]
     }
   ]

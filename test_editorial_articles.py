@@ -52,6 +52,24 @@ class EditorialTests(unittest.TestCase):
         self.assertIn(article['path'],sitemap)
         home=(root/'index.html').read_text(encoding='utf-8')
         self.assertIn(article['path'],home)
+        index=(root/'articoli/index.html').read_text(encoding='utf-8')
+        for article in articles:
+            with self.subTest(path=article['path']):
+                page=(root/article['path']/'index.html').read_text(encoding='utf-8')
+                parser=Images();parser.feed(page)
+                photos=[im for im in parser.images if '/assets/rockstar/' in im.get('src','')]
+                self.assertEqual(len(photos),len(article['sections']))
+                self.assertEqual(len({im['src'] for im in photos}),len(photos))
+                self.assertIn(article['path'],index)
+                self.assertIn(article['path'],home)
+                self.assertIn(article['path'],sitemap)
+                self.assertIn('"datePublished":"'+article['published']+'"',page)
+                for section in article.get('related',[]):
+                    self.assertIn('/gta-6/'+section['path'],page)
+                    self.assertTrue((root/section['path']/'index.html').is_file())
+                for im in photos:
+                    self.assertIn('Rockstar',im['alt'])
+                    self.assertTrue((root/unquote(urlsplit(im['src']).path.removeprefix('/gta-6/'))).is_file())
 
     def test_x_draft_uses_four_distinct_originals_and_stays_a_draft(self):
         draft=json.loads(Path('editorial/x/gta-vi-leonida-sei-luoghi.json').read_text(encoding='utf-8'))
