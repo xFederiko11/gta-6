@@ -182,6 +182,8 @@ jobs:
         run: |
           python -m py_compile public_release_gate.py test_public_release_gate.py test_public_private_paths_live_v1.py
           python -m unittest -q test_public_release_gate.py test_public_private_paths_live_v1.py
+          python -m unittest -q test_editorial_feed_v1.py
+          python editorial_feed_v1.py
           python public_release_gate.py --apply
           python public_release_gate.py
       - name: Upload static site to GitHub Pages
@@ -196,6 +198,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 8
     permissions:
+      contents: read
       pages: write
       id-token: write
     environment:
@@ -256,6 +259,13 @@ jobs:
                       if attempt==3: raise
                       time.sleep(4*(attempt+1))
           PY
+      - name: Checkout exact public feed contract (no write credentials)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Verify deployed reader feed for autonomous bot integration
+        run: python editorial_feed_v1.py --live
       - name: Verify public pages serve responsive reader, X header and spoiler warnings
         run: |
           python - <<'PY'
