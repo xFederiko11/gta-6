@@ -72,6 +72,8 @@ def build(root=ROOT):
     sources=[g["source_url"],*g.get("extra_sources",[])]
     source_links="".join('<li><a href="'+e(s)+'">'+e(s.split("/")[2])+' · '+e(s.rstrip("/").split("/")[-1].replace("-"," "))+'</a></li>' for s in sources)
     html=HTML.replace("@SLIDES@",slide_markup()).replace("@CATEGORIES@",categories).replace("@CARDS@",cards).replace("@NEWS@",news).replace("@COVER@",cover(GUIDE)).replace("@SUMMARY@",e(g["summary"])).replace("@STEPS@",steps).replace("@BENEFIT@",e(g["benefit"])).replace("@CAUTION@",e(g["caution"])).replace("@SOURCES@",source_links)
+    from sunset_blog_v1 import preview
+    html=preview(html)
     protected=[root/"index.html",root/"sitemap.xml",root/"articoli/feed.json"]
     before=[p.read_bytes() for p in protected]
     out=root/ROUTE/"index.html"

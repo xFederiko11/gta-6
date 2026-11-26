@@ -94,8 +94,8 @@
     if(controls)section.insertBefore(stack,controls);
   }
   function renderHome(posts){
-    const grid=document.querySelector("[data-x-live-grid]");
-    if(!grid||!posts.length)return;
+    if(!posts.length)return;
+    document.querySelectorAll("[data-x-live-grid]").forEach(grid=>{
     const cards=[];
     for(const p of posts.slice(0,4)){
       const card=make("article","social-comment-card");
@@ -105,6 +105,7 @@
       cards.push(card);
     }
     grid.replaceChildren(...cards);
+    });
   }
   async function syncVerifiedLinks(){
     try{
@@ -116,32 +117,62 @@
       renderHome(posts);
     }catch(_){/* preserve safe server-rendered fallback */ }
   }
-  if(document.querySelector("[data-x-article-url]")||document.querySelector("[data-x-live-grid]")){
+  // Fetch the existing public receipt feed only when a discussion/rail is
+  // near the viewport. Native links and server-rendered excerpts work offline.
+  let receiptFetchStarted=false;
+  function loadReceipts(){
+    if(receiptFetchStarted)return;
+    receiptFetchStarted=true;
     syncVerifiedLinks();
   }
-  const timeline=document.querySelector("[data-x-timeline-load]");
-  const slot=document.querySelector("[data-x-timeline-slot]");
-  if(timeline && slot) timeline.addEventListener("click",() => {
-    timeline.disabled=true;
-    timeline.textContent="Apertura dei post X…";
-    const link=document.createElement("a");
-    link.href="https://x.com/xFederiko11";
-    link.className="twitter-timeline";
-    link.textContent="Ultimi post pubblici di Federiko su X";
-    link.dataset.height="550";
-    link.dataset.chrome="noheader nofooter";
-    link.dataset.theme=document.documentElement.dataset.theme==="dark"?"dark":"light";
-    slot.append(link);
-    const script=document.createElement("script");
-    script.async=true;
-    script.src="https://platform.twitter.com/widgets.js";
-    script.onerror=()=>{
-      const notice=document.createElement("p");
-      notice.className="social-empty";
-      notice.textContent="Il browser non consente di incorporare X: apri il profilo dal link.";
-      slot.append(notice);
-    };
-    document.head.append(script);
-    timeline.hidden=true;
-  },{once:true});
+  const receiptPanels=document.querySelectorAll("[data-x-article-url],[data-x-live-grid]");
+  if(receiptPanels.length){
+    if("IntersectionObserver" in window){
+      const observer=new IntersectionObserver(entries=>{
+        if(entries.some(e=>e.isIntersecting)){
+          observer.disconnect();
+          loadReceipts();
+        }
+      },{rootMargin:"200px"});
+      receiptPanels.forEach(panel=>observer.observe(panel));
+    }else loadReceipts();
+  }
+  document.querySelectorAll("[data-x-timeline-load]").forEach(timeline=>{
+    const panel=timeline.closest(".sb-x-panel")||document;
+    const slot=panel.querySelector("[data-x-timeline-slot]");
+    if(!slot)return;
+    timeline.addEventListener("click",()=>{
+      loadReceipts();
+      timeline.disabled=true;
+      const link=document.createElement("a");
+      link.href="https://x.com/xFederiko11";
+      link.className="twitter-timeline";
+      link.textContent="Ultimi post pubblici di Federiko su X";
+      link.dataset.height="420";
+      link.dataset.chrome="noheader nofooter";
+      link.dataset.theme=document.documentElement.dataset.theme==="light"?"light":"dark";
+      slot.append(link);
+      const warn=()=>{
+        const notice=document.createElement("p");
+        notice.className="social-empty";
+        notice.textContent="Il feed incorporato non è disponibile: apri il profilo dal link.";
+        slot.append(notice);
+      };
+      const source="https://platform.twitter.com/widgets.js";
+      const existing=document.querySelector('script[src="'+source+'"]');
+      if(window.twttr&&window.twttr.widgets){
+        try{window.twttr.widgets.load(slot)}catch(_){warn()}
+      }else if(existing){
+        existing.addEventListener("load",()=>{try{window.twttr?.widgets?.load(slot)}catch(_){warn()}},{once:true});
+        existing.addEventListener("error",warn,{once:true});
+      }else{
+        const script=document.createElement("script");
+        script.async=true;
+        script.src=source;
+        script.onerror=warn;
+        document.head.append(script);
+      }
+      timeline.hidden=true;
+    },{once:true});
+  });
 })();
