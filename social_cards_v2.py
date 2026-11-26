@@ -550,14 +550,20 @@ def publish():
             raise ValueError("Two canonical pages rendered same social image")
         digest.add(binary_hash)
         link=BASE+"assets/social-cards/"+key+".jpg"
-        alt_text=(("Screenshot di gameplay autorizzato: "+preview[0]["alt"]+" · Fonte: "+preview[0]["credit"]) if preview else
-                    (("Immagine promozionale Rockstar Games: "+GUIDE_PHOTOS[relative][1]+". Non mostra la procedura.") if relative in GUIDE_PHOTOS else
-                    "Immagine promozionale ufficiale Rockstar Games; copertina editoriale GTA VI Italia.") if art else
-                    "Copertina illustrata originale GTA VI Italia: "+headline+". Non screenshot di gameplay."))
+        if preview:
+            alt_text="Screenshot di gameplay autorizzato: "+preview[0]["alt"]+" · Fonte: "+preview[0]["credit"]
+            credit="Screenshot autorizzato · "+preview[0]["credit"]
+        elif art:
+            if relative in GUIDE_PHOTOS:
+                alt_text="Immagine promozionale Rockstar Games: "+GUIDE_PHOTOS[relative][1]+". Non mostra la procedura."
+                credit="Immagine promozionale · Rockstar Games · non mostra la procedura"
+            else:
+                alt_text="Immagine promozionale ufficiale Rockstar Games; copertina editoriale GTA VI Italia."
+                credit="Immagine promozionale · Rockstar Games"
+        else:
+            alt_text="Copertina illustrata originale GTA VI Italia: "+headline+". Non screenshot di gameplay."
+            credit="Copertina illustrata · GTA VI Italia"
         attr=escape(alt_text,quote=True)
-        credit=("Screenshot autorizzato · "+preview[0]["credit"] if preview else
-                (("Immagine promozionale · Rockstar Games · non mostra la procedura" if relative in GUIDE_PHOTOS else
-                  "Immagine promozionale · Rockstar Games") if art else "Copertina illustrata · GTA VI Italia"))
         source_url=(("https://www.youtube.com/watch?v="+preview[0]["source_video_id"]+
                      "&t="+str(preview[0]["source_second"])+"s") if preview and
                      preview[0].get("capture_kind")=="creator_supplied_video_frame" else
