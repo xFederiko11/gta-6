@@ -235,7 +235,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','patch/','patch/2026-11-23/','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/studiare-animali/','guide-e-tutorial/viaggio-rapido-taxi/','guide-e-tutorial/70-sfide-100-percento/','guide-e-tutorial/poligoni-concentrazione/','guide-e-tutorial/sportive-randy-posizioni/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','hdr-oled/lg-oled-c4/','hdr-oled/samsung-s90f/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','video-tutorial/','veicoli/','veicoli/declasse-yosemite-1500/','veicoli/pegassi-toros/','veicoli/pegassi-vitello/','veicoli/pegassi-infernus/','veicoli/pegassi-tempesta/','veicoli/buckingham-windsor-drop/','veicoli/ocelot-jagular/','veicoli/buckingham-jubilee/','veicoli/grotti-itali-rsx/','veicoli/pfister-growler/','veicoli/gallivanter-baller-st-d/','veicoli/invetero-coquette-d10/','guide-e-tutorial/']
+                paths=['','patch/','patch/2026-11-23/','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/studiare-animali/','guide-e-tutorial/viaggio-rapido-taxi/','guide-e-tutorial/70-sfide-100-percento/','guide-e-tutorial/poligoni-concentrazione/','guide-e-tutorial/sportive-randy-posizioni/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','hdr-oled/lg-oled-c4/','hdr-oled/samsung-s90f/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','articoli/','articoli/gta-vi-ultimate-edition-auto-garage/','video-tutorial/','veicoli/','veicoli/declasse-yosemite-1500/','veicoli/pegassi-toros/','veicoli/pegassi-vitello/','veicoli/pegassi-infernus/','veicoli/pegassi-tempesta/','veicoli/buckingham-windsor-drop/','veicoli/ocelot-jagular/','veicoli/buckingham-jubilee/','veicoli/grotti-itali-rsx/','veicoli/pfister-growler/','veicoli/gallivanter-baller-st-d/','veicoli/invetero-coquette-d10/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -421,6 +421,16 @@ def browser_qa():
                                 full_page=True,animations='disabled')
                             assert int.from_bytes(img[16:20],'big')==width
                             print('ROCKSTAR_GALLERY_QA',width,flush=True)
+                    if path=='articoli/gta-vi-ultimate-edition-auto-garage/':
+                        assert page.locator('.ed-section').count()==4
+                        assert page.locator('.ed-photo img').count()==4
+                        assert page.locator('.ed-related a[href$="/salvare-auto/"]').count()==1
+                        if width in (390,1440):
+                            for photo in page.locator('.ed-photo img').all():
+                                photo.scroll_into_view_if_needed()
+                                assert photo.evaluate('(i)=>i.complete && i.naturalWidth>0')
+                            page.evaluate('window.scrollTo(0,0)')
+                            page.screenshot(path=str(out/f'ultimate-car-editorial-{width}.png'),full_page=True,animations='disabled')
                     if page.locator('[data-article-cover]').count():
                         cover=page.locator('[data-article-cover] img')
                         assert cover.count()==1 and cover.is_visible()

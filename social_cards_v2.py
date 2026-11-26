@@ -533,7 +533,7 @@ def publish():
             row,screenshot=preview
             art=None
             photo=render_screenshot_card(headline,relative,row,screenshot)
-        elif relative in GUIDE_PHOTOS and art:
+        elif art and (relative in GUIDE_PHOTOS or relative=="articoli/gta-vi-ultimate-edition-auto-garage/"):
             photo=render_screenshot_card(headline,relative,
                                          {"credit":"Rockstar Games · promozionale"},art["image"],
                                          label="IMMAGINE PROMOZIONALE")
@@ -582,7 +582,7 @@ def publish():
              f'<meta property="og:image:type" content="image/jpeg">'
              f'<meta property="og:image:alt" content="{attr}">'
              f'<meta name="twitter:image:alt" content="{attr}">')
-        html=html.replace('</head>',new+f'<meta name="gta6:cover-kind" content="{cover_kind}"></head>',1)
+        html=html.replace('</head>',new+f'<meta name="gta6:cover-kind" content="{cover_kind}"><meta name="gta6:cover-sha256" content="{binary_hash}"></head>',1)
         html,has_cover=insert_article_cover(html,relative,link,attr,credit,source_url)
         page.write_text(html,encoding="utf-8")
         entries.append({"path":relative,"image":link,"sha256":binary_hash,"artwork":art["name"] if art else None,

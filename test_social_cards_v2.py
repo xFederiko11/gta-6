@@ -188,6 +188,8 @@ class SocialCardTests(unittest.TestCase):
                              'official_game_photo' if record['artwork'] else 'original_illustration')
             self.assertEqual(record['cover_kind'],expected_kind)
             self.assertIn(f'<meta name="gta6:cover-kind" content="{expected_kind}">',source)
+            self.assertEqual(source.count('<meta name="gta6:cover-sha256" content="'),1)
+            self.assertIn('<meta name="gta6:cover-sha256" content="'+record["sha256"]+'">',source)
             if record['path'] in c.GUIDE_PHOTOS and not record['approved_screenshot']:
                 self.assertIn('Non mostra la procedura.',source)
             self.assertIn('content="'+record["image"]+'"',source)

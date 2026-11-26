@@ -218,6 +218,44 @@ jobs:
       - name: Deploy verified visual site
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346
+      - name: Verify exact public photographic cover bytes (no Buffer access)
+        run: |
+          python - <<'PY'
+          import hashlib,re,time,urllib.request
+          base='https://xfederiko11.github.io/gta-6/'
+          paths=('salvare-auto/','guide-e-tutorial/scansionare-veicoli/',
+                 'guide-e-tutorial/studiare-animali/','articoli/gta-vi-leonida-sei-luoghi/',
+                 'articoli/gta-vi-ultimate-edition-auto-garage/')
+          def fetch(url, limit):
+              req=urllib.request.Request(url,headers={'Cache-Control':'no-cache','User-Agent':'GTA6Italia-PublicQA/1.0'})
+              with urllib.request.urlopen(req,timeout=10) as r:
+                  assert r.status==200 and r.geturl()==url
+                  data=r.read(limit+1)
+                  assert len(data)<=limit
+                  return data,r.headers.get_content_type()
+          for path in paths:
+              url=base+path
+              for attempt in range(4):
+                  try:
+                      raw,_=fetch(url,1500000)
+                      text=raw.decode('utf-8')
+                      assert re.findall(r'<meta name="gta6:cover-kind" content="([^"]+)">',text) in (['official_game_photo'],['approved_gameplay'])
+                      hashes=re.findall(r'<meta name="gta6:cover-sha256" content="([a-f0-9]{64})">',text)
+                      assert len(hashes)==1
+                      cover=base+'assets/social-cards/'+hashlib.sha256(path.encode()).hexdigest()[:16]+'.jpg'
+                      assert text.count('<meta property="og:image" content="'+cover+'">')==1
+                      assert text.count('<meta name="twitter:image" content="'+cover+'">')==1
+                      figure=text.split('data-article-cover="shared-social"',1)[1].split('</figure>',1)[0]
+                      assert 'src="'+cover+'"' in figure
+                      data,mime=fetch(cover,1600000)
+                      assert mime=='image/jpeg' and data.startswith(bytes.fromhex('ffd8ff')) and data.endswith(bytes.fromhex('ffd9'))
+                      assert hashlib.sha256(data).hexdigest()==hashes[0]
+                      print('PUBLIC_GAME_PHOTO_SHA256_OK',url,hashes[0])
+                      break
+                  except Exception:
+                      if attempt==3: raise
+                      time.sleep(4*(attempt+1))
+          PY
       - name: Verify public pages serve responsive reader, X header and spoiler warnings
         run: |
           python - <<'PY'

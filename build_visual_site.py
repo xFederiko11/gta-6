@@ -454,7 +454,7 @@ def categories():
 
 def home(guides):
     """A photographic route into the existing guides, trophies and discoveries."""
-    return cinematic_site.home(guides,url)+(
+    return cinematic_site.home(guides,url)+editorial_articles.home_feature(url)+(
         '<section class="cv-home-link" aria-labelledby="cv-home-title">'
         '<h2 id="cv-home-title">🎬 Video dei creator, istruzioni italiane</h2>'
         '<p>Quattro video originali selezionati per auto, soldi e tecniche GTA VI. '
@@ -842,6 +842,7 @@ def validate(guides):
 def main():
     global GUIDE_MAP_PATHS, MAP_RENDER_PATHS
     cinematic_site.prepare()
+    editorial_articles.prepare()
     records=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
     records+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
     guides=enrich(records)
