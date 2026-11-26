@@ -193,8 +193,12 @@ class VisualSiteTests(unittest.TestCase):
 
     def test_home_and_articles_have_social_discussion_and_x_content(self):
         home=(ROOT/'index.html').read_text(encoding='utf-8')
-        # No Twitter feed, load buttons or unverifiable social stats above the fold.
-        self.assertNotIn('data-x-timeline-load',home)
+        # The new editorial rail lives below the hero; X never loads before consent.
+        if 'data-sunset-layout=' in home:
+            self.assertLess(home.index('data-hero-slideshow'),home.index('data-x-timeline-load'))
+            self.assertNotIn('src="https://platform.twitter.com/widgets.js"',home)
+        else:
+            self.assertNotIn('data-x-timeline-load',home)
         self.assertNotIn('Post recenti e conversazioni GTA VI',home)
         self.assertIn('https://x.com/xFederiko11',home)
         self.assertIn('class="focus-x"',home)

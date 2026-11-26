@@ -1,0 +1,115 @@
+/* GTA VI Italia — original sunset editorial design.
+   Never filter, recolor or replace authentic photographs. */
+:root{--sb-coral:#ff9a52;--sb-magenta:#ff55b6;--sb-violet:#a487ff;--sb-aqua:#39f2d2;--sb-gradient:linear-gradient(112deg,#ffad5e 0%,#ff65b8 42%,#a487ff 72%,#39f2d2 100%)}
+html:is([data-theme=dark],[data-theme=auto]){--r-pink:#ff78c6;--r-cyan:#46efda;--r-warn:#ffc06f;--r-line:#46506b;--r-violet:#b7a0ff;--r-orange:#ffc06f;--ci-pink:#ff78c6;--ci-mint:#46efda}
+html[data-theme=light]{--r-pink:#b31472;--r-cyan:#00716e;--r-violet:#6742b3;--r-orange:#9c4810;--r-warn:#904719;--ci-pink:#ff78c6;--ci-mint:#46efda}
+html[data-theme] .v-header{border-bottom:2px solid transparent;border-image:var(--sb-gradient) 1}
+html[data-theme] .v-mark{background:var(--sb-gradient);background-clip:text;color:transparent}
+html[data-theme] .v-header .v-x-link{background:var(--sb-gradient);border:0;color:#181120}
+html[data-theme] a.ci-button:not(.ci-button-ghost),html[data-theme] .v-button:not(.secondary){background:var(--sb-gradient);color:#171120;border:0;font-weight:850}
+html[data-theme] .ci-hero-title em{color:#ff80c9}
+html[data-theme] :is(.ci-eyebrow,.v-kicker,.eyebrow,.ci-guide-copy small,.ci-choice-copy small){color:var(--r-pink)}
+html[data-theme] .ci-hero-eyebrow{color:#ffb471}
+html[data-theme] .ci-hero .ci-overline{color:#ffb471}
+html[data-theme] .v-guide-card:hover,html[data-theme] a.focus-choice:hover{border-color:var(--r-cyan)}
+html[data-theme] .v-tag{color:var(--r-pink);border:1px solid currentColor;font-weight:850;letter-spacing:.05em}
+html[data-theme] .v-guide-card[data-category=garage] .v-tag{color:var(--r-cyan)}
+html[data-theme] .v-guide-card[data-category=auto] .v-tag{color:var(--r-violet)}
+html[data-theme=light] .v-guide-card[data-category=garage] .v-tag,html[data-theme=light] .v-guide-card[data-category=auto] .v-tag{background:var(--r-soft)}
+.sunset-blog{display:grid;grid-template-areas:"sidebar content";grid-template-columns:236px minmax(0,1fr);gap:clamp(24px,3vw,46px);align-items:start;width:100%;min-width:0}
+.sunset-content{grid-area:content;min-width:0;max-width:100%}
+.sb-sidebar{grid-area:sidebar;display:grid;gap:16px;min-width:0;margin:16px 0 28px;color:var(--r-text);font-size:14px;line-height:1.5;overflow-wrap:anywhere}
+.sb-panel{position:relative;background:var(--r-surface);border:1px solid var(--r-line);border-radius:10px;padding:16px 15px;min-width:0;overflow:hidden}
+.sb-panel:before{content:"";position:absolute;inset:0 0 auto;height:3px;background:var(--sb-gradient)}
+.sb-kicker{font-size:10px!important;font-weight:850;letter-spacing:.1em;color:var(--r-pink);margin:0 0 7px!important;line-height:1.35}
+.sb-heading{font-size:17px!important;font-weight:850;letter-spacing:-.025em;color:var(--r-text);margin:0 0 13px!important;line-height:1.25}
+.sb-categories,.sb-important{display:grid;gap:0}
+.sb-categories a,.sb-important a{min-width:0;display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid var(--r-line);font-size:13px;line-height:1.32;color:var(--r-text)!important;text-decoration:none;font-weight:650}
+.sb-categories a:last-child,.sb-important a:last-child{border-bottom:0}
+.sb-category span{height:8px;width:8px;border-radius:2px;flex:none;background:var(--r-pink)}
+.sb-category[data-color=orange] span{background:var(--r-orange)}
+.sb-category[data-color=cyan] span{background:var(--r-cyan)}
+.sb-category[data-color=violet] span{background:var(--r-violet)}
+.sb-categories a[data-current-section=true],.sb-categories a:hover,.sb-important a:hover{color:var(--r-pink)!important}
+.sb-important a{justify-content:space-between}
+.sb-important a span{color:var(--r-cyan);flex:none}
+.sb-x-description,.sb-empty{font-size:11px!important;color:var(--r-muted)!important;margin:7px 0 10px!important;line-height:1.55}
+.sb-x-grid{display:grid;gap:9px;margin:8px 0 12px;min-width:0}
+.sb-x-grid .social-comment-card{display:block;min-width:0;padding:10px;border:1px solid var(--r-line);border-radius:8px;background:var(--r-soft);box-shadow:none}
+.sb-x-grid .social-comment-card span{font-size:10px;color:var(--r-cyan);font-weight:800}
+.sb-x-grid .social-comment-card p{font-size:12px;line-height:1.45;margin:7px 0 8px;color:var(--r-text)}
+.sb-x-grid .social-comment-card a,.sb-profile{font-size:12px;color:var(--r-pink)!important;font-weight:750}
+.sb-x-button{display:block;width:100%;min-height:42px;border-radius:5px;padding:9px 10px;border:1px solid var(--r-cyan);color:var(--r-text);background:var(--r-soft);font-size:12px;font-weight:800;cursor:pointer}
+.sb-x-button:hover{border-color:var(--r-pink)}
+.sb-profile{display:block;margin-top:9px;text-decoration:underline;text-underline-offset:3px}
+.sb-x-panel [data-x-timeline-slot]{max-width:100%;min-width:0;overflow:hidden}
+.sb-x-panel [data-x-timeline-slot] iframe{max-width:100%!important}
+body:has(.sunset-blog) main.wrap:not(:has([data-cinematic-home])){max-width:1400px}
+body:has(.v-tutorial) .sunset-content .v-intro.v-guide-intro,
+body:has(.v-tutorial) .sunset-content .v-guide-single{max-width:850px}
+body:has(.v-tutorial) .sunset-content .v-guide-intro .article-cover{max-width:none}
+body:has(.v-tutorial) .sunset-content .v-guide-intro .v-tag{display:inline-block!important;margin-bottom:4px}
+body:has(.v-tutorial) .sunset-content .v-guide-intro h1{font-weight:900;letter-spacing:-.04em;line-height:1.1}
+body:has(.v-tutorial) .sunset-content .v-operation-brief{max-width:none;background:var(--r-surface);border-left:3px solid var(--r-pink);padding:13px 16px}
+body:has(.v-tutorial) .sunset-content .v-guide-prep{max-width:none}
+body:has(.v-tutorial) .sunset-content .v-tutorial-head{border-top:3px solid transparent;border-image:var(--sb-gradient) 1;padding:12px 0 8px}
+body:has(.v-tutorial) .sunset-content .v-tutorial-start-here{color:var(--r-pink);letter-spacing:.09em;font-weight:900}
+body:has(.v-tutorial) .sunset-content .v-tutorial .v-step{border-radius:8px;border-left:3px solid var(--r-pink)}
+body:has(.v-tutorial) .sunset-content .v-tutorial .v-step-n{background:var(--sb-gradient);color:#181120;border-radius:5px}
+body:has(.v-tutorial) .sunset-content .v-tutorial .v-check{border-left:3px solid var(--r-cyan);background:var(--r-soft)}
+.sunset-content .v-guide-main{min-width:0}
+.sunset-home{max-width:1400px;width:92%;margin:0 auto}
+.sunset-home>.sb-sidebar{margin-top:35px}
+.sunset-home .ci-shell{width:100%;max-width:none}
+.sunset-home .ci-section{padding-block:34px}
+.sunset-home .ci-explore{border:0;border-radius:12px;padding:30px 14px}
+.sunset-home .ci-choice-image,.sunset-home .ci-guide-image{height:175px}
+.sunset-home .ci-choice-copy{padding:18px}
+.sunset-home .ci-choice-copy strong,.sunset-home .ci-guide-copy strong{font-size:1.22rem}
+.sunset-home .ci-feature-copy{padding:30px 24px}
+.sunset-home .ci-feature-copy h2{font-size:clamp(2.5rem,3.6vw,3.7rem)}
+.sunset-home .ci-feature{min-height:390px}
+.sunset-home .ci-follow{margin-block:34px}
+.sunset-home .focus-news.ci-source-note{margin-top:0!important}
+@media(min-width:1100px){
+ body:has(.v-tutorial) .v-header .v-nav{display:flex!important}
+ body:has(.v-tutorial) .v-header .v-x-link{display:inline-flex!important}
+ body:has(.v-tutorial) .v-header .v-brand small{display:block}
+ body:has(.v-tutorial) .v-header-inner{min-height:72px}
+ body:has(.v-tutorial) .sunset-content .v-guide-intro h1{font-size:clamp(2rem,3vw,2.8rem)}
+ body:has(.v-tutorial) .sunset-content .page-meta,body:has(.v-tutorial) .sunset-content .breadcrumbs{display:flex!important;max-width:850px;margin-inline:auto}
+}
+@media(max-width:1099px){
+ .sunset-blog{display:flex;flex-direction:column;gap:18px}
+ .sunset-blog>.sunset-content,.sunset-blog>.sb-sidebar{width:100%}
+ .sb-sidebar{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:12px}
+ .sb-x-panel{grid-column:1/-1}
+ body:has(.v-tutorial) .v-header .v-menu{display:block!important;margin-left:auto}
+ body:has(.v-tutorial) .v-header .v-menu summary{min-height:38px;display:flex;align-items:center}
+}
+@media(max-width:760px){
+ .sunset-home{width:90%}
+ .sunset-home .ci-choice-image,.sunset-home .ci-guide-image{height:auto}
+ .sunset-home .ci-section{padding-block:26px}
+ .sunset-home .ci-feature-copy{padding:24px}
+ .sunset-home .ci-explore{padding:20px 0;background:transparent}
+ .sunset-home .ci-choice-copy{padding:16px}
+ .sb-sidebar{grid-template-columns:minmax(0,1fr);gap:12px}
+ .sb-categories{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:12px}
+ .sb-categories a{min-height:44px}
+ .sb-x-grid{grid-template-columns:1fr}
+ body:has(.v-tutorial) .sunset-content .v-guide-intro h1{font-size:clamp(1.5rem,6.5vw,2.15rem)}
+ body:has(.v-tutorial) .sunset-content .v-operation-brief{padding:10px 11px}
+}
+/* The approved Cloux experiment uses its own typography and state, but
+   shares the production palette and blog rail. */
+body[data-preview] .sunset-blog{max-width:1220px;width:calc(100% - 52px);margin:0 auto}
+body[data-preview] .sunset-home .section{padding-block:34px 10px}
+body[data-preview] .sunset-content .article{padding-inline:0}
+body[data-preview] .sb-sidebar{margin-top:34px}
+body[data-preview] .hero h1 em,body[data-preview] .hero .eyebrow{color:#ff78c6}
+body[data-preview] .primary,body[data-preview] .track span,body[data-preview] .step .num{background:var(--sb-gradient);color:#171120}
+body[data-preview] .step .num{border-radius:5px;text-align:center;padding:5px}
+html:has(body[data-preview])[data-theme=dark]{--pink:var(--r-pink);--r-text:var(--ink);--r-muted:var(--muted);--r-line:var(--line);--r-surface:var(--panel);--r-soft:#25253a}
+html:has(body[data-preview])[data-theme=light]{--pink:var(--r-pink);--r-text:var(--ink);--r-muted:var(--muted);--r-line:var(--line);--r-surface:var(--panel);--r-soft:#f5eef9}
+@media(max-width:760px){body[data-preview] .sunset-blog{width:calc(100% - 32px)}body[data-preview] .sunset-home .section{padding-block:26px 8px}}
