@@ -562,6 +562,11 @@ jobs:
                   assert page.count('data-photo-source-guide="registrare-auto-personale"')==7
                   assert 'Scooter Bros si sblocca' in page
                   assert 'Comandi PS5:' in page
+                  assert 'id="sblocchi-tracker"' in page.split('id="procedura"',1)[0]
+                  assert 'Dale Mamba' in page.split('id="procedura"',1)[0]
+                  assert 'id="advanced-tracker-details"' in page.split('id="approfondimenti"',1)[1]
+                  assert 'circa 5–7' in page
+                  print('PUBLIC_ADVANCED_TRACKER_OK',base+path)
               print('PUBLIC_BEGINNER_TUTORIAL_OK',base+path)
           moses=fetch('guide-e-tutorial/veicoli-per-moses/')
           assert 'operational-guide-v1.css?v=' in moses
@@ -611,7 +616,7 @@ jobs:
           for slug,count,phrases in (
               ('70-sfide-100-percento',4,('50 sfide','70 su 80')),
               ('poligoni-concentrazione',5,('42 medaglie Oro','Waiver Pass','5 GTA$','10 GTA$')),
-              ('sportive-randy-posizioni',5,('Dale Mamba','Advanced Tracker')),
+              ('sportive-randy-posizioni',5,('Dale Mamba','Advanced Tracker','Mansion Thrax','Delivery Day','data-randy-completion="separate"')),
           ):
               path='guide-e-tutorial/'+slug+'/'
               article=fetch(path)
@@ -624,7 +629,9 @@ jobs:
           for slug,area in (
               ('pegassi-vitello','Waning Sands'),('pegassi-infernus','Crosstown'),
               ('pegassi-tempesta','Vespucci Island'),('buckingham-windsor-drop','Bayside'),
-              ('pegassi-toros','Southside'),
+              ('pegassi-toros','Southside'),('ocelot-jagular','Belville'),
+              ('buckingham-jubilee','Bayside'),('grotti-itali-rsx','Bayside'),
+              ('pfister-growler','Southside'),('gallivanter-baller-st-d','Casanova Island'),
           ):
               path='veicoli/'+slug+'/'
               article=fetch(path)
@@ -633,6 +640,10 @@ jobs:
               assert 'randys-wish-list-car-locations-walkthrough' in article, path
               assert 'name="robots" content="index,follow"' in article, path
               print('PUBLIC_RANDY_VEHICLE_OK',base+path)
+          pending=fetch('veicoli/invetero-coquette-d10/')
+          assert 'name="robots" content="noindex,follow"' in pending
+          assert 'vc-social-pending' in pending
+          print('PUBLIC_COQUETTE_PENDING_OK',base+'veicoli/invetero-coquette-d10/')
           js=fetch('assets/guide-flow-v1.js')
           css=fetch('assets/guide-flow-v1.css')
           assert 'data-gf-next' not in js

@@ -569,6 +569,18 @@ def guide(g,guides):
                'si sbloccano dopo Daily Driver. '
                '<a href="https://www.gtabase.com/gta-6/articles/how-to-unlock-garages-in-gta-6" '
                'target="_blank" rel="noopener noreferrer">Fonte sblocchi garage ↗</a></p>')
+        body+=('<aside class="v-guide-urgent" id="sblocchi-tracker" role="note">'
+               '<strong>Quali auto puoi registrare?</strong>'
+               '<p><strong>No Tracker:</strong> Moses, Capitolo 2.</p>'
+               '<p><strong>Standard:</strong> Pay ’n’ Spray, dopo i primi incarichi del Capitolo 3.</p>'
+               '<p><strong>Advanced:</strong> Pay ’n’ Spray, dopo Dale Mamba nella catena di Randy. '
+               'Non occorre completare tutte le 16 consegne.</p>'
+               '<a href="https://www.powerpyx.com/gta-6-how-to-register-advanced-tracker-cars/" target="_blank" rel="noopener noreferrer">Fonte PowerPyx, 25 novembre ↗</a></aside>')
+    if g['id']=='sportive-randy-posizioni':
+        body+=('<p class="v-guide-urgent" data-randy-completion="separate" role="note">'
+               '<strong>🏆 Due obiettivi diversi:</strong> Dale Mamba sblocca la registrazione Advanced Tracker; '
+               'per Domanda e offerta (Supply &amp; Demand) devi completare anche tutta la lista e il finale della serie. '
+               'I nomi delle missioni successive sono negli approfondimenti.</p>')
     if g['id']=='scansionare-veicoli':
         body+=('<p class="v-guide-urgent waink-tracker-warning" role="note">'
                '<strong>🚘 Prima di rubare:</strong> '
@@ -704,6 +716,31 @@ def guide(g,guides):
         body+=('<p class="v-guide-next-moses"><strong>DOPO LA PRIMA AUTO:</strong> '
                '<a href="'+url(MOSES_JOBS_PATH)+'">6 veicoli da recuperare per Moses, con ricompense →</a>'
                '</p>')
+        body+=('<section class="v-guide-ref-list" id="advanced-tracker-details" aria-labelledby="advanced-tracker-title">'
+               '<h3 id="advanced-tracker-title">Registrare un’auto con Advanced Tracker (Capitolo 3)</h3>'
+               '<p><strong>Verificata sulle fonti · spoiler leggero sulla progressione.</strong></p>'
+               '<ol><li>Completa Clonin’ Keys, Makin’ Gs e avvia le richieste di Randy. '
+               '<a href="'+url('guide-e-tutorial/sportive-randy-posizioni/')+'">Apri la guida Randy</a>.</li>'
+               '<li>Consegna alcuni veicoli richiesti: secondo PowerPyx circa 5–7, non una soglia garantita.</li>'
+               '<li>Quando compare Dale Mamba, completa la missione. '
+               '<a href="https://www.powerpyx.com/gta-6-dale-mamba-steal-the-declasse-mamba-gt-walkthrough/" target="_blank" rel="noopener noreferrer">Procedura originale ↗</a>.</li>'
+               '<li>Scansiona un veicolo con WAiNK. Al Pay ’n’ Spray controlla che Register sia disponibile, '
+               'che ci sia uno slot libero e conferma il prezzo mostrato nel gioco.</li></ol>'
+               '<p><strong>Controllo finale:</strong> verifica che il nuovo mezzo compaia in Scooter Bros. '
+               'Non confondere il Key Cloner con il permesso di registrazione.</p>'
+               '<p>Fonte: <a href="https://www.powerpyx.com/gta-6-how-to-register-advanced-tracker-cars/" target="_blank" rel="noopener noreferrer">PowerPyx, 25 novembre 2026 ↗</a>. '
+               'Procedura non testata personalmente in gioco.</p></section>')
+    if g['id']=='sportive-randy-posizioni':
+        body+=('<section class="v-guide-ref-list" id="randy-trophy-finale" aria-labelledby="randy-finale-title">'
+               '<h3 id="randy-finale-title">Domanda e offerta: come concludere la serie (spoiler)</h3>'
+               '<ol><li>Termina Randy’s Wish List e Dale Mamba.</li>'
+               '<li>Completa Mansion Thrax quando ricevi la nuova richiesta.</li>'
+               '<li>Attendi il contatto di Randy e completa Delivery Day (Meet Randy) a Balsero.</li></ol>'
+               '<p><strong>Controllo finale:</strong> cerca lo sblocco del trofeo Supply &amp; Demand dopo Delivery Day. '
+               'Lo sblocco Advanced Tracker avviene prima, con Dale Mamba.</p>'
+               '<p><a href="https://www.powerpyx.com/gta-6-mansion-thrax-steal-the-truffade-thrax-walkthrough/" target="_blank" rel="noopener noreferrer">Fonte Mansion Thrax ↗</a> · '
+               '<a href="https://www.powerpyx.com/gta-6-delivery-day-meet-randy-walkthrough/" target="_blank" rel="noopener noreferrer">Fonte Delivery Day, 26 novembre ↗</a> · '
+               '<a href="'+url('trofei/trofeo-26-domanda-e-offerta/')+'">Scheda trofeo</a></p></section>')
     if step_evidence:
         body+='<section class="v-guide-ref-list"><h3>Riferimenti per alcuni passaggi (facoltativi)</h3>'
         for number,heading,fragment in step_evidence:

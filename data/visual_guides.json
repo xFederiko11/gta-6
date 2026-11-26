@@ -9,7 +9,7 @@
       "title": "Come salvare un'auto in GTA 6: registrazione e garage",
       "safe_title": "Come salvare e richiamare la prima auto in GTA VI",
       "tag": "Garage",
-      "summary": "Capitolo 2: vai da Moses, registra gratis un'auto senza tracker e richiamala con Scooter Bros. I garage aggiuntivi si sbloccano dopo Daily Driver.",
+      "summary": "Capitolo 2: vai da Moses, registra gratis un'auto senza tracker e richiamala con Scooter Bros. I garage aggiuntivi si sbloccano dopo Daily Driver. Per Standard e Advanced Tracker valgono gli sblocchi successivi.",
       "requirements": "Con Lucia completa Girl’s Trip (Find Painkillers), Capitolo 2. Porta da Moses un'auto senza tracker; la prima registrazione è gratuita.",
       "location": "Watkins Auto Parts, Port Gellhorn: marcatore MW dopo Girl’s Trip. Le officine Pay ’n’ Spray e i garage aggiuntivi richiedono sblocchi successivi.",
       "steps": [
@@ -30,15 +30,17 @@
         "Un avviso conferma che l’auto è personale di Lucia. Il primo Register nella missione Moses è gratuito.",
         "Scooter Bros elenca la tua auto: scegli Request e controlla il prezzo indicato prima di confermare la consegna."
       ],
-      "benefit": "La registrazione gratuita e Scooter Bros si sbloccano durante Moses nel Capitolo 2. Il garage gratuito di Port Gellhorn e l'app Vice City Real Estate arrivano soltanto dopo Daily Driver. Lasciare un’auto parcheggiata non equivale a registrarla.",
-      "caution": "Non puoi registrare una nuova auto nel Capitolo 1. Moses accetta inizialmente soltanto veicoli senza tracker e può rifiutare quelli rubati vicino alla sua officina. I Pay ’n’ Spray richiedono sblocchi successivi nel Capitolo 3. Non vendere o sostituire per errore un veicolo personale che vuoi conservare.",
+      "benefit": "La registrazione gratuita e Scooter Bros si sbloccano durante Moses nel Capitolo 2. Il garage gratuito di Port Gellhorn e l'app Vice City Real Estate arrivano soltanto dopo Daily Driver. Lasciare un’auto parcheggiata non equivale a registrarla. Dal Capitolo 3 si aggiungono i tracker Standard; per gli Advanced occorre completare Dale Mamba nella catena di Randy.",
+      "caution": "Non puoi registrare una nuova auto nel Capitolo 1. Moses accetta inizialmente soltanto veicoli senza tracker e può rifiutare quelli rubati vicino alla sua officina. Al Pay ’n’ Spray verifica lo sblocco, uno slot libero e il prezzo prima di confermare Register; non vendere per errore un veicolo personale.",
       "source_url": "https://www.powerpyx.com/gta-6-moses-take-a-vehicle-to-moses-walkthrough/",
       "extra_sources": [
         "https://www.powerpyx.com/gta-6-how-to-summon-vehicles/",
         "https://www.gtabase.com/gta-6/articles/how-to-unlock-garages-in-gta-6",
         "https://www.pushsquare.com/guides/gta-6-tips-and-tricks-you-need-to-know",
         "https://www.powerpyx.com/gta-6-moses-take-a-vehicle-to-moses-walkthrough/",
-        "https://www.gamesradar.com/games/grand-theft-auto/gta-6-personal-vehicles-how-to-register-switch-recover-car/"
+        "https://www.gamesradar.com/games/grand-theft-auto/gta-6-personal-vehicles-how-to-register-switch-recover-car/",
+        "https://www.powerpyx.com/gta-6-how-to-register-advanced-tracker-cars/",
+        "https://www.powerpyx.com/gta-6-dale-mamba-steal-the-declasse-mamba-gt-walkthrough/"
       ],
       "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_02.0c5.7qx17u9kl.jpg?akim=1&imdensity=1&imwidth=1280",
       "spoiler": false,
@@ -66,12 +68,15 @@
         "Hai ricevuto la conferma della consegna; la ricompensa dipende anche dalle condizioni.",
         "Verifica che la missione Dale Mamba sia conclusa e che il menu consenta la registrazione dei mezzi Advanced Tracker."
       ],
-      "benefit": "Secondo la guida del 25 novembre, Dale Mamba può sbloccarsi dopo circa 5–7 auto consegnate. È un’indicazione della fonte, non un numero garantito. Consegna e registrazione personale sono due azioni distinte.",
+      "benefit": "Secondo la guida del 25 novembre, Dale Mamba può sbloccarsi dopo circa 5–7 auto consegnate. È un’indicazione della fonte, non un numero garantito. Consegna e registrazione personale sono due azioni distinte. Per il trofeo Domanda e offerta (Supply & Demand), invece, completa la lista, Mansion Thrax e Delivery Day oltre a Dale Mamba.",
       "caution": "Non sono stati verificati personalmente gli spawn o il momento esatto di sblocco. Controlla le richieste e il menu in gioco; non promettiamo posizioni fisse.",
       "source_url": "https://www.powerpyx.com/gta-6-randys-wish-list-car-locations-walkthrough/",
       "extra_sources": [
         "https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/",
-        "https://www.powerpyx.com/gta-6-how-to-register-advanced-tracker-cars/"
+        "https://www.powerpyx.com/gta-6-how-to-register-advanced-tracker-cars/",
+        "https://www.powerpyx.com/gta-6-dale-mamba-steal-the-declasse-mamba-gt-walkthrough/",
+        "https://www.powerpyx.com/gta-6-mansion-thrax-steal-the-truffade-thrax-walkthrough/",
+        "https://www.powerpyx.com/gta-6-delivery-day-meet-randy-walkthrough/"
       ],
       "image": "https://www.rockstargames.com/VI/_next/static/media/Vice_City_03.0nqz~lrqdmlze.jpg?akim=1&imdensity=1&imwidth=1280",
       "spoiler": true,

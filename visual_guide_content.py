@@ -73,7 +73,7 @@ SUMMARIES = {
     'meditazione-capitolo-1': '18 sessioni in 10 luoghi: 15 bastano per il 100%. Le fonti recenti indicano la prima sessione facoltativa per il trofeo. Video con i minuti e checklist per ogni luogo.',
     'prima-persona-glitch-ps5': 'Chiudi il telefono e premi rapidamente il touchpad impostato su Camera. Community: segnalato funzionante anche dopo la patch del 23 novembre; trofei non verificati.',
     'sportive-randy-posizioni': 'Sedici modelli richiesti da Randy: distingui indizi attivati, ricerca libera e registrazione Advanced Tracker dopo Dale Mamba. Nessuno spawn garantito.',
-    'registrare-auto-personale': 'Dopo Girl’s Trip, porta un’auto senza tracker da Moses a Port Gellhorn: la prima registrazione è gratuita. Scooter Bros si sblocca al termine della missione.',
+    'registrare-auto-personale': 'Dopo Girl’s Trip, registra gratis la prima auto senza tracker da Moses. Per le auto Standard e Advanced consulta gli sblocchi successivi qui sotto.',
 }
 
 
@@ -81,7 +81,7 @@ SUMMARIES = {
 # verified guide facts; do not turn an uncertain trophy status into a promise.
 SEO_DESCRIPTIONS = {
     'soldi-facili-capitolo-1': 'GTA VI PS5: dove trovare denaro e oggetti in 4 luoghi del Capitolo 1, rischi e precauzioni per non perdere i soldi.',
-    'registrare-auto-personale': 'GTA VI PS5: come trovare Moses, usare WAiNK e Slim Jim, registrare gratis la prima auto e richiamarla tramite Scooter Bros.',
+    'registrare-auto-personale': 'GTA VI PS5: salva la prima auto da Moses, usa Scooter Bros e scopri quando si sblocca la registrazione Standard e Advanced Tracker.',
     'scansionare-veicoli': 'GTA VI PS5: scanner WAiNK, tracker No Tracker, Standard e Advanced, comandi DualSense e 200 modelli base da registrare per il 100%.',
     'studiare-animali': 'GTA VI PS5: studia le specie con il binocolo per il completamento al 100%. Scopri i comandi, il controllo dei progressi e le fonti della guida.',
     '70-sfide-100-percento': 'GTA VI 100% su PS5: completa 70 sfide su 80 scegliendo quelle più rapide. Checklist e consigli per ridurre il tempo necessario al platino.',

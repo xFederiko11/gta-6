@@ -18,7 +18,7 @@ STATUSES={VERIFIED,"In verifica","Community"}
 KINDS={"Moses","Randy"}
 FIELDS={"name","slug","kind","category","area","where","visual","unlock","steps","check",
         "status","source_url","additional_source","spoiler","note"}
-SOURCE_DOMAINS={"www.powerpyx.com","www.gtabase.com","gta6gps.com"}
+SOURCE_DOMAINS={"www.powerpyx.com","www.gtabase.com","gta6gps.com","www.pushsquare.com"}
 
 def e(v):return escape(str(v),quote=True)
 def href_safe(value):
@@ -162,7 +162,7 @@ def article_body(car,base,all_cars):
         for n,step in enumerate(car["steps"],1)
     )
     original="PowerPyx" if "powerpyx.com" in car["source_url"] else "GTABase"
-    second="GTABase" if "gtabase.com" in car["additional_source"] else "PowerPyx"
+    second={"www.gtabase.com":"GTABase","www.powerpyx.com":"PowerPyx","www.pushsquare.com":"Push Square","gta6gps.com":"GTA6GPS"}[urlsplit(car["additional_source"]).hostname]
     related=[x for x in all_cars if x["slug"]!=slug and x["kind"]==car["kind"]][:4]
     related_html="".join(
         f'<a href="{e(base+PATH+x["slug"]+"/")}">{e(x["name"])} →</a>'
