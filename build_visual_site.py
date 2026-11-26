@@ -842,6 +842,7 @@ def validate(guides):
 def main():
     global GUIDE_MAP_PATHS, MAP_RENDER_PATHS
     cinematic_site.prepare()
+    editorial_articles.prepare()
     records=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
     records+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
     guides=enrich(records)

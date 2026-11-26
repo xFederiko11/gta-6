@@ -70,6 +70,13 @@ class EditorialTests(unittest.TestCase):
                 for im in photos:
                     self.assertIn('Rockstar',im['alt'])
                     self.assertTrue((root/unquote(urlsplit(im['src']).path.removeprefix('/gta-6/'))).is_file())
+                    from PIL import Image
+                    for variant in im['srcset'].split(', '):
+                        url,width=variant.rsplit(' ',1)
+                        derivative=root/unquote(urlsplit(url).path.removeprefix('/gta-6/'))
+                        self.assertTrue(derivative.is_file())
+                        with Image.open(derivative) as photo:
+                            self.assertEqual(photo.width,int(width.removesuffix('w')))
 
     def test_x_draft_uses_four_distinct_originals_and_stays_a_draft(self):
         draft=json.loads(Path('editorial/x/gta-vi-leonida-sei-luoghi.json').read_text(encoding='utf-8'))

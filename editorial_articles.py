@@ -35,9 +35,41 @@ def load():
                 raise ValueError('Invalid related article path')
         for name in [article['hero']] + [row['image'] for row in article['sections']]:
             row = images[name]
-            if '1600' not in row['variants'] or not (LIBRARY/row['file']).is_file():
+            if not (LIBRARY/row['file']).is_file():
                 raise ValueError('Missing selected image: '+name)
+            # New editorial selections can use any reviewed archive original.
+            # Generate larger reader derivatives locally, without committing
+            # new binary assets or packaging the originals on Pages.
+            for width in (960,1600):
+                row['variants'].setdefault(str(width),'previews/'+row['sha256'][:20]+'-'+str(width)+'.webp')
     return library, articles, images
+
+
+def prepare():
+    from PIL import Image
+    import hashlib
+    _, articles, images=load()
+    selected={name for article in articles for name in
+              [article['hero']]+[section['image'] for section in article['sections']]}
+    generated=0
+    for name in sorted(selected):
+        row=images[name]
+        original=LIBRARY/row['file']
+        missing=[width for width in (960,1600) if not (LIBRARY/row['variants'][str(width)]).is_file()]
+        if not missing:
+            continue
+        if hashlib.sha256(original.read_bytes()).hexdigest()!=row['sha256']:
+            raise ValueError('Editorial original digest mismatch: '+name)
+        with Image.open(original) as opened:
+            image=opened.convert('RGB')
+            for width in missing:
+                resized=image.copy()
+                resized.thumbnail((width,round(width*image.height/image.width)),Image.Resampling.LANCZOS)
+                target=LIBRARY/row['variants'][str(width)]
+                target.parent.mkdir(parents=True,exist_ok=True)
+                resized.save(target,'WEBP',quality=84,method=4)
+                generated+=1
+    print('EDITORIAL_RESPONSIVE_MEDIA_READY',len(selected),'reviewed originals',generated,'generated variants')
 
 
 def asset_url(url, path):
