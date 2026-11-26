@@ -173,8 +173,9 @@
     {
       "number": 26,
       "group": "storia",
-      "action": "Porta avanti la lista di Randy fino alla sua missione conclusiva.",
-      "check": "Conferma che si tratti del finale della serie, non di una consegna intermedia."
+      "action": "Completa la Wish List di Randy, Dale Mamba e Mansion Thrax. Quando Randy ti contatta, raggiungi il salone di Balsero e porta a termine Delivery Day.",
+      "check": "Alla consegna finale al porto si sblocca Domanda e offerta (Supply & Demand). Non basta una singola auto; Collect the Tempesta è un premio successivo.",
+      "guide": "guide-e-tutorial/sportive-randy-posizioni/"
     },
     {
       "number": 27,

@@ -142,11 +142,16 @@ def build(write, layout, url, crumbs):
                   'author':{'@type':'Organization','name':'GTA 6 Italia','url':url()},
                   'citation':[s['url'] for s in article['sources']]}
         page = layout(article['title'], article['description'], path, body, 'articles', hero, structured=schema)
+        if 'share_summary' in article:
+            from editorial_feed_v1 import valid_summary
+            if not valid_summary(article['share_summary']):
+                raise ValueError('Invalid reviewed reader summary')
+            page=page.replace('</head>','<meta name="gta6:share-summary" content="'+escape(article['share_summary'],quote=True)+'"></head>',1)
         write(path+'index.html', page)
         paths.append(path)
     title = 'Articoli GTA VI: luoghi e immagini ufficiali | GTA 6 Italia'
     body = (crumbs([('Articoli', INDEX_PATH)])+'<section class="ed-intro"><h1>Articoli GTA VI</h1>'
-            '<p>Approfondimenti originali in italiano, con immagini e fonti attribuite.</p></section>'+home_feature(url,all_articles=True))
+            '<p>Approfondimenti originali in italiano, con immagini e fonti attribuite. <a href="'+url('articoli/feed.json')+'">Feed degli articoli (JSON)</a>.</p></section>'+home_feature(url,all_articles=True))
     index_schema={'@context':'https://schema.org','@type':'CollectionPage','name':title,
                   'url':url(INDEX_PATH),'inLanguage':'it-IT'}
     write(INDEX_PATH+'index.html', layout(title, 'Articoli illustrati su GTA VI, con immagini ufficiali Rockstar Games e fonti.', INDEX_PATH, body, 'articles', structured=index_schema))
