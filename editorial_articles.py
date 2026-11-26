@@ -99,9 +99,9 @@ def home_feature(url, *, all_articles=False):
                 '<img src="'+image+'" width="480" height="270" loading="lazy" alt="'+escape(alt,quote=True)+'">'
                 '<span><small>ARTICOLO ILLUSTRATO · ROCKSTAR GAMES</small><strong>'+escape(article['title'])+
                 '</strong><span>'+escape(article['description'])+'</span></span></a>')
-    heading='Articoli illustrati' if all_articles else 'Dentro Leonida'
-    featured=articles if all_articles else articles[:1]
-    extra='' if all_articles else ''.join('<p><a href="'+url(a['path'])+'">'+escape(a['title'])+' →</a></p>' for a in articles[1:])
+    heading='Articoli illustrati' if all_articles else 'Approfondimenti fotografici'
+    featured=articles if all_articles else articles[-1:]
+    extra=''
     return ('<section class="focus-content ed-home" aria-labelledby="ed-home-title">'
             '<h2 id="ed-home-title">'+heading+'</h2>'+''.join(card(a) for a in featured)+extra+
             ('' if all_articles else '<p><a href="'+url(INDEX_PATH)+'">Tutti gli articoli →</a></p>')+'</section>')
