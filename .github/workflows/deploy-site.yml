@@ -670,6 +670,11 @@ jobs:
               ('pegassi-toros','Southside'),('ocelot-jagular','Belville'),
               ('buckingham-jubilee','Bayside'),('grotti-itali-rsx','Bayside'),
               ('pfister-growler','Southside'),('gallivanter-baller-st-d','Casanova Island'),
+              ('ascot-paragon','Bayside'),
+              ('bravado-gauntlet-hellfire','Capri'),
+              ('piccia-furia','Vespucci Island'),
+              ('benefactor-dubsta','Bayside'),
+              ('bravado-banshee','Southside'),
           ):
               path='veicoli/'+slug+'/'
               article=fetch(path)
