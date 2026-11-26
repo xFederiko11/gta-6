@@ -639,6 +639,9 @@ jobs:
           assert 'data-mo-gift-ref="source-only"' in moses
           assert '2727' in moses
           assert '6.310 GTA' in moses
+          assert '18.610 GTA$' in moses
+          assert 'con Lucia o Jason' in moses
+          assert 'bonus condizioni variabili' in moses
           assert moses.index('Capitolo 2, dopo Daily Driver') < moses.index('id="passaggio-1"')
           assert moses.count('Fonte video: IGN su YouTube')==6
           assert 'Guarda anche le foto sulla guida PowerPyx' in moses
