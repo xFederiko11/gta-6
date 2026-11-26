@@ -117,14 +117,32 @@
       renderHome(posts);
     }catch(_){/* preserve safe server-rendered fallback */ }
   }
-  if(document.querySelector("[data-x-article-url]")||document.querySelector("[data-x-live-grid]")){
+  // Fetch the existing public receipt feed only when a discussion/rail is
+  // near the viewport. Native links and server-rendered excerpts work offline.
+  let receiptFetchStarted=false;
+  function loadReceipts(){
+    if(receiptFetchStarted)return;
+    receiptFetchStarted=true;
     syncVerifiedLinks();
+  }
+  const receiptPanels=document.querySelectorAll("[data-x-article-url],[data-x-live-grid]");
+  if(receiptPanels.length){
+    if("IntersectionObserver" in window){
+      const observer=new IntersectionObserver(entries=>{
+        if(entries.some(e=>e.isIntersecting)){
+          observer.disconnect();
+          loadReceipts();
+        }
+      },{rootMargin:"200px"});
+      receiptPanels.forEach(panel=>observer.observe(panel));
+    }else loadReceipts();
   }
   document.querySelectorAll("[data-x-timeline-load]").forEach(timeline=>{
     const panel=timeline.closest(".sb-x-panel")||document;
     const slot=panel.querySelector("[data-x-timeline-slot]");
     if(!slot)return;
     timeline.addEventListener("click",()=>{
+      loadReceipts();
       timeline.disabled=true;
       const link=document.createElement("a");
       link.href="https://x.com/xFederiko11";
