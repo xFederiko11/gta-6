@@ -136,6 +136,8 @@ jobs:
           echo '```json' >> "$GITHUB_STEP_SUMMARY"
           cat .runtime/seo-link-graph-v1.json >> "$GITHUB_STEP_SUMMARY"
           echo '```' >> "$GITHUB_STEP_SUMMARY"
+      - name: Build isolated noindex Cloux design preview (existing assets only)
+        run: python cloux_preview_v1.py build
       - name: Select one free daily production browser QA slot
         id: daily_reader_qa
         if: github.event_name == 'schedule'
@@ -165,6 +167,7 @@ jobs:
           python -m pip install playwright
           python -m playwright install --with-deps chromium
           python test_reader_experience.py --browser
+          python cloux_preview_v1.py browser
       - name: Keep reader screenshots and test report
         if: always() && (github.event_name == 'pull_request' || steps.daily_reader_qa.outputs.enabled == 'true')
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
@@ -192,6 +195,7 @@ jobs:
           python -m unittest -q test_public_release_gate.py test_public_private_paths_live_v1.py
           python public_release_gate.py --apply
           python public_release_gate.py
+          python cloux_preview_v1.py verify
       - name: Upload static site to GitHub Pages
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
@@ -270,6 +274,8 @@ jobs:
         with:
           ref: ${{ github.sha }}
           persist-credentials: false
+      - name: Verify isolated design preview and existing photographs over HTTP
+        run: python cloux_preview_v1.py live
       - name: Verify deployed reader feed for autonomous bot integration
         run: python editorial_feed_v1.py --live
       - name: Verify public pages serve responsive reader, X header and spoiler warnings
