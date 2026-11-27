@@ -1,7 +1,6 @@
 """Evidence-led Italian strip-club guide with opt-in hosted video and external map pins."""
 from __future__ import annotations
 import hashlib
-import re
 from pathlib import Path
 
 PATH = "guide-e-tutorial/strip-club-gta-6/"
@@ -93,7 +92,7 @@ def body(url, crumbs):
 
   <section class="sc-rights-note">
     <h2>Immagini e verifica</h2>
-    <p>Questa guida non riutilizza screenshot statici: non abbiamo una prova documentata per questo contenuto e per il canale sito. Per vedere gameplay, puoi caricare il video YouTube sopra o aprirlo direttamente; non ospitiamo copie, miniature o fotogrammi.</p>
+    <p>Questa guida non riutilizza screenshot statici: non abbiamo una prova documentata per questo contenuto e per il canale sito. La copertina editoriale è una grafica originale con testo e simboli cartografici, non un’immagine di gioco né una cattura PS5 e non prova la posizione di un locale. Per vedere gameplay, carica il video YouTube sopra o aprilo direttamente; non ospitiamo copie, miniature o fotogrammi.</p>
   </section>
 
   <section class="sc-sources" aria-labelledby="sc-sources-title">
@@ -132,13 +131,6 @@ def build(write, layout, url, crumbs):
         "articleSection": "Guide e missioni",
     }
     page = layout(TITLE, DESCRIPTION, PATH, body(url, crumbs), "guide", structured=schema)
-    page = page.replace(
-        '<meta name="twitter:card" content="summary_large_image">',
-        '<meta name="twitter:card" content="summary">',
-    )
-    page = re.sub(r'\s*<meta property="og:image:[^"]*"[^>]*>', "", page)
-    page = re.sub(r'\s*<meta property="og:image"[^>]*>', "", page)
-    page = re.sub(r'\s*<meta name="twitter:image"[^>]*>', "", page)
     page = page.replace(
         "</head>",
         f'<link rel="stylesheet" href="{url("assets/strip-club-guide-v1.css")}?v={version}"></head>',
