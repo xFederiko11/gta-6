@@ -1,6 +1,9 @@
 /* Preserve the photographs' original colors; shade only the text edge. */
-.cinema-home .focus-hero .ci-hero-image{transform:none;mask-image:none;filter:none;opacity:0;object-position:var(--hero-position,62% 45%);transition:opacity .4s ease;max-width:none;pointer-events:none}
-.cinema-home .focus-hero .ci-hero-image[data-hero-active=true]{opacity:1}
+.cinema-home .focus-hero .ci-hero-image{transform:none;mask-image:none;filter:none;opacity:0;object-position:var(--hero-position,62% 45%);transition:none;z-index:-4;max-width:none;pointer-events:none}
+.cinema-home .focus-hero .ci-hero-image[data-hero-underlay=true]{opacity:1;z-index:-4}
+.cinema-home .focus-hero .ci-hero-image[data-hero-active=true]{opacity:1;z-index:-3}
+.cinema-home .focus-hero .ci-hero-image[data-hero-fade=true]{animation:hero-crossfade .55s ease-in-out both}
+@keyframes hero-crossfade{from{opacity:0}to{opacity:1}}
 .cinema-home .focus-hero .ci-hero-shade{background:linear-gradient(90deg,#080d17a6 0%,#080d173b 37%,#080d1700 67%),linear-gradient(0deg,#080d1775 0%,#080d1700 35%)}
 .cinema-home .ci-hero-copy{position:relative;z-index:1}
 .cinema-home .ci-hero-title{text-shadow:0 2px 20px #0005}
@@ -26,7 +29,7 @@
  .ci-slide-count{min-width:45px;font-size:.75rem}
 }
 @media(max-width:360px){.cinema-home .focus-hero{height:820px}.ci-slide-controls button{padding-inline:6px;font-size:.875rem}.ci-slide-count{min-width:40px}}
-@media(prefers-reduced-motion:reduce){.cinema-home .focus-hero .ci-hero-image{transition:none}}
+@media(prefers-reduced-motion:reduce){.cinema-home .focus-hero .ci-hero-image{transition:none;animation:none!important}}
 
 /* Desktop photographic framing: never shift the hero or crop from a right-biased focal point.
    Keep the mobile-specific positioning and dark text gradient unchanged. */
