@@ -308,6 +308,20 @@ def browser(root=ROOT):
                         request.abort()
                 context.route("**/*",route)
                 page=context.new_page()
+                # In a headless test, explicitly cross the lazy-load threshold
+                # when the X panel registers; all other observers stay native.
+                page.add_init_script("""(() => {
+                  const Native=window.IntersectionObserver;
+                  if(!Native)return;
+                  window.IntersectionObserver=class extends Native{
+                    constructor(callback,options){super(callback,options);this.__callback=callback;}
+                    observe(target){
+                      super.observe(target);
+                      if(target&&target.matches&&target.matches(".sb-x-panel"))
+                        setTimeout(()=>this.__callback([{target,isIntersecting:true,intersectionRatio:1}]),0);
+                    }
+                  };
+                })();""")
                 for path in ("",EXAMPLE,"guide-e-tutorial/scansionare-veicoli/","salvare-auto/","articoli/gta-vi-ultimate-edition-auto-garage/"):
                     previous_widgets=len(widget_requests)
                     assert page.goto(origin+path).status==200
