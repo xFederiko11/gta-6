@@ -34,8 +34,8 @@ class StripClubGuideTests(unittest.TestCase):
         page = written[guide.PATH + "index.html"]
         self.assertNotIn("<img", page)
         self.assertNotIn("<iframe", page)
-        self.assertNotIn("assets/social-preview.png", page)
-        self.assertIn('<meta name="twitter:card" content="summary">', page)
+        self.assertIn("assets/social-preview.png", page)
+        self.assertIn('<meta name="twitter:card" content="summary_large_image">', page)
         self.assertIn("NINE1NINE", page)
         self.assertIn("Jack of Hearts", page)
         self.assertIn("Delights Cabaret", page)
