@@ -73,7 +73,7 @@
 @media(max-width:560px){
  .archive-grid{grid-template-columns:minmax(0,1fr);gap:11px}
  .archive-heading{gap:5px}.archive-total{padding:5px 6px;font-size:.67rem}
- .ed-home .archive-grid .chronology-card{display:grid;grid-template-columns:minmax(0,34%) minmax(0,1fr);gap:0;align-items:stretch}
+ .ed-home .archive-grid .ed-home-card.chronology-card{display:grid;grid-template-columns:minmax(0,34%) minmax(0,1fr);gap:0;align-items:stretch}
  .archive-media img{height:auto;object-fit:contain}
  .archive-tile{aspect-ratio:auto;height:100%;min-height:0;padding:9px;gap:5px}
  .archive-tile strong{font-size:.82rem}
@@ -84,7 +84,7 @@
  .archive-meta .archive-category{font-size:.6rem}
  .archive-summary{font-size:.75rem}
  .archive-bottom{padding-top:6px}
- .archive-grid>.chronology-card:first-child{grid-template-columns:1fr}
+ .ed-home .archive-grid .ed-home-card.chronology-card:first-child{grid-template-columns:minmax(0,1fr)}
  .archive-grid>.chronology-card:first-child .archive-tile{aspect-ratio:1200/630;min-height:100px}
  .archive-grid>.chronology-card:first-child .archive-copy{padding:14px}
  .archive-grid>.chronology-card:first-child .archive-title{font-size:1.2rem}

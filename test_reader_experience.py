@@ -259,7 +259,15 @@ def browser_qa():
                         assert page.locator('[data-chronology-path][data-sub="garage"]:visible').count()==page.locator('[data-chronology-path]:visible').count()
                         page.locator('[data-chronology-filter]').select_option('')
                         page.locator('[data-chronology-search]').fill('Southside Storage')
-                        assert page.locator('[data-chronology-path]:visible').count()==1
+                        # Search now covers titles AND descriptions. Related pages
+                        # mentioning the garage are valid; assert the exact guide
+                        # is found and each result contains both terms.
+                        matches=page.locator('[data-chronology-path]:visible')
+                        assert 1<=matches.count()<=25
+                        assert page.locator('[data-chronology-path="garage-gratuiti/southside-storage/"]:visible').count()==1
+                        for result in matches.all():
+                            text=result.inner_text().lower()
+                            assert 'southside' in text and 'storage' in text,text
                         page.locator('[data-chronology-search]').fill('nessunrisultatozzzz')
                         assert page.locator('[data-chronology-path]:visible').count()==0
                         assert 'Nessun articolo trovato' in page.locator('[data-chronology-count]').inner_text()
