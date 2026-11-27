@@ -37,9 +37,9 @@ for(const panel of panels){
  }
  field.addEventListener('input',update);
  field.addEventListener('focus',()=>{if(norm(field.value).length>=2)update()});
- field.addEventListener('keydown',e=>{if(e.key==='ArrowDown'&&!box.hidden&&box.firstElementChild){e.preventDefault();box.firstElementChild.focus()}});
  panel.addEventListener('keydown',e=>{
   if(e.key==='Escape'){e.preventDefault();field.focus();close()}
+  else if(e.key==='ArrowDown'&&e.target===field&&!box.hidden&&box.firstElementChild){e.preventDefault();box.firstElementChild.focus()}
   else if((e.key==='ArrowDown'||e.key==='ArrowUp')&&box.contains(document.activeElement)){
    e.preventDefault();const links=[...box.children],i=links.indexOf(document.activeElement),n=i+(e.key==='ArrowDown'?1:-1);if(n<0)field.focus();else if(n<links.length)links[n].focus();
   }
