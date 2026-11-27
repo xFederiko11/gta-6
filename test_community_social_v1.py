@@ -18,6 +18,8 @@ class SocialParticipationTests(unittest.TestCase):
         rendered=sidebar()
         self.assertIn('class="twitter-timeline"',rendered)
         self.assertIn('data-tweet-limit="5"',rendered)
+        self.assertIn('data-lang="it"',rendered)
+        self.assertNotIn('data-chrome="noheader',rendered)
         self.assertNotIn("social-comment-card",rendered)
         self.assertNotIn("Post verificati tramite Buffer",rendered)
 
