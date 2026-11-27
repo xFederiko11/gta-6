@@ -138,7 +138,7 @@ def wrap(inner,path="",*,home=False,preview=False,track=False):
             '<div class="sunset-content">'+inner+'</div>'+sidebar(path,preview=preview,guide=guide,track=track)+'</div>')
 
 def eligible(path,page):
-    return GUIDE_MARKER in page or path in HUBS or path.startswith(("articoli/","patch/","garage-gratuiti/"))
+    return GUIDE_MARKER in page or "data-legit-guide" in page or path in HUBS or path.startswith(("articoli/","patch/","garage-gratuiti/"))
 
 def inject(page,path,digest):
     if 'data-design-version=' not in page or 'name="sunset-blog-version"' in page:

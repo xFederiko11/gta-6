@@ -3,6 +3,7 @@ from datetime import date
 from html import escape
 from pathlib import Path
 import json,re
+from vehicle_progression_guides_v1 import ARTICLES as VEHICLE_PROGRESSION
 GLITCH="guide-e-tutorial/glitch-prima-persona-ps5/"
 EXTRA=[
  ("garage-gratuiti/","Garage gratuiti GTA 6: tutti gli sblocchi","Garage"),
@@ -27,6 +28,7 @@ def inventory():
             path=g.get("canonical_path") or "guide-e-tutorial/"+g["id"]+"/"
             rows.append((path,g["title"],"Glitch" if path==GLITCH else "Guide",dates.get(path)))
     rows += [(p,t,c,dates.get(p)) for p,t,c in EXTRA]
+    rows += [(p,t,"Guide",dates.get(p)) for p,t,_ in VEHICLE_PROGRESSION]
     if not set(dates)<= {r[0] for r in rows}:raise ValueError("Unknown publication path")
     return ordered(rows)
 def entry(row,url):
