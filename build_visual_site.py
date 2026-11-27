@@ -81,7 +81,7 @@ APPROVED_PHOTOS=json.loads(Path('data/approved_screenshots_v4.json').read_text(e
 TROPHY_ITEMS=json.loads(Path('data/trofei.json').read_text(encoding='utf-8'))['trophies']
 TROPHY_MAP_PATHS={'trofei/'+row['slug']+'/':row for row in TROPHY_ITEMS}
 GUIDE_MAP_PATHS=set()
-MAP_RENDER_PATHS=set(TROPHY_MAP_PATHS)|{MAP_HUB_PATH,COLLECTIBLE_ROUTE_PATH}
+MAP_RENDER_PATHS=set(TROPHY_MAP_PATHS)|{MAP_HUB_PATH,COLLECTIBLE_ROUTE_PATH,garage_guides.SOUTH}
 # Legacy manifest is link-only; never trust cached provider derivatives.
 ASSET_VERSION=hashlib.sha256(b''.join(Path(p).read_bytes() for p in ('site/assets/visual-v2.css','site/assets/visual-v2.js'))).hexdigest()[:12]
 DESIGN_VERSION='visual-v2-20261120'
@@ -878,7 +878,7 @@ def main():
     map_rollout=validate_interactive_maps(guides,trophies,LOCATION_REFS,COLLECTIBLE_ROUTES)
     map_rollout.update(validate_curated_external_refs(EXTERNAL_MAP_REFS,guides,trophies,COLLECTIBLE_ROUTES))
     GUIDE_MAP_PATHS={row['canonical_path'] for row in guides}
-    MAP_RENDER_PATHS=set(TROPHY_MAP_PATHS)|GUIDE_MAP_PATHS|{MAP_HUB_PATH,COLLECTIBLE_ROUTE_PATH}
+    MAP_RENDER_PATHS=set(TROPHY_MAP_PATHS)|GUIDE_MAP_PATHS|{MAP_HUB_PATH,COLLECTIBLE_ROUTE_PATH,garage_guides.SOUTH}
     validate_advanced(ADVANCED,trophies)
     validate_provenance(PHOTO_REVIEW,MEDIA,guides)
     rockstar_manifest=validate_rockstar_gallery()

@@ -1,6 +1,10 @@
 """Garage guides: original Italian, reviewed public references, no copied gameplay."""
 from html import escape
+from pathlib import Path
+from urllib.parse import urlsplit
+import json
 from garage_codes_v1 import code_field
+from interactive_article_maps_v1 import render as render_interactive_map
 
 PATH="garage-gratuiti/"
 SOUTH=PATH+"southside-storage/"
@@ -34,14 +38,14 @@ STORY_ROWS=(
  ("pegassi-residences","Pegassi Residences","5","Operation Savage Glory","Tequesta Retreat, Vice City",3),
 )
 SOUTH_STEPS=(
- ("Controlla il registro","Apri Progressi → Collezioni. Dopo la prima foto valida appare 1010 Murals. Usa la fotocamera del gioco e verifica ogni voce prima di lasciare la zona.","Il registro mostra i murales già completati; non è il contatore delle scansioni WAiNK.",MURALS),
- ("Rockridge — Loophole Architecture","Entra nei Parlor Apartments, usa l'ascensore per salire e fotografa la struttura circolare verso ovest.","La voce Loophole Architecture è registrata.",MURALS),
- ("Downtown — Compliance Theater","Raggiungi la terrazza del teatro, facendo attenzione alla sicurezza. Sali sull'antenna a sud e inquadra il tetto dipinto sotto di te.","La voce Compliance Theater è registrata.",MURALS),
- ("Downtown — Extraction Service","Usa l'ascensore nell'atrio; dal settore nord-ovest del tetto scatta verso il tetto più basso a ovest.","La voce Extraction Service è registrata.",MURALS),
- ("Ocean Beach — Privatized Pains Socialized Gains","Fermati sul marciapiede a nord-ovest di Effluvia Bar e punta verso la parte dipinta sotto il parcheggio a sud-est.","Il quarto soggetto risulta acquisito, se segui questo ordine.",MURALS_ALT),
- ("Crosstown — You Signed the Terms & Conditions","Aspetta a sud della fermata Mule City Line. Scatta soltanto quando il treno decorato è fermo al binario.","Il registro mostra cinque murales e arriva l'indizio della ricompensa.",MURALS_ALT),
- ("Apri Southside Storage","Segui l'indizio fino al sud di Salton, a nord di Slator Towing. Digita 1010 sul tastierino.","Il garage è accessibile e la 1010 Cheetah è all'interno.",SOUTH_MAP),
- ("Registra la Cheetah","Se vuoi conservarla, porta l'auto all'officina di registrazione disponibile e verifica il prezzo in gioco.","Controlla separatamente il garage di proprietà e la vettura registrata.",MURALS),
+ ("Controlla requisito e registro","Il capitolo minimo non è documentato. Le fonti descrivono il challenge Snapmatic 1010 come open world. Apri Progressi → Collezioni; se 1010 Murals non compare, prova un primo scatto valido con la fotocamera del telefono (non WAiNK), poi riapri il registro.","Il registro 1010 Murals compare e mostra i soggetti acquisiti. I cinque murales non contano nel 100% né nelle 100 scansioni WAiNK.",MURALS),
+ ("Rockridge — Loophole Architecture","Il murale è sul tetto del Rockridge Blood Center. Raggiungi il tetto di fronte, indicato come Parlor Apartments; cerca il cerchio 1010, fermati sul segno, guarda la grafica circolare sul tetto opposto e scatta con la fotocamera del telefono.","La voce Loophole Architecture risulta acquisita nel registro 1010 Murals.",MURALS),
+ ("Downtown — Compliance Theater","Raggiungi il grattacielo vicino a SE 2nd Ave. Sali sul tetto con ascensore e scala di manutenzione; raggiungi l’antenna del palazzo accanto. Cerca il cerchio 1010 e, dal segno, inquadra il tetto dipinto sottostante.","La voce Compliance Theater è registrata. Usa il segno sul tetto come punto di scatto, non il tetto dipinto come punto di partenza.",MURALS),
+ ("Downtown — Extraction Service","Vai al tetto dell’edificio residenziale vicino al parco, in zona SE 1st Ave. Il punto di scatto è sul tetto adiacente: cerca il cerchio 1010 presso l’angolo nord-ovest e guarda verso la grafica sul tetto della torre accanto.","La voce Extraction Service compare nel registro. La mappa esterna marca il murale; il punto di scatto è sul tetto vicino.",MURALS),
+ ("Ocean Beach — Privatized Pains Socialized Gains","Il murale è dipinto sul fianco del parcheggio pubblico nella zona nord-occidentale di Ocean Beach/Vice Beach. Raggiungi il marciapiede di Barlow St, individua il cerchio 1010 a livello strada e, dal segno, punta verso il murale sul lato del garage.","La voce Privatized Pains Socialized Gains è registrata. Il pin esterno indica il murale; non sostituisce il punto di scatto sul marciapiede.",MURALS),
+ ("Crosstown — You Signed the Terms & Conditions","Raggiungi a livello strada il cavalcavia ferroviario della Mule City Line, sul lato sud di NE 2nd Ave. Cerca il cerchio 1010 sul margine erboso, fermati sul segno e fotografa la grafica sul lato del cavalcavia con la fotocamera del telefono. Le fonti non concordano se il soggetto sia un treno o il cavalcavia: segui il video e il marcatore visibile, senza aspettare un treno in fermata come requisito certo.","Il registro mostra cinque voci e compare l’indizio per Southside Storage. Se la grafica non corrisponde, riapri il riferimento video e verifica il registro prima di proseguire.",MURALS_ALT),
+ ("Apri Southside Storage","Dopo aver fotografato tutti e cinque i murales, guida fino alla punta meridionale di Salton, a nord di Slator Towing. Il garage è una rimessa con serranda. Interagisci con il tastierino montato sulla parete e inserisci 1010; entra e prendi la ’95 Grotti Cheetah.","La serranda si apre e la Cheetah è disponibile all’interno. Il garage gratuito e il veicolo sono due ricompense distinte.",SOUTH_MAP),
+ ("Registra la Cheetah","La Cheetah non diventa automaticamente un veicolo personale registrato quando entri nel garage. Se vuoi conservarla, portala a un servizio di registrazione auto disponibile nel gioco e conferma il prezzo mostrato prima di procedere.","Controlla separatamente il garage di proprietà e la Cheetah nella lista dei veicoli personali; non confermare un acquisto se vuoi solo sbloccare il garage.",MURALS),
 )
 DOMESTIC_STEPS=(
  ("Sblocca Key Cloner","Nel Capitolo 3 raggiungi Clonin’ Keys, Makin’ GS e segui l'installazione sul telefono. Concludi la missione di Randy.","Il Key Cloner è disponibile e si apre Randy’s Wish List.",CLONER),
@@ -55,32 +59,87 @@ DOMESTIC_STEPS=(
 def e(value):return escape(str(value),quote=True)
 def ref(target,label):return '<a href="'+e(target)+'" target="_blank" rel="noopener noreferrer">'+e(label)+'</a>'
 def internal(base,target,label):return '<a href="'+e(base+target)+'">'+e(label)+'</a>'
+def _load_media_registry():
+    path=Path(__file__).parent/"data"/"editorial_media_registry_v1.json"
+    data=json.loads(path.read_text(encoding="utf-8"))
+    if data.get("schema")!="gta6-editorial-media-rights-v1":
+        raise ValueError("Unknown editorial media rights registry")
+    rows=data.get("items")
+    if not isinstance(rows,list) or len(rows)!=7:
+        raise ValueError("Southside registry must contain six map pins and one video")
+    by_id={row.get("id"):row for row in rows}
+    if len(by_id)!=len(rows):
+        raise ValueError("Duplicate media registry ID")
+    expected_map_steps={
+        "southside-map-loophole":2,"southside-map-compliance":3,
+        "southside-map-extraction":4,"southside-map-privatized":5,
+        "southside-map-terms":6,"southside-map-garage":7}
+    if {key:by_id.get(key,{}).get("step") for key in expected_map_steps}!=expected_map_steps:
+        raise ValueError("Southside map pin step mapping changed")
+    for ident,step in expected_map_steps.items():
+        row=by_id[ident]
+        parts=urlsplit(row.get("source_url",""))
+        if (row.get("kind")!="community_map_location_link" or row.get("article_path")!=SOUTH or
+            row.get("rights_status")!="external_link_only" or parts.scheme!="https" or
+            parts.hostname!="gtatown.com" or row.get("allowed_channels")!=["site_external_link"]):
+            raise ValueError("Map assets must remain source-linked and rights scoped")
+    video=by_id.get("southside-powerpyx-video",{})
+    seconds={"2":6,"3":70,"4":172,"5":294,"6":255,"7":323}
+    if (video.get("kind")!="youtube_video" or video.get("video_id")!="mu_VCQKeXvM" or
+        video.get("rights_status")!="youtube_platform_embed_only" or
+        video.get("timestamps_seconds")!=seconds or
+        video.get("allowed_channels")!=["site_opt_in_embed","site_external_link","x_link"] or
+        video.get("embed_setting")!="creator-controlled; fall back to original link"):
+        raise ValueError("Video reuse must stay opt-in and platform-hosted")
+    return data,by_id
+
+
+MEDIA_REGISTRY, SOUTH_MEDIA = _load_media_registry()
+
+
+def map_reference(record_id, *, note):
+    row=SOUTH_MEDIA[record_id]
+    return ('<aside class="v-map-reference" data-southside-map-pin="'+e(record_id)+'" aria-label="Riferimento mappa: '+e(row["label"])+'">'
+            '<span aria-hidden="true">⌖</span><div><strong>'+e(row["label"])+'</strong>'
+            '<p>'+e(note)+'</p>'
+            '<a href="'+e(row["source_url"])+'" target="_blank" rel="noopener noreferrer">'
+            'Apri il riferimento sulla mappa community ↗</a>'
+            '<small>Fonte: GTA Town; dati base Open GTA 6 Map (fbritoferreira), CC BY 4.0. Link alla fonte, nessuna mappa o schermata copiata.</small>'
+            '</div></aside>')
+
+
 def video_reference(title,seconds,source):
+    video=SOUTH_MEDIA["southside-powerpyx-video"]
+    if seconds not in video["timestamps_seconds"].values():
+        raise ValueError("Unreviewed video timestamp")
     stamp=f"{seconds//60}:{seconds%60:02d}"
-    youtube="https://www.youtube.com/watch?v=mu_VCQKeXvM&t="+str(seconds)+"s"
-    return ('<details class="v-video-reference"><summary>Video PowerPyx · '+e(title)+' · '+stamp+'</summary>'
-            '<div class="v-video-copy"><strong>Gameplay originale: PowerPyx</strong>'
-            '<p>Riferimento esterno per questo murale; la posizione e il minuto sono riportati dalla fonte collegata.</p>'
-            '<div class="v-video-shell" data-youtube-id="mu_VCQKeXvM" data-youtube-start="'+str(seconds)+'">'
+    youtube="https://www.youtube.com/watch?v="+video["video_id"]+"&t="+str(seconds)+"s"
+    return ('<details class="v-video-reference" open><summary>Gameplay originale PowerPyx · '+e(title)+' · '+stamp+'</summary>'
+            '<div class="v-video-copy"><strong>Riferimento visivo per questo passaggio</strong>'
+            '<p>Il video resta su YouTube. Premi il pulsante per caricare il player qui, dal minuto indicato.</p>'
+            '<div class="v-video-shell" data-youtube-id="'+e(video["video_id"])+'" data-youtube-start="'+str(seconds)+'">'
             '<div class="v-video-embed" data-youtube-holder>'
             '<span class="v-video-play-art" aria-hidden="true">▶</span>'
             '<button type="button" data-load-youtube>Riproduci da '+stamp+'</button>'
-            '<small>Il player YouTube viene caricato solo dopo il clic.</small></div></div>'
-            '<p class="v-video-links"><a href="'+e(youtube)+'" target="_blank" rel="noopener noreferrer">Apri il video originale da '+stamp+' ↗</a></p>'
-            '<p class="v-caption"><small>Video: '+ref("https://www.youtube.com/watch?v=mu_VCQKeXvM","PowerPyx su YouTube")+
-            ' · Minuto: '+ref(source,"WarpPipes — fonte della posizione e del timestamp")+
-            '. Gameplay non verificato personalmente dal nostro team.</small></p></div></details>')
+            '<small>Player YouTube privacy-enhanced; nessun iframe o richiesta a YouTube prima del clic.</small></div></div>'
+            '<p class="v-video-links"><a href="'+e(youtube)+'" target="_blank" rel="noopener noreferrer">Apri il video PowerPyx da '+stamp+' ↗</a></p>'
+            '<p class="v-caption"><small>Capitolo e posizione indicati da GTA Town: '+
+            ref(source,"scheda del luogo e timestamp ↗")+
+            '. L’embed dipende dall’impostazione del creator; se non disponibile, usa il link YouTube. Il filmato non è stato registrato dal nostro team.</small></p>'
+            '</div></details>')
 def banner(base):
     return '<p class="v-guide-video-crosslink"><strong>Garage gratis e segreti:</strong> '+internal(base,PATH,"scopri tutti gli sblocchi, i codici e le ricompense →")+'</p>'
 def start(base,title,desc):
     return '<article class="vc-article garage-guide" data-garage-guide><nav class="vc-crumb" aria-label="Percorso">'+internal(base,PATH,"Garage gratuiti")+'</nav><section class="vc-article-hero"><span class="vc-eyebrow">GTA VI · PS5 / PS5 PRO</span><h1>'+e(title)+'</h1><p>'+e(desc)+'</p><p>Verifica delle fonti: 27 novembre 2026. Patch di gioco non verificata direttamente; possibili spoiler.</p></section>'
 def facts(rows):
     return '<section class="vc-facts"><h2>Risposta immediata</h2><dl>'+''.join('<div><dt>'+e(k)+'</dt><dd>'+e(v)+'</dd></div>' for k,v in rows)+'</dl></section>'
-def steps(rows,video_chapters=None):
+def steps(rows,video_chapters=None,map_refs=None):
     result=['<section class="vc-instructions" id="procedura"><h2>Come sbloccarlo: '+str(len(rows))+' passaggi</h2><ol>']
     for n,(title,action,check,source) in enumerate(rows,1):
-        media=video_reference(title,*video_chapters[n]) if video_chapters and n in video_chapters else ""
-        result.append('<li data-garage-step="'+str(n)+'"><span aria-hidden="true">'+str(n)+'</span><div><h3>'+e(title)+'</h3><p>'+e(action)+'</p><p><strong>Controllo:</strong> '+e(check)+'</p><p>'+ref(source,"Posizione, schermate o dettagli nella fonte originale ↗")+'</p>'+media+'</div></li>')
+        video=video_reference(title,*video_chapters[n]) if video_chapters and n in video_chapters else ""
+        map_card=map_reference(map_refs[n],note="Pin cartografico del luogo; il punto da cui fotografare è descritto separatamente nel passaggio.") if map_refs and n in map_refs else ""
+        source_card="" if map_refs and n in map_refs else '<p>'+ref(source,"Fonte e dettagli originali ↗")+'</p>'
+        result.append('<li data-garage-step="'+str(n)+'"><span aria-hidden="true">'+str(n)+'</span><div><h3>'+e(title)+'</h3><p>'+e(action)+'</p><p><strong>Controllo:</strong> '+e(check)+'</p>'+map_card+source_card+video+'</div></li>')
     return ''.join(result)+'</ol></section>'
 def end(base,refs,extra=""):
     return ('<section class="vc-source" id="fonti"><h2>Fonti e verifica</h2>'+''.join(ref(u,n) for n,u in refs)+
@@ -100,12 +159,37 @@ def index_body(base):
     body+='<section><h2>Platino: otto acquisti separati</h2><p>Little Boxes richiede tutti gli otto garage acquistabili tramite Vice City Real Estate. I bonus gratuiti, di storia o di edizione non li sostituiscono. Non sommare varianti di cataloghi discordanti come totale definitivo dei garage.</p>'+internal(base,BUY,"Requisito del trofeo →")+'</section>'
     return body+end(base,[("PowerPyx — garage",GARAGES),("GTABase — sblocco garage",PROPERTIES),("GTABase — Southside",SOUTH_MAP),("GTABase — Domestic Timbers",TEMP_MAP),("PowerPyx — Tempesta",COLLECT),("VICE — Del Rio mancabile",MISSED),("GTA Companion — codici",CODES)])
 def south_body(base):
-    body=start(base,"Southside Storage: 5 murales e 1010 Cheetah","Fotografa tutti i cinque murales 1010, poi usa il codice 1010 per sbloccare Southside Storage a Salton.")
-    body+=facts([("Garage","Gratuito, 1 posto"),("Zona","Salton, a nord di Slator Towing"),("Codice","1010"),("Veicolo","1010 Cheetah: registrazione a parte")])
-    body+='<section class="v-reference-hub" id="mappa-southside" aria-labelledby="mappa-southside-title"><span class="v-kicker">MAPPA ESTERNA</span><h2 id="mappa-southside-title">Apri Southside Storage sulla mappa</h2><p class="v-reference-intro">La scheda con la posizione si apre su GTABase; la mappa resta sul sito originale.</p><div class="v-map-reference"><span aria-hidden="true">▤</span><div><strong>Southside Storage · GTABase</strong><p>Controlla il punto e i dettagli della proprietà nella fonte esterna.</p>'+ref(SOUTH_MAP,"Apri la scheda e la mappa esterna ↗")+'</div></div></section>'
+    body=start(base,"Southside Storage: mappa dei cinque murales e codice 1010","Segui i cinque punti 1010, apri il garage gratuito a Southside e trova la ’95 Grotti Cheetah. Ogni tappa distingue posizione del murale, punto di scatto e verifica.")
+    body+=facts([("Garage","Gratuito, 1 posto"),("Zona","Salton, a nord di Slator Towing"),("Codice tastierino","1010"),("Auto","’95 Grotti Cheetah: registrazione separata"),("Capitolo minimo","Non documentato dalle fonti; il challenge è descritto come open world")])
+    map_points=[]
+    for ident in ("southside-map-loophole","southside-map-compliance","southside-map-extraction","southside-map-privatized","southside-map-terms","southside-map-garage"):
+        row=SOUTH_MEDIA[ident]
+        map_points.append({"name":row["label"],"where":row["where"],"precision":"described"})
+    body+=render_interactive_map("Southside Storage e i cinque murales 1010",map_points,
+        id_suffix="southside-storage",page_label="guida")
     body+=code_field("1010","Codice Southside Storage")
-    body+='<p class="vc-check">I cinque murales non sono necessari per il 100% e non contano nelle 100 scansioni WAiNK. Verifica il loro registro specifico.</p>'+steps(SOUTH_STEPS,{2:(7,"https://warppipes.com/en/gta-6/1010-murals/mural-loophole-architecture"),3:(74,"https://warppipes.com/en/gta-6/1010-murals/mural-compliance-theater"),4:(180,"https://warppipes.com/en/gta-6/1010-murals/mural-extraction-service"),5:(302,"https://warppipes.com/en/gta-6/1010-murals/mural-privatized-pains-socialized-gains"),6:(264,"https://warppipes.com/en/gta-6/1010-murals/mural-you-signed-the-terms-conditions")})
-    return body+end(base,[("PowerPyx — cinque murales",MURALS),("GTA Companion — percorso",MURALS_ALT),("GTABase — garage e mappa",SOUTH_MAP)])
+    body+='<p class="vc-check">Ordine e verifica: usa la fotocamera del telefono, non WAiNK; riapri Progressi → Collezioni dopo ogni foto. Il completamento dei cinque murales dà l’indizio del garage, ma non è richiesto per il 100%.</p>'
+    body+=steps(SOUTH_STEPS,
+        {2:(6,"https://gtatown.com/locations/1010-mural-1-loophole-architecture-rockridge"),
+         3:(70,"https://gtatown.com/locations/1010-mural-2-compliance-theater-downtown"),
+         4:(172,"https://gtatown.com/locations/1010-mural-3-extraction-service-downtown"),
+         5:(294,"https://gtatown.com/locations/1010-mural-5-privatized-pains-vice-beach-garage"),
+         6:(255,"https://gtatown.com/locations/1010-mural-4-terms-and-conditions-crosstown-overpass"),
+         7:(323,"https://gtatown.com/locations/1010-murals-reward-cheetah-southside-storage-garage")},
+        {2:"southside-map-loophole",3:"southside-map-compliance",4:"southside-map-extraction",
+         5:"southside-map-privatized",6:"southside-map-terms",7:"southside-map-garage"})
+    sources=[("PowerPyx — guida dei cinque murales",MURALS),
+        ("GTA Town — mappa e raccolta 1010", "https://gtatown.com/collectibles/1010-murals"),
+        ("GTA Town — Loophole Architecture","https://gtatown.com/locations/1010-mural-1-loophole-architecture-rockridge"),
+        ("GTA Town — Compliance Theater","https://gtatown.com/locations/1010-mural-2-compliance-theater-downtown"),
+        ("GTA Town — Extraction Service","https://gtatown.com/locations/1010-mural-3-extraction-service-downtown"),
+        ("GTA Town — Terms & Conditions","https://gtatown.com/locations/1010-mural-4-terms-and-conditions-crosstown-overpass"),
+        ("GTA Town — Privatized Pains","https://gtatown.com/locations/1010-mural-5-privatized-pains-vice-beach-garage"),
+        ("GTA Town — Southside e Grotti Cheetah","https://gtatown.com/locations/1010-murals-reward-cheetah-southside-storage-garage"),
+        ("GTA Town — licenze dei dati mappa","https://gtatown.com/credits"),
+        ("YouTube Help — incorporare video", "https://support.google.com/youtube/answer/171780?hl=en")]
+    return body+end(base,sources,
+        '<p class="v-rights-note"><strong>Media:</strong> i video vengono caricati dal player YouTube solo su richiesta; non sono state copiate anteprime o schermate. I riferimenti mappa aprono la fonte e sono registrati con il relativo ambito d’uso in <code>editorial_media_registry_v1.json</code>.</p>')
 def domestic_body(base):
     body=start(base,"Domestic Timbers: garage gratuito e Raul’s Tempesta","Avvia la catena di Randy nel Capitolo 3; prosegui fino a Collect the Tempesta. Le fonti divergono sul capitolo di sblocco di Dale Mamba.")
     body+=facts([("Garage","Gratuito, 1 posto"),("Zona","Balsero, Vice City"),("Prerequisito","Delivery Day conclusa"),("Personaggi","Jason o Lucia"),("Veicolo","Raul’s Tempesta"),("Prezzi indicativi","11.600 GTA$ registrazione; circa 27.150 GTA$ vendita in buone condizioni")])

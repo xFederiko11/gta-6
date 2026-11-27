@@ -1,0 +1,179 @@
+{
+  "schema": "gta6-editorial-media-rights-v1",
+  "reviewed_on": "2026-11-27",
+  "policy": "The registry records individual media and channel scope. Public availability is not permission to copy. Static GTA VI screenshots are not currently included or cleared. Link external maps instead of copying their tiles or imagery. YouTube player use is opt-in and remains hosted by YouTube; no downloads, thumbnails, or screenshots are rehosted.",
+  "attribution_standard": "For Open GTA 6 Map data reuse, credit Open GTA 6 Map (fbritoferreira), CC BY 4.0. GTA Town says its map positions were checked against videos. These records only link to source pages; they do not copy map tiles or images.",
+  "items": [
+    {
+      "id": "southside-map-loophole",
+      "kind": "community_map_location_link",
+      "label": "1010 Mural #1 · Loophole Architecture — Rockridge",
+      "source_name": "GTA Town",
+      "source_url": "https://gtatown.com/locations/1010-mural-1-loophole-architecture-rockridge",
+      "article_path": "garage-gratuiti/southside-storage/",
+      "step": 2,
+      "where": "Rockridge Blood Center rooftop; shoot from the marked roof across the street.",
+      "subject": "target mural; marked photo position is described separately",
+      "source_data_license": "Open GTA 6 Map community data, CC BY 4.0, as credited by GTA Town",
+      "attribution": "GTA Town location pin; Open GTA 6 Map (fbritoferreira), CC BY 4.0",
+      "rights_status": "external_link_only",
+      "allowed_channels": [
+        "site_external_link"
+      ],
+      "restrictions": [
+        "Do not copy or rehost map tiles, page screenshots, or gameplay images",
+        "Do not call the pin a PS5-verified in-game coordinate"
+      ],
+      "verification": "Public location page linked; GTA Town methodology credits the Open GTA 6 Map dataset and says positions were checked against video; direct source page last checked 2026-11-27"
+    },
+    {
+      "id": "southside-map-compliance",
+      "kind": "community_map_location_link",
+      "label": "1010 Mural #2 · Compliance Theater — Downtown",
+      "source_name": "GTA Town",
+      "source_url": "https://gtatown.com/locations/1010-mural-2-compliance-theater-downtown",
+      "article_path": "garage-gratuiti/southside-storage/",
+      "step": 3,
+      "where": "Painted high-rise rooftop at Downtown; shot from the neighboring rooftop antenna.",
+      "subject": "target mural; marked photo position is described separately",
+      "source_data_license": "Open GTA 6 Map community data, CC BY 4.0, as credited by GTA Town",
+      "attribution": "GTA Town location pin; Open GTA 6 Map (fbritoferreira), CC BY 4.0",
+      "rights_status": "external_link_only",
+      "allowed_channels": [
+        "site_external_link"
+      ],
+      "restrictions": [
+        "Do not copy or rehost map tiles, page screenshots, or gameplay images",
+        "Do not call the pin a PS5-verified in-game coordinate"
+      ],
+      "verification": "Public location page linked; GTA Town methodology credits the Open GTA 6 Map dataset and says positions were checked against video; direct source page last checked 2026-11-27"
+    },
+    {
+      "id": "southside-map-extraction",
+      "kind": "community_map_location_link",
+      "label": "1010 Mural #3 · Extraction Service — Downtown",
+      "source_name": "GTA Town",
+      "source_url": "https://gtatown.com/locations/1010-mural-3-extraction-service-downtown",
+      "article_path": "garage-gratuiti/southside-storage/",
+      "step": 4,
+      "where": "Apartment tower rooftop by the park; shot from the marked adjacent roof.",
+      "subject": "target mural; marked photo position is described separately",
+      "source_data_license": "Open GTA 6 Map community data, CC BY 4.0, as credited by GTA Town",
+      "attribution": "GTA Town location pin; Open GTA 6 Map (fbritoferreira), CC BY 4.0",
+      "rights_status": "external_link_only",
+      "allowed_channels": [
+        "site_external_link"
+      ],
+      "restrictions": [
+        "Do not copy or rehost map tiles, page screenshots, or gameplay images",
+        "Do not call the pin a PS5-verified in-game coordinate"
+      ],
+      "verification": "Public location page linked; GTA Town methodology credits the Open GTA 6 Map dataset and says positions were checked against video; direct source page last checked 2026-11-27"
+    },
+    {
+      "id": "southside-map-privatized",
+      "kind": "community_map_location_link",
+      "label": "1010 Mural #5 · Privatized Pains — Ocean Beach",
+      "source_name": "GTA Town",
+      "source_url": "https://gtatown.com/locations/1010-mural-5-privatized-pains-vice-beach-garage",
+      "article_path": "garage-gratuiti/southside-storage/",
+      "step": 5,
+      "where": "Side of the public parking garage; shot from the street-side mark on Barlow St.",
+      "subject": "target mural; marked photo position is described separately",
+      "source_data_license": "Open GTA 6 Map community data, CC BY 4.0, as credited by GTA Town",
+      "attribution": "GTA Town location pin; Open GTA 6 Map (fbritoferreira), CC BY 4.0",
+      "rights_status": "external_link_only",
+      "allowed_channels": [
+        "site_external_link"
+      ],
+      "restrictions": [
+        "Do not copy or rehost map tiles, page screenshots, or gameplay images",
+        "Do not call the pin a PS5-verified in-game coordinate"
+      ],
+      "verification": "Public location page linked; GTA Town methodology credits the Open GTA 6 Map dataset and says positions were checked against video; direct source page last checked 2026-11-27"
+    },
+    {
+      "id": "southside-map-terms",
+      "kind": "community_map_location_link",
+      "label": "1010 Mural #4 · You Signed the Terms & Conditions — Crosstown",
+      "source_name": "GTA Town",
+      "source_url": "https://gtatown.com/locations/1010-mural-4-terms-and-conditions-crosstown-overpass",
+      "article_path": "garage-gratuiti/southside-storage/",
+      "step": 6,
+      "where": "Raised rail overpass at ground level; source descriptions differ about the painted subject.",
+      "subject": "target mural; marked photo position is described separately",
+      "source_data_license": "Open GTA 6 Map community data, CC BY 4.0, as credited by GTA Town",
+      "attribution": "GTA Town location pin; Open GTA 6 Map (fbritoferreira), CC BY 4.0",
+      "rights_status": "external_link_only",
+      "allowed_channels": [
+        "site_external_link"
+      ],
+      "restrictions": [
+        "Do not copy or rehost map tiles, page screenshots, or gameplay images",
+        "Do not call the pin a PS5-verified in-game coordinate"
+      ],
+      "verification": "Public location page linked; GTA Town methodology credits the Open GTA 6 Map dataset and says positions were checked against video; direct source page last checked 2026-11-27"
+    },
+    {
+      "id": "southside-map-garage",
+      "kind": "community_map_location_link",
+      "label": "Southside Storage garage and ’95 Grotti Cheetah — Salton",
+      "source_name": "GTA Town",
+      "source_url": "https://gtatown.com/locations/1010-murals-reward-cheetah-southside-storage-garage",
+      "article_path": "garage-gratuiti/southside-storage/",
+      "step": 7,
+      "where": "Garage near the south tip of Salton; keypad reward after all five murals.",
+      "subject": "garage and reward vehicle",
+      "source_data_license": "Open GTA 6 Map community data, CC BY 4.0, as credited by GTA Town",
+      "attribution": "GTA Town location pin; Open GTA 6 Map (fbritoferreira), CC BY 4.0",
+      "rights_status": "external_link_only",
+      "allowed_channels": [
+        "site_external_link"
+      ],
+      "restrictions": [
+        "Do not copy or rehost map tiles, page screenshots, or gameplay images",
+        "Do not call the pin a PS5-verified in-game coordinate"
+      ],
+      "verification": "Public location page linked; GTA Town methodology credits the Open GTA 6 Map dataset and says positions were checked against video; direct source page last checked 2026-11-27"
+    },
+    {
+      "id": "southside-powerpyx-video",
+      "kind": "youtube_video",
+      "label": "PowerPyx — GTA 6 - All 1010 Murals Locations",
+      "source_name": "PowerPyx",
+      "source_url": "https://www.youtube.com/watch?v=mu_VCQKeXvM",
+      "video_id": "mu_VCQKeXvM",
+      "embed_domain": "www.youtube-nocookie.com",
+      "embed_setting": "creator-controlled; fall back to original link",
+      "rights_status": "youtube_platform_embed_only",
+      "rights_evidence": "https://support.google.com/youtube/answer/171780?hl=en",
+      "rights_note": "Use the YouTube embedded player only, loaded after the reader clicks. The video owner can disable embedding; when it is disabled, leave the original link. This does not authorize downloading, rehosting, extracting frames, or copying the thumbnail.",
+      "allowed_channels": [
+        "site_opt_in_embed",
+        "site_external_link",
+        "x_link"
+      ],
+      "article_path": "garage-gratuiti/southside-storage/",
+      "timestamps_seconds": {
+        "2": 6,
+        "3": 70,
+        "4": 172,
+        "5": 294,
+        "6": 255,
+        "7": 323
+      },
+      "timestamp_evidence": {
+        "source": "GTA Town location pages list the PowerPyx video and start time for each mural and garage reward",
+        "source_url": "https://gtatown.com/collectibles/1010-murals",
+        "checked_on": "2026-11-27",
+        "playback_personally_verified": false
+      },
+      "restrictions": [
+        "No video download or rehosting",
+        "No copied video thumbnails or still frames",
+        "Respect creator embedding controls",
+        "No X attachment; only the source link may be used on X"
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-"""Consent-first GTA VI interactive maps for 11 guides and 55 trophy articles.
+"""Consent-first interactive maps: 11 standard guides, Southside Storage, and 55 trophies.
 
 Official embed permissions:
   Vice Map: https://vice-map.com/embed (credit REQUIRED; marker= optional)
@@ -20,7 +20,7 @@ SECONDARY="https://gta6.city/embed/map"
 PRIMARY_FULL="https://vice-map.com/map"
 SECONDARY_FULL="https://gta6.city/"
 SCHEMA="gta6-interactive-maps-v1"
-VERSION="2026-11-21"
+VERSION="2026-11-27"
 PROVIDERS=(
     {"id":"vice","name":"Vice Map","embed":PRIMARY,"full":PRIMARY_FULL,
      "terms":"https://vice-map.com/embed","marker_query":True},
@@ -84,8 +84,9 @@ def validate(guides,trophies,locations,collectibles):
                 raise ValueError("Untrusted map provider URL")
     return {"schema":SCHEMA,"reviewed":VERSION,"guide_articles":len(g),
             "trophy_articles":len(t),"collectible_pages":1,"directory_pages":1,
-            "articles_with_map":len(g)+len(t),
-            "pages_with_interactive_map":len(g)+len(t)+2,
+            "garage_guide_articles_with_map":1,
+            "articles_with_map":len(g)+len(t)+1,
+            "pages_with_interactive_map":len(g)+len(t)+3,
             "guide_location_descriptions":count,
             "collectible_descriptions":len(points),
             "exact_gameplay_coordinate_pairs_verified":0,
@@ -284,6 +285,6 @@ def render(title,points=(),*,id_suffix="article",page_label="articolo",curated_r
 
 
 def as_json(data):
-    if data.get("schema")!=SCHEMA or data.get("pages_with_interactive_map")!=68:
+    if data.get("schema")!=SCHEMA or data.get("pages_with_interactive_map")!=69:
         raise ValueError("Cannot export invalid map rollout")
     return json.dumps(data,ensure_ascii=False,indent=2)+"\n"
