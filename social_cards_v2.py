@@ -220,6 +220,7 @@ def fetch_direct_official_artworks(enabled=False, opener=urlopen):
 
 def subject_for_path(relative):
     """Original, topical editorial pictograms, never simulated game UI."""
+    if "strip-club-gta-6" in relative: return "map"
     if "scansionare-veicoli" in relative: return "scanner"
     if any(v in relative for v in ("veicoli/","salvare-auto","sportive-randy","veicoli-per-moses","viaggio-rapido-taxi","auto-speciali")): return "car"
     if "soldi" in relative: return "cash"
