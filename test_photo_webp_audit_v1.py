@@ -116,5 +116,12 @@ class WebPPreflightTests(unittest.TestCase):
                 os.chdir(original_cwd)
 
 
+    def test_workflow_doc_matches_lossy_vp8_preflight(self):
+        text = Path("PHOTO-SCREENSHOT-WORKFLOW.md").read_text(encoding="utf-8")
+        self.assertIn("lossy VP8", text)
+        self.assertIn("VP8L", text)
+        self.assertIn("alpha hint cannot prove opacity", text)
+
+
 if __name__ == "__main__":
     unittest.main()
