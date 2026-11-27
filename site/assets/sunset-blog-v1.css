@@ -218,3 +218,15 @@ html[data-theme] .sb-sidebar .sb-taxonomy a[aria-current=page]{background:var(--
 .sb-popular-note{font-size:.72rem;color:var(--r-muted);line-height:1.5;margin:0 0 8px}
 .ma-related-card:not(:has(.ma-card-media)){border-top:3px solid var(--ma-accent)}
 @media(max-width:560px){.ma-related-card:not(:has(.ma-card-media)){grid-template-columns:minmax(0,1fr)}}
+
+/* Keep the first gameplay action near the top on phones. Only the optional
+   jump index collapses; the actual tutorial steps stay fully visible. */
+html[data-theme] .ma-step-index{padding:0;margin:6px 0 10px;border:0;background:transparent;min-width:0}
+html[data-theme] .ma-step-index>details{padding:0;margin:0;border:1px solid var(--r-line);border-left:3px solid var(--r-pink);background:var(--r-surface);border-radius:6px;box-shadow:none}
+html[data-theme] .ma-step-index>details>summary{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:34px;line-height:1.2;padding:6px 10px;margin:0;border:0;border-radius:5px;background:transparent;color:var(--r-text);cursor:pointer;font-size:.78rem;list-style:none}
+.ma-step-index summary::-webkit-details-marker{display:none}
+.ma-step-index summary::after{content:"+";color:var(--r-pink);font-size:.94rem;font-weight:900}
+.ma-step-index details[open] summary::after{content:"−"}
+.ma-step-index summary>span{margin-left:auto;color:var(--r-muted);font-size:.68rem}
+.ma-step-index>details>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;padding:8px}
+@media(max-width:560px){.ma-step-index>details>div{grid-template-columns:minmax(0,1fr)}.ma-article-bar{padding:3px 0 6px;margin:0 auto 6px}.ma-article-bar nav{margin-bottom:4px}.ma-byline{line-height:1.25;gap:3px 9px}}

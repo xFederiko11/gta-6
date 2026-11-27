@@ -320,11 +320,15 @@ def browser(root=ROOT):
                                 assert index.locator('a').count()==steps.count()
                                 assert steps.count()>0
                                 if path==EXAMPLE:
+                                    assert index.locator('details').get_attribute('open') is None
+                                    index.locator('summary').click()
+                                    assert index.locator('a').last.is_visible()
                                     index.locator('a').last.click()
                                     assert page.url.endswith('#passaggio-'+str(steps.count()))
                                     assert steps.last.is_visible()
                                     index.screenshot(path=str(shots/("magazine-step-index-"+str(width)+"-"+theme+".png")))
                                     page.locator('[data-magazine-related]').screenshot(path=str(shots/("magazine-related-"+str(width)+"-"+theme+".png")))
+                                    index.locator('summary').click()
                                     page.evaluate('window.scrollTo(0,0)')
                         if path in ("",EXAMPLE):
                             page.screenshot(path=str(shots/("sunset-"+("home" if not path else "money")+"-"+str(width)+"-"+theme+".png")),full_page=False)

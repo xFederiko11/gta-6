@@ -72,7 +72,7 @@ def step_index(page):
     assert [x[0] for x in headings]==["passaggio-"+str(i) for i in range(1,len(headings)+1)]
     links="".join('<a href="#'+ident+'"><span class="ma-step-number">'+str(i).zfill(2)+'</span><span>'+esc(unescape(re.sub(r"<[^>]+>","",label)))+'</span></a>'
                   for i,(ident,label) in enumerate(headings,1))
-    nav=('<nav class="ma-step-index" data-magazine-steps aria-label="Indice dei passaggi"><p><strong>Vai al passaggio</strong><span>'+str(len(headings))+' passaggi · tutti visibili qui sotto</span></p><div>'+links+'</div></nav>')
+    nav=('<nav class="ma-step-index" data-magazine-steps aria-label="Indice dei passaggi"><details><summary><strong>Vai al passaggio</strong><span>'+str(len(headings))+' passaggi</span></summary><div>'+links+'</div></details></nav>')
     return page[:start]+nav+page[start:]
 
 def related_card(item,track):
