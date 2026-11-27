@@ -120,7 +120,7 @@ class GrowthTrackingTests(unittest.TestCase):
                 self.links=[]
             def handle_starttag(self,tag,attrs):
                 a=dict(attrs)
-                if tag=="a" and a.get("href","").startswith("https://xfederiko11.github.io/gta-6/articoli/"):
+                if tag=="a" and (a.get("href","")=="https://xfederiko11.github.io/gta-6/articoli/" or a.get("href","").startswith("https://xfederiko11.github.io/gta-6/articoli/categoria/")):
                     self.links.append(a)
         fixture='<html><head><title>Magazine</title></head><body data-design-version="fixture"><main class="wrap" id="contenuto"><h1>Magazine</h1></main></body></html>'
         expected={"articoli/"}|{g["path"] for g in tree()}|{c["path"] for g in tree() for c in g["children"]}

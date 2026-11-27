@@ -6,12 +6,12 @@ const first=panels[0].querySelector('[data-search-form]');
 const archive=new URL(first.action,document.baseURI);
 if(archive.origin!==location.origin)return;
 const base=new URL('../',archive),endpoint=new URL('catalogo.json',archive);
-const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('it-IT').replace(/\b(?:gta\s*vi|grand\s+theft\s+auto\s+vi|grand\s+theft\s+auto\s+6)\b/g,'gta 6').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('it-IT').replace(/\b(?:gta\s*(?:vi|6)|grand\s+theft\s+auto\s+vi|grand\s+theft\s+auto\s+6)\b/g,'gta 6').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
 let pending;
 function catalog(){
  if(!pending)pending=fetch(endpoint,{credentials:'same-origin',cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('catalog');return r.json()}).then(d=>{
   if(d.schema!=='gta6-public-archive-v2'||!Array.isArray(d.items))throw Error('schema');
-  return d.items.filter(x=>x&&!x.secret&&typeof x.title==='string'&&/^(?:[a-z0-9-]+\/)+$/.test(x.path)).map(x=>({item:x,title:norm(x.title),text:norm([x.title,x.summary,x.group_label,x.sub_label,(x.tags||[]).map(t=>t.label).join(' ')].join(' '))}));
+  return d.items.filter(x=>x&&!x.secret&&typeof x.title==='string'&&/^(?:[a-z0-9-]+\/)+$/.test(x.path)).map(x=>({item:x,title:norm(x.title),text:norm([x.title,x.summary,x.group_label,x.sub_label,(x.tags||[]).flatMap(t=>[t.label,...(t.aliases||[])]).join(' ')].join(' '))}));
  }).catch(e=>{pending=null;throw e});
  return pending;
 }

@@ -43,12 +43,12 @@ def suggestions(item,catalog,limit=3):
     for value in catalog.values():
         if value["secret"] or value["path"]==item["path"]:
             continue
-        if (group=="glitch") != (value["group"]=="glitch"):
+        if (group if group in ("glitch","trucchi") else "legit") != (value["group"] if value["group"] in ("glitch","trucchi") else "legit"):
             continue
         shared=len(tags&_tag_ids(value))
         if value["group"]==group or shared:
             peers.append((value,shared))
-    peers.sort(key=lambda pair:(-pair[1],pair[0]["group"]!=group,pair[0]["sub"]!=item["sub"],pair[0].get("published") or "",pair[0]["title"].casefold()))
+    peers.sort(key=lambda pair:(-pair[1],pair[0]["group"]!=group,pair[0]["sub"]!=item["sub"],-date.fromisoformat(pair[0]["published"]).toordinal() if pair[0].get("published") else 0,pair[0]["title"].casefold()))
     return [value for value,_ in peers[:limit]]
 
 def attr(track,event,target):
@@ -69,11 +69,14 @@ def article_bar(item,track):
             '<nav aria-label="Categoria dell’articolo"><a href="'+href(parent)+'"'+attr(track,"category-open",parent)+'>'+esc(item["group_label"])+'</a>'
             '<span aria-hidden="true">/</span><a href="'+href(child)+'"'+attr(track,"category-open",child)+'>'+esc(item["sub_label"])+'</a></nav>'
             '<div class="ma-byline"><span>GTA 6 Italia</span><span>'+date_html+'</span><span>'+esc(item["badge"])+'</span></div></div>')
+    return bar
+
+def article_tags(item,track):
     tags=item.get("tags",[])
     tag_nav=('<nav class="ma-tags" aria-label="Argomenti">'+''.join(
         '<a class="ma-tag" href="'+href(tag["path"])+'"'+attr(track,"article-tag-open",tag["id"])+'>'+esc(tag["label"])+'</a>'
         for tag in tags if isinstance(tag,dict) and tag.get("path") and tag.get("label"))+'</nav>' if tags else "")
-    return bar+tag_nav
+    return tag_nav
 def step_index(page):
     if page.count(STEP_LIST)!=1:return page
     start=page.index(STEP_LIST)
@@ -120,7 +123,7 @@ def enhance(page,path,catalog,track=False):
     assert len(re.findall(r"<h1(?:\s|>)",inner,re.I))==1,path
     inner=re.sub(r"<h1(?:\s|>)",lambda m:article_bar(item,track)+m.group(0),inner,count=1,flags=re.I)
     inner=step_index(inner)
-    inner+=related_panel(item,catalog,track)
+    inner+=article_tags(item,track)+related_panel(item,catalog,track)
     return page[:start]+inner+page[stop:]
 
 def verify(root=Path("_site")):
@@ -142,7 +145,8 @@ def verify(root=Path("_site")):
         assert actual==expected,path
         assert all(not catalog[p]["secret"] and
                    (catalog[p]["group"]==item["group"] or bool(_tag_ids(item)&_tag_ids(catalog[p]))) and
-                   ((item["group"]=="glitch")== (catalog[p]["group"]=="glitch"))
+                   ((item["group"] if item["group"] in ("glitch","trucchi") else "legit")==
+                    (catalog[p]["group"] if catalog[p]["group"] in ("glitch","trucchi") else "legit"))
                    for p in actual),path
         if STEP_LIST in page:
             assert page.count("data-magazine-steps")==1,path

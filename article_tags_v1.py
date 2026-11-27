@@ -8,6 +8,7 @@ from __future__ import annotations
 from html import escape
 from pathlib import Path
 import hashlib
+import json
 import re
 import unicodedata
 import xml.etree.ElementTree as ET
@@ -16,6 +17,8 @@ TAG_DEFINITIONS = {
     "gta-vi": {"label": "GTA VI", "intro": "GTA 6 e GTA VI sono nomi equivalenti. Il tag viene normalizzato e non crea un archivio generico duplicato.", "aliases": ("GTA 6", "GTA6", "Grand Theft Auto VI")},
     "capitolo-1": {"label": "Capitolo 1", "intro": "Guide che citano esplicitamente il Capitolo 1. Il tag non prova da solo prerequisiti o disponibilità minima.", "aliases": ("Cap. 1", "Chapter 1", "Chapter One")},
     "garage-gratuiti": {"label": "Garage gratuiti", "intro": "Guide sui garage gratuiti e sui relativi sblocchi documentati.", "aliases": ("garage gratis", "free garages")},
+    "auto-e-veicoli": {"label": "Auto e veicoli", "intro": "Guide dedicate ai veicoli, alla registrazione, alla ricerca e alla vendita.", "aliases": ("auto", "macchine", "automobili", "cars")},
+    "codici-ps5": {"label": "Codici PS5", "intro": "Codici e trucchi PS5, separati dalle guide legittime e dai glitch.", "aliases": ("trucchi", "cheat", "cheat codes")},
     "auto-rare": {"label": "Auto rare", "intro": "Guide che identificano esplicitamente auto rare o difficili da trovare.", "aliases": ("auto rara", "rare cars")},
     "veicoli-speciali": {"label": "Veicoli speciali", "intro": "Veicoli descritti esplicitamente come speciali nelle rispettive guide.", "aliases": ("veicolo speciale", "special vehicles")},
     "1010-murales": {"label": "1010 Murals", "intro": "Guide ai cinque murales collegati al registro 1010 Murals e al garage Southside Storage.", "aliases": ("murales 1010", "southside storage")},
@@ -75,6 +78,10 @@ def tag_ids_for(item: dict) -> list[str]:
     sub = str(item.get("sub", ""))
     category = str(item.get("category", ""))
     text = _words(" ".join(str(item.get(k, "")) for k in ("path", "title", "category", "group", "sub", "summary", "badge")))
+    if group == "glitch" or category.casefold() == "glitch":
+        return ["glitch"]
+    if group == "trucchi" or category.casefold() == "trucchi":
+        return ["codici-ps5"]
     found = []
     def add(tag_id: str) -> None:
         if tag_id not in found:
@@ -82,6 +89,8 @@ def tag_ids_for(item: dict) -> list[str]:
     chapter = chapter_order(item)
     if chapter == 1:
         add("capitolo-1")
+    if group == "veicoli" or (group == "soldi" and sub == "vendita"):
+        add("auto-e-veicoli")
     if path == "garage-gratuiti/southside-storage/" or "1010 murals" in text:
         add("1010-murales")
     if (group == "veicoli" and sub == "garage") or path.startswith("garage-gratuiti/"):
@@ -98,8 +107,6 @@ def tag_ids_for(item: dict) -> list[str]:
         add("port-gellhorn")
     if (group == "platino" and sub == "collezionabili") or path.startswith("collezionabili/"):
         add("collezionabili")
-    if group == "glitch" or category.casefold() == "glitch":
-        add("glitch")
     if group == "soldi" or "gta$" in str(item.get("title", "")).casefold():
         add("denaro")
     if group == "platino" and (sub in ("trofei", "roadmap", "sfide") or "trofeo" in text):
@@ -130,7 +137,7 @@ def tag_ids_for(item: dict) -> list[str]:
 def enrich_item(item: dict) -> dict:
     result = dict(item)
     ids = tag_ids_for(result)
-    result["tags"] = [{"id": tag_id, "label": TAG_DEFINITIONS[tag_id]["label"], "path": tag_path(tag_id)} for tag_id in ids]
+    result["tags"] = [{"id": tag_id, "label": TAG_DEFINITIONS[tag_id]["label"], "path": tag_path(tag_id), "aliases": list(TAG_DEFINITIONS[tag_id]["aliases"])} for tag_id in ids]
     result["chapter_order"] = chapter_order(result)
     return result
 
@@ -144,9 +151,14 @@ def validate_item_tags(item: dict) -> bool:
             return False
         if tag.get("path") != tag_path(tag["id"]) or tag.get("label") != TAG_DEFINITIONS[tag["id"]]["label"]:
             return False
+        if tag.get("aliases") != list(TAG_DEFINITIONS[tag["id"]]["aliases"]):
+            return False
         ids.append(tag["id"])
     if len(ids) != len(set(ids)) or (item.get("secret") and tags):
         return False
+    if not item.get("secret") and item.get("group") in ("glitch","trucchi"):
+        if ids != (["glitch"] if item["group"]=="glitch" else ["codici-ps5"]):
+            return False
     order = item.get("chapter_order")
     return order is None or (isinstance(order, int) and 1 <= order <= 99)
 
@@ -181,9 +193,22 @@ def build_archives(items: list[dict], root: Path = Path("_site"), *, layout_fn=N
     root = Path(root)
     if layout_fn is None or url_fn is None or crumbs_fn is None:
         import build_visual_site as visual
-        layout_fn = layout_fn or visual.layout
+        from reader_experience import transform
         url_fn = url_fn or visual.url
         crumbs_fn = crumbs_fn or visual.legacy.crumbs
+        if layout_fn is None:
+            # Archives are built after the original reader transform. Reuse
+            # the exact reader asset digest and production analytics setting,
+            # without copying unrelated page markup or sending telemetry.
+            release = json.loads((root / "design-version.json").read_text(encoding="utf-8"))
+            version = release["reader_asset_version"]
+            archive = (root / "articoli/index.html").read_text(encoding="utf-8")
+            site_id = re.search(r'<script id="growth-analytics-v1"[^>]*\bdata-website-id="([^"]+)"', archive)
+            if 'id="growth-analytics-v1"' in archive and not site_id:
+                raise ValueError("Cannot determine existing analytics configuration")
+            def layout_fn(*args, **kwargs):
+                return transform(visual.layout(*args, **kwargs), version=version,
+                                 umami_website_id=site_id.group(1) if site_id else None)
     public = [item for item in items if not item.get("secret") and item.get("path")]
     category_sets = set()
     groups = {}
@@ -209,6 +234,23 @@ def build_archives(items: list[dict], root: Path = Path("_site"), *, layout_fn=N
             sitemap_root.remove(node)
     indexable_paths = []
     seen_sets = set()
+    # A real, crawlable directory for the breadcrumb and global navigation.
+    directory_path = "articoli/tag/"
+    directory_body = (crumbs_fn([("Articoli", "articoli/"), ("Tag", directory_path)]) +
+                      '<section class="ed-intro archive-intro"><h1>Argomenti GTA VI</h1>'
+                      '<p>Esplora i tag editoriali: un articolo può appartenere a più argomenti.</p></section>'+
+                      '<nav class="ma-tags ma-tag-directory" data-tag-directory aria-label="Tutti gli argomenti">'+
+                      "".join('<a class="ma-tag" href="'+escape(url_fn(tag_path(tag_id)),quote=True)+'">'+
+                              escape(definition["label"])+' <small>'+str(len(tag_items[tag_id]))+'</small></a>'
+                              for tag_id,definition in TAG_DEFINITIONS.items() if tag_id in tag_items)+
+                      '</nav>')
+    directory = root / directory_path / "index.html"
+    directory.parent.mkdir(parents=True,exist_ok=True)
+    directory.write_text(layout_fn("Argomenti GTA VI: tag delle guide","Tutti i tag editoriali delle guide GTA VI.",
+                         directory_path,directory_body,"articles",robots="noindex,follow",
+                         structured={"@context":"https://schema.org","@type":"CollectionPage",
+                                     "name":"Argomenti GTA VI","url":url_fn(directory_path),"inLanguage":"it-IT"}),
+                         encoding="utf-8")
     for tag_id, definition in TAG_DEFINITIONS.items():
         selected_map = tag_items.get(tag_id, {})
         if not selected_map:
@@ -228,7 +270,7 @@ def build_archives(items: list[dict], root: Path = Path("_site"), *, layout_fn=N
         body += _render_controls(selected)
         body += '<section class="ed-home" data-tag-archive data-tag-id="' + escape(tag_id, quote=True) + '"><div class="archive-grid" data-tag-grid>'
         body += "".join(_card(item, url_fn, card_fn) for item in selected)
-        body += '</div></section>'
+        body += '</div><nav class="archive-pagination" data-tag-pager hidden aria-label="Pagine degli articoli"></nav></section>'
         js_path = Path("site/assets/article-tags-v1.js")
         digest = hashlib.sha256(js_path.read_bytes()).hexdigest()[:12] if js_path.is_file() else "v1"
         body += '<script src="' + escape(url_fn("assets/article-tags-v1.js") + "?v=" + digest, quote=True) + '" defer></script>'

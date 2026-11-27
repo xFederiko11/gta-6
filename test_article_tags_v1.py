@@ -24,10 +24,13 @@ class ArticleTagsTests(unittest.TestCase):
         self.assertEqual(canonical_tag_id("Grand Theft Auto VI"), "gta-vi")
         self.assertEqual(canonical_tag_id("Capitolo 1"), "capitolo-1")
         self.assertEqual(canonical_tag_id("Chapter One"), "capitolo-1")
+        self.assertEqual(canonical_tag_id("automobili"), "auto-e-veicoli")
+        self.assertEqual(canonical_tag_id("macchine"), "auto-e-veicoli")
+        self.assertEqual(canonical_tag_id("cheat"), "codici-ps5")
 
     def test_only_explicit_article_evidence_assigns_tags_or_story_order(self):
         southside = item("garage-gratuiti/southside-storage/", "Southside Storage: 1010 Murals", "veicoli", "garage", "Garage")
-        self.assertEqual(set(tag_ids_for(southside)), {"1010-murales", "garage-gratuiti"})
+        self.assertEqual(set(tag_ids_for(southside)), {"1010-murales", "garage-gratuiti", "auto-e-veicoli"})
         self.assertIsNone(chapter_order(southside))
         later = item("guide-e-tutorial/wyman-capitolo-1/", "Capitolo 1: Randy a Vice City")
         self.assertEqual(chapter_order(later), 1)
@@ -38,6 +41,14 @@ class ArticleTagsTests(unittest.TestCase):
         secret = item("trofei/trofeo-segreto-1/", "Trofeo segreto n. 1", "platino", "trofei", "Trofei", secret=True)
         self.assertEqual(tag_ids_for(secret), [])
         self.assertTrue(validate_item_tags(enrich_item(secret)))
+
+    def test_glitch_and_cheats_have_exclusive_tags(self):
+        for group, expected in (("glitch","glitch"),("trucchi","codici-ps5")):
+            row=item("guide-e-tutorial/example/", "Randy a Vice City: soldi, platino e garage",
+                     group, "missioni", group, summary="WAiNK, Moses e auto rare")
+            self.assertEqual(tag_ids_for(row), [expected])
+            self.assertTrue(validate_item_tags(row))
+        self.assertIn("automobili", item("veicoli/example/","Auto", "veicoli","posizioni")["tags"][0]["aliases"])
 
     def test_summary_does_not_infer_unlock_chapter(self):
         row = item("guide-e-tutorial/garage/", "Garage: requisiti", summary="Disponibile dopo il Capitolo 3")
@@ -70,6 +81,11 @@ class ArticleTagsTests(unittest.TestCase):
             self.assertIn("3 articoli", html)
             self.assertIn("data-tag-category", html)
             self.assertIn("data-tag-sort", html)
+            self.assertIn("data-tag-pager", html)
+            directory=(root/"articoli/tag/index.html").read_text(encoding="utf-8")
+            self.assertIn('data-tag-directory',directory)
+            self.assertIn(url("articoli/tag/randy/"),directory)
+            self.assertIn('noindex,follow',directory)
             self.assertNotIn("Trofeo segreto", html)
             sitemap_text = (root/"sitemap.xml").read_text(encoding="utf-8")
             self.assertIn(url("articoli/tag/randy/"), sitemap_text)
