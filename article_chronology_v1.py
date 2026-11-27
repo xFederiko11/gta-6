@@ -5,6 +5,7 @@ from pathlib import Path
 import json,re
 from vehicle_progression_guides_v1 import ARTICLES as VEHICLE_PROGRESSION
 from garage_guides_v1 import STORY_ROWS,STORY
+from strip_club_guide_v1 import PATH as STRIP_CLUB_PATH, PUBLISHED as STRIP_CLUB_PUBLISHED
 GLITCH="guide-e-tutorial/glitch-prima-persona-ps5/"
 EXTRA=[
  ("guide-e-tutorial/strip-club-gta-6/","GTA 6: dove sono i tre strip club e come raggiungerli","Missioni"),
@@ -41,7 +42,7 @@ def inventory():
         for g in read(filename)["guides"]:
             path=g.get("canonical_path") or "guide-e-tutorial/"+g["id"]+"/"
             rows.append((path,g["title"],GUIDE_CATEGORIES.get(g["tag"],"Guide legittime"),dates.get(path)))
-    rows += [(p,t,c,dates.get(p)) for p,t,c in EXTRA]
+    rows += [(p,t,c,dates.get(p) or (STRIP_CLUB_PUBLISHED if p==STRIP_CLUB_PATH else None)) for p,t,c in EXTRA]
     rows += [(p,t,"Guide legittime",dates.get(p)) for p,t,_ in VEHICLE_PROGRESSION]
     for car in read("data/vehicle_catalog_v1.json")["items"]:
         if car["status"]!="Verificata":continue # noindex research cards do not belong in the reviewed archive

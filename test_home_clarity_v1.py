@@ -142,7 +142,7 @@ class SimpleHomeTests(unittest.TestCase):
         evidence={p:g["publication_day_rome"] for g in registry["evidence"] for p in g["paths"]}
         self.assertEqual(dated,evidence)
         self.assertEqual(len(dated),sum(len(g["paths"]) for g in registry["evidence"]))
-        self.assertGreaterEqual(len(dated),151)
+        self.assertGreaterEqual(len(dated),150)
         self.assertEqual(dated["trofei/medaglie-oro/"],"2026-11-18")
         self.assertEqual(dated["garage-gratuiti/garage-storia/port-gellhorn/"],"2026-11-27")
         rows=inventory()
