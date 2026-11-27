@@ -3,7 +3,7 @@ import re,time
 from urllib.request import Request,urlopen
 BASE="https://xfederiko11.github.io/gta-6/"
 CHECKS={
- "":('data-chronology-path="garage-gratuiti/southside-storage/"','id="ultimi-articoli"'),
+ "":('data-chronology-path="garage-gratuiti/southside-storage/"','id="ultimi-articoli"','data-magazine-search','magazine-quick-search-v1.js?v='),
  "articoli/":('data-chronology-search','data-chronology-subfilter','data-archive-pager','archive-summary','data-umami-event="category-open"','<title>Articoli GTA 6: guide, news e aggiornamenti</title>'),
  "guide-e-tutorial/":('data-editorial-route="salvare-auto"','/gta-6/salvare-auto/'),
  "articoli/categoria/veicoli/":('data-archive-group="veicoli"','<title>Auto GTA 6: veicoli, garage e registrazione</title>','aria-label="Percorsi consigliati"'),

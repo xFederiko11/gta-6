@@ -75,6 +75,8 @@ jobs:
           node --check site/assets/collectible-beginner-v1.js
           node --check site/assets/strip-club-guide-v1.js
           node --check site/assets/community-social-v1.js
+          node --check site/assets/magazine-quick-search-v1.js
+          node --check site/assets/article-chronology-v1.js
           python -m py_compile community_social_sync_v1.py test_x_permalink_site_v1.py test_beginner_platinum_v1.py
           python -m unittest -q test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py
       - name: Keep legacy provider image references link-only
