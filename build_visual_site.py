@@ -16,6 +16,7 @@ import editorial_articles
 import patch_archive_v1
 import cinematic_site
 import garage_guides_v1 as garage_guides
+import article_chronology_v1 as chronology
 from visual_guide_content import enrich
 from operational_brief_v1 import validate as validate_operational_briefs, render as render_operational_brief
 from waink_visual_v1 import intro as render_waink_intro, step as render_waink_step
@@ -92,7 +93,7 @@ def header(path):
     # Three editorial destinations: guide ≠ community report ≠ other tools.
     primary=[('Home',''),('Guide','guide-e-tutorial/'),('Trofei','trofei/'),('Scoperte','scoperte/')]
     secondary=[('Soldi facili','soldi-facili/'),('Cerca un veicolo','veicoli/'),
-               ('Salvare auto','salvare-auto/'),('Garage gratuiti',garage_guides.PATH),('Collezionabili','collezionabili/percorsi/'),
+               ('Salvare auto','salvare-auto/'),('Glitch','glitch/'),('Garage gratuiti',garage_guides.PATH),('Collezionabili','collezionabili/percorsi/'),
                ('Mappe','mappe-guide/'),('HDR OLED','hdr-oled/'),('Video tutorial','video-tutorial/'),('Articoli','articoli/'),('Patch','patch/'),('Immagini ufficiali','immagini-ufficiali/'),('Fonti e metodo','fonti/')]
     def link(label,target):
         current=' aria-current="page"' if path==target else ''
@@ -445,7 +446,7 @@ def categories():
 
 def home(guides):
     """A photographic route into the existing guides, trophies and discoveries."""
-    return cinematic_site.home(guides,url)+editorial_articles.home_feature(url)+(
+    return cinematic_site.home(guides,url).replace('<section class="ci-section ci-shell" id="scegli">', '<section class="ci-section ci-shell" id="scegli">'+chronology.render(url),1)+(
         '<section class="cv-home-link" aria-labelledby="cv-home-title">'
         '<h2 id="cv-home-title">🎬 Video dei creator, istruzioni italiane</h2>'
         '<p>Quattro video originali selezionati per auto, soldi e tecniche GTA VI. '
@@ -974,6 +975,9 @@ def main():
     for gp,gt,gd,gb,gtype in garage_guides.pages(BASE+'/'):
         legacy.write(gp+'index.html',layout(gt,gd,gp,gb,'guide',structured={'@context':'https://schema.org','@type':gtype,'name':gt,'description':gd,'url':url(gp),'inLanguage':'it-IT'}))
         new_paths.append(gp)
+    glitch_title='Glitch GTA 6 su PS5: exploit e stato delle patch'
+    legacy.write('glitch/index.html',layout(glitch_title,'Solo glitch documentati, separati dalle guide legittime.','glitch/',chronology.glitch_page(url),'guide',structured={'@context':'https://schema.org','@type':'CollectionPage','name':glitch_title,'url':url('glitch/')}))
+    new_paths.append('glitch/')
     # Curated promotional photo index: never inserted into step-by-step guides.
     gallery_title='Immagini ufficiali GTA VI Rockstar: ambientazioni, personaggi e Ultimate Edition'
     gallery_description=('Galleria delle immagini ufficiali GTA VI da Rockstar Games: '
