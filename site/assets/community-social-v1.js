@@ -189,6 +189,7 @@
         const script=document.createElement("script");
         script.async=true;
         script.src=source;
+        script.addEventListener("load",render,{once:true});
         script.onerror=()=>warn(script);
         document.head.append(script);
       }
