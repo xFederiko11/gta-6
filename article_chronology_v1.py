@@ -58,20 +58,240 @@ def inventory():
         rows.append((p,"HDR PS5: "+tv["brand"]+" "+tv["series"],"HDR OLED",dates.get(p)))
     if not set(dates)<= {r[0] for r in rows}:raise ValueError("Unknown publication path")
     return ordered(rows)
-def entry(row,url):
-    path,title,category,published=row
-    stamp=(' · <time datetime="'+published+'">'+date.fromisoformat(published).strftime("%d/%m/%Y")+'</time>') if published else ''
-    return '<a class="ed-home-card chronology-card" data-chronology-path="'+escape(path,quote=True)+'" data-chronology-category="'+escape(category,quote=True)+'" href="'+url(path)+'"><span><small>'+escape(category)+stamp+'</small><strong>'+escape(title)+'</strong></span></a>'
-def render(url,archive=False):
-    rows=inventory();dated=[r for r in rows if r[3]];undated=[r for r in rows if not r[3]]
-    out='<section class="focus-content ed-home" id="ultimi-articoli" data-chronology-root aria-labelledby="chronology-title"><h2 id="chronology-title">Ultimi articoli</h2><p>Dal più recente al meno recente per data di pubblicazione, non di aggiornamento.</p><div data-chronology-dated>'+''.join(entry(r,url) for r in (dated if archive else dated[:12]))+'</div>'
-    if archive:
-        filters=('<div class="ed-filters chronology-filters" data-chronology-filters hidden><label>Cerca un articolo<input type="search" data-chronology-search placeholder="Es. Cheetah, trofeo, HDR"></label><label>Categoria<select data-chronology-filter><option value="">Tutte</option>'+''.join('<option>'+escape(c)+'</option>' for c in CATEGORIES)+'</select></label><button type="button" data-chronology-reset>Mostra tutti</button></div><p data-chronology-count role="status" aria-live="polite"></p>')
-        out=out.replace('<div data-chronology-dated>',filters+'<div data-chronology-dated>',1)
-        if undated:
-            out+='<section data-chronology-undated-section><h2 data-chronology-undated-title>Archivio senza data certa</h2><p>Prima pubblicazione non documentata: nessuna data inventata.</p><div data-chronology-undated>'+''.join(entry(r,url) for r in undated)+'</div></section>'
+# Every article belongs to exactly one parent and one child. Keep the legacy
+# inventory labels above for source contracts, but expose this shared taxonomy.
+PAGE_SIZE=25
+BASE="https://xfederiko11.github.io/gta-6/"
+INDEX="articoli/"
+CATALOG="articoli/catalogo.json"
+GROUPS={
+ "guide":("Guide e missioni","pink",{"missioni":"Missioni e attività","spostamenti":"Spostamenti e vita quotidiana"}),
+ "soldi":("Soldi ed economia","orange",{"bottini":"Denaro e bottini","vendita":"Vendita di veicoli"}),
+ "veicoli":("Veicoli e garage","cyan",{"garage":"Garage e proprietà","registrazione":"Registrazione e chiavi","scanner":"WAiNK e scanner","richieste":"Richieste di Moses e Randy","posizioni":"Posizioni dei veicoli"}),
+ "platino":("Trofei e completamento","violet",{"roadmap":"Roadmap e checklist","trofei":"Singoli trofei","collezionabili":"Collezionabili e mappe","sfide":"Sfide e medaglie","animali":"Animali e fauna","meditazione":"Meditazione"}),
+ "trucchi":("Trucchi e codici","orange",{"codici":"Codici PS5"}),
+ "glitch":("Glitch ed exploit","pink",{"ps5":"Glitch PS5"}),
+ "news":("News e approfondimenti","pink",{"patch":"Patch e aggiornamenti","foto":"Approfondimenti e immagini"}),
+ "hdr":("Tecnica e HDR","violet",{"lg":"LG OLED","samsung":"Samsung OLED","sony":"Sony OLED","philips":"Philips OLED","panasonic":"Panasonic OLED","altri":"Altri modelli OLED"}),
+}
+
+def taxonomy(row):
+    p,_,c,_=row
+    if c=="Glitch":return "glitch","ps5"
+    if c=="Trucchi":return "trucchi","codici"
+    if c=="News e patch":return "news","patch"
+    if c=="Approfondimenti":return "news","foto"
+    if c=="HDR OLED":
+        brand=p.split("/")[1].split("-")[0]
+        return "hdr",brand if brand in GROUPS["hdr"][2] else "altri"
+    if p=="guide-e-tutorial/vendere-veicoli/":return "soldi","vendita"
+    if p.startswith("guide-e-tutorial/soldi-"):return "soldi","bottini"
+    if p.startswith("garage-gratuiti/") or p=="veicoli/pfister-vanessas-growler/":return "veicoli","garage"
+    if p in ("salvare-auto/","guide-e-tutorial/key-cloner/"):return "veicoli","registrazione"
+    if p=="guide-e-tutorial/scansionare-veicoli/":return "veicoli","scanner"
+    if p in ("guide-e-tutorial/veicoli-per-moses/","guide-e-tutorial/sportive-randy-posizioni/"):return "veicoli","richieste"
+    if p.startswith("veicoli/"):return "veicoli","posizioni"
+    if p.startswith("trofei/trofeo-") and p!="trofei/trofei-difficili/":return "platino","trofei"
+    if p=="guide-e-tutorial/studiare-animali/":return "platino","animali"
+    if p=="guide-e-tutorial/meditazione-capitolo-1/":return "platino","meditazione"
+    if p in ("guide-e-tutorial/70-sfide-100-percento/","guide-e-tutorial/poligoni-concentrazione/","trofei/medaglie-oro/"):return "platino","sfide"
+    if p.startswith("collezionabili/"):return "platino","collezionabili"
+    if p.startswith("trofei/"):return "platino","roadmap"
+    if c=="Garage":return "veicoli","garage"
+    if c=="Veicoli":return "veicoli","posizioni"
+    if c=="Collezionabili":return "platino","collezionabili"
+    if c=="Trofei":return "platino","sfide"
+    if p=="guide-e-tutorial/viaggio-rapido-taxi/":return "guide","spostamenti"
+    return "guide","missioni"
+
+def category_path(group="",sub=""):
+    if not group:return INDEX
+    if group not in GROUPS or (sub and sub not in GROUPS[group][2]):raise ValueError("Unknown category")
+    return INDEX+"categoria/"+group+"/"+(sub+"/" if sub else "")
+
+def page_path(group="",sub="",page=1):
+    if page<1:raise ValueError("Invalid archive page")
+    return category_path(group,sub)+("pagina/"+str(page)+"/" if page>1 else "")
+
+def scoped(rows,group="",sub=""):
+    return [r for r in rows if (not group or taxonomy(r)[0]==group) and (not sub or taxonomy(r)[1]==sub)]
+
+def tree(rows=None):
+    rows=inventory() if rows is None else rows
+    result=[]
+    for g,(label,color,children) in GROUPS.items():
+        group_rows=scoped(rows,g)
+        if not group_rows:continue
+        result.append({"id":g,"label":label,"color":color,"count":len(group_rows),
+                       "path":category_path(g),"children":[{"id":s,"label":name,"count":len(found),"path":category_path(g,s)}
+                         for s,name in children.items() if (found:=scoped(group_rows,g,s))]})
+    return result
+
+def total_pages(rows):
+    return max(1,(len(rows)+PAGE_SIZE-1)//PAGE_SIZE)
+
+def specs(rows=None):
+    rows=inventory() if rows is None else rows
+    scopes=[("","",rows)]
+    for g in tree(rows):
+        scopes.append((g["id"],"",scoped(rows,g["id"])))
+        scopes.extend((g["id"],s["id"],scoped(rows,g["id"],s["id"])) for s in g["children"])
+    for group,sub,selected in scopes:
+        for page in range(1,total_pages(selected)+1):
+            # Small, overlapping discovery lists remain useful to readers;
+            # don't index collections of only one or two already indexed pages.
+            yield group,sub,page,page_path(group,sub,page),len(selected)>=3,selected
+
+def label_for(group="",sub=""):
+    if not group:return "Tutti gli articoli"
+    return GROUPS[group][2][sub] if sub else GROUPS[group][0]
+
+def record(row):
+    p,t,c,d=row;g,s=taxonomy(row)
+    secret=c=="Trofei" and t.startswith("Trofeo segreto n.")
+    kind=("Fonte ufficiale" if c=="News e patch" else "Community · da verificare" if c=="Glitch"
+          else "Non testato direttamente" if c=="Trucchi" else "Trofeo segreto" if secret else
+          "Scheda tecnica" if c=="HDR OLED" else "Scheda veicolo" if p.startswith("veicoli/") else
+          "Approfondimento" if c=="Approfondimenti" else "Guida")
+    return {"path":p,"title":t,"category":c,"group":g,"sub":s,"group_label":GROUPS[g][0],
+            "sub_label":GROUPS[g][2][s],"color":GROUPS[g][1],"published":d,"badge":kind,
+            "summary":"Dettagli e requisiti nella guida. Possibili spoiler." if secret else "",
+            "secret":secret,"image":"","credit":""}
+
+def esc(v):return escape(str(v),quote=True)
+
+def card(item,url):
+    p=item["path"];title=item["title"];published=item["published"]
+    stamp=('<time datetime="'+esc(published)+'">'+date.fromisoformat(published).strftime("%d/%m/%Y")+'</time>') if published else '<span>Data non documentata</span>'
+    if item["image"]:
+        media=('<img src="'+esc(url(item["image"]))+'" width="480" height="252" loading="lazy" decoding="async" alt="">'
+               '<span class="archive-credit">'+esc(item["credit"])+'</span>')
     else:
-        out+='<p><a href="'+url("articoli/")+'">Tutti gli articoli: ricerca e categorie →</a> · <a href="'+url("glitch/")+'">Solo glitch</a></p>'
+        media='<span class="archive-tile"><span>GTA VI / ITALIA</span><strong>'+esc(item["sub_label"])+'</strong><span>'+esc(item["badge"])+'</span></span>'
+    return ('<a class="ed-home-card chronology-card" data-chronology-path="'+esc(p)+'" data-chronology-category="'+esc(item["category"])+'" data-group="'+esc(item["group"])+'" data-sub="'+esc(item["sub"])+'" data-color="'+esc(item["color"])+'" href="'+esc(url(p))+'">'
+            '<span class="archive-media">'+media+'</span><span class="archive-copy"><span class="archive-meta"><span class="archive-category">'+esc(item["group_label"])+'</span><span>'+esc(item["sub_label"])+'</span>'+stamp+'</span>'
+            '<strong class="archive-title">'+esc(title)+'</strong><span class="archive-summary">'+esc(item["summary"])+'</span>'
+            '<span class="archive-bottom"><span class="archive-badge">'+esc(item["badge"])+'</span><span class="archive-cta">Leggi →</span></span></span></a>')
+
+def entry(row,url):
+    return card(record(row),url)
+
+def category_nav(url,rows,group="",sub="",compact=False):
+    groups=tree(rows)
+    if compact:
+        return '<details class="archive-bottom-categories"><summary>Esplora per categoria</summary><div class="archive-taxonomy">'+''.join(
+            '<section><a href="'+url(g["path"])+'">'+esc(g["label"])+' <span>'+str(g["count"])+'</span></a><div>'+''.join(
+                '<a href="'+url(s["path"])+'">'+esc(s["label"])+' <span>'+str(s["count"])+'</span></a>' for s in g["children"])+'</div></section>' for g in groups)+'</div></details>'
+    main='<nav class="archive-group-nav" aria-label="Categorie articoli"><a href="'+url(INDEX)+'"'+(' aria-current="page"' if not group else '')+'>Tutti</a>'+''.join(
+        '<a href="'+url(g["path"])+'" data-color="'+g["color"]+'"'+(' aria-current="page"' if g["id"]==group and not sub else '')+(' data-current-group="true"' if g["id"]==group else '')+'>'+esc(g["label"])+' <span>'+str(g["count"])+'</span></a>' for g in groups)+'</nav>'
+    if group:
+        children=next(g["children"] for g in groups if g["id"]==group)
+        main+='<nav class="archive-sub-nav" aria-label="Sottocategorie"><a href="'+url(category_path(group))+'"'+(' aria-current="page"' if not sub else '')+'>Tutta la categoria</a>'+''.join(
+            '<a href="'+url(s["path"])+'"'+(' aria-current="page"' if s["id"]==sub else '')+'>'+esc(s["label"])+' <span>'+str(s["count"])+'</span></a>' for s in children)+'</nav>'
+    return main
+
+def pager(url,rows,group="",sub="",page=1):
+    n=total_pages(rows)
+    def link(i,text,cls=""):
+        return '<a href="'+url(page_path(group,sub,i))+'"'+(' aria-current="page"' if page==i else '')+(' class="'+cls+'"' if cls else '')+'>'+text+'</a>'
+    return '<nav class="archive-pagination" data-archive-pager aria-label="Pagine articoli">'+(link(page-1,"← Indietro","archive-prev") if page>1 else '')+''.join(link(i,str(i)) for i in range(1,n+1))+(link(page+1,"Avanti →","archive-next") if page<n else '')+'</nav>'
+
+def filters(rows,group,sub):
+    groups=tree(rows)
+    opts='<option value="">Tutte</option>'+''.join('<option value="'+g["id"]+'"'+(' selected' if g["id"]==group else '')+'>'+esc(g["label"])+'</option>' for g in groups)
+    subs='<option value="">Tutte</option>'+''.join('<option value="'+s["id"]+'"'+(' selected' if s["id"]==sub else '')+'>'+esc(s["label"])+'</option>' for g in groups if g["id"]==group for s in g["children"])
+    return ('<div class="ed-filters chronology-filters" data-chronology-filters hidden><label>Cerca in tutto il catalogo<input type="search" data-chronology-search placeholder="Titolo, veicolo, trofeo…"></label>'
+            '<label>Categoria<select data-chronology-filter>'+opts+'</select></label><label>Sottocategoria<select data-chronology-subfilter>'+subs+'</select></label>'
+            '<button type="button" data-chronology-reset>Ripristina</button></div>')
+
+def render(url,archive=False,group="",sub="",page=1):
+    rows=inventory();selected=scoped(rows,group,sub)
+    start=(page-1)*PAGE_SIZE;shown=selected[start:start+PAGE_SIZE]
+    heading=label_for(group,sub) if archive and group else "Ultimi articoli"
+    out=('<section class="focus-content ed-home" id="ultimi-articoli" data-chronology-root data-archive-page="'+str(page)+'" data-archive-group="'+group+'" data-archive-sub="'+sub+'" data-catalog-url="'+url(CATALOG)+'" aria-labelledby="chronology-title">'
+         '<div class="archive-heading"><div><span class="archive-kicker">GTA VI ITALIA / MAGAZINE</span><h2 id="chronology-title">'+esc(heading)+'</h2><p>Dal più recente al meno recente per data di pubblicazione.</p></div><span class="archive-total">'+str(len(selected))+' articoli</span></div>')
+    if archive:out+=category_nav(url,rows,group,sub)+filters(rows,group,sub)
+    out+='<p data-chronology-count role="status" aria-live="polite">Articoli '+str(start+1)+'–'+str(start+len(shown))+' di '+str(len(selected))+'</p>'
+    out+='<div class="archive-grid" data-chronology-dated>'+''.join(entry(r,url) for r in shown)+'</div>'
+    out+=pager(url,selected,group,sub,page)+category_nav(url,rows,group,sub,compact=True)
     return out+'</section>'
+
+def archive_pages(write,layout,url,crumbs):
+    paths=[]
+    for g,s,n,p,indexable,rows in specs():
+        label=label_for(g,s)
+        heading="Articoli GTA VI" if not g else label+" · GTA VI"
+        if n>1:heading+=" — pagina "+str(n)
+        desc="Guide, notizie e approfondimenti GTA VI in italiano, "+label.lower()+". Pagina "+str(n)+" di "+str(total_pages(rows))+"."
+        crumbs_parts=[("Articoli",INDEX)]
+        if g:crumbs_parts.append((GROUPS[g][0],category_path(g)))
+        if s:crumbs_parts.append((label,category_path(g,s)))
+        if n>1:crumbs_parts.append(("Pagina "+str(n),p))
+        body=crumbs(crumbs_parts)+'<section class="ed-intro archive-intro"><h1>'+esc(heading)+'</h1><p>'+esc(desc)+'</p></section>'+render(url,True,g,s,n)
+        schema={"@context":"https://schema.org","@type":"CollectionPage","name":heading,"url":url(p),"inLanguage":"it-IT",
+                "mainEntity":{"@type":"ItemList","numberOfItems":len(rows[(n-1)*PAGE_SIZE:n*PAGE_SIZE]),"itemListElement":[{"@type":"ListItem","position":(n-1)*PAGE_SIZE+i,"url":url(row[0])} for i,row in enumerate(rows[(n-1)*PAGE_SIZE:n*PAGE_SIZE],1)]}}
+        write(p+"index.html",layout(heading+" | GTA 6 Italia",desc,p,body,"articles",robots="index,follow" if indexable else "noindex,follow",structured=schema))
+        if indexable:paths.append(p)
+    return paths
+
 def glitch_page(url):
-    return '<section class="ed-intro"><h1>Glitch GTA 6 su PS5</h1><p>Solo exploit e anomalie, separati dalle strategie previste dal gioco. Controlla la patch indicata da ogni guida: nessuna garanzia per i trofei.</p></section><section class="ed-home" data-glitch-index>'+''.join(entry(r,url) for r in inventory() if r[2]=="Glitch")+'</section>'
+    return '<section class="ed-intro"><h1>Glitch GTA 6 su PS5</h1><p>Solo exploit e anomalie, separati dalle strategie previste dal gioco. Controlla la patch indicata da ogni guida: nessuna garanzia per i trofei.</p></section><section class="ed-home" data-glitch-index><div class="archive-grid">'+''.join(entry(r,url) for r in inventory() if r[2]=="Glitch")+'</div></section>'
+
+def decorate(root=Path("_site")):
+    """Use only metadata and existing cover files from the built public pages.
+    Original editorial art may be thumbnailed; uncleared promotional/game
+    photos are NOT reused in new listings. Hidden trophies never expose covers
+    or requirements. The X feed remains byte-identical."""
+    from html.parser import HTMLParser
+    from PIL import Image
+    class Meta(HTMLParser):
+        def __init__(self):
+            super().__init__();self.values={};self.canon=[]
+        def handle_starttag(self,tag,attrs):
+            a=dict(attrs)
+            if tag=="meta":
+                key=a.get("name") or a.get("property")
+                if key:self.values[key]=a.get("content","")
+            if tag=="link" and a.get("rel")=="canonical":self.canon.append(a.get("href"))
+    feed=root/"articoli/feed.json";before=feed.read_bytes()
+    thumbs=root/"assets/archive-thumbs";thumbs.mkdir(parents=True,exist_ok=True)
+    records={}
+    for row in inventory():
+        item=record(row);p=item["path"];parser=Meta()
+        parser.feed((root/p/"index.html").read_text(encoding="utf-8"))
+        assert parser.canon==[BASE+p],p
+        if not item["secret"]:
+            desc=" ".join(parser.values.get("description","").split())
+            if len(desc)>190:desc=desc[:187].rsplit(" ",1)[0]+"…"
+            item["summary"]=desc or "Consulta requisiti, indicazioni e fonti nella scheda."
+            kind=parser.values.get("gta6:cover-kind")
+            image=parser.values.get("og:image","")
+            if kind in ("approved_gameplay","original_illustration"):
+                assert image.startswith(BASE+"assets/social-cards/"),p
+                rel=image.removeprefix(BASE)
+                assert re.fullmatch(r"assets/social-cards/[0-9a-f]{16}\.jpg",rel),rel
+                original=root/rel
+                assert original.is_file(),rel
+                if kind=="original_illustration":
+                    target=thumbs/(original.stem+".webp")
+                    with Image.open(original) as img:
+                        img.thumbnail((480,252))
+                        img.save(target,"WEBP",quality=82,method=4)
+                    item["image"]="assets/archive-thumbs/"+target.name
+                    item["credit"]="Grafica editoriale · non gameplay"
+                else:
+                    item["image"]=rel
+                    item["credit"]="Screenshot autorizzato · crediti nella guida"
+        records[p]=item
+    pattern=re.compile(r'<a class="ed-home-card chronology-card" data-chronology-path="([^"]+)"[^>]*>.*?</a>',re.S)
+    for f in [root/"index.html",root/"glitch/index.html",*(root/p/"index.html" for _,_,_,p,_,_ in specs())]:
+        html=f.read_text(encoding="utf-8")
+        changed=pattern.sub(lambda m:card(records[m.group(1)],lambda p:BASE+p),html)
+        assert pattern.search(changed),str(f)
+        f.write_text(changed,encoding="utf-8")
+    (root/CATALOG).write_text(json.dumps({"schema":"gta6-public-archive-v2","page_size":PAGE_SIZE,"groups":tree(),"items":list(records.values())},ensure_ascii=False,separators=(",",":"))+"\n",encoding="utf-8")
+    assert before==feed.read_bytes()
+    print("MAGAZINE_ARCHIVE_BUILT",len(records),"articles",len(list(specs())),"collection pages",len(list(thumbs.glob("*.webp"))),"lightweight original covers")
+
+if __name__=="__main__":
+    decorate()

@@ -249,17 +249,47 @@ def browser_qa():
                         assert page.locator('html').get_attribute('data-theme')==theme,'persistence'
                         check_layout(page,out,width,path,theme)
                     if path=='articoli/':
-                        page.locator('[data-chronology-filter]').select_option('Glitch')
+                        page.locator('[data-chronology-filters]').wait_for(state='visible')
+                        assert page.locator('[data-chronology-path]:visible').count()==25
+                        page.locator('[data-chronology-filter]').select_option('glitch')
                         assert page.locator('[data-chronology-path]:visible').count()==1
+                        page.locator('[data-chronology-filter]').select_option('veicoli')
+                        page.locator('[data-chronology-subfilter]').select_option('garage')
+                        assert page.locator('[data-chronology-path]:visible').count()>=4
+                        assert page.locator('[data-chronology-path][data-sub="garage"]:visible').count()==page.locator('[data-chronology-path]:visible').count()
                         page.locator('[data-chronology-filter]').select_option('')
                         page.locator('[data-chronology-search]').fill('Southside Storage')
-                        assert page.locator('[data-chronology-path]:visible').count()==1
+                        # Search now covers titles AND descriptions. Related pages
+                        # mentioning the garage are valid; assert the exact guide
+                        # is found and each result contains both terms.
+                        matches=page.locator('[data-chronology-path]:visible')
+                        assert 1<=matches.count()<=25
+                        assert page.locator('[data-chronology-path="garage-gratuiti/southside-storage/"]:visible').count()==1
+                        for result in matches.all():
+                            text=result.inner_text().lower()
+                            assert 'southside' in text and 'storage' in text,text
                         page.locator('[data-chronology-search]').fill('nessunrisultatozzzz')
                         assert page.locator('[data-chronology-path]:visible').count()==0
                         assert 'Nessun articolo trovato' in page.locator('[data-chronology-count]').inner_text()
                         page.locator('[data-chronology-reset]').click()
                         assert page.locator('[data-chronology-search]').input_value()==''
-                        assert page.locator('[data-chronology-path]:visible').count()>120
+                        assert page.locator('[data-chronology-path]:visible').count()==25
+                        page.locator('[data-chronology-search]').fill('trofeo')
+                        assert page.locator('[data-chronology-path]:visible').count()==25
+                        before=page.locator('[data-chronology-path]').first.get_attribute('data-chronology-path')
+                        page.locator('[data-archive-pager] button').filter(has_text='Avanti').click()
+                        assert page.locator('[data-chronology-path]').first.get_attribute('data-chronology-path')!=before
+                        page.locator('[data-chronology-reset]').click()
+                        page.locator('[data-archive-pager] a.archive-next').click()
+                        assert page.url.endswith('/articoli/pagina/2/')
+                        assert page.locator('[data-chronology-path]').count()==25
+                        assert page.locator('[data-archive-pager] [aria-current=page]').inner_text()=='2'
+                        assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
+                        page.goto(origin+'articoli/categoria/veicoli/garage/',wait_until='load')
+                        assert page.locator('[data-chronology-path][data-sub="garage"]').count()==page.locator('[data-chronology-path]').count()
+                        assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
+                        page.goto(origin+'articoli/',wait_until='load')
+                        print('MAGAZINE_ARCHIVE_BROWSER_OK',width,flush=True)
                     if path=='garage-gratuiti/southside-storage/' and width==390:
                         field=page.locator('[data-vc-code-value]')
                         assert field.input_value()=="1010"
@@ -983,6 +1013,15 @@ def browser_qa():
                     assert self_theme==('auto' if nojs else expected),(width,nojs,self_theme)
                     expected_bg='rgb(16, 19, 29)'
                     assert page.evaluate('getComputedStyle(document.body).backgroundColor')==expected_bg
+                    if nojs:
+                        page.goto(origin+'articoli/',wait_until='load')
+                        assert page.locator('[data-chronology-path]').count()==25
+                        page.locator('[data-archive-pager] a.archive-next').click()
+                        assert page.url.endswith('/articoli/pagina/2/')
+                        assert page.locator('[data-chronology-path]').count()==25
+                        page.locator('.archive-group-nav a').filter(has_text='Glitch ed exploit').click()
+                        assert page.locator('[data-chronology-path]').count()==1
+                        print('MAGAZINE_ARCHIVE_NO_JS_OK',width,flush=True)
                     if blocked:
                         page.locator('[data-theme-choice="dark"]').click()
                         assert page.locator('html').get_attribute('data-theme')=='dark'

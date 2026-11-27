@@ -33,14 +33,49 @@ class SimpleHomeTests(unittest.TestCase):
         self.assertIn("rel=\"canonical\"",page)
 
     def test_chronology_and_strict_glitch_archive(self):
-        from article_chronology_v1 import inventory,GLITCH
+        from article_chronology_v1 import inventory,GLITCH,PAGE_SIZE,specs,tree,taxonomy,BASE,CATALOG
         rows=inventory()
         dated=[r for r in rows if r[3]]
         self.assertEqual([r[3] for r in dated],sorted([r[3] for r in dated],reverse=True))
         home=(SITE/"index.html").read_text(encoding="utf-8")
         index=(SITE/"articoli/index.html").read_text(encoding="utf-8")
-        self.assertEqual(re.findall(r'data-chronology-path="([^"]+)"',home),[r[0] for r in dated[:12]])
-        self.assertEqual(re.findall(r'data-chronology-path="([^"]+)"',index),[r[0] for r in rows])
+        self.assertEqual(re.findall(r'data-chronology-path="([^"]+)"',home),[r[0] for r in rows[:PAGE_SIZE]])
+        self.assertEqual(re.findall(r'data-chronology-path="([^"]+)"',index),[r[0] for r in rows[:PAGE_SIZE]])
+        import json,xml.etree.ElementTree as ET
+        sitemap={n.text for n in ET.parse(SITE/"sitemap.xml").iter("{http://www.sitemaps.org/schemas/sitemap/0.9}loc")}
+        catalog=json.loads((SITE/CATALOG).read_text(encoding="utf-8"))
+        self.assertEqual(catalog["page_size"],25)
+        self.assertEqual([x["path"] for x in catalog["items"]],[r[0] for r in rows])
+        self.assertEqual(catalog["groups"],tree(rows))
+        self.assertEqual(len(tree(rows)),8)
+        self.assertEqual(sum(g["count"] for g in tree(rows)),len(rows))
+        self.assertEqual(sum(s["count"] for g in tree(rows) for s in g["children"]),len(rows))
+        self.assertEqual({taxonomy(r)[0] for r in rows if r[2]=="Glitch"},{"glitch"})
+        self.assertEqual({taxonomy(r)[0] for r in rows if r[2]=="Trucchi"},{"trucchi"})
+        all_archive=[]
+        for group,sub,n,path,indexable,selected in specs(rows):
+            page=(SITE/path/"index.html").read_text(encoding="utf-8")
+            expected=selected[(n-1)*PAGE_SIZE:n*PAGE_SIZE]
+            actual=re.findall(r'data-chronology-path="([^"]+)"',page)
+            self.assertEqual(actual,[r[0] for r in expected],path)
+            self.assertLessEqual(len(actual),PAGE_SIZE)
+            self.assertIn('rel="canonical" href="'+BASE+path+'"',page)
+            self.assertEqual(BASE+path in sitemap,indexable,path)
+            self.assertIn('data-archive-pager',page)
+            if not group:all_archive.extend(actual)
+            if n*PAGE_SIZE<len(selected):
+                self.assertIn("Avanti",page)
+            if not indexable:self.assertIn('name="robots" content="noindex,follow"',page)
+        self.assertEqual(all_archive,[r[0] for r in rows])
+        for item in catalog["items"]:
+            self.assertTrue(item["summary"],item["path"])
+            if item["secret"]:self.assertFalse(item["image"])
+            if item["image"]:
+                self.assertTrue((SITE/item["image"]).is_file(),item["image"])
+                self.assertIn(item["credit"],("Grafica editoriale · non gameplay","Screenshot autorizzato · crediti nella guida"))
+                from PIL import Image
+                with Image.open(SITE/item["image"]) as img:
+                    self.assertEqual(img.size,(480,252) if item["image"].endswith(".webp") else (1200,630))
         self.assertEqual(re.findall(r'data-chronology-path="([^"]+)"',(SITE/"glitch/index.html").read_text(encoding="utf-8")),[GLITCH])
         for path,*_ in rows:self.assertTrue((SITE/path/"index.html").is_file(),path)
         self.assertEqual(len({r[0] for r in rows}),len(rows))

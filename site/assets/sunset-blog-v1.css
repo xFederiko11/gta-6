@@ -126,3 +126,18 @@ html:has(body[data-preview])[data-theme=light]{--pink:var(--r-pink);--r-text:var
 @media(max-width:760px){.sb-quick-jump{margin:2px 0 8px}.sb-quick-jump a{min-height:40px}.sb-related{padding:12px}}
 
 .sb-post-time{display:block;color:var(--r-muted);font-size:.72rem;font-weight:650;line-height:1.45;margin:3px 0 6px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+
+/* Shared editorial taxonomy, collapsible in the sidebar. */
+.sb-categories{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+.sb-categories .sb-all-articles{color:var(--r-pink)!important;font-weight:850;min-height:42px}
+.sb-taxonomy{min-width:0;border-bottom:1px solid var(--r-line);padding:5px 0}
+.sb-taxonomy summary{display:flex;justify-content:space-between;align-items:center;gap:7px;min-height:35px;cursor:pointer;font-size:.84rem;font-weight:800;color:var(--r-text);list-style:none;overflow-wrap:anywhere}
+.sb-taxonomy summary::-webkit-details-marker{display:none}
+.sb-taxonomy summary::before{content:"+";color:var(--r-pink);font-size:1rem;flex:none}
+.sb-taxonomy[open] summary::before{content:"−"}
+.sb-taxonomy summary span{margin-left:auto;color:var(--r-muted);font-size:.67rem;font-weight:650;flex:none}
+.sb-taxonomy a{padding:8px 0 8px 13px;font-size:.78rem;border-bottom:0}
+.sb-taxonomy a:first-of-type{color:var(--r-pink)!important}
+.sb-taxonomy a[aria-current=page]{color:var(--r-pink)!important}
+.sb-taxonomy summary:focus-visible{outline:2px solid var(--r-cyan);outline-offset:2px}
+@media(max-width:760px){.sb-taxonomy summary{min-height:44px}.sb-taxonomy a{min-height:42px}}
