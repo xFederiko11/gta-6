@@ -146,39 +146,63 @@
   document.querySelectorAll("[data-x-timeline-load]").forEach(timeline=>{
     const panel=timeline.closest(".sb-x-panel")||document;
     const slot=panel.querySelector("[data-x-timeline-slot]");
-    if(!slot)return;
-    timeline.addEventListener("click",()=>{
-      loadReceipts();
+    const link=slot&&slot.querySelector("a.twitter-timeline");
+    if(!slot||!link)return;
+    let started=false;
+    const warn=(script)=>{
+      if(script)script.dataset.xFeedFailed="true";
+      started=false;
+      timeline.disabled=false;
+      timeline.hidden=false;
+      timeline.textContent="Riprova il feed X";
+      slot.querySelectorAll(".social-empty").forEach(n=>n.remove());
+      slot.append(make("p","social-empty","La timeline X non è disponibile. Puoi aprire il profilo dal collegamento qui sotto."));
+    };
+    const render=()=>{
+      try{
+        if(!window.twttr||!window.twttr.widgets)throw new Error("X widget unavailable");
+        const rendered=window.twttr.widgets.load(slot);
+        if(rendered&&typeof rendered.then==="function"){
+          rendered.then(()=>{timeline.hidden=true;}).catch(()=>warn());
+        }else timeline.hidden=true;
+      }catch(_){warn();}
+    };
+    const load=()=>{
+      if(started)return;
+      started=true;
       timeline.disabled=true;
-      const link=document.createElement("a");
-      link.href="https://x.com/xFederiko11";
-      link.className="twitter-timeline";
-      link.textContent="Ultimi post pubblici di Federiko su X";
-      link.dataset.height="420";
-      link.dataset.chrome="noheader nofooter";
+      timeline.textContent="Caricamento feed X…";
       link.dataset.theme=document.documentElement.dataset.theme==="light"?"light":"dark";
-      slot.append(link);
-      const warn=()=>{
-        const notice=document.createElement("p");
-        notice.className="social-empty";
-        notice.textContent="Il feed incorporato non è disponibile: apri il profilo dal link.";
-        slot.append(notice);
-      };
+      slot.querySelectorAll(".social-empty").forEach(n=>n.remove());
       const source="https://platform.twitter.com/widgets.js";
-      const existing=document.querySelector('script[src="'+source+'"]');
+      let existing=document.querySelector('script[src="'+source+'"]');
+      if(existing&&existing.dataset.xFeedFailed==="true"){
+        existing.remove();
+        existing=null;
+      }
       if(window.twttr&&window.twttr.widgets){
-        try{window.twttr.widgets.load(slot)}catch(_){warn()}
+        render();
       }else if(existing){
-        existing.addEventListener("load",()=>{try{window.twttr?.widgets?.load(slot)}catch(_){warn()}},{once:true});
-        existing.addEventListener("error",warn,{once:true});
+        existing.addEventListener("load",render,{once:true});
+        existing.addEventListener("error",()=>warn(existing),{once:true});
       }else{
         const script=document.createElement("script");
         script.async=true;
         script.src=source;
-        script.onerror=warn;
+        script.addEventListener("load",render,{once:true});
+        script.onerror=()=>warn(script);
         document.head.append(script);
       }
-      timeline.hidden=true;
-    },{once:true});
+    };
+    timeline.addEventListener("click",load);
+    if("IntersectionObserver" in window){
+      const observer=new IntersectionObserver(entries=>{
+        if(entries.some(e=>e.isIntersecting)){
+          observer.disconnect();
+          load();
+        }
+      },{rootMargin:"200px"});
+      observer.observe(panel);
+    }else load();
   });
 })();
