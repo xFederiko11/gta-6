@@ -315,12 +315,25 @@ def browser(root=ROOT):
                 page.add_init_script("""(() => {
                   const Native=window.IntersectionObserver;
                   if(!Native)return;
+                  const instances=[];
                   window.IntersectionObserver=class extends Native{
-                    constructor(callback,options){super(callback,options);this.__callback=callback;}
+                    constructor(callback,options){
+                      super(callback,options);
+                      this.__callback=callback;
+                      this.__targets=[];
+                      instances.push(this);
+                    }
                     observe(target){
                       super.observe(target);
-                      if(target&&target.matches&&target.matches(".sb-x-panel"))
-                        setTimeout(()=>this.__callback([{target,isIntersecting:true,intersectionRatio:1}]),0);
+                      this.__targets.push(target);
+                    }
+                  };
+                  window.__triggerTestIntersection=(selector)=>{
+                    for(const observer of instances){
+                      for(const target of observer.__targets){
+                        if(target&&target.matches&&target.matches(selector))
+                          observer.__callback([{target,isIntersecting:true,intersectionRatio:1}],observer);
+                      }
                     }
                   };
                 })();""")
@@ -401,7 +414,8 @@ def browser(root=ROOT):
                     if path==EXAMPLE:
                         print("MAGAZINE_ARTICLE_BROWSER_OK",width)
                     page.locator(".sb-x-panel").scroll_into_view_if_needed()
-                    page.wait_for_function("document.querySelector('[data-x-timeline-slot]')?.dataset.xTestWidgetLoaded==='true'")
+                    page.evaluate("window.__triggerTestIntersection('.sb-x-panel')")
+                    page.wait_for_function("document.querySelector('[data-x-timeline-slot]')?.dataset.xTestWidgetLoaded==='true'",timeout=10000)
                     assert page.locator('[data-x-timeline-slot] a.twitter-timeline').get_attribute("data-tweet-limit")=="5"
                     assert page.locator("[data-x-timeline-load]").is_hidden()
                     assert page.locator(".sb-profile").is_visible()
