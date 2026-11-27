@@ -1,7 +1,7 @@
 """Check source-only garage content and canonical production output."""
 import unittest
 from pathlib import Path
-from garage_guides_v1 import PATH,SOUTH,DOMESTIC,STORY,VANESSA,BUY,pages
+from garage_guides_v1 import PATH,SOUTH,DOMESTIC,STORY,VANESSA,BUY,pages,SOUTH_MEDIA,MEDIA_REGISTRY
 BASE="https://xfederiko11.github.io/gta-6/"
 ROOT=Path("_site")
 class GarageGuidesTests(unittest.TestCase):
@@ -13,6 +13,17 @@ class GarageGuidesTests(unittest.TestCase):
             self.assertIn('https://www.gtabase.com/gta-6/properties/',result[STORY+ident+'/'])
         self.assertEqual(result[PATH].count('data-garage-entry'),7)
         self.assertEqual(result[SOUTH].count('data-garage-step='),8)
+        self.assertEqual(result[SOUTH].count('data-southside-map-pin='),6)
+        self.assertEqual(result[SOUTH].count('data-youtube-id="mu_VCQKeXvM"'),6)
+        self.assertEqual(result[SOUTH].count('class="v-video-reference" open'),6)
+        self.assertIn('data-youtube-start="294"',result[SOUTH])
+        self.assertIn('data-youtube-start="255"',result[SOUTH])
+        self.assertIn('data-youtube-start="323"',result[SOUTH])
+        self.assertIn("Capitolo minimo",result[SOUTH])
+        self.assertIn("non concordano",result[SOUTH])
+        self.assertEqual(MEDIA_REGISTRY["schema"],"gta6-editorial-media-rights-v1")
+        self.assertEqual(SOUTH_MEDIA["southside-powerpyx-video"]["rights_status"],"youtube_platform_embed_only")
+        self.assertEqual(sum(x["kind"]=="community_map_location_link" for x in MEDIA_REGISTRY["items"]),6)
         self.assertEqual(result[DOMESTIC].count('data-garage-step='),7)
         self.assertEqual(result[STORY].count('data-story-garage='),4)
         self.assertIn("1010",result[SOUTH])
