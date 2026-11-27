@@ -43,7 +43,7 @@ html[data-theme=light] .v-guide-card[data-category=garage] .v-tag,html[data-them
 .sb-x-button:hover{border-color:var(--r-pink)}
 .sb-profile{display:block;margin-top:9px;text-decoration:underline;text-underline-offset:3px}
 .sb-x-panel [data-x-timeline-slot]{max-width:100%;min-width:0;overflow:hidden}
-.sb-x-panel [data-x-timeline-slot] iframe{max-width:100%!important}
+.sb-x-panel [data-x-timeline-slot] iframe{max-width:100%!important;width:100%!important;border-radius:10px}
 body:has(.sunset-blog) main.wrap:not(:has([data-cinematic-home])){max-width:1400px}
 body:has(.v-tutorial) .sunset-content .v-intro.v-guide-intro,
 body:has(.v-tutorial) .sunset-content .v-guide-single{max-width:850px}
