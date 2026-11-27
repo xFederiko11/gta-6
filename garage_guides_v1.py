@@ -55,16 +55,32 @@ DOMESTIC_STEPS=(
 def e(value):return escape(str(value),quote=True)
 def ref(target,label):return '<a href="'+e(target)+'" target="_blank" rel="noopener noreferrer">'+e(label)+'</a>'
 def internal(base,target,label):return '<a href="'+e(base+target)+'">'+e(label)+'</a>'
+def video_reference(title,seconds,source):
+    stamp=f"{seconds//60}:{seconds%60:02d}"
+    youtube="https://www.youtube.com/watch?v=mu_VCQKeXvM&t="+str(seconds)+"s"
+    return ('<details class="v-video-reference"><summary>Video PowerPyx · '+e(title)+' · '+stamp+'</summary>'
+            '<div class="v-video-copy"><strong>Gameplay originale: PowerPyx</strong>'
+            '<p>Riferimento esterno per questo murale; la posizione e il minuto sono riportati dalla fonte collegata.</p>'
+            '<div class="v-video-shell" data-youtube-id="mu_VCQKeXvM" data-youtube-start="'+str(seconds)+'">'
+            '<div class="v-video-embed" data-youtube-holder>'
+            '<span class="v-video-play-art" aria-hidden="true">▶</span>'
+            '<button type="button" data-load-youtube>Riproduci da '+stamp+'</button>'
+            '<small>Il player YouTube viene caricato solo dopo il clic.</small></div></div>'
+            '<p class="v-video-links"><a href="'+e(youtube)+'" target="_blank" rel="noopener noreferrer">Apri il video originale da '+stamp+' ↗</a></p>'
+            '<p class="v-caption"><small>Video: '+ref("https://www.youtube.com/watch?v=mu_VCQKeXvM","PowerPyx su YouTube")+
+            ' · Minuto: '+ref(source,"WarpPipes — fonte della posizione e del timestamp")+
+            '. Gameplay non verificato personalmente dal nostro team.</small></p></div></details>')
 def banner(base):
     return '<p class="v-guide-video-crosslink"><strong>Garage gratis e segreti:</strong> '+internal(base,PATH,"scopri tutti gli sblocchi, i codici e le ricompense →")+'</p>'
 def start(base,title,desc):
     return '<article class="vc-article garage-guide" data-garage-guide><nav class="vc-crumb" aria-label="Percorso">'+internal(base,PATH,"Garage gratuiti")+'</nav><section class="vc-article-hero"><span class="vc-eyebrow">GTA VI · PS5 / PS5 PRO</span><h1>'+e(title)+'</h1><p>'+e(desc)+'</p><p>Verifica delle fonti: 27 novembre 2026. Patch di gioco non verificata direttamente; possibili spoiler.</p></section>'
 def facts(rows):
     return '<section class="vc-facts"><h2>Risposta immediata</h2><dl>'+''.join('<div><dt>'+e(k)+'</dt><dd>'+e(v)+'</dd></div>' for k,v in rows)+'</dl></section>'
-def steps(rows):
+def steps(rows,video_chapters=None):
     result=['<section class="vc-instructions" id="procedura"><h2>Come sbloccarlo: '+str(len(rows))+' passaggi</h2><ol>']
     for n,(title,action,check,source) in enumerate(rows,1):
-        result.append('<li data-garage-step="'+str(n)+'"><span aria-hidden="true">'+str(n)+'</span><div><h3>'+e(title)+'</h3><p>'+e(action)+'</p><p><strong>Controllo:</strong> '+e(check)+'</p><p>'+ref(source,"Posizione, schermate o dettagli nella fonte originale ↗")+'</p></div></li>')
+        media=video_reference(title,*video_chapters[n]) if video_chapters and n in video_chapters else ""
+        result.append('<li data-garage-step="'+str(n)+'"><span aria-hidden="true">'+str(n)+'</span><div><h3>'+e(title)+'</h3><p>'+e(action)+'</p><p><strong>Controllo:</strong> '+e(check)+'</p><p>'+ref(source,"Posizione, schermate o dettagli nella fonte originale ↗")+'</p>'+media+'</div></li>')
     return ''.join(result)+'</ol></section>'
 def end(base,refs,extra=""):
     return ('<section class="vc-source" id="fonti"><h2>Fonti e verifica</h2>'+''.join(ref(u,n) for n,u in refs)+
@@ -86,8 +102,9 @@ def index_body(base):
 def south_body(base):
     body=start(base,"Southside Storage: 5 murales e 1010 Cheetah","Fotografa tutti i cinque murales 1010, poi usa il codice 1010 per sbloccare Southside Storage a Salton.")
     body+=facts([("Garage","Gratuito, 1 posto"),("Zona","Salton, a nord di Slator Towing"),("Codice","1010"),("Veicolo","1010 Cheetah: registrazione a parte")])
+    body+='<section class="v-reference-hub" id="mappa-southside" aria-labelledby="mappa-southside-title"><span class="v-kicker">MAPPA ESTERNA</span><h2 id="mappa-southside-title">Apri Southside Storage sulla mappa</h2><p class="v-reference-intro">La scheda con la posizione si apre su GTABase; la mappa resta sul sito originale.</p><div class="v-map-reference"><span aria-hidden="true">▤</span><div><strong>Southside Storage · GTABase</strong><p>Controlla il punto e i dettagli della proprietà nella fonte esterna.</p>'+ref(SOUTH_MAP,"Apri la scheda e la mappa esterna ↗")+'</div></div></section>'
     body+=code_field("1010","Codice Southside Storage")
-    body+='<p class="vc-check">I cinque murales non sono necessari per il 100% e non contano nelle 100 scansioni WAiNK. Verifica il loro registro specifico.</p>'+steps(SOUTH_STEPS)
+    body+='<p class="vc-check">I cinque murales non sono necessari per il 100% e non contano nelle 100 scansioni WAiNK. Verifica il loro registro specifico.</p>'+steps(SOUTH_STEPS,{2:(7,"https://warppipes.com/en/gta-6/1010-murals/mural-loophole-architecture"),3:(74,"https://warppipes.com/en/gta-6/1010-murals/mural-compliance-theater"),4:(180,"https://warppipes.com/en/gta-6/1010-murals/mural-extraction-service"),5:(302,"https://warppipes.com/en/gta-6/1010-murals/mural-privatized-pains-socialized-gains"),6:(264,"https://warppipes.com/en/gta-6/1010-murals/mural-you-signed-the-terms-conditions")})
     return body+end(base,[("PowerPyx — cinque murales",MURALS),("GTA Companion — percorso",MURALS_ALT),("GTABase — garage e mappa",SOUTH_MAP)])
 def domestic_body(base):
     body=start(base,"Domestic Timbers: garage gratuito e Raul’s Tempesta","Avvia la catena di Randy nel Capitolo 3; prosegui fino a Collect the Tempesta. Le fonti divergono sul capitolo di sblocco di Dale Mamba.")
