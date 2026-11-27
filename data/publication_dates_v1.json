@@ -152,7 +152,8 @@
     "veicoli/pfister-vanessas-growler/": "2026-11-26",
     "veicoli/piccia-furia/": "2026-11-24",
     "veicoli/vapid-rocket-slamvan/": "2026-11-26",
-    "veicoli/western-nightblade/": "2026-11-24"
+    "veicoli/western-nightblade/": "2026-11-24",
+    "guide-e-tutorial/strip-club-gta-6/": "2026-11-27"
   },
   "evidence": [
     {
@@ -409,6 +410,14 @@
         "garage-gratuiti/garage-storia/thompson-court/",
         "garage-gratuiti/garage-storia/ne-15th-street/",
         "garage-gratuiti/garage-storia/pegassi-residences/"
+      ]
+    },
+    {
+      "publication_day_rome": "2026-11-27",
+      "run": 46019709741,
+      "head": "6d6a8af48e80174a0416e29efd914ff434fa2e29",
+      "paths": [
+        "guide-e-tutorial/strip-club-gta-6/"
       ]
     }
   ]
