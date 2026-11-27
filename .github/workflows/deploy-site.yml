@@ -674,7 +674,14 @@ jobs:
           assert '100 specie su 255' in animals.split('id="procedura"',1)[0]
           assert 'Progressi → Animali' in animals
           assert 'data-article-cover="shared-social"' in animals
+          for animal_ref in ('all-aquatic-animals','all-birds','all-reptiles-amphibians','all-cats-dogs'):
+              assert 'https://www.powerpyx.com/gta-6-'+animal_ref+'/' in animals
           print('PUBLIC_ANIMALS_REVIEW_OK',base+'guide-e-tutorial/studiare-animali/')
+          kenton=fetch('trofei/trofeo-23-ci-serve-una-barca-piu-grossa/')
+          assert kenton.count('data-kenton-step=')==10
+          assert '5 set di Kenton su 7' in kenton and 'non concordano' in kenton
+          assert 'gta-6-maritime-dispute-stop-by-kentons-shop-walkthrough/' in kenton
+          print('PUBLIC_KENTON_LINEAR_OK',base+'trofei/trofeo-23-ci-serve-una-barca-piu-grossa/')
           taxi=fetch('guide-e-tutorial/viaggio-rapido-taxi/')
           assert taxi.count('class="v-step"')==4 and taxi.count('class="v-check"')==4
           assert 'Gone Fishing (Capitolo 1)' in taxi
