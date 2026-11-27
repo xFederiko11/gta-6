@@ -37,6 +37,16 @@ class BeginnerPlatinumTests(unittest.TestCase):
                     body=page.split('data-kenton-tutorial',1)[1].split('class="tg-verify"',1)[0]
                     self.assertNotIn('<img',body)
                     self.assertNotIn('<iframe',body)
+                elif t["number"]==29:
+                    self.assertEqual(page.count('data-bret-step='),7)
+                    self.assertLess(page.index('data-bret-tutorial'),page.index('class="tg-verify"'))
+                    self.assertIn("non confermano quale singolo animale",page)
+                    self.assertIn("gta-6-veteran-hunted-meet-bret-walkthrough/",page)
+                    self.assertIn("gta-6-brets-hunting-target-deck-locations",page)
+                    self.assertIn("guide-e-tutorial/studiare-animali/",page)
+                    body=page.split('data-bret-tutorial',1)[1].split('class="tg-verify"',1)[0]
+                    self.assertNotIn('<img',body)
+                    self.assertNotIn('<iframe',body)
                 elif t.get("tip_it"):
                     self.assertIn(escape(t["tip_it"],quote=True),page)
                     self.assertIn("CONSIGLIO DOCUMENTATO",page)
@@ -78,6 +88,10 @@ class BeginnerPlatinumTests(unittest.TestCase):
         self.assertIn("gta-6-all-no-flusher-tag-utility-markings-locations/",page)
         self.assertIn("Sottoponti: come registrarli",page)
         self.assertIn("No Flusher Tags",page)
+        self.assertIn('id="radio-segrete"',page)
+        self.assertIn("how-to-unlock-secret-radio-stations-in-gta-6",page)
+        for ident in ("pt-01","pt-02","pt-03","pt-07","pt-09"):
+            self.assertIn('href="#cr-'+ident+'"',page)
         self.assertIn('data-cr-filter="all"',page)
         self.assertIn('data-cr-query',page)
         self.assertIn('data-cr-bar',page)

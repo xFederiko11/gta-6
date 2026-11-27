@@ -30,7 +30,8 @@
     "key_lento": "https://www.pushsquare.com/guides/gta-6-key-lento-collectibles-and-secrets-walkthrough",
     "magazines": "https://www.powerpyx.com/gta-6-all-magazines-books-comics-locations/",
     "bridges": "https://www.powerpyx.com/gta-6-all-under-the-bridges-locations/",
-    "noflusher_all": "https://www.powerpyx.com/gta-6-all-no-flusher-tag-utility-markings-locations/"
+    "noflusher_all": "https://www.powerpyx.com/gta-6-all-no-flusher-tag-utility-markings-locations/",
+    "playlist_gtabase": "https://www.gtabase.com/gta-6/articles/how-to-unlock-secret-radio-stations-in-gta-6"
   },
   "regions": [
     {
@@ -150,7 +151,7 @@
       "type": "playlist",
       "name": "Poster The Sniper of La Perle — 4/4",
       "place": "Crosstown · Jack of Hearts",
-      "hint": "Al secondo piano, nella cabina di registrazione est: poster su una cassa.",
+      "hint": "Al secondo piano, nella cabina di registrazione est: poster su una cassa. GTABase segnala che l'accesso si sblocca con una missione del Capitolo 3; se il locale è chiuso, torna dopo aver proseguito nella storia.",
       "source": "playlist",
       "confidence": "described"
     },

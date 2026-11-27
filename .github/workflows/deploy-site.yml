@@ -682,12 +682,18 @@ jobs:
           assert '5 set di Kenton su 7' in kenton and 'non concordano' in kenton
           assert 'gta-6-maritime-dispute-stop-by-kentons-shop-walkthrough/' in kenton
           print('PUBLIC_KENTON_LINEAR_OK',base+'trofei/trofeo-23-ci-serve-una-barca-piu-grossa/')
+          bret=fetch('trofei/trofeo-29-bersagli-leciti/')
+          assert bret.count('data-bret-step=')==7
+          assert 'non confermano quale singolo animale' in bret
+          assert 'gta-6-brets-hunting-target-deck-locations' in bret
+          print('PUBLIC_BRET_LINEAR_OK',base+'trofei/trofeo-29-bersagli-leciti/')
           taxi=fetch('guide-e-tutorial/viaggio-rapido-taxi/')
           assert taxi.count('class="v-step"')==4 and taxi.count('class="v-check"')==4
           assert 'Gone Fishing (Capitolo 1)' in taxi
           assert '100 GTA$ in aggiunta alla tariffa della corsa.' in taxi.split('id="procedura"',1)[0]
           assert 'RydeMe' in taxi
           assert 'data-article-cover="shared-social"' in taxi
+          assert 'gta-6-time-guide-how-to-quickly-wait-several-hours-in-game' in taxi
           print('PUBLIC_TAXI_REVIEW_OK',base+'guide-e-tutorial/viaggio-rapido-taxi/')
           for slug,count,phrases in (
               ('70-sfide-100-percento',4,('50 sfide','70 su 80')),
@@ -770,6 +776,8 @@ jobs:
           cbjs=fetch('assets/collectible-beginner-v1.js')
           assert 'slot.appendChild(step)' not in cbjs
           assert 'found.addEventListener("click"' not in cbjs
+          assert 'id="radio-segrete"' in collectibles
+          assert 'how-to-unlock-secret-radio-stations-in-gta-6' in collectibles
           print('PUBLIC_LINEAR_COLLECTIBLE_OK',base+'collezionabili/percorsi/')
           hub=fetch('screenshot-ps5/')
           assert 'data-photo-guide=' in hub
