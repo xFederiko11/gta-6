@@ -89,7 +89,7 @@ def sidebar(path="",*,preview=False,guide=False,track=False):
                 (' data-current-section="true"' if active else '')+tracking(track,"category-open",target)+'><span aria-hidden="true"></span>'+esc(label)+'</a>')
     from article_chronology_v1 import tree
     categories='<a class="sb-all-articles" href="'+BASE+'articoli/">Tutti gli articoli →</a>'+''.join(
-        '<details class="sb-taxonomy"><summary>'+esc(g["label"])+' <span>'+str(g["count"])+'</span></summary><a href="'+BASE+g["path"]+'">Tutta la categoria</a>'+''.join('<a href="'+BASE+c["path"]+'">'+esc(c["label"])+'</a>' for c in g["children"])+'</details>' for g in tree())
+        '<details class="sb-taxonomy"><summary'+tracking(track,"category-open",g["path"])+'>'+esc(g["label"])+' <span>'+str(g["count"])+'</span></summary><a href="'+BASE+g["path"]+'"'+tracking(track,"category-open",g["path"])+'>'+'Tutta la categoria</a>'+''.join('<a href="'+BASE+c["path"]+'"'+tracking(track,"category-open",c["path"])+'>'+esc(c["label"])+'</a>' for c in g["children"])+'</details>' for g in tree())
     important="".join('<a href="'+BASE+target+'"'+tracking(track,"important-guide-open",target)+'>'+esc(label)+' <span aria-hidden="true">→</span></a>' for target,label in IMPORTANT if target!=path)
     jump=('<div class="sb-panel"><p class="sb-kicker">IN QUESTA GUIDA</p><nav class="sb-important" aria-label="Indice della guida">'
           '<a href="#procedura"'+tracking(track,"tutorial-jump","procedura")+'>Passaggi del tutorial <span aria-hidden="true">↓</span></a>'
@@ -213,6 +213,13 @@ def apply(root=ROOT):
     print("SUNSET_BLOG_BUILD_OK",total,"themed pages;",layouts,"editorial layouts")
 
 def verify(root=ROOT):
+    # Exercise both consent states even in pull-request builds where Umami is off.
+    tracked_sidebar=sidebar(track=True)
+    untracked_sidebar=sidebar(track=False)
+    assert 'data-umami-event="category-open"' in tracked_sidebar
+    assert 'data-umami-event="x-timeline-open"' in tracked_sidebar
+    assert 'data-umami-event="category-open"' not in untracked_sidebar
+    assert 'data-umami-event="x-timeline-open"' not in untracked_sidebar
     home=(root/"index.html").read_text(encoding="utf-8")
     assert home.index('data-hero-slideshow')<home.index('data-sunset-layout')<home.index('id="scegli"')
     guides=json.loads(Path("data/guide.json").read_text(encoding="utf-8"))["guides"]
