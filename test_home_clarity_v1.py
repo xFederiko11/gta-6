@@ -72,7 +72,7 @@ class SimpleHomeTests(unittest.TestCase):
             if item["secret"]:self.assertFalse(item["image"])
             if item["image"]:
                 self.assertTrue((SITE/item["image"]).is_file(),item["image"])
-                self.assertIn(item["credit"],("Grafica editoriale · non gameplay","Screenshot autorizzato · crediti nella guida"))
+                self.assertEqual(item["credit"],"Screenshot autorizzato · crediti nella guida")
                 from PIL import Image
                 with Image.open(SITE/item["image"]) as img:
                     self.assertEqual(img.size,(480,252) if item["image"].endswith(".webp") else (1200,630))
@@ -107,6 +107,32 @@ class SimpleHomeTests(unittest.TestCase):
         self.assertIn('href="'+BASE+'salvare-auto/"',guide)
         self.assertIn('href="'+BASE+'articoli/categoria/veicoli/"',guide)
         print("MAGAZINE_SEO_METADATA_OK",len(titles))
+
+    def test_real_popularity_and_photo_first_layout(self):
+        from datetime import date
+        from magazine_popular_v1 import validate, popular_panel
+        from unittest.mock import patch
+        today=date(2026,11,27)
+        catalog={"salvare-auto/":{"secret":False},"garage-gratuiti/":{"secret":False},"trofei/test/":{"secret":True}}
+        snapshot={"schema":"magazine-pageviews-v1","source":"Umami dashboard export","metric":"pageviews","start":"2026-11-21","end":"2026-11-27","items":[{"path":"salvare-auto/","pageviews":4},{"path":"garage-gratuiti/","pageviews":9},{"path":"trofei/test/","pageviews":15},{"path":"","pageviews":99}]}
+        self.assertEqual(validate(snapshot,today,catalog)[2],[("garage-gratuiti/",9),("salvare-auto/",4)])
+        with self.assertRaises(ValueError):validate(snapshot,date(2026,12,10),catalog)
+        with patch("magazine_popular_v1.ranked",return_value=(None,None,[])):
+            markup=popular_panel()
+            self.assertIn('data-magazine-popular="unavailable"',markup)
+            self.assertIn("scelte dalla redazione",markup)
+            self.assertNotIn('class="sb-rank"',markup)
+        with patch("magazine_popular_v1.ranked",return_value=(today,today,[("Garage","garage-gratuiti/",9)])):
+            markup=popular_panel()
+            self.assertIn('data-magazine-popular="measured"',markup)
+            self.assertIn("9 visualizzazioni",markup)
+        home=(SITE/"index.html").read_text(encoding="utf-8")
+        self.assertIn("data-magazine-photo-nav",home)
+        self.assertLess(home.index("data-magazine-photo-nav"),home.index('id="ultimi-articoli"'))
+        self.assertLess(home.index("data-magazine-popular"),home.index('class="sb-categories"'))
+        self.assertNotIn('class="archive-tile"',home)
+        self.assertNotIn('Grafica editoriale · non gameplay',home)
+        print("MAGAZINE_REAL_POPULARITY_AND_PHOTO_LAYOUT_OK")
 
     def test_documented_publication_history(self):
         import json
