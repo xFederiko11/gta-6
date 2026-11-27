@@ -22,6 +22,7 @@ from community_page import render as render_community_page
 from related_research import for_guide as new_related_research, for_catalog as new_catalog_research
 from trophy_experience import ornament, related_trophies, shootist_content, SHOOTING_SOURCE, video_panel
 from kenton_tutorial_v1 import render as render_kenton_tutorial
+from bret_tutorial_v1 import render as render_bret_tutorial
 from social_preview import render as render_social_preview
 from guide_source_validation import validate_guide_source
 
@@ -295,6 +296,8 @@ def trophy_detail(t, guides, trophies):
     )
     if t["number"]==23:
         task+=render_kenton_tutorial()
+    elif t["number"]==29:
+        task+=render_bret_tutorial()
     elif t.get("tip_it"):
         task+=('<div class="tg-guidance"><strong>COME FARLO · CONSIGLIO DOCUMENTATO</strong>'
                '<p>'+e(t["tip_it"])+'</p></div>')

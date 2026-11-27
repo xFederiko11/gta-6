@@ -55,3 +55,9 @@ body:has(.trophy-guide-flow) .v-interactive-map{max-width:740px;margin:16px auto
  .trophy-guide-flow .tg-goal{padding:11px 12px;font-size:1.08rem;line-height:1.56}
  .tg-deep>summary{font-size:.94rem}
 }
+
+/* Explicit, always-visible steps for sourced extended trophy tutorials. */
+.trophy-guide-flow :is(.tg-linear-steps,.kenton-steps){padding-inline-start:1.5rem;display:grid;gap:12px;margin:14px 0}
+.trophy-guide-flow :is(.tg-linear-steps,.kenton-steps)>li{padding:10px 12px;border:1px solid var(--r-line);border-radius:9px;background:var(--r-soft);min-width:0;overflow-wrap:anywhere}
+.trophy-guide-flow :is(.tg-linear-steps,.kenton-steps) h3{margin:0 0 6px;font-size:1rem;color:var(--r-text)}
+.trophy-guide-flow :is(.tg-linear-steps,.kenton-steps) p+p{margin-top:6px}

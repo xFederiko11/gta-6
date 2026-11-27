@@ -105,7 +105,7 @@
     },
     "guide-e-tutorial/viaggio-rapido-taxi/": {
       "spoiler": false,
-      "checked": "25 novembre 2026",
+      "checked": "27 novembre 2026",
       "gallery": [],
       "tips": [
         {
@@ -125,6 +125,12 @@
           "title": "Alternativa dal Capitolo 2",
           "text": "Quando hai l’app RydeMe, prenota la corsa dall’app dopo lo sblocco del conto. Anche qui saltare il viaggio costa 100 GTA$ oltre alla tariffa; se non trovi un conducente, chiama Paradise Taxi.",
           "source": "https://www.powerpyx.com/gta-6-how-to-fast-travel/"
+        },
+        {
+          "kind": "tip",
+          "title": "Aspetta il momento giusto senza pagare un taxi",
+          "text": "Nel rifugio interagisci con il letto, scegli Riposa e poi Dormi: seleziona mattina (7:00), mezzogiorno (12:30), sera (18:00) o notte. Per attendere fuori casa, un viaggio rapido fa avanzare l’orario in base alla distanza; costa la corsa più il supplemento. Controlla sempre l’ora in gioco prima di cercare un evento.",
+          "source": "https://www.gtabase.com/gta-6/articles/gta-6-time-guide-how-to-quickly-wait-several-hours-in-game"
         }
       ]
     }

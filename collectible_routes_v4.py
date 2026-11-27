@@ -251,6 +251,13 @@ def render(data,curated_refs=(),photo_evidence=None):
         output.extend(['</ol></section>'])
     stunts=data["stunts"]
     output.extend([
+        '<section class="cr-remaining" id="radio-segrete"><h2>Due radio segrete: 5 poster</h2>',
+        '<p>Scansiona i poster con WAiNK: tieni premuto ↑, inquadra il poster e tieni premuto R1. Apri le schede qui sotto per posizione e foto originali.</p>',
+        '<ol><li><a href="#cr-pt-09">The Vault</a>: basta il poster del locale. Cerca The Vault nell’elenco Radio.</li>',
+        '<li>The Sniper of La Perle: <a href="#cr-pt-01">Aunt Zola</a>, <a href="#cr-pt-02">TWA Ponya</a>, <a href="#cr-pt-03">Drip Drops</a>, <a href="#cr-pt-07">Jack of Hearts</a>. L’ultimo locale richiede avanzamento nel Capitolo 3 secondo GTABase. Cerca la playlist sotto On Demand dopo tutti e quattro i poster.</li></ol>',
+        '<p>Controlla Progressi → Collezioni → Esplorazione → Playlist uniche: servono 2 su 2 per il 100%. ',
+        '<a href="'+e(data["sources"]["playlist"])+'" target="_blank" rel="noopener noreferrer">Posizioni PowerPyx ↗</a> · ',
+        '<a href="'+e(data["sources"]["playlist_gtabase"])+'" target="_blank" rel="noopener noreferrer">Conferma e sblocco GTABase ↗</a>.</p></section>',
         '<section class="cr-remaining"><h2>Acrobazie, veicoli e le categorie non mappate qui</h2>',
         '<p>Per il 100% servono <strong>300 su 397 acrobazie</strong>: 202 sottoponti,',
         ' 130 salti, 40 voli radenti e 25 salti BASE. Non esiste in questo atlante',

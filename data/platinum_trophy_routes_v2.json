@@ -195,8 +195,9 @@
     {
       "number": 29,
       "group": "attivita",
-      "action": "Rintraccia e caccia un animale unico per Bret nell'attività associata.",
-      "check": "Controlla che la preda sia quella richiesta, non una specie comune."
+      "action": "Con Jason dopo Coffee Break, completa Veteran Hunted e gli incarichi Target Decks di Bret.",
+      "check": "Controlla il trofeo sulla PS5: la specie precisa che lo sblocca non è confermata.",
+      "warning": "Non confondere lo studio di 100 specie con i 15 Target Decks. Le fonti non identificano ancora la singola preda del trofeo."
     },
     {
       "number": 30,
