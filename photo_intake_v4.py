@@ -11,6 +11,7 @@ from urllib.parse import urlsplit
 from datetime import date
 import hashlib
 import re
+from photo_webp_audit_v1 import WebPReviewError, inspect_webp_bytes
 
 BASE="https://xfederiko11.github.io/gta-6/"
 PATH="screenshot-ps5/invia/"
@@ -63,6 +64,11 @@ def validate_approved(registry,guides,requests):
         # Explicit visual review, not a claim of automated face detection.
         if photo.get("gameplay_only") is not True or photo.get("no_real_people") is not True:
             raise ValueError("Only reviewed gameplay without real people or facecam")
+        # These recorded editor checks cover human crop/framing, alt meaning,
+        # and the actual mobile/desktop rendering. A bot cannot attest to them.
+        if any(photo.get(key) is not True for key in
+               ("framing_reviewed","alt_reviewed","mobile_reviewed","desktop_reviewed")):
+            raise ValueError("Screenshot requires framing, alt-text, mobile and desktop review")
         if type(photo.get("social_preview")) is not bool:
             raise ValueError("Explicit social preview selection required")
         if photo["social_preview"]:
@@ -111,9 +117,10 @@ def validate_approved(registry,guides,requests):
         if not path.resolve().is_relative_to(root) or not path.is_file():
             raise ValueError("Approved WebP must exist inside site/assets/approved")
         binary=path.read_bytes()
-        if not (1500<=len(binary)<=MAX_IMAGE_BYTES and
-                binary[:4]==b"RIFF" and binary[8:12]==b"WEBP"):
-            raise ValueError("Approved image must be a valid-sized WebP container")
+        try:
+            inspect_webp_bytes(binary)
+        except WebPReviewError as exc:
+            raise ValueError("Approved image failed metadata, dimension, or compression review: "+str(exc)) from exc
         if hashlib.sha256(binary).hexdigest()!=photo["source_sha256"]:
             raise ValueError("Approved image hash changed")
     return True
