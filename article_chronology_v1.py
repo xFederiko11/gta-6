@@ -7,6 +7,7 @@ from vehicle_progression_guides_v1 import ARTICLES as VEHICLE_PROGRESSION
 from garage_guides_v1 import STORY_ROWS,STORY
 GLITCH="guide-e-tutorial/glitch-prima-persona-ps5/"
 EXTRA=[
+ ("guide-e-tutorial/strip-club-gta-6/","GTA 6: dove sono i tre strip club e come raggiungerli","Missioni"),
  ("garage-gratuiti/","Garage gratuiti GTA 6: tutti gli sblocchi","Garage"),
  ("garage-gratuiti/southside-storage/","Southside Storage: 5 murales e codice 1010","Garage"),
  ("garage-gratuiti/domestic-timbers/","Domestic Timbers: garage e Raul’s Tempesta","Garage"),
