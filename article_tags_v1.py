@@ -150,9 +150,10 @@ def validate_item_tags(item: dict) -> bool:
     order = item.get("chapter_order")
     return order is None or (isinstance(order, int) and 1 <= order <= 99)
 
-def _card(item: dict, url) -> str:
-    from article_chronology_v1 import card
-    html_card = card(item, url)
+def _card(item: dict, url, card_fn=None) -> str:
+    if card_fn is None:
+        from article_chronology_v1 import card as card_fn
+    html_card = card_fn(item, url)
     marker = '<a class="ed-home-card chronology-card"'
     if marker not in html_card:
         raise ValueError("Chronology card contract changed")
@@ -175,7 +176,7 @@ def _render_controls(items: list[dict]) -> str:
             '<option value="title">Titolo A–Z</option></select></label></div>'
             '<p class="ma-tag-count" role="status" aria-live="polite" data-tag-count></p>')
 
-def build_archives(items: list[dict], root: Path = Path("_site"), *, layout_fn=None, url_fn=None, crumbs_fn=None) -> list[str]:
+def build_archives(items: list[dict], root: Path = Path("_site"), *, layout_fn=None, url_fn=None, crumbs_fn=None, card_fn=None) -> list[str]:
     """Write crawlable tag archives, retaining navigation for thin collections."""
     root = Path(root)
     if layout_fn is None or url_fn is None or crumbs_fn is None:
@@ -226,7 +227,7 @@ def build_archives(items: list[dict], root: Path = Path("_site"), *, layout_fn=N
                 '<p class="ma-tag-total">' + str(len(selected)) + (' articoli' if len(selected) != 1 else ' articolo') + '</p></section>')
         body += _render_controls(selected)
         body += '<section class="ed-home" data-tag-archive data-tag-id="' + escape(tag_id, quote=True) + '"><div class="archive-grid" data-tag-grid>'
-        body += "".join(_card(item, url_fn) for item in selected)
+        body += "".join(_card(item, url_fn, card_fn) for item in selected)
         body += '</div></section>'
         js_path = Path("site/assets/article-tags-v1.js")
         digest = hashlib.sha256(js_path.read_bytes()).hexdigest()[:12] if js_path.is_file() else "v1"
