@@ -72,7 +72,7 @@ function update(keepPage=false){
 fetch(endpoint,{credentials:'same-origin',cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error('Catalog unavailable');return r.json()}).then(data=>{
  if(data.schema!=='gta6-public-archive-v2'||data.page_size!==25||!Array.isArray(data.items)||!Array.isArray(data.groups))throw new Error('Invalid catalog');
  catalog=data;groups=catalog.groups;pageSize=catalog.page_size;
- items=catalog.items.map(item=>({item,text:norm([item.title,item.summary,item.group_label,item.sub_label,item.badge].join(' '))}));
+ items=catalog.items.map(item=>({item,text:norm([item.title,item.summary,item.group_label,item.sub_label,item.badge,(item.tags||[]).map(tag=>tag.label).join(' ')].join(' '))}));
  group.value=initial.group;options(initial.sub);
  controls.hidden=false;
  const query=new URLSearchParams(location.search).get('q');
