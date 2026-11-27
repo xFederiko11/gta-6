@@ -807,8 +807,13 @@ jobs:
           assert '2026-11-27' in stripclub and 'datePublished' in stripclub
           assert 'gtadb-L190' in stripclub and 'gtadb-L172' in stripclub and 'gtadb-L629' in stripclub
           assert 'uMEhEEfQt1U' in stripclub and '<iframe' not in stripclub
-          assert 'property="og:image"' not in stripclub and 'twitter:image' not in stripclub
-          assert 'content="summary"' in stripclub and 'social-preview.png' not in stripclub
+          assert 'property="og:image" content="'+base+'assets/social-cards/' in stripclub
+          assert 'name="twitter:image" content="'+base+'assets/social-cards/' in stripclub
+          assert 'gta6:cover-kind" content="original_illustration"' in stripclub
+          assert 'Copertina illustrata originale GTA VI Italia' in stripclub
+          assert 'Non screenshot di gameplay.' in stripclub
+          assert 'data-article-cover="shared-social"' in stripclub
+          assert 'content="summary_large_image"' in stripclub and 'social-preview.png' not in stripclub
           stripclub_js=fetch('assets/strip-club-guide-v1.js')
           stripclub_css=fetch('assets/strip-club-guide-v1.css')
           assert 'youtube-nocookie.com/embed/' in stripclub_js
