@@ -285,6 +285,6 @@ def render(title,points=(),*,id_suffix="article",page_label="articolo",curated_r
 
 
 def as_json(data):
-    if data.get("schema")!=SCHEMA or data.get("pages_with_interactive_map")!=68:
+    if data.get("schema")!=SCHEMA or data.get("pages_with_interactive_map")!=69:
         raise ValueError("Cannot export invalid map rollout")
     return json.dumps(data,ensure_ascii=False,indent=2)+"\n"
