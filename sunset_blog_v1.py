@@ -12,7 +12,6 @@ from threading import Thread
 from urllib.parse import unquote, urlsplit
 from urllib.request import Request, urlopen
 import argparse, hashlib, json, re, shutil, time
-from community_social_v1 import load, verified_x_url, post_time_html
 import magazine_article_v1 as magazine_article
 from magazine_popular_v1 import popular_panel
 
@@ -103,30 +102,18 @@ def sidebar(path="",*,preview=False,guide=False,track=False):
     jump=('<div class="sb-panel"><p class="sb-kicker">IN QUESTA GUIDA</p><nav class="sb-important" aria-label="Indice della guida">'
           '<a href="#procedura"'+tracking(track,"tutorial-jump","procedura")+'>Passaggi del tutorial <span aria-hidden="true">↓</span></a>'
           '<a href="#approfondimenti"'+tracking(track,"tutorial-jump","approfondimenti")+'>Approfondimenti e fonti <span aria-hidden="true">↓</span></a></nav></div>') if guide else ""
-    cards=[]
-    for item in load().get("x_posts",[]):
-        if item.get("buffer_status")!="sent":
-            continue
-        url=verified_x_url(item.get("x_url"))
-        text=str(item.get("text") or "").strip()
-        stamp=post_time_html(item)
-        if not url or not text or not stamp:
-            continue
-        cards.append('<article class="social-comment-card"><span>𝕏 @xFederiko11</span>'+stamp+'<p>'+
-                     esc(text[:210])+'</p><a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer"'+tracking(track,"x-post-open")+'>Apri il post ↗</a></article>')
-        if len(cards)==3:break
-    posts="".join(cards) or '<p class="sb-empty">Se gli estratti non sono disponibili, apri direttamente il profilo X.</p>'
     return ('<aside class="sb-sidebar" aria-label="Categorie e aggiornamenti GTA VI Italia">'+jump+popular_panel()+
             '<div class="sb-panel"><p class="sb-kicker">ESPLORA LEONIDA</p><p class="sb-heading">Categorie</p>'
             '<nav class="sb-categories" aria-label="Categorie del sito">'+categories+'</nav></div>'
             '<div class="sb-panel"><p class="sb-kicker">NON PERDERTELI</p><p class="sb-heading">Da tenere a portata di mano</p>'
             '<nav class="sb-important" aria-label="Guide importanti">'+important+'</nav></div>'
             '<div class="sb-panel sb-x-panel"><p class="sb-kicker">DALLA REDAZIONE</p><p class="sb-heading">𝕏 Ultimi post</p>'
-            '<p class="sb-x-description">Post verificati tramite Buffer · orario italiano.</p>'
-            '<div class="sb-x-grid" data-x-live-grid>'+posts+'</div>'
-            '<button class="sb-x-button" type="button" data-x-timeline-load'+tracking(track,"x-timeline-open")+'>Carica il feed X</button>'
-            '<p class="sb-x-description">Il feed incorporato è facoltativo e può non essere disponibile. Si collega a X soltanto al clic.</p>'
-            '<div data-x-timeline-slot aria-live="polite"></div>'
+            '<p class="sb-x-description">Ultimi cinque post pubblici, incorporati direttamente da X.</p>'
+            '<div class="sb-x-feed" data-x-timeline-slot aria-live="polite">'
+            '<a class="twitter-timeline" data-height="460" data-tweet-limit="5" data-chrome="noheader nofooter" data-theme="dark" href="https://twitter.com/xFederiko11?ref_src=twsrc%5Etfw">Post pubblici di @xFederiko11</a>'
+            '</div>'
+            '<button class="sb-x-button" type="button" data-x-timeline-load'+tracking(track,"x-timeline-open")+' hidden>Riprova il feed X</button>'
+            '<p class="sb-x-description">Feed fornito da X. Se non viene caricato, apri il profilo dal collegamento qui sotto.</p>'
             '<a class="sb-profile" href="https://x.com/xFederiko11" target="_blank" rel="noopener noreferrer"'+tracking(track,"x-profile-open")+'>Apri @xFederiko11 su X ↗</a></div></aside>')
 
 def wrap(inner,path="",*,home=False,preview=False,track=False):
@@ -235,7 +222,9 @@ def verify(root=ROOT):
         page=(root/path/"index.html").read_text(encoding="utf-8")
         assert page.count('data-sunset-layout="right-blog"')==1,path
         assert page.count('data-x-timeline-load')==1,path
-        assert page.count('data-x-live-grid')==1,path
+        assert page.count('data-x-live-grid')==0,path
+        assert page.count('class="twitter-timeline"')==1,path
+        assert page.count('data-tweet-limit="5"')==1,path
         assert 'sunset-blog-v1.css?v=' in page,path
         assert 'src="https://platform.twitter.com/widgets.js"' not in page,path
         if 'id="growth-analytics-v1"' in page:
@@ -281,11 +270,17 @@ def browser(root=ROOT):
             b=pw.chromium.launch()
             for width in (390,1440):
                 context=b.new_context(viewport={"width":width,"height":900},reduced_motion="reduce")
-                remote=[]
+                remote=[];widget_requests=[]
                 def route(request):
-                    if request.request.url.startswith(origin):request.continue_()
+                    request_url=request.request.url
+                    if request_url.startswith(origin):
+                        request.continue_()
+                    elif request_url=="https://platform.twitter.com/widgets.js":
+                        widget_requests.append(request_url)
+                        request.fulfill(status=200,content_type="application/javascript",
+                            body="window.twttr={widgets:{load:function(slot){slot.dataset.xTestWidgetLoaded='true';return Promise.resolve();}}};")
                     else:
-                        remote.append(request.request.url)
+                        remote.append(request_url)
                         request.abort()
                 context.route("**/*",route)
                 page=context.new_page()
@@ -336,10 +331,13 @@ def browser(root=ROOT):
                                 page.screenshot(path=str(shots/("magazine-full-"+("home" if not path else "article")+"-"+str(width)+".png")),full_page=True)
                     if path==EXAMPLE:
                         print("MAGAZINE_ARTICLE_BROWSER_OK",width)
-                    assert not any("platform.twitter.com/widgets.js" in x for x in remote),path
-                page.locator("[data-x-timeline-load]").click()
-                page.wait_for_function("!!document.querySelector('script[src=\"https://platform.twitter.com/widgets.js\"]')")
-                assert page.locator(".sb-profile").is_visible()
+                    page.locator(".sb-x-panel").scroll_into_view_if_needed()
+                    page.wait_for_function("document.querySelector('[data-x-timeline-slot]')?.dataset.xTestWidgetLoaded==='true'")
+                    assert page.locator('[data-x-timeline-slot] a.twitter-timeline').get_attribute("data-tweet-limit")=="5"
+                    assert page.locator("[data-x-timeline-load]").is_hidden()
+                    assert page.locator(".sb-profile").is_visible()
+                    assert len(widget_requests)>=len([p for p in ("",EXAMPLE,"guide-e-tutorial/scansionare-veicoli/","salvare-auto/","articoli/gta-vi-ultimate-edition-auto-garage/") if True])
+                    assert not remote,path
                 context.close()
             b.close()
     finally:
