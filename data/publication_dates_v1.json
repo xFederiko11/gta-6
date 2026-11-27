@@ -1,11 +1,15 @@
 {
   "schema": "publication-dates-v1",
-  "note": "First documented successful Pages release day in Europe/Rome, reconciled with first source appearances; later same-day deployments are evidence for the day, not an exact first publication time. Never use last modified dates. New story garage pages remain undated pending deployment verification.",
+  "note": "First documented successful Pages release day in Europe/Rome, reconciled with first source appearances; later same-day deployments are evidence for the day, not an exact first publication time. Never use last modified dates. Four individual story garage pages verified by HTTP Actions 45962334857.",
   "published": {
     "collezionabili/percorsi/": "2026-11-21",
     "garage-gratuiti/": "2026-11-27",
     "garage-gratuiti/domestic-timbers/": "2026-11-27",
     "garage-gratuiti/garage-storia/": "2026-11-27",
+    "garage-gratuiti/garage-storia/ne-15th-street/": "2026-11-27",
+    "garage-gratuiti/garage-storia/pegassi-residences/": "2026-11-27",
+    "garage-gratuiti/garage-storia/port-gellhorn/": "2026-11-27",
+    "garage-gratuiti/garage-storia/thompson-court/": "2026-11-27",
     "garage-gratuiti/southside-storage/": "2026-11-27",
     "guide-e-tutorial/70-sfide-100-percento/": "2026-11-18",
     "guide-e-tutorial/glitch-prima-persona-ps5/": "2026-11-20",
@@ -394,6 +398,17 @@
       "paths": [
         "guide-e-tutorial/key-cloner/",
         "guide-e-tutorial/vendere-veicoli/"
+      ]
+    },
+    {
+      "publication_day_rome": "2026-11-27",
+      "run": 45962334857,
+      "head": "5b91a71c3c14b42f464428c80beee9ebce11d413",
+      "paths": [
+        "garage-gratuiti/garage-storia/port-gellhorn/",
+        "garage-gratuiti/garage-storia/thompson-court/",
+        "garage-gratuiti/garage-storia/ne-15th-street/",
+        "garage-gratuiti/garage-storia/pegassi-residences/"
       ]
     }
   ]
