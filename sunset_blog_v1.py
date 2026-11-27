@@ -13,6 +13,7 @@ from urllib.parse import unquote, urlsplit
 from urllib.request import Request, urlopen
 import argparse, hashlib, json, re, shutil, time
 from community_social_v1 import load, verified_x_url, post_time_html
+import magazine_article_v1 as magazine_article
 
 ROOT=Path("_site")
 BASE="https://xfederiko11.github.io/gta-6/"
@@ -149,12 +150,14 @@ def wrap(inner,path="",*,home=False,preview=False,track=False):
 def eligible(path,page):
     return GUIDE_MARKER in page or "data-legit-guide" in page or path in HUBS or path.startswith(("articoli/","patch/","garage-gratuiti/"))
 
-def inject(page,path,digest):
+def inject(page,path,digest,catalog=None):
     if 'data-design-version=' not in page or 'name="sunset-blog-version"' in page:
         return page
     page=page.replace('</head>','<meta name="sunset-blog-version" content="'+VERSION+
                       '"><link rel="stylesheet" href="'+BASE+'assets/'+CSS+'?v='+digest+'"></head>',1)
     track='id="growth-analytics-v1"' in page
+    if catalog is not None:
+        page=magazine_article.enhance(page,path,catalog,track)
     if path=="":
         start=page.index(HOME_START)
         stop=page.rindex('</div>',start,page.index('</main>',start))
@@ -202,16 +205,17 @@ def apply(root=ROOT):
     shutil.copy2(src,root/"assets"/CSS)
     stable=[root/"sitemap.xml",root/"articoli/feed.json"]
     before=[p.read_bytes() for p in stable]
+    catalog=magazine_article.load_catalog(root)
     total=layouts=0
     for file in sorted(root.rglob("index.html")):
         path=file.relative_to(root).as_posix().removesuffix("index.html")
         page=file.read_text(encoding="utf-8")
-        out=inject(page,path,digest)
+        out=inject(page,path,digest,catalog)
         if out==page:continue
         assert contracts(page)==contracts(out),path
         assert page.count('class="v-step"')==out.count('class="v-step"'),path
         assert page.count('<iframe')==out.count('<iframe'),path
-        assert inject(out,path,digest)==out,path
+        assert inject(out,path,digest,catalog)==out,path
         file.write_text(out,encoding="utf-8")
         total+=1
         layouts+=int('data-sunset-layout=' in out)
@@ -244,6 +248,7 @@ def verify(root=ROOT):
     for target,*_ in CATEGORIES+IMPORTANT+[(target,label) for path in paths for target,label in related(path)]:
         assert (root/target/"index.html").is_file(),target
     assert (root/"assets"/CSS).is_file()
+    magazine_article.verify(root)
     print("SUNSET_BLOG_STATIC_OK",len(paths),"complete tutorials")
 
 def browser(root=ROOT):
@@ -300,8 +305,27 @@ def browser(root=ROOT):
                             assert page.locator(".v-steps .v-step").last.is_visible()
                             assert page.locator(".sb-quick-jump a").first.get_attribute("href")=="#procedura"
                             assert page.locator(".article-cover img").evaluate("(img)=>img.decode().then(()=>img.naturalWidth)")>0
+                        if path:
+                            assert page.locator('[data-magazine-article="v1"]').count()==1,(width,path)
+                            assert page.locator('h1 + .article-cover').count()==1,(width,path)
+                            assert page.locator('[data-magazine-related]').count()==1,(width,path)
+                            assert page.locator('[data-magazine-article="v1"] nav a').count()==2
+                            if page.locator('#procedura.v-tutorial').count():
+                                index=page.locator('[data-magazine-steps]')
+                                steps=page.locator('#procedura .v-step')
+                                assert index.locator('a').count()==steps.count()
+                                assert steps.count()>0
+                                if path==EXAMPLE:
+                                    index.locator('a').last.click()
+                                    assert page.url.endswith('#passaggio-'+str(steps.count()))
+                                    assert steps.last.is_visible()
+                                    index.screenshot(path=str(shots/("magazine-step-index-"+str(width)+"-"+theme+".png")))
+                                    page.locator('[data-magazine-related]').screenshot(path=str(shots/("magazine-related-"+str(width)+"-"+theme+".png")))
+                                    page.evaluate('window.scrollTo(0,0)')
                         if path in ("",EXAMPLE):
                             page.screenshot(path=str(shots/("sunset-"+("home" if not path else "money")+"-"+str(width)+"-"+theme+".png")),full_page=False)
+                    if path==EXAMPLE:
+                        print("MAGAZINE_ARTICLE_BROWSER_OK",width)
                     assert not any("platform.twitter.com/widgets.js" in x for x in remote),path
                 page.locator("[data-x-timeline-load]").click()
                 page.wait_for_function("!!document.querySelector('script[src=\"https://platform.twitter.com/widgets.js\"]')")
@@ -322,6 +346,8 @@ def live():
                     page=response.read(2000000).decode("utf-8")
                 assert 'data-sunset-layout="right-blog"' in page and 'sunset-blog-v1.css?v=' in page,path
                 assert 'data-x-timeline-load' in page and 'src="https://platform.twitter.com/widgets.js"' not in page,path
+                if path in (EXAMPLE,"guide-e-tutorial/scansionare-veicoli/"):
+                    assert 'data-magazine-article="v1"' in page and 'data-magazine-steps' in page and 'data-magazine-related' in page,path
             with urlopen(BASE+"assets/"+CSS,timeout=15) as response:
                 assert response.status==200 and b"--sb-gradient" in response.read(100000)
             print("PUBLIC_SUNSET_BLOG_OK",BASE+EXAMPLE)
