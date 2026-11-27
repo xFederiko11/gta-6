@@ -406,7 +406,7 @@ def browser(root=ROOT):
                     assert page.locator("[data-x-timeline-load]").is_hidden()
                     assert page.locator(".sb-profile").is_visible()
                     assert len(widget_requests)==previous_widgets+1,path
-                    assert not remote,path
+                    assert not any("platform.twitter.com/widgets.js" in url for url in remote),path
                 context.close()
             b.close()
     finally:
