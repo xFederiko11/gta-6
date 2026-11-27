@@ -10,6 +10,7 @@ from pathlib import Path
 from urllib.parse import quote, urlsplit
 import json
 import re
+from garage_codes_v1 import CODES, code_field
 
 PATH="veicoli/"
 CATALOG=Path("data/vehicle_catalog_v1.json")
@@ -226,6 +227,7 @@ def article_body(car,base,all_cars):
         f'<div><dt>Quando</dt><dd>{e(car["unlock"])}</dd></div>',
         reward,
         '</dl>',
+        code_field(CODES[slug],"Codice garage") if slug in CODES else "",
         (f'<p class="vc-map"><a href="{e(car["map_url"])}" target="_blank" rel="noopener noreferrer">Apri riferimento mappa GTABase ↗</a></p>' if car.get("map_url") else ''),
         '<p class="vc-safety"><strong>Attenzione:</strong> ',
         e(warning if car["kind"]!="Esplorazione" else "Posizione documentata, non spawn garantito. Controlla disponibilità e requisiti nel gioco."),'</p></section>',

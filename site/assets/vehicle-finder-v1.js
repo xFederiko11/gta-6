@@ -17,6 +17,17 @@
       button.hidden=true;
     });
   }
+  for(const box of document.querySelectorAll('[data-vc-code]')){
+    const field=box.querySelector('[data-vc-code-value]');
+    const button=box.querySelector('[data-vc-copy-code]');
+    const status=box.querySelector('[data-vc-code-status]');
+    if(!field||!button||!status||!navigator.clipboard?.writeText)continue;
+    button.hidden=false;
+    button.addEventListener('click',async()=>{
+      try{await navigator.clipboard.writeText(field.value);status.textContent='Codice copiato.';}
+      catch(_e){field.focus();field.select();status.textContent='Codice selezionato: usa il comando Copia del dispositivo.';}
+    });
+  }
   const root=document.querySelector('[data-vc-finder]');
   if(!root)return;
   const cards=[...root.querySelectorAll('[data-vc-card]')];

@@ -25,6 +25,18 @@ class GarageGuidesTests(unittest.TestCase):
             self.assertNotIn("<img",body)
             self.assertNotIn("<iframe",body)
             self.assertNotIn("data-pin-lat",body)
+    def test_codes_preserve_digits_and_work_without_javascript(self):
+        from garage_codes_v1 import CODES, code_field
+        result={path:body for path,_,_,body,_ in pages(BASE)}
+        self.assertIn('value="1010"',result[SOUTH])
+        self.assertIn('value="92665"',result[PATH])
+        self.assertEqual(CODES["invetero-spiderweb-coquette"],"092319")
+        field=code_field("092319","Party House")
+        self.assertIn('readonly',field)
+        self.assertIn('value="092319"',field)
+        self.assertIn('data-vc-copy-code hidden',field)
+        self.assertIn('role="status"',field)
+        with self.assertRaises(ValueError):code_field("invalid","Garage")
     def test_generated_pages_canonical_and_discoverable(self):
         self.assertTrue((ROOT/"sitemap.xml").exists())
         sitemap=(ROOT/"sitemap.xml").read_text()
@@ -37,6 +49,8 @@ class GarageGuidesTests(unittest.TestCase):
             self.assertIn('data-sunset-layout="right-blog"',html)
             if kind=="Article":
                 self.assertIn('data-article-cover="shared-social"',html)
+        for path,code in ((VANESSA,"92665"),("veicoli/declasse-applesauce-bobcat/","360782"),("veicoli/invetero-spiderweb-coquette/","092319")):
+            self.assertIn('value="'+code+'"',(ROOT/path/"index.html").read_text())
         for path in ("salvare-auto/","guide-e-tutorial/","auto-speciali/","veicoli/",VANESSA,BUY):
             self.assertIn(BASE+PATH,(ROOT/path/"index.html").read_text())
 if __name__=="__main__":unittest.main()
