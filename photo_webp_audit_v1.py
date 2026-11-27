@@ -86,8 +86,11 @@ def inspect_webp_bytes(data: bytes) -> dict:
         raise WebPReviewError("VP8X must be the first chunk")
 
     payloads = dict(chunks)
-    image_name = b"VP8 " if b"VP8 " in payloads else b"VP8L"
-    image_size = _vp8_dimensions(payloads[image_name]) if image_name == b"VP8 " else _vp8l_dimensions(payloads[image_name])
+    # VP8L's alpha_is_used bit is only a hint. This read-only preflight has no
+    # decoder, so it cannot prove lossless candidates are opaque.
+    if b"VP8L" in payloads:
+        raise WebPReviewError("Lossless WebP cannot be proven opaque without decoding; use lossy VP8")
+    image_size = _vp8_dimensions(payloads[b"VP8 "])
     if b"VP8X" in payloads:
         header = payloads[b"VP8X"]
         if len(header) != 10 or header[0] != 0 or header[1:4] != b"\0\0\0":
