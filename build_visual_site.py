@@ -470,6 +470,9 @@ def directory(guides,kind='all'):
     selected=guides if kind=='all' else [g for g in guides if g['category']==kind or (kind=='auto' and g['category']=='garage')]
     body=legacy.crumbs([(title,path)])+f'<section class="v-directory-head"><span class="eyebrow">GTA 6 · GUIDE OPERATIVE</span><h1>{e(title)}</h1><p>{e(desc)}</p></section>'
     if kind=='all':
+        body+=('<p class="v-guide-video-crosslink" data-editorial-route="salvare-auto">Vuoi conservare una macchina? '
+               '<a href="'+url('salvare-auto/')+'">Come salvare e registrare un’auto in GTA 6 →</a> · '
+               '<a href="'+url('articoli/categoria/veicoli/')+'">Tutte le guide su veicoli e garage</a></p>')
         body+=('<p class="v-guide-video-crosslink">🎬 Preferisci vedere il passaggio? '
                '<a href="'+url(CREATOR_VIDEO_PATH)+'">Vai ai video tutorial dei creator →</a></p>')
     if kind=='auto':
@@ -906,8 +909,8 @@ def main():
     legacy.write(ROADMAP_PATH+'index.html',layout(
         roadmap_title,roadmap_desc,ROADMAP_PATH,roadmap_body,'trofei',
         structured=roadmap_schema))
-    title='GTA 6 Italia: soldi facili, auto speciali e guide PS5'
-    desc='Guide GTA VI in italiano: soldi facili, auto speciali, garage, trofei e HDR OLED. Passaggi chiari, immagini attribuite e avviso spoiler.'
+    title='GTA 6 Italia: guide PS5, auto, soldi e platino'
+    desc='Guide GTA 6 in italiano: come salvare e registrare auto, trovare soldi, sbloccare garage e ottenere il platino. News, patch e HDR OLED per PS5.'
     legacy.write('index.html',layout(title,desc,'',home(guides),'home',structured={'@context':'https://schema.org','@type':'WebSite','name':'GTA 6 Italia','url':url(),'inLanguage':'it-IT'}))
     map_title='Mappe GTA 6 PS5: 11 guide con posizioni documentate'
     map_desc=('Mappe GTA VI in italiano: 11 guide con riferimenti alle posizioni, '

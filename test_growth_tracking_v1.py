@@ -110,6 +110,38 @@ class GrowthTrackingTests(unittest.TestCase):
         self.assertIn('PUBLIC_GTA6_UMAMI_TAG_OK',workflow)
         self.assertNotIn("UMAMI_WEBSITE_ID: ${{ vars.UMAMI_WEBSITE_ID }}",workflow)
 
+    def test_production_magazine_taxonomy_tracking(self):
+        from html.parser import HTMLParser
+        from sunset_blog_v1 import inject
+        from article_chronology_v1 import tree
+        class Links(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.links=[]
+            def handle_starttag(self,tag,attrs):
+                a=dict(attrs)
+                if tag=="a" and a.get("href","").startswith("https://xfederiko11.github.io/gta-6/articoli/"):
+                    self.links.append(a)
+        fixture='<html><head><title>Magazine</title></head><body data-design-version="fixture"><main class="wrap" id="contenuto"><h1>Magazine</h1></main></body></html>'
+        expected={"articoli/"}|{g["path"] for g in tree()}|{c["path"] for g in tree() for c in g["children"]}
+        for enabled in (False,True):
+            # Reproduce the actual production analytics marker offline; never
+            # load a tracker or generate real analytics traffic in PR QA.
+            html=inject(enhance(fixture,ID if enabled else None),"articoli/","test")
+            parser=Links();parser.feed(html)
+            self.assertEqual(len(parser.links),len(expected))
+            self.assertEqual({a["href"].removeprefix("https://xfederiko11.github.io/gta-6/") for a in parser.links},expected)
+            for a in parser.links:
+                if enabled:
+                    self.assertEqual(a.get("data-umami-event"),"category-open")
+                    self.assertEqual(a.get("data-umami-event-placement"),"right-sidebar")
+                    self.assertEqual(a.get("data-umami-event-destination"),a["href"].removeprefix("https://xfederiko11.github.io/gta-6/"))
+                else:
+                    self.assertFalse(any(k.startswith("data-umami-") for k in a))
+            self.assertEqual('data-umami-event="x-timeline-open"' in html,enabled)
+            self.assertEqual('id="growth-analytics-v1"' in html,enabled)
+        print("MAGAZINE_ANALYTICS_PRODUCTION_FIXTURE_OK")
+
     def test_missing_head_fails_closed_only_when_configured(self):
         self.assertEqual(enhance("<body>ok</body>", ""), "<body>ok</body>")
         with self.assertRaises(ValueError):

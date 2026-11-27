@@ -82,14 +82,21 @@ def related_links(path,enabled):
             "".join('<a href="'+BASE+target+'"'+tracking(enabled,"related-guide-open",target,"after-tutorial")+'>'+esc(label)+' <span aria-hidden="true">→</span></a>' for target,label in items)+'</nav>')
 
 def sidebar(path="",*,preview=False,guide=False,track=False):
-    def row(target,label,color):
-        active=(path==target or (not preview and target!="guide-e-tutorial/" and path.startswith(target)))
-        return ('<a class="sb-category" data-color="'+color+'" href="'+BASE+target+'"'+
-                (' aria-current="page"' if active and path==target else '')+
-                (' data-current-section="true"' if active else '')+tracking(track,"category-open",target)+'><span aria-hidden="true"></span>'+esc(label)+'</a>')
-    from article_chronology_v1 import tree
-    categories='<a class="sb-all-articles" href="'+BASE+'articoli/">Tutti gli articoli →</a>'+''.join(
-        '<details class="sb-taxonomy"><summary>'+esc(g["label"])+' <span>'+str(g["count"])+'</span></summary><a href="'+BASE+g["path"]+'">Tutta la categoria</a>'+''.join('<a href="'+BASE+c["path"]+'">'+esc(c["label"])+'</a>' for c in g["children"])+'</details>' for g in tree())
+    from article_chronology_v1 import tree, inventory, taxonomy
+    active_group=""
+    if not preview:
+        if path.startswith("articoli/categoria/"):
+            active_group=path.split("/")[2]
+        else:
+            current=next((r for r in inventory() if r[0]==path),None)
+            if current:active_group=taxonomy(current)[0]
+    def category_link(target,label,cls=""):
+        return ('<a'+(' class="'+cls+'"' if cls else '')+' href="'+BASE+target+'"'+
+                (' aria-current="page"' if not preview and target==path else '')+
+                tracking(track and not preview,"category-open",target)+'>'+esc(label)+'</a>')
+    categories=category_link("articoli/","Tutti gli articoli →","sb-all-articles")+''.join(
+        '<details class="sb-taxonomy"'+(' open' if g["id"]==active_group else '')+'><summary>'+esc(g["label"])+' <span>'+str(g["count"])+'</span></summary>'+
+        category_link(g["path"],"Tutta la categoria")+''.join(category_link(c["path"],c["label"]) for c in g["children"])+'</details>' for g in tree())
     important="".join('<a href="'+BASE+target+'"'+tracking(track,"important-guide-open",target)+'>'+esc(label)+' <span aria-hidden="true">→</span></a>' for target,label in IMPORTANT if target!=path)
     jump=('<div class="sb-panel"><p class="sb-kicker">IN QUESTA GUIDA</p><nav class="sb-important" aria-label="Indice della guida">'
           '<a href="#procedura"'+tracking(track,"tutorial-jump","procedura")+'>Passaggi del tutorial <span aria-hidden="true">↓</span></a>'
