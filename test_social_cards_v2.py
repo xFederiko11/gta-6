@@ -145,6 +145,7 @@ class SocialCardTests(unittest.TestCase):
         self.assertFalse(c.is_article('{"@type":"CollectionPage"}',"guide-e-tutorial/"))
         self.assertFalse(c.is_article('{"@type":"WebSite"}',""))
         self.assertEqual(c.subject_for_path("guide-e-tutorial/scansionare-veicoli/"),"scanner")
+        self.assertEqual(c.subject_for_path("guide-e-tutorial/strip-club-gta-6/"),"map")
         self.assertEqual(c.subject_for_path("guide-e-tutorial/soldi-facili-capitolo-1/"),"cash")
         self.assertEqual(c.subject_for_path("hdr-oled/lg-oled-c4/"),"display")
 
