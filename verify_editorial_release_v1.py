@@ -5,6 +5,8 @@ BASE="https://xfederiko11.github.io/gta-6/"
 CHECKS={
  "":('data-chronology-path="garage-gratuiti/southside-storage/"','id="ultimi-articoli"'),
  "articoli/":('data-chronology-search','data-chronology-category="HDR OLED"','data-chronology-category="Trucchi"'),
+ "salvare-auto/":('Come salvare e registrare un’auto in GTA 6','data-editorial-next','"datePublished":"2026-11-20"'),
+ "guide-e-tutorial/meditazione-capitolo-1/":('data-meditation-map','www.gtabase.com/gta-6/map/?feature=meditation','Port Gellhorn'),
  "glitch/":('data-glitch-index','data-chronology-path="guide-e-tutorial/glitch-prima-persona-ps5/"'),
  "guide-e-tutorial/key-cloner/":("data-legit-guide","Key Cloner"),
  "guide-e-tutorial/vendere-veicoli/":("data-legit-guide","Photo/Shoot"),

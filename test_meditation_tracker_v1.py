@@ -46,6 +46,10 @@ class MeditationChecklistTests(unittest.TestCase):
         self.assertIn('PRIMA OCCASIONE · CAPITOLO 1',page)
         self.assertIn('10 luoghi, 18 meditazioni',page)
         self.assertIn('Learn to Meditate Together',page)
+        self.assertIn('Port Gellhorn',page)
+        self.assertIn('https://www.gtabase.com/gta-6/map/?feature=meditation',page)
+        self.assertIn('non è una sessione aggiuntiva',page)
+        self.assertIn('entrambi i personaggi',page)
         self.assertIn('Lezione iniziale o alternativa',page)
         self.assertEqual(page.count('data-meditation-video-link'),10)
         self.assertIn('WZ9EM_i_W38&amp;t=377s',page)
@@ -68,6 +72,7 @@ class MeditationChecklistTests(unittest.TestCase):
         wrong=copy.deepcopy(self.data);wrong["spots"][0]["phase"]="later";mutants.append(wrong)
         wrong=copy.deepcopy(self.data);wrong["spots"][9]["phase"]="none";mutants.append(wrong)
         wrong=copy.deepcopy(self.data);wrong["source"]="https://example.com/";mutants.append(wrong)
+        wrong=copy.deepcopy(self.data);wrong["map_source"]="https://example.com/";mutants.append(wrong)
         for data in mutants:
             with self.subTest(mutation=data.get("schema")):
                 with self.assertRaises(ValueError):
