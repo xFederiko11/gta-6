@@ -15,8 +15,11 @@ class SocialParticipationTests(unittest.TestCase):
         self.assertIn("11/07/2026 · 00:30",post_time_html({**item,"completed_utc":"2026-07-10T22:30:00Z"}))
         for change in ({"source":"ledger"},{"buffer_status":"queued"},{"completed_utc":"2026-11-26T12:44:00"}):
             self.assertEqual(post_time_html({**item,**change}),"")
-        with patch("sunset_blog_v1.load",return_value={"x_posts":[item]}):
-            self.assertIn("26/11/2026 · 13:44",sidebar())
+        rendered=sidebar()
+        self.assertIn('class="twitter-timeline"',rendered)
+        self.assertIn('data-tweet-limit="5"',rendered)
+        self.assertNotIn("social-comment-card",rendered)
+        self.assertNotIn("Post verificati tramite Buffer",rendered)
 
     def test_url_validation(self):
         good="https://twitter.com/xFederiko11/status/2123588882885186002"
