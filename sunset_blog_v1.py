@@ -285,6 +285,7 @@ def browser(root=ROOT):
                 context.route("**/*",route)
                 page=context.new_page()
                 for path in ("",EXAMPLE,"guide-e-tutorial/scansionare-veicoli/","salvare-auto/","articoli/gta-vi-ultimate-edition-auto-garage/"):
+                    previous_widgets=len(widget_requests)
                     assert page.goto(origin+path).status==200
                     assert page.locator(".sb-sidebar").count()==1
                     assert page.locator(".sb-sidebar .sb-taxonomy").count()==8
@@ -336,13 +337,13 @@ def browser(root=ROOT):
                     assert page.locator('[data-x-timeline-slot] a.twitter-timeline').get_attribute("data-tweet-limit")=="5"
                     assert page.locator("[data-x-timeline-load]").is_hidden()
                     assert page.locator(".sb-profile").is_visible()
-                    assert len(widget_requests)>=len([p for p in ("",EXAMPLE,"guide-e-tutorial/scansionare-veicoli/","salvare-auto/","articoli/gta-vi-ultimate-edition-auto-garage/") if True])
+                    assert len(widget_requests)==previous_widgets+1,path
                     assert not remote,path
                 context.close()
             b.close()
     finally:
         server.shutdown();server.server_close()
-    print("SUNSET_BLOG_BROWSER_OK desktop right / mobile below / light dark / opt-in X fallback")
+    print("SUNSET_BLOG_BROWSER_OK desktop right / mobile below / light dark / lazy five-post X timeline")
 
 def live():
     for attempt in range(4):
