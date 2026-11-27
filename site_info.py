@@ -6,7 +6,7 @@ person; counts begin when the badge is installed. No API key/cookie needed.
 """
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from functools import lru_cache
 from html import escape
 from urllib.parse import urlencode
@@ -99,6 +99,25 @@ def local_modified(path: str) -> tuple[str, str]:
     machine = t.date().isoformat()
     display = f"{t.day} {MONTHS[t.month]} {t.year}"
     return machine, display
+
+
+@lru_cache(maxsize=1)
+def publication_registry() -> dict[str, str]:
+    """Read documented release days; never derive them from a build time."""
+    path=Path("data/publication_dates_v1.json")
+    if not path.is_file():
+        return {}
+    registry=json.loads(path.read_text(encoding="utf-8"))
+    if registry.get("schema")!="publication-dates-v1":
+        raise ValueError("Unknown publication registry")
+    dates=registry["published"]
+    for article,stamp in dates.items():
+        if not isinstance(article,str) or not article.endswith("/") or not isinstance(stamp,str) or date.fromisoformat(stamp).isoformat()!=stamp:
+            raise ValueError("Invalid publication registry date")
+    return dates
+
+def published_day(path: str) -> str | None:
+    return publication_registry().get(path)
 
 
 def view_badge_url(canonical: str) -> str:

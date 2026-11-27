@@ -58,6 +58,22 @@ class FirstCarPilotTests(unittest.TestCase):
             self.skipTest("Build generated later in GitHub Actions")
         page=path.read_text(encoding="utf-8")
         self.assertIn('rel="canonical" href="'+CANON+'"',page)
+        import re
+        from html import unescape
+        title=unescape(re.search(r'<title>(.*?)</title>',page).group(1))
+        self.assertIn('Come salvare e registrare un’auto in GTA 6',title)
+        self.assertLessEqual(len(title),60)
+        self.assertIn('data-editorial-next',page)
+        self.assertIn(CANON.replace('salvare-auto/','guide-e-tutorial/vendere-veicoli/'),page)
+        waink=(ROOT/'guide-e-tutorial/scansionare-veicoli/index.html').read_text(encoding='utf-8')
+        randy=(ROOT/'guide-e-tutorial/sportive-randy-posizioni/index.html').read_text(encoding='utf-8')
+        for related in (waink,randy):
+            self.assertIn('data-editorial-next',related)
+            self.assertIn(CANON,related)
+        from site_info import published_day
+        if published_day('salvare-auto/'):
+            self.assertRegex(page,r'"datePublished"\s*:\s*"'+published_day('salvare-auto/')+'"')
+        self.assertIn('dopo Dale Mamba',page)
         self.assertEqual(page.count('class="v-step"'),7)
         self.assertEqual(page.count('class="car-microsteps"'),7)
         self.assertEqual(page.count('class="car-microstep"'),21)

@@ -705,6 +705,13 @@ def guide(g,guides):
         body+=render_meditation_tracker()
     body+='<p class="v-tutorial-finish"><strong>FINE DEI PASSAGGI</strong> · Da qui in poi trovi soltanto informazioni aggiuntive.</p>'
     body+='</section>'
+    related_paths={
+        'registrare-auto-personale': [('guide-e-tutorial/scansionare-veicoli/','Controlla il tracker con WAiNK'),('garage-gratuiti/','Sblocca i garage gratuiti'),('guide-e-tutorial/vendere-veicoli/','Vendi un veicolo')],
+        'scansionare-veicoli': [('salvare-auto/','Come salvare e registrare un’auto in GTA 6'),('guide-e-tutorial/key-cloner/','Sblocca Key Cloner')],
+        'sportive-randy-posizioni': [('salvare-auto/','Come registrare i veicoli dopo Dale Mamba'),('guide-e-tutorial/key-cloner/','Sblocca Key Cloner'),('garage-gratuiti/domestic-timbers/','Ritira il premio di Randy')]
+    }
+    if g['id'] in related_paths:
+        body+='<nav class="v-guide-ref-list" data-editorial-next aria-label="Guide correlate"><h3>Continua con</h3>'+''.join('<p><a href="'+url(p)+'">'+e(label)+' →</a></p>' for p,label in related_paths[g['id']])+'</nav>'
     # Readers can stop here: reference material is genuinely optional.
     body+=('<details class="v-guide-more" id="approfondimenti">'
            '<summary><span><strong>Approfondimenti e materiali extra</strong>'
@@ -716,7 +723,7 @@ def guide(g,guides):
                '<a href="'+url(MOSES_JOBS_PATH)+'">6 veicoli da recuperare per Moses, con ricompense →</a>'
                '</p>')
         body+=('<section class="v-guide-ref-list" id="advanced-tracker-details" aria-labelledby="advanced-tracker-title">'
-               '<h3 id="advanced-tracker-title">Registrare un’auto con Advanced Tracker (Capitolo 3)</h3>'
+               '<h3 id="advanced-tracker-title">Registrare un’auto con Advanced Tracker dopo Dale Mamba</h3>'
                '<p><strong>Verificata sulle fonti · spoiler leggero sulla progressione.</strong></p>'
                '<ol><li>Completa Clonin’ Keys, Makin’ Gs e avvia le richieste di Randy. '
                '<a href="'+url('guide-e-tutorial/sportive-randy-posizioni/')+'">Apri la guida Randy</a>.</li>'

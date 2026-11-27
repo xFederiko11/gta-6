@@ -14,7 +14,7 @@ import os
 import re
 import shutil
 import xml.etree.ElementTree as ET
-from site_info import SOCIAL_URL, SOCIAL_HANDLE, iso_modified, page_meta
+from site_info import SOCIAL_URL, SOCIAL_HANDLE, iso_modified, page_meta, published_day
 from hdr_catalog import render as render_hdr_pages
 from cheats_catalog import render as render_cheat_pages
 from sources_page import render as render_sources_page
@@ -104,6 +104,12 @@ def layout(title, desc, path, body, section=None, image=None, robots="index,foll
     if structured:
         structured=dict(structured)
         structured["dateModified"]=modified
+        # Preserve native Article dates (news/editorials). Historical guides
+        # receive only a documented release day, never the current build day.
+        if structured.get("@type") in ("Article","NewsArticle","BlogPosting"):
+            publication=published_day(path)
+            if publication and not structured.get("datePublished"):
+                structured["datePublished"]=publication
     meta=news_meta(title,desc,canonical,image,robots=robots,structured=structured,modified=modified)
     info=page_meta(canonical,path)
     return (f'<!doctype html><html lang="it"><head>{meta}</head><body>'
