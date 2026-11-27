@@ -18,6 +18,7 @@ import cinematic_site
 import garage_guides_v1 as garage_guides
 import vehicle_progression_guides_v1 as vehicle_progression
 import article_chronology_v1 as chronology
+import strip_club_guide_v1
 from visual_guide_content import enrich
 from operational_brief_v1 import validate as validate_operational_briefs, render as render_operational_brief
 from waink_visual_v1 import intro as render_waink_intro, step as render_waink_step
@@ -1112,6 +1113,7 @@ def main():
     editorial_paths=editorial_articles.build(legacy.write,layout,url,legacy.crumbs)
     # The media library is browsable but intentionally excluded from the index.
     new_paths.extend(p for p in editorial_paths if p != editorial_articles.GALLERY_PATH)
+    new_paths.append(strip_club_guide_v1.build(legacy.write,layout,url,legacy.crumbs))
     new_paths.extend(patch_archive_v1.build(legacy.write,layout,url,legacy.crumbs))
     tree=ET.parse(OUT/'sitemap.xml'); root=tree.getroot(); ns='{http://www.sitemaps.org/schemas/sitemap/0.9}'
     existing={loc.text for loc in root.iter(ns+'loc')}
