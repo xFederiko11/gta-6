@@ -334,6 +334,7 @@ def browser(root=ROOT):
                         page.keyboard.press("Escape")
                         assert field.evaluate("e=>e===document.activeElement")
                         assert quick.locator("[data-search-results]").is_hidden()
+                        assert quick.locator("[data-search-status]").inner_text()=="Cerca per titolo, veicolo, missione o trofeo."
                         field.fill("zzzxxyy123")
                         page.wait_for_function("document.querySelector('[data-search-status]').textContent.includes('Nessun articolo')")
                         assert quick.locator("[data-search-results] a").count()==0
