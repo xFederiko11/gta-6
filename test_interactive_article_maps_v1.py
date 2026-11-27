@@ -1,4 +1,4 @@
-"""No-network verification of 68 consensual GTA VI embedded maps (11 + 55 + 2)."""
+"""No-network verification of 69 consent-first GTA VI embedded map panels."""
 from __future__ import annotations
 from copy import deepcopy
 import json
@@ -30,8 +30,9 @@ class EmbedMapTests(unittest.TestCase):
         self.assertEqual(report["schema"],SCHEMA)
         self.assertEqual(report["guide_articles"],11)
         self.assertEqual(report["trophy_articles"],55)
-        self.assertEqual(report["articles_with_map"],66)
-        self.assertEqual(report["pages_with_interactive_map"],68)
+        self.assertEqual(report["garage_guide_articles_with_map"],1)
+        self.assertEqual(report["articles_with_map"],67)
+        self.assertEqual(report["pages_with_interactive_map"],69)
         self.assertEqual(report["guide_location_descriptions"],18)
         self.assertEqual(report["collectible_descriptions"],123)
         self.assertEqual(report["exact_gameplay_coordinate_pairs_verified"],0)
@@ -109,15 +110,15 @@ class EmbedMapTests(unittest.TestCase):
         self.assertNotIn("psn_api",js)
         self.assertNotIn("autoplay",js)
 
-    def test_exported_public_build_contains_68_unique_interactive_map_panels(self):
+    def test_exported_public_build_contains_69_unique_interactive_map_panels(self):
         if not (ROOT/"index.html").exists():
             self.skipTest("Production site not built yet")
         guides,trophies,_,_,_=fixture()
         report=json.loads((ROOT/"map-rollout-v1.json").read_text(encoding="utf-8"))
         self.assertEqual(json.loads(as_json(report)),report)
-        self.assertEqual(report["pages_with_interactive_map"],68)
+        self.assertEqual(report["pages_with_interactive_map"],69)
         g,t=article_paths(guides,trophies)
-        for path in [*g,*t,"collezionabili/percorsi/","mappe-guide/"]:
+        for path in [*g,*t,"collezionabili/percorsi/","mappe-guide/","garage-gratuiti/southside-storage/"]:
             html=(ROOT/path/"index.html").read_text(encoding="utf-8")
             self.assertEqual(html.count("data-vi-map "),1,path)
             self.assertIn("interactive-map-v1.css?v=",html)
@@ -126,6 +127,11 @@ class EmbedMapTests(unittest.TestCase):
             self.assertIn('href="https://vice-map.com/"',html)
             self.assertIn('data-vim-load',html)
             self.assertIn("mappa-interattiva",html)
+        south=(ROOT/"garage-gratuiti/southside-storage/index.html").read_text(encoding="utf-8")
+        self.assertEqual(south.count("data-vi-map "),1)
+        self.assertEqual(south.count("data-southside-map-pin="),6)
+        self.assertEqual(south.count('data-youtube-id="mu_VCQKeXvM"'),6)
+        self.assertIn("interactive-map-v1.js?v=",south)
         collect=(ROOT/"collezionabili/percorsi/index.html").read_text(encoding="utf-8")
         self.assertEqual(collect.count('data-vim-map-search='),123)
         self.assertIn("Kenton",collect)
