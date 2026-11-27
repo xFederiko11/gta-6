@@ -15,6 +15,7 @@ import site_info
 import editorial_articles
 import patch_archive_v1
 import cinematic_site
+import garage_guides_v1 as garage_guides
 from visual_guide_content import enrich
 from operational_brief_v1 import validate as validate_operational_briefs, render as render_operational_brief
 from waink_visual_v1 import intro as render_waink_intro, step as render_waink_step
@@ -91,7 +92,7 @@ def header(path):
     # Three editorial destinations: guide ≠ community report ≠ other tools.
     primary=[('Home',''),('Guide','guide-e-tutorial/'),('Trofei','trofei/'),('Scoperte','scoperte/')]
     secondary=[('Soldi facili','soldi-facili/'),('Cerca un veicolo','veicoli/'),
-               ('Salvare auto','salvare-auto/'),('Collezionabili','collezionabili/percorsi/'),
+               ('Salvare auto','salvare-auto/'),('Garage gratuiti',garage_guides.PATH),('Collezionabili','collezionabili/percorsi/'),
                ('Mappe','mappe-guide/'),('HDR OLED','hdr-oled/'),('Video tutorial','video-tutorial/'),('Articoli','articoli/'),('Patch','patch/'),('Immagini ufficiali','immagini-ufficiali/'),('Fonti e metodo','fonti/')]
     def link(label,target):
         current=' aria-current="page"' if path==target else ''
@@ -111,7 +112,7 @@ def header(path):
               'di missioni, luoghi e ricompense.</p></div></div>') if path else ''))
 
 def footer():
-    links=[('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Invia foto','screenshot-ps5/invia/'),('Mappe e luoghi','mappe-guide/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Tutte le guide','guide-e-tutorial/'),('Patch GTA VI','patch/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Immagini Rockstar','immagini-ufficiali/'),('Video dei creator','video-tutorial/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
+    links=[('Roadmap platino','trofei/roadmap-platino/'),('Checklist 100%','trofei/100-percento/'),('Percorsi collezionabili','collezionabili/percorsi/'),('Trofei difficili','trofei/trofei-difficili/'),('Invia foto','screenshot-ps5/invia/'),('Mappe e luoghi','mappe-guide/'),('Soldi facili','soldi-facili/'),('Auto speciali','auto-speciali/'),('Salvare le auto','salvare-auto/'),('Garage gratuiti',garage_guides.PATH),('Tutte le guide','guide-e-tutorial/'),('Patch GTA VI','patch/'),('Trofei','trofei/'),('HDR OLED','hdr-oled/'),('Foto della community','screenshot-ps5/'),('Immagini Rockstar','immagini-ufficiali/'),('Video dei creator','video-tutorial/'),('Fonti e metodo','fonti/'),('Privacy e visite','privacy/')]
     return ('<footer class="v-footer"><div class="wrap"><div class="v-footer-grid"><div>'+brand()+
             '<p>Guide indipendenti per PS5 e PS5 Pro. Sintesi originali, schermate attribuite e avvisi spoiler. Non affiliato a Rockstar Games.</p></div><nav class="v-footer-links" aria-label="Link utili">'+
             ''.join(f'<a href="{url(p)}">{e(t)}</a>' for t,p in links)+
@@ -130,6 +131,8 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
               interactive_trophy_points(number,route,COLLECTIBLE_ROUTES),
               id_suffix='trofeo-'+str(number),page_label='trofeo',
               curated_refs=external_refs_for(EXTERNAL_MAP_REFS,trophy=number))
+    if path in ('salvare-auto/','veicoli/','guide-e-tutorial/','auto-speciali/','guide-e-tutorial/sportive-randy-posizioni/',garage_guides.BUY,garage_guides.VANESSA,garage_guides.BOBCAT,garage_guides.COQUETTE):
+        body+=garage_guides.banner(BASE+'/')
     page=ORIGINAL_LAYOUT(title,desc,path,body,section,image,robots,structured)
     page=re.sub(r'<header class="site-header">.*?</header>',lambda _:header(path),page,count=1,flags=re.S)
     page=re.sub(r'<footer class="footer">.*?</footer>',lambda _:footer(),page,count=1,flags=re.S)
@@ -162,7 +165,7 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
         version=hashlib.sha256(Path('site/assets',css).read_bytes()+Path('site/assets',js).read_bytes()).hexdigest()[:12]
         page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
         page=page.replace('</body>',f'<script src="{url("assets/"+js)}?v={version}" defer></script></body>',1)
-    if path==VEHICLE_PATH or path.startswith(VEHICLE_PATH):
+    if path==VEHICLE_PATH or path.startswith((VEHICLE_PATH,garage_guides.PATH)):
         css,js='vehicle-finder-v1.css','vehicle-finder-v1.js'
         version=hashlib.sha256(
             Path('site/assets',css).read_bytes()+Path('site/assets',js).read_bytes()).hexdigest()[:12]
@@ -868,6 +871,8 @@ def main():
     site_info.sources_for=lambda path: ORIGINAL_SOURCES(path)+('build_visual_site.py','moses_vehicle_jobs_v1.py','operational_brief_v1.py','data/guide_operational_briefs_v1.json','site/assets/operational-guide-v1.css','site/assets/site-focus-v1.css','collectible_routes_v4.py','data/collectible_routes_v4.json','data/collectible_photo_evidence_v1.json','collectible_photo_evidence_v1.py','site/assets/collectible-photo-v1.css','site/assets/collectible-beginner-v1.css','site/assets/collectible-beginner-v1.js','photo_intake_v4.py','data/approved_screenshots_v4.json','advanced_platinum_v3.py','data/advanced_platinum_v3.json','photo_provenance_v3.py','data/photo_provenance_review_v3.json','visual_guide_content.py','data/visual_guides.json','data/visual_media.json','data/visual_requests.json','data/guide_visual_refs.json','data/guide_step_refs.json','guide_step_references_v1.py','data/step_image_sources_v1.json','step_image_sources_v1.py','data/guide_locations_v2.json','guide_location_atlas_v2.py','data/map_external_permalinks_v1.json','interactive_article_maps_v1.py','site/assets/interactive-map-v1.css','site/assets/interactive-map-v1.js','data/guide_extras.json','photo_request_hub_v1.py','data/meditation_checklist_v1.json','meditation_tracker_v1.py','site/assets/visual-v2.css','site/assets/visual-v2.js','rockstar_gallery_v1.py','site/assets/rockstar/gta-vi/manifest.json','site/assets/rockstar-gallery-v1.css','site/assets/rockstar-gallery-v1.js','vehicle_catalog_v1.py','data/vehicle_catalog_v1.json','site/assets/vehicle-finder-v1.css','site/assets/vehicle-finder-v1.js') + (('platinum_roadmap_v1.py','platinum_atlas_v2.py','data/platinum_trophy_routes_v2.json','site/assets/platinum-roadmap.css','site/assets/platinum-roadmap.js','site/assets/platinum-atlas-v2.css','site/assets/platinum-atlas-v2.js') if path==ROADMAP_PATH else ()) + (('waink_visual_v1.py',)+tuple('site/assets/waink-guide/step-'+str(n)+'.svg' for n in range(1,6)) if path=='guide-e-tutorial/scansionare-veicoli/' else ())
     original_patch_sources=site_info.sources_for
     site_info.sources_for=lambda path: original_patch_sources(path)+(('patch_archive_v1.py','patch_observations_v1.py','data/patches_v1.json','site/assets/editorial-articles.css') if path.startswith('patch/') else ())
+    original_garage_sources=site_info.sources_for
+    site_info.sources_for=lambda path: original_garage_sources(path)+(('garage_guides_v1.py','site/assets/vehicle-finder-v1.css') if path.startswith(garage_guides.PATH) else ())
     site_info.last_modified_at.cache_clear()
     legacy.layout=layout
     from community_discovery_v2 import render as community_render
@@ -966,6 +971,9 @@ def main():
         'guide',structured=coverage_schema))
     legacy.write('photo-backlog-v5.json',export_photo_coverage(PHOTO_COVERAGE))
     new_paths=[ROADMAP_PATH,MAP_HUB_PATH,COLLECTIBLE_PATH,HARD_PATH,COLLECTIBLE_ROUTE_PATH,PHOTO_INTAKE_PATH,PHOTO_COVERAGE_PATH]
+    for gp,gt,gd,gb,gtype in garage_guides.pages(BASE+'/'):
+        legacy.write(gp+'index.html',layout(gt,gd,gp,gb,'guide',structured={'@context':'https://schema.org','@type':gtype,'name':gt,'description':gd,'url':url(gp),'inLanguage':'it-IT'}))
+        new_paths.append(gp)
     # Curated promotional photo index: never inserted into step-by-step guides.
     gallery_title='Immagini ufficiali GTA VI Rockstar: ambientazioni, personaggi e Ultimate Edition'
     gallery_description=('Galleria delle immagini ufficiali GTA VI da Rockstar Games: '
