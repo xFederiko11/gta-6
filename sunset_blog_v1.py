@@ -126,7 +126,7 @@ def sidebar(path="",*,preview=False,guide=False,track=False):
             '<div class="sb-panel sb-x-panel"><p class="sb-kicker">DALLA REDAZIONE</p><p class="sb-heading">𝕏 Ultimi post</p>'
             '<p class="sb-x-description">Ultimi cinque post pubblici, incorporati direttamente da X.</p>'
             '<div class="sb-x-feed" data-x-timeline-slot aria-live="polite">'
-            '<a class="twitter-timeline" data-height="460" data-tweet-limit="5" data-chrome="noheader nofooter" data-theme="dark" href="https://twitter.com/xFederiko11?ref_src=twsrc%5Etfw">Post pubblici di @xFederiko11</a>'
+            '<a class="twitter-timeline" data-height="460" data-tweet-limit="5" data-lang="it" data-chrome="nofooter" data-theme="dark" href="https://twitter.com/xFederiko11?ref_src=twsrc%5Etfw">Post pubblici di @xFederiko11</a>'
             '</div>'
             '<button class="sb-x-button" type="button" data-x-timeline-load'+tracking(track,"x-timeline-open")+' hidden>Riprova il feed X</button>'
             '<p class="sb-x-description">Feed fornito da X. Se non viene caricato, apri il profilo dal collegamento qui sotto.</p>'
@@ -248,6 +248,8 @@ def verify(root=ROOT):
         assert page.count('data-x-live-grid')==0,path
         assert page.count('class="twitter-timeline"')==1,path
         assert page.count('data-tweet-limit="5"')==1,path
+        assert page.count('data-lang="it"')==1,path
+        assert 'data-chrome="noheader' not in page,path
         assert 'sunset-blog-v1.css?v=' in page,path
         assert 'src="https://platform.twitter.com/widgets.js"' not in page,path
         if 'id="growth-analytics-v1"' in page:
