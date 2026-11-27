@@ -43,6 +43,13 @@ class SimpleHomeTests(unittest.TestCase):
         self.assertEqual(re.findall(r'data-chronology-path="([^"]+)"',index),[r[0] for r in rows])
         self.assertEqual(re.findall(r'data-chronology-path="([^"]+)"',(SITE/"glitch/index.html").read_text(encoding="utf-8")),[GLITCH])
         for path,*_ in rows:self.assertTrue((SITE/path/"index.html").is_file(),path)
+        self.assertEqual(len({r[0] for r in rows}),len(rows))
+        self.assertGreater(len(rows),120)
+        self.assertEqual({r[2] for r in rows if r[2]=="Glitch"},{"Glitch"})
+        self.assertIn('data-chronology-filters hidden',index)
+        self.assertIn('article-chronology-v1.js?v=',index)
+        self.assertIn('data-chronology-search',index)
+        self.assertIn('data-chronology-filter',index)
 
     def test_does_not_break_published_deep_links_or_source_labels(self):
         for path in ("guide-e-tutorial/veicoli-per-moses/",

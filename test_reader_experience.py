@@ -235,7 +235,7 @@ def browser_qa():
                 context=browser.new_context(viewport={'width':width,'height':900},color_scheme='light')
                 bind(context);page=context.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))
-                paths=['','guide-e-tutorial/key-cloner/','guide-e-tutorial/vendere-veicoli/','glitch/','articoli/','garage-gratuiti/','garage-gratuiti/southside-storage/','garage-gratuiti/domestic-timbers/','garage-gratuiti/garage-storia/','patch/','patch/2026-11-23/','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/studiare-animali/','guide-e-tutorial/viaggio-rapido-taxi/','guide-e-tutorial/70-sfide-100-percento/','guide-e-tutorial/poligoni-concentrazione/','guide-e-tutorial/sportive-randy-posizioni/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','hdr-oled/lg-oled-c4/','hdr-oled/samsung-s90f/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','articoli/gta-vi-ultimate-edition-auto-garage/','video-tutorial/','veicoli/','veicoli/declasse-yosemite-1500/','veicoli/pegassi-toros/','veicoli/pegassi-vitello/','veicoli/pegassi-infernus/','veicoli/pegassi-tempesta/','veicoli/buckingham-windsor-drop/','veicoli/ocelot-jagular/','veicoli/buckingham-jubilee/','veicoli/grotti-itali-rsx/','veicoli/pfister-growler/','veicoli/gallivanter-baller-st-d/','veicoli/ascot-paragon/','veicoli/bravado-gauntlet-hellfire/','veicoli/piccia-furia/','veicoli/benefactor-dubsta/','veicoli/bravado-banshee/','veicoli/declasse-akane-anime/','veicoli/annis-drifter-elegy/','veicoli/vapid-rocket-slamvan/','veicoli/invetero-spiderweb-coquette/','veicoli/declasse-applesauce-bobcat/','veicoli/pfister-vanessas-growler/','veicoli/maibatsu-penumbra-ff-verde/','veicoli/invetero-coquette-d10/','guide-e-tutorial/']
+                paths=['','guide-e-tutorial/key-cloner/','guide-e-tutorial/vendere-veicoli/','glitch/','articoli/','garage-gratuiti/','garage-gratuiti/southside-storage/','garage-gratuiti/domestic-timbers/','garage-gratuiti/garage-storia/','garage-gratuiti/garage-storia/port-gellhorn/','garage-gratuiti/garage-storia/thompson-court/','garage-gratuiti/garage-storia/ne-15th-street/','garage-gratuiti/garage-storia/pegassi-residences/','patch/','patch/2026-11-23/','salvare-auto/','guide-e-tutorial/veicoli-per-moses/','guide-e-tutorial/studiare-animali/','guide-e-tutorial/viaggio-rapido-taxi/','guide-e-tutorial/70-sfide-100-percento/','guide-e-tutorial/poligoni-concentrazione/','guide-e-tutorial/sportive-randy-posizioni/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/meditazione-capitolo-1/','guide-e-tutorial/glitch-prima-persona-ps5/','trofei/','trofei/trofeo-14-una-lunga-strada/','trofei/trofeo-17-cecchino/','hdr-oled/','hdr-oled/lg-oled-c4/','hdr-oled/samsung-s90f/','trucchi/','scoperte/','screenshot-ps5/','collezionabili/percorsi/','screenshot-ps5/invia/','screenshot-ps5/priorita/','immagini-ufficiali/','articoli/gta-vi-ultimate-edition-auto-garage/','video-tutorial/','veicoli/','veicoli/declasse-yosemite-1500/','veicoli/pegassi-toros/','veicoli/pegassi-vitello/','veicoli/pegassi-infernus/','veicoli/pegassi-tempesta/','veicoli/buckingham-windsor-drop/','veicoli/ocelot-jagular/','veicoli/buckingham-jubilee/','veicoli/grotti-itali-rsx/','veicoli/pfister-growler/','veicoli/gallivanter-baller-st-d/','veicoli/ascot-paragon/','veicoli/bravado-gauntlet-hellfire/','veicoli/piccia-furia/','veicoli/benefactor-dubsta/','veicoli/bravado-banshee/','veicoli/declasse-akane-anime/','veicoli/annis-drifter-elegy/','veicoli/vapid-rocket-slamvan/','veicoli/invetero-spiderweb-coquette/','veicoli/declasse-applesauce-bobcat/','veicoli/pfister-vanessas-growler/','veicoli/maibatsu-penumbra-ff-verde/','veicoli/invetero-coquette-d10/','guide-e-tutorial/']
                 for path in paths:
                     print('READER_CASE',width,path or 'home',flush=True)
                     page.goto(origin+path,wait_until='load')
@@ -248,6 +248,21 @@ def browser_qa():
                         page.reload(wait_until='load')
                         assert page.locator('html').get_attribute('data-theme')==theme,'persistence'
                         check_layout(page,out,width,path,theme)
+                    if path=='articoli/':
+                        page.locator('[data-chronology-filter]').select_option('Glitch')
+                        assert page.locator('[data-chronology-path]:visible').count()==1
+                        page.locator('[data-chronology-filter]').select_option('')
+                        page.locator('[data-chronology-search]').fill('Southside Storage')
+                        assert page.locator('[data-chronology-path]:visible').count()==1
+                        page.locator('[data-chronology-search]').fill('')
+                    if path=='garage-gratuiti/southside-storage/' and width==390:
+                        field=page.locator('[data-vc-code-value]')
+                        assert field.input_value()=="1010"
+                        assert field.get_attribute('readonly') is not None
+                        context.grant_permissions(['clipboard-read','clipboard-write'])
+                        page.locator('[data-vc-copy-code]').click()
+                        assert page.evaluate('navigator.clipboard.readText()')=="1010"
+                        assert page.locator('[data-vc-code-status]').inner_text()=="Codice copiato."
                     if path.startswith('patch/'):
                         intro=page.locator('[data-patch-intro]')
                         if intro.count():

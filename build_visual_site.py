@@ -149,10 +149,14 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
         js='creator-video-hub-v1.js'
         version=hashlib.sha256(Path('site/assets',js).read_bytes()).hexdigest()[:12]
         page=page.replace('</body>',f'<script src="{url("assets/"+js)}?v={version}" defer></script></body>',1)
-    if path == '' or path.startswith(('articoli/','media/rockstar/','patch/')):
+    if path == '' or path.startswith(('articoli/','media/rockstar/','patch/','glitch/')):
         css='editorial-articles.css'
         version=hashlib.sha256(Path('site/assets',css).read_bytes()).hexdigest()[:12]
         page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
+    if path=='articoli/':
+        js='article-chronology-v1.js'
+        digest=hashlib.sha256(Path('site/assets',js).read_bytes()).hexdigest()[:12]
+        page=page.replace('</body>',f'<script src="{url("assets/"+js)}?v={digest}" defer></script></body>',1)
     if path == '':
         css='site-focus-v1.css'
         version=hashlib.sha256(Path('site/assets',css).read_bytes()).hexdigest()[:12]
