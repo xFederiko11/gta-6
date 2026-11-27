@@ -18,7 +18,7 @@ function catalog(){
 for(const panel of panels){
  const field=panel.querySelector('[data-search-input]'),box=panel.querySelector('[data-search-results]'),status=panel.querySelector('[data-search-status]');
  let sequence=0;
- function close(){sequence++;box.hidden=true}
+ function close(){sequence++;box.hidden=true;status.textContent='Cerca per titolo, veicolo, missione o trofeo.'}
  async function update(){
   const id=++sequence,query=norm(field.value),terms=query.split(/\s+/).filter(Boolean);
   box.replaceChildren();box.hidden=true;
