@@ -4,7 +4,11 @@ from urllib.request import Request,urlopen
 BASE="https://xfederiko11.github.io/gta-6/"
 CHECKS={
  "":('data-chronology-path="garage-gratuiti/southside-storage/"','id="ultimi-articoli"'),
- "articoli/":('data-chronology-search','data-chronology-category="HDR OLED"','data-chronology-category="Trucchi"'),
+ "articoli/":('data-chronology-search','data-chronology-subfilter','data-archive-pager','archive-summary'),
+ "articoli/pagina/2/":('data-archive-page="2"','data-archive-pager'),
+ "articoli/categoria/hdr/":('data-chronology-category="HDR OLED"','data-archive-group="hdr"'),
+ "articoli/categoria/trucchi/":('data-chronology-category="Trucchi"','data-archive-group="trucchi"'),
+ "articoli/categoria/veicoli/garage/":('data-archive-sub="garage"','data-sub="garage"'),
  "salvare-auto/":('Come salvare e registrare un’auto in GTA 6','data-editorial-next','"datePublished":"2026-11-20"'),
  "guide-e-tutorial/meditazione-capitolo-1/":('data-meditation-map','www.gtabase.com/gta-6/map/?feature=meditation','Port Gellhorn'),
  "glitch/":('data-glitch-index','data-chronology-path="guide-e-tutorial/glitch-prima-persona-ps5/"'),
@@ -28,6 +32,10 @@ def verify():
                 assert 'rel="canonical" href="'+BASE+path+'"' in body
                 assert all(m in body for m in markers),path
                 if path=="glitch/":assert len(re.findall(r'data-chronology-path="',body))==1
+                if path in ("","articoli/","articoli/pagina/2/"):
+                    assert len(re.findall(r'data-chronology-path="',body))==25,path
+                if path.startswith("articoli/categoria/"):
+                    assert 1<=len(re.findall(r'data-chronology-path="',body))<=25,path
                 print("PUBLIC_EDITORIAL_RELEASE_OK",BASE+path)
                 break
             except (OSError,AssertionError):

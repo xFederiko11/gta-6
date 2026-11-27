@@ -87,7 +87,9 @@ def sidebar(path="",*,preview=False,guide=False,track=False):
         return ('<a class="sb-category" data-color="'+color+'" href="'+BASE+target+'"'+
                 (' aria-current="page"' if active and path==target else '')+
                 (' data-current-section="true"' if active else '')+tracking(track,"category-open",target)+'><span aria-hidden="true"></span>'+esc(label)+'</a>')
-    categories="".join(row(*entry) for entry in CATEGORIES)
+    from article_chronology_v1 import tree
+    categories='<a class="sb-all-articles" href="'+BASE+'articoli/">Tutti gli articoli →</a>'+''.join(
+        '<details class="sb-taxonomy"><summary>'+esc(g["label"])+' <span>'+str(g["count"])+'</span></summary><a href="'+BASE+g["path"]+'">Tutta la categoria</a>'+''.join('<a href="'+BASE+c["path"]+'">'+esc(c["label"])+'</a>' for c in g["children"])+'</details>' for g in tree())
     important="".join('<a href="'+BASE+target+'"'+tracking(track,"important-guide-open",target)+'>'+esc(label)+' <span aria-hidden="true">→</span></a>' for target,label in IMPORTANT if target!=path)
     jump=('<div class="sb-panel"><p class="sb-kicker">IN QUESTA GUIDA</p><nav class="sb-important" aria-label="Indice della guida">'
           '<a href="#procedura"'+tracking(track,"tutorial-jump","procedura")+'>Passaggi del tutorial <span aria-hidden="true">↓</span></a>'
@@ -277,7 +279,7 @@ def browser(root=ROOT):
                 for path in ("",EXAMPLE,"guide-e-tutorial/scansionare-veicoli/","salvare-auto/","articoli/gta-vi-ultimate-edition-auto-garage/"):
                     assert page.goto(origin+path).status==200
                     assert page.locator(".sb-sidebar").count()==1
-                    assert page.locator(".sb-sidebar a.sb-category").count()==len(CATEGORIES)
+                    assert page.locator(".sb-sidebar .sb-taxonomy").count()==8
                     assert page.locator(".sb-profile").get_attribute("href")=="https://x.com/xFederiko11"
                     for theme in ("dark","light"):
                         page.locator('[data-theme-choice="'+theme+'"]').click()

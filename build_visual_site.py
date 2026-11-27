@@ -153,7 +153,7 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
         css='editorial-articles.css'
         version=hashlib.sha256(Path('site/assets',css).read_bytes()).hexdigest()[:12]
         page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
-    if path=='articoli/':
+    if path=='' or path=='articoli/' or path.startswith(('articoli/pagina/','articoli/categoria/')):
         js='article-chronology-v1.js'
         digest=hashlib.sha256(Path('site/assets',js).read_bytes()).hexdigest()[:12]
         page=page.replace('</body>',f'<script src="{url("assets/"+js)}?v={digest}" defer></script></body>',1)
