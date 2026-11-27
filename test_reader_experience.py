@@ -254,7 +254,12 @@ def browser_qa():
                         page.locator('[data-chronology-filter]').select_option('')
                         page.locator('[data-chronology-search]').fill('Southside Storage')
                         assert page.locator('[data-chronology-path]:visible').count()==1
-                        page.locator('[data-chronology-search]').fill('')
+                        page.locator('[data-chronology-search]').fill('nessunrisultatozzzz')
+                        assert page.locator('[data-chronology-path]:visible').count()==0
+                        assert 'Nessun articolo trovato' in page.locator('[data-chronology-count]').inner_text()
+                        page.locator('[data-chronology-reset]').click()
+                        assert page.locator('[data-chronology-search]').input_value()==''
+                        assert page.locator('[data-chronology-path]:visible').count()>120
                     if path=='garage-gratuiti/southside-storage/' and width==390:
                         field=page.locator('[data-vc-code-value]')
                         assert field.input_value()=="1010"

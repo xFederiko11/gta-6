@@ -52,6 +52,8 @@ def validated(data):
         url=data.get(key)
         if not isinstance(url,str) or not url.startswith(SOURCE_HOSTS):
             raise ValueError("Invalid independent source")
+    if data.get("map_source") != "https://www.gtabase.com/gta-6/map/?feature=meditation":
+        raise ValueError("Unexpected meditation map source")
     if len(sessions) != 18 or len(sessions) != len(set(sessions)):
         raise ValueError("Unstable meditation checkbox keys")
     return data
@@ -73,6 +75,9 @@ def render(data=None):
         '</div>',
         '<progress max="18" value="0" data-meditation-progress aria-label="Meditazioni confermate nella checklist"></progress>',
         '<p class="v-meditation-save-note" data-meditation-save-status>La tua selezione viene conservata solo in questo browser, se lo consenti. Non sincronizza la PS5.</p>',
+        '<p class="v-meditation-note" data-meditation-map><strong>Mappa originale:</strong> '
+        '<a href="'+h(data["map_source"],quote=True)+'" target="_blank" rel="noopener noreferrer">Apri le meditazioni su GTABase ↗</a>. '
+        'La mappa elenca anche il punto alternativo di Port Gellhorn: non è una sessione aggiuntiva da sommare alla checklist.</p>',
         '<ol class="v-meditation-spots">',
     ]
     for number,spot in enumerate(data["spots"],1):

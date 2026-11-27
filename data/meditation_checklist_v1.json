@@ -1,13 +1,13 @@
 {
   "schema": "gta6-meditation-tracker-v1",
-  "checked_date": "2026-11-25",
+  "checked_date": "2026-11-27",
   "source": "https://www.powerpyx.com/gta-6-all-meditation-spot-locations/",
   "corroboration": "https://www.pushsquare.com/guides/gta-6-meditation-locations",
   "trophy_source": "https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/",
   "total_locations": 10,
   "total_meditations": 18,
   "target_100": 15,
-  "not_confirmed": "PowerPyx (versione più recente indicizzata) e Maka91Productions indicano che la prima occasione può essere sostituita da una lezione successiva; la precedente versione della guida lasciava il requisito incerto. Non abbiamo ripetuto la prova. Il contatore del sito non certifica i trofei.",
+  "not_confirmed": "PowerPyx indica che la prima occasione non è indispensabile per il trofeo o il 100%. GTABase documenta anche il luogo alternativo a Port Gellhorn, mentre la sua scheda trofei mantiene cautela sulla prima occasione. Non abbiamo ripetuto la prova; il contatore del sito non certifica i trofei.",
   "spots": [
     {
       "id": "jasons-house",
@@ -18,7 +18,7 @@
         "one"
       ],
       "phase": "chapter1",
-      "warning": "Prima occasione del Capitolo 1: falla se disponibile. Se hai saltato la sessione a casa, dopo Coffee Break cerca l'attività alternativa Learn to Meditate Together segnalata da PowerPyx; completa la lezione per sbloccare gli altri luoghi.",
+      "warning": "Prima occasione del Capitolo 1, non necessaria per il trofeo o il 100% secondo PowerPyx. Se la salti, dopo Coffee Break cerca Learn to Meditate Together: GTABase segnala il messaggio di Lucia a Jason e la posizione a Port Gellhorn. Completa la lezione alternativa, senza contare due volte la stessa voce.",
       "video_second": 22
     },
     {
@@ -118,7 +118,7 @@
         "final"
       ],
       "phase": "final",
-      "warning": "Compare soltanto alla fine. Per il metodo della sessione conclusiva segui il prompt in gioco; il conteggio finale è di una meditazione.",
+      "warning": "Compare soltanto alla fine. GTABase indica una sessione con entrambi i personaggi; segui il prompt in gioco. La sessione conclusiva resta una sola nella checklist.",
       "video_second": 377
     }
   ],
@@ -126,5 +126,6 @@
     "id": "WZ9EM_i_W38",
     "creator": "Maka91Productions",
     "url": "https://www.youtube.com/watch?v=WZ9EM_i_W38"
-  }
+  },
+  "map_source": "https://www.gtabase.com/gta-6/map/?feature=meditation"
 }

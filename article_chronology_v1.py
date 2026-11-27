@@ -66,9 +66,10 @@ def render(url,archive=False):
     rows=inventory();dated=[r for r in rows if r[3]];undated=[r for r in rows if not r[3]]
     out='<section class="focus-content ed-home" id="ultimi-articoli" data-chronology-root aria-labelledby="chronology-title"><h2 id="chronology-title">Ultimi articoli</h2><p>Dal più recente al meno recente per data di pubblicazione, non di aggiornamento.</p><div data-chronology-dated>'+''.join(entry(r,url) for r in (dated if archive else dated[:12]))+'</div>'
     if archive:
-        filters=('<div class="ed-filters chronology-filters" data-chronology-filters hidden><label>Cerca un articolo<input type="search" data-chronology-search placeholder="Es. Cheetah, trofeo, HDR"></label><label>Categoria<select data-chronology-filter><option value="">Tutte</option>'+''.join('<option>'+escape(c)+'</option>' for c in CATEGORIES)+'</select></label></div><p data-chronology-count role="status" aria-live="polite"></p>')
+        filters=('<div class="ed-filters chronology-filters" data-chronology-filters hidden><label>Cerca un articolo<input type="search" data-chronology-search placeholder="Es. Cheetah, trofeo, HDR"></label><label>Categoria<select data-chronology-filter><option value="">Tutte</option>'+''.join('<option>'+escape(c)+'</option>' for c in CATEGORIES)+'</select></label><button type="button" data-chronology-reset>Mostra tutti</button></div><p data-chronology-count role="status" aria-live="polite"></p>')
         out=out.replace('<div data-chronology-dated>',filters+'<div data-chronology-dated>',1)
-        out+='<h2 data-chronology-undated-title>Archivio senza data certa</h2><p>Prima pubblicazione non documentata: nessuna data inventata.</p><div data-chronology-undated>'+''.join(entry(r,url) for r in undated)+'</div>'
+        if undated:
+            out+='<section data-chronology-undated-section><h2 data-chronology-undated-title>Archivio senza data certa</h2><p>Prima pubblicazione non documentata: nessuna data inventata.</p><div data-chronology-undated>'+''.join(entry(r,url) for r in undated)+'</div></section>'
     else:
         out+='<p><a href="'+url("articoli/")+'">Tutti gli articoli: ricerca e categorie →</a> · <a href="'+url("glitch/")+'">Solo glitch</a></p>'
     return out+'</section>'
