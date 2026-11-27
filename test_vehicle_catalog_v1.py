@@ -48,6 +48,24 @@ class VehicleCatalogTests(unittest.TestCase):
         self.assertIn("Invetero Coquette D10",names)
         self.assertIn("Nessuna associazione",doc["origin_lead"]["status"])
 
+    def test_vehicle_progression_articles_are_distinct_and_sourced(self):
+        from vehicle_progression_guides_v1 import pages,CLONER,SELL
+        rows=list(pages(BASE))
+        self.assertEqual([row[0] for row in rows],[CLONER,SELL])
+        sitemap=(ROOT/"sitemap.xml").read_text()
+        for path,title,desc,body in rows:
+            self.assertEqual(body.count("<h1>"),1)
+            self.assertIn("GUIDA LEGITTIMA",body)
+            self.assertIn("prova diretta non accertate",body)
+            self.assertIn("www.gtabase.com",body)
+            self.assertIn("www.powerpyx.com",body)
+            self.assertNotIn("<img",body)
+            self.assertNotIn("<iframe",body)
+            rendered=(ROOT/path/"index.html").read_text()
+            self.assertIn(BASE+path,sitemap)
+            self.assertIn('rel="canonical" href="'+BASE+path+'"',rendered)
+            self.assertIn('vehicle-finder-v1.css?v=',rendered)
+            self.assertIn(BASE+path,(ROOT/"guide-e-tutorial/index.html").read_text())
     def test_evidence_gate_fail_closed(self):
         original=load()
         for field,value in (

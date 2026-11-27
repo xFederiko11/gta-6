@@ -16,6 +16,7 @@ import editorial_articles
 import patch_archive_v1
 import cinematic_site
 import garage_guides_v1 as garage_guides
+import vehicle_progression_guides_v1 as vehicle_progression
 from visual_guide_content import enrich
 from operational_brief_v1 import validate as validate_operational_briefs, render as render_operational_brief
 from waink_visual_v1 import intro as render_waink_intro, step as render_waink_step
@@ -165,7 +166,7 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
         version=hashlib.sha256(Path('site/assets',css).read_bytes()+Path('site/assets',js).read_bytes()).hexdigest()[:12]
         page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
         page=page.replace('</body>',f'<script src="{url("assets/"+js)}?v={version}" defer></script></body>',1)
-    if path==VEHICLE_PATH or path.startswith((VEHICLE_PATH,garage_guides.PATH)):
+    if path==VEHICLE_PATH or path.startswith((VEHICLE_PATH,garage_guides.PATH)) or path in (vehicle_progression.CLONER,vehicle_progression.SELL):
         css,js='vehicle-finder-v1.css','vehicle-finder-v1.js'
         version=hashlib.sha256(
             Path('site/assets',css).read_bytes()+Path('site/assets',js).read_bytes()).hexdigest()[:12]
@@ -481,6 +482,8 @@ def directory(guides,kind='all'):
     if kind=='all':
         body+='<div class="v-filters" role="group" aria-label="Filtra per obiettivo">'+''.join(f'<button type="button" data-guide-filter="{value}" aria-pressed="{str(value=="all").lower()}">{label}</button>' for value,label in [('all','Tutte'),('soldi','Soldi'),('auto','Auto'),('garage','Garage'),('inizio','Altre guide')])+'</div>'
     body+=f'</div><h2 class="v-directory-section-title">{e({"all":"Tutte le guide pratiche","soldi":"Guide per ottenere e conservare soldi","auto":"Guide per trovare e conservare veicoli"}[kind])}</h2><p class="v-result" data-guide-result role="status" aria-live="polite">{len(selected)} guide disponibili</p><div class="v-grid">'+''.join(card(g) for g in selected)+'</div></section>'
+    if kind in ('all','auto','soldi'):
+        body+=vehicle_progression.links(BASE+'/')
     if kind=='soldi':
         body+='<section class="v-section v-promo v-promo-no-media"><div><span class="eyebrow">PRIMA DI FARE SOLDI</span><h2>Non perdere il bottino nel passaggio al Capitolo 2</h2><p>Il normale Checking Account di BuckMe non protegge il denaro dalla perdita programmata a fine Capitolo 1. Quando disponibile, Family Savings può conservarne fino a 5.000 GTA$, ma il denaro trasferito non è prelevabile normalmente. Valuta gli acquisti utili e rimanda il farming pesante al Capitolo 2.</p><p class="v-caption">Leggi tutte le precauzioni nella <a href="'+url("guide-e-tutorial/soldi-facili-capitolo-1/")+'">guida al Capitolo 1</a>.</p></div></section>'
     return title,desc,path,body
@@ -1020,6 +1023,9 @@ def main():
         new_paths.append(path)
     for g in guides:
         guide(g,guides); new_paths.append(g['canonical_path'])
+    for vp,vt,vd,vb in vehicle_progression.pages(BASE+'/'):
+        legacy.write(vp+'index.html',layout(vt,vd,vp,vb,'guide',structured={'@context':'https://schema.org','@type':'Article','name':vt,'description':vd,'url':url(vp),'inLanguage':'it-IT'}))
+        new_paths.append(vp)
     # Independent optional chain: never merge it with the first-car tutorial.
     moses_title='GTA 6: 6 auto per Moses, posizioni e ricompense PS5'
     moses_desc=('Dopo Daily Driver trova i 6 veicoli richiesti da Moses: '
