@@ -170,9 +170,11 @@ def card(item,url):
         media=('<img src="'+esc(url(item["image"]))+'" width="480" height="252" loading="lazy" decoding="async" alt="">'
                '<span class="archive-credit">'+esc(item["credit"])+'</span>')
     else:
-        media='<span class="archive-tile"><span>GTA VI / ITALIA</span><strong>'+esc(item["sub_label"])+'</strong><span>'+esc(item["badge"])+'</span></span>'
-    return ('<a class="ed-home-card chronology-card" data-chronology-path="'+esc(p)+'" data-chronology-category="'+esc(item["category"])+'" data-group="'+esc(item["group"])+'" data-sub="'+esc(item["sub"])+'" data-color="'+esc(item["color"])+'" href="'+esc(url(p))+'">'
-            '<span class="archive-media">'+media+'</span><span class="archive-copy"><span class="archive-meta"><span class="archive-category">'+esc(item["group_label"])+'</span><span>'+esc(item["sub_label"])+'</span>'+stamp+'</span>'
+        # No poster pretending to be a screenshot. The actual headline and
+        # category are sufficient until a relevant cleared photo is available.
+        media=""
+    return ('<a class="ed-home-card chronology-card" data-chronology-path="'+esc(p)+'" data-chronology-category="'+esc(item["category"])+'" data-group="'+esc(item["group"])+'" data-sub="'+esc(item["sub"])+'" data-color="'+esc(item["color"])+'" href="'+esc(url(p))+'">'+
+            ('<span class="archive-media">'+media+'</span>' if media else '')+'<span class="archive-copy"><span class="archive-meta"><span class="archive-category">'+esc(item["group_label"])+'</span><span>'+esc(item["sub_label"])+'</span>'+stamp+'</span>'
             '<strong class="archive-title">'+esc(title)+'</strong><span class="archive-summary">'+esc(item["summary"])+'</span>'
             '<span class="archive-bottom"><span class="archive-badge">'+esc(item["badge"])+'</span><span class="archive-cta">Leggi →</span></span></span></a>')
 
@@ -306,11 +308,11 @@ def glitch_page(url):
 
 def decorate(root=Path("_site")):
     """Use only metadata and existing cover files from the built public pages.
-    Original editorial art may be thumbnailed; uncleared promotional/game
-    photos are NOT reused in new listings. Hidden trophies never expose covers
+    Listings prioritize real cleared gameplay. Do not use illustrated
+    placeholder cards or extend legacy promotional media to new placements.
+    Hidden trophies never expose covers
     or requirements. The X feed remains byte-identical."""
     from html.parser import HTMLParser
-    from PIL import Image
     class Meta(HTMLParser):
         def __init__(self):
             super().__init__();self.values={};self.canon=[]
@@ -321,7 +323,6 @@ def decorate(root=Path("_site")):
                 if key:self.values[key]=a.get("content","")
             if tag=="link" and a.get("rel")=="canonical":self.canon.append(a.get("href"))
     feed=root/"articoli/feed.json";before=feed.read_bytes()
-    thumbs=root/"assets/archive-thumbs";thumbs.mkdir(parents=True,exist_ok=True)
     records={}
     for row in inventory():
         item=record(row);p=item["path"];parser=Meta()
@@ -333,22 +334,13 @@ def decorate(root=Path("_site")):
             item["summary"]=desc or "Consulta requisiti, indicazioni e fonti nella scheda."
             kind=parser.values.get("gta6:cover-kind")
             image=parser.values.get("og:image","")
-            if kind in ("approved_gameplay","original_illustration"):
+            if kind=="approved_gameplay":
                 assert image.startswith(BASE+"assets/social-cards/"),p
                 rel=image.removeprefix(BASE)
                 assert re.fullmatch(r"assets/social-cards/[0-9a-f]{16}\.jpg",rel),rel
-                original=root/rel
-                assert original.is_file(),rel
-                if kind=="original_illustration":
-                    target=thumbs/(original.stem+".webp")
-                    with Image.open(original) as img:
-                        img.thumbnail((480,252))
-                        img.save(target,"WEBP",quality=82,method=4)
-                    item["image"]="assets/archive-thumbs/"+target.name
-                    item["credit"]="Grafica editoriale · non gameplay"
-                else:
-                    item["image"]=rel
-                    item["credit"]="Screenshot autorizzato · crediti nella guida"
+                assert (root/rel).is_file(),rel
+                item["image"]=rel
+                item["credit"]="Screenshot autorizzato · crediti nella guida"
         records[p]=item
     pattern=re.compile(r'<a class="ed-home-card chronology-card" data-chronology-path="([^"]+)"[^>]*>.*?</a>',re.S)
     for f in [root/"index.html",root/"glitch/index.html",*(root/p/"index.html" for _,_,_,p,_,_ in specs())]:
@@ -358,7 +350,7 @@ def decorate(root=Path("_site")):
         f.write_text(changed,encoding="utf-8")
     (root/CATALOG).write_text(json.dumps({"schema":"gta6-public-archive-v2","page_size":PAGE_SIZE,"groups":tree(),"items":list(records.values())},ensure_ascii=False,separators=(",",":"))+"\n",encoding="utf-8")
     assert before==feed.read_bytes()
-    print("MAGAZINE_ARCHIVE_BUILT",len(records),"articles",len(list(specs())),"collection pages",len(list(thumbs.glob("*.webp"))),"lightweight original covers")
+    print("MAGAZINE_ARCHIVE_BUILT",len(records),"articles",len(list(specs())),"collection pages",sum(bool(x["image"]) for x in records.values()),"approved gameplay covers in listings")
 
 if __name__=="__main__":
     decorate()

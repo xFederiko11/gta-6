@@ -14,6 +14,7 @@ from urllib.request import Request, urlopen
 import argparse, hashlib, json, re, shutil, time
 from community_social_v1 import load, verified_x_url, post_time_html
 import magazine_article_v1 as magazine_article
+from magazine_popular_v1 import popular_panel
 
 ROOT=Path("_site")
 BASE="https://xfederiko11.github.io/gta-6/"
@@ -96,7 +97,7 @@ def sidebar(path="",*,preview=False,guide=False,track=False):
                 (' aria-current="page"' if not preview and target==path else '')+
                 tracking(track and not preview,"category-open",target)+'>'+esc(label)+'</a>')
     categories=category_link("articoli/","Tutti gli articoli →","sb-all-articles")+''.join(
-        '<details class="sb-taxonomy"'+(' open' if g["id"]==active_group else '')+'><summary>'+esc(g["label"])+' <span>'+str(g["count"])+'</span></summary>'+
+        '<details class="sb-taxonomy" data-color="'+esc(g["color"])+'"'+(' open' if g["id"]==active_group else '')+'><summary><span class="sb-taxonomy-label">'+esc(g["label"])+'</span><span class="sb-taxonomy-count">'+str(g["count"])+'</span></summary>'+
         category_link(g["path"],"Tutta la categoria")+''.join(category_link(c["path"],c["label"]) for c in g["children"])+'</details>' for g in tree())
     important="".join('<a href="'+BASE+target+'"'+tracking(track,"important-guide-open",target)+'>'+esc(label)+' <span aria-hidden="true">→</span></a>' for target,label in IMPORTANT if target!=path)
     jump=('<div class="sb-panel"><p class="sb-kicker">IN QUESTA GUIDA</p><nav class="sb-important" aria-label="Indice della guida">'
@@ -115,7 +116,7 @@ def sidebar(path="",*,preview=False,guide=False,track=False):
                      esc(text[:210])+'</p><a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer"'+tracking(track,"x-post-open")+'>Apri il post ↗</a></article>')
         if len(cards)==3:break
     posts="".join(cards) or '<p class="sb-empty">Se gli estratti non sono disponibili, apri direttamente il profilo X.</p>'
-    return ('<aside class="sb-sidebar" aria-label="Categorie e aggiornamenti GTA VI Italia">'+jump+
+    return ('<aside class="sb-sidebar" aria-label="Categorie e aggiornamenti GTA VI Italia">'+jump+popular_panel()+
             '<div class="sb-panel"><p class="sb-kicker">ESPLORA LEONIDA</p><p class="sb-heading">Categorie</p>'
             '<nav class="sb-categories" aria-label="Categorie del sito">'+categories+'</nav></div>'
             '<div class="sb-panel"><p class="sb-kicker">NON PERDERTELI</p><p class="sb-heading">Da tenere a portata di mano</p>'
@@ -292,6 +293,9 @@ def browser(root=ROOT):
                     assert page.goto(origin+path).status==200
                     assert page.locator(".sb-sidebar").count()==1
                     assert page.locator(".sb-sidebar .sb-taxonomy").count()==8
+                    assert page.locator("[data-magazine-popular]").count()==1
+                    assert page.locator("[data-magazine-popular]").evaluate("e=>!!(e.compareDocumentPosition(document.querySelector('.sb-categories')) & Node.DOCUMENT_POSITION_FOLLOWING)")
+                    assert page.locator(".sb-taxonomy:not([open])").first.evaluate("e=>e.getBoundingClientRect().height<75")
                     assert page.locator(".sb-profile").get_attribute("href")=="https://x.com/xFederiko11"
                     for theme in ("dark","light"):
                         page.locator('[data-theme-choice="'+theme+'"]').click()
@@ -324,6 +328,8 @@ def browser(root=ROOT):
                                     page.evaluate('window.scrollTo(0,0)')
                         if path in ("",EXAMPLE):
                             page.screenshot(path=str(shots/("sunset-"+("home" if not path else "money")+"-"+str(width)+"-"+theme+".png")),full_page=False)
+                            if theme=="dark":
+                                page.screenshot(path=str(shots/("magazine-full-"+("home" if not path else "article")+"-"+str(width)+".png")),full_page=True)
                     if path==EXAMPLE:
                         print("MAGAZINE_ARTICLE_BROWSER_OK",width)
                     assert not any("platform.twitter.com/widgets.js" in x for x in remote),path

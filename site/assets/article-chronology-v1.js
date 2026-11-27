@@ -24,8 +24,6 @@ function card(item){
  if(item.image&&/^assets\/(?:archive-thumbs\/[a-f0-9]{16}\.webp|social-cards\/[a-f0-9]{16}\.jpg)$/.test(item.image)){
   const img=node('img');img.src=new URL(item.image,base).href;img.width=480;img.height=252;img.loading='lazy';img.decoding='async';img.alt='';
   media.append(img,node('span','archive-credit',item.credit));
- }else{
-  const tile=node('span','archive-tile');tile.append(node('span','','GTA VI / ITALIA'),node('strong','',item.sub_label),node('span','',item.badge));media.append(tile);
  }
  const copy=node('span','archive-copy'),meta=node('span','archive-meta');
  meta.append(node('span','archive-category',item.group_label),node('span','',item.sub_label));
@@ -35,7 +33,8 @@ function card(item){
  const bottom=node('span','archive-bottom');
  bottom.append(node('span','archive-badge',item.badge),node('span','archive-cta','Leggi →'));
  copy.append(meta,node('strong','archive-title',item.title),node('span','archive-summary',item.summary),bottom);
- a.append(media,copy);return a;
+ if(media.childElementCount)a.append(media);
+ a.append(copy);return a;
 }
 function options(selected=''){
  const children=groups.find(g=>g.id===group.value)?.children||[];

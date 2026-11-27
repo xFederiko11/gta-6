@@ -451,7 +451,7 @@ def categories():
 
 def home(guides):
     """A photographic route into the existing guides, trophies and discoveries."""
-    return cinematic_site.home(guides,url).replace('<section class="ci-section ci-shell" id="scegli">', '<section class="ci-section ci-shell" id="scegli">'+chronology.render(url),1)+(
+    return cinematic_site.home(guides,url).replace('<nav class="focus-choice-grid" aria-label="Scegli cosa cercare">','<nav class="focus-choice-grid" data-magazine-photo-nav aria-label="Scegli cosa cercare">',1).replace('<p class="ci-credit">Immagini promozionali Rockstar Games, usate per illustrare i percorsi.</p></section>','<p class="ci-credit">Immagini promozionali Rockstar Games, usate per illustrare i percorsi.</p>'+chronology.render(url)+'</section>',1)+(
         '<section class="cv-home-link" aria-labelledby="cv-home-title">'
         '<h2 id="cv-home-title">🎬 Video dei creator, istruzioni italiane</h2>'
         '<p>Quattro video originali selezionati per auto, soldi e tecniche GTA VI. '

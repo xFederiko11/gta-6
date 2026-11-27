@@ -60,8 +60,13 @@ def step_index(page):
     if page.count(STEP_LIST)!=1:return page
     start=page.index(STEP_LIST)
     # Use the exact rendered headings, after existing visible spoiler notice.
-    stop=page.index("</ol>",start)
+    # Some steps contain nested numbered instructions (e.g. Moses).
+    # Limit matching to the tutorial section, not the first closing ol.
+    stop=page.index("</section>",start) if "</section>" in page[start:] else len(page)
     steps=page[start:stop]
+    # Match every main step, including when it contains nested lists.
+    if len(re.findall(r'<li class="v-step" id="passaggio-[0-9]+">',steps))!=len(re.findall(r'<li class="v-step" id="passaggio-[0-9]+">',page)):
+        steps=page[start:]
     headings=re.findall(r'<li class="v-step" id="(passaggio-[0-9]+)">.*?<h3>(.*?)</h3>',steps,re.S)
     if not headings:return page
     assert [x[0] for x in headings]==["passaggio-"+str(i) for i in range(1,len(headings)+1)]
@@ -75,9 +80,9 @@ def related_card(item,track):
     if image and IMAGE.fullmatch(image):
         media='<img src="'+esc(BASE+image)+'" width="480" height="252" loading="lazy" decoding="async" alt=""><small class="ma-card-credit">'+esc(item["credit"])+'</small>'
     else:
-        media='<span class="ma-card-tile"><span>GTA VI / ITALIA</span><strong>'+esc(item["sub_label"])+'</strong></span>'
-    return ('<a class="ma-related-card" data-related-article="'+esc(path)+'" href="'+href(path)+'"'+attr(track,"related-guide-open",path)+'>'
-            '<span class="ma-card-media">'+media+'</span><span class="ma-card-copy"><small>'+esc(item["sub_label"])+'</small>'
+        media=""
+    return ('<a class="ma-related-card" data-related-article="'+esc(path)+'" href="'+href(path)+'"'+attr(track,"related-guide-open",path)+'>'+
+            ('<span class="ma-card-media">'+media+'</span>' if media else '')+'<span class="ma-card-copy"><small>'+esc(item["sub_label"])+'</small>'
             '<strong>'+esc(item["title"])+'</strong><span>'+esc(item["summary"])+'</span><span class="ma-read">Leggi →</span></span></a>')
 
 def related_panel(item,catalog,track):

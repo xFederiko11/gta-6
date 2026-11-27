@@ -93,3 +93,11 @@
  .archive-taxonomy{grid-template-columns:minmax(0,1fr)}
  .archive-pagination{gap:5px}.archive-pagination :is(a,button){min-width:36px;padding:6px 8px}
 }
+
+/* Photo-first cards when cleared media exists. No oversized text posters. */
+.ed-home .archive-grid .ed-home-card.chronology-card:not(:has(.archive-media)){display:flex!important;grid-template-columns:minmax(0,1fr);border-left:4px solid var(--archive-accent);min-height:0;background:linear-gradient(125deg,var(--r-soft),var(--r-surface))}
+.ed-home .archive-grid .chronology-card:not(:has(.archive-media)) .archive-copy{padding:15px}
+.ed-home .archive-grid .chronology-card:not(:has(.archive-media)) .archive-title{font-size:clamp(1rem,1.5vw,1.25rem)}
+[data-magazine-photo-nav]{margin-bottom:18px}
+.sunset-home [data-magazine-photo-nav] .ci-choice-image{height:190px}
+@media(max-width:760px){.sunset-home [data-magazine-photo-nav] .ci-choice-image{height:auto}}

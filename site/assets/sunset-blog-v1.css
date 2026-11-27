@@ -193,3 +193,28 @@ html:has(body[data-preview])[data-theme=light]{--pink:var(--r-pink);--r-text:var
  .ma-card-tile strong{font-size:.84rem}
  .ma-card-copy{padding:10px;gap:6px}
 }
+
+/* Compact editorial rail: reset global details margins/padding explicitly. */
+html[data-theme] .sb-sidebar .sb-categories{display:flex;flex-direction:column;gap:4px;align-items:stretch}
+html[data-theme] .sb-sidebar .sb-categories .sb-taxonomy{margin:0;padding:0;border:0;border-radius:6px;background:transparent;box-shadow:none}
+html[data-theme] .sb-sidebar .sb-taxonomy summary{position:relative;display:flex;align-items:center;justify-content:flex-start;gap:8px;padding:9px 8px;margin:0;min-height:42px;line-height:1.25;font-size:.8rem;border:0;background:transparent;border-radius:6px;cursor:pointer}
+html[data-theme] .sb-sidebar .sb-taxonomy summary::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--sb-cat,var(--r-pink));flex:none}
+html[data-theme] .sb-sidebar .sb-taxonomy summary::after{content:"›";font-size:1.1rem;font-weight:800;line-height:1;color:var(--sb-cat,var(--r-pink));flex:none}
+html[data-theme] .sb-sidebar .sb-taxonomy[open] summary::after{transform:rotate(90deg)}
+.sb-taxonomy[data-color=cyan]{--sb-cat:var(--r-cyan)}
+.sb-taxonomy[data-color=orange]{--sb-cat:var(--r-orange)}
+.sb-taxonomy[data-color=violet]{--sb-cat:var(--r-violet)}
+html[data-theme] .sb-sidebar .sb-taxonomy .sb-taxonomy-label{margin:0;flex:1;min-width:0;font-size:.8rem;color:var(--r-text);font-weight:800}
+html[data-theme] .sb-sidebar .sb-taxonomy .sb-taxonomy-count{margin:0;padding:2px 5px;font-size:.67rem;color:var(--r-muted);background:var(--r-soft);border-radius:4px}
+html[data-theme] .sb-sidebar .sb-taxonomy[open] summary,html[data-theme] .sb-sidebar .sb-taxonomy summary:hover{background:var(--r-soft)}
+html[data-theme] .sb-sidebar .sb-taxonomy a{margin:0 0 0 11px;padding:7px 9px;min-height:36px;border:0;border-left:2px solid var(--sb-cat,var(--r-pink));font-size:.74rem;border-radius:0;overflow-wrap:anywhere}
+html[data-theme] .sb-sidebar .sb-taxonomy a[aria-current=page]{background:var(--r-soft)}
+.sb-popular .sb-popular-list{list-style:none;display:grid;gap:9px;margin:0;padding:0}
+.sb-popular-list li{display:flex;gap:9px;align-items:center;margin:0;padding:0 0 9px;border-bottom:1px solid var(--r-line)}
+.sb-popular-list li:last-child{border-bottom:0;padding-bottom:0}
+.sb-popular-list .sb-rank{flex:none;font-size:1.2rem;font-weight:900;color:var(--r-pink);line-height:1}
+.sb-popular-list a{font-size:.81rem;font-weight:750;line-height:1.35;color:var(--r-text);text-decoration:none;min-width:0}
+.sb-popular-list small{display:block;color:var(--r-muted);font-size:.67rem;margin-top:4px}
+.sb-popular-note{font-size:.72rem;color:var(--r-muted);line-height:1.5;margin:0 0 8px}
+.ma-related-card:not(:has(.ma-card-media)){border-top:3px solid var(--ma-accent)}
+@media(max-width:560px){.ma-related-card:not(:has(.ma-card-media)){grid-template-columns:minmax(0,1fr)}}
