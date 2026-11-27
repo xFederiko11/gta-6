@@ -12,12 +12,12 @@ BUY="trofei/trofeo-54-posto-riservato/"
 RANDY="guide-e-tutorial/sportive-randy-posizioni/"
 REGISTER="salvare-auto/"
 GARAGES="https://www.powerpyx.com/gta-6-all-garage-locations/"
-PROPERTIES="https://www.gtabase.com/gta-6/properties/"
+PROPERTIES="https://www.gtabase.com/gta-6/articles/how-to-unlock-garages-in-gta-6"
 MURALS="https://www.powerpyx.com/gta-6-all-1010-mural-locations"
 MURALS_ALT="https://www.gta-companion.com/guides/1010-murals"
 SOUTH_MAP="https://www.gtabase.com/gta-6/properties/southside-storage"
 COLLECT="https://www.powerpyx.com/gta-6-collect-the-tempesta-walkthrough/"
-TEMP_MAP="https://www.gtabase.com/gta-6/vehicles/rauls-tempesta"
+TEMP_MAP="https://www.gtabase.com/gta-6/properties/domestic-timbers"
 WISH="https://www.powerpyx.com/gta-6-randys-wish-list-car-locations-walkthrough/"
 MAMBA="https://www.powerpyx.com/gta-6-dale-mamba-steal-the-declasse-mamba-gt-walkthrough/"
 THRAX="https://www.powerpyx.com/gta-6-mansion-thrax-steal-the-truffade-thrax-walkthrough/"
@@ -81,7 +81,7 @@ def index_body(base):
         body+='<div class="vc-card" data-garage-entry><h3>'+internal(base,target,name)+'</h3><p><strong>'+e(reward)+'</strong></p><p>'+e(desc)+'</p></div>'
     body+='</div></section><section><h2>Garage con auto, proprietà non confermata</h2><p>'+internal(base,BOBCAT,"Red Apple Orchard — 360782, Applesauce Bobcat")+' · '+internal(base,COQUETTE,"Party House — 092319, Spiderweb Coquette")+'</p><p>Il recupero dell’auto non conferma uno slot di proprietà. Controlla il menu garage e la registrazione.</p></section>'
     body+='<section><h2>Platino: otto acquisti separati</h2><p>Little Boxes richiede tutti gli otto garage acquistabili tramite Vice City Real Estate. I bonus gratuiti, di storia o di edizione non li sostituiscono. Non sommare varianti di cataloghi discordanti come totale definitivo dei garage.</p>'+internal(base,BUY,"Requisito del trofeo →")+'</section>'
-    return body+end(base,[("PowerPyx — garage",GARAGES),("GTABase — proprietà",PROPERTIES),("GTABase — Southside",SOUTH_MAP),("PowerPyx — Tempesta",COLLECT),("VICE — Del Rio mancabile",MISSED),("GTA Companion — codici",CODES)])
+    return body+end(base,[("PowerPyx — garage",GARAGES),("GTABase — sblocco garage",PROPERTIES),("GTABase — Southside",SOUTH_MAP),("GTABase — Domestic Timbers",TEMP_MAP),("PowerPyx — Tempesta",COLLECT),("VICE — Del Rio mancabile",MISSED),("GTA Companion — codici",CODES)])
 def south_body(base):
     body=start(base,"Southside Storage: 5 murales e 1010 Cheetah","Fotografa tutti i cinque murales 1010, poi usa il codice 1010 per sbloccare Southside Storage a Salton.")
     body+=facts([("Garage","Gratuito, 1 posto"),("Zona","Salton, a nord di Slator Towing"),("Codice","1010"),("Veicolo","1010 Cheetah: registrazione a parte")])
@@ -92,7 +92,7 @@ def domestic_body(base):
     body+=facts([("Garage","Gratuito, 1 posto"),("Zona","Balsero, Vice City"),("Prerequisito","Delivery Day conclusa"),("Personaggi","Jason o Lucia"),("Veicolo","Raul’s Tempesta"),("Prezzi indicativi","11.600 GTA$ registrazione; circa 27.150 GTA$ vendita in buone condizioni")])
     body+='<p class="vc-check">Non vendere la variante speciale per sbaglio. Il trofeo arriva con Delivery Day, non con il ritiro successivo. Nessuna soglia di consegne garantita: segui i messaggi di Randy.</p>'+steps(DOMESTIC_STEPS)
     body+='<section><h2>Lista auto e Key Cloner</h2><p>'+internal(base,RANDY,"Posizioni delle auto di Randy e consegne →")+' · '+ref(CLONER,"Sblocco Key Cloner su PowerPyx ↗")+'</p></section>'
-    return body+end(base,[("PowerPyx — ritiro Tempesta",COLLECT),("GTABase — variante e mappa",TEMP_MAP),("PowerPyx — Delivery Day",DELIVERY),("PowerPyx — lista Randy",WISH)])
+    return body+end(base,[("PowerPyx — ritiro Tempesta",COLLECT),("GTABase — Domestic Timbers e mappa",TEMP_MAP),("PowerPyx — Delivery Day",DELIVERY),("PowerPyx — lista Randy",WISH)])
 def story_body(base):
     body=start(base,"Garage gratuiti della storia: Capitoli 2, 4 e 5","Quattro garage assegnati automaticamente dalle missioni principali, per otto posti complessivi secondo le fonti.")
     for ident,name,chapter,mission,area,spots in STORY_ROWS:
