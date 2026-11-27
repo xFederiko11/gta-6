@@ -1,5 +1,6 @@
 """Garage guides: original Italian, reviewed public references, no copied gameplay."""
 from html import escape
+from garage_codes_v1 import code_field
 
 PATH="garage-gratuiti/"
 SOUTH=PATH+"southside-storage/"
@@ -79,12 +80,13 @@ def index_body(base):
     body+='<section><h2>Quale sbloccare prima?</h2><p>Nel Capitolo 3, fai subito Del Rio se non l’hai già preso. Poi scegli i murales o la catena di Randy. I garage dei Capitoli 4 e 5 arrivano con la storia.</p><div class="vc-grid">'
     for name,target,reward,desc in cards:
         body+='<div class="vc-card" data-garage-entry><h3>'+internal(base,target,name)+'</h3><p><strong>'+e(reward)+'</strong></p><p>'+e(desc)+'</p></div>'
-    body+='</div></section><section><h2>Garage con auto, proprietà non confermata</h2><p>'+internal(base,BOBCAT,"Red Apple Orchard — 360782, Applesauce Bobcat")+' · '+internal(base,COQUETTE,"Party House — 092319, Spiderweb Coquette")+'</p><p>Il recupero dell’auto non conferma uno slot di proprietà. Controlla il menu garage e la registrazione.</p></section>'
+    body+='</div></section><section><h2>Codici dei garage</h2>'+code_field("1010","Southside Storage")+code_field("92665","Del Rio Boulevard")+'</section><section><h2>Garage con auto, proprietà non confermata</h2><p>'+internal(base,BOBCAT,"Red Apple Orchard — 360782, Applesauce Bobcat")+' · '+internal(base,COQUETTE,"Party House — 092319, Spiderweb Coquette")+'</p><p>Il recupero dell’auto non conferma uno slot di proprietà. Controlla il menu garage e la registrazione.</p></section>'
     body+='<section><h2>Platino: otto acquisti separati</h2><p>Little Boxes richiede tutti gli otto garage acquistabili tramite Vice City Real Estate. I bonus gratuiti, di storia o di edizione non li sostituiscono. Non sommare varianti di cataloghi discordanti come totale definitivo dei garage.</p>'+internal(base,BUY,"Requisito del trofeo →")+'</section>'
     return body+end(base,[("PowerPyx — garage",GARAGES),("GTABase — sblocco garage",PROPERTIES),("GTABase — Southside",SOUTH_MAP),("GTABase — Domestic Timbers",TEMP_MAP),("PowerPyx — Tempesta",COLLECT),("VICE — Del Rio mancabile",MISSED),("GTA Companion — codici",CODES)])
 def south_body(base):
     body=start(base,"Southside Storage: 5 murales e 1010 Cheetah","Fotografa tutti i cinque murales 1010, poi usa il codice 1010 per sbloccare Southside Storage a Salton.")
     body+=facts([("Garage","Gratuito, 1 posto"),("Zona","Salton, a nord di Slator Towing"),("Codice","1010"),("Veicolo","1010 Cheetah: registrazione a parte")])
+    body+=code_field("1010","Codice Southside Storage")
     body+='<p class="vc-check">I cinque murales non sono necessari per il 100% e non contano nelle 100 scansioni WAiNK. Verifica il loro registro specifico.</p>'+steps(SOUTH_STEPS)
     return body+end(base,[("PowerPyx — cinque murales",MURALS),("GTA Companion — percorso",MURALS_ALT),("GTABase — garage e mappa",SOUTH_MAP)])
 def domestic_body(base):

@@ -89,3 +89,11 @@
 .vc-video-slot{margin-top:10px}
 .vc-video-slot iframe{display:block;width:100%;aspect-ratio:16/9;height:auto;min-height:150px;
   border:0;border-radius:8px;background:#0c0b13}
+
+/* Keypad strings, selectable even without JS or clipboard permission. */
+.vc-code{display:flex;flex-wrap:wrap;align-items:end;gap:8px;margin:12px 0;padding:10px;border:1px solid var(--r-line,#40475e);border-radius:9px}
+.vc-code label{display:grid;gap:5px;min-width:0;font-size:.8rem;font-weight:700;flex:1 1 130px}
+.vc-code input{box-sizing:border-box;min-width:0;width:100%;min-height:44px;border:1px solid var(--r-line,#40475e);background:var(--r-soft,#252a3a);color:var(--r-text,#fff);padding:8px;border-radius:7px;font:700 1.2rem ui-monospace,monospace;letter-spacing:.1em;user-select:all}
+.vc-code button{min-height:44px;padding:8px 14px;background:var(--r-soft,#252a3a);color:var(--r-cyan,#87ded9);border:1px solid var(--r-line,#40475e);border-radius:7px;cursor:pointer;font-weight:700}
+.vc-code button[hidden]{display:none}.vc-code small{flex-basis:100%;color:var(--r-muted,#c0aecb)}
+.vc-code :is(button,input):focus-visible{outline:2px solid var(--r-cyan,#87ded9);outline-offset:3px}
