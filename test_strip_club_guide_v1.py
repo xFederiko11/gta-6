@@ -45,7 +45,7 @@ class StripClubGuideTests(unittest.TestCase):
         self.assertIn(guide.VIDEO_ID, page)
         self.assertIn("non una mappa ufficiale Rockstar", page)
         self.assertEqual(captured["schema"]["datePublished"], guide.PUBLISHED)
-        self.assertIn('type":"Article"', json.dumps(captured["schema"]))
+        self.assertEqual(captured["schema"]["@type"], "Article")
         script = Path(guide.JS_PATH).read_text(encoding="utf-8")
         self.assertIn("youtube-nocookie.com/embed/", script)
         self.assertIn("data-strip-video-load", script)
