@@ -698,7 +698,7 @@
         "Scendi al garage e inserisci 092319, verificando che coincida con l’indizio.",
         "Scansiona la vettura con WAiNK prima di prenderla; verifica accesso, tracker e registrazione."
       ],
-      "check": "Il nome Spiderweb Coquette è riconosciuto dallo scanner. Verifica separatamente la registrazione.",
+      "check": "Lo scanner identifica Spiderweb Coquette. Verifica registrazione; il garage non è confermato come proprietà.",
       "status": "Verificata",
       "source_url": "https://www.gtabase.com/gta-6/vehicles/spiderweb-coquette",
       "additional_source": "https://gta6.house/guides/gta-6-spiderweb-coquette-garage-code",
@@ -738,7 +738,7 @@
       "area": "La Perle",
       "where": "Garage vicino ad Auntie’s Place, su Del Rio Boulevard; cerca la serranda grigia con fiocco rosa.",
       "visual": "Pfister Growler rosa. Il tastierino si trova accanto alla porta del garage.",
-      "unlock": "Capitolo 3, quando è disponibile l’appartamento di Bayside. Conviene completare il puzzle durante questo capitolo.",
+      "unlock": "Capitolo 3, appartamento Bayside: recuperala prima di iniziare The Cartel Heist (possibile mancabile).",
       "steps": [
         "Nell’appartamento del capitolo 3 apri il laptop protetto da password.",
         "Usa gli indizi della stanza per scegliere Muffins, Queen e 15, nell’ordine.",
@@ -746,13 +746,13 @@
         "Vai al garage presso Auntie’s Place in La Perle e inserisci il codice al tastierino.",
         "Controlla la notifica del garage e il nome Vanessa’s Growler; verifica a parte lo stato di registrazione."
       ],
-      "check": "Il garage è accessibile e la Growler rosa è identificata. Controlla nel menu se il veicolo è registrato.",
+      "check": "Controlla che il Del Rio Boulevard Garage compaia fra le proprietà; verifica a parte la registrazione della Growler.",
       "status": "Verificata",
       "source_url": "https://www.gtaboom.com/gta-6-vanessas-garage-and-pink-growler-7339/",
       "additional_source": "https://gtami.com/en/guides/la-perle-garage/",
       "map_url": "https://www.gtabase.com/gta-6/vehicles/vanessas-growler",
       "spoiler": false,
-      "note": "Le guide collocano l’ingresso a La Perle; GTABase lo descrive come rimessa Rockridge. Capitolo 3: possibile finestra limitata. Nessun prezzo fisso o registrazione gratuita garantiti."
+      "note": "VICE e GTA Companion segnalano che il codice smette di funzionare dopo il Capitolo 3. Non rimandare alla storia successiva; prezzo e registrazione gratuita non garantiti."
     },
     {
       "name": "Maibatsu Penumbra FF — livrea verde",

@@ -366,9 +366,9 @@
     {
       "number": 54,
       "group": "economia",
-      "action": "Acquista gli otto garage indicati dalla guida; non confonderli con quelli ottenuti nella trama.",
+      "action": "Acquista tutti gli otto garage richiesti tramite Vice City Real Estate dopo Daily Driver.",
       "check": "Verifica ogni acquisto e il trofeo.",
-      "warning": "Le proprietà della trama non sostituiscono automaticamente gli acquisti.",
+      "warning": "Garage gratuiti, di storia e bonus non contano fra gli otto acquisti.",
       "guide": "salvare-auto/"
     },
     {
