@@ -50,9 +50,9 @@ class WebPPreflightTests(unittest.TestCase):
         with self.assertRaisesRegex(WebPReviewError, "opaque, static, and metadata-free"):
             inspect_webp_bytes(_webp(flags=0x08))
 
-    def test_lossless_webp_dimensions_are_read_correctly(self):
-        report = inspect_webp_bytes(_webp(1280, 720, lossless=True))
-        self.assertEqual((report["width"], report["height"]), (1280, 720))
+    def test_lossless_webp_is_rejected_when_opacity_cannot_be_proven(self):
+        with self.assertRaisesRegex(WebPReviewError, "cannot be proven opaque"):
+            inspect_webp_bytes(_webp(1280, 720, lossless=True))
 
     def test_low_resolution_and_oversized_dimensions_are_rejected(self):
         with self.assertRaisesRegex(WebPReviewError, "short edge"):
