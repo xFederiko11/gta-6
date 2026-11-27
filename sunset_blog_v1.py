@@ -29,6 +29,7 @@ CATEGORIES=[
  ("collezionabili/percorsi/","Collezionabili","pink"),
  ("mappe-guide/","Mappe e luoghi","cyan"),
  ("trucchi/","Trucchi PS5","orange"),
+ ("glitch/","Glitch e exploit","pink"),
  ("hdr-oled/","HDR OLED","violet"),
  ("articoli/","News e articoli","pink"),
  ("patch/","Patch e aggiornamenti","cyan"),
@@ -42,7 +43,7 @@ IMPORTANT=[
  ("guide-e-tutorial/scansionare-veicoli/","Usare WAiNK"),
  ("guide-e-tutorial/soldi-facili-capitolo-1/","Soldi nel Capitolo 1"),
 ]
-HUBS={"guide-e-tutorial/","soldi-facili/","auto-speciali/","articoli/","patch/","scoperte/"}
+HUBS={"glitch/","guide-e-tutorial/","soldi-facili/","auto-speciali/","articoli/","patch/","scoperte/"}
 EXAMPLE="guide-e-tutorial/soldi-2500-three-sheets-liquor/"
 
 def esc(value):
@@ -137,7 +138,7 @@ def wrap(inner,path="",*,home=False,preview=False,track=False):
             '<div class="sunset-content">'+inner+'</div>'+sidebar(path,preview=preview,guide=guide,track=track)+'</div>')
 
 def eligible(path,page):
-    return GUIDE_MARKER in page or path in HUBS or path.startswith(("articoli/","patch/","garage-gratuiti/"))
+    return GUIDE_MARKER in page or "data-legit-guide" in page or path in HUBS or path.startswith(("articoli/","patch/","garage-gratuiti/"))
 
 def inject(page,path,digest):
     if 'data-design-version=' not in page or 'name="sunset-blog-version"' in page:

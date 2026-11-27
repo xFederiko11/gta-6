@@ -32,6 +32,18 @@ class SimpleHomeTests(unittest.TestCase):
         self.assertNotIn("data-admin",page)
         self.assertIn("rel=\"canonical\"",page)
 
+    def test_chronology_and_strict_glitch_archive(self):
+        from article_chronology_v1 import inventory,GLITCH
+        rows=inventory()
+        dated=[r for r in rows if r[3]]
+        self.assertEqual([r[3] for r in dated],sorted([r[3] for r in dated],reverse=True))
+        home=(SITE/"index.html").read_text(encoding="utf-8")
+        index=(SITE/"articoli/index.html").read_text(encoding="utf-8")
+        self.assertEqual(re.findall(r'data-chronology-path="([^"]+)"',home),[r[0] for r in dated[:12]])
+        self.assertEqual(re.findall(r'data-chronology-path="([^"]+)"',index),[r[0] for r in rows])
+        self.assertEqual(re.findall(r'data-chronology-path="([^"]+)"',(SITE/"glitch/index.html").read_text(encoding="utf-8")),[GLITCH])
+        for path,*_ in rows:self.assertTrue((SITE/path/"index.html").is_file(),path)
+
     def test_does_not_break_published_deep_links_or_source_labels(self):
         for path in ("guide-e-tutorial/veicoli-per-moses/",
                      "salvare-auto/","trofei/","scoperte/",

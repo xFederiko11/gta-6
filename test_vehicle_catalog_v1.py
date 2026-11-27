@@ -66,6 +66,8 @@ class VehicleCatalogTests(unittest.TestCase):
             self.assertIn('rel="canonical" href="'+BASE+path+'"',rendered)
             self.assertIn('vehicle-finder-v1.css?v=',rendered)
             self.assertIn(BASE+path,(ROOT/"guide-e-tutorial/index.html").read_text())
+            self.assertIn(BASE+path,(ROOT/"articoli/index.html").read_text())
+            self.assertIn('data-sunset-layout="right-blog"',rendered)
     def test_evidence_gate_fail_closed(self):
         original=load()
         for field,value in (
