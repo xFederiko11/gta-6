@@ -29,6 +29,7 @@ CATEGORIES=[
  ("collezionabili/percorsi/","Collezionabili","pink"),
  ("mappe-guide/","Mappe e luoghi","cyan"),
  ("trucchi/","Trucchi PS5","orange"),
+ ("glitch/","Glitch e exploit","pink"),
  ("hdr-oled/","HDR OLED","violet"),
  ("articoli/","News e articoli","pink"),
  ("patch/","Patch e aggiornamenti","cyan"),
@@ -42,7 +43,7 @@ IMPORTANT=[
  ("guide-e-tutorial/scansionare-veicoli/","Usare WAiNK"),
  ("guide-e-tutorial/soldi-facili-capitolo-1/","Soldi nel Capitolo 1"),
 ]
-HUBS={"guide-e-tutorial/","soldi-facili/","auto-speciali/","articoli/","patch/","scoperte/"}
+HUBS={"glitch/","guide-e-tutorial/","soldi-facili/","auto-speciali/","articoli/","patch/","scoperte/"}
 EXAMPLE="guide-e-tutorial/soldi-2500-three-sheets-liquor/"
 
 def esc(value):
