@@ -51,6 +51,20 @@ class SimpleHomeTests(unittest.TestCase):
         self.assertIn('data-chronology-search',index)
         self.assertIn('data-chronology-filter',index)
 
+    def test_documented_publication_history(self):
+        import json
+        from article_chronology_v1 import inventory
+        registry=json.loads(Path("data/publication_dates_v1.json").read_text(encoding="utf-8"))
+        dated=registry["published"]
+        evidence={p:g["publication_day_rome"] for g in registry["evidence"] for p in g["paths"]}
+        self.assertEqual(dated,evidence)
+        self.assertEqual(len(dated),sum(len(g["paths"]) for g in registry["evidence"]))
+        self.assertGreaterEqual(len(dated),151)
+        self.assertEqual(dated["trofei/medaglie-oro/"],"2026-11-18")
+        self.assertEqual(dated["garage-gratuiti/garage-storia/port-gellhorn/"],"2026-11-27")
+        rows=inventory()
+        self.assertEqual({p:d for p,t,c,d in rows if p in dated},dated)
+
     def test_does_not_break_published_deep_links_or_source_labels(self):
         for path in ("guide-e-tutorial/veicoli-per-moses/",
                      "salvare-auto/","trofei/","scoperte/",

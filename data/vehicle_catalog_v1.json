@@ -688,11 +688,11 @@
       "kind": "Esplorazione",
       "category": "Standout · Retro",
       "area": "Key Lento",
-      "where": "Casa della festa in Dolphin Drive, nella parte nord-est dell’isola; garage al piano inferiore.",
+      "where": "Casa in Dolphin Drive: le fonti discordano fra nord-est e sud-est. Usa la mappa originale e i riferimenti della casa.",
       "visual": "Coquette del 1964 con decorazione a ragnatela. Cerca la casa con cassetta postale a forma di foca.",
       "unlock": "Quando puoi esplorare Key Lento; verifica accesso alla casa e tracker.",
       "steps": [
-        "Raggiungi le abitazioni a nord-est di Key Lento e individua Dolphin Drive.",
+        "Individua la casa in Dolphin Drive usando la mappa originale, senza affidarti alla direzione nord-est/sud-est indicata dalle guide.",
         "Cerca la casa della festa, riconoscibile dalla cassetta postale a forma di foca.",
         "All’interno individua la fotografia con la data vicino alla cucina.",
         "Scendi al garage e inserisci 092319, verificando che coincida con l’indizio.",
@@ -704,7 +704,7 @@
       "additional_source": "https://gta6.house/guides/gta-6-spiderweb-coquette-garage-code",
       "map_url": "https://www.gtabase.com/gta-6/vehicles/spiderweb-coquette",
       "spoiler": false,
-      "note": "GTABase descrive il codice nelle foto; GTA6.house identifica la data. Le indicazioni valgono per il puzzle nel gioco, non garantiscono presenza o tracker in ogni versione."
+      "note": "GTA6.house indica nord-est, GTA Companion sud-est: posizione direzionale non confermata; verifica con i riferimenti della casa e la mappa. Proprietà del garage non confermata."
     },
     {
       "name": "Declasse Applesauce Bobcat",
@@ -742,7 +742,7 @@
       "steps": [
         "Nell’appartamento del capitolo 3 apri il laptop protetto da password.",
         "Usa gli indizi della stanza per scegliere Muffins, Queen e 15, nell’ordine.",
-        "Leggi il messaggio da Unknown nell’app WhatUp e annota il codice 92665.",
+        "Prima di lasciare l’appartamento, leggi il messaggio da Unknown nell’app WhatUp sul laptop e annota il codice 92665.",
         "Vai al garage presso Auntie’s Place in La Perle e inserisci il codice al tastierino.",
         "Controlla la notifica del garage e il nome Vanessa’s Growler; verifica a parte lo stato di registrazione."
       ],
