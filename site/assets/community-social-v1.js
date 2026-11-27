@@ -155,8 +155,8 @@
       timeline.disabled=false;
       timeline.hidden=false;
       timeline.textContent="Riprova il feed X";
-      const notice=make("p","social-empty","La timeline X non è disponibile. Puoi aprire il profilo dal collegamento qui sotto.");
-      slot.append(notice);
+      slot.querySelectorAll(".social-empty").forEach(n=>n.remove());
+      slot.append(make("p","social-empty","La timeline X non è disponibile. Puoi aprire il profilo dal collegamento qui sotto."));
     };
     const render=()=>{
       try{
