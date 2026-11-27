@@ -19,6 +19,7 @@ from magazine_popular_v1 import popular_panel
 ROOT=Path("_site")
 BASE="https://xfederiko11.github.io/gta-6/"
 CSS="sunset-blog-v1.css"
+SEARCH_JS="magazine-quick-search-v1.js"
 VERSION="sunset-blog-v1"
 GUIDE_MARKER='id="procedura" class="v-tutorial"'
 MAIN='<main class="wrap" id="contenuto">'
@@ -83,6 +84,21 @@ def related_links(path,enabled):
     return ('<nav class="sb-related" aria-label="Guide correlate"><p class="sb-heading">Continua con queste guide</p>'+
             "".join('<a href="'+BASE+target+'"'+tracking(enabled,"related-guide-open",target,"after-tutorial")+'>'+esc(label)+' <span aria-hidden="true">→</span></a>' for target,label in items)+'</nav>')
 
+def search_panel():
+    """Native links remain usable when JS or the public catalog is unavailable."""
+    return ('<section class="sb-panel sb-search" data-magazine-search aria-label="Ricerca articoli">'
+            '<p class="sb-kicker">TROVA LA TUA GUIDA</p>'
+            '<form class="sb-search-form" role="search" method="get" action="'+BASE+'articoli/" data-search-form>'
+            '<label class="sb-heading sb-search-label">Cerca articoli<span class="sb-search-field">'
+            '<input type="search" name="q" maxlength="100" placeholder="Auto, trofei, soldi…" autocomplete="off" enterkeyhint="search" data-search-input aria-label="Cerca negli articoli">'
+            '<button type="submit" aria-label="Mostra tutti i risultati"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>'
+            '</span></label></form>'
+            '<p class="sb-search-help" data-search-status role="status" aria-live="polite">Cerca per titolo, veicolo, missione o trofeo.</p>'
+            '<div class="sb-search-results" data-search-results hidden></div>'
+            '<div class="sb-search-shortcuts"><span>Vai a:</span><a href="'+BASE+'salvare-auto/">Auto</a>'
+            '<a href="'+BASE+'garage-gratuiti/">Garage</a><a href="'+BASE+'trofei/roadmap-platino/">Platino</a></div>'
+            '<noscript><p class="sb-search-help">I suggerimenti richiedono JavaScript. Puoi comunque sfogliare l’archivio e le categorie.</p></noscript></section>')
+
 def sidebar(path="",*,preview=False,guide=False,track=False):
     from article_chronology_v1 import tree, inventory, taxonomy
     active_group=""
@@ -116,7 +132,7 @@ def sidebar(path="",*,preview=False,guide=False,track=False):
                      esc(text[:210])+'</p><a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer"'+tracking(track,"x-post-open")+'>Apri il post ↗</a></article>')
         if len(cards)==3:break
     posts="".join(cards) or '<p class="sb-empty">Se gli estratti non sono disponibili, apri direttamente il profilo X.</p>'
-    return ('<aside class="sb-sidebar" aria-label="Categorie e aggiornamenti GTA VI Italia">'+jump+popular_panel()+
+    return ('<aside class="sb-sidebar" aria-label="Categorie e aggiornamenti GTA VI Italia">'+search_panel()+popular_panel()+jump+
             '<div class="sb-panel"><p class="sb-kicker">ESPLORA LEONIDA</p><p class="sb-heading">Categorie</p>'
             '<nav class="sb-categories" aria-label="Categorie del sito">'+categories+'</nav></div>'
             '<div class="sb-panel"><p class="sb-kicker">NON PERDERTELI</p><p class="sb-heading">Da tenere a portata di mano</p>'
@@ -159,6 +175,8 @@ def inject(page,path,digest,catalog=None):
     track='id="growth-analytics-v1"' in page
     if catalog is not None:
         page=magazine_article.enhance(page,path,catalog,track)
+    if path=="" or eligible(path,page):
+        page=page.replace('</head>','<script src="'+BASE+'assets/'+SEARCH_JS+'?v='+digest+'" defer></script></head>',1)
     if path=="":
         start=page.index(HOME_START)
         stop=page.rindex('</div>',start,page.index('</main>',start))
@@ -182,7 +200,7 @@ def preview(page):
     start=page.index('<article class="article">')
     stop=page.index("</main>",start)
     page=page[:start]+wrap(page[start:stop],preview=True)+page[stop:]
-    page=page.replace("</body>",'<script src="../assets/community-social-v1.js" defer></script></body>',1)
+    page=page.replace("</body>",'<script src="../assets/community-social-v1.js" defer></script><script src="../assets/magazine-quick-search-v1.js" defer></script></body>',1)
     return page
 
 def contracts(page):
@@ -202,8 +220,10 @@ def contracts(page):
 
 def apply(root=ROOT):
     src=Path("site/assets")/CSS
-    digest=hashlib.sha256(src.read_bytes()).hexdigest()[:12]
+    script=Path("site/assets")/SEARCH_JS
+    digest=hashlib.sha256(src.read_bytes()+script.read_bytes()).hexdigest()[:12]
     shutil.copy2(src,root/"assets"/CSS)
+    shutil.copy2(script,root/"assets"/SEARCH_JS)
     stable=[root/"sitemap.xml",root/"articoli/feed.json"]
     before=[p.read_bytes() for p in stable]
     catalog=magazine_article.load_catalog(root)
@@ -235,6 +255,9 @@ def verify(root=ROOT):
         page=(root/path/"index.html").read_text(encoding="utf-8")
         assert page.count('data-sunset-layout="right-blog"')==1,path
         assert page.count('data-x-timeline-load')==1,path
+        assert page.count('data-magazine-search')==1,path
+        assert page.index('data-magazine-search')<page.index('data-magazine-popular')<page.index('class="sb-categories"'),path
+        assert SEARCH_JS+'?v=' in page,path
         assert page.count('data-x-live-grid')==1,path
         assert 'sunset-blog-v1.css?v=' in page,path
         assert 'src="https://platform.twitter.com/widgets.js"' not in page,path
@@ -249,6 +272,7 @@ def verify(root=ROOT):
     for target,*_ in CATEGORIES+IMPORTANT+[(target,label) for path in paths for target,label in related(path)]:
         assert (root/target/"index.html").is_file(),target
     assert (root/"assets"/CSS).is_file()
+    assert (root/"assets"/SEARCH_JS).is_file()
     magazine_article.verify(root)
     print("SUNSET_BLOG_STATIC_OK",len(paths),"complete tutorials")
 
@@ -294,6 +318,33 @@ def browser(root=ROOT):
                     assert page.locator(".sb-sidebar").count()==1
                     assert page.locator(".sb-sidebar .sb-taxonomy").count()==8
                     assert page.locator("[data-magazine-popular]").count()==1
+                    quick=page.locator("[data-magazine-search]")
+                    assert quick.count()==1
+                    assert quick.evaluate("e=>!!(e.compareDocumentPosition(document.querySelector('[data-magazine-popular]')) & Node.DOCUMENT_POSITION_FOLLOWING)")
+                    if not path:
+                        field=quick.locator("[data-search-input]")
+                        field.fill("Southside Storage")
+                        result=quick.locator('[data-search-results] a[href$="/garage-gratuiti/southside-storage/"]')
+                        result.wait_for(state="visible")
+                        assert 1<=quick.locator("[data-search-results] a").count()<=6
+                        assert not page.evaluate("document.documentElement.scrollWidth>innerWidth+1")
+                        quick.screenshot(path=str(shots/("magazine-search-"+str(width)+".png")))
+                        field.press("ArrowDown")
+                        assert quick.locator("[data-search-results] a").first.evaluate("e=>e===document.activeElement")
+                        page.keyboard.press("Escape")
+                        assert field.evaluate("e=>e===document.activeElement")
+                        assert quick.locator("[data-search-results]").is_hidden()
+                        field.fill("zzzxxyy123")
+                        page.wait_for_function("document.querySelector('[data-search-status]').textContent.includes('Nessun articolo')")
+                        assert quick.locator("[data-search-results] a").count()==0
+                        field.fill("Southside Storage")
+                        field.press("Enter")
+                        page.wait_for_url("**/articoli/?q=Southside+Storage")
+                        page.wait_for_function("document.querySelector('[data-chronology-search]').value==='Southside Storage' && !document.querySelector('[data-chronology-filters]').hidden")
+                        assert page.locator('[data-chronology-path="garage-gratuiti/southside-storage/"]').count()==1
+                        assert 1<=page.locator("[data-chronology-path]").count()<=25
+                        page.goto(origin)
+                        print("MAGAZINE_QUICK_SEARCH_BROWSER_OK",width,flush=True)
                     assert page.locator("[data-magazine-popular]").evaluate("e=>!!(e.compareDocumentPosition(document.querySelector('.sb-categories')) & Node.DOCUMENT_POSITION_FOLLOWING)")
                     assert page.locator(".sb-taxonomy:not([open])").first.evaluate("e=>e.getBoundingClientRect().height<75")
                     assert page.locator(".sb-profile").get_attribute("href")=="https://x.com/xFederiko11"
@@ -356,10 +407,15 @@ def live():
                     page=response.read(2000000).decode("utf-8")
                 assert 'data-sunset-layout="right-blog"' in page and 'sunset-blog-v1.css?v=' in page,path
                 assert 'data-x-timeline-load' in page and 'src="https://platform.twitter.com/widgets.js"' not in page,path
+                assert page.index('data-magazine-search')<page.index('data-magazine-popular'),path
+                assert SEARCH_JS+'?v=' in page,path
                 if path in (EXAMPLE,"guide-e-tutorial/scansionare-veicoli/"):
                     assert 'data-magazine-article="v1"' in page and 'data-magazine-steps' in page and 'data-magazine-related' in page,path
             with urlopen(BASE+"assets/"+CSS,timeout=15) as response:
                 assert response.status==200 and b"--sb-gradient" in response.read(100000)
+            with urlopen(BASE+"assets/"+SEARCH_JS,timeout=15) as response:
+                assert response.status==200 and b"MAGAZINE_QUICK_SEARCH_V1" in response.read(100000)
+            print("PUBLIC_MAGAZINE_QUICK_SEARCH_OK")
             print("PUBLIC_SUNSET_BLOG_OK",BASE+EXAMPLE)
             return
         except Exception:

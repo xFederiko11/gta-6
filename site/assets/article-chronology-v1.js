@@ -75,7 +75,12 @@ fetch(endpoint,{credentials:'same-origin',cache:'no-cache'}).then(r=>{if(!r.ok)t
  items=catalog.items.map(item=>({item,text:norm([item.title,item.summary,item.group_label,item.sub_label,item.badge].join(' '))}));
  group.value=initial.group;options(initial.sub);
  controls.hidden=false;
+ const query=new URLSearchParams(location.search).get('q');
+ if(query&&query.trim()){
+  search.value=query.trim().slice(0,100);
+  update();
+ }
  search.addEventListener('input',()=>update());group.addEventListener('change',()=>{options();update()});sub.addEventListener('change',()=>update());
- reset.addEventListener('click',()=>{search.value='';group.value=initial.group;options(initial.sub);page=initial.page;restore();search.focus()});
+ reset.addEventListener('click',()=>{search.value='';group.value=initial.group;options(initial.sub);page=initial.page;restore();const url=new URL(location.href);if(url.searchParams.has('q')){url.searchParams.delete('q');history.replaceState(null,'',url.href)}search.focus()});
 }).catch(()=>{ /* Static category links and numbered pages still work. */ });
 })();
