@@ -1,5 +1,5 @@
 /* Preserve the photographs' original colors; shade only the text edge. */
-.cinema-home .focus-hero .ci-hero-image{transform:none;mask-image:none;filter:none;opacity:0;object-position:var(--hero-position,62% 45%);transition:opacity 1s ease;max-width:none;pointer-events:none}
+.cinema-home .focus-hero .ci-hero-image{transform:none;mask-image:none;filter:none;opacity:0;object-position:var(--hero-position,62% 45%);transition:opacity .4s ease;max-width:none;pointer-events:none}
 .cinema-home .focus-hero .ci-hero-image[data-hero-active=true]{opacity:1}
 .cinema-home .focus-hero .ci-hero-shade{background:linear-gradient(90deg,#080d17a6 0%,#080d173b 37%,#080d1700 67%),linear-gradient(0deg,#080d1775 0%,#080d1700 35%)}
 .cinema-home .ci-hero-copy{position:relative;z-index:1}

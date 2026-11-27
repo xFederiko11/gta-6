@@ -100,6 +100,12 @@
     for(const p of posts.slice(0,4)){
       const card=make("article","social-comment-card");
       card.append(make("span","","𝕏 @xFederiko11"));
+      const date=new Date(p.sent_at);
+      const parts=Object.fromEntries(new Intl.DateTimeFormat("it-IT",{timeZone:"Europe/Rome",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(date).map(p=>[p.type,p.value]));
+      const stamp=make("time","sb-post-time",parts.day+"/"+parts.month+"/"+parts.year+" · "+parts.hour+":"+parts.minute);
+      stamp.dateTime=p.sent_at;
+      stamp.title="Orario italiano";
+      card.append(stamp);
       card.append(make("p","",p.excerpt.slice(0,210)));
       addLink(card,"Leggi e rispondi su X ↗",p.x_url);
       cards.push(card);

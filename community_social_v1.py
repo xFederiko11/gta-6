@@ -6,6 +6,8 @@ Buffer delivery receipts are not X comment or like metrics.
 """
 from __future__ import annotations
 from html import escape
+from datetime import datetime
+from zoneinfo import ZoneInfo
 import json
 from pathlib import Path
 import re
@@ -73,6 +75,18 @@ def share_intent(path):
         "url":BASE+path
     })
 
+
+def post_time_html(item):
+    if item.get("source") != "Buffer sent Post.externalLink on verified X channel" or item.get("buffer_status") != "sent" or not verified_x_url(item.get("x_url")):
+        return ""
+    value=item.get("completed_utc")
+    if not isinstance(value,str):return ""
+    try:
+        date=datetime.fromisoformat(value.replace("Z","+00:00"))
+        if date.tzinfo is None:return ""
+        label=date.astimezone(ZoneInfo("Europe/Rome")).strftime("%d/%m/%Y · %H:%M")
+    except (ValueError,OverflowError):return ""
+    return '<time class="sb-post-time" datetime="'+escape(value,quote=True)+'" title="Orario italiano">'+label+'</time>'
 
 def xpost_for(path):
     item=post_for(path)
