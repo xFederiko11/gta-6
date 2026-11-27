@@ -54,15 +54,16 @@ if (typeof document !== 'undefined') (() => {
   let inView = true;
   let timer;
   let prefetched = null;
-  // User-facing slide dwell: 1.75 seconds after each image is decoded.
+  // Rotate at 1.75 s between fade starts; never expose an undecoded frame.
   const interval = 1750;
+  const fadeMs = 550;
 
   function canPlay() {
     return !paused && ((!hovered && !focused) || rotationRequested) && !document.hidden && inView;
   }
-  function schedule() {
+  function schedule(delay = interval) {
     clearTimeout(timer);
-    if (canPlay()) timer = setTimeout(() => go(1), interval);
+    if (canPlay() && !busy) timer = setTimeout(() => go(1), typeof delay === 'number' ? delay : interval);
     hero.dataset.heroPlaying = String(canPlay());
   }
   function updateToggle() {
@@ -81,11 +82,27 @@ if (typeof document !== 'undefined') (() => {
     prefetched.decoding = 'async';
     prefetched.src = slides[index].src;
   }
+  function finishFade(frame) {
+    return new Promise(resolve => {
+      let fallback;
+      const done = () => {
+        clearTimeout(fallback);
+        frame.removeEventListener('animationend', done);
+        frame.removeEventListener('animationcancel', done);
+        resolve();
+      };
+      frame.addEventListener('animationend', done, {once:true});
+      frame.addEventListener('animationcancel', done, {once:true});
+      // A hidden tab or motion preference change must not lock controls.
+      fallback = setTimeout(done, fadeMs + 120);
+    });
+  }
   async function show(index) {
     const incoming = frames[1 - active];
     const outgoing = frames[active];
     const slide = slides[index];
     busy = true;
+    let started = null;
     prev.disabled = next.disabled = true;
     try {
       incoming.alt = slide.alt;
@@ -94,9 +111,14 @@ if (typeof document !== 'undefined') (() => {
       incoming.src = slide.src;
       incoming.style.setProperty('--hero-position', slide.position);
       await incoming.decode();
+      // Keep the outgoing photo opaque UNDER the incoming layer. Fading both
+      // simultaneously exposes the dark backdrop midway through the transition.
+      outgoing.dataset.heroUnderlay = 'true';
       outgoing.dataset.heroActive = 'false';
       outgoing.setAttribute('aria-hidden', 'true');
       incoming.dataset.heroActive = 'true';
+      if (!reducedMotion.matches) incoming.dataset.heroFade = 'true';
+      started = performance.now();
       incoming.removeAttribute('aria-hidden');
       active = 1 - active;
       hero.dataset.heroIndex = String(index);
@@ -109,13 +131,16 @@ if (typeof document !== 'undefined') (() => {
         position -= slides.length;
       }
       preload();
+      if (incoming.dataset.heroFade === 'true') await finishFade(incoming);
     } catch (_) {
       // Keep the last loaded photograph visible if a download fails.
     } finally {
+      delete incoming.dataset.heroFade;
+      delete outgoing.dataset.heroUnderlay;
       busy = false;
       prev.disabled = position <= 0;
       next.disabled = false;
-      schedule();
+      schedule(started === null ? interval : Math.max(0, interval - (performance.now() - started)));
     }
   }
   async function go(direction) {

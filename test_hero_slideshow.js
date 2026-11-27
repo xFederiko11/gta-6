@@ -6,8 +6,14 @@ const fs = require('node:fs');
 const script = fs.readFileSync('./site/assets/hero-slideshow.js', 'utf8');
 const style = fs.readFileSync('./site/assets/hero-slideshow.css', 'utf8');
 assert.match(script, /const interval = 1750;/, 'Hero photos must rotate after 1.75 seconds');
-assert.match(style, /transition:opacity \.4s ease/);
-assert.match(fs.readFileSync('./cloux_preview_v1.py','utf8'), /slide\(1\)\},1750\);/);
+assert.match(style, /animation:hero-crossfade \.55s ease-in-out both/);
+assert.match(style, /\[data-hero-underlay=true\]\{opacity:1;z-index:-4\}/);
+assert.match(style, /\[data-hero-active=true\]\{opacity:1;z-index:-3\}/);
+assert.match(script, /await finishFade\(incoming\)/);
+assert.match(script, /delete outgoing\.dataset\.heroUnderlay/);
+const preview = fs.readFileSync('./cloux_preview_v1.py','utf8');
+assert.match(preview, /const interval=1750/);
+assert.match(preview, /animation:preview-crossfade \.55s ease-in-out both/);
 assert.match(style, /@media\(min-width:1001px\)\s*\{[\s\S]*?object-position:center center;/,
              'Desktop photo must be centered regardless of source focal point');
 assert.match(style, /transform:none;/, 'Desktop hero must not be displaced');
