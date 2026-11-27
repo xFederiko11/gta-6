@@ -7,7 +7,10 @@ ROOT=Path("_site")
 class GarageGuidesTests(unittest.TestCase):
     def test_source_only_and_distinct_unlocks(self):
         result={path:body for path,_,_,body,_ in pages(BASE)}
-        self.assertEqual(len(result),4)
+        self.assertEqual(len(result),8)
+        from garage_guides_v1 import STORY_ROWS
+        for ident,*_ in STORY_ROWS:
+            self.assertIn('https://www.gtabase.com/gta-6/properties/',result[STORY+ident+'/'])
         self.assertEqual(result[PATH].count('data-garage-entry'),7)
         self.assertEqual(result[SOUTH].count('data-garage-step='),8)
         self.assertEqual(result[DOMESTIC].count('data-garage-step='),7)

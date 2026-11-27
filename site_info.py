@@ -32,6 +32,7 @@ def sources_for(path: str) -> tuple[str, ...]:
               "site/assets/hero-slideshow.css", "site/assets/hero-slideshow.js")
     if path.startswith(("articoli/", "media/rockstar/")) or path == "":
         shared += ("editorial_articles.py", "data/articles.json", "site/assets/editorial-articles.css",
+                   "article_chronology_v1.py","data/publication_dates_v1.json","site/assets/article-chronology-v1.js",
                    "site/assets/rockstar/gta-vi/manifest.json", "site/assets/rockstar-library.js")
     if path.startswith("video-tutorial/"):
         return shared + ("creator_video_hub_v1.py", "data/guide_visual_refs.json",

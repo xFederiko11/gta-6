@@ -4,3 +4,5 @@
 
 /* Text-only chronology: no substitute images for undocumented gameplay. */
 .ed-home-card.chronology-card{display:block;padding:1rem;min-width:0;margin:.5rem 0;text-decoration:none}.chronology-card>span{display:block;min-width:0}.chronology-card small{display:block;margin-bottom:.3rem}.chronology-card strong{display:block;overflow-wrap:anywhere}
+
+.chronology-card[hidden]{display:none!important}.chronology-filters{margin:1rem 0}.chronology-filters :is(input,select){min-height:44px;min-width:0;box-sizing:border-box}.chronology-card:focus-visible{outline:2px solid currentColor;outline-offset:3px}#ultimi-articoli [data-chronology-count]{font-size:.85rem}

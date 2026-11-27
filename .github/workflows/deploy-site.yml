@@ -284,6 +284,8 @@ jobs:
           python sunset_blog_v1.py live
       - name: Verify deployed reader feed for autonomous bot integration
         run: python editorial_feed_v1.py --live
+      - name: Verify chronology, garage codes and legitimate guides in production
+        run: python verify_editorial_release_v1.py
       - name: Verify public pages serve responsive reader, X header and spoiler warnings
         run: |
           python - <<'PY'

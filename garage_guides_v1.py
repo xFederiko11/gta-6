@@ -75,7 +75,7 @@ def index_body(base):
         ("Del Rio Boulevard · priorità Capitolo 3",VANESSA,"1 posto + Growler rosa · codice 92665","Recupera prima di The Cartel Heist: le fonti segnalano una finestra mancabile."),
         ("Southside Storage",SOUTH,"1 posto + 1010 Cheetah · codice 1010","Completa cinque murales. Garage gratuito, registrazione auto separata."),
         ("Domestic Timbers",DOMESTIC,"1 posto + Raul’s Tempesta","Termina la catena di Randy e ritira il premio a Balsero."),
-    ]+[(name,STORY+"#"+ident,str(spots)+" posti · Capitolo "+chapter,"Completa "+mission+"; sblocco di storia.") for ident,name,chapter,mission,area,spots in STORY_ROWS]
+    ]+[(name,STORY+ident+"/",str(spots)+" posti · Capitolo "+chapter,"Completa "+mission+"; sblocco di storia.") for ident,name,chapter,mission,area,spots in STORY_ROWS]
     body=start(base,"GTA VI: garage gratuiti e segreti","Sette garage documentati: tre bonus opzionali e quattro ricompense della storia. Non serve acquistare un garage per ottenere questi sblocchi.")
     body+='<section><h2>Quale sbloccare prima?</h2><p>Nel Capitolo 3, fai subito Del Rio se non l’hai già preso. Poi scegli i murales o la catena di Randy. I garage dei Capitoli 4 e 5 arrivano con la storia.</p><div class="vc-grid">'
     for name,target,reward,desc in cards:
@@ -93,15 +93,29 @@ def domestic_body(base):
     body=start(base,"Domestic Timbers: garage gratuito e Raul’s Tempesta","Completa tutte le richieste di Randy nel Capitolo 3, quindi ritira il premio in Collect the Tempesta.")
     body+=facts([("Garage","Gratuito, 1 posto"),("Zona","Balsero, Vice City"),("Prerequisito","Delivery Day conclusa"),("Personaggi","Jason o Lucia"),("Veicolo","Raul’s Tempesta"),("Prezzi indicativi","11.600 GTA$ registrazione; circa 27.150 GTA$ vendita in buone condizioni")])
     body+='<p class="vc-check">Non vendere la variante speciale per sbaglio. Il trofeo arriva con Delivery Day, non con il ritiro successivo. Nessuna soglia di consegne garantita: segui i messaggi di Randy.</p>'+steps(DOMESTIC_STEPS)
-    body+='<section><h2>Lista auto e Key Cloner</h2><p>'+internal(base,RANDY,"Posizioni delle auto di Randy e consegne →")+' · '+ref(CLONER,"Sblocco Key Cloner su PowerPyx ↗")+'</p></section>'
+    body+='<section><h2>Lista auto e Key Cloner</h2><p>'+internal(base,RANDY,"Posizioni delle auto di Randy e consegne →")+' · '+internal(base,"guide-e-tutorial/key-cloner/","Guida Key Cloner in italiano")+" · "+ref(CLONER,"Fonte PowerPyx ↗")+'</p></section>'
     return body+end(base,[("PowerPyx — ritiro Tempesta",COLLECT),("GTABase — Domestic Timbers e mappa",TEMP_MAP),("PowerPyx — Delivery Day",DELIVERY),("PowerPyx — lista Randy",WISH)])
 def story_body(base):
     body=start(base,"Garage gratuiti della storia: Capitoli 2, 4 e 5","Quattro garage assegnati automaticamente dalle missioni principali, per otto posti complessivi secondo le fonti.")
     for ident,name,chapter,mission,area,spots in STORY_ROWS:
-        body+='<section class="vc-instructions" id="'+e(ident)+'" data-story-garage="'+e(ident)+'"><h2>'+e(name)+'</h2><p><strong>'+e(area)+' · '+str(spots)+' '+('posto' if spots==1 else 'posti')+'</strong></p><ol><li><span aria-hidden="true">1</span><div>Completa '+e(mission)+' nel Capitolo '+e(chapter)+'.</div></li><li><span aria-hidden="true">2</span><div>Controlla la nuova proprietà e gli slot disponibili nel menu garage.</div></li></ol><p class="vc-check">Non acquistarlo: è un premio della storia. Nessuna auto speciale inclusa confermata.</p></section>'
+        body+='<section class="vc-instructions" id="'+e(ident)+'" data-story-garage="'+e(ident)+'"><h2>'+internal(base,STORY+ident+"/",name)+'</h2><p><strong>'+e(area)+' · '+str(spots)+' '+('posto' if spots==1 else 'posti')+'</strong></p><ol><li><span aria-hidden="true">1</span><div>Completa '+e(mission)+' nel Capitolo '+e(chapter)+'.</div></li><li><span aria-hidden="true">2</span><div>Controlla la nuova proprietà e gli slot disponibili nel menu garage.</div></li></ol><p class="vc-check">Non acquistarlo: è un premio della storia. Nessuna auto speciale inclusa confermata.</p></section>'
     return body+end(base,[("PowerPyx — garage storia",GARAGES),("GTABase — proprietà",PROPERTIES)],'<p>Gli otto posti di storia non equivalgono agli otto garage acquistabili del trofeo Little Boxes.</p>')
+def story_detail(base,row):
+    ident,name,chapter,mission,area,spots=row
+    map_url="https://www.gtabase.com/gta-6/properties/"+ident+("-station-garage" if ident=="port-gellhorn" else "-garage")
+    title=name+" Garage: come sbloccarlo in GTA 6"
+    body=start(base,title,"Garage gratuito della storia: "+area+", "+str(spots)+(" posto" if spots==1 else " posti")+".")
+    body+=facts([("Capitolo",chapter),("Missione",mission),("Zona",area),("Capienza",str(spots)),("Prezzo","Gratuito: premio della storia")])
+    body+='<section class="vc-source"><h2>Foto originale e posizione</h2><p>'+ref(map_url,"Apri la scheda GTABase con foto e mappa ↗")+'</p><p>La mappa originale è consultabile presso la fonte: nessuna coordinata approssimata o screenshot copiato.</p></section>'
+    body+=steps((("Completa la missione","Prosegui la storia fino a "+mission+" nel Capitolo "+chapter+". Completa gli obiettivi indicati dal gioco.","La missione è conclusa.",GARAGES),("Controlla il nuovo garage","Dopo la missione, controlla le proprietà e i posti disponibili. Non acquistare un secondo garage per questo sblocco.","Compare "+name+" con "+str(spots)+(" posto." if spots==1 else " posti."),map_url),("Conserva i veicoli","Prima di lasciare un’auto speciale, verifica che sia registrata e che esista un posto libero.","Il veicolo risulta registrato e il garage utilizzabile.",PROPERTIES)))
+    body+='<p class="vc-check">Questo garage non sostituisce gli otto acquisti del trofeo Little Boxes. Nessun veicolo speciale incluso risulta confermato dalle fonti consultate.</p>'
+    return body+end(base,[("PowerPyx — garage automatici",GARAGES),("GTABase — proprietà e mappa",map_url)],'<p>'+internal(base,STORY,"Tutti i quattro garage della storia")+'</p>')
 def pages(base):
-    return [(PATH,"Garage gratuiti GTA VI: sette sblocchi, codici e ricompense","Guida ai garage gratuiti GTA VI: Southside Storage, Domestic Timbers, Del Rio e ricompense della storia. Distinzione Little Boxes.",index_body(base),"CollectionPage"),
+    result=[(PATH,"Garage gratuiti GTA VI: sette sblocchi, codici e ricompense","Guida ai garage gratuiti GTA VI: Southside Storage, Domestic Timbers, Del Rio e ricompense della storia. Distinzione Little Boxes.",index_body(base),"CollectionPage"),
             (SOUTH,"Southside Storage GTA VI: 5 murales e 1010 Cheetah","Sblocca il garage di Salton e la 1010 Cheetah: cinque posizioni, codice 1010 e registrazione del veicolo.",south_body(base),"Article"),
             (DOMESTIC,"Domestic Timbers GTA VI: garage e Tempesta di Randy","Catena di Randy dal Key Cloner a Collect the Tempesta: garage gratuito, trofeo e costi indicativi.",domestic_body(base),"Article"),
             (STORY,"Garage gratuiti GTA VI: tutti gli sblocchi della storia","Port Gellhorn, Thompson Court, NE 15th Street e Pegassi Residences: missioni di sblocco e posti.",story_body(base),"Article")]
+    for row in STORY_ROWS:
+        ident,name,chapter,mission,area,spots=row
+        result.append((STORY+ident+"/",name+" Garage GTA 6: posizione e sblocco","Garage gratuito in "+area+": completa "+mission+" nel Capitolo "+chapter+". Capienza: "+str(spots)+".",story_detail(base,row),"Article"))
+    return result
