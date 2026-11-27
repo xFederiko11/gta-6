@@ -4,13 +4,15 @@ from urllib.request import Request,urlopen
 BASE="https://xfederiko11.github.io/gta-6/"
 CHECKS={
  "":('data-chronology-path="garage-gratuiti/southside-storage/"','id="ultimi-articoli"'),
- "articoli/":('data-chronology-search','data-chronology-subfilter','data-archive-pager','archive-summary'),
+ "articoli/":('data-chronology-search','data-chronology-subfilter','data-archive-pager','archive-summary','data-umami-event="category-open"','<title>Articoli GTA 6: guide, news e aggiornamenti</title>'),
+ "guide-e-tutorial/":('data-editorial-route="salvare-auto"','/gta-6/salvare-auto/'),
+ "articoli/categoria/veicoli/":('data-archive-group="veicoli"','<title>Auto GTA 6: veicoli, garage e registrazione</title>','aria-label="Percorsi consigliati"'),
  "articoli/pagina/2/":('data-archive-page="2"','data-archive-pager'),
  "articoli/categoria/hdr/":('data-chronology-category="HDR OLED"','data-archive-group="hdr"'),
  "articoli/categoria/trucchi/":('data-chronology-category="Trucchi"','data-archive-group="trucchi"'),
  "articoli/categoria/veicoli/garage/":('data-archive-sub="garage"','data-sub="garage"'),
  "salvare-auto/":('Come salvare e registrare un’auto in GTA 6','data-editorial-next','"datePublished":"2026-11-20"'),
- "guide-e-tutorial/meditazione-capitolo-1/":('data-meditation-map','www.gtabase.com/gta-6/map/?feature=meditation','Port Gellhorn'),
+ "guide-e-tutorial/meditazione-capitolo-1/":('data-meditation-map','www.gtabase.com/gta-6/map/?feature=meditation','Port Gellhorn','"datePublished":"2026-11-18"'),
  "glitch/":('data-glitch-index','data-chronology-path="guide-e-tutorial/glitch-prima-persona-ps5/"'),
  "guide-e-tutorial/key-cloner/":("data-legit-guide","Key Cloner"),
  "guide-e-tutorial/vendere-veicoli/":("data-legit-guide","Photo/Shoot"),

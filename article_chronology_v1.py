@@ -140,7 +140,10 @@ def specs(rows=None):
         for page in range(1,total_pages(selected)+1):
             # Small, overlapping discovery lists remain useful to readers;
             # don't index collections of only one or two already indexed pages.
-            yield group,sub,page,page_path(group,sub,page),len(selected)>=3,selected
+            # A child with the exact same article set as its parent remains
+            # navigable, but does not compete for indexing with that parent.
+            distinct=not sub or len(selected)<len(scoped(rows,group))
+            yield group,sub,page,page_path(group,sub,page),len(selected)>=3 and distinct,selected
 
 def label_for(group="",sub=""):
     if not group:return "Tutti gli articoli"
@@ -216,21 +219,85 @@ def render(url,archive=False,group="",sub="",page=1):
     out+=pager(url,selected,group,sub,page)+category_nav(url,rows,group,sub,compact=True)
     return out+'</section>'
 
+# Editorial intent, not keyword-volume claims. The archive is a discovery
+# collection, not a replacement for the canonical answer or existing guide hub.
+ARCHIVE_TOPICS={
+ "":("Articoli GTA 6: guide, news e aggiornamenti","Scopri le guide italiane di GTA VI, le novità, i veicoli, i trofei e le configurazioni PS5. Sfoglia gli articoli per data o categoria."),
+ "guide":("Guide GTA 6: missioni e attività","Trova guide per missioni, attività e spostamenti in GTA VI. Le procedure legittime sono separate da trucchi e glitch."),
+ "soldi":("Soldi GTA 6: bottini e vendita veicoli","Consulta le guide per trovare denaro, recuperare bottini e vendere veicoli in GTA VI, con requisiti e avvisi sui limiti."),
+ "veicoli":("Auto GTA 6: veicoli, garage e registrazione","Esplora le guide su come salvare e registrare le auto, trovare i veicoli, sbloccare i garage e usare WAiNK in GTA VI."),
+ "platino":("Platino GTA 6: trofei e completamento","Sfoglia le guide ai trofei, alle checklist, alle sfide e ai collezionabili di GTA VI su PS5, con attenzione agli spoiler."),
+ "trucchi":("Trucchi GTA 6: archivio codici PS5","Consulta le schede dei codici PS5 per GTA VI e le condizioni di utilizzo. I trucchi sono separati dalle strategie legittime."),
+ "glitch":("Glitch GTA 6: archivio exploit PS5","Consulta i glitch documentati per PS5, separati dalle guide legittime. Controlla lo stato della verifica e delle patch."),
+ "news":("News GTA 6: patch e approfondimenti","Scopri gli aggiornamenti di GTA VI, le patch e gli approfondimenti editoriali con fonti e date di pubblicazione."),
+ "hdr":("HDR GTA 6: archivio TV OLED e PS5","Trova schede HDR per TV OLED, organizzate per marca e modello, con impostazioni PS5 e limiti di verifica."),
+}
+SUB_TOPICS={
+ ("guide","missioni"):("Missioni GTA 6: guide e attività","Consulta le guide alle missioni e alle attività di GTA VI, con requisiti, passaggi e fonti."),
+ ("guide","spostamenti"):("Spostamenti GTA 6: taxi e vita quotidiana","Trova le guide agli spostamenti e alle attività quotidiane in GTA VI, con indicazioni pratiche."),
+ ("soldi","bottini"):("Soldi GTA 6: dove trovare denaro e bottini","Consulta le guide ai luoghi in cui trovare denaro e bottini, con prerequisiti e precauzioni."),
+ ("soldi","vendita"):("GTA 6: archivio guide alla vendita di veicoli","Trova le guide che spiegano quando e come vendere veicoli in GTA VI e quali condizioni controllare."),
+ ("veicoli","garage"):("Garage GTA 6: proprietà e sblocchi","Trova guide ai garage di GTA VI, ai requisiti di sblocco, alle proprietà e ai codici documentati."),
+ ("veicoli","registrazione"):("GTA 6: guide per salvare auto e chiavi","Trova le procedure per salvare e registrare un'auto in GTA VI e sbloccare Key Cloner. Apri la guida specifica per tutti i passaggi."),
+ ("veicoli","scanner"):("WAiNK GTA 6: guide allo scanner veicoli","Consulta le guide per scansionare i veicoli con WAiNK e riconoscere i tracker in GTA VI."),
+ ("veicoli","richieste"):("GTA 6: richieste auto di Moses e Randy","Esplora le guide dedicate alle richieste di veicoli di Moses e Randy, con posizioni e prerequisiti documentati."),
+ ("veicoli","posizioni"):("Veicoli GTA 6: posizioni e modelli","Sfoglia le schede dei veicoli con posizioni e condizioni documentate. Consulta la singola scheda per i dettagli."),
+ ("platino","roadmap"):("GTA 6: roadmap platino e checklist 100%","Consulta i percorsi al platino e al completamento al 100%, con requisiti e avvertenze sugli spoiler."),
+ ("platino","trofei"):("Trofei GTA 6: archivio delle singole guide","Trova le guide ai singoli trofei PS5. I titoli e le anteprime dei trofei segreti restano protetti dagli spoiler."),
+ ("platino","collezionabili"):("Collezionabili GTA 6: percorsi e mappe","Sfoglia le guide ai collezionabili e i percorsi documentati, con riferimenti alle mappe."),
+ ("platino","sfide"):("Sfide GTA 6: medaglie e completamento","Consulta le guide alle sfide, ai poligoni e alle medaglie rilevanti per il completamento."),
+ ("platino","animali"):("Animali GTA 6: guide alla fauna","Consulta le guide allo studio della fauna di GTA VI e ai requisiti per il completamento."),
+ ("platino","meditazione"):("Meditazioni GTA 6: archivio delle guide","Trova le guide alle meditazioni con luoghi, condizioni e checklist."),
+ ("trucchi","codici"):("GTA 6: schede dei codici PS5","Sfoglia le schede dei codici per PS5, con fonti e avvisi sulle limitazioni."),
+ ("glitch","ps5"):("GTA 6: guide ai glitch PS5","Consulta le anomalie documentate, lo stato della verifica e le avvertenze per i trofei."),
+ ("news","patch"):("Patch GTA 6: archivio aggiornamenti","Trova le schede delle patch e delle correzioni di GTA VI con riferimenti alle comunicazioni ufficiali."),
+ ("news","foto"):("GTA 6: approfondimenti e immagini ufficiali","Sfoglia gli approfondimenti editoriali su ambientazioni e veicoli, con immagini attribuite."),
+}
+def archive_metadata(group="",sub="",page=1):
+    if sub and group=="hdr":
+        label=label_for(group,sub)
+        title="HDR GTA 6: "+label+" e PS5"
+        desc="Consulta le schede HDR di "+label+" per GTA VI e PS5, con modelli, impostazioni e limiti di verifica."
+    elif sub:
+        title,desc=SUB_TOPICS[(group,sub)]
+    else:
+        title,desc=ARCHIVE_TOPICS[group]
+    if page>1:
+        title+=" – pagina "+str(page)
+        desc+=" Pagina "+str(page)+"."
+    return title,desc
+
+ARCHIVE_ROUTES={
+ "veicoli":(("salvare-auto/","Come salvare e registrare un’auto"),("garage-gratuiti/","Sbloccare i garage gratuiti"),("guide-e-tutorial/scansionare-veicoli/","Scansionare i veicoli con WAiNK")),
+ "soldi":(("soldi-facili/","Guide ai soldi facili"),("guide-e-tutorial/soldi-facili-capitolo-1/","Bottini nel Capitolo 1"),("guide-e-tutorial/vendere-veicoli/","Vendere veicoli")),
+ "platino":(("trofei/roadmap-platino/","Roadmap del platino"),("trofei/100-percento/","Checklist del 100%"),("collezionabili/percorsi/","Percorsi dei collezionabili")),
+ "guide":(("guide-e-tutorial/","Tutte le guide operative"),("video-tutorial/","Video tutorial"),("mappe-guide/","Mappe delle guide")),
+ "hdr":(("hdr-oled/","Cerca il tuo modello OLED"),),
+ "news":(("patch/","Tutte le patch"),("immagini-ufficiali/","Galleria ufficiale")),
+ "trucchi":(("trucchi/","Catalogo codici PS5"),),
+ "glitch":(("glitch/","Glitch e stato delle patch"),),
+}
+def archive_routes(url,group,sub,page):
+    if not group or page!=1:return ""
+    routes=ARCHIVE_ROUTES[group]
+    # Keep the curated links outside the 25 chronological article cards.
+    return '<nav class="archive-sub-nav archive-topic-links" aria-label="Percorsi consigliati"><strong>Vai direttamente a:</strong>'+''.join('<a href="'+url(path)+'">'+esc(label)+' →</a>' for path,label in routes)+'</nav>'
+
 def archive_pages(write,layout,url,crumbs):
     paths=[]
     for g,s,n,p,indexable,rows in specs():
         label=label_for(g,s)
         heading="Articoli GTA VI" if not g else label+" · GTA VI"
         if n>1:heading+=" — pagina "+str(n)
-        desc="Guide, notizie e approfondimenti GTA VI in italiano, "+label.lower()+". Pagina "+str(n)+" di "+str(total_pages(rows))+"."
+        seo_title,desc=archive_metadata(g,s,n)
         crumbs_parts=[("Articoli",INDEX)]
         if g:crumbs_parts.append((GROUPS[g][0],category_path(g)))
         if s:crumbs_parts.append((label,category_path(g,s)))
         if n>1:crumbs_parts.append(("Pagina "+str(n),p))
-        body=crumbs(crumbs_parts)+'<section class="ed-intro archive-intro"><h1>'+esc(heading)+'</h1><p>'+esc(desc)+'</p></section>'+render(url,True,g,s,n)
+        body=crumbs(crumbs_parts)+'<section class="ed-intro archive-intro"><h1>'+esc(heading)+'</h1><p>'+esc(desc)+'</p></section>'+archive_routes(url,g,s,n)+render(url,True,g,s,n)
         schema={"@context":"https://schema.org","@type":"CollectionPage","name":heading,"url":url(p),"inLanguage":"it-IT",
                 "mainEntity":{"@type":"ItemList","numberOfItems":len(rows[(n-1)*PAGE_SIZE:n*PAGE_SIZE]),"itemListElement":[{"@type":"ListItem","position":(n-1)*PAGE_SIZE+i,"url":url(row[0])} for i,row in enumerate(rows[(n-1)*PAGE_SIZE:n*PAGE_SIZE],1)]}}
-        write(p+"index.html",layout(heading+" | GTA 6 Italia",desc,p,body,"articles",robots="index,follow" if indexable else "noindex,follow",structured=schema))
+        write(p+"index.html",layout(seo_title,desc,p,body,"articles",robots="index,follow" if indexable else "noindex,follow",structured=schema))
         if indexable:paths.append(p)
     return paths
 

@@ -86,6 +86,28 @@ class SimpleHomeTests(unittest.TestCase):
         self.assertIn('data-chronology-search',index)
         self.assertIn('data-chronology-filter',index)
 
+    def test_magazine_seo_titles_and_priority_links(self):
+        from html import unescape
+        from article_chronology_v1 import archive_metadata,specs,BASE
+        titles=set()
+        descriptions=set()
+        for group,sub,n,path,indexable,rows in specs():
+            page=(SITE/path/"index.html").read_text(encoding="utf-8")
+            title,desc=archive_metadata(group,sub,n)
+            self.assertEqual(unescape(re.search(r"<title>(.*?)</title>",page,re.S).group(1)),title)
+            self.assertEqual(unescape(re.search(r'<meta name="description" content="([^"]+)">',page).group(1)),desc)
+            self.assertNotIn(title,titles,path)
+            self.assertNotIn(desc,descriptions,path)
+            titles.add(title);descriptions.add(desc)
+            self.assertEqual(len(re.findall(r"<h1(?:\s|>)",page)),1)
+            if group and n==1:
+                self.assertIn('aria-label="Percorsi consigliati"',page,path)
+        guide=(SITE/"guide-e-tutorial/index.html").read_text(encoding="utf-8")
+        self.assertIn('data-editorial-route="salvare-auto"',guide)
+        self.assertIn('href="'+BASE+'salvare-auto/"',guide)
+        self.assertIn('href="'+BASE+'articoli/categoria/veicoli/"',guide)
+        print("MAGAZINE_SEO_METADATA_OK",len(titles))
+
     def test_documented_publication_history(self):
         import json
         from article_chronology_v1 import inventory
