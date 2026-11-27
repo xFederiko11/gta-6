@@ -10,7 +10,7 @@ SAFE_TITLES = {
     'meditazione-capitolo-1': '18 meditazioni GTA VI: checklist e platino',
     'viaggio-rapido-taxi': 'Viaggiare più in fretta con il taxi',
     'poligoni-concentrazione': 'Poligoni: allenamento e medaglie Oro',
-    'registrare-auto-personale': 'Come salvare e richiamare la prima auto in GTA VI',
+    'registrare-auto-personale': 'Come salvare e registrare un’auto in GTA 6',
     'sportive-randy-posizioni': 'Sportive ricercate: dove cercarle',
     'prima-persona-glitch-ps5': 'Glitch prima persona GTA VI: come attivarlo',
 }
@@ -81,11 +81,11 @@ SUMMARIES = {
 # verified guide facts; do not turn an uncertain trophy status into a promise.
 SEO_DESCRIPTIONS = {
     'soldi-facili-capitolo-1': 'GTA VI PS5: dove trovare denaro e oggetti in 4 luoghi del Capitolo 1, rischi e precauzioni per non perdere i soldi.',
-    'registrare-auto-personale': 'GTA VI PS5: salva la prima auto da Moses, usa Scooter Bros e scopri quando si sblocca la registrazione Standard e Advanced Tracker.',
+    'registrare-auto-personale': 'Come salvare auto e veicoli in GTA 6 su PS5: prima registrazione gratis da Moses, Scooter Bros, garage e sblocchi per tracker Standard e Advanced.',
     'scansionare-veicoli': 'GTA VI PS5: scanner WAiNK, tracker No Tracker, Standard e Advanced, comandi DualSense e 200 modelli base da registrare per il 100%.',
     'studiare-animali': 'GTA VI PS5: studia le specie con il binocolo per il completamento al 100%. Scopri i comandi, il controllo dei progressi e le fonti della guida.',
     '70-sfide-100-percento': 'GTA VI 100% su PS5: completa 70 sfide su 80 scegliendo quelle più rapide. Checklist e consigli per ridurre il tempo necessario al platino.',
-    'meditazione-capitolo-1': 'GTA VI PS5: checklist delle 18 meditazioni in 10 luoghi, la prima occasione mancabile nel Capitolo 1 e gli avvisi per il platino.',
+    'meditazione-capitolo-1': 'GTA 6 PS5: 18 meditazioni in 10 luoghi, checklist per Jason e Lucia, lezione alternativa se salti la prima sessione e requisiti per il 100% e il trofeo.',
     'viaggio-rapido-taxi': 'GTA 6 su PS5: chiama Paradise Taxi, scegli la destinazione e salta i tragitti tra missioni. Procedura, pulsanti e costi documentati.',
     'poligoni-concentrazione': 'GTA VI PS5: allenati ai poligoni di tiro e distingui Concentrazione e medaglie Oro. Controlla le prove richieste per il platino.',
     'prima-persona-glitch-ps5': 'GTA VI PS5: attiva la visuale in prima persona con telefono e touchpad. Procedura DualSense, ripristino e stato trofei incerto.',
