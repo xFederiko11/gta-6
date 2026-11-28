@@ -31,7 +31,7 @@ class EmbedMapTests(unittest.TestCase):
         self.assertEqual(report["guide_articles"],12)
         self.assertEqual(report["trophy_articles"],55)
         self.assertEqual(report["garage_guide_articles_with_map"],2)
-        self.assertEqual(report["articles_with_map"],69)
+        self.assertEqual(report["articles_with_map"],70)
         self.assertEqual(report["pages_with_interactive_map"],71)
         self.assertEqual(report["guide_location_descriptions"],19)
         self.assertEqual(report["collectible_descriptions"],157)
