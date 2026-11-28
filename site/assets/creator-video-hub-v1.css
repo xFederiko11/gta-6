@@ -42,3 +42,22 @@
 .cv-home-link a{color:var(--r-cyan);font-size:.9rem;font-weight:850}
 @media(max-width:760px){.cv-grid{grid-template-columns:1fr;gap:12px}.cv-intro{padding:12px 0 8px}.cv-poster{min-height:195px}.cv-content{padding:15px}.cv-filter{padding:8px 0 13px}.cv-policy{padding:12px 14px}.cv-chapter{font-size:.76rem}}
 @media(prefers-reduced-motion:reduce){.cv-load,.cv-chapter{transition:none}}
+
+
+/* Compact original-player entries, not large mock gameplay posters. */
+.cv-card{scroll-margin-top:95px}
+.cv-poster{min-height:145px;padding:12px;gap:7px;background:linear-gradient(125deg,#702956 0%,#50376f 54%,#116e72 100%)}
+.cv-card[data-cv-category=garage] .cv-poster{background:linear-gradient(125deg,#873d25,#7f4261 52%,#225a65)}
+.cv-card[data-cv-category=collezionabili] .cv-poster{background:linear-gradient(125deg,#245e61,#4d397f 54%,#813c73)}
+.cv-big-play{width:44px;height:44px;font-size:1.2rem}
+.cv-poster-badge{max-width:100%;overflow-wrap:anywhere;box-sizing:border-box}
+.cv-load{min-height:44px}
+.cv-home-link{border-top:3px solid transparent;border-image:linear-gradient(110deg,#ff9a52,#ff55b6,#a487ff,#39f2d2) 1}
+.cv-home-shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}
+.cv-home-shortcuts a{display:flex;flex-direction:column;justify-content:center;gap:5px;min-width:0;min-height:65px;padding:9px 10px;border:1px solid var(--r-line);border-radius:8px;background:var(--r-soft);color:var(--r-text);text-decoration:none;overflow-wrap:anywhere}
+.cv-home-shortcuts a:nth-child(1){border-left:3px solid var(--r-orange)}
+.cv-home-shortcuts a:nth-child(2){border-left:3px solid var(--r-cyan)}
+.cv-home-shortcuts a:nth-child(3){border-left:3px solid var(--r-violet)}
+.cv-home-shortcuts a small{font-size:.7rem;line-height:1.3;color:var(--r-muted)}
+.cv-home-shortcuts a:hover{border-color:var(--r-pink)}
+@media(max-width:600px){.cv-home-shortcuts{grid-template-columns:minmax(0,1fr);gap:6px}.cv-home-shortcuts a{min-height:44px}.cv-poster{min-height:130px}}

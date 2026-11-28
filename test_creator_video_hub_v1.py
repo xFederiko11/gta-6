@@ -21,22 +21,28 @@ class Tags(HTMLParser):
 
 
 class CreatorVideoHubTests(unittest.TestCase):
-    def test_curation_links_to_four_distinct_source_videos(self):
+    def test_curation_links_to_seven_distinct_source_videos(self):
         items=records(load())
-        self.assertEqual(len(items),4)
-        self.assertEqual(len({x["video_id"] for x in items}),4)
+        self.assertEqual(len(items),7)
+        self.assertEqual(len({x["video_id"] for x in items}),7)
         self.assertEqual({x["category"] for x in items},set(KINDS))
         self.assertEqual({x["creator"] for x in items},
-                         {"TGG","IGN","oneboyler (procedura attribuita a Kackalack dalla community)"})
+                         {"TGG","IGN","PowerPyx","Games & Apps Tutorials","Maka91Productions","oneboyler (procedura attribuita a Kackalack dalla community)"})
         self.assertEqual({x["key"] for x in items},{x[0] for x in CURATED})
         for item in items:
             self.assertTrue(item["source"].startswith("https://"))
             self.assertTrue((ROOT/item["guide_path"]/"index.html").is_file())
             self.assertTrue(item["chapters"])
-            self.assertTrue(1<=len(item["chapters"])<=8)
+            self.assertTrue(1<=len(item["chapters"])<=12)
         moses=next(x for x in items if x["key"]=="moses-ign")
         self.assertEqual([c["at"] for c in moses["chapters"]], [101,191,293,346,428,520])
         self.assertIn("NON compare",moses["detail"])
+        south=next(x for x in items if x["key"]=="southside-powerpyx-video")
+        self.assertEqual([c["at"] for c in south["chapters"]],[6,70,172,294,255,323])
+        self.assertEqual(south["guide_path"],"garage-gratuiti/southside-storage/")
+        med=next(x for x in items if x["key"]=="meditazione-capitolo-1")
+        self.assertEqual(len(med["chapters"]),10)
+        self.assertTrue(all(x["spoiler"] for x in (south,med)))
         self.assertTrue(moses["spoiler"])
         self.assertTrue(next(x for x in items if x["key"]=="prima-persona-glitch-ps5")["category"]=="extra")
 
@@ -57,10 +63,10 @@ class CreatorVideoHubTests(unittest.TestCase):
 
     def test_render_has_provider_fallback_but_no_preloaded_embed(self):
         html=render(records(load()))
-        self.assertEqual(html.count('class="cv-card"'),4)
-        self.assertEqual(html.count('class="cv-chapter"'),11)
-        self.assertEqual(html.count('class="cv-load"'),4)
-        self.assertEqual(html.count('data-cv-slot'),4)
+        self.assertEqual(html.count('class="cv-card"'),7)
+        self.assertEqual(html.count('class="cv-chapter"'),28)
+        self.assertEqual(html.count('class="cv-load"'),7)
+        self.assertEqual(html.count('data-cv-slot'),7)
         self.assertNotIn("<iframe",html)
         self.assertNotIn('i.ytimg.com',html)
         self.assertNotIn('youtube-nocookie.com/embed',html)
@@ -71,9 +77,10 @@ class CreatorVideoHubTests(unittest.TestCase):
         self.assertIn('Video originale su YouTube',html)
         tags=Tags();tags.feed(html)
         self.assertEqual(sum(t=="h1" for t,a in tags.tags),1)
-        self.assertEqual(len([a for t,a in tags.tags if t=="a" and "youtube.com/watch" in a.get("href","")]),4)
         for item in records(load()):
             self.assertIn(BASE+item["guide_path"],html)
+            self.assertIn('id="video-'+item["key"]+'"',html)
+            self.assertIn('https://www.youtube.com/watch?v='+item["video_id"]+'&amp;t='+str(item["chapters"][0]["at"])+'s',html)
 
     def test_final_html_has_canonical_jsonld_sitemap_dark_and_no_hidden_network(self):
         page=ROOT/PATH/"index.html"
@@ -83,13 +90,17 @@ class CreatorVideoHubTests(unittest.TestCase):
         self.assertIn('creator-video-hub-v1.css?v=',html)
         self.assertIn('creator-video-hub-v1.js?v=',html)
         self.assertIn('"CollectionPage"',html)
-        self.assertIn('"numberOfItems":4',html)
-        self.assertEqual(html.count('class="cv-card"'),4)
+        self.assertIn('"numberOfItems":7',html)
+        self.assertEqual(html.count('class="cv-card"'),7)
         self.assertNotIn('<iframe',html)
         self.assertNotIn('data-x-timeline-load',html)
         self.assertIn('reader-theme-boot',html)
         self.assertIn(BASE+PATH,(ROOT/"sitemap.xml").read_text(encoding="utf-8"))
-        self.assertIn('video-tutorial/',(ROOT/"index.html").read_text(encoding="utf-8"))
+        home=(ROOT/"index.html").read_text(encoding="utf-8")
+        self.assertIn('video-tutorial/',home)
+        for key in ("southside-powerpyx-video","waink-tutorial","meditazione-capitolo-1"):
+            self.assertIn('video-tutorial/#video-'+key,home)
+        self.assertLess(home.index('id="cv-home-title"'),home.index('id="ultimi-articoli"'))
         self.assertIn('video-tutorial/',(ROOT/"guide-e-tutorial/index.html").read_text(encoding="utf-8"))
         script=Path("site/assets/creator-video-hub-v1.js").read_text(encoding="utf-8")
         self.assertIn("youtube-nocookie.com/embed/",script)
