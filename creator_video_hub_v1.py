@@ -10,6 +10,8 @@ import json
 import re
 
 from moses_vehicle_jobs_v1 import IGN_TIMELINE, IGN_VIDEO_ID, SOURCE as MOSES_SOURCE
+from garage_guides_v1 import SOUTH_MEDIA, SOUTH_STEPS, SOUTH
+from waink_visual_v1 import VIDEO_ID as WAINK_VIDEO_ID, CREATOR as WAINK_CREATOR, SOURCE as WAINK_SOURCE
 
 PATH = "video-tutorial/"
 VIDEO_DATA = Path("data/guide_visual_refs.json")
@@ -23,6 +25,15 @@ CURATED = (
     ("moses-ign", "auto", "Le sei auto da recuperare per Moses",
      "Sei momenti del filmato IGN associati alle sei consegne; il regalo finale NON compare in questo video.",
      "guide-e-tutorial/veicoli-per-moses/"),
+    ("waink-tutorial", "auto", "Scansionare veicoli con WAiNK",
+     "Apri il filmato originale dedicato allo scanner, poi confronta i cinque passaggi e i tracker descritti nella guida italiana.",
+     "guide-e-tutorial/scansionare-veicoli/"),
+    ("southside-powerpyx-video", "garage", "Southside Storage: cinque murales e garage",
+     "Scegli il riferimento video di ciascun murale 1010 oppure della ricompensa. La guida separa il punto di scatto dal pin della mappa.",
+     SOUTH),
+    ("meditazione-capitolo-1", "collezionabili", "Le dieci meditazioni: luoghi e percorso",
+     "Dieci capitoli dichiarati dal creator, associati ai luoghi della guida. Usa anche la checklist italiana e la mappa della fonte.",
+     "guide-e-tutorial/meditazione-capitolo-1/"),
     ("soldi-facili-capitolo-1", "soldi", "Riconoscere Three Sheets Liquor",
      "Il filmato mostra il negozio e l’indizio del pappagallo: non è prova di tutte le altre posizioni o di un bottino garantito.",
      "guide-e-tutorial/soldi-facili-capitolo-1/"),
@@ -30,8 +41,9 @@ CURATED = (
      "Segnalazione della community: prova soltanto su un salvataggio separato. Patch e compatibilità con i trofei non certificate.",
      "guide-e-tutorial/glitch-prima-persona-ps5/"),
 )
-KINDS = {"auto": "Auto e missioni", "soldi": "Soldi e segreti",
-         "extra": "Tecniche della community"}
+KINDS = {"auto": "Auto e missioni", "garage": "Garage e sblocchi",
+         "collezionabili": "Collezionabili e meditazioni", "soldi": "Soldi e segreti",
+         "extra": "Glitch della community"}
 IDS = frozenset(row[0] for row in CURATED)
 
 
@@ -58,6 +70,26 @@ def records(data):
             source = MOSES_SOURCE
             spoiler = True
             provenance = "Filmato sul canale IGN; riferimenti alle sei consegne."
+        elif key == "waink-tutorial":
+            video_id = WAINK_VIDEO_ID
+            creator = WAINK_CREATOR
+            chapters = [{"at":0, "label":"0:00 · Tutorial WAiNK"}]
+            source = WAINK_SOURCE
+            spoiler = True
+            provenance = "Video originale già collegato alla guida WAiNK; non costituisce una prova di ogni singola schermata."
+        elif key == "southside-powerpyx-video":
+            item = SOUTH_MEDIA[key]
+            if item["rights_status"] != "youtube_platform_embed_only" or "site_opt_in_embed" not in item["allowed_channels"]:
+                raise ValueError("Southside video lacks the existing embed-only media contract")
+            video_id = item["video_id"]
+            creator = item["source_name"]
+            chapters=[]
+            for number, second in sorted(item["timestamps_seconds"].items(),key=lambda x:int(x[0])):
+                n=int(number)
+                chapters.append({"at":second, "label":str(second//60)+":"+str(second%60).zfill(2)+" · "+SOUTH_STEPS[n-1][0]})
+            source = item["timestamp_evidence"]["source_url"]
+            spoiler = True
+            provenance = "Riferimenti al filmato PowerPyx documentati nella mappa della fonte; riproduzione non verificata indipendentemente."
         else:
             item = refs.get(key)
             if not isinstance(item, dict):
@@ -76,7 +108,7 @@ def records(data):
                 not isinstance(provenance,str) or len(provenance)<25 or
                 not isinstance(source,str) or not source.startswith("https://")):
             raise ValueError("Incomplete sourced creator credit")
-        if type(spoiler) is not bool or not isinstance(chapters,list) or not 1<=len(chapters)<=8:
+        if type(spoiler) is not bool or not isinstance(chapters,list) or not 1<=len(chapters)<=12:
             raise ValueError("Missing spoiler classification or reliable chapters")
         stamps = []
         for chapter in chapters:
@@ -99,8 +131,8 @@ def records(data):
 
 
 def render(items):
-    if len(items) != 4:
-        raise ValueError("The first editorial selection is four distinct videos")
+    if len(items)!=len(CURATED) or {item["key"] for item in items}!=IDS:
+        raise ValueError("Incomplete reviewed video selection")
     out = [
         '<section class="cv-intro" aria-labelledby="cv-title">'
         '<span class="v-tag">CREATOR SHOWCASE · SELEZIONE INDIPENDENTE</span>'
@@ -114,9 +146,9 @@ def render(items):
         'disponibilità e restrizioni possono variare.</p>'
         '</section>',
         '<nav class="cv-filter" aria-label="Filtra video per obiettivo" data-cv-filters>'
-        '<button type="button" data-cv-filter="all" aria-pressed="true">Tutti</button>'
+        '<button type="button" data-cv-filter="all" aria-pressed="true">Tutti · '+str(len(items))+'</button>'
         + ''.join('<button type="button" data-cv-filter="'+kind+
-                  '" aria-pressed="false">'+escape(text)+'</button>'
+                  '" aria-pressed="false">'+escape(text)+' · '+str(sum(item["category"]==kind for item in items))+'</button>'
                   for kind,text in KINDS.items())+'</nav>',
         '<section class="cv-grid" aria-label="Video originali selezionati" data-cv-grid>',
     ]
@@ -134,7 +166,7 @@ def render(items):
             +escape(ch["label"])+'</button></li>'
             for ch in item["chapters"])
         out.append(
-            '<article class="cv-card" data-cv-category="'+category+'" '
+            '<article class="cv-card" id="video-'+escape(item["key"],quote=True)+'" data-cv-category="'+category+'" '
             'data-cv-video-id="'+ident+'" data-cv-start="'+str(stamp)+'">'
             '<div class="cv-poster" aria-label="Player YouTube esterno non ancora caricato">'
             '<span class="cv-poster-badge">VIDEO ORIGINALE · '+creator+'</span>'

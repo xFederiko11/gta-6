@@ -382,8 +382,8 @@ def browser_qa():
                         assert page.get_by_text('variante regionale',exact=False).count()>=1
                     if path=='video-tutorial/':
                         cards=page.locator('[data-cv-video-id]')
-                        assert cards.count()==4
-                        assert page.locator('.cv-card:visible').count()==4
+                        assert cards.count()==7
+                        assert page.locator('.cv-card:visible').count()==7
                         assert page.locator('.cv-embed-slot iframe').count()==0
                         assert page.locator('[data-cv-load]').first.is_visible()
                         assert page.locator('h1').count()==1
@@ -397,8 +397,17 @@ def browser_qa():
                         assert page.locator('.cv-card:visible').count()==1
                         assert page.locator('.cv-embed-slot iframe').count()==0
                         assert page.locator('[data-cv-filter="soldi"]').get_attribute('aria-pressed')=='true'
+                        page.locator('[data-cv-filter="garage"]').click()
+                        assert page.locator('.cv-card:visible').count()==1
+                        assert page.locator('#video-southside-powerpyx-video').is_visible()
+                        page.locator('#video-southside-powerpyx-video [data-cv-seek="323"]').click()
+                        assert 'youtube-nocookie.com/embed/mu_VCQKeXvM?start=323' in frame.get_attribute('src')
+                        page.locator('[data-cv-filter="collezionabili"]').click()
+                        assert page.locator('.cv-card:visible').count()==1
+                        assert frame.count()==0
+                        assert page.locator('#video-meditazione-capitolo-1 [data-cv-seek]').count()==10
                         page.locator('[data-cv-filter="all"]').click()
-                        assert page.locator('.cv-card:visible').count()==4
+                        assert page.locator('.cv-card:visible').count()==7
                         assert page.locator('.cv-embed-slot iframe').count()==0
                         if width in (390,1440):
                             shot=page.screenshot(

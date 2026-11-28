@@ -453,13 +453,16 @@ def categories():
 
 def home(guides):
     """A photographic route into the existing guides, trophies and discoveries."""
-    return cinematic_site.home(guides,url).replace('<nav class="focus-choice-grid" aria-label="Scegli cosa cercare">','<nav class="focus-choice-grid" data-magazine-photo-nav aria-label="Scegli cosa cercare">',1).replace('<p class="ci-credit">Immagini promozionali Rockstar Games, usate per illustrare i percorsi.</p></section>','<p class="ci-credit">Immagini promozionali Rockstar Games, usate per illustrare i percorsi.</p>'+chronology.render(url)+'</section>',1)+(
+    video_links=(
         '<section class="cv-home-link" aria-labelledby="cv-home-title">'
-        '<h2 id="cv-home-title">🎬 Video dei creator, istruzioni italiane</h2>'
-        '<p>Quattro video originali selezionati per auto, soldi e tecniche GTA VI. '
-        'Scegli il minuto utile e apri la guida passo per passo: non serve cercare nel filmato.</p>'
-        '<a href="'+url(CREATOR_VIDEO_PATH)+'">Scopri i video tutorial selezionati →</a>'
-        '</section>')
+        '<h2 id="cv-home-title">Video tutorial originali</h2>'
+        '<p>Sette video con guide italiane e minuti utili. Apri il player del creator soltanto quando ti serve.</p>'
+        '<div class="cv-home-shortcuts">'
+        '<a href="'+url(CREATOR_VIDEO_PATH)+'#video-southside-powerpyx-video"><strong>Garage Southside</strong><small>5 murales e ricompensa · PowerPyx</small></a>'
+        '<a href="'+url(CREATOR_VIDEO_PATH)+'#video-waink-tutorial"><strong>Scansione WAiNK</strong><small>Video dello scanner veicoli</small></a>'
+        '<a href="'+url(CREATOR_VIDEO_PATH)+'#video-meditazione-capitolo-1"><strong>Le 10 meditazioni</strong><small>Luoghi · Maka91Productions</small></a>'
+        '</div><a href="'+url(CREATOR_VIDEO_PATH)+'">Tutti i 7 video tutorial →</a></section>')
+    return cinematic_site.home(guides,url).replace('<nav class="focus-choice-grid" aria-label="Scegli cosa cercare">','<nav class="focus-choice-grid" data-magazine-photo-nav aria-label="Scegli cosa cercare">',1).replace('<p class="ci-credit">Immagini promozionali Rockstar Games, usate per illustrare i percorsi.</p></section>','<p class="ci-credit">Immagini promozionali Rockstar Games, usate per illustrare i percorsi.</p>'+video_links+chronology.render(url)+'</section>',1)
 
 
 def directory(guides,kind='all'):
@@ -1061,8 +1064,8 @@ def main():
     # with Italian article and exact sourced chapters. No copied footage.
     creator_items=reviewed_creator_videos(load_creator_videos())
     creator_title='Video tutorial GTA VI: creator e guide italiane PS5'
-    creator_desc=('Video tutorial GTA VI selezionati: TGG e IGN per auto e soldi, '
-                  'altri riferimenti della community con minuti precisi e guide italiane.')
+    creator_desc=('Video tutorial GTA VI per auto, garage, murales 1010, WAiNK, meditazioni e soldi. '
+                  'Sette filmati originali con minuti utili, fonti e guide italiane.')
     creator_schema={'@context':'https://schema.org','@type':'CollectionPage',
                     'name':creator_title,'description':creator_desc,
                     'url':url(CREATOR_VIDEO_PATH),'inLanguage':'it-IT',

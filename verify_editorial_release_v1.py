@@ -7,6 +7,7 @@ CHECKS={
  "articoli/":('data-chronology-search','data-chronology-subfilter','data-archive-pager','archive-summary','data-umami-event="category-open"','<title>Articoli GTA 6: guide, news e aggiornamenti</title>'),
  "guide-e-tutorial/":('data-editorial-route="salvare-auto"','/gta-6/salvare-auto/'),
  "articoli/categoria/veicoli/":('data-archive-group="veicoli"','<title>Auto GTA 6: veicoli, garage e registrazione</title>','aria-label="Percorsi consigliati"'),
+ "video-tutorial/":('id="video-southside-powerpyx-video"','id="video-waink-tutorial"','id="video-meditazione-capitolo-1"','"numberOfItems":7'),
  "articoli/pagina/2/":('data-archive-page="2"','data-archive-pager'),
  "articoli/tag/":('data-tag-directory','/articoli/tag/auto-e-veicoli/','reader-theme.css?v='),
  "articoli/tag/auto-e-veicoli/":('data-tag-id="auto-e-veicoli"','data-tag-pager','reader-theme.css?v='),
