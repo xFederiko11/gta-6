@@ -19,6 +19,7 @@ import garage_guides_v1 as garage_guides
 import vehicle_progression_guides_v1 as vehicle_progression
 import article_chronology_v1 as chronology
 import strip_club_guide_v1
+from chapter_guide_routes_v1 import render as render_chapter_routes
 from visual_guide_content import enrich
 from operational_brief_v1 import validate as validate_operational_briefs, render as render_operational_brief
 from waink_visual_v1 import intro as render_waink_intro, step as render_waink_step
@@ -471,6 +472,7 @@ def directory(guides,kind='all'):
     selected=guides if kind=='all' else [g for g in guides if g['category']==kind or (kind=='auto' and g['category']=='garage')]
     body=legacy.crumbs([(title,path)])+f'<section class="v-directory-head"><span class="eyebrow">GTA 6 · GUIDE OPERATIVE</span><h1>{e(title)}</h1><p>{e(desc)}</p></section>'
     if kind=='all':
+        body+=render_chapter_routes(url)
         body+=('<p class="v-guide-video-crosslink" data-editorial-route="salvare-auto">Vuoi conservare una macchina? '
                '<a href="'+url('salvare-auto/')+'">Come salvare e registrare un’auto in GTA 6 →</a> · '
                '<a href="'+url('articoli/categoria/veicoli/')+'">Tutte le guide su veicoli e garage</a></p>')

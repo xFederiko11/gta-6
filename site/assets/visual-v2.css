@@ -451,3 +451,17 @@ html[data-theme=dark] .social-comment-card>span{color:#ff9bcd}
 .reader-photo-invite p{font-size:.82rem;line-height:1.55;margin:8px 0}
 .reader-photo-invite a{font-size:.84rem;font-weight:750}
 @media(max-width:600px){.v-tutorial-start{padding:15px 16px}.v-step>figure{margin:0 12px 14px}.reader-photo-invite{padding:14px 16px}}
+
+/* Native chapter navigation remains usable without JavaScript. */
+.v-chapter-routes{margin:20px 0;padding:20px;border:1px solid var(--r-line,var(--border));border-radius:14px;background:var(--r-surface,var(--surface));color:var(--r-text,var(--text))}
+.v-chapter-routes h2{margin:0 0 8px;font-size:1.25rem}
+.v-chapter-routes>p{max-width:800px;font-size:.88rem;line-height:1.6;color:var(--r-muted,var(--muted))}
+.v-chapter-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:15px;align-items:start}
+.v-chapter-grid details{min-width:0;margin:0;padding:0;border:1px solid var(--r-line,var(--border));border-radius:9px;background:var(--r-soft,var(--surface2))}
+.v-chapter-grid summary{padding:13px;cursor:pointer;font-weight:800;overflow-wrap:anywhere}
+.v-chapter-grid summary span{display:block;font-size:.76rem;font-weight:500;margin:4px 0 0 16px;color:var(--r-muted,var(--muted))}
+.v-chapter-grid ul{margin:0;padding:0 16px 5px 30px}
+.v-chapter-grid li{margin:0 0 14px;overflow-wrap:anywhere;font-size:.88rem}
+.v-chapter-grid li p{margin:5px 0 0;font-size:.79rem;line-height:1.5;color:var(--r-muted,var(--muted))}
+@media(max-width:900px){.v-chapter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.v-chapter-routes{padding:15px}.v-chapter-grid{grid-template-columns:1fr}}
