@@ -68,7 +68,7 @@
   buttons.forEach(button => {
     button.addEventListener('click', () => {
       const filter = button.dataset.cvFilter;
-      if (!['all','auto','soldi','extra'].includes(filter)) return;
+      if (!['all','auto','garage','collezionabili','soldi','extra'].includes(filter)) return;
       let found = 0;
       for (const card of cards) {
         const show = filter === 'all' || card.dataset.cvCategory === filter;

@@ -14,7 +14,7 @@ import json
 import re
 import os
 from creator_video_hub_v1 import load, records
-from waink_visual_v1 import VIDEO_ID as WAINK_VIDEO_ID, CREATOR as WAINK_CREATOR
+from waink_visual_v1 import CREATOR as WAINK_CREATOR
 
 ENDPOINT = "https://www.youtube.com/oembed"
 MAX_BYTES = 64_000
@@ -26,6 +26,7 @@ AUTHORS = {
     "prima-persona-glitch-ps5": {"oneboyler"},
     "waink-tutorial": {WAINK_CREATOR.casefold()},
     "meditazione-capitolo-1": {"maka91productions"},
+    "southside-powerpyx-video": {"powerpyx"},
 }
 
 
@@ -89,8 +90,7 @@ def probe(item, opener=None):
 
 def main():
     data=load()
-    items = [*records(data), {"key": "waink-tutorial", "video_id": WAINK_VIDEO_ID},
-             {"key":"meditazione-capitolo-1","video_id":data["guides"]["meditazione-capitolo-1"]["youtube_id"]}]
+    items = records(data)
     rows = [{"key": item["key"], "video_id": item["video_id"],
              "status": probe(item), "playback_verified": False,
              "reuse_rights_verified": False} for item in items]
