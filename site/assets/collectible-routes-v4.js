@@ -43,7 +43,7 @@
       region.hidden=!present;
       region.querySelector("[data-cr-region-count]").textContent=found+"/"+all.length;
     }
-    for (const button of buttons) button.setAttribute("aria-pressed",button.dataset.crFilter===filter?"true":"false");
+    for (const button of buttons) button.setAttribute("aria-pressed",(cardSet===null && button.dataset.crFilter===filter)?"true":"false");
     if (jack) jack.setAttribute("aria-pressed",String(cardSet==="jack-of-hearts"));
     summary.textContent=done.size+" / "+points.length+" checkpoint segnati";
     progress.value=done.size;

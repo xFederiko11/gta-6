@@ -987,11 +987,14 @@ def browser_qa():
                         page.locator('[data-cr-jack]').click()
                         assert page.locator('[data-cr-step]:visible').count()==36
                         assert page.locator('[data-cr-jack]').get_attribute('aria-pressed')=='true'
+                        assert page.locator('[data-cr-filter="all"]').get_attribute('aria-pressed')=='false'
                         assert first.locator('[data-cr-done]').is_checked()
                         page.locator('#cr-pt-12 [data-cr-done]').check()
                         assert page.locator('[data-cr-progress]').inner_text().startswith('2 / 157')
                         page.locator('[data-cr-filter="all"]').click()
                         assert page.locator('[data-cr-step]:visible').count()==157
+                        assert page.locator('[data-cr-filter="all"]').get_attribute('aria-pressed')=='true'
+                        assert page.locator('[data-cr-jack]').get_attribute('aria-pressed')=='false'
                         page.reload(wait_until='load')
                         assert page.locator('#cr-pt-12 [data-cr-done]').is_checked()
                         assert first.locator('[data-cr-done]').is_checked()
