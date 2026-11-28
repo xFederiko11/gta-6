@@ -68,6 +68,24 @@ class VehicleCatalogTests(unittest.TestCase):
             self.assertIn(BASE+path,(ROOT/"guide-e-tutorial/index.html").read_text())
             self.assertIn(BASE+path,(ROOT/"articoli/index.html").read_text())
             self.assertIn('data-sunset-layout="right-blog"',rendered)
+    def test_cloner_original_video_is_opt_in_and_rewards_are_sourced(self):
+        from vehicle_progression_guides_v1 import cloner_body, sell_body
+        body=cloner_body(BASE)
+        self.assertEqual(body.count('data-garage-step='),6)
+        self.assertEqual(body.count('data-cloner-video="perfect-score"'),1)
+        self.assertIn('data-step-video-id="9yBG8atjQs0"',body)
+        self.assertIn('data-step-video-seconds="0"',body)
+        self.assertIn('https://www.youtube.com/watch?v=9yBG8atjQs0',body)
+        self.assertIn("21.250 GTA$",body)
+        self.assertIn("10.000 GTA$",body)
+        self.assertIn("non verificati indipendentemente",body)
+        self.assertNotIn("<iframe",body)
+        self.assertNotIn("ytimg.com",body)
+        self.assertNotIn("data-cloner-video",sell_body(BASE))
+        generated=(ROOT/"guide-e-tutorial/key-cloner/index.html").read_text()
+        self.assertIn('step-video-opt-in-v1.js?v=',generated)
+        self.assertIn('data-cloner-video="perfect-score"',generated)
+
     def test_evidence_gate_fail_closed(self):
         original=load()
         for field,value in (

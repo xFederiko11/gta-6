@@ -366,6 +366,16 @@ jobs:
                           place='Hathaway Apartments' if 'key-cloner' in path else 'Domestic Timbers'
                           assert 'data-vim-seek="'+place+'"' in text
                           print('PUBLIC_VEHICLE_GUIDE_MAP_OK',base+path)
+                      if path == 'guide-e-tutorial/key-cloner/':
+                          assert text.count('data-cloner-video="perfect-score"') == 1
+                          assert 'data-step-video-id="9yBG8atjQs0"' in text
+                          assert 'step-video-opt-in-v1.js?v=' in text
+                          assert 'https://www.youtube.com/watch?v=9yBG8atjQs0' in text
+                          assert '21.250 GTA$' in text
+                          print('PUBLIC_KEY_CLONER_ORIGINAL_VIDEO_OK',base+path)
+                      if path == 'garage-gratuiti/domestic-timbers/':
+                          assert '25.000 GTA$' in text and 'Little Boxes' in text
+                          print('PUBLIC_DOMESTIC_TIMBERS_REWARD_OK',base+path)
                       if path == 'collezionabili/percorsi/':
                           assert text.count('data-collectible-video="') == 2
                           assert 'https://www.youtube.com/watch?v=LTbw8B0DQHA&amp;t=577s' in text

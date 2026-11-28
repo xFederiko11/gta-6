@@ -1001,6 +1001,21 @@ def browser_qa():
                         assert page.locator('[data-cr-progress]').inner_text().startswith('2 / 157')
                         print('JACK_COLLECTION_FILTER_AND_EXISTING_PROGRESS_OK',width,flush=True)
                         print('LINEAR_COLLECTIBLES_QA',width,157,flush=True)
+                    if path=='guide-e-tutorial/key-cloner/':
+                        video=page.locator('[data-cloner-video]')
+                        assert video.count()==1
+                        assert video.locator('iframe').count()==0
+                        assert video.locator('a[href="https://www.youtube.com/watch?v=9yBG8atjQs0"]').count()==1
+                        play=video.locator('[data-step-video-open]')
+                        assert play.is_visible()
+                        play.click()
+                        frame=video.locator('iframe')
+                        assert frame.count()==1
+                        assert frame.get_attribute('src')=='https://www.youtube-nocookie.com/embed/9yBG8atjQs0?start=0&rel=0'
+                        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                        play.click()
+                        assert frame.count()==0
+                        print('KEY_CLONER_ORIGINAL_VIDEO_OPT_IN_OK',width,flush=True)
                     if path in ('guide-e-tutorial/key-cloner/','garage-gratuiti/domestic-timbers/') and width in (390,768,1440):
                         disclosure=page.locator('[data-vehicle-map-disclosure]')
                         viewer=disclosure.locator('[data-vi-map]')
