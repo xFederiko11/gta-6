@@ -1,4 +1,4 @@
-"""Consent-first interactive maps: 11 standard guides, Southside Storage, and 55 trophies.
+"""Consent-first interactive maps: standard guides, vehicle guides, and trophies.
 
 Official embed permissions:
   Vice Map: https://vice-map.com/embed (credit REQUIRED; marker= optional)
@@ -20,7 +20,7 @@ SECONDARY="https://gta6.city/embed/map"
 PRIMARY_FULL="https://vice-map.com/map"
 SECONDARY_FULL="https://gta6.city/"
 SCHEMA="gta6-interactive-maps-v1"
-VERSION="2026-11-27"
+VERSION="2026-11-28"
 PROVIDERS=(
     {"id":"vice","name":"Vice Map","embed":PRIMARY,"full":PRIMARY_FULL,
      "terms":"https://vice-map.com/embed","marker_query":True},
@@ -30,6 +30,19 @@ PROVIDERS=(
 ID=re.compile(r"[a-z0-9-]{3,100}")
 SAFE_PATH=re.compile(r"(?:[a-z0-9-]+/)+")
 SOURCE_PRECISION={"category","described","no-fixed-location"}
+# Source-described locations only: a provider search is never an exact pin.
+VEHICLE_MAP_ARTICLES={
+ "guide-e-tutorial/key-cloner/":{
+   "title":"Hathaway Apartments, Ocean Beach",
+   "point":{"name":"Hathaway Apartments","where":"Ocean Beach, Vice Beach · parcheggio della missione Clonin’ Keys, Makin’ GS","precision":"described"},
+   "source":"https://www.gtabase.com/gta-6/missions/steal-the-zorrusso-for-randy",
+   "source_label":"GTABase — luogo della missione e schermate originali"},
+ "garage-gratuiti/domestic-timbers/":{
+   "title":"Domestic Timbers, Balsero",
+   "point":{"name":"Domestic Timbers","where":"Balsero, Vice City · garage indicato da Randy dopo Delivery Day","precision":"described"},
+   "source":"https://www.gtabase.com/gta-6/properties/domestic-timbers",
+   "source_label":"GTABase — scheda del garage con foto e mappa"},
+}
 REGISTRY_SCHEMA="gta6-verified-external-map-references-v1"
 EXTERNAL_ALLOWED={
  "jasons-safehouse":"https://gtamap.io/?m=jasons-safehouse",
@@ -84,9 +97,10 @@ def validate(guides,trophies,locations,collectibles):
                 raise ValueError("Untrusted map provider URL")
     return {"schema":SCHEMA,"reviewed":VERSION,"guide_articles":len(g),
             "trophy_articles":len(t),"collectible_pages":1,"directory_pages":1,
-            "garage_guide_articles_with_map":1,
-            "articles_with_map":len(g)+len(t)+1,
-            "pages_with_interactive_map":len(g)+len(t)+3,
+            "garage_guide_articles_with_map":2,
+            "additional_vehicle_guide_articles_with_map":1,
+            "articles_with_map":len(g)+len(t)+1+len(VEHICLE_MAP_ARTICLES),
+            "pages_with_interactive_map":len(g)+len(t)+3+len(VEHICLE_MAP_ARTICLES),
             "guide_location_descriptions":count,
             "collectible_descriptions":len(points),
             "exact_gameplay_coordinate_pairs_verified":0,
@@ -99,6 +113,19 @@ def validate(guides,trophies,locations,collectibles):
 
 def _point(title,subtitle,precision):
     return {"name":title,"where":subtitle,"precision":precision}
+
+
+def render_vehicle_map(path):
+    """Compact native disclosure keeps the first numbered action in reach."""
+    item=VEHICLE_MAP_ARTICLES[path]
+    ident=path.rstrip("/").rsplit("/",1)[-1]
+    return ('<details class="v-map-spoiler" data-vehicle-map-disclosure>'
+            '<summary>Posizione e mappa: '+e(item["title"])+'</summary>'
+            '<p>Luogo descritto dalla fonte: <a href="'+e(item["source"])+
+            '" target="_blank" rel="noopener noreferrer">'+e(item["source_label"])+
+            ' ↗</a>. Segui il segnale della missione nella tua partita.</p>'+
+            render(item["title"],[item["point"]],id_suffix=ident,page_label="tutorial")+
+            '</details>')
 
 
 def guide_points(guide,locations,meditations):
@@ -285,6 +312,6 @@ def render(title,points=(),*,id_suffix="article",page_label="articolo",curated_r
 
 
 def as_json(data):
-    if data.get("schema")!=SCHEMA or data.get("pages_with_interactive_map")!=69:
+    if data.get("schema")!=SCHEMA or data.get("pages_with_interactive_map")!=71:
         raise ValueError("Cannot export invalid map rollout")
     return json.dumps(data,ensure_ascii=False,indent=2)+"\n"

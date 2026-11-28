@@ -1,4 +1,9 @@
 /* Dark-default, mobile-first GTA VI interactive map panel. */
+[data-vehicle-map-disclosure]{margin:16px 0;padding:12px 16px;border:1px solid var(--r-line,#42495a);border-radius:12px;background:var(--r-surface,#141a2a);color:var(--r-text,#fafafa);overflow-wrap:anywhere}
+[data-vehicle-map-disclosure]>summary{min-height:44px;align-content:center;cursor:pointer;font-weight:800;color:var(--r-cyan,#88e8d8)}
+[data-vehicle-map-disclosure]>summary:focus-visible{outline:3px solid var(--r-pink,#de9bbd);outline-offset:3px}
+[data-vehicle-map-disclosure]>p{font-size:.87rem;line-height:1.55}
+[data-vehicle-map-disclosure] .vim-root{margin:14px 0 0}
 .vim-root{margin:27px 0;scroll-margin-top:90px;padding:clamp(16px,3vw,27px);background:var(--r-surface,#141a2a);border:1px solid var(--r-line,#42495a);border-radius:17px;color:var(--r-text,#fafafa)}
 .vim-head h2{font-size:clamp(1.3rem,2.8vw,1.85rem);line-height:1.2;margin:8px 0 12px}
 .vim-head p,.vim-meta,.vim-credit{font-size:.87rem;line-height:1.55;color:var(--r-muted,#bac0d0)}

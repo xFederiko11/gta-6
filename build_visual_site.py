@@ -19,6 +19,7 @@ import garage_guides_v1 as garage_guides
 import vehicle_progression_guides_v1 as vehicle_progression
 import article_chronology_v1 as chronology
 import strip_club_guide_v1
+from chapter_guide_routes_v1 import render as render_chapter_routes
 from visual_guide_content import enrich
 from operational_brief_v1 import validate as validate_operational_briefs, render as render_operational_brief
 from waink_visual_v1 import intro as render_waink_intro, step as render_waink_step
@@ -52,7 +53,7 @@ from interactive_article_maps_v1 import (render as render_interactive_map, valid
                                          guide_points as interactive_guide_points, trophy_points as interactive_trophy_points,
                                          collectible_points as interactive_collectible_points,
                                          as_json as export_map_rollout,validate_curated_external_refs,
-                                         external_refs_for)
+                                         external_refs_for, VEHICLE_MAP_ARTICLES)
 
 e=legacy.e
 url=legacy.url
@@ -81,7 +82,7 @@ APPROVED_PHOTOS=json.loads(Path('data/approved_screenshots_v4.json').read_text(e
 TROPHY_ITEMS=json.loads(Path('data/trofei.json').read_text(encoding='utf-8'))['trophies']
 TROPHY_MAP_PATHS={'trofei/'+row['slug']+'/':row for row in TROPHY_ITEMS}
 GUIDE_MAP_PATHS=set()
-MAP_RENDER_PATHS=set(TROPHY_MAP_PATHS)|{MAP_HUB_PATH,COLLECTIBLE_ROUTE_PATH,garage_guides.SOUTH}
+MAP_RENDER_PATHS=set(TROPHY_MAP_PATHS)|set(VEHICLE_MAP_ARTICLES)|{MAP_HUB_PATH,COLLECTIBLE_ROUTE_PATH,garage_guides.SOUTH}
 # Legacy manifest is link-only; never trust cached provider derivatives.
 ASSET_VERSION=hashlib.sha256(b''.join(Path(p).read_bytes() for p in ('site/assets/visual-v2.css','site/assets/visual-v2.js'))).hexdigest()[:12]
 DESIGN_VERSION='visual-v2-20261120'
@@ -474,6 +475,7 @@ def directory(guides,kind='all'):
     selected=guides if kind=='all' else [g for g in guides if g['category']==kind or (kind=='auto' and g['category']=='garage')]
     body=legacy.crumbs([(title,path)])+f'<section class="v-directory-head"><span class="eyebrow">GTA 6 · GUIDE OPERATIVE</span><h1>{e(title)}</h1><p>{e(desc)}</p></section>'
     if kind=='all':
+        body+=render_chapter_routes(url)
         body+=('<p class="v-guide-video-crosslink" data-editorial-route="salvare-auto">Vuoi conservare una macchina? '
                '<a href="'+url('salvare-auto/')+'">Come salvare e registrare un’auto in GTA 6 →</a> · '
                '<a href="'+url('articoli/categoria/veicoli/')+'">Tutte le guide su veicoli e garage</a></p>')
@@ -881,7 +883,7 @@ def main():
     map_rollout=validate_interactive_maps(guides,trophies,LOCATION_REFS,COLLECTIBLE_ROUTES)
     map_rollout.update(validate_curated_external_refs(EXTERNAL_MAP_REFS,guides,trophies,COLLECTIBLE_ROUTES))
     GUIDE_MAP_PATHS={row['canonical_path'] for row in guides}
-    MAP_RENDER_PATHS=set(TROPHY_MAP_PATHS)|GUIDE_MAP_PATHS|{MAP_HUB_PATH,COLLECTIBLE_ROUTE_PATH,garage_guides.SOUTH}
+    MAP_RENDER_PATHS=set(TROPHY_MAP_PATHS)|GUIDE_MAP_PATHS|set(VEHICLE_MAP_ARTICLES)|{MAP_HUB_PATH,COLLECTIBLE_ROUTE_PATH,garage_guides.SOUTH}
     validate_advanced(ADVANCED,trophies)
     validate_provenance(PHOTO_REVIEW,MEDIA,guides)
     rockstar_manifest=validate_rockstar_gallery()

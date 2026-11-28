@@ -127,7 +127,7 @@ jobs:
           python -m py_compile hdr_tv_picture_v1.py test_hdr_tv_picture_v1.py
           python -m unittest -q test_hdr_tv_picture_v1.py
       - name: Validate actual production pages, media and canonical continuity
-        run: python -m unittest -q test_x_growth_dashboard_v1.py test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_beginner_platinum_v1.py test_operational_guides_v1.py test_first_car_steps_v1.py test_chapter1_money_steps_v1.py test_waink_verified_v1.py test_vehicle_catalog_v1.py test_rockstar_gallery_v1.py test_step_image_sources_v1.py test_collectible_photo_evidence_v1.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py test_home_clarity_v1.py test_creator_video_hub_v1.py test_garage_guides_v1.py test_article_tags_v1.py
+        run: python -m unittest -q test_x_growth_dashboard_v1.py test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_beginner_platinum_v1.py test_operational_guides_v1.py test_first_car_steps_v1.py test_chapter1_money_steps_v1.py test_waink_verified_v1.py test_vehicle_catalog_v1.py test_rockstar_gallery_v1.py test_step_image_sources_v1.py test_collectible_photo_evidence_v1.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py test_home_clarity_v1.py test_creator_video_hub_v1.py test_garage_guides_v1.py test_article_tags_v1.py test_chapter_guide_routes_v1.py
       - name: Check curated YouTube metadata without downloading media
         run: |
           python -m unittest -q test_creator_video_health_v1.py
@@ -296,7 +296,7 @@ jobs:
           python - <<'PY'
           import urllib.request, time, json
           base='https://xfederiko11.github.io/gta-6/'
-          for path in ('','patch/','patch/2026-11-23/','immagini-ufficiali/','video-tutorial/','veicoli/','veicoli/declasse-yosemite-1500/','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/glitch-prima-persona-ps5/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/trofeo-15-stunt-da-capogiro/','trofei/roadmap-platino/','mappe-guide/','trofei/100-percento/','trofei/trofei-difficili/','collezionabili/percorsi/','screenshot-ps5/invia/'):
+          for path in ('','patch/','patch/2026-11-23/','immagini-ufficiali/','video-tutorial/','guide-e-tutorial/key-cloner/','garage-gratuiti/domestic-timbers/','veicoli/','veicoli/declasse-yosemite-1500/','soldi-facili/','auto-speciali/','salvare-auto/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/soldi-2500-three-sheets-liquor/','guide-e-tutorial/scansionare-veicoli/','guide-e-tutorial/glitch-prima-persona-ps5/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/trofeo-15-stunt-da-capogiro/','trofei/roadmap-platino/','mappe-guide/','trofei/100-percento/','trofei/trofei-difficili/','collezionabili/percorsi/','screenshot-ps5/invia/'):
               for attempt in range(6):
                   try:
                       request=urllib.request.Request(base+path+'?reader=adaptive-v2-20261120',headers={'Cache-Control':'no-cache'})
@@ -355,11 +355,17 @@ jobs:
                           assert '/gta-6/assets/platinum-roadmap.css?v=' in text
                           assert '/gta-6/assets/platinum-atlas-v2.js?v=' in text
                           assert '/gta-6/assets/platinum-atlas-v2.css?v=' in text
-                      if path in ('mappe-guide/','collezionabili/percorsi/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/trofeo-15-stunt-da-capogiro/'):
+                      if path in ('guide-e-tutorial/key-cloner/','garage-gratuiti/domestic-timbers/','mappe-guide/','collezionabili/percorsi/','guide-e-tutorial/soldi-facili-capitolo-1/','guide-e-tutorial/viaggio-rapido-taxi/','trofei/trofeo-15-stunt-da-capogiro/'):
                           assert text.count('data-vi-map ')==1
                           assert 'interactive-map-v1.css?v=' in text and 'interactive-map-v1.js?v=' in text
                           assert 'data-vim-load' in text and 'data-vim-provider="vice"' in text
                           assert '<iframe src=' not in text
+                      if path in ('guide-e-tutorial/key-cloner/','garage-gratuiti/domestic-timbers/'):
+                          assert 'data-vehicle-map-disclosure' in text
+                          assert 'Ricerca nominale del provider' in text
+                          place='Hathaway Apartments' if 'key-cloner' in path else 'Domestic Timbers'
+                          assert 'data-vim-seek="'+place+'"' in text
+                          print('PUBLIC_VEHICLE_GUIDE_MAP_OK',base+path)
                       if path == 'mappe-guide/':
                           assert text.count('data-vim-curated-link') == 7
                           assert 'https://gtamap.io/?m=permit-keys' in text

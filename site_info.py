@@ -40,9 +40,12 @@ def sources_for(path: str) -> tuple[str, ...]:
                          "site/assets/creator-video-hub-v1.css",
                          "site/assets/creator-video-hub-v1.js")
     if path.startswith("trofei/"):
-        return shared + ("data/trofei.json", "data/guide.json", "trophy_experience.py", "site/assets/trophy-experience.js")
+        extra = ("bret_tutorial_v1.py",) if path == "trofei/trofeo-29-bersagli-leciti/" else ()
+        return shared + ("data/trofei.json", "data/guide.json", "trophy_experience.py", "site/assets/trophy-experience.js") + extra
     if path.startswith("guide-e-tutorial/"):
         extra = ("trophy_experience.py", "site/assets/trophy-experience.js") if path=="guide-e-tutorial/poligoni-concentrazione/" else ()
+        if path == "guide-e-tutorial/":
+            extra += ("chapter_guide_routes_v1.py", "garage_guides_v1.py")
         return shared + ("data/guide.json", "data/trofei.json", "related_research.py", "data/community_feed.json", "site/assets/guide-interactions.js") + extra
     if path.startswith("hdr-oled/"):
         return shared + ("hdr_catalog.py", "hdr_tv_picture_v1.py", "data/hdr_oled.json",

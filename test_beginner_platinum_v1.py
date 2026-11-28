@@ -43,6 +43,13 @@ class BeginnerPlatinumTests(unittest.TestCase):
                     self.assertIn("non confermano quale singolo animale",page)
                     self.assertIn("gta-6-veteran-hunted-meet-bret-walkthrough/",page)
                     self.assertIn("gta-6-brets-hunting-target-deck-locations",page)
+                    self.assertIn("gta-6-all-brets-target-decks-locations-brets-hunts/",page)
+                    self.assertEqual(page.count('data-bret-deck='),5)
+                    self.assertIn('id="bret-target-decks"><summary>',page)
+                    self.assertIn("quindicesimo è ancora in aggiornamento",page)
+                    self.assertIn("Good o Pristine",page)
+                    self.assertIn("Belpoint Island",page)
+                    self.assertIn("nord di Belville",page)
                     self.assertIn("guide-e-tutorial/studiare-animali/",page)
                     body=page.split('data-bret-tutorial',1)[1].split('class="tg-verify"',1)[0]
                     self.assertNotIn('<img',body)

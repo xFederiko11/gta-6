@@ -4,7 +4,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 import json
 from garage_codes_v1 import code_field
-from interactive_article_maps_v1 import render as render_interactive_map
+from interactive_article_maps_v1 import render as render_interactive_map, render_vehicle_map
 
 PATH="garage-gratuiti/"
 SOUTH=PATH+"southside-storage/"
@@ -193,6 +193,7 @@ def south_body(base):
 def domestic_body(base):
     body=start(base,"Domestic Timbers: garage gratuito e Raul’s Tempesta","Avvia la catena di Randy nel Capitolo 3; prosegui fino a Collect the Tempesta. Le fonti divergono sul capitolo di sblocco di Dale Mamba.")
     body+=facts([("Garage","Gratuito, 1 posto"),("Zona","Balsero, Vice City"),("Prerequisito","Delivery Day conclusa"),("Personaggi","Jason o Lucia"),("Veicolo","Raul’s Tempesta"),("Prezzi indicativi","11.600 GTA$ registrazione; circa 27.150 GTA$ vendita in buone condizioni")])
+    body+=render_vehicle_map(DOMESTIC)
     body+='<p class="vc-check">Non vendere la variante speciale per sbaglio. Il trofeo arriva con Delivery Day, non con il ritiro successivo. Nessuna soglia di consegne garantita: segui i messaggi di Randy.</p>'+steps(DOMESTIC_STEPS)
     body+='<section><h2>Lista auto e Key Cloner</h2><p>'+internal(base,RANDY,"Posizioni delle auto di Randy e consegne →")+' · '+internal(base,"guide-e-tutorial/key-cloner/","Guida Key Cloner in italiano")+" · "+ref(CLONER,"Fonte PowerPyx ↗")+'</p></section>'
     return body+end(base,[("PowerPyx — ritiro Tempesta",COLLECT),("GTABase — Domestic Timbers e mappa",TEMP_MAP),("PowerPyx — Delivery Day",DELIVERY),("PowerPyx — lista Randy",WISH)])
