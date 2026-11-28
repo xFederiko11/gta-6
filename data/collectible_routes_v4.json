@@ -1,7 +1,7 @@
 {
   "schema": "gta6-region-routes-v8",
   "checked": "2026-11-21",
-  "notes": "Editorial proximity by sourced districts, NOT measured GPS routes. 123 individually described checkpoints: 23 cards, 38 WAiNK scans, 5 playlist posters, 6 underwater discoveries, 24 stunt jumps, 3 WAiNK vehicles, 2 previous readables, 20 source-identified magazines/books/comics, 2 Kenton treasure-only dive sites. Warning: nine magazine COPY LOCATIONS can close after Chapters 1/2/3, but the same titles have alternative copies. Locations are from PowerPyx 18 Nov 2026 and Push Square 21 Nov 2026. All sources remain WIP; 27 of 33 underwater discoveries remain unmapped. No fabricated GPS, gameplay screenshots or trophies.",
+  "notes": "Editorial proximity by sourced districts, NOT measured GPS routes. 123 individually described checkpoints: 23 cards, 38 WAiNK scans, 5 playlist posters, 6 underwater discoveries, 24 stunt jumps, 3 WAiNK vehicles, 2 previous readables, 20 source-identified magazines/books/comics, 2 Kenton treasure-only dive sites. Warning: nine magazine COPY LOCATIONS can close after Chapters 1/2/3, but the same titles have alternative copies. Locations are from PowerPyx 18 Nov 2026 and Push Square 21 Nov 2026. All sources remain WIP; 27 of 33 underwater discoveries remain unmapped. No fabricated GPS, gameplay screenshots or trophies. The two existing Jack of Hearts checkpoints were clarified against the updated PowerPyx set guide on 28 Nov 2026; this does not re-review every route or increase the card count.",
   "sources": {
     "playlist": "https://www.powerpyx.com/gta-6-all-unique-playlist-collectible-locations/",
     "ed": "https://www.powerpyx.com/gta-6-ed-comics-universe-collectible-card-set-locations/",
@@ -44,9 +44,9 @@
     {
       "id": "vice-dale",
       "name": "Vice-Dale County",
-      "subtitle": "VCIA e dintorni",
-      "description": "Cerca due carte in un'area di roulotte vicino a Pawn City prima di cambiare contea.",
-      "warning": "La roulotte potrebbe richiedere accesso alla zona; controlla la storia."
+      "subtitle": "VCIA e Salton",
+      "description": "Recupera Femi-Nemesis nelle roulotte vicino a Pawn City e Kadisha nella casa di Salton sotto l’autostrada; segui le istruzioni distinte per le due carte.",
+      "warning": "I riferimenti sono descrittivi: apri le fonti e verifica il punto nel gioco prima di segnare la carta."
     },
     {
       "id": "vice-beach",
@@ -200,8 +200,8 @@
       "region": "vice-dale",
       "type": "cards",
       "name": "Kadisha (Rosa) — Jack of Hearts",
-      "place": "VCIA · roulotte sud-ovest di Pawn City",
-      "hint": "Nell'area delle roulotte, su un materasso per terra.",
+      "place": "Salton · casa sotto l’autostrada",
+      "hint": "Card 3 della raccolta Jack of Hearts nel menu Progressi: Kadisha (Pink). Entra nella casa sotto l’autostrada sfondando la porta e cerca la carta su un materasso.",
       "source": "jack",
       "confidence": "described"
     },
@@ -402,8 +402,8 @@
       "region": "leonard",
       "type": "cards",
       "name": "Malena (Rosso) — Jack of Hearts",
-      "place": "Belville · case a nord, a ovest di Andy",
-      "hint": "In una casa scassinabile, su una scrivania nella camera più interna.",
+      "place": "Belville · casa con i manichini",
+      "hint": "Card 13 della raccolta Jack of Hearts nel menu Progressi: Malena (Red). Entra dal retro nella casa piena di manichini e cerca la carta sulla scrivania in camera.",
       "source": "jack",
       "confidence": "described"
     },

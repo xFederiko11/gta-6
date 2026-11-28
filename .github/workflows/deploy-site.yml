@@ -707,6 +707,8 @@ jobs:
           print('PUBLIC_KENTON_LINEAR_OK',base+'trofei/trofeo-23-ci-serve-una-barca-piu-grossa/')
           bret=fetch('trofei/trofeo-29-bersagli-leciti/')
           assert bret.count('data-bret-step=')==7
+          assert bret.count('data-bret-deck=')==6 and 'data-bret-deck="15"' in bret
+          assert 'tutti i 15 Target Decks' in bret and 'Bret’s Rebel' in bret
           assert 'non confermano quale singolo animale' in bret
           assert 'gta-6-brets-hunting-target-deck-locations' in bret
           print('PUBLIC_BRET_LINEAR_OK',base+'trofei/trofeo-29-bersagli-leciti/')
