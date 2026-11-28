@@ -97,6 +97,8 @@ class CreatorVideoHubTests(unittest.TestCase):
         html=page.read_text(encoding="utf-8")
         self.assertIn('<link rel="canonical" href="'+BASE+PATH+'"',html)
         self.assertIn('creator-video-hub-v1.css?v=',html)
+        from verify_editorial_release_v1 import CHECKS as RELEASE_CHECKS
+        self.assertTrue(all(marker in html for marker in RELEASE_CHECKS[PATH]))
         self.assertIn('creator-video-hub-v1.js?v=',html)
         self.assertIn('"CollectionPage"',html)
         self.assertIn('"numberOfItems":9',html)
