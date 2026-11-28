@@ -11,6 +11,8 @@ import re
 
 from moses_vehicle_jobs_v1 import IGN_TIMELINE, IGN_VIDEO_ID, SOURCE as MOSES_SOURCE
 from garage_guides_v1 import SOUTH_MEDIA, SOUTH_STEPS, SOUTH
+from vehicle_progression_guides_v1 import CLONER, CLONER_VIDEO_ID, CLONER_VIDEO
+from collectible_video_refs_v1 import REFERENCES as CARD_VIDEO
 from waink_visual_v1 import VIDEO_ID as WAINK_VIDEO_ID, CREATOR as WAINK_CREATOR, SOURCE as WAINK_SOURCE
 
 PATH = "video-tutorial/"
@@ -28,12 +30,18 @@ CURATED = (
     ("waink-tutorial", "auto", "Scansionare veicoli con WAiNK",
      "Apri il filmato originale dedicato allo scanner, poi confronta i cinque passaggi e i tracker descritti nella guida italiana.",
      "guide-e-tutorial/scansionare-veicoli/"),
+    ("key-cloner-perfect-score", "auto", "Key Cloner: la missione di Randy",
+     "Guarda il filmato originale dall’inizio e confrontalo con i sei passaggi italiani. Nessun minuto specifico è stato accertato.",
+     CLONER),
     ("southside-powerpyx-video", "garage", "Southside Storage: cinque murales e garage",
      "Scegli il riferimento video di ciascun murale 1010 oppure della ricompensa. La guida separa il punto di scatto dal pin della mappa.",
      SOUTH),
     ("meditazione-capitolo-1", "collezionabili", "Le dieci meditazioni: luoghi e percorso",
      "Dieci capitoli dichiarati dal creator, associati ai luoghi della guida. Usa anche la checklist italiana e la mappa della fonte.",
      "guide-e-tutorial/meditazione-capitolo-1/"),
+    ("jack-of-hearts-gta-series", "collezionabili", "Jack of Hearts: le 36 carte",
+     "Il titolo del filmato indica tutte le 36 carte; sono disponibili due riferimenti temporali dichiarati dal creator. Confronta numero, colore e luogo con l’atlante italiano.",
+     "collezionabili/percorsi/"),
     ("soldi-facili-capitolo-1", "soldi", "Riconoscere Three Sheets Liquor",
      "Il filmato mostra il negozio e l’indizio del pappagallo: non è prova di tutte le altre posizioni o di un bottino garantito.",
      "guide-e-tutorial/soldi-facili-capitolo-1/"),
@@ -77,6 +85,21 @@ def records(data):
             source = WAINK_SOURCE
             spoiler = True
             provenance = "Video originale già collegato alla guida WAiNK; non costituisce una prova di ogni singola schermata."
+        elif key == "key-cloner-perfect-score":
+            video_id = CLONER_VIDEO_ID
+            creator = "Perfect Score"
+            chapters = [{"at":0, "label":"0:00 · Avvia il filmato originale"}]
+            source = CLONER_VIDEO
+            spoiler = True
+            provenance = "Video già collegato alla guida Key Cloner; inizio del filmato, non un timecode verificato della missione. Riproduzione non verificata indipendentemente."
+        elif key == "jack-of-hearts-gta-series":
+            video_id = CARD_VIDEO["youtube_id"]
+            creator = CARD_VIDEO["creator"]
+            chapters = [{"at":row["at"], "label":str(row["at"]//60)+":"+str(row["at"]%60).zfill(2)+" · "+row["chapter_label"]}
+                        for row in sorted(CARD_VIDEO["moments"].values(),key=lambda row:row["at"])]
+            source = CARD_VIDEO["source_url"]
+            spoiler = True
+            provenance = "Due capitoli dichiarati dal creator: confronta la carta con la fonte scritta. Malena Deep Red non è confermata equivalente a Malena Rosso; nessuna posizione duplicata o riproduzione verificata."
         elif key == "southside-powerpyx-video":
             item = SOUTH_MEDIA[key]
             if item["rights_status"] != "youtube_platform_embed_only" or "site_opt_in_embed" not in item["allowed_channels"]:
