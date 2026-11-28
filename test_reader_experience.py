@@ -415,6 +415,9 @@ def browser_qa():
                         assert 'youtube-nocookie.com/embed/9yBG8atjQs0?start=0' in frame.get_attribute('src')
                         page.locator('[data-cv-filter="all"]').click()
                         assert page.locator('.cv-card:visible').count()==9
+                        # The visible Key Cloner card keeps its active player.
+                        assert frame.count()==1
+                        page.locator('#video-key-cloner-perfect-score [data-cv-load]').click()
                         assert page.locator('.cv-embed-slot iframe').count()==0
                         if width in (390,1440):
                             shot=page.screenshot(
