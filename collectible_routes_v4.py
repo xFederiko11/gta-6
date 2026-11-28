@@ -167,6 +167,7 @@ def render(data,curated_refs=(),photo_evidence=None):
         'Il numero della carta nel menu è distinto dall’ordine del percorso. '
         'Capitolo minimo non documentato per l’intera raccolta: verifica gli accessi nella tua partita. '
         'Premi Tutti per tornare agli altri oggetti; le spunte indicano soltanto ciò che hai segnato tu.</p>',
+        '<p><a href="'+BASE+'guide-e-tutorial/jack-of-hearts-36-cards/">Guida dedicata Jack of Hearts: 36 carte, numeri menu e indizi dei luoghi →</a></p>',
         '<div class="cr-filter-group" aria-label="Tipo di collezionabile">',
         '<button type="button" data-cr-filter="all" aria-pressed="true">Tutti · 157</button>'
     ]

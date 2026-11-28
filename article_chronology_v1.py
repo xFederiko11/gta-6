@@ -41,7 +41,7 @@ def inventory():
     for filename in ("data/guide.json","data/visual_guides.json"):
         for g in read(filename)["guides"]:
             path=g.get("canonical_path") or "guide-e-tutorial/"+g["id"]+"/"
-            rows.append((path,g["title"],GUIDE_CATEGORIES.get(g["tag"],"Guide legittime"),dates.get(path)))
+            rows.append((path,g["title"],GUIDE_CATEGORIES.get(g["tag"],"Guide legittime"),dates.get(path) or g.get("published")))
     rows += [(p,t,c,dates.get(p) or (STRIP_CLUB_PUBLISHED if p==STRIP_CLUB_PATH else None)) for p,t,c in EXTRA]
     rows += [(p,t,"Guide legittime",dates.get(p)) for p,t,_ in VEHICLE_PROGRESSION]
     for car in read("data/vehicle_catalog_v1.json")["items"]:

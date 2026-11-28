@@ -32,6 +32,7 @@ from photo_request_hub_v1 import render as render_photo_hub
 from photo_coverage_v5 import audit as audit_photo_coverage, render as render_photo_coverage, json_report as export_photo_coverage, PATH as PHOTO_COVERAGE_PATH
 from platinum_roadmap_v1 import render as render_platinum_roadmap, ROADMAP_PATH
 from guide_step_references_v1 import render as render_step_evidence, validate as validate_step_evidence
+import jack_of_hearts_guide_v1
 from step_image_sources_v1 import load as load_step_photo_sources, validate as validate_step_photo_sources, render as render_step_photo_source
 from first_car_steps_v1 import validate as validate_first_car, render as render_first_car
 from creator_video_hub_v1 import load as load_creator_videos, records as reviewed_creator_videos, render as render_creator_videos, PATH as CREATOR_VIDEO_PATH, CURATED as CREATOR_VIDEO_SELECTION
@@ -505,7 +506,7 @@ def directory(guides,kind='all'):
 
 def sources(g,media_keys):
     links=list(dict.fromkeys([g['source_url'],*g.get('extra_sources',[]),*[MEDIA[k]['source'] for k in media_keys]]))
-    names={'powerpyx.com':'PowerPyx','pushsquare.com':'Push Square','insider-gaming.com':'Insider Gaming','gamesradar.com':'GamesRadar+','rockstargames.com':'Rockstar Games','gtabase.com':'GTABase','gta.tech4gamers.com':'Tech4Gamers'}
+    names={'powerpyx.com':'PowerPyx','pushsquare.com':'Push Square','insider-gaming.com':'Insider Gaming','gamesradar.com':'GamesRadar+','rockstargames.com':'Rockstar Games','gtabase.com':'GTABase','gta.tech4gamers.com':'Tech4Gamers','youtube.com':'YouTube · GTA Series Videos'}
     body='<section class="v-sources" id="fonti"><h2>Fonti, immagini e verifica</h2><ul>'
     for source in links:
         host=urlsplit(source).hostname.removeprefix('www.')
@@ -545,7 +546,8 @@ def guide(g,guides):
            '<h1>'+e(title)+'</h1>'
            '<p>'+e(g['summary'])+'</p>'
            '<span class="v-guide-step-count">'+str(count)+' passaggi pratici</span>'
-           '</section>')
+           +(('<time class="v-guide-published" datetime="'+e(g['published'])+'">Pubblicata il '+e('/'.join(reversed(g['published'].split('-'))))+'</time>') if g.get('published') else '')
+           +'</section>')
     body+='<div class="v-guide-layout v-guide-single"><article class="v-guide-main">'
     if g['id']=='scansionare-veicoli':
         body+=render_waink_intro()
@@ -717,7 +719,8 @@ def guide(g,guides):
     related_paths={
         'registrare-auto-personale': [('guide-e-tutorial/scansionare-veicoli/','Controlla il tracker con WAiNK'),('garage-gratuiti/','Sblocca i garage gratuiti'),('guide-e-tutorial/vendere-veicoli/','Vendi un veicolo')],
         'scansionare-veicoli': [('salvare-auto/','Come salvare e registrare un’auto in GTA 6'),('guide-e-tutorial/key-cloner/','Sblocca Key Cloner')],
-        'sportive-randy-posizioni': [('salvare-auto/','Come registrare i veicoli dopo Dale Mamba'),('guide-e-tutorial/key-cloner/','Sblocca Key Cloner'),('garage-gratuiti/domestic-timbers/','Ritira il premio di Randy')]
+        'sportive-randy-posizioni': [('salvare-auto/','Come registrare i veicoli dopo Dale Mamba'),('guide-e-tutorial/key-cloner/','Sblocca Key Cloner'),('garage-gratuiti/domestic-timbers/','Ritira il premio di Randy')],
+        'jack-of-hearts-36-cards': [('collezionabili/percorsi/','Apri l’atlante dei checkpoint'),('trofei/100-percento/','Consulta la checklist del 100%')]
     }
     if g['id'] in related_paths:
         body+='<nav class="v-guide-ref-list" data-editorial-next aria-label="Guide correlate"><h3>Continua con</h3>'+''.join('<p><a href="'+url(p)+'">'+e(label)+' →</a></p>' for p,label in related_paths[g['id']])+'</nav>'
@@ -812,15 +815,18 @@ def guide(g,guides):
     if g.get('benefit'):
         body+='<p class="v-guide-extra-note"><strong>Da sapere:</strong> '+e(g['benefit'])+'</p>'
     body+=walkthrough_visuals(g)
-    body+=render_guide_locations(g,LOCATION_REFS,MEDITATION_PLACES)
-    interactive=render_interactive_map(g['safe_title'],
-          interactive_guide_points(g,LOCATION_REFS,MEDITATION_PLACES),
-          id_suffix=g['id'],page_label='guida',
-          curated_refs=external_refs_for(EXTERNAL_MAP_REFS,guide=g['id']))
-    if g.get('spoiler'):
-        interactive=('<details class="v-map-spoiler"><summary>Mostra la mappa interattiva '
-                     'e i luoghi di questa guida (spoiler)</summary>'+interactive+'</details>')
-    body+=interactive
+    if g['id']=='jack-of-hearts-36-cards':
+        body+=jack_of_hearts_guide_v1.render(url)
+    else:
+        body+=render_guide_locations(g,LOCATION_REFS,MEDITATION_PLACES)
+        interactive=render_interactive_map(g['safe_title'],
+              interactive_guide_points(g,LOCATION_REFS,MEDITATION_PLACES),
+              id_suffix=g['id'],page_label='guida',
+              curated_refs=external_refs_for(EXTERNAL_MAP_REFS,guide=g['id']))
+        if g.get('spoiler'):
+            interactive=('<details class="v-map-spoiler"><summary>Mostra la mappa interattiva '
+                         'e i luoghi di questa guida (spoiler)</summary>'+interactive+'</details>')
+        body+=interactive
     body+=f'<aside class="v-notice"><strong>Prima di continuare</strong>{e(g.get("caution","Controlla il progresso in gioco."))}</aside>'
     if g['id']=='poligoni-concentrazione':
         body+=f'<p><a class="v-button secondary" href="{url("trofei/trofeo-17-cecchino/")}">Apri la checklist delle medaglie →</a></p>'
@@ -832,13 +838,15 @@ def guide(g,guides):
     description=g['seo_description']
     seo_title=guide_seo_title(title)
     structured=legacy.schema_article(seo_title,description,url(path),None)
+    if g.get('published'):
+        structured['datePublished']=g['published']
     legacy.write(path+'index.html',layout(seo_title,description,path,body,'guide',None,structured=structured))
 
 
 
 def validate(guides):
     seen=set()
-    allowed={'powerpyx.com','www.powerpyx.com','insider-gaming.com','www.insider-gaming.com','www.pushsquare.com','www.gamesradar.com','www.gtabase.com','gtabase.com','gta.tech4gamers.com','www.videogameschronicle.com','www.pcgamer.com','www.dexerto.com','www.reddit.com','www.gamepro.de'}
+    allowed={'powerpyx.com','www.powerpyx.com','insider-gaming.com','www.insider-gaming.com','www.pushsquare.com','www.gamesradar.com','www.gtabase.com','gtabase.com','gta.tech4gamers.com','www.videogameschronicle.com','www.pcgamer.com','www.dexerto.com','www.reddit.com','www.gamepro.de','www.youtube.com','youtube.com'}
     for g in guides:
         if g['id'] in seen or not re.fullmatch(r'[a-z0-9-]+',g['id']):
             raise ValueError('Duplicate or invalid guide id')

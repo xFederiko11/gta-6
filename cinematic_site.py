@@ -102,6 +102,10 @@ def image(name, url, *, eager=False, css='', sizes='(max-width: 700px) 100vw, 50
 
 
 def card_image(guide, url):
+    if guide['id']=='jack-of-hearts-36-cards':
+        # No static gameplay image has been cleared for this article.
+        return ('<div class="ci-card-photo ci-card-route-cover" aria-label="Jack of Hearts: 36 carte in cinque regioni">'
+                '<strong>36</strong><span>Jack of Hearts</span><small>5 regioni · guida con fonti</small></div>')
     name=GUIDES.get(guide['id'],CATEGORY_IMAGES.get(guide['category'],'Jason_and_Lucia_09.jpg'))
     return '<div class="ci-card-photo">'+image(name,url)+'<span>Immagine illustrativa · Rockstar Games</span></div>'
 

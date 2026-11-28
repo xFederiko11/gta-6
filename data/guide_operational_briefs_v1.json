@@ -56,6 +56,11 @@
       "when": "Free roam, con un salvataggio di prova",
       "where": "Al volante di un'auto, in single-player",
       "goal": "Prova la visuale in prima persona; trofei non verificati."
+    },
+    "jack-of-hearts-36-cards": {
+      "when": "Non documentato dalla fonte; verifica la disponibilità nella tua partita",
+      "where": "Cinque contee · usa il landmark riportato per ciascuna carta",
+      "goal": "Raccogli i 36 numeri Jack of Hearts; 15 set completi su 18 servono al 100%, secondo PowerPyx."
     }
   }
 }

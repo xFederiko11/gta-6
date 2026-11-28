@@ -108,7 +108,7 @@ class VisualSiteTests(unittest.TestCase):
     def test_all_guides_start_with_a_clear_tutorial_before_optional_content(self):
         originals=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
         originals+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
-        self.assertEqual(len(originals),11)
+        self.assertEqual(len(originals),12)
         for guide in originals:
             path=guide.get('canonical_path') or 'guide-e-tutorial/'+guide['id']+'/'
             source=(ROOT/path/'index.html').read_text(encoding='utf-8')
@@ -238,7 +238,7 @@ class VisualSiteTests(unittest.TestCase):
         from html import unescape
         specs=json.loads(Path('data/visual_requests.json').read_text(encoding='utf-8'))
         self.assertEqual(specs['schema'],'gta6-visual-contribution-requests-v1')
-        self.assertEqual(len(specs['guides']),11)
+        self.assertEqual(len(specs['guides']),12)
         guides=json.loads(Path('data/guide.json').read_text(encoding='utf-8'))['guides']
         guides+=json.loads(Path('data/visual_guides.json').read_text(encoding='utf-8'))['guides']
         for g in guides:
@@ -362,7 +362,7 @@ class VisualSiteTests(unittest.TestCase):
         self.assertNotIn('fetch(',script)
         report=json.loads((ROOT/'media-quality.json').read_text(encoding='utf-8'))
         # Video/map references are never counted as real screenshot media.
-        self.assertEqual(report['guides_checked'],11)
+        self.assertEqual(report['guides_checked'],12)
         self.assertEqual(report['ready']+report['below_target'],report['guides_checked'])
 
     def test_medidation_missable_and_local_checklist_is_accessible_and_exact(self):
@@ -641,5 +641,34 @@ class VisualSiteTests(unittest.TestCase):
         self.assertNotIn('data-spoiler-choice',script)
         self.assertIn('aria-pressed',script)
         self.assertIn('prefers-reduced-motion',Path('site/assets/visual-v2.css').read_text())
+
+    def test_jack_of_hearts_guide_has_all_sourced_cards_opt_in_video_and_no_static_media(self):
+        path=ROOT/'guide-e-tutorial/jack-of-hearts-36-cards/'/'index.html'
+        text,tags=parse(path)
+        self.assertIn('Pubblicata il 28/11/2026',text)
+        self.assertIn('"datePublished":"2026-11-28"',text)
+        self.assertIn('36 carte Jack of Hearts',text)
+        cards=[a for t,a in tags.tags if t=='li' and a.get('class')=='jack-card-item']
+        self.assertEqual(len(cards),36)
+        routes=json.loads(Path('data/collectible_routes_v4.json').read_text(encoding='utf-8'))
+        source={p['id']:p for p in routes['points'] if p.get('card_set')=='jack-of-hearts'}
+        self.assertEqual(len(source),36)
+        for card in source.values():
+            self.assertIn('id="jack-card-'+str(card['source_order'])+'"',text)
+            self.assertIn(BASE+'collezionabili/percorsi/#cr-'+card['id'],text)
+            self.assertIn('data-menu-card="'+str(card['card_number'])+'"',text)
+        self.assertEqual(text.count('data-step-video-id="LTbw8B0DQHA"'),2)
+        self.assertIn('data-step-video-seconds="577"',text)
+        self.assertIn('data-step-video-seconds="1183"',text)
+        self.assertIn('non sono confermati come la stessa carta',text)
+        atlas=(ROOT/'collezionabili/percorsi/index.html').read_text(encoding='utf-8')
+        self.assertIn(BASE+'guide-e-tutorial/jack-of-hearts-36-cards/',atlas)
+        self.assertIn('guide-e-tutorial/jack-of-hearts-36-cards/', (ROOT/'sitemap.xml').read_text(encoding='utf-8'))
+        registry=json.loads(Path('data/editorial_media_registry_v1.json').read_text(encoding='utf-8'))
+        media=[x for x in registry['items'] if x.get('article_path')=='guide-e-tutorial/jack-of-hearts-36-cards/']
+        self.assertEqual(len(media),2)
+        self.assertTrue(all(x['rights_status']=='youtube_platform_embed_only' for x in media))
+        self.assertTrue(all('site_opt_in_embed' in x['allowed_channels'] for x in media))
+        self.assertTrue(all('Non scaricare' in ' '.join(x['restrictions']) for x in media))
 
 if __name__=='__main__': unittest.main()
