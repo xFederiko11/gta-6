@@ -1031,6 +1031,24 @@ def browser_qa():
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
                         viewer.scroll_into_view_if_needed()
                         page.screenshot(path=str(out/'mobile-interactive-map-390.png'))
+                    if path=='collezionabili/percorsi/' and width in (390,768,1440):
+                        for checkpoint,seconds in (('pt-12','577'),('pt-32','1183')):
+                            details=page.locator('#cr-'+checkpoint+' .cr-step-extra')
+                            if not details.evaluate('(el)=>el.open'):
+                                details.locator(':scope > summary').click()
+                            video=details.locator('[data-collectible-video]')
+                            assert video.locator('iframe').count()==0
+                            assert video.locator('a').get_attribute('href')=='https://www.youtube.com/watch?v=LTbw8B0DQHA&t='+seconds+'s'
+                            play=video.locator('[data-step-video-open]')
+                            assert play.is_visible()
+                            play.click()
+                            assert video.locator('iframe').get_attribute('src')=='https://www.youtube-nocookie.com/embed/LTbw8B0DQHA?start='+seconds+'&rel=0'
+                            assert page.locator('[data-collectible-video] iframe').count()==1
+                            play.click()
+                            assert video.locator('iframe').count()==0
+                            assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                            page.locator('#cr-'+checkpoint).screenshot(path=str(out/('card-video-'+checkpoint+'-'+str(width)+'.png')))
+                        print('COLLECTIBLE_VIDEO_BROWSER_OK',width,flush=True)
                     if path=='screenshot-ps5/invia/' and width in (390,1440):
                         assert page.locator('template[data-pi-role-options]').evaluate(
                             "(el)=>el.content.querySelectorAll('[data-photo-guide]').length")==55

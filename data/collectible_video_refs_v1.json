@@ -1,0 +1,21 @@
+{
+  "schema": "gta6-collectible-video-moments-v1",
+  "reviewed": "2026-11-28",
+  "youtube_id": "LTbw8B0DQHA",
+  "creator": "GTA Series Videos",
+  "source_url": "https://www.youtube.com/watch?v=LTbw8B0DQHA",
+  "title": "GTA 6 - All 36 Jack of Hearts Dancers Card Locations (Collectibles Guide)",
+  "evidence": "Public indexed YouTube creator description identifies these two chapter labels and timestamps. Playback and the route shown have not been independently verified. A chapter for a card variant does not certify a particular duplicate pickup location. Platform embed only; no thumbnail, frame, footage or new reuse permission.",
+  "moments": {
+    "pt-12": {
+      "point_name": "Kadisha (Rosa) — Jack of Hearts",
+      "chapter_label": "Kadisha - Pink",
+      "at": 577
+    },
+    "pt-32": {
+      "point_name": "Malena (Rosso) — Jack of Hearts",
+      "chapter_label": "Malena - Deep Red",
+      "at": 1183
+    }
+  }
+}
