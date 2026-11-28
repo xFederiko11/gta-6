@@ -8,6 +8,7 @@ from collections import Counter
 from html import escape
 from urllib.parse import urlsplit, urlencode
 from collectible_photo_evidence_v1 import validate as validate_photo_evidence, render as render_photo_evidence
+from collectible_video_refs_v1 import render as render_collectible_video
 import re
 
 BASE="https://xfederiko11.github.io/gta-6/"
@@ -240,6 +241,7 @@ def render(data,curated_refs=(),photo_evidence=None):
                 (render_photo_evidence(item,photo_evidence,data) if photo_evidence is not None else '')+
                 '<details class="cr-step-extra"><summary>📷 Foto, mappa e fonti (facoltativi)</summary>'
                 +contextual_link+
+                render_collectible_video(item)+
                 '<a href="'+e(data["sources"][item["source"]])+'" target="_blank" rel="noopener noreferrer">'
                 'Fonte originale e immagini ↗</a> · '
                 '<button type="button" class="cr-map-find" data-vim-map-search="'+e(item["name"])+'" '

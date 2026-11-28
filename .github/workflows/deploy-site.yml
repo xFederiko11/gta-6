@@ -58,7 +58,7 @@ jobs:
         run: python community_social_sync_v1.py
       - name: Validate preserved content and existing SEO contracts
         run: |
-          python -m py_compile x_growth_dashboard_v1.py test_x_growth_dashboard_v1.py interactive_article_maps_v1.py test_interactive_article_maps_v1.py test_curated_map_permalinks_v1.py photo_coverage_v5.py test_photo_coverage_v5.py social_cards_v2.py test_social_cards_v2.py collectible_routes_v4.py collectible_photo_evidence_v1.py test_collectible_photo_evidence_v1.py photo_intake_v4.py photo_webp_audit_v1.py test_photo_webp_audit_v1.py test_photo_routes_v4.py advanced_platinum_v3.py photo_provenance_v3.py test_advanced_platinum_v3.py platinum_atlas_v2.py guide_location_atlas_v2.py test_group12_atlas_v2.py platinum_roadmap_v1.py guide_step_references_v1.py test_group3_roadmap_step_refs_v1.py photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py operational_brief_v1.py moses_vehicle_jobs_v1.py first_car_steps_v1.py test_first_car_steps_v1.py chapter1_money_steps_v1.py test_chapter1_money_steps_v1.py test_waink_verified_v1.py vehicle_catalog_v1.py test_vehicle_catalog_v1.py rockstar_gallery_v1.py test_rockstar_gallery_v1.py test_operational_guides_v1.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py test_home_clarity_v1.py strip_club_guide_v1.py test_strip_club_guide_v1.py article_tags_v1.py test_article_tags_v1.py
+          python -m py_compile x_growth_dashboard_v1.py test_x_growth_dashboard_v1.py interactive_article_maps_v1.py test_interactive_article_maps_v1.py test_curated_map_permalinks_v1.py photo_coverage_v5.py test_photo_coverage_v5.py social_cards_v2.py test_social_cards_v2.py collectible_routes_v4.py collectible_video_refs_v1.py collectible_photo_evidence_v1.py test_collectible_photo_evidence_v1.py test_collectible_video_refs_v1.py photo_intake_v4.py photo_webp_audit_v1.py test_photo_webp_audit_v1.py test_photo_routes_v4.py advanced_platinum_v3.py photo_provenance_v3.py test_advanced_platinum_v3.py platinum_atlas_v2.py guide_location_atlas_v2.py test_group12_atlas_v2.py platinum_roadmap_v1.py guide_step_references_v1.py test_group3_roadmap_step_refs_v1.py photo_request_hub_v1.py test_photo_request_hub_v1.py build_site.py build_visual_site.py visual_guide_content.py operational_brief_v1.py moses_vehicle_jobs_v1.py first_car_steps_v1.py test_first_car_steps_v1.py chapter1_money_steps_v1.py test_chapter1_money_steps_v1.py test_waink_verified_v1.py vehicle_catalog_v1.py test_vehicle_catalog_v1.py rockstar_gallery_v1.py test_rockstar_gallery_v1.py test_operational_guides_v1.py community_social_v1.py community_social_sync_v1.py community_discovery_v2.py guide_source_validation.py prepare_visual_media.py reader_experience.py media_quality_v1.py growth_tracking_v1.py meditation_tracker_v1.py test_meditation_tracker_v1.py test_home_clarity_v1.py strip_club_guide_v1.py test_strip_club_guide_v1.py article_tags_v1.py test_article_tags_v1.py
           python -m unittest -q test_patch_observations_v1.py test_x_growth_dashboard_v1.py test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_webp_audit_v1.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_meditation_tracker_v1.py test_site.py test_community_feed.py test_related_research.py test_guide_source_validation.py test_strip_club_guide_v1.py
           node --check site/assets/interactive-map-v1.js
           node --check site/assets/photo-coverage-v5.js
@@ -127,7 +127,7 @@ jobs:
           python -m py_compile hdr_tv_picture_v1.py test_hdr_tv_picture_v1.py
           python -m unittest -q test_hdr_tv_picture_v1.py
       - name: Validate actual production pages, media and canonical continuity
-        run: python -m unittest -q test_x_growth_dashboard_v1.py test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_beginner_platinum_v1.py test_operational_guides_v1.py test_first_car_steps_v1.py test_chapter1_money_steps_v1.py test_waink_verified_v1.py test_vehicle_catalog_v1.py test_rockstar_gallery_v1.py test_step_image_sources_v1.py test_collectible_photo_evidence_v1.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py test_home_clarity_v1.py test_creator_video_hub_v1.py test_garage_guides_v1.py test_article_tags_v1.py test_chapter_guide_routes_v1.py
+        run: python -m unittest -q test_x_growth_dashboard_v1.py test_curated_map_permalinks_v1.py test_interactive_article_maps_v1.py test_photo_coverage_v5.py test_photo_routes_v4.py test_advanced_platinum_v3.py test_group12_atlas_v2.py test_group3_roadmap_step_refs_v1.py test_visual_site.py test_reader_experience.py test_beginner_platinum_v1.py test_operational_guides_v1.py test_first_car_steps_v1.py test_chapter1_money_steps_v1.py test_waink_verified_v1.py test_vehicle_catalog_v1.py test_rockstar_gallery_v1.py test_step_image_sources_v1.py test_collectible_photo_evidence_v1.py test_collectible_video_refs_v1.py test_media_quality_v1.py test_community_social_v1.py test_x_permalink_site_v1.py test_growth_tracking_v1.py test_meditation_tracker_v1.py test_photo_request_hub_v1.py test_home_clarity_v1.py test_creator_video_hub_v1.py test_garage_guides_v1.py test_article_tags_v1.py test_chapter_guide_routes_v1.py
       - name: Check curated YouTube metadata without downloading media
         run: |
           python -m unittest -q test_creator_video_health_v1.py
@@ -366,6 +366,12 @@ jobs:
                           place='Hathaway Apartments' if 'key-cloner' in path else 'Domestic Timbers'
                           assert 'data-vim-seek="'+place+'"' in text
                           print('PUBLIC_VEHICLE_GUIDE_MAP_OK',base+path)
+                      if path == 'collezionabili/percorsi/':
+                          assert text.count('data-collectible-video="') == 2
+                          assert 'https://www.youtube.com/watch?v=LTbw8B0DQHA&amp;t=577s' in text
+                          assert 'https://www.youtube.com/watch?v=LTbw8B0DQHA&amp;t=1183s' in text
+                          assert 'step-video-opt-in-v1.js?v=' in text
+                          print('PUBLIC_COLLECTIBLE_VIDEO_MOMENTS_OK',base+path)
                       if path == 'mappe-guide/':
                           assert text.count('data-vim-curated-link') == 7
                           assert 'https://gtamap.io/?m=permit-keys' in text
@@ -707,6 +713,8 @@ jobs:
           print('PUBLIC_KENTON_LINEAR_OK',base+'trofei/trofeo-23-ci-serve-una-barca-piu-grossa/')
           bret=fetch('trofei/trofeo-29-bersagli-leciti/')
           assert bret.count('data-bret-step=')==7
+          assert bret.count('data-bret-deck=')==6 and 'data-bret-deck="15"' in bret
+          assert 'tutti i 15 Target Decks' in bret and 'Bret’s Rebel' in bret
           assert 'non confermano quale singolo animale' in bret
           assert 'gta-6-brets-hunting-target-deck-locations' in bret
           print('PUBLIC_BRET_LINEAR_OK',base+'trofei/trofeo-29-bersagli-leciti/')

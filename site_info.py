@@ -39,6 +39,9 @@ def sources_for(path: str) -> tuple[str, ...]:
                          "moses_vehicle_jobs_v1.py",
                          "site/assets/creator-video-hub-v1.css",
                          "site/assets/creator-video-hub-v1.js")
+    if path == "collezionabili/percorsi/":
+        return shared + ("collectible_routes_v4.py", "data/collectible_routes_v4.json",
+                         "collectible_video_refs_v1.py", "data/collectible_video_refs_v1.json")
     if path.startswith("trofei/"):
         extra = ("bret_tutorial_v1.py",) if path == "trofei/trofeo-29-bersagli-leciti/" else ()
         return shared + ("data/trofei.json", "data/guide.json", "trophy_experience.py", "site/assets/trophy-experience.js") + extra

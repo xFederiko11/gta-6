@@ -17,24 +17,27 @@ STEPS = (
     ("Controlla il trofeo", "Prosegui con i Target Decks e controlla l'elenco trofei PS5. Per il 100% sono necessari tutti i 15 incarichi.", "Segna il trofeo solo quando compare come ottenuto: le fonti non confermano quale singolo animale lo faccia scattare.", ROADMAP),
 )
 
-# Selected practical checkpoints, not a claim that all 15 decks are documented.
+# Selected practical checkpoints from the complete 15-deck source; not every
+# documented hunt is repeated in this concise walkthrough.
 HUNT_CHECKPOINTS = (
     (1, "Adrenal Glands and Venison", "White Tail Doe + White Tail Buck", "Abandoned Concrete Plant, Kalaga River o Mount Kalaga Park.", "Killtelligence SM-69; il primo incarico dà anche il Wartham W-22."),
     (7, "White Fur and Feathers", "Northern Albino Raccoon + Canada Goose + North American White River Otter", "Segui le zone del messaggio; il procione compare di notte secondo la fonte, dopo le 19:30.", "Wartham W-22. Controlla la variante albina: il procione normale non la sostituisce."),
     (8, "Boar Meat and Bear Meat", "Gloriana Opossum + Spotted Wild Boar + American Black Bear", "Nelle aree indicate da Bret; l’opossum compare di notte secondo la fonte.", "W-22 per l’opossum, SM-69 per cinghiale e orso; invia la foto delle prede grandi per il ritiro."),
     (13, "Snapmatic Panther", "Unique Panther", "Belpoint Island, a ovest di Capri: raggiungila in barca o elicottero e cerca lungo la strada centrale.", "SM-69; mantieni la distanza e invia la foto a Bret per il ritiro."),
     (14, "Snapmatic Coyote", "Unique Coyote", "A nord di Belville, nei campi oltre le grandi case; cerca tracce presso il fosso a est del campo.", "Hawk & Little Mediator; questa preda va portata al negozio di Bret."),
+    (15, "Snapmatic White Fox", "Unique White Fox", "Emerald Springs: cerca nel campo fra l’autostrada e il parco divertimenti, vicino ai piccoli stagni. La fonte segnala anche l’area a ridosso dell’autostrada.", "Hawk & Little Mediator; il mirino può aiutare a distanza. Porta la volpe al negozio di Bret per concludere l’ultimo Target Deck."),
 )
 
 
 def hunt_checkpoints():
     rows = ['<details class="tg-deep" id="bret-target-decks"><summary>Target Decks: luoghi e controlli utili</summary>',
-            '<p>La guida PowerPyx del 27 novembre documenta gli incarichi da 1 a 14 su 15: il quindicesimo è ancora in aggiornamento. Qui trovi cinque tappe pratiche; per tutti i bersagli e le mappe apri la fonte originale. Nessun punto di spawn garantito.</p>',
+            '<p>La guida PowerPyx, ricontrollata il 28 novembre 2026, documenta ora tutti i 15 Target Decks, compreso Snapmatic White Fox. Qui trovi sei tappe pratiche; per tutti i bersagli e le mappe apri la fonte originale. Nessun punto di spawn garantito.</p>',
             '<ol class="tg-linear-steps">']
     for number, name, animals, where, action in HUNT_CHECKPOINTS:
         rows.append('<li data-bret-deck="' + str(number) + '"><h3>Deck ' + str(number) + ' · ' + escape(name) + '</h3><p><b>Bersagli:</b> ' + escape(animals) + '</p><p><b>Dove:</b> ' + escape(where) + '</p><p>' + escape(action) + '</p></li>')
-    rows += ['</ol><p>Le varianti di colore e le specie precise contano: non sostituirle con animali simili. Se Bret non scrive, PowerPyx suggerisce di salvare e ricaricare mentre giochi da solo con Jason; è un tentativo di recupero, non una soluzione garantita.</p>',
-             '<p>' + link(HUNTS, "PowerPyx — 14 Target Decks, immagini e posizioni originali ↗") + '</p></details>']
+    rows += ['</ol><p><b>Premio finale:</b> dopo la consegna della Unique White Fox, PowerPyx indica circa 18.250 GTA$ e il fuoristrada Bret’s Rebel. Il denaro dipende dalle condizioni della preda: controlla la cifra nel gioco. Secondo la fonte il mezzo resta al negozio di Bret se non lo registri; trovarlo lì non equivale ad averlo registrato come veicolo personale.</p>',
+             '<p>Le varianti di colore e le specie precise contano: non sostituirle con animali simili. Se Bret non scrive, PowerPyx suggerisce di salvare e ricaricare mentre giochi da solo con Jason; è un tentativo di recupero, non una soluzione garantita.</p>',
+             '<p>' + link(HUNTS, "PowerPyx — tutti i 15 Target Decks, immagini e posizioni originali ↗") + '</p></details>']
     return ''.join(rows)
 
 def link(target,label):
@@ -51,7 +54,7 @@ def render():
         rows.append('<li data-bret-step="'+str(n)+'"><h3>'+escape(title)+'</h3><p>'+escape(action)+'</p><p><b>Controllo:</b> '+escape(check)+'</p><p>'+link(source,"Apri la fonte originale con le immagini ↗")+'</p></li>')
     rows.extend(['</ol>',
                  hunt_checkpoints(),
-                 '<p><b>Non confondere i contatori:</b> studiare 100 specie e terminare 15 Target Decks sono requisiti distinti. La fonte PowerPyx documenta 14 incarichi al controllo del 28 novembre 2026; non certifica il singolo trigger del trofeo. Anche l’elenco Push Square resta in aggiornamento.</p>',
+                 '<p><b>Non confondere i contatori:</b> studiare 100 specie e terminare 15 Target Decks sono requisiti distinti. La fonte PowerPyx documenta tutti i 15 incarichi al controllo del 28 novembre 2026; non certifica il singolo trigger del trofeo. Anche l’elenco Push Square resta in aggiornamento.</p>',
                  '<p>'+link(CONTACTS,"Contatti e incarichi PowerPyx ↗")+' · '+link(DECKS,"Bersagli e luoghi Push Square ↗")+'</p>',
                  '<p><a href="https://xfederiko11.github.io/gta-6/guide-e-tutorial/studiare-animali/">Come registrare le specie senza cacciare →</a> · <a href="https://xfederiko11.github.io/gta-6/guide-e-tutorial/viaggio-rapido-taxi/#consigli">Come cambiare orario nel gioco →</a></p>',
                  '<p><small>Le immagini restano presso i rispettivi autori: nessuna schermata ripubblicata.</small></p></div>'])
