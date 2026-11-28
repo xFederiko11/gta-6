@@ -315,7 +315,8 @@ def browser_qa():
                         for theme in ('light','dark'):
                             page.locator('[data-theme-choice="'+theme+'"]').click()
                             assert page.locator('html').get_attribute('data-theme')==theme
-                            assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
+                            check_layout(page,out,width,'articoli/tag/auto-e-veicoli/',theme)
+                            assert page.locator('[data-tag-archive-card]:visible').count()==min(25,page.locator('[data-tag-archive-card][data-group="veicoli"]').count())
                         page.screenshot(path=str(out/('magazine-tags-'+str(width)+'.png')),full_page=True)
                         page.goto(origin+'articoli/tag/glitch/')
                         assert page.locator('[data-tag-archive-card]').count()==1
