@@ -1,6 +1,7 @@
 """Two independent, source-reviewed legitimate gameplay articles."""
 from html import escape
 from garage_guides_v1 import facts, steps, internal, ref
+from interactive_article_maps_v1 import render_vehicle_map
 
 CLONER="guide-e-tutorial/key-cloner/"
 SELL="guide-e-tutorial/vendere-veicoli/"
@@ -28,6 +29,7 @@ def finish(base,refs,related):
 def cloner_body(base):
     body=start(base,*ARTICLES[0][1:])
     body+=facts([("Prerequisito","Capitolo 3, dopo Crosstown Traffic"),("Missione","Clonin’ Keys, Makin’ GS"),("Luogo","Hathaway Apartments, Ocean Beach"),("Risultato","Key Cloner sul telefono e lista di Randy")])
+    body+=render_vehicle_map(CLONER)
     body+=steps((
       ("Raggiungi il parcheggio","Segui il segnale della missione fino agli Hathaway Apartments ed entra nell’area di parcheggio indicata.","Inizia l’incarico per Randy.",P_MISSION),
       ("Installa Key Cloner","Apri il telefono e segui la richiesta di installazione durante la missione.","L’app è disponibile; lo sblocco riguarda Jason e Lucia.",P_CLONER),

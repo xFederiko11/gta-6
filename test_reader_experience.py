@@ -976,6 +976,28 @@ def browser_qa():
                             page.evaluate("window.scrollTo(0,0)")
                             page.screenshot(path=str(out/'mobile-collectibles-linear-390.png'))
                         print('LINEAR_COLLECTIBLES_QA',width,123,flush=True)
+                    if path in ('guide-e-tutorial/key-cloner/','garage-gratuiti/domestic-timbers/') and width in (390,768,1440):
+                        disclosure=page.locator('[data-vehicle-map-disclosure]')
+                        viewer=disclosure.locator('[data-vi-map]')
+                        assert not disclosure.evaluate('(el)=>el.open')
+                        assert viewer.locator('iframe').count()==0
+                        key='key-cloner' if 'key-cloner' in path else 'domestic-timbers'
+                        page.screenshot(path=str(out/(key+'-map-guide-'+str(width)+'.png')),full_page=True)
+                        disclosure.locator(':scope > summary').click()
+                        assert viewer.is_visible()
+                        assert viewer.locator('iframe').count()==0,'opening the location must not contact the map provider'
+                        viewer.locator('[data-vim-provider="city"]').click()
+                        assert viewer.locator('iframe').count()==0
+                        viewer.locator('[data-vim-load]').click()
+                        frame=viewer.locator('iframe.vim-iframe')
+                        assert frame.count()==1 and frame.get_attribute('src')=='https://gta6.city/embed/map'
+                        viewer.locator('[data-vim-provider="vice"]').click()
+                        viewer.locator('[data-vim-seek]').first.click()
+                        assert frame.get_attribute('src').startswith('https://vice-map.com/embed/map?marker=')
+                        check_layout(page,out,width,path,'dark')
+                        viewer.screenshot(path=str(out/(key+'-map-expanded-'+str(width)+'.png')))
+                        disclosure.locator(':scope > summary').click()
+                        print('VEHICLE_GUIDE_MAP_BROWSER_OK',width,path,flush=True)
                     if path=='collezionabili/percorsi/' and width==390:
                         map_details=page.locator('details.cr-map-extra')
                         assert map_details.count()==1
