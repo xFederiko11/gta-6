@@ -50,12 +50,12 @@ def render(item):
         + '" data-step-video-id="LTbw8B0DQHA" data-step-video-seconds="' + str(stamp) + '">'
         '<button type="button" class="v-step-video-open" data-step-video-open hidden>'
         '<span class="v-step-video-play" aria-hidden="true">▶</span>'
-        '<span><strong>Guarda la variante nel video originale</strong>'
+        '<span><strong>Confronta la carta nel video originale</strong>'
         '<small>GTA Series Videos · ' + label + ' · ' + escape(row["chapter_label"]) + '</small></span>'
         '</button><div class="v-step-video-slot" data-step-video-slot aria-live="polite"></div>'
         '<p class="v-step-video-note"><a href="' + escape(target, quote=True)
         + '" target="_blank" rel="noopener noreferrer">Apri GTA Series Videos da ' + label + ' ↗</a>'
-        '<br>Capitolo della stessa variante: confronta il luogo con la fonte scritta. '
+        '<br>Il creator usa la denominazione indicata: confronta colore, numero nel menu e luogo con la fonte scritta. '
         'I minuti sono dichiarati dal creator; non abbiamo verificato la riproduzione '
         'o che si tratti della stessa copia. Il player si carica solo dopo il clic.</p></aside>'
     )
