@@ -13,6 +13,7 @@ SAFE_TITLES = {
     'registrare-auto-personale': 'Come salvare e registrare un’auto in GTA 6',
     'sportive-randy-posizioni': 'Sportive ricercate: dove cercarle',
     'prima-persona-glitch-ps5': 'Glitch prima persona GTA VI: come attivarlo',
+    'jack-of-hearts-36-cards': 'GTA 6: guida alle 36 carte Jack of Hearts',
 }
 HERO = {
     'soldi-facili-capitolo-1': 'bank-deposit',
@@ -46,6 +47,7 @@ HEADINGS = {
     'meditazione-capitolo-1': ['Prima del Capitolo 2','Segui Lucia sul balcone','Completa il minigioco','Sblocca entrambi i personaggi','Completa gli otto luoghi doppi','Raggiungi la meditazione finale'],
     'viaggio-rapido-taxi': ['Chiama il taxi','Scegli la destinazione','Sali come passeggero','Salta il tragitto'],
     'poligoni-concentrazione': ['Raggiungi un poligono','Acquista il pass','Avvia la prova','Allena la Concentrazione','Completa le medaglie Oro'],
+    'jack-of-hearts-36-cards': ['Trova il numero mancante','Segui le cinque sezioni della fonte','Leggi landmark e indizio','Prepara un mezzo solo se richiesto','Conferma i progressi nel menu'],
 }
 REQUIREMENTS = {
     'soldi-facili-capitolo-1': 'Accesso alle zone del Capitolo 1. Per il luogo sull’acqua serve una barca. Prevedi possibili scontri.',
@@ -56,6 +58,7 @@ REQUIREMENTS = {
     'meditazione-capitolo-1': 'Prima occasione a casa di Jason nel Capitolo 1. Dal Capitolo 2, dopo Coffee Break, usa entrambi i personaggi per gli altri luoghi.',
     'viaggio-rapido-taxi': 'Gone Fishing completata, servizio nei Contatti, denaro contante e strada accessibile.',
     'poligoni-concentrazione': 'Accesso a un poligono e pass da 5 GTA$. Le medaglie vanno controllate separatamente dall’allenamento.',
+    'jack-of-hearts-36-cards': 'Capitolo minimo e prerequisiti complessivi non documentati. Apri Progressi → Collezioni e verifica la disponibilità nella tua partita.',
 }
 LOCATIONS = {
     'soldi-facili-capitolo-1': 'Quattro luoghi distinti del Capitolo 1. Le fonti descrivono le zone, senza coordinate GPS esatte verificate.',
@@ -66,6 +69,7 @@ LOCATIONS = {
     'meditazione-capitolo-1': 'Primo luogo: balcone della casa di Jason a Key Lento. Gli altri nove luoghi sono elencati nella checklist, con riferimenti geografici verificati.',
     'viaggio-rapido-taxi': 'Telefono → Contatti → Tutti i contatti → Paradise Taxi.',
     'poligoni-concentrazione': 'Griffin Shooting Range oppure Rodgers Ranch. La fonte completa è in fondo.',
+    'jack-of-hearts-36-cards': 'Cinque contee. Ogni tappa riporta il landmark e l’indizio della fonte; non abbiamo coordinate GPS verificate.',
 }
 SUMMARIES = {
     'soldi-facili-capitolo-1': 'Quattro luoghi segnalati da Insider Gaming, con azioni e controlli per ciascuno. Non perdere i soldi passando al Capitolo 2: leggi prima l’avviso.',
@@ -74,6 +78,7 @@ SUMMARIES = {
     'prima-persona-glitch-ps5': 'Chiudi il telefono e premi rapidamente il touchpad impostato su Camera. Community: segnalato funzionante anche dopo la patch del 23 novembre; trofei non verificati.',
     'sportive-randy-posizioni': 'Sedici modelli richiesti da Randy: distingui indizi attivati, ricerca libera e registrazione Advanced Tracker dopo Dale Mamba. Nessuno spawn garantito.',
     'registrare-auto-personale': 'Dopo Girl’s Trip, registra gratis la prima auto senza tracker da Moses. Per le auto Standard e Advanced consulta gli sblocchi successivi qui sotto.',
+    'jack-of-hearts-36-cards': 'GTA 6: tutte le 36 carte Jack of Hearts in cinque contee, con numero del menu, landmark e indizio per ogni tappa.',
 }
 
 
@@ -89,6 +94,7 @@ SEO_DESCRIPTIONS = {
     'viaggio-rapido-taxi': 'GTA 6 su PS5: chiama Paradise Taxi, scegli la destinazione e salta i tragitti tra missioni. Procedura, pulsanti e costi documentati.',
     'poligoni-concentrazione': 'GTA VI PS5: allenati ai poligoni di tiro e distingui Concentrazione e medaglie Oro. Controlla le prove richieste per il platino.',
     'prima-persona-glitch-ps5': 'GTA VI PS5: attiva la visuale in prima persona con telefono e touchpad. Procedura DualSense, ripristino e stato trofei incerto.',
+    'jack-of-hearts-36-cards': 'GTA 6: guida a tutte le 36 carte Jack of Hearts. Cinque contee, numeri del menu e indizi dei luoghi, con link all’atlante regionale e video opt-in.',
 }
 
 

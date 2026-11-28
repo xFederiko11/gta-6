@@ -1,4 +1,4 @@
-"""Offline end-to-end photo priorities: 55 real role references, explicit rights."""
+"""Offline end-to-end photo priorities: 60 real role references, explicit rights."""
 from __future__ import annotations
 from copy import deepcopy
 from pathlib import Path
@@ -26,15 +26,15 @@ class PhotoWorkboardTests(unittest.TestCase):
     def test_all_real_roles_are_unique_and_not_auto_approved(self):
         report=audit(*fixture())
         self.assertEqual(report["schema"],SCHEMA)
-        self.assertEqual(report["total_requests"],55)
+        self.assertEqual(report["total_requests"],60)
         self.assertEqual(report["approved_new_community_screenshots"],0)
         self.assertEqual(report["existing_attributed_editorial_screenshots"],10)
         self.assertEqual(report["existing_editorial_reuse_permissions_verified"],0)
-        self.assertEqual(report["unapproved_roles"],55)
+        self.assertEqual(report["unapproved_roles"],60)
         self.assertFalse(report["automatic_social_posting"])
-        self.assertEqual(len({r["id"] for r in report["tasks"]}),55)
+        self.assertEqual(len({r["id"] for r in report["tasks"]}),60)
         self.assertEqual({r["role"] for r in report["tasks"]},{1,2,3,4,5})
-        self.assertEqual(len({r["guide_id"] for r in report["tasks"]}),11)
+        self.assertEqual(len({r["guide_id"] for r in report["tasks"]}),12)
         self.assertGreaterEqual(sum(r["priority"]=="alta" for r in report["tasks"]),15)
         for row in report["tasks"]:
             parts=urlsplit(row["submission_url"])
@@ -47,9 +47,9 @@ class PhotoWorkboardTests(unittest.TestCase):
             self.assertFalse(row["rights_verified"])
             self.assertEqual(row["source_type"],"original_ps5_capture")
         html=render(report)
-        self.assertEqual(html.count('data-pc-task='),55)
-        self.assertEqual(html.count('data-pc-guide='),11)
-        self.assertIn("non 55 immagini certamente assenti",html)
+        self.assertEqual(html.count('data-pc-task='),60)
+        self.assertEqual(html.count('data-pc-guide='),12)
+        self.assertIn("non 60 immagini certamente assenti",html)
         self.assertNotIn('<input type="file"',html)
         self.assertNotIn('<img',html)
         self.assertIn('data-pc-filter',html)
@@ -71,16 +71,16 @@ class PhotoWorkboardTests(unittest.TestCase):
         if not page.exists():
             self.skipTest("Production site not generated yet")
         source=page.read_text(encoding="utf-8")
-        self.assertEqual(source.count('data-pc-task='),55)
+        self.assertEqual(source.count('data-pc-task='),60)
         self.assertIn('rel="canonical" href="'+BASE+PATH+'"',source)
         self.assertIn("photo-coverage-v5.css?v=",source)
         self.assertIn("photo-coverage-v5.js?v=",source)
         obj=json.loads(report.read_text(encoding="utf-8"))
-        self.assertEqual(obj["total_requests"],55)
+        self.assertEqual(obj["total_requests"],60)
         self.assertIn(BASE+PATH,(ROOT/"sitemap.xml").read_text(encoding="utf-8"))
-        self.assertEqual(json.loads(json_report(obj))["unapproved_roles"],55)
+        self.assertEqual(json.loads(json_report(obj))["unapproved_roles"],60)
         intake=(ROOT/"screenshot-ps5/invia/index.html").read_text(encoding="utf-8")
-        self.assertEqual(intake.count('data-photo-guide='),55)
+        self.assertEqual(intake.count('data-photo-guide='),60)
         js=Path("site/assets/photo-intake-v4.js").read_text(encoding="utf-8")
         self.assertIn('params.get("guida")',js)
         self.assertIn('params.get("passo")',js)

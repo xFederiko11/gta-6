@@ -63,15 +63,15 @@ def e(value): return escape(str(value),quote=True)
 def article_paths(guides,trophies):
     g={x["canonical_path"]:x["id"] for x in guides}
     t={"trofei/"+x["slug"]+"/" for x in trophies}
-    if len(g)!=11 or len(t)!=55 or any(not SAFE_PATH.fullmatch(k) for k in [*g,*t]):
-        raise ValueError("Exactly 11 guides and 55 trophy routes required")
+    if len(g)!=12 or len(t)!=55 or any(not SAFE_PATH.fullmatch(k) for k in [*g,*t]):
+        raise ValueError("Exactly 12 guides and 55 trophy routes required")
     if set(g)&t: raise ValueError("Guide/trophy canonical overlap")
     return g,t
 
 
 def validate(guides,trophies,locations,collectibles):
     g,t=article_paths(guides,trophies)
-    if set(g.values())!=set(locations.get("guides",{})) or len(locations["guides"])!=11:
+    if set(g.values())!=set(locations.get("guides",{})) or len(locations["guides"])!=12:
         raise ValueError("No invented/missing guide location data")
     count=0
     for path,ident in g.items():
@@ -83,8 +83,8 @@ def validate(guides,trophies,locations,collectibles):
             if point.get("precision")=="no-fixed-location" and point.get("kind")=="map-category":
                 raise ValueError("Cannot promise a marker for an abstract mechanic")
             count+=1
-    if count!=18:
-        raise ValueError("Expected exactly 18 existing verified text/map references")
+    if count!=19:
+        raise ValueError("Expected exactly 19 verified text/map references")
     points=collectibles.get("points",[])
     if len(points)!=157 or len({x["id"] for x in points})!=157:
         raise ValueError("Current catalog 157 must have unique IDs")

@@ -58,12 +58,12 @@ class CommunityPhotoHubTests(unittest.TestCase):
         body,report=render(guides,requests,media,extras,lambda key:key if key in available else None)
         self.assertEqual(report["schema"],"gta6-community-photo-requests-v1")
         self.assertEqual(report["guides"],len(guides))
-        self.assertEqual(len(guides),11)
+        self.assertEqual(len(guides),12)
         self.assertEqual(report["photo_role_examples"],len(guides)*5)
-        self.assertEqual(len(report["entries"]),11)
-        self.assertEqual(body.count('data-photo-guide='),11)
-        self.assertEqual(body.count('data-visual-request-photo='),55)
-        self.assertEqual(body.count('<details class="v-photo-hub-details">'),11)
+        self.assertEqual(len(report["entries"]),12)
+        self.assertEqual(body.count('data-photo-guide='),12)
+        self.assertEqual(body.count('data-visual-request-photo='),60)
+        self.assertEqual(body.count('<details class="v-photo-hub-details">'),12)
         self.assertNotIn("<iframe",body)
         self.assertNotIn('type="file"',body)
         self.assertNotIn("github.com/xFederiko11/gta-6/issues/",body)
@@ -82,7 +82,7 @@ class CommunityPhotoHubTests(unittest.TestCase):
         all_available=set(media)
         body2,r2=render(guides,requests,media,extras,
                         lambda key:key if key in all_available else None)
-        self.assertEqual(r2["photo_role_examples"],55)
+        self.assertEqual(r2["photo_role_examples"],60)
         self.assertGreaterEqual(r2["gameplay_screenshots_counted_across_guides"],
                                 report["gameplay_screenshots_counted_across_guides"])
         self.assertNotIn('data-visual-kind="promotional"',body2)
@@ -103,8 +103,8 @@ class CommunityPhotoHubTests(unittest.TestCase):
         self.assertEqual(sum(tag=="h1" for tag,_ in tags.tags),1)
         self.assertIn('<link rel="canonical" href="'+BASE+'screenshot-ps5/"',html)
         self.assertIn('class="v-photo-hub-stats"',html)
-        self.assertEqual(html.count('data-photo-guide='),11)
-        self.assertEqual(html.count('data-visual-request-photo='),55)
+        self.assertEqual(html.count('data-photo-guide='),12)
+        self.assertEqual(html.count('data-visual-request-photo='),60)
         self.assertIn("Prepara su X",html)
         self.assertIn("Non",html)
         self.assertIn("consenso esplicito",html)
@@ -120,14 +120,14 @@ class CommunityPhotoHubTests(unittest.TestCase):
         media_report=json.loads((ROOT/"media-quality.json").read_text(encoding="utf-8"))
         self.assertEqual(media_report["guides_checked"],audit["guides"])
         self.assertEqual(audit["guides_at_target"],media_report["ready"])
-        self.assertEqual(audit["photo_role_examples"],55)
+        self.assertEqual(audit["photo_role_examples"],60)
         by_path={r["path"]:r for r in media_report["pages"]}
         for entry in audit["entries"]:
             key=entry["path"]+"index.html"
             self.assertEqual(entry["screenshot_count"],by_path[key]["real_step_screenshots"])
         # Analytics is present only when the actual build opted into it.
         if 'id="growth-analytics-v1"' in html:
-            self.assertEqual(html.count('data-umami-event="x-screenshot-intent"'),55)
+            self.assertEqual(html.count('data-umami-event="x-screenshot-intent"'),60)
         else:
             self.assertNotIn('data-umami-event=',html)
 

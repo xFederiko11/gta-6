@@ -1,4 +1,4 @@
-"""11 compact guide headers: when, where and concrete result.
+"""12 compact guide headers: when, where and concrete result.
 
 Editorial navigation only: never rewrite source mission steps or suppress
 missable/trophy/save warnings; no image sources or outside embeds here.
@@ -10,8 +10,8 @@ SCHEMA="gta6-operational-guide-briefs-v1"
 
 def validate(data,guides):
     by={g["id"]:g for g in guides}
-    if data.get("schema")!=SCHEMA or len(by)!=11 or set(data.get("guides",{}))!=set(by):
-        raise ValueError("Operational briefs must cover exactly the 11 real guides")
+    if data.get("schema")!=SCHEMA or len(by)!=12 or set(data.get("guides",{}))!=set(by):
+        raise ValueError("Operational briefs must cover exactly the 12 real guides")
     for ident,row in data["guides"].items():
         if set(row)!={"when","where","goal"}:
             raise ValueError("Only three compact, checked fields per guide")

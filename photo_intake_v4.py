@@ -29,7 +29,7 @@ def validate_approved(registry,guides,requests):
         raise ValueError("Unknown approved screenshot manifest")
     known={g["id"] for g in guides}
     by_guide={g["id"]:g for g in guides}
-    if known!=set(requests) or len(known)!=11:
+    if known!=set(requests) or len(known)!=12:
         raise ValueError("Every guide must have a five-role screenshot request")
     records=registry.get("photos",[])
     if not isinstance(records,list):

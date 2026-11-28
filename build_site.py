@@ -140,13 +140,14 @@ def category_card(title, desc, href, tag, icon):
 
 def guide_card(g):
     icon={"Collezionabili":"🔎","Platino":"🏆","Trofei":"🥇","Movimento":"🚕"}.get(g["tag"],"🎮")
+    image_markup=(f'<img src="{e(g["image"])}" loading="lazy" decoding="async" width="640" height="360" '
+        'alt="" onload="this.classList.add(\'media-loaded\')" '
+        'onerror="this.remove()"></span>') if g.get("image") else '</span>'
     return (f'<article class="card guide-index-card"><a class="card-link guide-index-link" '
         f'href="{url(guide_path(g))}">'
         '<span class="guide-tile-media" aria-hidden="true">'
         f'<span class="guide-tile-fallback"><b>{icon}</b><small>GTA VI · PS5</small></span>'
-        f'<img src="{e(g["image"])}" loading="lazy" decoding="async" width="640" height="360" '
-        'alt="" onload="this.classList.add(\'media-loaded\')" '
-        'onerror="this.remove()"></span>'
+        +image_markup+
         f'<span class="card-label">🎮 {e(g["tag"])}</span>'
         f'<h3>{e(g["title"])}</h3><p>{e(g["summary"])}</p>'
         f'<span class="end">{len(g["steps"])} passaggi · Apri la guida ↗</span></a></article>')
@@ -408,16 +409,19 @@ def guide_detail(g, tro):
         f'<span class="guide-step-text">{e(step)}</span></label></li>'
         for n,step in enumerate(g["steps"],1))
     related_html=(f'<a href="{url(trophy_path(related))}">🏆 Trofeo collegato: {e(related["name_it"])}</a>' if related else "")
-    # Editorial images are linked to existing official promotional material, not copied from PowerPyx.
-    photo=f'''<figure class="figure guide-photo"><div class="guide-media-wrap">
-    <div class="guide-media-fallback" role="img" aria-label="Immagine illustrativa non disponibile">
-    <span aria-hidden="true">🎮</span><strong>GTA VI · Guida PS5</strong>
-    <small>Immagine promozionale non disponibile</small></div>
-    <img class="media" loading="lazy" decoding="async" src="{e(g["image"])}"
-    alt="Immagine promozionale ufficiale GTA VI, solo illustrativa"
-    onload="this.classList.add('media-loaded')"
-    onerror="this.remove();this.parentElement.classList.add('media-unavailable')"></div>
-    <figcaption>Immagine promozionale di Rockstar Games, illustrativa e non specifica della procedura. Diritti dei rispettivi titolari.</figcaption></figure>'''
+    # Leave the media slot empty when no image has channel-specific approval.
+    if g.get("image"):
+        photo=f'''<figure class="figure guide-photo"><div class="guide-media-wrap">
+        <div class="guide-media-fallback" role="img" aria-label="Immagine illustrativa non disponibile">
+        <span aria-hidden="true">🎮</span><strong>GTA VI · Guida PS5</strong>
+        <small>Immagine promozionale non disponibile</small></div>
+        <img class="media" loading="lazy" decoding="async" src="{e(g["image"])}"
+        alt="Immagine promozionale ufficiale GTA VI, solo illustrativa"
+        onload="this.classList.add('media-loaded')"
+        onerror="this.remove();this.parentElement.classList.add('media-unavailable')"></div>
+        <figcaption>Immagine promozionale di Rockstar Games, illustrativa e non specifica della procedura. Diritti dei rispettivi titolari.</figcaption></figure>'''
+    else:
+        photo=""
     theme=g["tag"]
     guide_source = "Insider Gaming" if "insider-gaming.com" in g["source_url"] else "PowerPyx"
     spoiler_guard = g["tag"] == "Soldi"

@@ -212,6 +212,35 @@
       "extra_sources": [
         "https://www.powerpyx.com/gta-6-100-completion-checklist-guide/"
       ]
+    },
+    {
+      "id": "jack-of-hearts-36-cards",
+      "title": "GTA 6: guida alle 36 carte Jack of Hearts",
+      "tag": "Collezionabili",
+      "summary": "Le 36 carte Jack of Hearts in cinque contee: numero del menu, landmark e indizio sintetico per ogni tappa. L’ordine segue la fonte, non un GPS misurato.",
+      "steps": [
+        "Apri Progressi → Collezioni → Carte collezionabili e annota il numero che manca nel set Jack of Hearts.",
+        "Segui le cinque sezioni geografiche nell’ordine della fonte. Il numero nel menu non coincide con l’ordine delle tappe.",
+        "Per ogni carta usa il landmark e l’indizio riportati nella lista qui sotto; apri l’atlante al checkpoint corrispondente se vuoi la vista regionale.",
+        "Raggiungi le isole con barca o idrovolante soltanto dove la fonte lo indica. Per gli altri luoghi usa l’accesso descritto nella singola tappa.",
+        "Dopo la raccolta ricontrolla la scheda Jack of Hearts in Progressi → Collezioni. PowerPyx indica 15 set completi su 18 per il 100%."
+      ],
+      "benefit": "La lista riunisce nello stesso articolo tutti i 36 numeri del menu e i relativi landmark descritti dalla fonte.",
+      "caution": "Il capitolo minimo e i prerequisiti complessivi non sono specificati dalla fonte: non considerarli verificati. Le tappe derivano da PowerPyx e non sono test PS5 del nostro team; i gruppi sono descrittivi, senza coordinate GPS o tempi di percorrenza. La guida video usa capitoli pubblici non controllati indipendentemente. “Malena (Rosso)” e “Malena - Deep Red” non sono confermati come la stessa carta.",
+      "source_url": "https://www.powerpyx.com/gta-6-jack-of-hearts-dancers-collectible-card-set-locations/",
+      "extra_sources": [
+        "https://www.youtube.com/watch?v=LTbw8B0DQHA"
+      ],
+      "related_trophy": null,
+      "checks": [
+        "Il menu mostra il set Jack of Hearts e il numero che manca.",
+        "Hai mantenuto separati numero della carta e ordine del percorso.",
+        "La tappa scelta corrisponde al landmark descritto; l’atlante non aggiunge coordinate precise.",
+        "Hai preparato un mezzo marino solo per le tappe che lo richiedono.",
+        "Il contatore del menu si aggiorna e la scheda del set riflette i progressi."
+      ],
+      "spoiler": true,
+      "published": "2026-11-28"
     }
   ]
 }

@@ -134,7 +134,7 @@ class ConsentPhotoTests(unittest.TestCase):
         self.assertEqual(approved_count(registry,guides[0]["id"]),0)
         self.assertEqual(render_approved_for_guide(guides[0],registry),"")
         html=render_intake(guides,requests,registry)
-        self.assertEqual(html.count('data-guide-link='),11)
+        self.assertEqual(html.count('data-guide-link='),12)
         self.assertEqual(html.count('data-photo-guide='),55)
         self.assertIn('data-photo-intake',html)
         self.assertIn('data-pi-owner',html)
