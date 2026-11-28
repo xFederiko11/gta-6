@@ -63,7 +63,7 @@ html{scroll-padding-top:100px}body{background:#fcf8fc;color:#201735;font:17px/1.
 @media(min-width:761px) and (max-width:1150px){
  .v-header-inner{justify-content:space-between}
  .v-nav{display:none}
- .v-menu{display:block;position:relative;border:1px solid #685674;border-radius:8px;color:white}
+ .v-menu{display:block;position:relative;border:1px solid #685674;border-radius:8px;color:white;background:transparent}
  .v-menu summary{padding:7px 11px;list-style:none;font-size:.79rem}
  .v-menu nav{position:absolute;right:0;top:100%;width:min(80vw,310px);display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:14px;background:#241631;border:1px solid #775e87;border-radius:10px;box-shadow:0 15px 30px #10081730}
  .v-menu nav a{color:white;text-decoration:none;padding:8px;font-size:.84rem}
