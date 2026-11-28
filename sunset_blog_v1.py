@@ -267,6 +267,24 @@ def verify(root=ROOT):
     magazine_article.verify(root)
     print("SUNSET_BLOG_STATIC_OK",len(paths),"complete tutorials")
 
+def prepare_full_capture(page):
+    """Warm visible first-party lazy photos for QA only; never load external embeds."""
+    visible_images = """() => [...document.images].filter(img => {
+        const r = img.getBoundingClientRect();
+        return r.width > 0 && r.height > 0 &&
+            getComputedStyle(img).visibility !== 'hidden' &&
+            img.getAttribute('src') &&
+            new URL(img.src, location.href).origin === location.origin;
+    })"""
+    count = page.evaluate(f"() => {{const imgs=({visible_images})(); "
+                          "imgs.forEach(img=>img.loading='eager');return imgs.length;}")
+    page.wait_for_function(f"() => ({visible_images})().every(img=>img.complete && img.naturalWidth>0)",
+                           timeout=15000)
+    page.evaluate("window.scrollTo({top:0,behavior:'instant'})")
+    page.wait_for_function("window.scrollY===0")
+    print("MAGAZINE_CAPTURE_LOCAL_IMAGES_OK", count, flush=True)
+
+
 def browser(root=ROOT):
     from playwright.sync_api import sync_playwright
     directory=root.resolve()
@@ -294,7 +312,7 @@ def browser(root=ROOT):
     try:
         with sync_playwright() as pw:
             b=pw.chromium.launch()
-            for width in (390,1440):
+            for width in (390,768,1440):
                 context=b.new_context(viewport={"width":width,"height":900},reduced_motion="reduce")
                 remote=[];widget_requests=[]
                 def route(request):
@@ -412,8 +430,10 @@ def browser(root=ROOT):
                                     page.evaluate('window.scrollTo(0,0)')
                         if path in ("",EXAMPLE):
                             page.screenshot(path=str(shots/("sunset-"+("home" if not path else "money")+"-"+str(width)+"-"+theme+".png")),full_page=False)
-                            if theme=="dark":
-                                page.screenshot(path=str(shots/("magazine-full-"+("home" if not path else "article")+"-"+str(width)+".png")),full_page=True)
+                            prepare_full_capture(page)
+                            suffix = "" if theme=="dark" else "-light"
+                            page.screenshot(path=str(shots/("magazine-full-"+("home" if not path else "article")+"-"+str(width)+suffix+".png")),
+                                            full_page=True,animations="disabled")
                     if path==EXAMPLE:
                         print("MAGAZINE_ARTICLE_BROWSER_OK",width)
                     page.locator(".sb-x-panel").scroll_into_view_if_needed()
