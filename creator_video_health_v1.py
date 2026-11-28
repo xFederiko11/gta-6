@@ -27,6 +27,8 @@ AUTHORS = {
     "waink-tutorial": {WAINK_CREATOR.casefold()},
     "meditazione-capitolo-1": {"maka91productions"},
     "southside-powerpyx-video": {"powerpyx"},
+    "key-cloner-perfect-score": {"perfect score"},
+    "jack-of-hearts-gta-series": {"gta series videos"},
 }
 
 

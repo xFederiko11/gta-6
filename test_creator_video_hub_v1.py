@@ -21,13 +21,13 @@ class Tags(HTMLParser):
 
 
 class CreatorVideoHubTests(unittest.TestCase):
-    def test_curation_links_to_seven_distinct_source_videos(self):
+    def test_curation_links_to_nine_distinct_source_videos(self):
         items=records(load())
-        self.assertEqual(len(items),7)
-        self.assertEqual(len({x["video_id"] for x in items}),7)
+        self.assertEqual(len(items),9)
+        self.assertEqual(len({x["video_id"] for x in items}),9)
         self.assertEqual({x["category"] for x in items},set(KINDS))
         self.assertEqual({x["creator"] for x in items},
-                         {"TGG","IGN","PowerPyx","Games & Apps Tutorials","Maka91Productions","oneboyler (procedura attribuita a Kackalack dalla community)"})
+                         {"TGG","IGN","PowerPyx","Games & Apps Tutorials","Maka91Productions","oneboyler (procedura attribuita a Kackalack dalla community)","Perfect Score","GTA Series Videos"})
         self.assertEqual({x["key"] for x in items},{x[0] for x in CURATED})
         for item in items:
             self.assertTrue(item["source"].startswith("https://"))
@@ -44,6 +44,15 @@ class CreatorVideoHubTests(unittest.TestCase):
         self.assertEqual(len(med["chapters"]),10)
         self.assertTrue(all(x["spoiler"] for x in (south,med)))
         self.assertTrue(moses["spoiler"])
+        cloner=next(x for x in items if x["key"]=="key-cloner-perfect-score")
+        self.assertEqual(cloner["video_id"],"9yBG8atjQs0")
+        self.assertEqual(cloner["guide_path"],"guide-e-tutorial/key-cloner/")
+        self.assertEqual([x["at"] for x in cloner["chapters"]],[0])
+        cards=next(x for x in items if x["key"]=="jack-of-hearts-gta-series")
+        self.assertEqual(cards["video_id"],"LTbw8B0DQHA")
+        self.assertEqual([x["at"] for x in cards["chapters"]],[577,1183])
+        self.assertIn("non è confermata equivalente",cards["provenance"])
+        self.assertTrue(cloner["spoiler"] and cards["spoiler"])
         self.assertTrue(next(x for x in items if x["key"]=="prima-persona-glitch-ps5")["category"]=="extra")
 
     def test_untrusted_or_duplicate_reference_is_not_published(self):
@@ -63,10 +72,10 @@ class CreatorVideoHubTests(unittest.TestCase):
 
     def test_render_has_provider_fallback_but_no_preloaded_embed(self):
         html=render(records(load()))
-        self.assertEqual(html.count('class="cv-card"'),7)
-        self.assertEqual(html.count('class="cv-chapter"'),28)
-        self.assertEqual(html.count('class="cv-load"'),7)
-        self.assertEqual(html.count('data-cv-slot'),7)
+        self.assertEqual(html.count('class="cv-card"'),9)
+        self.assertEqual(html.count('class="cv-chapter"'),31)
+        self.assertEqual(html.count('class="cv-load"'),9)
+        self.assertEqual(html.count('data-cv-slot'),9)
         self.assertNotIn("<iframe",html)
         self.assertNotIn('i.ytimg.com',html)
         self.assertNotIn('youtube-nocookie.com/embed',html)
@@ -90,14 +99,15 @@ class CreatorVideoHubTests(unittest.TestCase):
         self.assertIn('creator-video-hub-v1.css?v=',html)
         self.assertIn('creator-video-hub-v1.js?v=',html)
         self.assertIn('"CollectionPage"',html)
-        self.assertIn('"numberOfItems":7',html)
-        self.assertEqual(html.count('class="cv-card"'),7)
+        self.assertIn('"numberOfItems":9',html)
+        self.assertEqual(html.count('class="cv-card"'),9)
         self.assertNotIn('<iframe',html)
         self.assertNotIn('data-x-timeline-load',html)
         self.assertIn('reader-theme-boot',html)
         self.assertIn(BASE+PATH,(ROOT/"sitemap.xml").read_text(encoding="utf-8"))
         home=(ROOT/"index.html").read_text(encoding="utf-8")
         self.assertIn('video-tutorial/',home)
+        self.assertIn('Tutti i 9 video tutorial',home)
         for key in ("southside-powerpyx-video","waink-tutorial","meditazione-capitolo-1"):
             self.assertIn('video-tutorial/#video-'+key,home)
         self.assertLess(home.index('id="cv-home-title"'),home.index('id="ultimi-articoli"'))

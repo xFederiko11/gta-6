@@ -34,7 +34,7 @@ from platinum_roadmap_v1 import render as render_platinum_roadmap, ROADMAP_PATH
 from guide_step_references_v1 import render as render_step_evidence, validate as validate_step_evidence
 from step_image_sources_v1 import load as load_step_photo_sources, validate as validate_step_photo_sources, render as render_step_photo_source
 from first_car_steps_v1 import validate as validate_first_car, render as render_first_car
-from creator_video_hub_v1 import load as load_creator_videos, records as reviewed_creator_videos, render as render_creator_videos, PATH as CREATOR_VIDEO_PATH
+from creator_video_hub_v1 import load as load_creator_videos, records as reviewed_creator_videos, render as render_creator_videos, PATH as CREATOR_VIDEO_PATH, CURATED as CREATOR_VIDEO_SELECTION
 from chapter1_money_steps_v1 import validate as validate_money, render as render_money
 from rockstar_gallery_v1 import render as render_rockstar_gallery, validate as validate_rockstar_gallery, PATH as ROCKSTAR_GALLERY_PATH
 from vehicle_catalog_v1 import (load as load_vehicle_catalog, validate as validate_vehicles,
@@ -456,12 +456,12 @@ def home(guides):
     video_links=(
         '<section class="cv-home-link" aria-labelledby="cv-home-title">'
         '<h2 id="cv-home-title">Video tutorial originali</h2>'
-        '<p>Sette video con guide italiane e minuti utili. Apri il player del creator soltanto quando ti serve.</p>'
+        '<p>'+str(len(CREATOR_VIDEO_SELECTION))+' video con guide italiane e riferimenti utili. Apri il player del creator soltanto quando ti serve.</p>'
         '<div class="cv-home-shortcuts">'
         '<a href="'+url(CREATOR_VIDEO_PATH)+'#video-southside-powerpyx-video"><strong>Garage Southside</strong><small>5 murales e ricompensa · PowerPyx</small></a>'
         '<a href="'+url(CREATOR_VIDEO_PATH)+'#video-waink-tutorial"><strong>Scansione WAiNK</strong><small>Video dello scanner veicoli</small></a>'
         '<a href="'+url(CREATOR_VIDEO_PATH)+'#video-meditazione-capitolo-1"><strong>Le 10 meditazioni</strong><small>Luoghi · Maka91Productions</small></a>'
-        '</div><a href="'+url(CREATOR_VIDEO_PATH)+'">Tutti i 7 video tutorial →</a></section>')
+        '</div><a href="'+url(CREATOR_VIDEO_PATH)+'">Tutti i '+str(len(CREATOR_VIDEO_SELECTION))+' video tutorial →</a></section>')
     return cinematic_site.home(guides,url).replace('<nav class="focus-choice-grid" aria-label="Scegli cosa cercare">','<nav class="focus-choice-grid" data-magazine-photo-nav aria-label="Scegli cosa cercare">',1).replace('<p class="ci-credit">Immagini promozionali Rockstar Games, usate per illustrare i percorsi.</p></section>','<p class="ci-credit">Immagini promozionali Rockstar Games, usate per illustrare i percorsi.</p>'+video_links+chronology.render(url)+'</section>',1)
 
 
@@ -1064,8 +1064,8 @@ def main():
     # with Italian article and exact sourced chapters. No copied footage.
     creator_items=reviewed_creator_videos(load_creator_videos())
     creator_title='Video tutorial GTA VI: creator e guide italiane PS5'
-    creator_desc=('Video tutorial GTA VI per auto, garage, murales 1010, WAiNK, meditazioni e soldi. '
-                  'Sette filmati originali con minuti utili, fonti e guide italiane.')
+    creator_desc=('Video tutorial GTA VI per auto, Key Cloner, garage, murales 1010, carte Jack of Hearts, WAiNK, meditazioni e soldi. '
+                  +str(len(creator_items))+' filmati originali con fonti, guide italiane e riferimenti disponibili.')
     creator_schema={'@context':'https://schema.org','@type':'CollectionPage',
                     'name':creator_title,'description':creator_desc,
                     'url':url(CREATOR_VIDEO_PATH),'inLanguage':'it-IT',

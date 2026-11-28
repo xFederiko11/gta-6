@@ -332,8 +332,10 @@ jobs:
                       assert 'class="v-x-link"' in text and 'https://x.com/xFederiko11' in text
                       assert 'data-spoiler-choice' not in text
                       if path=='video-tutorial/':
-                          assert text.count('class="cv-card"') == 7
-                          assert text.count('data-cv-video-id=') == 7
+                          assert text.count('class="cv-card"') == 9
+                          assert text.count('data-cv-video-id=') == 9
+                          assert 'data-cv-video-id="9yBG8atjQs0"' in text
+                          assert 'data-cv-video-id="LTbw8B0DQHA"' in text
                           assert 'creator-video-hub-v1.js?v=' in text
                           assert 'creator-video-hub-v1.css?v=' in text
                           assert 'youtube-nocookie.com/embed/' not in text
