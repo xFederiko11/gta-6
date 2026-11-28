@@ -280,9 +280,41 @@ def prepare_full_capture(page):
                           "imgs.forEach(img=>img.loading='eager');return imgs.length;}")
     page.wait_for_function(f"() => ({visible_images})().every(img=>img.complete && img.naturalWidth>0)",
                            timeout=15000)
+    # The first full-page capture can still have unpainted offscreen image
+    # tiles despite naturalWidth>0. Visit each local image in document order,
+    # decode it and allow the browser to paint before returning to the top.
+    page.evaluate(f"""async () => {{
+        for (const img of ({visible_images})()) {{
+            img.scrollIntoView({{block:'center',behavior:'instant'}});
+            await img.decode();
+            await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+        }}
+    }}""")
     page.evaluate("window.scrollTo({top:0,behavior:'instant'})")
     page.wait_for_function("window.scrollY===0")
+    page.evaluate("new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))")
     print("MAGAZINE_CAPTURE_LOCAL_IMAGES_OK", count, flush=True)
+
+
+def validate_painted_home_photos(page, png):
+    """Check pixels, not just decoded dimensions, on the four lower editorial photos."""
+    from io import BytesIO
+    from PIL import Image, ImageStat
+    regions = page.locator(".ci-feature-art > img, .ci-guide-image img").evaluate_all(
+        """imgs=>imgs.map(img=>{
+            const r=img.getBoundingClientRect();
+            return [r.left+scrollX,r.top+scrollY,r.width,r.height];
+        })""")
+    assert len(regions)==4, regions
+    with Image.open(BytesIO(png)) as image:
+        for x,y,w,h in regions:
+            # Exclude borders and attribution text. The actual photo must
+            # produce variation in a central, unlabelled region.
+            box=(int(x+w*.15),int(y+h*.15),int(x+w*.85),int(y+h*.75))
+            assert w>0 and h>0 and box[0]>=0 and box[1]>=0 and box[2]<=image.width and box[3]<=image.height,box
+            variation=max(ImageStat.Stat(image.crop(box).convert("RGB")).stddev)
+            assert variation>8,("unpainted home photo",box,variation)
+    print("MAGAZINE_PAINTED_HOME_PHOTOS_OK",len(regions),flush=True)
 
 
 def browser(root=ROOT):
@@ -432,8 +464,10 @@ def browser(root=ROOT):
                             page.screenshot(path=str(shots/("sunset-"+("home" if not path else "money")+"-"+str(width)+"-"+theme+".png")),full_page=False)
                             prepare_full_capture(page)
                             suffix = "" if theme=="dark" else "-light"
-                            page.screenshot(path=str(shots/("magazine-full-"+("home" if not path else "article")+"-"+str(width)+suffix+".png")),
+                            png=page.screenshot(path=str(shots/("magazine-full-"+("home" if not path else "article")+"-"+str(width)+suffix+".png")),
                                             full_page=True,animations="disabled")
+                            if not path:
+                                validate_painted_home_photos(page,png)
                     if path==EXAMPLE:
                         print("MAGAZINE_ARTICLE_BROWSER_OK",width)
                     page.locator(".sb-x-panel").scroll_into_view_if_needed()
