@@ -24,7 +24,7 @@ def fixture():
 
 
 class EmbedMapTests(unittest.TestCase):
-    def test_11_guides_55_trophies_123_checkpoints_counted_without_fake_pins(self):
+    def test_11_guides_55_trophies_157_checkpoints_counted_without_fake_pins(self):
         guides,trophies,loc,points,med=fixture()
         report=validate(guides,trophies,loc,points)
         self.assertEqual(report["schema"],SCHEMA)
@@ -34,7 +34,7 @@ class EmbedMapTests(unittest.TestCase):
         self.assertEqual(report["articles_with_map"],69)
         self.assertEqual(report["pages_with_interactive_map"],71)
         self.assertEqual(report["guide_location_descriptions"],18)
-        self.assertEqual(report["collectible_descriptions"],123)
+        self.assertEqual(report["collectible_descriptions"],157)
         self.assertEqual(report["exact_gameplay_coordinate_pairs_verified"],0)
         self.assertFalse(report["external_maps_loaded_automatically"])
         self.assertFalse(report["named_place_search_is_exact_pin"])
@@ -149,9 +149,9 @@ class EmbedMapTests(unittest.TestCase):
         self.assertEqual(south.count('data-youtube-id="mu_VCQKeXvM"'),6)
         self.assertIn("interactive-map-v1.js?v=",south)
         collect=(ROOT/"collezionabili/percorsi/index.html").read_text(encoding="utf-8")
-        self.assertEqual(collect.count('data-vim-map-search='),123)
+        self.assertEqual(collect.count('data-vim-map-search='),157)
         self.assertIn("Kenton",collect)
-        self.assertIn("123 checkpoint",collect)
+        self.assertIn("157 checkpoint",collect)
         guide=(ROOT/"guide-e-tutorial/soldi-facili-capitolo-1/index.html").read_text(encoding="utf-8")
         self.assertIn("Cerca nome nella mappa",guide)
         self.assertIn("data-vim-map-search",guide)

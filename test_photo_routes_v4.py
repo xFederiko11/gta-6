@@ -26,13 +26,32 @@ def data():
 
 
 class RegionalRouteTests(unittest.TestCase):
-    def test_exactly_123_sourced_waypoints_and_caveats(self):
+    def test_jack_collection_is_complete_and_menu_numbers_are_not_route_order(self):
+        routes,*_=data()
+        jack=[p for p in routes["points"] if p.get("card_set")=="jack-of-hearts"]
+        self.assertEqual(len(jack),36)
+        self.assertEqual({p["card_number"] for p in jack},set(range(1,37)))
+        self.assertEqual({p["source_order"] for p in jack},set(range(1,37)))
+        old=next(p for p in jack if p["id"]=="pt-12")
+        self.assertEqual((old["card_number"],old["source_order"]),(3,11))
+        for field in ("card_number","source_order"):
+            invalid=deepcopy(routes)
+            invalid["points"][-1][field]=invalid["points"][-2][field]
+            with self.assertRaises(ValueError):validate_routes(invalid)
+        invalid=deepcopy(routes);invalid["points"][-1]["card_number"]=True
+        with self.assertRaises(ValueError):validate_routes(invalid)
+        html=render_routes(routes)
+        self.assertEqual(html.count('data-cr-set="jack-of-hearts"'),36)
+        self.assertIn('data-cr-jack aria-pressed="false" hidden',html)
+        self.assertIn('Card 3 nel menu',html)
+
+    def test_exactly_157_sourced_waypoints_and_caveats(self):
         routes,*_=data()
         self.assertTrue(validate_routes(routes))
         points=routes["points"]
-        self.assertEqual(len(points),123)
+        self.assertEqual(len(points),157)
         self.assertEqual(len(routes["regions"]),7)
-        self.assertEqual(sum(p["type"]=="cards" for p in points),23)
+        self.assertEqual(sum(p["type"]=="cards" for p in points),57)
         self.assertEqual(sum(p["type"]=="playlist" for p in points),5)
         self.assertEqual(sum(p["type"]=="waink" for p in points),38)
         self.assertEqual(sum(p["type"]=="underwater" for p in points),6)
@@ -47,8 +66,8 @@ class RegionalRouteTests(unittest.TestCase):
         self.assertEqual(routes["underwater"]["required"],33)
         self.assertEqual(routes["underwater"]["known_in_atlas"],6)
         markup=render_routes(routes)
-        self.assertEqual(markup.count('data-cr-step='),123)
-        self.assertEqual(markup.count('data-cr-done='),123)
+        self.assertEqual(markup.count('data-cr-step='),157)
+        self.assertEqual(markup.count('data-cr-done='),157)
         self.assertEqual(markup.count('data-cr-region='),7)
         self.assertEqual(markup.count('data-cr-filter='),10)
         self.assertIn('id="cr-kelly"',markup)
@@ -59,11 +78,11 @@ class RegionalRouteTests(unittest.TestCase):
         self.assertIn("30 su 34",markup)
         self.assertIn("Belpoint Strait",markup)
         self.assertIn("Bobcat Dive Site",markup)
-        self.assertEqual(markup.count('data-cr-photo-intent='),123)
+        self.assertEqual(markup.count('data-cr-photo-intent='),157)
         self.assertEqual(markup.count('class="cr-limited-copy"'),9)
         self.assertIn('data-cr-follow',markup)
         self.assertIn('target="_blank" rel="noopener noreferrer"',markup)
-        self.assertEqual(len({p["id"] for p in points}),123)
+        self.assertEqual(len({p["id"] for p in points}),157)
         for p in points:
             self.assertIn('id="cr-'+p["id"]+'"',markup)
         for p in points:
@@ -191,7 +210,7 @@ class ConsentPhotoTests(unittest.TestCase):
             self.skipTest("Production site is not generated")
         route=(ROOT/ROUTE_PATH/"index.html").read_text(encoding="utf-8")
         self.assertIn('<link rel="canonical" href="'+BASE+ROUTE_PATH+'"',route)
-        self.assertEqual(route.count('data-cr-step='),123)
+        self.assertEqual(route.count('data-cr-step='),157)
         self.assertEqual(route.count('data-cr-region='),7)
         self.assertIn('/assets/collectible-routes-v4.js?v=',route)
         self.assertIn('/assets/collectible-routes-v4.css?v=',route)

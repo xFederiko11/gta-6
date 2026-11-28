@@ -391,7 +391,7 @@ jobs:
                           assert text.count('data-cr-curated-link') == 10
                           assert 'https://gtamap.io/?m=jasons-safehouse' in text
                           assert 'https://gtamap.io/gta-6-map/starlet-motel/' in text
-                          assert text.count('data-cr-step=') == 123
+                          assert text.count('data-cr-step=') == 157
                           assert text.count('data-cr-region=') == 7
                           assert 'data-cr-done' in text and 'Vicki' in text and 'Victor Maravilla' in text
                           assert 'collectible-routes-v4.js?v=' in text
@@ -793,15 +793,18 @@ jobs:
               print('PUBLIC_BEGINNER_TROPHY_OK',base+trophy_path)
           collectibles=fetch('collezionabili/percorsi/')
           assert 'data-cr-wizard' not in collectibles
-          assert collectibles.count('data-cr-step=')==123
+          assert collectibles.count('data-cr-step=')==157
+          assert collectibles.count('data-cr-set="jack-of-hearts"')==36
+          assert 'data-cr-jack' in collectibles and 'Card 36 nel menu' in collectibles
+          print('PUBLIC_COMPLETE_JACK_CARD_SET_OK',base+'collezionabili/percorsi/')
           assert 'collectible-beginner-v1.js?v=' not in collectibles
           assert 'data-article-cover="shared-social"' in collectibles
           assert 'class="cr-priority-links"' in collectibles
           assert 'collectible-beginner-v1.css?v=' in collectibles
           assert 'collectible-photo-v1.css?v=' in collectibles
           assert collectibles.count('data-cr-photo-state="source-only"')==11
-          assert collectibles.count('class="cr-instruction-where"')==123
-          assert collectibles.count('class="cr-instruction-do"')==123
+          assert collectibles.count('class="cr-instruction-where"')==157
+          assert collectibles.count('class="cr-instruction-do"')==157
           assert 'Fonte: powerpyx.com' in collectibles
           assert collectibles.index('class="cr-priority-links"') < collectibles.index('class="cr-map-extra"')
           cbjs=fetch('assets/collectible-beginner-v1.js')

@@ -948,7 +948,7 @@ def main():
             title,description,path,legacy.crumbs([('Trofei','trofei/'),(title,path)])+body,
             'trofei',structured=schema))
     route_title='Collezionabili GTA 6: percorsi e mappe per regione PS5'
-    route_desc=('GTA VI: 123 checkpoint documentati in 7 aree, riviste e copie da controllare nei capitoli, WAiNK, 24 salti, '
+    route_desc=('GTA VI: 157 checkpoint documentati in 7 aree, riviste e copie da controllare nei capitoli, WAiNK, 24 salti, '
                 'carta mancabile del Capitolo 2 e checklist locale. Nessun pin inventato.')
     route_schema={'@context':'https://schema.org','@type':'CollectionPage',
                   'name':route_title,'description':route_desc,'url':url(COLLECTIBLE_ROUTE_PATH),
@@ -956,8 +956,8 @@ def main():
     legacy.write(COLLECTIBLE_ROUTE_PATH+'index.html',layout(
         route_title,route_desc,COLLECTIBLE_ROUTE_PATH,
         render_collectible_routes(COLLECTIBLE_ROUTES,EXTERNAL_MAP_REFS['items'],COLLECTIBLE_PHOTOS)+
-        '<details class="cr-map-extra"><summary>🗺️ Apri la mappa interattiva (facoltativa, NON indica 123 pin esatti)</summary>'+
-        render_interactive_map('I 123 checkpoint di Leonida',
+        '<details class="cr-map-extra"><summary>🗺️ Apri la mappa interattiva (facoltativa, NON indica 157 pin esatti)</summary>'+
+        render_interactive_map('I 157 checkpoint di Leonida',
            interactive_collectible_points(COLLECTIBLE_ROUTES),id_suffix='collectibles',
            page_label='raccolta',curated_refs=EXTERNAL_MAP_REFS['items'])+
         '</details>',
