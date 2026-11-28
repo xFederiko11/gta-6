@@ -120,7 +120,7 @@ def sidebar(path="",*,preview=False,guide=False,track=False):
           '<a href="#approfondimenti"'+tracking(track,"tutorial-jump","approfondimenti")+'>Approfondimenti e fonti <span aria-hidden="true">↓</span></a></nav></div>') if guide else ""
     return ('<aside class="sb-sidebar" aria-label="Categorie e aggiornamenti GTA VI Italia">'+search_panel()+popular_panel()+jump+
             '<div class="sb-panel"><p class="sb-kicker">ESPLORA LEONIDA</p><p class="sb-heading">Categorie</p>'
-            '<nav class="sb-categories" aria-label="Categorie del sito">'+categories+'</nav></div>'
+            '<nav class="sb-categories" aria-label="Categorie del sito">'+categories+'</nav><a class="sb-tag-directory" href="'+BASE+'articoli/tag/"'+tracking(track,"tag-directory-open","articoli/tag/")+'>Esplora tutti i tag →</a></div>'
             '<div class="sb-panel"><p class="sb-kicker">NON PERDERTELI</p><p class="sb-heading">Da tenere a portata di mano</p>'
             '<nav class="sb-important" aria-label="Guide importanti">'+important+'</nav></div>'
             '<div class="sb-panel sb-x-panel"><p class="sb-kicker">DALLA REDAZIONE</p><p class="sb-heading">𝕏 Ultimi post</p>'
@@ -360,6 +360,9 @@ def browser(root=ROOT):
                         assert field.evaluate("e=>e===document.activeElement")
                         assert quick.locator("[data-search-results]").is_hidden()
                         assert quick.locator("[data-search-status]").inner_text()=="Cerca per titolo, veicolo, missione o trofeo."
+                        field.fill("automobili")
+                        quick.locator('[data-search-results] a').first.wait_for(state="visible")
+                        assert "Nessun articolo" not in quick.locator('[data-search-status]').inner_text()
                         field.fill("zzzxxyy123")
                         page.wait_for_function("document.querySelector('[data-search-status]').textContent.includes('Nessun articolo')")
                         assert quick.locator("[data-search-results] a").count()==0

@@ -265,9 +265,11 @@ def browser_qa():
                         matches=page.locator('[data-chronology-path]:visible')
                         assert 1<=matches.count()<=25
                         assert page.locator('[data-chronology-path="garage-gratuiti/southside-storage/"]:visible').count()==1
-                        for result in matches.all():
-                            text=result.inner_text().lower()
-                            assert 'southside' in text and 'storage' in text,text
+                        # Search now also matches curated tag labels and aliases;
+                        # the known Southside article must remain among the results.
+                        page.locator('[data-chronology-search]').fill('automobili')
+                        assert 1<=page.locator('[data-chronology-path]:visible').count()<=25
+                        assert page.locator('[data-chronology-path][data-group="veicoli"]:visible').count()>0
                         page.locator('[data-chronology-search]').fill('nessunrisultatozzzz')
                         assert page.locator('[data-chronology-path]:visible').count()==0
                         assert 'Nessun articolo trovato' in page.locator('[data-chronology-count]').inner_text()
@@ -290,6 +292,42 @@ def browser_qa():
                         assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
                         page.goto(origin+'articoli/',wait_until='load')
                         print('MAGAZINE_ARCHIVE_BROWSER_OK',width,flush=True)
+                        page.locator('a.sb-tag-directory').click()
+                        assert page.url.endswith('/articoli/tag/')
+                        assert page.locator('[data-tag-directory]').count()==1
+                        page.locator('[data-tag-directory] a[href$="/articoli/tag/auto-e-veicoli/"]').click()
+                        page.locator('[data-tag-ready="true"]').wait_for(state="visible")
+                        total=page.locator('[data-tag-archive-card]').count()
+                        assert total>25,total
+                        visible=page.locator('[data-tag-archive-card]:visible')
+                        assert visible.count()==25,(width,total,visible.count(),page.locator('[data-tag-count]').inner_text())
+                        assert page.locator('[data-tag-archive-card][hidden]:visible').count()==0
+                        before=visible.first.get_attribute('data-chronology-path')
+                        page.locator('[data-tag-pager] button').filter(has_text='Avanti').click()
+                        assert visible.count()==min(25,total-25)
+                        assert visible.first.get_attribute('data-chronology-path')!=before
+                        page.locator('[data-tag-category]').select_option('veicoli')
+                        assert 0<visible.count()<=25
+                        assert visible.count()==page.locator('[data-tag-archive-card][data-group="veicoli"]:visible').count()
+                        assert page.locator('[data-tag-archive-card][hidden]:visible').count()==0
+                        page.locator('[data-tag-sort]').select_option('title')
+                        assert page.evaluate("""()=>{const t=[...document.querySelectorAll('[data-tag-archive-card]:not([hidden]) .archive-title')].map(e=>e.textContent);return t.every((s,i)=>i===0||t[i-1].localeCompare(s,'it')<=0)}""")
+                        for theme in ('light','dark'):
+                            page.locator('[data-theme-choice="'+theme+'"]').click()
+                            assert page.locator('html').get_attribute('data-theme')==theme
+                            check_layout(page,out,width,'articoli/tag/auto-e-veicoli/',theme)
+                            assert page.locator('[data-tag-archive-card]:visible').count()==min(25,page.locator('[data-tag-archive-card][data-group="veicoli"]').count())
+                        page.screenshot(path=str(out/('magazine-tags-'+str(width)+'.png')),full_page=True)
+                        page.goto(origin+'articoli/tag/glitch/')
+                        assert page.locator('[data-tag-archive-card]').count()==1
+                        assert page.locator('[data-tag-archive-card][data-group="glitch"]').count()==1
+                        page.goto(origin+'articoli/tag/codici-ps5/')
+                        assert page.locator('[data-tag-archive-card]').count()>0
+                        assert page.locator('[data-tag-archive-card]:not([data-group="trucchi"])').count()==0
+                        page.goto(origin+'salvare-auto/')
+                        assert page.locator('.ma-tags a[href$="/articoli/tag/auto-e-veicoli/"]').count()==1
+                        print('MAGAZINE_TAG_BROWSER_OK',width,flush=True)
+                        page.goto(origin+'articoli/')
                     if path=='garage-gratuiti/southside-storage/' and width==390:
                         field=page.locator('[data-vc-code-value]')
                         assert field.input_value()=="1010"
@@ -1022,6 +1060,12 @@ def browser_qa():
                         page.locator('.archive-group-nav a').filter(has_text='Glitch ed exploit').click()
                         assert page.locator('[data-chronology-path]').count()==1
                         print('MAGAZINE_ARCHIVE_NO_JS_OK',width,flush=True)
+                        page.goto(origin+'articoli/tag/')
+                        page.locator('[data-tag-directory] a[href$="/articoli/tag/auto-e-veicoli/"]').click()
+                        assert page.locator('[data-tag-archive-card]').count()>25
+                        assert page.locator('[data-tag-archive-card]:visible').count()==page.locator('[data-tag-archive-card]').count()
+                        assert page.locator('[data-tag-archive-controls]').is_hidden()
+                        print('MAGAZINE_TAG_NO_JS_OK',width,flush=True)
                     if blocked:
                         page.locator('[data-theme-choice="dark"]').click()
                         assert page.locator('html').get_attribute('data-theme')=='dark'

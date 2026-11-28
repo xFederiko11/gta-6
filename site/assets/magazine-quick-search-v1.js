@@ -6,12 +6,12 @@ const first=panels[0].querySelector('[data-search-form]');
 const archive=new URL(first.action,document.baseURI);
 if(archive.origin!==location.origin)return;
 const base=new URL('../',archive),endpoint=new URL('catalogo.json',archive);
-const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('it-IT').replace(/\b(?:gta\s*vi|grand\s+theft\s+auto\s+vi|grand\s+theft\s+auto\s+6)\b/g,'gta 6').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('it-IT').replace(/\b(?:gta\s*(?:vi|6)|grand\s+theft\s+auto\s+vi|grand\s+theft\s+auto\s+6)\b/g,'gta 6').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
 let pending;
 function catalog(){
  if(!pending)pending=fetch(endpoint,{credentials:'same-origin',cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('catalog');return r.json()}).then(d=>{
   if(d.schema!=='gta6-public-archive-v2'||!Array.isArray(d.items))throw Error('schema');
-  return d.items.filter(x=>x&&!x.secret&&typeof x.title==='string'&&/^(?:[a-z0-9-]+\/)+$/.test(x.path)).map(x=>({item:x,title:norm(x.title),text:norm([x.title,x.summary,x.group_label,x.sub_label].join(' '))}));
+  return d.items.filter(x=>x&&!x.secret&&typeof x.title==='string'&&/^(?:[a-z0-9-]+\/)+$/.test(x.path)).map(x=>({item:x,title:norm(x.title),text:norm([x.title,x.summary,x.group_label,x.sub_label,(x.tags||[]).flatMap(t=>[t.label,...(t.aliases||[])]).join(' ')].join(' '))}));
  }).catch(e=>{pending=null;throw e});
  return pending;
 }
@@ -30,7 +30,7 @@ for(const panel of panels){
    status.textContent=found.length?found.length+' articoli trovati · Invio per tutti i risultati':'Nessun articolo trovato.';
    for(const {x} of found.slice(0,6)){
     const a=document.createElement('a'),strong=document.createElement('strong'),small=document.createElement('small');
-    a.href=new URL(x.item.path,base).href;strong.textContent=x.item.title;small.textContent=x.item.sub_label||x.item.group_label||'Articolo';a.append(strong,small);box.append(a);
+    a.href=new URL(x.item.path,base).href;strong.textContent=x.item.title;small.textContent=[(x.item.tags||[]).slice(0,2).map(t=>t.label).join(' · '),x.item.sub_label||x.item.group_label||'Articolo'].filter(Boolean).join(' · ');a.append(strong,small);box.append(a);
    }
    box.hidden=!box.childElementCount;
   }catch(_){if(id===sequence)status.textContent='Suggerimenti non disponibili. Apri l’archivio per continuare.'}

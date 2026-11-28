@@ -11,7 +11,7 @@ const initial={group:root.dataset.archiveGroup||'',sub:root.dataset.archiveSub||
 const endpoint=new URL(root.dataset.catalogUrl,document.baseURI),base=new URL('../',endpoint);
 if(endpoint.origin!==location.origin)return;
 const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('it-IT')
- .replace(/\b(?:gta\s*vi|grand\s+theft\s+auto\s+vi|grand\s+theft\s+auto\s+6)\b/g,'gta 6')
+ .replace(/\b(?:gta\s*(?:vi|6)|grand\s+theft\s+auto\s+vi|grand\s+theft\s+auto\s+6)\b/g,'gta 6')
  .replace(/[^\p{L}\p{N}]+/gu,' ').trim();
 function node(tag,cls='',text=''){const el=document.createElement(tag);if(cls)el.className=cls;if(text)el.textContent=text;return el}
 function linkPath(path){if(!/^(?:[a-z0-9-]+\/)+$/.test(path))throw new Error('Invalid article path');return new URL(path,base).href}
@@ -72,7 +72,7 @@ function update(keepPage=false){
 fetch(endpoint,{credentials:'same-origin',cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error('Catalog unavailable');return r.json()}).then(data=>{
  if(data.schema!=='gta6-public-archive-v2'||data.page_size!==25||!Array.isArray(data.items)||!Array.isArray(data.groups))throw new Error('Invalid catalog');
  catalog=data;groups=catalog.groups;pageSize=catalog.page_size;
- items=catalog.items.map(item=>({item,text:norm([item.title,item.summary,item.group_label,item.sub_label,item.badge].join(' '))}));
+ items=catalog.items.map(item=>({item,text:norm([item.title,item.summary,item.group_label,item.sub_label,item.badge,(item.tags||[]).flatMap(tag=>[tag.label,...(tag.aliases||[])]).join(' ')].join(' '))}));
  group.value=initial.group;options(initial.sub);
  controls.hidden=false;
  const query=new URLSearchParams(location.search).get('q');

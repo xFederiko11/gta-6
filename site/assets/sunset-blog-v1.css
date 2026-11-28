@@ -249,3 +249,26 @@ html[data-theme] .sb-search-field button{box-sizing:border-box;display:grid;plac
 .sb-search-shortcuts{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:9px;color:var(--r-muted);font-size:11px}
 .sb-search-shortcuts a{display:inline-flex;align-items:center;min-height:30px;padding:4px 7px;border:1px solid var(--r-line);border-radius:5px;text-decoration:none;font-weight:700;color:var(--r-pink)}
 .sb-search :is(a,input,button):focus-visible{outline:2px solid var(--r-cyan);outline-offset:2px}
+
+/* Editorial tags and static topic archives */
+.ma-tags{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 16px}
+.ma-tags .ma-tag{display:inline-flex;align-items:center;min-height:30px;padding:5px 10px;border:1px solid var(--r-line);border-radius:999px;background:var(--r-soft);color:var(--r-pink)!important;font-size:12px;font-weight:750;text-decoration:none}
+.ma-tags .ma-tag:hover,.ma-tags .ma-tag:focus-visible{border-color:var(--r-cyan);color:var(--r-cyan)!important}
+.ma-tag-controls{box-sizing:border-box;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0 8px;padding:14px;border:1px solid var(--r-line);border-radius:10px;background:var(--r-surface);width:100%;min-width:0;max-width:100%}
+.ma-tag-controls label{box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr);gap:5px;min-width:0;width:100%;max-width:100%;color:var(--r-muted);font-size:12px;font-weight:700;overflow-wrap:anywhere}
+.ma-tag-controls select{box-sizing:border-box;display:block;width:100%;min-width:0;min-height:40px;max-width:100%;padding:7px 10px;border:1px solid var(--r-line);border-radius:7px;background:var(--r-soft);color:var(--r-text);font:inherit;text-overflow:ellipsis}
+body:has([data-tag-archive]) .breadcrumbs{min-width:0;max-width:100%;flex-wrap:wrap;overflow-wrap:anywhere}
+body:has([data-tag-archive]) .breadcrumbs a{min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+[data-tag-archive], [data-tag-grid], [data-tag-pager]{box-sizing:border-box;min-width:0;max-width:100%}
+.ma-tag-count,.ma-tag-total{color:var(--r-muted);font-size:13px}
+/* The photo-free archive card has its own high-specificity display:flex
+   !important; hiding paginated/filtered cards must win in both themes. */
+html[data-theme] .ed-home .archive-grid .ed-home-card.chronology-card[data-tag-archive-card][hidden]{display:none!important}
+[data-tag-archive-controls][hidden],[data-tag-count][hidden]{display:none!important}
+@media(max-width:700px){.ma-tag-controls{grid-template-columns:minmax(0,1fr);padding:10px}.ma-tag-controls label{min-width:0}}
+
+.sb-tag-directory{display:block;color:var(--r-pink);font-size:.77rem;font-weight:800;text-decoration:none;padding:10px 0 0;margin-top:8px;border-top:1px solid var(--r-line)}
+.ma-tag-directory{gap:9px;margin:20px 0}
+.ma-tag-directory .ma-tag{min-height:44px;gap:8px;border-radius:8px}
+.ma-tag-directory small{color:var(--r-muted)}
+[data-tag-pager][hidden]{display:none!important}

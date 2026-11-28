@@ -158,10 +158,11 @@ def record(row):
           else "Non testato direttamente" if c=="Trucchi" else "Trofeo segreto" if secret else
           "Scheda tecnica" if c=="HDR OLED" else "Scheda veicolo" if p.startswith("veicoli/") else
           "Approfondimento" if c=="Approfondimenti" else "Guida")
-    return {"path":p,"title":t,"category":c,"group":g,"sub":s,"group_label":GROUPS[g][0],
+    from article_tags_v1 import enrich_item
+    return enrich_item({"path":p,"title":t,"category":c,"group":g,"sub":s,"group_label":GROUPS[g][0],
             "sub_label":GROUPS[g][2][s],"color":GROUPS[g][1],"published":d,"badge":kind,
             "summary":"Dettagli e requisiti nella guida. Possibili spoiler." if secret else "",
-            "secret":secret,"image":"","credit":""}
+            "secret":secret,"image":"","credit":""})
 
 def esc(v):return escape(str(v),quote=True)
 
@@ -343,6 +344,8 @@ def decorate(root=Path("_site")):
                 assert (root/rel).is_file(),rel
                 item["image"]=rel
                 item["credit"]="Screenshot autorizzato · crediti nella guida"
+        from article_tags_v1 import enrich_item
+        item=enrich_item(item)
         records[p]=item
     pattern=re.compile(r'<a class="ed-home-card chronology-card" data-chronology-path="([^"]+)"[^>]*>.*?</a>',re.S)
     for f in [root/"index.html",root/"glitch/index.html",*(root/p/"index.html" for _,_,_,p,_,_ in specs())]:
@@ -351,6 +354,10 @@ def decorate(root=Path("_site")):
         assert pattern.search(changed),str(f)
         f.write_text(changed,encoding="utf-8")
     (root/CATALOG).write_text(json.dumps({"schema":"gta6-public-archive-v2","page_size":PAGE_SIZE,"groups":tree(),"items":list(records.values())},ensure_ascii=False,separators=(",",":"))+"\n",encoding="utf-8")
+    from article_tags_v1 import build_archives, validate_item_tags
+    tag_records=list(records.values())
+    assert all(validate_item_tags(item) for item in tag_records)
+    build_archives(tag_records,root)
     assert before==feed.read_bytes()
     print("MAGAZINE_ARCHIVE_BUILT",len(records),"articles",len(list(specs())),"collection pages",sum(bool(x["image"]) for x in records.values()),"approved gameplay covers in listings")
 
