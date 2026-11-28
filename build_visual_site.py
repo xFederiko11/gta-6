@@ -143,11 +143,11 @@ def layout(title,desc,path,body,section=None,image=None,robots='index,follow',st
     page=page.replace('<body>',f'<body data-design-version="{DESIGN_VERSION}">',1)
     page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/visual-v2.css")}?v={ASSET_VERSION}"><meta name="color-scheme" content="light"></head>',1)
     page=page.replace('</body>',f'<script src="{url("assets/visual-v2.js")}?v={ASSET_VERSION}" defer></script></body>',1)
-    if path in ('', CREATOR_VIDEO_PATH):
+    if path in ('', CREATOR_VIDEO_PATH, 'guide-e-tutorial/meditazione-capitolo-1/'):
         css='creator-video-hub-v1.css'
         version=hashlib.sha256(Path('site/assets',css).read_bytes()).hexdigest()[:12]
         page=page.replace('</head>',f'<link rel="stylesheet" href="{url("assets/"+css)}?v={version}"></head>',1)
-    if path == CREATOR_VIDEO_PATH:
+    if path in (CREATOR_VIDEO_PATH, 'guide-e-tutorial/meditazione-capitolo-1/'):
         js='creator-video-hub-v1.js'
         version=hashlib.sha256(Path('site/assets',js).read_bytes()).hexdigest()[:12]
         page=page.replace('</body>',f'<script src="{url("assets/"+js)}?v={version}" defer></script></body>',1)
@@ -727,6 +727,26 @@ def guide(g,guides):
            '<small>Non fanno parte del tutorial: mappe, video, fonti e note</small></span>'
            '<span class="v-more-chevron" aria-hidden="true">⌄</span></summary>'
            '<div class="v-guide-more-content">')
+    if g['id']=='meditazione-capitolo-1':
+        body+=(
+            '<article class="cv-card cv-official-context" id="meditazione-video-rockstar" '
+            'data-cv-video-id="tJbzMqJGH4k" data-cv-start="0">'
+            '<div class="cv-poster" aria-label="Filmato ufficiale Rockstar Games con riprese di gioco su PS5">'
+            '<span class="cv-poster-badge">ROCKSTAR GAMES · RIPRESE IN-GAME PS5</span>'
+            '<span class="cv-big-play" aria-hidden="true">▶</span>'
+            '<button type="button" class="cv-load" data-cv-load hidden aria-expanded="false">'
+            '▶ Guarda il filmato ufficiale</button>'
+            '<div class="cv-embed-slot" data-cv-slot></div></div>'
+            '<div class="cv-content">'
+            '<span class="cv-kind">RIFERIMENTO VISIVO UFFICIALE · NON PROVA DEI PASSAGGI</span>'
+            '<h2>Esplora il mondo di GTA VI</h2>'
+            '<p>"An Extended Look" è un filmato ufficiale Rockstar Games, descritto come ripreso interamente da gameplay su PS5. Aggiunge atmosfera e contesto visivo: non verifica i dieci luoghi, le meditazioni o le istruzioni di questa guida.</p>'
+            '<p class="cv-links">'
+            '<a href="https://www.youtube.com/watch?v=tJbzMqJGH4k" target="_blank" rel="noopener noreferrer">Video originale su YouTube ↗</a>'
+            '<a href="https://www.rockstargames.com/newswire/article/4k138k8okkk483/grand-theft-auto-vi-an-extended-look-now-playing" target="_blank" rel="noopener noreferrer">Fonte e descrizione Rockstar ↗</a>'
+            '</p>'
+            '<p class="cv-credit"><strong>Uso:</strong> player YouTube incorporato soltanto dopo il clic; nessun video, fotogramma o miniatura viene copiato sul sito.</p>'
+            '</div></article>')
     if g['id']=='registrare-auto-personale':
         body+=('<p class="v-guide-next-moses"><strong>DOPO LA PRIMA AUTO:</strong> '
                '<a href="'+url(MOSES_JOBS_PATH)+'">6 veicoli da recuperare per Moses, con ricompense →</a>'
