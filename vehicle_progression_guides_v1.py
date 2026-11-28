@@ -12,6 +12,23 @@ G_SELL="https://www.gtabase.com/gta-6/articles/how-to-sell-cars-and-other-vehicl
 P_MONEY="https://www.powerpyx.com/gta-6-money-guide-how-to-get-money-fast/"
 G_MISSION="https://www.gtabase.com/gta-6/missions/steal-the-zorrusso-for-randy"
 G_COMPANION="https://www.gta-companion.com/guides/key-cloner"
+# Public indexed creator description checked 28 November 2026.
+# Source-hosted player only; no frame, thumbnail or timestamp claim.
+CLONER_VIDEO_ID="9yBG8atjQs0"
+CLONER_VIDEO="https://www.youtube.com/watch?v="+CLONER_VIDEO_ID
+
+def cloner_video():
+    return ('<aside class="v-step-video" data-cloner-video="perfect-score" '
+            'data-step-video-id="'+CLONER_VIDEO_ID+'" data-step-video-seconds="0">'
+            '<button type="button" class="v-step-video-open" data-step-video-open hidden>'
+            '<span class="v-step-video-play" aria-hidden="true">▶</span>'
+            '<span><strong>Guarda la missione nel video originale</strong>'
+            '<small>Perfect Score · Key Cloner · spoiler Capitolo 3</small></span></button>'
+            '<div class="v-step-video-slot" data-step-video-slot aria-live="polite"></div>'
+            '<p class="v-step-video-note">'+ref(CLONER_VIDEO,"Apri il video originale su YouTube ↗")+
+            '<br>La descrizione del creator presenta la missione completa. Riproduzione e singoli '
+            'fotogrammi non verificati indipendentemente; nessun minuto specifico accertato. '
+            'Per il modello del veicolo fa fede l’obiettivo nel gioco. Il player si carica solo su richiesta.</p></aside>')
 
 ARTICLES=(
  (CLONER,"Key Cloner GTA 6: come sbloccarlo e rubare auto senza chiave",
@@ -28,18 +45,19 @@ def finish(base,refs,related):
             ''.join(internal(base,p,n) for n,p in related)+'</nav></article>')
 def cloner_body(base):
     body=start(base,*ARTICLES[0][1:])
-    body+=facts([("Prerequisito","Capitolo 3, dopo Crosstown Traffic"),("Missione","Clonin’ Keys, Makin’ GS"),("Luogo","Hathaway Apartments, Ocean Beach"),("Risultato","Key Cloner sul telefono e lista di Randy")])
+    body+=facts([("Prerequisito","Capitolo 3, dopo Crosstown Traffic"),("Missione","Clonin’ Keys, Makin’ GS"),("Luogo","Hathaway Apartments, Ocean Beach"),("Risultato","Key Cloner sul telefono e lista di Randy"),("Ricompensa documentata","21.250 GTA$ + 10.000 GTA$ se l’auto è in buone condizioni (PowerPyx)")])
     body+=render_vehicle_map(CLONER)
+    body+=cloner_video()
     body+=steps((
       ("Raggiungi il parcheggio","Segui il segnale della missione fino agli Hathaway Apartments ed entra nell’area di parcheggio indicata.","Inizia l’incarico per Randy.",P_MISSION),
-      ("Installa Key Cloner","Apri il telefono e segui la richiesta di installazione durante la missione.","L’app è disponibile; lo sblocco riguarda Jason e Lucia.",P_CLONER),
+      ("Installa Key Cloner","Chiama Randy quando il gioco lo richiede. Apri il telefono, scegli l’installazione del Key Cloner e attendi la conferma.","L’app è disponibile; lo sblocco riguarda Jason e Lucia.",P_CLONER),
       ("Trova la Granforma Zorrusso","Cerca l’auto indicata al piano terra, sul lato est del parcheggio.","Il modello corrisponde all’obiettivo.",G_MISSION),
       ("Clona la chiave","Avvicinati all’auto, attiva il Key Cloner e segui il minigioco con lo stick destro quando il segnale è rosa.","Il gioco conferma l’apertura; puoi entrare.",G_CLONER),
-      ("Consegna la Zorrusso","Guida verso il concessionario indicato. Segui il segnale del tracker e gli obiettivi della missione; non presumere che l’auto sia già tua.","Randy accetta la consegna.",P_MISSION),
+      ("Consegna la Zorrusso","Segui la destinazione del concessionario. Se il simbolo rosso del tracker si riempie, il gioco segnala la tua posizione alla polizia; il simbolo diventa grigio vicino alla consegna. Completa l’obiettivo senza danneggiare l’auto.","Randy accetta la consegna.",P_MISSION),
       ("Controlla la lista","Parla con Randy e verifica la disponibilità delle richieste successive nel menu.","Key Cloner resta disponibile e puoi consultare Randy’s Wish List.",G_COMPANION),
     ))
     body+='<p class="vc-check">Lo sblocco del Key Cloner è previsto dalla storia. Il trofeo Supply &amp; Demand richiede la successiva catena di Randy, non la sola installazione. Non confondere accesso all’auto con registrazione o vendita.</p>'
-    return body+finish(base,[("PowerPyx — Key Cloner",P_CLONER),("PowerPyx — missione",P_MISSION),("GTABase — sblocco",G_CLONER),("GTA Companion",G_COMPANION)],[("Vendere veicoli",SELL),("Lista di Randy","guide-e-tutorial/sportive-randy-posizioni/"),("Domestic Timbers","garage-gratuiti/domestic-timbers/"),("Scanner WAiNK","guide-e-tutorial/scansionare-veicoli/")])
+    return body+finish(base,[("PowerPyx — Key Cloner",P_CLONER),("PowerPyx — missione",P_MISSION),("GTABase — sblocco",G_CLONER),("GTA Companion",G_COMPANION),("Perfect Score — video originale",CLONER_VIDEO)],[("Vendere veicoli",SELL),("Lista di Randy","guide-e-tutorial/sportive-randy-posizioni/"),("Domestic Timbers","garage-gratuiti/domestic-timbers/"),("Scanner WAiNK","guide-e-tutorial/scansionare-veicoli/")])
 def sell_body(base):
     body=start(base,*ARTICLES[1][1:])
     body+=facts([("Capitolo 2","Moses, dopo Girls’ Trip: veicoli senza tracker"),("Capitolo 3","Pay ’n’ Spray dopo Welcome to Vice City: tracker standard"),("Auto avanzate","Randy, dopo Key Cloner; vendita generica dopo Dale Mamba e notifica; capitolo discusso"),("Ricavo","Dipende dal veicolo e dalle condizioni; controlla il prezzo in gioco")])

@@ -52,8 +52,8 @@ DOMESTIC_STEPS=(
  ("Randy’s Wish List","Apri la lista in Mappa → Rapine, cerca i modelli richiesti e verifica ciascuno con WAiNK. Consegna i veicoli secondo le richieste attive.","Il registro delle consegne avanza; non fermarti a un numero stimato.",WISH),
  ("Dale Mamba","PowerPyx indica il Capitolo 3, GTABase il Capitolo 4. Quando Randy ti contatta, vai a Leaf Links. Cerca la chiave della Mamba GT nel salotto della villa; recupera il veicolo e consegnalo.","La missione Dale Mamba risulta completata.",MAMBA),
  ("Mansion Thrax","Termina le consegne richieste e attendi il contatto. Vai a Dalton Island; cerca la Thrax nell'area del club, presso Spa Splendido, poi segui la destinazione di consegna.","Randy accetta la Thrax.",THRAX),
- ("Delivery Day","Torna al concessionario dopo il messaggio di Randy. Segui la missione fino al porto, proteggendo la consegna secondo gli obiettivi del gioco.","Verifica il trofeo Supply & Demand (Bronzo), separato dal ritiro dell'auto.",DELIVERY),
- ("Collect the Tempesta","Attendi un ulteriore messaggio di Randy e segui il nuovo indicatore verso il garage a Balsero. Recupera Raul’s Tempesta.","Domestic Timbers compare tra i garage utilizzabili, con un posto.",COLLECT),
+ ("Delivery Day","Torna al concessionario dopo il messaggio di Randy. Segui la missione fino al porto, proteggendo la consegna secondo gli obiettivi del gioco.","Verifica il trofeo Supply & Demand (Bronzo) e il premio di 25.000 GTA$ riportato da PowerPyx, separati dal ritiro dell’auto.",DELIVERY),
+ ("Collect the Tempesta","Attendi un ulteriore messaggio di Randy e segui il nuovo indicatore verso il garage a Balsero. Recupera Raul’s Tempesta.","Domestic Timbers compare tra i garage utilizzabili, con un posto: è un garage premio, non uno degli otto acquisti Little Boxes.",COLLECT),
  ("Decidi se conservarla","Controlla il costo di registrazione e il ricavo proposto prima di confermare. Per una collezione di varianti speciali, conserva l'auto.","La Tempesta è registrata, oppure la vendita è confermata; il garage è un premio distinto.",TEMP_MAP),
 )
 def e(value):return escape(str(value),quote=True)
@@ -192,7 +192,7 @@ def south_body(base):
         '<p class="v-rights-note"><strong>Media:</strong> i video vengono caricati dal player YouTube solo su richiesta; non sono state copiate anteprime o schermate. I riferimenti mappa aprono la fonte e sono registrati con il relativo ambito d’uso in <code>editorial_media_registry_v1.json</code>.</p>')
 def domestic_body(base):
     body=start(base,"Domestic Timbers: garage gratuito e Raul’s Tempesta","Avvia la catena di Randy nel Capitolo 3; prosegui fino a Collect the Tempesta. Le fonti divergono sul capitolo di sblocco di Dale Mamba.")
-    body+=facts([("Garage","Gratuito, 1 posto"),("Zona","Balsero, Vice City"),("Prerequisito","Delivery Day conclusa"),("Personaggi","Jason o Lucia"),("Veicolo","Raul’s Tempesta"),("Prezzi indicativi","11.600 GTA$ registrazione; circa 27.150 GTA$ vendita in buone condizioni")])
+    body+=facts([("Garage","Gratuito, 1 posto"),("Zona","Balsero, Vice City"),("Prerequisito","Delivery Day conclusa, poi messaggio di Randy"),("Capitolo","PowerPyx: 3; non garantito per tutte le progressioni"),("Personaggi","Jason o Lucia"),("Veicolo","Raul’s Tempesta"),("Prezzi indicativi","11.600 GTA$ registrazione; circa 27.150 GTA$ vendita in buone condizioni")])
     body+=render_vehicle_map(DOMESTIC)
     body+='<p class="vc-check">Non vendere la variante speciale per sbaglio. Il trofeo arriva con Delivery Day, non con il ritiro successivo. Nessuna soglia di consegne garantita: segui i messaggi di Randy.</p>'+steps(DOMESTIC_STEPS)
     body+='<section><h2>Lista auto e Key Cloner</h2><p>'+internal(base,RANDY,"Posizioni delle auto di Randy e consegne →")+' · '+internal(base,"guide-e-tutorial/key-cloner/","Guida Key Cloner in italiano")+" · "+ref(CLONER,"Fonte PowerPyx ↗")+'</p></section>'
