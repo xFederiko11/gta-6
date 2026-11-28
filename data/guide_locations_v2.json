@@ -1,6 +1,6 @@
 {
   "schema": "gta6-verified-location-references-v2",
-  "checked": "2026-11-21",
+  "checked": "2026-11-28",
   "policy": "Location guidance is sourced textual orientation or a named third-party map category. Unless explicitly verified, never present these as exact pins, coordinates, gameplay screenshots, complete spawns or guaranteed rewards. Video references are not screenshots.",
   "guides": {
     "soldi-facili-capitolo-1": [
@@ -167,6 +167,16 @@
         "url": "https://www.videogameschronicle.com/guide/gta-6-first-person-mode-glitch-grand-theft-auto/",
         "note": "Nessuna posizione sulla mappa necessaria; la compatibilità trofei rimane incerta.",
         "precision": "no-fixed-location"
+      }
+    ],
+    "jack-of-hearts-36-cards": [
+      {
+        "name": "Jack of Hearts — cinque aree",
+        "where": "36 landmark descritti in cinque aree; consulta la lista delle tappe nell’articolo.",
+        "kind": "source-guide",
+        "url": "https://www.powerpyx.com/gta-6-jack-of-hearts-dancers-collectible-card-set-locations/",
+        "note": "Fonte descrittiva dei landmark. La guida non dichiara coordinate GPS né test PS5 del nostro team.",
+        "precision": "described"
       }
     ]
   }

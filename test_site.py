@@ -72,9 +72,12 @@ class PortalTests(unittest.TestCase):
             procedural=re.search(r"<h2>🎯 Procedura passo passo</h2><ol>(.*?)</ol>",html,re.S)
             self.assertIsNotNone(procedural)
             self.assertEqual(procedural.group(1).count("<li>"),len(guide["steps"]))
-            self.assertIn("Immagine promozionale",html)
-            self.assertIn("guide-media-fallback",html)
-            self.assertIn("onerror=",html)
+            if guide.get("image"):
+                self.assertIn("Immagine promozionale",html)
+                self.assertIn("guide-media-fallback",html)
+                self.assertIn("onerror=",html)
+            else:
+                self.assertNotIn('class="figure guide-photo"',html)
             self.assertIn('data-guide-steps="'+guide["id"]+'"',html)
             self.assertIn("guide-steps-progress",html)
             self.assertIn("data-guide-copy",html)
@@ -477,12 +480,14 @@ class PortalTests(unittest.TestCase):
             page=(self.out/"guide-e-tutorial"/g["id"]/"index.html").read_text(encoding="utf-8")
             self.assertIn('class="guide-hero"',page)
             self.assertIn('class="guide-answer"',page)
-            self.assertIn('class="figure guide-photo"',page)
+            if g.get("image"):
+                self.assertIn('class="figure guide-photo"',page)
+                self.assertLess(page.index('class="figure guide-photo"'),page.index('id="passaggi"'))
+            else:
+                self.assertNotIn('class="figure guide-photo"',page)
             self.assertIn('id="passaggi"',page)
             self.assertIn('id="fonte-guida"',page)
             self.assertIn('class="discovery-rail"',page)
-            self.assertLess(page.index('class="figure guide-photo"'),
-                            page.index('id="passaggi"'))
             self.assertIn(g["source_url"].replace("&","&amp;"),page)
 
     def test_interactions_need_user_gesture_and_have_local_only_state(self):

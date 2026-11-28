@@ -65,11 +65,15 @@ def _load_media_registry():
     if data.get("schema")!="gta6-editorial-media-rights-v1":
         raise ValueError("Unknown editorial media rights registry")
     rows=data.get("items")
-    if not isinstance(rows,list) or len(rows)!=7:
-        raise ValueError("Southside registry must contain six map pins and one video")
-    by_id={row.get("id"):row for row in rows}
-    if len(by_id)!=len(rows):
+    if not isinstance(rows,list) or not rows:
+        raise ValueError("Invalid editorial media registry")
+    all_by_id={row.get("id"):row for row in rows}
+    if len(all_by_id)!=len(rows):
         raise ValueError("Duplicate media registry ID")
+    southside_rows=[row for row in rows if row.get("article_path")==SOUTH]
+    if len(southside_rows)!=7:
+        raise ValueError("Southside registry must contain six map pins and one video")
+    by_id={row.get("id"):row for row in southside_rows}
     expected_map_steps={
         "southside-map-loophole":2,"southside-map-compliance":3,
         "southside-map-extraction":4,"southside-map-privatized":5,

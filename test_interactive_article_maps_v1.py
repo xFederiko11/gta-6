@@ -24,23 +24,23 @@ def fixture():
 
 
 class EmbedMapTests(unittest.TestCase):
-    def test_11_guides_55_trophies_157_checkpoints_counted_without_fake_pins(self):
+    def test_12_guides_55_trophies_157_checkpoints_counted_without_fake_pins(self):
         guides,trophies,loc,points,med=fixture()
         report=validate(guides,trophies,loc,points)
         self.assertEqual(report["schema"],SCHEMA)
-        self.assertEqual(report["guide_articles"],11)
+        self.assertEqual(report["guide_articles"],12)
         self.assertEqual(report["trophy_articles"],55)
         self.assertEqual(report["garage_guide_articles_with_map"],2)
         self.assertEqual(report["articles_with_map"],69)
         self.assertEqual(report["pages_with_interactive_map"],71)
-        self.assertEqual(report["guide_location_descriptions"],18)
+        self.assertEqual(report["guide_location_descriptions"],19)
         self.assertEqual(report["collectible_descriptions"],157)
         self.assertEqual(report["exact_gameplay_coordinate_pairs_verified"],0)
         self.assertFalse(report["external_maps_loaded_automatically"])
         self.assertFalse(report["named_place_search_is_exact_pin"])
         self.assertEqual([x["embed"] for x in report["providers"]],[PRIMARY,SECONDARY])
         g,t=article_paths(guides,trophies)
-        self.assertEqual(len(g),11)
+        self.assertEqual(len(g),12)
         self.assertEqual(len(t),55)
         self.assertTrue(all(x.startswith("trofei/") for x in t))
         self.assertEqual(len(collectible_points(points)),12)

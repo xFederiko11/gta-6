@@ -1,4 +1,4 @@
-"""Editorial GTA VI screenshot workboard: 55 precise roles, zero invented rights.
+"""Editorial GTA VI screenshot workboard: 60 precise roles, zero invented rights.
 
 This is a factual backlog, not a stock-photo gallery or a file uploader.
 Only photo_intake_v4's separate human rights + WebP integrity gate can
@@ -27,8 +27,8 @@ def e(v):return escape(str(v),quote=True)
 
 def audit(guides,requests,registry,provenance):
     ids={x["id"] for x in guides}
-    if len(ids)!=11 or len(guides)!=11 or ids!=set(requests):
-        raise ValueError("Exactly 11 real guides and role lists required")
+    if len(ids)!=12 or len(guides)!=12 or ids!=set(requests):
+        raise ValueError("Exactly 12 real guides and role lists required")
     if not isinstance(registry.get("photos"),list) or not isinstance(provenance.get("assets"),list):
         raise ValueError("Invalid photo registries")
     if len(provenance["assets"])!=10:
@@ -60,22 +60,22 @@ def audit(guides,requests,registry,provenance):
                 "guide_url":BASE+path,
                 "submission_url":BASE+"screenshot-ps5/invia/?"+urlencode({"guida":gid,"passo":idx}),
             })
-    if len(tasks)!=55 or len({x["id"] for x in tasks})!=55:
-        raise ValueError("55 unique photo requests required")
-    return {"schema":SCHEMA,"scope":"11 guides x 5 requested photo roles",
+    if len(tasks)!=60 or len({x["id"] for x in tasks})!=60:
+        raise ValueError("60 unique photo requests required")
+    return {"schema":SCHEMA,"scope":"12 guides x 5 requested photo roles",
             "tasks":tasks,"total_requests":len(tasks),
             "approved_new_community_screenshots":len(approved),
             "unapproved_roles":sum(x["status"]=="da documentare" for x in tasks),
             "existing_attributed_editorial_screenshots":len(provenance["assets"]),
             "existing_editorial_reuse_permissions_verified":sum(
                 x.get("reuse_permission")=="documented_and_approved" for x in provenance["assets"]),
-            "note":"Requests are editorial role examples, not 55 missing existing photos. Existing source-attributed images are counted separately. No camera upload, automatic approval, automated X posting, or PSN sync.",
+            "note":"Requests are editorial role examples, not 60 missing existing photos. Existing source-attributed images are counted separately. No camera upload, automatic approval, automated X posting, or PSN sync.",
             "human_review_required":True,
             "automatic_social_posting":False}
 
 
 def render(report):
-    if report.get("schema")!=SCHEMA or len(report.get("tasks",[]))!=55:
+    if report.get("schema")!=SCHEMA or len(report.get("tasks",[]))!=60:
         raise ValueError("Invalid photo workboard report")
     groups={}
     for row in report["tasks"]:
@@ -85,17 +85,17 @@ def render(report):
     body=[
         '<section class="pc-root" data-photo-coverage>',
         '<header class="pc-hero"><span class="eyebrow">📷 GTA VI ITALIA · PS5 / PS5 PRO</span>',
-        '<h1>Screenshot autentici: cosa fotografare nelle 11 guide</h1>',
+        '<h1>Screenshot autentici: cosa fotografare nelle 12 guide</h1>',
         '<p>Trova un passaggio che puoi documentare con una schermata tua,',
         ' apri il modulo X con guida e numero già selezionati e allega tu',
         ' la foto. Nessun accesso GitHub, nessuna foto pubblicata automaticamente.</p>',
         '<div class="pc-stats">',
-        '<div><strong>55</strong><small>ruoli fotografici richiesti</small></div>',
+        '<div><strong>60</strong><small>ruoli fotografici richiesti</small></div>',
         '<div><strong>'+str(report["approved_new_community_screenshots"])+'</strong><small>nuovi screenshot approvati</small></div>',
         '<div><strong>'+str(report["existing_attributed_editorial_screenshots"])+'</strong><small>foto attribuite già catalogate</small></div>',
         '<div><strong>'+str(report["existing_editorial_reuse_permissions_verified"])+'</strong><small>permessi riuso documentati</small></div>',
-        '</div><p class="pc-legend"><strong>Importante:</strong> le 55 richieste sono esempi di',
-        ' schermate utili, non 55 immagini certamente assenti. Le foto già',
+        '</div><p class="pc-legend"><strong>Importante:</strong> le 60 richieste sono esempi di',
+        ' schermate utili, non 60 immagini certamente assenti. Le foto già',
         ' attribuite non diventano autorizzate solo perché il loro link funziona.',
         ' I contenuti promozionali Rockstar non dimostrano missioni o trofei.</p>',
         '<a class="v-button secondary" href="'+BASE+'screenshot-ps5/verifica/">Inventario fonti e diritti →</a> ',
@@ -106,7 +106,7 @@ def render(report):
         '<select id="pc-priority" data-pc-filter><option value="all">Tutte le richieste</option>',
         '<option value="alta">Alta</option><option value="media">Media</option>',
         '<option value="normale">Normale</option></select>',
-        '<p data-pc-shown role="status" aria-live="polite">55 richieste visibili</p></div>',
+        '<p data-pc-shown role="status" aria-live="polite">60 richieste visibili</p></div>',
     ]
     for gid,rows in groups.items():
         body.extend([
@@ -140,6 +140,6 @@ def render(report):
 
 
 def json_report(report):
-    if report.get("schema")!=SCHEMA or report.get("total_requests")!=55:
+    if report.get("schema")!=SCHEMA or report.get("total_requests")!=60:
         raise ValueError("Cannot export invalid photo role register")
     return json.dumps(report,ensure_ascii=False,indent=2)+"\n"

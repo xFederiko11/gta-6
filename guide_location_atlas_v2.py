@@ -1,4 +1,4 @@
-"""Sourced location / screenshot coverage panels for the 11 GTA VI guides.
+"""Sourced location / screenshot coverage panels for the 12 GTA VI guides.
 
 No invented map coordinates or rehosted video. Photo counts use the same
 verified, locally optimized evidence logic as the existing screenshot hub.
@@ -28,7 +28,7 @@ def validate(guides, locations, meditations):
     if locations.get("schema")!="gta6-verified-location-references-v2":
         raise ValueError("Unsupported location reference schema")
     items=locations.get("guides",{})
-    if ids!=set(items) or len(ids)!=11:
+    if ids!=set(items) or len(ids)!=12:
         raise ValueError("Location atlas must cover exactly all published guides")
     for ident,entries in items.items():
         if not isinstance(entries,list) or not 1<=len(entries)<=12:
