@@ -86,8 +86,8 @@ def validate(guides,trophies,locations,collectibles):
     if count!=18:
         raise ValueError("Expected exactly 18 existing verified text/map references")
     points=collectibles.get("points",[])
-    if len(points)!=123 or len({x["id"] for x in points})!=123:
-        raise ValueError("Current catalog 123 must have unique IDs")
+    if len(points)!=157 or len({x["id"] for x in points})!=157:
+        raise ValueError("Current catalog 157 must have unique IDs")
     if any(not isinstance(x.get("name"),str) or not 3<=len(x["name"])<=110 for x in points):
         raise ValueError("Cannot look up unknown collectible names")
     for provider in PROVIDERS:

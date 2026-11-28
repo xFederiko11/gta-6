@@ -1,6 +1,6 @@
 """Sourced regional collectible circuits for GTA VI PS5. Never fabricate GPS pins.
 
-123 described POIs grouped by neighborhood (editorial grouping, not measured route).
+157 described POIs grouped by neighborhood (editorial grouping, not measured route).
 Only published source URLs are linked and no gameplay screenshots are claimed.
 """
 from __future__ import annotations
@@ -42,10 +42,10 @@ def validate_routes(data):
         if not 20<=len(group.get("warning",""))<=220:
             raise ValueError("Regional caveat missing")
     items=data.get("points",[])
-    if len(items)!=123 or len({x.get("id") for x in items})!=123:
-        raise ValueError("Expected exactly 123 individually documented stops")
+    if len(items)!=157 or len({x.get("id") for x in items})!=157:
+        raise ValueError("Expected exactly 157 individually documented stops")
     counts=Counter(x["type"] for x in items)
-    if counts!={"playlist":5,"cards":23,"waink":38,"underwater":6,"stunt":24,"vehicles":3,"reading":2,"magazines":20,"kenton":2}:
+    if counts!={"playlist":5,"cards":57,"waink":38,"underwater":6,"stunt":24,"vehicles":3,"reading":2,"magazines":20,"kenton":2}:
         raise ValueError("Unreviewed waypoint distribution")
     for n,item in enumerate(items,1):
         if item.get("id")!="pt-"+str(n).zfill(2):
@@ -69,12 +69,22 @@ def validate_routes(data):
                 raise ValueError("Missing missable timing")
     if {x["name"] for x in items if x.get("missable")}!={"Vicki — Delights Dancers","Victor Maravilla — Los Santos Corkers"}:
         raise ValueError("Both source-backed missable cards required")
+    jack=[item for item in items if item.get("card_set")=="jack-of-hearts"]
+    if (len(jack)!=36 or {item.get("card_number") for item in jack}!=set(range(1,37))
+            or {item.get("source_order") for item in jack}!=set(range(1,37))
+            or any(type(item.get("card_number")) is not int or type(item.get("source_order")) is not int
+                   or item.get("source")!="jack" or item.get("type")!="cards" for item in jack)):
+        raise ValueError("Jack of Hearts needs 36 distinct sourced menu cards and source positions")
+    if any(item.get("source")=="jack" and item not in jack for item in items):
+        raise ValueError("Jack of Hearts card metadata missing")
+    if {item["id"]:item["card_number"] for item in jack if item["id"] in {"pt-12","pt-32"}}!={"pt-12":3,"pt-32":13}:
+        raise ValueError("Existing Jack of Hearts checklist IDs must remain stable")
     water=data.get("underwater",{})
     if water.get("required")!=33 or water.get("known_in_atlas")!=6:
         raise ValueError("Underwater count incorrectly claims full coverage")
     if data.get("cards",{}).get("required_sets")!=15 or data.get("cards",{}).get("total_sets")!=18:
         raise ValueError("Card 100 percent threshold mismatch")
-    if data.get("waink",{}).get("required")!=100 or data["waink"].get("known_in_atlas")!=38 or data.get("cards",{}).get("known_in_atlas")!=23:
+    if data.get("waink",{}).get("required")!=100 or data["waink"].get("known_in_atlas")!=38 or data.get("cards",{}).get("known_in_atlas")!=57:
         raise ValueError("Wrong WAiNK target")
     magazine=data.get("magazines",{})
     if [magazine.get(x) for x in ("total_titles","documented_titles","combined_total_with_book_swaps","required_for_100_percent","location_limited_copies")]!=[27,20,34,30,9]:
@@ -115,12 +125,12 @@ def render(data,curated_refs=(),photo_evidence=None):
         '<section class="cr-root" data-collectible-routes>',
         '<header class="cr-hero"><span class="eyebrow">⌖ GTA VI ITALIA · PS5 / PS5 PRO</span>',
         '<h1>Percorsi collezionabili GTA 6: regioni e checkpoint</h1>',
-        '<p><strong>123 posizioni documentate in sette aree</strong>,',
+        '<p><strong>157 posizioni documentate in sette aree</strong>,',
         ' raggruppate per vicinanza editoriale. Non sono tracciati GPS né',
-        ' 123 pin di una mappa verificata; ogni checkpoint rimanda alla',
+        ' 157 pin di una mappa verificata; ogni checkpoint rimanda alla',
         ' fonte originale con screenshot e indicazioni dettagliate.</p>',
         '<div class="cr-stats" role="group" aria-label="Copertura percorsi">',
-        '<div><strong>123</strong><small>checkpoint documentati</small></div>',
+        '<div><strong>157</strong><small>checkpoint documentati</small></div>',
         '<div><strong>7</strong><small>aree di raccolta</small></div>',
         '<div><strong>6/33</strong><small>siti subacquei verificati qui</small></div>',
         '<div><strong>2</strong><small>carte potenzialmente mancabili</small></div>',
@@ -151,16 +161,22 @@ def render(data,curated_refs=(),photo_evidence=None):
         '<section class="cr-controls" aria-label="Filtri dei percorsi">',
         '<label class="cr-search">Cerca oggetto o luogo',
         '<input type="search" data-cr-query placeholder="Es. Vicki, Key Lento, poster" autocomplete="off"></label>',
+        '<div class="cr-filter-group" aria-label="Raccolta completa documentata">'
+        '<button type="button" data-cr-jack aria-pressed="false" hidden>Jack of Hearts · 36 posizioni documentate</button></div>',
+        '<p class="cr-note-count">Jack of Hearts: tutti i 36 numeri del menu sono descritti qui. '
+        'Il numero della carta nel menu è distinto dall’ordine del percorso. '
+        'Capitolo minimo non documentato per l’intera raccolta: verifica gli accessi nella tua partita. '
+        'Premi Tutti per tornare agli altri oggetti; le spunte indicano soltanto ciò che hai segnato tu.</p>',
         '<div class="cr-filter-group" aria-label="Tipo di collezionabile">',
-        '<button type="button" data-cr-filter="all" aria-pressed="true">Tutti · 123</button>'
+        '<button type="button" data-cr-filter="all" aria-pressed="true">Tutti · 157</button>'
     ]
     for typ,name in TYPES.items():
         output.append('<button type="button" data-cr-filter="'+e(typ)+'" aria-pressed="false">'+e(name)+' · '+str(counts[typ])+'</button>')
     output.extend([
-        '</div><div class="cr-progress-wrap"><strong data-cr-progress>0 / 123 checkpoint segnati</strong>',
-        '<progress max="123" value="0" data-cr-bar aria-label="Checkpoint segnati"></progress>',
+        '</div><div class="cr-progress-wrap"><strong data-cr-progress>0 / 157 checkpoint segnati</strong>',
+        '<progress max="157" value="0" data-cr-bar aria-label="Checkpoint segnati"></progress>',
         '<small data-cr-storage>Spunte private in questo browser, non collegate al PSN.</small></div>',
-        '<p data-cr-visible role="status" aria-live="polite">123 checkpoint mostrati</p></section>',
+        '<p data-cr-visible role="status" aria-live="polite">157 checkpoint mostrati</p></section>',
         '<section class="cr-status" aria-label="Limiti del tracciamento"><h2>Ottimizzazione senza mappe inventate</h2>',
         '<p>Per una run orientata al Platino, <strong>Kelly County prima del cambio capitolo</strong>,',
         ' poi le aree urbane di Vice City e le immersioni in Mariana County quando',
@@ -176,7 +192,7 @@ def render(data,curated_refs=(),photo_evidence=None):
         ' aggiunti a Belpoint Strait e Bobcat Dive Site NON contano nel 6/33',
         ' delle Underwater Discoveries. <a href="'+e(data["sources"]["magazines"])+'"',
         ' target="_blank" rel="noopener noreferrer">Leggi i dettagli originali ↗</a>.</p>',
-        '<p><strong>Copertura parziale:</strong> queste 23 carte sono una selezione delle 480',
+        '<p><strong>Copertura parziale:</strong> queste 57 carte sono una selezione delle 480',
         ' e queste 38 scansioni una selezione dei punti WAiNK.',
         ' Per le immersioni, sei luoghi su 33 sono documentati qui: mancano',
         ' ancora 27 posizioni. Anche i 24 salti qui documentati non coprono i 130 totali. Usa la checklist di gioco per il vero 100%.</p>',
@@ -228,11 +244,11 @@ def render(data,curated_refs=(),photo_evidence=None):
                 if curated else '')
             output.append(
                 '<li class="cr-step" id="cr-'+e(item["id"])+'" data-cr-step="'+e(item["id"])+'" data-cr-type="'+e(item["type"])+'" '
-                'data-cr-search="'+e(item["name"]+" "+item["place"]+" "+item["hint"])+'" '
+                'data-cr-set="'+e(item.get("card_set",""))+'" data-cr-search="'+e(item["name"]+" "+item["place"]+" "+item["hint"])+'" '
                  'data-cr-deadline="'+str(item.get("before_chapter",2 if item.get("missable") else 99))+'">'
                 '<div class="cr-step-head"><span>'+str(idx).zfill(2)+'</span>'
                 '<div><strong>'+e(item["name"])+'</strong>'
-                '<small>'+e(TYPES[item["type"]])+' · zona descritta</small></div>'
+                '<small>'+e(TYPES[item["type"]])+(' · Card '+str(item['card_number'])+' nel menu' if item.get('card_set')=='jack-of-hearts' else '')+' · zona descritta</small></div>'
                 '<label class="cr-check"><input type="checkbox" data-cr-done="'+e(item["id"])+'" '
                 'aria-label="Segna '+e(item["name"])+' come trovato"><span>Fatto</span></label></div>'
                 +warning+limited+

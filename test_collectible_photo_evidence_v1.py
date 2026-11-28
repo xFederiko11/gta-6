@@ -23,7 +23,7 @@ class CollectiblePhotoProofTests(unittest.TestCase):
     def test_all_and_only_critical_points_have_editorial_source_links(self):
         routes,photos = fixture()
         self.assertTrue(validate(photos,routes))
-        self.assertEqual(len(routes["points"]),123)
+        self.assertEqual(len(routes["points"]),157)
         self.assertEqual({x["checkpoint_id"] for x in photos["requests"]},REQ)
         self.assertEqual(photos["approved_photos"],[])
         for item in routes["points"]:
@@ -67,14 +67,14 @@ class CollectiblePhotoProofTests(unittest.TestCase):
         self.assertEqual(page.count('data-cr-photo-state="source-only"'),11)
         self.assertEqual(page.count('data-cr-photo-state="approved"'),0)
         self.assertEqual(page.count('data-cr-photo-checkpoint='),11)
-        self.assertEqual(page.count('class="cr-instruction-where"'),123)
-        self.assertEqual(page.count('class="cr-instruction-do"'),123)
+        self.assertEqual(page.count('class="cr-instruction-where"'),157)
+        self.assertEqual(page.count('class="cr-instruction-do"'),157)
         self.assertIn("collectible-photo-v1.css?v=",page)
         self.assertIn("Apri le immagini e la posizione sulla fonte originale",page)
         self.assertNotIn("TROVATO → PROSSIMO",page)
         self.assertNotIn("Salta questo",page)
         self.assertNotIn('data-cr-wizard',page)
-        self.assertEqual(page.count('data-cr-done='),123)
+        self.assertEqual(page.count('data-cr-done='),157)
         self.assertIn('data-article-cover="shared-social"',page)
         self.assertNotIn("photo-backlog-v5.json",page)
         for ident in REQ:
@@ -87,7 +87,7 @@ class CollectiblePhotoProofTests(unittest.TestCase):
                                 section.index('data-cr-photo-checkpoint='))
                 self.assertLess(section.index('data-cr-photo-checkpoint='),
                                 section.index('class="cr-step-extra"'))
-        self.assertEqual(page.count('data-cr-step='),123)
+        self.assertEqual(page.count('data-cr-step='),157)
 
     def test_no_internal_photo_registry_is_shipped_to_public_pages(self):
         # The hard release gate strips these documents on deployed Pages,

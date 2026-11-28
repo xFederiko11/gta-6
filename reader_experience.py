@@ -214,7 +214,7 @@ def transform(page, *, version, entry=None, discussion_path=None, gsc_token=None
         page = page.replace('</head>',
             f'<link rel="stylesheet" href="{BASE}assets/trophy-simple-v1.css?v={version}"></head>',1)
     if 'data-collectible-routes' in page:
-        # Continuous collectible checklist: all 123 points are shown by
+        # Continuous collectible checklist: all 157 points are shown by
         # default, and the existing search and local checkboxes remain.
         page = page.replace('</head>',
             f'<link rel="stylesheet" href="{BASE}assets/collectible-beginner-v1.css?v={version}">'

@@ -70,16 +70,16 @@ class CommunityMapPermalinkTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_curated_external_refs(altered,guides,trophies,items)
 
-    def test_123_collectibles_keep_count_while_nine_receive_contextual_links(self):
+    def test_157_collectibles_keep_count_while_nine_receive_contextual_links(self):
         _,_,items,refs=fixtures()
         html=render_collectibles(items,refs["items"])
-        self.assertEqual(html.count('data-cr-step='),123)
+        self.assertEqual(html.count('data-cr-step='),157)
         self.assertEqual(html.count('data-cr-curated-link'),10)
         self.assertEqual(html.count('game-map-curated-link-open-intent'),10)
         self.assertIn("NON pin della posizione esatta",html)
         self.assertIn("https://gtamap.io/gta-6-map/starlet-motel/",html)
         self.assertIn('data-vim-map-search=',html)
-        self.assertIn("123 checkpoint",html)
+        self.assertIn("157 checkpoint",html)
         self.assertIn("6/33",html)
 
     def test_public_build_has_map_panel_and_source_registry_links(self):

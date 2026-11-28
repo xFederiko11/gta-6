@@ -955,10 +955,10 @@ def browser_qa():
                             first.locator('summary').click()
                             assert first.get_attribute('open') is None
                     if path=='collezionabili/percorsi/' and width in (390,1440):
-                        assert page.locator('[data-cr-step]').count()==123
+                        assert page.locator('[data-cr-step]').count()==157
                         assert page.locator('[data-cr-filter]').count()==10
                         assert page.locator('[data-cr-wizard]').count()==0
-                        assert page.locator('[data-cr-step]:visible').count()==123
+                        assert page.locator('[data-cr-step]:visible').count()==157
                         assert page.locator('.cr-hero').is_visible()
                         assert page.locator('.cr-priority-links a').count()==5
                         first=page.locator('#cr-pt-102')
@@ -968,23 +968,36 @@ def browser_qa():
                         assert first.locator('[data-cr-photo-state="approved"]').count()==0
                         assert first.locator('.cr-photo-evidence > a').is_visible()
                         assert first.locator('.cr-photo-evidence > a').get_attribute('href').startswith('https://www.powerpyx.com/')
-                        assert page.locator('[data-cr-progress]').inner_text().startswith('0 / 123')
+                        assert page.locator('[data-cr-progress]').inner_text().startswith('0 / 157')
                         first.locator('[data-cr-done]').check()
-                        assert page.locator('[data-cr-progress]').inner_text().startswith('1 / 123')
+                        assert page.locator('[data-cr-progress]').inner_text().startswith('1 / 157')
                         page.reload(wait_until='load')
                         assert first.locator('[data-cr-done]').is_checked()
-                        assert '1 / 123' in page.locator('[data-cr-progress]').inner_text()
-                        assert page.locator('[data-cr-step]:visible').count()==123
+                        assert '1 / 157' in page.locator('[data-cr-progress]').inner_text()
+                        assert page.locator('[data-cr-step]:visible').count()==157
                         assert page.locator('[data-cr-query]').is_visible()
                         page.locator('[data-cr-query]').fill('Victor Maravilla')
                         assert page.locator('[data-cr-step]:visible').count()==1
                         page.locator('[data-cr-query]').fill('')
-                        assert page.locator('[data-cr-step]:visible').count()==123
+                        assert page.locator('[data-cr-step]:visible').count()==157
                         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
                         if width==390:
                             page.evaluate("window.scrollTo(0,0)")
                             page.screenshot(path=str(out/'mobile-collectibles-linear-390.png'))
-                        print('LINEAR_COLLECTIBLES_QA',width,123,flush=True)
+                        page.locator('[data-cr-jack]').click()
+                        assert page.locator('[data-cr-step]:visible').count()==36
+                        assert page.locator('[data-cr-jack]').get_attribute('aria-pressed')=='true'
+                        assert first.locator('[data-cr-done]').is_checked()
+                        page.locator('#cr-pt-12 [data-cr-done]').check()
+                        assert page.locator('[data-cr-progress]').inner_text().startswith('2 / 157')
+                        page.locator('[data-cr-filter="all"]').click()
+                        assert page.locator('[data-cr-step]:visible').count()==157
+                        page.reload(wait_until='load')
+                        assert page.locator('#cr-pt-12 [data-cr-done]').is_checked()
+                        assert first.locator('[data-cr-done]').is_checked()
+                        assert page.locator('[data-cr-progress]').inner_text().startswith('2 / 157')
+                        print('JACK_COLLECTION_FILTER_AND_EXISTING_PROGRESS_OK',width,flush=True)
+                        print('LINEAR_COLLECTIBLES_QA',width,157,flush=True)
                     if path in ('guide-e-tutorial/key-cloner/','garage-gratuiti/domestic-timbers/') and width in (390,768,1440):
                         disclosure=page.locator('[data-vehicle-map-disclosure]')
                         viewer=disclosure.locator('[data-vi-map]')

@@ -14,6 +14,8 @@
   const visible=root.querySelector("[data-cr-visible]");
   const notice=root.querySelector("[data-cr-storage]");
   let filter="all";
+  let cardSet=null;
+  const jack=root.querySelector("[data-cr-jack]");
   function read() {
     try {
       const parsed=JSON.parse(window.localStorage.getItem(KEY) || "[]");
@@ -26,7 +28,7 @@
     const q=norm(query.value.trim());
     let shown=0;
     for (const point of points) {
-      const matches=(filter==="all"||point.dataset.crType===filter) && (!q||norm(point.dataset.crSearch).includes(q));
+      const matches=(filter==="all"||point.dataset.crType===filter) && (!cardSet||point.dataset.crSet===cardSet) && (!q||norm(point.dataset.crSearch).includes(q));
       point.hidden=!matches;
       if (matches) shown++;
       const checkbox=point.querySelector("input[data-cr-done]");
@@ -42,6 +44,7 @@
       region.querySelector("[data-cr-region-count]").textContent=found+"/"+all.length;
     }
     for (const button of buttons) button.setAttribute("aria-pressed",button.dataset.crFilter===filter?"true":"false");
+    if (jack) jack.setAttribute("aria-pressed",String(cardSet==="jack-of-hearts"));
     summary.textContent=done.size+" / "+points.length+" checkpoint segnati";
     progress.value=done.size;
     progress.setAttribute("aria-valuetext",done.size+" di "+points.length+" checkpoint");
@@ -61,8 +64,13 @@
     }
     draw();
   });
+  if (jack) {
+    jack.hidden=false;
+    jack.addEventListener("click",()=>{cardSet="jack-of-hearts";filter="all";query.value="";draw();});
+  }
   query.addEventListener("input",draw);
   buttons.forEach(button=>button.addEventListener("click",()=>{
+    cardSet=null;
     filter=button.dataset.crFilter;
     draw();
   }));
