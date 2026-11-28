@@ -2,8 +2,8 @@
 (()=>{'use strict';
 const root=document.querySelector('[data-tag-archive]');
 if(!root)return;
-const grid=root.querySelector('[data-tag-grid]'),category=document.querySelector('[data-tag-category]'),sort=document.querySelector('[data-tag-sort]'),status=document.querySelector('[data-tag-count]'),pager=root.querySelector('[data-tag-pager]');
-if(!grid||!category||!sort||!status||!pager)return;
+const controls=document.querySelector('[data-tag-archive-controls]'),grid=root.querySelector('[data-tag-grid]'),category=document.querySelector('[data-tag-category]'),sort=document.querySelector('[data-tag-sort]'),status=document.querySelector('[data-tag-count]'),pager=root.querySelector('[data-tag-pager]');
+if(!controls||!grid||!category||!sort||!status||!pager)return;
 const cards=[...grid.querySelectorAll('[data-tag-archive-card]')],size=25;
 let page=1;
 const parseDate=el=>{const n=Date.parse(el.dataset.published||'');return Number.isFinite(n)?n:0};
@@ -30,4 +30,5 @@ function update(){
 category.addEventListener('change',()=>{page=1;update()});
 sort.addEventListener('change',()=>{page=1;update()});
 update();
+controls.hidden=false;status.hidden=false;root.dataset.tagReady='true';
 })();

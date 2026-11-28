@@ -360,6 +360,9 @@ def browser(root=ROOT):
                         assert field.evaluate("e=>e===document.activeElement")
                         assert quick.locator("[data-search-results]").is_hidden()
                         assert quick.locator("[data-search-status]").inner_text()=="Cerca per titolo, veicolo, missione o trofeo."
+                        field.fill("automobili")
+                        quick.locator('[data-search-results] a').first.wait_for(state="visible")
+                        assert "Nessun articolo" not in quick.locator('[data-search-status]').inner_text()
                         field.fill("zzzxxyy123")
                         page.wait_for_function("document.querySelector('[data-search-status]').textContent.includes('Nessun articolo')")
                         assert quick.locator("[data-search-results] a").count()==0

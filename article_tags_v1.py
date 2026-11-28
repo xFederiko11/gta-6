@@ -180,13 +180,13 @@ def _render_controls(items: list[dict]) -> str:
     options = '<option value="">Tutte le categorie</option>' + "".join(
         '<option value="' + escape(group, quote=True) + '">' + escape(label) + '</option>'
         for group, label in sorted(groups.items(), key=lambda pair: pair[1].casefold()))
-    return ('<div class="ma-tag-controls" data-tag-archive-controls>'
+    return ('<div class="ma-tag-controls" data-tag-archive-controls hidden>'
             '<label>Categoria<select data-tag-category>' + options + '</select></label>'
             '<label>Ordina per<select data-tag-sort>'
             '<option value="recent">Data più recente</option>'
             '<option value="story">Progressione con capitolo documentato</option>'
             '<option value="title">Titolo A–Z</option></select></label></div>'
-            '<p class="ma-tag-count" role="status" aria-live="polite" data-tag-count></p>')
+            '<p class="ma-tag-count" role="status" aria-live="polite" data-tag-count hidden></p>')
 
 def build_archives(items: list[dict], root: Path = Path("_site"), *, layout_fn=None, url_fn=None, crumbs_fn=None, card_fn=None) -> list[str]:
     """Write crawlable tag archives, retaining navigation for thin collections."""

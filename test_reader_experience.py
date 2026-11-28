@@ -296,12 +296,22 @@ def browser_qa():
                         assert page.url.endswith('/articoli/tag/')
                         assert page.locator('[data-tag-directory]').count()==1
                         page.locator('[data-tag-directory] a[href$="/articoli/tag/auto-e-veicoli/"]').click()
-                        assert page.locator('[data-tag-archive-card]:visible').count()==25
+                        page.locator('[data-tag-ready="true"]').wait_for(state="visible")
+                        total=page.locator('[data-tag-archive-card]').count()
+                        assert total>25,total
+                        visible=page.locator('[data-tag-archive-card]:visible')
+                        assert visible.count()==25,(width,total,visible.count(),page.locator('[data-tag-count]').inner_text())
+                        assert page.locator('[data-tag-archive-card][hidden]:visible').count()==0
+                        before=visible.first.get_attribute('data-chronology-path')
                         page.locator('[data-tag-pager] button').filter(has_text='Avanti').click()
-                        assert 1<=page.locator('[data-tag-archive-card]:visible').count()<=25
+                        assert visible.count()==min(25,total-25)
+                        assert visible.first.get_attribute('data-chronology-path')!=before
                         page.locator('[data-tag-category]').select_option('veicoli')
-                        assert page.locator('[data-tag-archive-card]:visible').count()==page.locator('[data-tag-archive-card][data-group="veicoli"]:visible').count()
+                        assert 0<visible.count()<=25
+                        assert visible.count()==page.locator('[data-tag-archive-card][data-group="veicoli"]:visible').count()
+                        assert page.locator('[data-tag-archive-card][hidden]:visible').count()==0
                         page.locator('[data-tag-sort]').select_option('title')
+                        assert page.evaluate("""()=>{const t=[...document.querySelectorAll('[data-tag-archive-card]:not([hidden]) .archive-title')].map(e=>e.textContent);return t.every((s,i)=>i===0||t[i-1].localeCompare(s,'it')<=0)}""")
                         for theme in ('light','dark'):
                             page.locator('[data-theme-choice="'+theme+'"]').click()
                             assert page.locator('html').get_attribute('data-theme')==theme
@@ -1052,6 +1062,8 @@ def browser_qa():
                         page.goto(origin+'articoli/tag/')
                         page.locator('[data-tag-directory] a[href$="/articoli/tag/auto-e-veicoli/"]').click()
                         assert page.locator('[data-tag-archive-card]').count()>25
+                        assert page.locator('[data-tag-archive-card]:visible').count()==page.locator('[data-tag-archive-card]').count()
+                        assert page.locator('[data-tag-archive-controls]').is_hidden()
                         print('MAGAZINE_TAG_NO_JS_OK',width,flush=True)
                     if blocked:
                         page.locator('[data-theme-choice="dark"]').click()

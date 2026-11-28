@@ -258,7 +258,10 @@ html[data-theme] .sb-search-field button{box-sizing:border-box;display:grid;plac
 .ma-tag-controls label{display:grid;gap:5px;min-width:min(220px,100%);color:var(--r-muted);font-size:12px;font-weight:700}
 .ma-tag-controls select{min-height:40px;max-width:100%;padding:7px 10px;border:1px solid var(--r-line);border-radius:7px;background:var(--r-soft);color:var(--r-text);font:inherit}
 .ma-tag-count,.ma-tag-total{color:var(--r-muted);font-size:13px}
-[data-tag-archive-card][hidden]{display:none!important}
+/* The photo-free archive card has its own high-specificity display:flex
+   !important; hiding paginated/filtered cards must win in both themes. */
+html[data-theme] .ed-home .archive-grid .ed-home-card.chronology-card[data-tag-archive-card][hidden]{display:none!important}
+[data-tag-archive-controls][hidden],[data-tag-count][hidden]{display:none!important}
 @media(max-width:700px){.ma-tag-controls{display:grid;grid-template-columns:1fr}.ma-tag-controls label{min-width:0}}
 
 .sb-tag-directory{display:block;color:var(--r-pink);font-size:.77rem;font-weight:800;text-decoration:none;padding:10px 0 0;margin-top:8px;border-top:1px solid var(--r-line)}
